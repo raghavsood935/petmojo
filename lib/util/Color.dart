@@ -38,6 +38,8 @@ class colors {
   static const Color grad2Color = Color(0xffFF6363);
   static const Color lightWhite2 = Color(0xffEEF2F3);
 
+  static const Color fbBlue = Color(0xff415E9B);
+
   static const Color pink = Color(0xffd4001d);
   static const Color red = Colors.red;
 

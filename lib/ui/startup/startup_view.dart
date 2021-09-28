@@ -149,8 +149,10 @@ class _StartupViewState extends State<StartupView>
                   ),
                   verticalSpaceMedium,
                   MainButtonWidget(
-                      onMainButtonTapped: () {},
-                      mainButtonTitle: signUpLoginTitle)
+                      onMainButtonTapped: () {
+                        model.moveToNext();
+                      },
+                      mainButtonTitle: signUpLoginTitle),
                 ],
               ),
             )
