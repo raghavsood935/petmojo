@@ -92,7 +92,7 @@ class OnBoardingView extends StatelessWidget {
                     AppText.body(alreadyHaveAccount),
                     horizontalSpaceSmall,
                     AppText.body(
-                      loginTitle,
+                      loginButtonTitle,
                       color: colors.primary,
                     ),
                   ],

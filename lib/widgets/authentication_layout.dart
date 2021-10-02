@@ -67,7 +67,7 @@ class AuthenticationLayout extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: SizedBox(
-              child: AppText.body(
+              child: AppText.body1(
                 subtitle!,
                 textAlign: TextAlign.center,
                 color: Colors.grey.shade600,
@@ -83,7 +83,8 @@ class AuthenticationLayout extends StatelessWidget {
               child: GestureDetector(
                   onTap: onForgotPassword,
                   child: AppText.body(
-                    'Forget Password?',
+                    forgotPasswordLabel,
+                    color: colors.primary,
                   )),
             ),
           verticalSpaceRegular,

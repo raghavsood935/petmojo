@@ -10,6 +10,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
+import '../ui/forgotpassword/forgotpassword_view.dart';
+import '../ui/forgotpassword/new_password_view.dart';
 import '../ui/home/home_view.dart';
 import '../ui/login/login_view.dart';
 import '../ui/onboarding/onboarding_view.dart';
@@ -24,6 +26,8 @@ class Routes {
   static const String loginView = '/login-view';
   static const String signUpView = '/sign-up-view';
   static const String confirmOTPView = '/confirm-ot-pView';
+  static const String forgotPasswordView = '/forgot-password-view';
+  static const String newPasswordView = '/new-password-view';
   static const all = <String>{
     startupView,
     homeView,
@@ -31,6 +35,8 @@ class Routes {
     loginView,
     signUpView,
     confirmOTPView,
+    forgotPasswordView,
+    newPasswordView,
   };
 }
 
@@ -44,6 +50,8 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.loginView, page: LoginView),
     RouteDef(Routes.signUpView, page: SignUpView),
     RouteDef(Routes.confirmOTPView, page: ConfirmOTPView),
+    RouteDef(Routes.forgotPasswordView, page: ForgotPasswordView),
+    RouteDef(Routes.newPasswordView, page: NewPasswordView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -95,6 +103,24 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    ForgotPasswordView: (data) {
+      var args = data.getArgs<ForgotPasswordViewArguments>(
+        orElse: () => ForgotPasswordViewArguments(),
+      );
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => ForgotPasswordView(key: args.key),
+        settings: data,
+      );
+    },
+    NewPasswordView: (data) {
+      var args = data.getArgs<NewPasswordViewArguments>(
+        orElse: () => NewPasswordViewArguments(),
+      );
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => NewPasswordView(key: args.key),
+        settings: data,
+      );
+    },
   };
 }
 
@@ -121,4 +147,16 @@ class ConfirmOTPViewArguments {
   final String verificationData;
   ConfirmOTPViewArguments(
       {this.key, required this.isEmailVerify, required this.verificationData});
+}
+
+/// ForgotPasswordView arguments holder class
+class ForgotPasswordViewArguments {
+  final Key? key;
+  ForgotPasswordViewArguments({this.key});
+}
+
+/// NewPasswordView arguments holder class
+class NewPasswordViewArguments {
+  final Key? key;
+  NewPasswordViewArguments({this.key});
 }

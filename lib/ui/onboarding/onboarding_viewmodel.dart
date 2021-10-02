@@ -20,7 +20,9 @@ class OnBoardingViewModel extends AuthenticationViewModel {
 
   void moveAsGuest() {}
 
-  void moveToLogin() {}
+  void moveToLogin() {
+    _navigationService.navigateTo(Routes.loginView);
+  }
 
   void moveToSignup() {
     _navigationService.navigateTo(Routes.signUpView);

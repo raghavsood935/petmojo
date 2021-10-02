@@ -10,9 +10,15 @@ String continueWithFB = "CONTINUE WITH FACEBOOK";
 String continueWithGoogle = "CONTINUE WITH GOOGLE";
 String orSignUpWith = "OR SIGN UP WITH";
 String alreadyHaveAccount = "ALREADY HAVE AN ACCOUNT?";
-String loginTitle = "LOG IN";
 String continueGuestTitle = "CONTINUE AS A GUEST";
 String createAccountTitle = "Create your account";
+String loginAccountTitle = "Login to your account";
+
+//forgot password
+String forgotPasswordLabel = "Forget Password?";
+String forgotPasswordTitle = "Password Recovery";
+String forgotPasswordSubTitle =
+    "Don't worry, it happen to us all. We'll get you signed back in before you know it.";
 
 //SignUp Screen
 String fullNameLabel = "Full Name";
@@ -25,7 +31,8 @@ String passwordLabel = "Password";
 String passwordHint = "Create Password";
 
 String signUpButton = "SIGN UP";
-String confirmButton = "Confirm";
+String confirmButton = "CONFIRM";
+String loginButtonTitle = "LOG IN";
 
 String confirmEmailLabel = "Confirm your email";
 String confirmPhoneLabel = "Confirm your phone number";
@@ -36,3 +43,9 @@ String confirmSubtitlePhoneNumber =
 
 String oneTimeLabel = "One-Time Password";
 String oneTimeHint = "Enter OTP";
+
+String newPasswordLabel = "New Password";
+String newPasswordHint = "Enter New Password";
+
+String confirmPasswordLabel = "Confirm New Password";
+String confirmPasswordHint = "Enter Confirm New Password";

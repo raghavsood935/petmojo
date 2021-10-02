@@ -5,30 +5,23 @@ import 'package:kubelite/util/utils.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-import 'login_view.form.dart';
+import 'forgotpassword_view.form.dart';
 
-class LoginViewModel extends AuthenticationViewModel {
+class NewPasswordViewModel extends AuthenticationViewModel {
   final navigationService = locator<NavigationService>();
 
   final _firebaseAuthenticationService =
       locator<FirebaseAuthenticationService>();
 
   bool _isValid = false;
-  LoginViewModel() : super(successRoute: Routes.homeView);
+  NewPasswordViewModel() : super(successRoute: Routes.homeView);
 
   get isValid => _isValid;
-
-  @override
-  Future<FirebaseAuthenticationResult> runAuthentication() =>
-      _firebaseAuthenticationService.createAccountWithEmail(
-        email: emailValue!,
-        password: passwordValue!,
-      );
 
   void navigateBack() => navigationService.back();
 
   void onForgotPassword() {
-    navigationService.navigateTo(Routes.forgotPasswordView);
+    navigationService.navigateTo(Routes.homeView);
   }
 
   void moveToOTPView() {
@@ -51,5 +44,10 @@ class LoginViewModel extends AuthenticationViewModel {
     });
 
     notifyListeners();
+  }
+
+  @override
+  Future<FirebaseAuthenticationResult> runAuthentication() {
+    return Future.value();
   }
 }

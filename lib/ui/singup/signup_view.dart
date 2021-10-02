@@ -4,6 +4,7 @@ import 'package:kubelite/util/Color.dart';
 import 'package:kubelite/util/String.dart';
 import 'package:kubelite/util/ui_helpers.dart';
 import 'package:kubelite/widgets/app_input_field.dart';
+import 'package:kubelite/widgets/app_password_input_field.dart';
 import 'package:kubelite/widgets/app_text.dart';
 import 'package:kubelite/widgets/authentication_layout.dart';
 import 'package:stacked/stacked.dart';
@@ -66,9 +67,8 @@ class SignUpView extends StatelessWidget with $SignUpView {
                   ),
                 ),
               ),
-              AppInputField(
+              AppPasswordInputField(
                 hint: passwordHint,
-                password: true,
                 controller: passwordController,
               ),
             ],

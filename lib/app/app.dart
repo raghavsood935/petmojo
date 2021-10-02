@@ -2,6 +2,8 @@ import 'package:kubelite/api/firestore_api.dart';
 import 'package:kubelite/services/authentication_service.dart';
 import 'package:kubelite/services/shared_preferences_service.dart';
 import 'package:kubelite/services/user_service.dart';
+import 'package:kubelite/ui/forgotpassword/forgotpassword_view.dart';
+import 'package:kubelite/ui/forgotpassword/new_password_view.dart';
 import 'package:kubelite/ui/home/home_view.dart';
 import 'package:kubelite/ui/login/login_view.dart';
 import 'package:kubelite/ui/onboarding/onboarding_view.dart';
@@ -20,6 +22,8 @@ import 'package:stacked_services/stacked_services.dart';
     CupertinoRoute(page: LoginView),
     CupertinoRoute(page: SignUpView),
     CupertinoRoute(page: ConfirmOTPView),
+    CupertinoRoute(page: ForgotPasswordView),
+    CupertinoRoute(page: NewPasswordView),
   ],
   dependencies: [
     LazySingleton(classType: NavigationService),
