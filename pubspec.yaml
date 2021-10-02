@@ -56,6 +56,7 @@ dependencies:
   built_value: ^8.1.1
   path_provider: ^2.0.2
   logger: ^1.0.0
+  auth_buttons: ^1.0.1+4
 
   #firebase
 #  google_maps_flutter: ^2.0.6

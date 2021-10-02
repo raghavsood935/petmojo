@@ -5,16 +5,16 @@ import 'package:kubelite/util/utils.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-import 'login_view.form.dart';
+import 'signup_view.form.dart';
 
-class LoginViewModel extends AuthenticationViewModel {
+class SignUpViewModel extends AuthenticationViewModel {
   final navigationService = locator<NavigationService>();
 
   final _firebaseAuthenticationService =
       locator<FirebaseAuthenticationService>();
 
   bool _isValid = false;
-  LoginViewModel() : super(successRoute: Routes.homeView);
+  SignUpViewModel() : super(successRoute: Routes.homeView);
 
   get isValid => _isValid;
 

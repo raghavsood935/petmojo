@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/ui/login/login_view.form.dart';
-import 'package:kubelite/ui/login/login_viewmodel.dart';
+import 'package:kubelite/ui/otp/confirm_otp_view.form.dart';
+import 'package:kubelite/ui/otp/confirm_otp_viewmodel.dart';
 import 'package:kubelite/util/Color.dart';
 import 'package:kubelite/util/String.dart';
-import 'package:kubelite/util/ui_helpers.dart';
 import 'package:kubelite/widgets/app_input_field.dart';
 import 'package:kubelite/widgets/app_text.dart';
 import 'package:kubelite/widgets/authentication_layout.dart';
@@ -11,29 +10,34 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
 @FormView(fields: [
-  FormTextField(name: 'email'),
-  FormTextField(name: 'password'),
+  FormTextField(name: 'otp'),
 ])
-class LoginView extends StatelessWidget with $LoginView {
-  LoginView({Key? key}) : super(key: key);
+class ConfirmOTPView extends StatelessWidget with $ConfirmOTPView {
+  final bool isEmailVerify;
+  final String verificationData;
+  ConfirmOTPView(
+      {Key? key, required this.isEmailVerify, required this.verificationData})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<LoginViewModel>.reactive(
+    return ViewModelBuilder<ConfirmOTPViewModel>.reactive(
       onModelReady: (model) => listenToFormUpdated(model),
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
         body: AuthenticationLayout(
           busy: model.isBusy,
           isValid: model.isValid,
-          // onMainButtonTapped: model.saveData,
-          onMainButtonTapped: model.moveToOTPView,
+          isSocialLoginEnabled: false,
+          onMainButtonTapped: model.saveData,
           onBackPressed: model.navigateBack,
           validationMessage: model.validationMessage,
-          title: createAccountTitle,
-          subtitle: '',
-          isSocialLoginEnabled: true,
-          mainButtonTitle: signUpButton,
+          title: confirmEmailLabel,
+          subtitle: (isEmailVerify
+                  ? confirmSubtitleEmail
+                  : confirmSubtitlePhoneNumber) +
+              " $verificationData",
+          mainButtonTitle: confirmButton,
           form: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
@@ -43,39 +47,21 @@ class LoginView extends StatelessWidget with $LoginView {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: AppText.body1(
-                    emailPhoneLabel,
+                    oneTimeLabel,
                     textAlign: TextAlign.start,
                     color: colors.black,
                   ),
                 ),
               ),
               AppInputField(
-                hint: enterEmailPhoneHint,
-                controller: emailController,
-              ),
-              verticalSpaceMedium,
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: AppText.body1(
-                    passwordLabel,
-                    textAlign: TextAlign.start,
-                    color: colors.black,
-                  ),
-                ),
-              ),
-              AppInputField(
-                hint: passwordHint,
-                password: true,
-                controller: passwordController,
+                hint: oneTimeHint,
+                controller: otpController,
               ),
             ],
           ),
-          showTermsText: true,
         ),
       ),
-      viewModelBuilder: () => LoginViewModel(),
+      viewModelBuilder: () => ConfirmOTPViewModel(),
     );
   }
 }

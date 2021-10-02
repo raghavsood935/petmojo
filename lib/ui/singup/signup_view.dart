@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/ui/login/login_view.form.dart';
-import 'package:kubelite/ui/login/login_viewmodel.dart';
+import 'package:kubelite/ui/singup/signup_view.form.dart';
 import 'package:kubelite/util/Color.dart';
 import 'package:kubelite/util/String.dart';
 import 'package:kubelite/util/ui_helpers.dart';
@@ -10,16 +9,18 @@ import 'package:kubelite/widgets/authentication_layout.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
+import 'signup_viewmodel.dart';
+
 @FormView(fields: [
   FormTextField(name: 'email'),
   FormTextField(name: 'password'),
 ])
-class LoginView extends StatelessWidget with $LoginView {
-  LoginView({Key? key}) : super(key: key);
+class SignUpView extends StatelessWidget with $SignUpView {
+  SignUpView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<LoginViewModel>.reactive(
+    return ViewModelBuilder<SignUpViewModel>.reactive(
       onModelReady: (model) => listenToFormUpdated(model),
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
@@ -75,7 +76,7 @@ class LoginView extends StatelessWidget with $LoginView {
           showTermsText: true,
         ),
       ),
-      viewModelBuilder: () => LoginViewModel(),
+      viewModelBuilder: () => SignUpViewModel(),
     );
   }
 }
