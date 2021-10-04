@@ -17,6 +17,7 @@ String loginAccountTitle = "Login to your account";
 //forgot password
 String forgotPasswordLabel = "Forget Password?";
 String forgotPasswordTitle = "Password Recovery";
+String setUpNewPasswordTitle = "Set up new password";
 String forgotPasswordSubTitle =
     "Don't worry, it happen to us all. We'll get you signed back in before you know it.";
 

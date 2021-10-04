@@ -16,59 +16,18 @@ class _ApiClient implements ApiClient {
   String? baseUrl;
 
   @override
-  Future<BaseResponse<JsonObject>> login(loginBody) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(loginBody.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<JsonObject>>(
-            Options(method: 'POST', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, '/auth/login',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<JsonObject>.fromJson(
-      _result.data!,
-      (json) => JsonObject.fromJson(json as Map<String, dynamic>),
-    );
-    return value;
-  }
-
-  @override
-  Future<BaseResponse<JsonObject>> register(registerBody) async {
+  Future<UserResponse> register(registerBody) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(registerBody.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<JsonObject>>(
+        _setStreamType<UserResponse>(
             Options(method: 'POST', headers: <String, dynamic>{}, extra: _extra)
                 .compose(_dio.options, '/auth/register',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<JsonObject>.fromJson(
-      _result.data!,
-      (json) => JsonObject.fromJson(json as Map<String, dynamic>),
-    );
-    return value;
-  }
-
-  @override
-  Future<BaseResponse<JsonObject>> changePassword(changePasswordBody) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(changePasswordBody.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<JsonObject>>(
-            Options(method: 'PUT', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, '/auth/password',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<JsonObject>.fromJson(
-      _result.data!,
-      (json) => JsonObject.fromJson(json as Map<String, dynamic>),
-    );
+    final value = UserResponse.fromJson(_result.data!);
     return value;
   }
 

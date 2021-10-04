@@ -32,15 +32,14 @@ class NewPasswordView extends StatelessWidget with $NewPasswordView {
           onMainButtonTapped: model.moveToOTPView,
           onBackPressed: model.navigateBack,
           validationMessage: model.validationMessage,
-          title: forgotPasswordTitle,
-          subtitle: forgotPasswordSubTitle,
+          title: setUpNewPasswordTitle,
+          subtitle: "",
           isSocialLoginEnabled: false,
           mainButtonTitle: signUpButton,
           form: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: [
-              verticalSpaceRegular,
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Align(

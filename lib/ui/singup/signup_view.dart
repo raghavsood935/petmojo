@@ -28,8 +28,7 @@ class SignUpView extends StatelessWidget with $SignUpView {
         body: AuthenticationLayout(
           busy: model.isBusy,
           isValid: model.isValid,
-          // onMainButtonTapped: model.saveData,
-          onMainButtonTapped: model.moveToOTPView,
+          onMainButtonTapped: model.createAccount,
           onBackPressed: model.navigateBack,
           validationMessage: model.validationMessage,
           title: createAccountTitle,
@@ -54,6 +53,7 @@ class SignUpView extends StatelessWidget with $SignUpView {
               AppInputField(
                 hint: enterEmailPhoneHint,
                 controller: emailController,
+                textInputType: TextInputType.emailAddress,
               ),
               verticalSpaceMedium,
               Container(

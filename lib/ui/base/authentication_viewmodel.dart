@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:kubelite/api/server_error.dart';
 import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.logger.dart';
-import 'package:kubelite/exception/firestore_api_exception.dart';
 import 'package:kubelite/models/application_models.dart';
+import 'package:kubelite/models/params/register_body.dart';
 import 'package:kubelite/services/user_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
@@ -26,17 +27,31 @@ abstract class AuthenticationViewModel extends FormViewModel {
   @override
   void setFormStatus() {}
 
-  Future<FirebaseAuthenticationResult> runAuthentication();
-
   Future saveData() async {
     log.i('valued:$formValueMap');
 
-    try {
-      final result =
-          await runBusyFuture(runAuthentication(), throwException: true);
+    // try {
+    //   final result =
+    //       await runBusyFuture(runAuthentication(), throwException: true);
+    //
+    //   await _handleAuthenticationResponse(result);
+    // } on FirestoreApiException catch (e) {
+    //   log.e(e.toString());
+    //   setValidationMessage(e.toString());
+    // }
+  }
 
-      await _handleAuthenticationResponse(result);
-    } on FirestoreApiException catch (e) {
+  Future createAccount() async {
+    log.i('valued:$formValueMap');
+    try {
+      RegisterBody registerBody =
+          RegisterBody(formValueMap["email"], formValueMap["password"]);
+      final result = await runBusyFuture(
+          userService.createAccount(registerBody),
+          throwException: true);
+      if (userService.hasLoggedInUser)
+        _handleLoggedInUser(userService.currentUser);
+    } on ServerError catch (e) {
       log.e(e.toString());
       setValidationMessage(e.toString());
     }
@@ -115,9 +130,9 @@ abstract class AuthenticationViewModel extends FormViewModel {
     if (!authResult.hasError && authResult.user != null) {
       final user = authResult.user!;
 
-      await userService.syncOrCreateUserAccount(
-        user: LocalUser(id: user.uid, email: user.email),
-      );
+      // await userService.syncOrCreateUserAccount(
+      //   user: LocalUser(id: user.uid, email: user.email),
+      // );
 
       // navigate to success route
       navigationService.replaceWith(successRoute);
@@ -134,5 +149,9 @@ abstract class AuthenticationViewModel extends FormViewModel {
           message: authResult.errorMessage ?? "Error occurred");
       notifyListeners();
     }
+  }
+
+  void _handleLoggedInUser(LocalUser currentUser) {
+    navigationService.replaceWith(successRoute);
   }
 }

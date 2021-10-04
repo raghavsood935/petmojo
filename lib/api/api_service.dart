@@ -1,8 +1,12 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:kubelite/api/base_response.dart';
+import 'package:kubelite/api/server_error.dart';
 import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.logger.dart';
+import 'package:kubelite/models/params/register_body.dart';
+import 'package:kubelite/models/user_response_models.dart';
 import 'package:kubelite/services/shared_preferences_service.dart';
 import 'package:logger/logger.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -68,5 +72,19 @@ class TamelyApi {
     formDio.options.headers["Authorization"] =
         "Bearer ${_sharedPreferenceServices.authToken}";
     return ApiClient(formDio);
+  }
+
+  Future<BaseResponse<UserResponse>> createAccount(
+      RegisterBody registerBody) async {
+    log.d("createAccount called");
+    UserResponse response;
+    try {
+      response = await getApiClient().register(registerBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
   }
 }

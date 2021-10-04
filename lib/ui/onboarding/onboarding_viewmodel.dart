@@ -27,11 +27,4 @@ class OnBoardingViewModel extends AuthenticationViewModel {
   void moveToSignup() {
     _navigationService.navigateTo(Routes.signUpView);
   }
-
-  @override
-  Future<FirebaseAuthenticationResult> runAuthentication() =>
-      _firebaseAuthenticationService!.loginWithEmail(
-        email: "",
-        password: "",
-      );
 }

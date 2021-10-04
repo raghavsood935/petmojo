@@ -8,22 +8,26 @@ class AppInputField extends StatelessWidget {
   final Widget? leading;
   final Widget? trailing;
   final bool password;
+  final TextInputType? textInputType;
+  final TextCapitalization? textCapitalization;
   final void Function()? trailingTapped;
 
   final circularBorder = UnderlineInputBorder(
     borderRadius: BorderRadius.circular(8),
   );
 
-  AppInputField({
-    Key? key,
-    required this.controller,
-    this.label = '',
-    this.hint = '',
-    this.leading,
-    this.trailing,
-    this.trailingTapped,
-    this.password = false,
-  }) : super(key: key);
+  AppInputField(
+      {Key? key,
+      required this.controller,
+      this.label = '',
+      this.hint = '',
+      this.leading,
+      this.trailing,
+      this.trailingTapped,
+      this.password = false,
+      this.textInputType = TextInputType.name,
+      this.textCapitalization = TextCapitalization.sentences})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +37,9 @@ class AppInputField extends StatelessWidget {
       /// We can also avoid this by changing the [primarySwatch] in MaterialApp
       data: ThemeData(primaryColor: colors.primary),
       child: TextField(
+        textCapitalization: textCapitalization!,
         controller: controller,
+        keyboardType: textInputType,
         style: TextStyle(height: 1),
         obscureText: password,
         decoration: InputDecoration(

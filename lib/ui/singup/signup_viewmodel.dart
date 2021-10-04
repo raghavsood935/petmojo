@@ -19,11 +19,12 @@ class SignUpViewModel extends AuthenticationViewModel {
   get isValid => _isValid;
 
   @override
-  Future<FirebaseAuthenticationResult> runAuthentication() =>
-      _firebaseAuthenticationService.createAccountWithEmail(
-        email: emailValue!,
-        password: passwordValue!,
-      );
+  Future<FirebaseAuthenticationResult> runAuthentication() {
+    return _firebaseAuthenticationService.createAccountWithEmail(
+      email: emailValue!,
+      password: passwordValue!,
+    );
+  }
 
   void navigateBack() => navigationService.back();
 
