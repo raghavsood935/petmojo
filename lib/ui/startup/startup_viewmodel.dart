@@ -7,7 +7,7 @@ import 'package:stacked_services/stacked_services.dart';
 class StartUpViewModel extends FutureViewModel<void> implements Initialisable {
   final log = getLogger('StartupViewModel');
   final _navigationService = locator<NavigationService>();
-  String? _destinationRoute = Routes.homeView;
+  String? _destinationRoute = Routes.onBoardingView;
   dynamic _destinationArguments;
 
   Future _replaceWith() async {

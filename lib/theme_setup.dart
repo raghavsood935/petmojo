@@ -6,9 +6,9 @@ List<ThemeData> getThemes() {
     ThemeData(
         accentColor: Colors.white,
         primaryColor: colors.primary,
-        fontFamily: 'opensans',
+        fontFamily: 'lato',
         textTheme: TextTheme(
-          overline: TextStyle(fontFamily: 'opensans', letterSpacing: 0),
+          overline: TextStyle(fontFamily: 'lato', letterSpacing: 0),
         ),
         inputDecorationTheme: InputDecorationTheme(
           enabledBorder: OutlineInputBorder(

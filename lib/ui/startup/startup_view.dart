@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:kubelite/util/Color.dart';
 import 'package:kubelite/util/String.dart';
 import 'package:kubelite/util/ui_helpers.dart';
 import 'package:kubelite/widgets/app_text.dart';
 import 'package:kubelite/widgets/main_btn.dart';
+import 'package:lottie/lottie.dart';
 import 'package:stacked/stacked.dart';
 
 import 'startup_viewmodel.dart';
 
-class StartupView extends StatefulWidget {
+class StartupView extends StatefulHookWidget {
   const StartupView({Key? key}) : super(key: key);
 
   @override
@@ -27,7 +29,7 @@ class _StartupViewState extends State<StartupView>
     super.initState();
     animation1 = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 1500),
+      duration: Duration(milliseconds: 2500),
     );
     animation2 = AnimationController(
       vsync: this,
@@ -37,16 +39,18 @@ class _StartupViewState extends State<StartupView>
     _fadeOut = Tween<double>(begin: 1.0, end: 0.0).animate(animation1!);
     _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(animation2!);
 
-    animation1?.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        animation2?.forward();
-      }
-    });
+    // animation1?.addStatusListener((status) {
+    //   if (status == AnimationStatus.completed) {
+    //     animation2?.forward();
+    //   }
+    // });
     animation1?.forward();
   }
 
   @override
   Widget build(BuildContext context) {
+    final animationController = useAnimationController();
+
     return ViewModelBuilder<StartUpViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         backgroundColor: Colors.white,
@@ -54,21 +58,23 @@ class _StartupViewState extends State<StartupView>
           children: [
             FadeTransition(
               opacity: _fadeOut!,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.all(16),
-                      child:
-                          Image.asset("assets/images/light_splash_screen.png"),
-                    ),
-                    AppText.subheading(
-                      "All Things Pets!",
-                      color: Color(0xFF3F414E),
-                    )
-                  ],
-                ),
+              child: Lottie.asset(
+                'assets/lottie/tamely_loading.json',
+                width: double.maxFinite,
+                height: double.maxFinite,
+                onLoaded: (composition) {
+                  animationController.addStatusListener((status) {
+                    if (status == AnimationStatus.completed) {
+                      animation2?.forward();
+                    }
+                  });
+
+                  // Configure the AnimationController with the duration of the
+                  // Lottie file and start the animation.
+                  animationController
+                    ..duration = composition.duration
+                    ..forward();
+                },
               ),
             ),
             FadeTransition(
@@ -149,8 +155,10 @@ class _StartupViewState extends State<StartupView>
                   ),
                   verticalSpaceMedium,
                   MainButtonWidget(
-                      onMainButtonTapped: () {},
-                      mainButtonTitle: signUpLoginTitle)
+                      onMainButtonTapped: () {
+                        model.moveToNext();
+                      },
+                      mainButtonTitle: signUpLoginTitle),
                 ],
               ),
             )

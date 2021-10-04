@@ -23,7 +23,7 @@ class colors {
 
   static const Color kcPrimaryTextColor = Color(0xff3F414E);
   static const Color kcMediumGreyColor = Color(0xff868686);
-  static const Color kcLightGreyColor = Color(0xffe5e5e5);
+  static const Color kcLightGreyColor = Color(0xffAEAEAE);
   static const Color kcVeryLightGreyColor = Color(0xfff2f2f2);
   static const Color kcGreyBackground = Color(0xffe5e5e5);
   static const Color kcLightGreyBackground = Color(0xffEEF2F9);
@@ -37,6 +37,8 @@ class colors {
   static const Color grad1Color = Color(0xffFFBD69);
   static const Color grad2Color = Color(0xffFF6363);
   static const Color lightWhite2 = Color(0xffEEF2F3);
+
+  static const Color fbBlue = Color(0xff415E9B);
 
   static const Color pink = Color(0xffd4001d);
   static const Color red = Colors.red;
