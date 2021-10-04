@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kubelite/services/shared_preferences_service.dart';
@@ -16,7 +18,7 @@ void main() async {
 Future initApp() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp();
   setupLocator();
   setupDialogUi();
   setupBottomSheetUi();
@@ -26,6 +28,6 @@ Future initApp() async {
       locator<SharedPreferencesService>();
   await _sharedPreferencesService.initialise();
 
-  // FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-  // FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+  FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 }
