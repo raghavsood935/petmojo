@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:kubelite/ui/profilepage/profile_viewmodel.dart';
 import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/styles.dart';
+import 'package:kubelite/util/String.dart';
 import 'package:kubelite/util/ui_helpers.dart';
+import 'package:kubelite/widgets/app_text.dart';
 import 'package:stacked/stacked.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({Key? key}) : super(key: key);
@@ -34,13 +33,13 @@ class ProfileView extends StatelessWidget {
                         Positioned(
                           top: 50,
                           left: 5,
-                          child: Image.asset(model.leftHandImgPath),
+                          child: Image.asset(leftHandImgPath),
                         ),
                         // for right bg image
                         Positioned(
                           top: 150,
                           right: 5,
-                          child: Image.asset(model.rightHandImgPath),
+                          child: Image.asset(rightHandImgPath),
                         ),
                         // for edit button at top right corner
                         Positioned(
@@ -48,14 +47,13 @@ class ProfileView extends StatelessWidget {
                             right: 20,
                             child: Row(children: [
                               Icon(
-                                EvaIcons.edit,
+                                Icons.edit,
                                 color: colors.primary,
                               ),
-                              Text(
+                              AppText.body2(
                                 "Edit",
-                                style:
-                                    body2Style.copyWith(color: colors.primary),
-                              )
+                                color: colors.primary,
+                              ),
                             ])),
                         // for main contents at center
                         Positioned(
@@ -82,7 +80,7 @@ class ProfileView extends StatelessWidget {
                                           backgroundColor: colors.primary,
                                           radius: 65,
                                           child: Icon(
-                                            EvaIcons.cameraOutline,
+                                            Icons.photo_camera_outlined,
                                             color: colors.white,
                                             size: 50,
                                           ),
@@ -111,23 +109,16 @@ class ProfileView extends StatelessWidget {
                             ),
                             verticalSpaceSmall,
                             // profile name
-                            Text(
-                              model.profilename,
-                              style: GoogleFonts.lato(
-                                textStyle: subheadingStyle,
-                              ),
-                            ),
+                            AppText.subheading(model.profilename),
+
                             verticalSpaceSmall,
                             // username and animal count
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
+                                AppText.body(
                                   model.username,
-                                  style: GoogleFonts.lato(
-                                    textStyle: bodyStyle.copyWith(
-                                        color: Colors.grey[600]),
-                                  ),
+                                  color: colors.kcLightGreyColor,
                                 ),
                                 horizontalSpaceTiny,
                                 CircleAvatar(
@@ -135,29 +126,18 @@ class ProfileView extends StatelessWidget {
                                   backgroundColor: colors.primary,
                                 ),
                                 horizontalSpaceTiny,
-                                Text(
-                                  "${model.noOfAnimals}",
-                                  style: bodyStyle.copyWith(fontSize: 18),
-                                ),
+                                AppText.body2("${model.noOfAnimals}"),
                                 horizontalSpaceTiny,
-                                Text(
-                                  "animals",
-                                  style: GoogleFonts.lato(
-                                    textStyle: bodyStyle.copyWith(
-                                        color: Colors.grey[600]),
-                                  ),
-                                ),
+                                AppText.body("animal",
+                                    color: colors.kcLightGreyColor),
                               ],
                             ),
                             verticalSpaceRegular,
                             // action text
                             TextButton(
-                              child: Text(
+                              child: AppText.body2(
                                 model.actionText,
-                                style: GoogleFonts.lato(
-                                  textStyle: body2Style.copyWith(
-                                      color: colors.primary),
-                                ),
+                                color: colors.primary,
                               ),
                               onPressed: () {},
                             ),
@@ -192,13 +172,10 @@ class ProfileView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Text(
-                          model.actionText,
-                          style: GoogleFonts.lato(textStyle: bodyStyle),
-                        ),
-                        Text(
+                        AppText.body(model.actionText),
+                        AppText.body(
                           "${model.completedProfileStepCount} out of ${model.completedProfileTotalCount}",
-                          style: GoogleFonts.lato(color: Colors.blueAccent),
+                          color: Colors.blueAccent,
                         )
                       ],
                     ),
@@ -209,13 +186,13 @@ class ProfileView extends StatelessWidget {
                     child: Row(
                       children: [
                         completeProfileItem(
-                          EvaIcons.personOutline,
+                          Icons.person_outline_rounded,
                           "Add your short bio, profile picture",
                           "Add details",
                           model.goToaddDetialsProfileAction,
                         ),
                         completeProfileItem(
-                            EvaIcons.peopleOutline,
+                            Icons.people_outline_rounded,
                             "Followat least 5 people to improve feed suggestions",
                             "Follow people",
                             model.followProfileAction),
@@ -230,11 +207,10 @@ class ProfileView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Text(
-                          "My Animals",
-                          style: GoogleFonts.lato(textStyle: bodyStyle),
-                        ),
-                        Icon(EvaIcons.arrowDown)
+                        AppText.body("My Animals"),
+                        Icon(
+                          Icons.arrow_back_rounded,
+                        )
                       ],
                     ),
                   ),
@@ -244,10 +220,7 @@ class ProfileView extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text(
-                        "My Posts",
-                        style: GoogleFonts.lato(textStyle: bodyStyle),
-                      ),
+                      child: AppText.body("My Posts"),
                     ),
                   ),
                   Padding(
@@ -262,7 +235,7 @@ class ProfileView extends StatelessWidget {
                             radius: 40,
                             child: IconButton(
                               icon: Icon(
-                                EvaIcons.plus,
+                                Icons.add,
                                 size: 30,
                                 color: colors.primary,
                               ),
@@ -280,11 +253,8 @@ class ProfileView extends StatelessWidget {
 
   Widget countRowItem(int count, String type) => Column(
         children: [
-          Text("$count", style: heading3Style),
-          Text(
-            type,
-            style: bodyStyle,
-          )
+          AppText.headingThree("$count"),
+          AppText.body(type),
         ],
       );
 
@@ -306,26 +276,25 @@ class ProfileView extends StatelessWidget {
                   size: 30,
                 ),
                 verticalSpaceTiny,
-                Text(
+                AppText.body(
                   message,
-                  style: GoogleFonts.lato(color: Colors.grey[600]),
+                  color: colors.kcLightGreyColor,
                   textAlign: TextAlign.center,
                 ),
                 verticalSpaceSmall,
                 GestureDetector(
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 5),
-                    width: 100,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: colors.primary,
-                    ),
-                    child: Text(
-                      actionText,
-                      style: GoogleFonts.lato(color: colors.white),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
+                      padding: EdgeInsets.symmetric(vertical: 5),
+                      width: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: colors.primary,
+                      ),
+                      child: AppText.body(
+                        actionText,
+                        color: colors.white,
+                        textAlign: TextAlign.center,
+                      )),
                   onTap: action,
                 )
               ],

@@ -1,8 +1,5 @@
-import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.logger.dart';
-import 'package:kubelite/app/app.router.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 class ProfileViewModel extends BaseViewModel {
   final log = getLogger('StartupViewModel');
@@ -19,8 +16,6 @@ class ProfileViewModel extends BaseViewModel {
     // }
   }
 
-  String _leftHandImgPath = "assets/images/hello-2-left.png";
-  String _rightHandImgPath = "assets/images/hello-2-right.png";
   String _profilename = "Joeylene Rivera";
   String _username = "username";
   String _actionText = "Complete your profile";
@@ -31,10 +26,6 @@ class ProfileViewModel extends BaseViewModel {
   int _noOfFollowers = 0;
   int _noOfFollowing = 0;
   int _noOfHearts = 0;
-
-  String get leftHandImgPath => _leftHandImgPath;
-
-  String get rightHandImgPath => _rightHandImgPath;
 
   String get profilename => _profilename;
 
