@@ -9,8 +9,8 @@ class UserResponse with _$UserResponse {
   UserResponse._();
 
   factory UserResponse({
-    LocalUser? localUser,
-    String? token,
+    @JsonKey(name: "user") LocalUser? localUser,
+    @JsonKey(name: "token") String? token,
   }) = _UserResponse;
 
   factory UserResponse.fromJson(Map<String, dynamic> json) =>

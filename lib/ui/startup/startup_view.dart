@@ -39,12 +39,14 @@ class _StartupViewState extends State<StartupView>
     _fadeOut = Tween<double>(begin: 1.0, end: 0.0).animate(animation1!);
     _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(animation2!);
 
-    // animation1?.addStatusListener((status) {
-    //   if (status == AnimationStatus.completed) {
-    //     animation2?.forward();
-    //   }
-    // });
     animation1?.forward();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    animation1?.dispose();
+    animation2?.dispose();
   }
 
   @override
@@ -52,6 +54,7 @@ class _StartupViewState extends State<StartupView>
     final animationController = useAnimationController();
 
     return ViewModelBuilder<StartUpViewModel>.reactive(
+      onModelReady: (model) => model.initialise(),
       builder: (context, model, child) => Scaffold(
         backgroundColor: Colors.white,
         body: Stack(
@@ -65,7 +68,8 @@ class _StartupViewState extends State<StartupView>
                 onLoaded: (composition) {
                   animationController.addStatusListener((status) {
                     if (status == AnimationStatus.completed) {
-                      animation2?.forward();
+                      model.moveToRedirectState();
+                      if (!model.isDestinationAvailable) animation2?.forward();
                     }
                   });
 

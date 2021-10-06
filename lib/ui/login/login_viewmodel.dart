@@ -18,17 +18,15 @@ class LoginViewModel extends AuthenticationViewModel {
 
   get isValid => _isValid;
 
-  @override
-  Future<FirebaseAuthenticationResult> runAuthentication() =>
-      _firebaseAuthenticationService.createAccountWithEmail(
-        email: emailValue!,
-        password: passwordValue!,
-      );
-
   void navigateBack() => navigationService.back();
 
   void onForgotPassword() {
-    navigationService.navigateTo(Routes.forgotPasswordView);
+    onProfileCreate();
+    // navigationService.navigateTo(Routes.forgotPasswordView);
+  }
+
+  void onProfileCreate() {
+    navigationService.navigateTo(Routes.profileCreateView);
   }
 
   void moveToOTPView() {

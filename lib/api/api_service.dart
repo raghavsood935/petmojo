@@ -5,6 +5,7 @@ import 'package:kubelite/api/base_response.dart';
 import 'package:kubelite/api/server_error.dart';
 import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.logger.dart';
+import 'package:kubelite/models/params/login_body.dart';
 import 'package:kubelite/models/params/register_body.dart';
 import 'package:kubelite/models/user_response_models.dart';
 import 'package:kubelite/services/shared_preferences_service.dart';
@@ -40,7 +41,7 @@ class TamelyApi {
     contentType: "application/x-www-form-urlencoded",
   ));
 
-  dynamic getApiClient() {
+  dynamic getApiClient(bool isAuth) {
     dio.interceptors.add(PrettyDioLogger(
         requestHeader: true,
         requestBody: true,
@@ -52,12 +53,14 @@ class TamelyApi {
 
     dio.options.followRedirects = false;
     dio.options.headers['content-Type'] = 'application/json';
-    dio.options.headers["authorization"] =
-        "Bearer ${_sharedPreferenceServices.authToken}";
+    if (isAuth) {
+      dio.options.headers["authorization"] =
+          "Bearer ${_sharedPreferenceServices.authToken}";
+    }
     return ApiClient(dio);
   }
 
-  dynamic getFormApiClient() {
+  dynamic getFormApiClient(bool isAuth) {
     formDio.interceptors.add(PrettyDioLogger(
         requestHeader: true,
         requestBody: true,
@@ -69,8 +72,10 @@ class TamelyApi {
 
     formDio.options.followRedirects = false;
     formDio.options.headers['content-Type'] = 'application/json';
-    formDio.options.headers["Authorization"] =
-        "Bearer ${_sharedPreferenceServices.authToken}";
+    if (isAuth) {
+      dio.options.headers["authorization"] =
+          "Bearer ${_sharedPreferenceServices.authToken}";
+    }
     return ApiClient(formDio);
   }
 
@@ -79,7 +84,20 @@ class TamelyApi {
     log.d("createAccount called");
     UserResponse response;
     try {
-      response = await getApiClient().register(registerBody);
+      response = await getApiClient(false).register(registerBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  Future<BaseResponse<UserResponse>> loginAccount(LoginBody loginBody) async {
+    log.d("loginAccount called");
+    UserResponse response;
+    try {
+      response = await getApiClient(false).login(loginBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()

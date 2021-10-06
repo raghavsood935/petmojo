@@ -20,7 +20,9 @@ UserResponse _$UserResponseFromJson(Map<String, dynamic> json) {
 class _$UserResponseTearOff {
   const _$UserResponseTearOff();
 
-  _UserResponse call({LocalUser? localUser, String? token}) {
+  _UserResponse call(
+      {@JsonKey(name: "user") LocalUser? localUser,
+      @JsonKey(name: "token") String? token}) {
     return _UserResponse(
       localUser: localUser,
       token: token,
@@ -37,7 +39,9 @@ const $UserResponse = _$UserResponseTearOff();
 
 /// @nodoc
 mixin _$UserResponse {
+  @JsonKey(name: "user")
   LocalUser? get localUser => throw _privateConstructorUsedError;
+  @JsonKey(name: "token")
   String? get token => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -51,7 +55,9 @@ abstract class $UserResponseCopyWith<$Res> {
   factory $UserResponseCopyWith(
           UserResponse value, $Res Function(UserResponse) then) =
       _$UserResponseCopyWithImpl<$Res>;
-  $Res call({LocalUser? localUser, String? token});
+  $Res call(
+      {@JsonKey(name: "user") LocalUser? localUser,
+      @JsonKey(name: "token") String? token});
 
   $LocalUserCopyWith<$Res>? get localUser;
 }
@@ -100,7 +106,9 @@ abstract class _$UserResponseCopyWith<$Res>
           _UserResponse value, $Res Function(_UserResponse) then) =
       __$UserResponseCopyWithImpl<$Res>;
   @override
-  $Res call({LocalUser? localUser, String? token});
+  $Res call(
+      {@JsonKey(name: "user") LocalUser? localUser,
+      @JsonKey(name: "token") String? token});
 
   @override
   $LocalUserCopyWith<$Res>? get localUser;
@@ -137,14 +145,19 @@ class __$UserResponseCopyWithImpl<$Res> extends _$UserResponseCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_UserResponse extends _UserResponse {
-  _$_UserResponse({this.localUser, this.token}) : super._();
+  _$_UserResponse(
+      {@JsonKey(name: "user") this.localUser,
+      @JsonKey(name: "token") this.token})
+      : super._();
 
   factory _$_UserResponse.fromJson(Map<String, dynamic> json) =>
       _$_$_UserResponseFromJson(json);
 
   @override
+  @JsonKey(name: "user")
   final LocalUser? localUser;
   @override
+  @JsonKey(name: "token")
   final String? token;
 
   @override
@@ -181,16 +194,19 @@ class _$_UserResponse extends _UserResponse {
 }
 
 abstract class _UserResponse extends UserResponse {
-  factory _UserResponse({LocalUser? localUser, String? token}) =
-      _$_UserResponse;
+  factory _UserResponse(
+      {@JsonKey(name: "user") LocalUser? localUser,
+      @JsonKey(name: "token") String? token}) = _$_UserResponse;
   _UserResponse._() : super._();
 
   factory _UserResponse.fromJson(Map<String, dynamic> json) =
       _$_UserResponse.fromJson;
 
   @override
+  @JsonKey(name: "user")
   LocalUser? get localUser => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: "token")
   String? get token => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

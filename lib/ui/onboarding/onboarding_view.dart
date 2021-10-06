@@ -14,6 +14,9 @@ class OnBoardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<OnBoardingViewModel>.reactive(
+      onModelReady: (model) {
+        model.initModel();
+      },
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.kcVeryLightGreyColor,
         body: Container(

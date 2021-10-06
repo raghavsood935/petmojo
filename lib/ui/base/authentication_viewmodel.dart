@@ -3,8 +3,11 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:kubelite/api/server_error.dart';
 import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.logger.dart';
+import 'package:kubelite/enum/redirect_state.dart';
 import 'package:kubelite/models/application_models.dart';
+import 'package:kubelite/models/params/login_body.dart';
 import 'package:kubelite/models/params/register_body.dart';
+import 'package:kubelite/services/shared_preferences_service.dart';
 import 'package:kubelite/services/user_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
@@ -16,6 +19,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
   final userService = locator<UserService>();
   final navigationService = locator<NavigationService>();
   final _snackBarService = locator<SnackbarService>();
+  final _sharedPreferencesService = locator<SharedPreferencesService>();
 
   final firebaseAuthenticationService =
       locator<FirebaseAuthenticationService>();
@@ -44,10 +48,34 @@ abstract class AuthenticationViewModel extends FormViewModel {
   Future createAccount() async {
     log.i('valued:$formValueMap');
     try {
+      String email = formValueMap["email"];
+      String password = formValueMap["password"];
+      if (email.isEmpty || password.isEmpty) {
+        _snackBarService.showSnackbar(message: "Please enter valid values");
+        return;
+      }
       RegisterBody registerBody =
-          RegisterBody(formValueMap["email"], formValueMap["password"]);
-      final result = await runBusyFuture(
-          userService.createAccount(registerBody),
+          RegisterBody(email, password, "fullName", email.split("@")[0]);
+      final result = await userService.createAccount(registerBody);
+      if (userService.hasLoggedInUser)
+        _handleLoggedInUser(userService.currentUser);
+    } on ServerError catch (e) {
+      log.e(e.toString());
+      setValidationMessage(e.toString());
+    }
+  }
+
+  Future loginAccount() async {
+    log.i('valued:$formValueMap');
+    try {
+      String email = formValueMap["email"];
+      String password = formValueMap["password"];
+      if (email.isEmpty || password.isEmpty) {
+        _snackBarService.showSnackbar(message: "Please enter valid values");
+        return;
+      }
+      LoginBody registerBody = LoginBody(email, password);
+      final result = await runBusyFuture(userService.loginAccount(registerBody),
           throwException: true);
       if (userService.hasLoggedInUser)
         _handleLoggedInUser(userService.currentUser);
@@ -152,6 +180,9 @@ abstract class AuthenticationViewModel extends FormViewModel {
   }
 
   void _handleLoggedInUser(LocalUser currentUser) {
+    //TODO need to check new user
+    _sharedPreferencesService.currentState =
+        getRedirectStateName(RedirectState.Home);
     navigationService.replaceWith(successRoute);
   }
 }
