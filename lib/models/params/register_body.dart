@@ -6,8 +6,10 @@ part 'register_body.g.dart';
 class RegisterBody {
   final String email;
   final String password;
+  final String fullName;
+  final String username;
 
-  RegisterBody(this.email, this.password);
+  RegisterBody(this.email, this.password, this.fullName, this.username);
 
   factory RegisterBody.fromJson(Map<String, dynamic> json) =>
       _$RegisterBodyFromJson(json);

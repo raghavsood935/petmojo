@@ -16,6 +16,7 @@ import '../ui/home/home_view.dart';
 import '../ui/login/login_view.dart';
 import '../ui/onboarding/onboarding_view.dart';
 import '../ui/otp/confirm_otp_view.dart';
+import '../ui/profile/profile_create_view.dart';
 import '../ui/singup/signup_view.dart';
 import '../ui/startup/startup_view.dart';
 
@@ -28,6 +29,7 @@ class Routes {
   static const String confirmOTPView = '/confirm-ot-pView';
   static const String forgotPasswordView = '/forgot-password-view';
   static const String newPasswordView = '/new-password-view';
+  static const String profileCreateView = '/profile-create-view';
   static const all = <String>{
     startupView,
     homeView,
@@ -37,6 +39,7 @@ class Routes {
     confirmOTPView,
     forgotPasswordView,
     newPasswordView,
+    profileCreateView,
   };
 }
 
@@ -52,6 +55,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.confirmOTPView, page: ConfirmOTPView),
     RouteDef(Routes.forgotPasswordView, page: ForgotPasswordView),
     RouteDef(Routes.newPasswordView, page: NewPasswordView),
+    RouteDef(Routes.profileCreateView, page: ProfileCreateView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -121,6 +125,15 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    ProfileCreateView: (data) {
+      var args = data.getArgs<ProfileCreateViewArguments>(
+        orElse: () => ProfileCreateViewArguments(),
+      );
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => ProfileCreateView(key: args.key),
+        settings: data,
+      );
+    },
   };
 }
 
@@ -159,4 +172,10 @@ class ForgotPasswordViewArguments {
 class NewPasswordViewArguments {
   final Key? key;
   NewPasswordViewArguments({this.key});
+}
+
+/// ProfileCreateView arguments holder class
+class ProfileCreateViewArguments {
+  final Key? key;
+  ProfileCreateViewArguments({this.key});
 }

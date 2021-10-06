@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kubelite/enum/connectivity_status.dart';
 import 'package:kubelite/services/connectivity_service.dart';
 import 'package:kubelite/services/shared_preferences_service.dart';
-import 'package:kubelite/shared/connectivity_status.dart';
 import 'package:kubelite/theme_setup.dart';
 import 'package:kubelite/ui/home/home_view.dart';
 import 'package:kubelite/ui/startup/startup_view.dart';

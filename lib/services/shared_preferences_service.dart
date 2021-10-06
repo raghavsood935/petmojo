@@ -1,3 +1,4 @@
+import 'package:kubelite/enum/redirect_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesService {
@@ -22,6 +23,7 @@ class SharedPreferencesService {
   static const String YOUR_FIELD = 'yourField';
   static const String CART_TOTAL_ITEMS = 'cartTotalItems';
   static const String PHONE_NUMBER = 'phonenumber';
+  static const String CURRENT_STATE = 'currentState';
 
   //current address
   double locationRadius = 500;
@@ -57,6 +59,8 @@ class SharedPreferencesService {
     await _preferences.remove(BUYER_STORE_ID);
     await _preferences.remove(BUSINESS_NAME);
     await _preferences.remove(SELLER_ID);
+    await _preferences.remove(CURRENT_STATE);
+    await _preferences.clear();
   }
 
   String get fcmToken => _getFromDisk(FCM_TOKEN) ?? null;
@@ -86,4 +90,9 @@ class SharedPreferencesService {
   String get phoneNumber => _getFromDisk(PHONE_NUMBER) ?? "";
 
   set phoneNumber(String value) => _saveToDisk(PHONE_NUMBER, value);
+
+  String get currentState =>
+      _getFromDisk(CURRENT_STATE) ?? getRedirectStateName(RedirectState.Start);
+
+  set currentState(String value) => _saveToDisk(CURRENT_STATE, value);
 }

@@ -27,8 +27,7 @@ class LoginView extends StatelessWidget with $LoginView {
         body: AuthenticationLayout(
           busy: model.isBusy,
           isValid: model.isValid,
-          // onMainButtonTapped: model.saveData,
-          onMainButtonTapped: model.moveToOTPView,
+          onMainButtonTapped: model.loginAccount,
           onBackPressed: model.navigateBack,
           onForgotPassword: model.onForgotPassword,
           validationMessage: model.validationMessage,
@@ -54,6 +53,7 @@ class LoginView extends StatelessWidget with $LoginView {
               AppInputField(
                 hint: enterEmailPhoneHint,
                 controller: emailController,
+                textInputType: TextInputType.emailAddress,
               ),
               verticalSpaceMedium,
               Container(

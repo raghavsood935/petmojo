@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kubelite/app/app.locator.dart';
-import 'package:kubelite/shared/DialogType.dart';
+import 'package:kubelite/enum/DialogType.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'basic_dialog.dart';

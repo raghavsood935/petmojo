@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:kubelite/models/params/login_body.dart';
 import 'package:kubelite/models/params/register_body.dart';
 import 'package:kubelite/models/user_response_models.dart';
 import 'package:retrofit/http.dart';
@@ -19,9 +20,9 @@ class Apis {
 abstract class ApiClient {
   factory ApiClient(Dio dio, {String baseUrl}) = _ApiClient;
 
-  // @POST(Apis.login)
-  // Future<BaseResponse<UserResponse>> login(@Body() LoginBody loginBody);
-  //
+  @POST(Apis.login)
+  Future<UserResponse> login(@Body() LoginBody loginBody);
+
   @POST(Apis.register)
   Future<UserResponse> register(@Body() RegisterBody registerBody);
 

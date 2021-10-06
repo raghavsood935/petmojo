@@ -1,6 +1,7 @@
 import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.logger.dart';
 import 'package:kubelite/app/app.router.dart';
+import 'package:kubelite/enum/redirect_state.dart';
 import 'package:kubelite/services/shared_preferences_service.dart';
 import 'package:kubelite/ui/base/authentication_viewmodel.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
@@ -17,6 +18,11 @@ class OnBoardingViewModel extends AuthenticationViewModel {
   final log = getLogger('OnBoardingViewModel');
 
   OnBoardingViewModel() : super(successRoute: Routes.homeView);
+
+  void initModel() {
+    _sharedPrefService.currentState =
+        getRedirectStateName(RedirectState.Welcome);
+  }
 
   void moveAsGuest() {}
 

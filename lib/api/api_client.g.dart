@@ -16,6 +16,22 @@ class _ApiClient implements ApiClient {
   String? baseUrl;
 
   @override
+  Future<UserResponse> login(loginBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(loginBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UserResponse>(
+            Options(method: 'POST', headers: <String, dynamic>{}, extra: _extra)
+                .compose(_dio.options, '/auth/login',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = UserResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<UserResponse> register(registerBody) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
