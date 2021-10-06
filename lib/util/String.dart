@@ -50,3 +50,7 @@ String newPasswordHint = "Enter New Password";
 
 String confirmPasswordLabel = "Confirm New Password";
 String confirmPasswordHint = "Enter Confirm New Password";
+
+//assets path
+  String leftHandImgPath = "assets/images/hello-2-left.png";
+  String rightHandImgPath = "assets/images/hello-2-right.png";

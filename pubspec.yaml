@@ -31,6 +31,7 @@ dependencies:
   connectivity_plus: ^1.0.4
   geocoding: ^2.0.0
 
+
   # state management
   stacked: ^2.1.9
   stacked_hooks: ^0.2.1
