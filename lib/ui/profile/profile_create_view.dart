@@ -41,6 +41,28 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: [
+              CircleAvatar(
+                radius: 70,
+                backgroundColor: colors.primary,
+                child: CircleAvatar(
+                  radius: 67,
+                  backgroundColor: colors.kcLightGreyBackground,
+                  child: Stack(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: colors.primary,
+                        radius: 65,
+                        child: Icon(
+                          Icons.camera_alt_outlined,
+                          color: colors.white,
+                          size: 50,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              verticalSpaceLarge,
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Align(
@@ -50,51 +72,6 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
                     textAlign: TextAlign.start,
                     color: colors.black,
                   ),
-                ),
-              ),
-              SizedBox(
-                height: 200,
-                child: Stack(
-                  children: [
-                    Positioned(
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: CircleAvatar(
-                        radius: 70,
-                        backgroundColor: colors.primary,
-                        child: CircleAvatar(
-                          radius: 67,
-                          backgroundColor: colors.kcLightGreyBackground,
-                          child: CircleAvatar(
-                            backgroundColor: colors.primary,
-                            radius: 65,
-                            child: Icon(
-                              Icons.camera_alt_outlined,
-                              color: colors.white,
-                              size: 50,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      left: 80,
-                      right: 0,
-                      child: CircleAvatar(
-                        backgroundColor: Colors.blue,
-                        radius: 20,
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.add,
-                            color: colors.white,
-                          ),
-                          onPressed: () {},
-                        ),
-                      ),
-                    )
-                  ],
                 ),
               ),
               AppInputField(
