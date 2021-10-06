@@ -29,18 +29,18 @@ class ProfileView extends StatelessWidget {
                         BoxDecoration(color: colors.lightBackgroundColor),
                     child: Stack(
                       children: [
-                        // for left bg image
-                        Positioned(
-                          top: 50,
-                          left: 5,
-                          child: Image.asset(leftHandImgPath),
-                        ),
-                        // for right bg image
-                        Positioned(
-                          top: 150,
-                          right: 5,
-                          child: Image.asset(rightHandImgPath),
-                        ),
+                        // // for left bg image
+                        // Positioned(
+                        //   top: 50,
+                        //   left: 5,
+                        //   child: Image.asset(leftHandImgPath),
+                        // ),
+                        // // for right bg image
+                        // Positioned(
+                        //   top: 150,
+                        //   right: 5,
+                        //   child: Image.asset(rightHandImgPath),
+                        // ),
                         // for edit button at top right corner
                         Positioned(
                             top: 40,
