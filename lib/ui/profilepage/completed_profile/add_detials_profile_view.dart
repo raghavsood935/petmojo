@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kubelite/ui/profilepage/completed_profile/add_detials_profile_viewmodel.dart';
 import 'package:kubelite/util/styles.dart';
 import 'package:kubelite/util/ui_helpers.dart';
+import 'package:kubelite/widgets/app_input_field.dart';
+import 'package:kubelite/widgets/app_text.dart';
 import 'package:kubelite/widgets/main_btn.dart';
 import 'package:stacked/stacked.dart';
 import 'package:kubelite/util/Color.dart';
@@ -42,15 +44,8 @@ class AddDetialsProfileView extends StatelessWidget {
                           icon: Icon(Icons.arrow_back),
                         ),
                         verticalSpaceRegular,
-                        Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            "Complete your Profile",
-                            style: GoogleFonts.lato(
-                              textStyle: heading3Style,
-                            ),
-                          ),
-                        ),
+                        AppText.headingThree("Complete your Profile",
+                            textAlign: TextAlign.center),
                         verticalSpaceRegular,
                         Align(
                           alignment: Alignment.center,
@@ -73,48 +68,24 @@ class AddDetialsProfileView extends StatelessWidget {
                           ),
                         ),
                         verticalSpaceMedium,
-                        Text(
-                          "Short Bio",
-                          textAlign: TextAlign.start,
-                        ),
+                        AppText.body("Short Bio", textAlign: TextAlign.start),
                         verticalSpaceSmall,
-                        TextField(
-                          decoration: InputDecoration(
-                            hintText: "We would love to know more about you!",
-                            border: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey,
-                              ),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: colors.primary,
-                              ),
-                            ),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ),
-                          maxLines: null,
-                          cursorColor: colors.primary,
-                          controller: bioTC,
-                        ),
+                        AppInputField(controller: bioTC),
                       ],
                     ),
                   ),
                 ),
                 Positioned(
-                    bottom: 20,
-                    left: 0,
-                    right: 0,
-                    child: Visibility(
-                        visible: bioTC.text.isNotEmpty &&
-                            !model.checkIfTheKeyboardIsOpen(context),
-                        child: MainButtonWidget(
-                            onMainButtonTapped: () {},
-                            mainButtonTitle: "Save")))
+                  bottom: 20,
+                  left: 0,
+                  right: 0,
+                  child: Visibility(
+                    visible: bioTC.text.isNotEmpty &&
+                        !model.checkIfTheKeyboardIsOpen(context),
+                    child: MainButtonWidget(
+                        onMainButtonTapped: () {}, mainButtonTitle: "Save"),
+                  ),
+                )
               ],
             ),
           ),

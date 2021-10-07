@@ -32,6 +32,14 @@ Widget spacedDivider = Column(
   ],
 );
 
+Widget spacedDividerSmall = Column(
+  children: const <Widget>[
+    verticalSpaceSmall,
+    const Divider(color: Colors.blueGrey, height: 5.0),
+    verticalSpaceSmall,
+  ],
+);
+
 Widget verticalSpace(double height) => SizedBox(height: height);
 
 double screenHeightFraction(BuildContext context,
