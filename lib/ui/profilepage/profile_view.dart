@@ -6,6 +6,7 @@ import 'package:kubelite/util/String.dart';
 import 'package:kubelite/util/ui_helpers.dart';
 import 'package:kubelite/widgets/app_text.dart';
 import 'package:stacked/stacked.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({Key? key}) : super(key: key);
@@ -118,7 +119,7 @@ class ProfileView extends StatelessWidget {
                               children: [
                                 AppText.body(
                                   model.username,
-                                  color: colors.kcLightGreyColor,
+                                  color: colors.kcMediumGreyColor,
                                 ),
                                 horizontalSpaceTiny,
                                 CircleAvatar(
@@ -129,7 +130,7 @@ class ProfileView extends StatelessWidget {
                                 AppText.body2("${model.noOfAnimals}"),
                                 horizontalSpaceTiny,
                                 AppText.body("animal",
-                                    color: colors.kcLightGreyColor),
+                                    color: colors.kcMediumGreyColor),
                               ],
                             ),
                             verticalSpaceRegular,
@@ -199,7 +200,7 @@ class ProfileView extends StatelessWidget {
                       ],
                     ),
                   ),
-                  spacedDivider,
+                  spacedDividerSmall,
                   //my animals
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -208,13 +209,57 @@ class ProfileView extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         AppText.body("My Animals"),
-                        Icon(
-                          Icons.arrow_back_rounded,
+                        IconButton(
+                          icon: Icon(model.isMyAnimalsVisibile
+                              ? Icons.arrow_drop_up
+                              : Icons.arrow_drop_down),
+                          onPressed: model.myAnimalVisible,
                         )
                       ],
                     ),
                   ),
-                  spacedDivider,
+                  //my animals list
+                  Visibility(
+                    visible: model.isMyAnimalsVisibile,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            roundedImageWidget(
+                              false,
+                              child: IconButton(
+                                icon: Icon(
+                                  Icons.add,
+                                  size: 30,
+                                  color: colors.primary,
+                                ),
+                                onPressed: () {},
+                              ),
+                            ),
+                            horizontalSpaceRegular,
+                            SizedBox(
+                              height: 75,
+                              child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemCount: model.dummyListOfMyAnimals.length,
+                                itemBuilder: (context, index) =>
+                                    roundedImageWidget(
+                                        true,
+                                        bgImg: NetworkImage(
+                                            model.dummyListOfMyAnimals[index])),
+                                separatorBuilder: (context, index) =>
+                                    horizontalSpaceRegular,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  spacedDividerSmall,
                   //my post section
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -223,33 +268,57 @@ class ProfileView extends StatelessWidget {
                       child: AppText.body("My Posts"),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          backgroundColor: colors.black,
-                          radius: 42,
-                          child: CircleAvatar(
-                            backgroundColor: colors.lightBackgroundColor,
-                            radius: 40,
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.add,
-                                size: 30,
-                                color: colors.primary,
-                              ),
-                              onPressed: () {},
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  )
+                  //my posts grid view
+                  Container(
+                padding: EdgeInsets.all(10),
+                color: colors.lightBackgroundColor,
+                child: StaggeredGridView.countBuilder(
+                  shrinkWrap: true,
+                  itemCount: model.dummyListOfPosts.length,
+                  crossAxisSpacing: 6,
+                  mainAxisSpacing: 6,
+                  crossAxisCount: 3,
+                  itemBuilder: (context, index) =>
+                      postItem(model.dummyListOfPosts[index], () {}),
+                  staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+                ),
+              ),
                 ],
               ),
             )));
   }
+
+  Widget postItem(String url, void onTapFun()) => GestureDetector(
+        child: Container(
+          margin: EdgeInsets.all(3),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.network(
+              url,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        onTap: onTapFun,
+      );
+
+  Widget roundedImageWidget(bool isImage,
+          {NetworkImage? bgImg, Widget? child}) =>
+      CircleAvatar(
+        backgroundColor: colors.black,
+        radius: 42,
+        child: isImage
+            ? CircleAvatar(
+                backgroundColor: colors.lightBackgroundColor,
+                radius: 35,
+                backgroundImage: bgImg,
+              )
+            : CircleAvatar(
+                backgroundColor: colors.lightBackgroundColor,
+                radius: 40,
+                child: child,
+              ),
+      );
 
   Widget countRowItem(int count, String type) => Column(
         children: [
