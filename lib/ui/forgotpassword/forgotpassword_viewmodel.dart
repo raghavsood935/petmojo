@@ -1,15 +1,10 @@
 import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.router.dart';
 import 'package:kubelite/ui/base/authentication_viewmodel.dart';
-import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class ForgotPasswordViewModel extends AuthenticationViewModel {
   final navigationService = locator<NavigationService>();
-
-  final _firebaseAuthenticationService =
-      locator<FirebaseAuthenticationService>();
-
   bool _isValid = false;
   ForgotPasswordViewModel() : super(successRoute: Routes.homeView);
 
@@ -34,10 +29,5 @@ class ForgotPasswordViewModel extends AuthenticationViewModel {
     });
 
     notifyListeners();
-  }
-
-  @override
-  Future<FirebaseAuthenticationResult> runAuthentication() {
-    return Future.value();
   }
 }

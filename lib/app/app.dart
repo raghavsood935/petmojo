@@ -13,7 +13,6 @@ import 'package:kubelite/ui/profile/profile_create_view.dart';
 import 'package:kubelite/ui/singup/signup_view.dart';
 import 'package:kubelite/ui/startup/startup_view.dart';
 import 'package:stacked/stacked_annotations.dart';
-import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 @StackedApp(
@@ -35,7 +34,6 @@ import 'package:stacked_services/stacked_services.dart';
     LazySingleton(classType: SharedPreferencesService),
     LazySingleton(classType: AuthenticationService),
     LazySingleton(classType: SnackbarService),
-    LazySingleton(classType: FirebaseAuthenticationService),
     LazySingleton(classType: FirestoreApi),
     LazySingleton(classType: UserService),
     LazySingleton(classType: TamelyApi),
