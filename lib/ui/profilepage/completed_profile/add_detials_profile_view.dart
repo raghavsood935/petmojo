@@ -70,7 +70,10 @@ class AddDetialsProfileView extends StatelessWidget {
                         verticalSpaceMedium,
                         AppText.body("Short Bio", textAlign: TextAlign.start),
                         verticalSpaceSmall,
-                        AppInputField(controller: bioTC),
+                        AppInputField(
+                          controller: bioTC,
+                          hint: "We would love to know more about you!",
+                        ),
                       ],
                     ),
                   ),
