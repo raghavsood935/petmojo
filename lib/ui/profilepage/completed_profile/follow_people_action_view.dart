@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kubelite/model/follow_profile_model.dart';
-import 'package:kubelite/ui/profile/completed_your_profile/follow_people_profile_complete_action/follow_people_action_viewmodel.dart';
+import 'package:kubelite/ui/profilepage/completed_profile/follow_people_action_viewmodel.dart';
 import 'package:kubelite/util/Color.dart';
 import 'package:kubelite/util/String.dart';
 import 'package:kubelite/util/ui_helpers.dart';
@@ -16,46 +16,40 @@ class FollowPeopleProfileActionView extends StatelessWidget {
     return ViewModelBuilder<FollowPeopleProfileActionViewModel>.reactive(
       viewModelBuilder: () => FollowPeopleProfileActionViewModel(),
       builder: (context, model, child) => Scaffold(
-        body: Container(
-          height: screenHeight(context),
-          child: Stack(
+        // appBar: AppBar(
+        //   backgroundColor: Colors.transparent,
+        //   leading: IconButton(
+        //     onPressed: model.goBack,
+        //     icon: Icon(Icons.arrow_back),
+        //   ),
+        //   elevation: 0.0,
+        //   actions: [Image.asset(blobImgPath)],
+        // ),
+        body: SingleChildScrollView(
+          child: Column(
             children: [
-              Positioned(
-                right: 0,
-                child: Image.asset(blobImgPath),
-              ),
-              Positioned(
-                top: 50,
-                left: 20,
-                child: IconButton(
+              AppBar(
+                backgroundColor: Colors.transparent,
+                leading: IconButton(
                   onPressed: model.goBack,
                   icon: Icon(Icons.arrow_back),
                 ),
+                elevation: 0.0,
+                actions: [Image.asset(blobImgPath)],
               ),
-              Positioned(
-                top: 125,
-                left: 0,
-                right: 0,
-                child: AppText.headingThree(
-                  model.title,
-                  textAlign: TextAlign.center,
-                ),
+              AppText.headingThree(
+                model.title,
+                textAlign: TextAlign.center,
               ),
-              Positioned(
-                top: 175,
-                right: 0,
-                left: 0,
-                bottom: 0,
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  physics: ScrollPhysics(),
-                  itemCount: model.listOfProfileModel.length,
-                  itemBuilder: (context, index) =>
-                      profileItem(context, model.listOfProfileModel[index]),
-                  separatorBuilder: (context, index) => spacedDividerSmall,
-                ),
-              )
+              ListView.separated(
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                physics: ScrollPhysics(),
+                itemCount: model.listOfProfileModel.length,
+                itemBuilder: (context, index) =>
+                    profileItem(context, model.listOfProfileModel[index]),
+                separatorBuilder: (context, index) => spacedDividerSmall,
+              ),
             ],
           ),
         ),
