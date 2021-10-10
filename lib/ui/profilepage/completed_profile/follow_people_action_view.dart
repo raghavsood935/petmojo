@@ -16,42 +16,35 @@ class FollowPeopleProfileActionView extends StatelessWidget {
     return ViewModelBuilder<FollowPeopleProfileActionViewModel>.reactive(
       viewModelBuilder: () => FollowPeopleProfileActionViewModel(),
       builder: (context, model, child) => Scaffold(
-        // appBar: AppBar(
-        //   backgroundColor: Colors.transparent,
-        //   leading: IconButton(
-        //     onPressed: model.goBack,
-        //     icon: Icon(Icons.arrow_back),
-        //   ),
-        //   elevation: 0.0,
-        //   actions: [Image.asset(blobImgPath)],
-        // ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              AppBar(
-                backgroundColor: Colors.transparent,
-                leading: IconButton(
-                  onPressed: model.goBack,
-                  icon: Icon(Icons.arrow_back),
+        body: CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar(
+              backgroundColor: Colors.white,
+              elevation: 0.0,
+              expandedHeight: 100,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Align(
+                  alignment: Alignment.topRight,
+                  child: Image.asset(blobImgPath),
                 ),
-                elevation: 0.0,
-                actions: [Image.asset(blobImgPath)],
+                title: AppText.body(
+                  model.title,
+                ),
+                centerTitle: true,
               ),
-              AppText.headingThree(
-                model.title,
-                textAlign: TextAlign.center,
+              leading: IconButton(
+                onPressed: model.goBack,
+                icon: Icon(Icons.arrow_back),
               ),
-              ListView.separated(
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                physics: ScrollPhysics(),
-                itemCount: model.listOfProfileModel.length,
-                itemBuilder: (context, index) =>
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) =>
                     profileItem(context, model.listOfProfileModel[index]),
-                separatorBuilder: (context, index) => spacedDividerSmall,
+                childCount: model.listOfProfileModel.length,
               ),
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );
@@ -61,6 +54,7 @@ class FollowPeopleProfileActionView extends StatelessWidget {
 Widget profileItem(BuildContext context, FollowProfileModel profileModel) {
   return Container(
     width: 100,
+    color: Colors.white,
     child: Column(
       children: [
         ListTile(
@@ -92,7 +86,8 @@ Widget profileItem(BuildContext context, FollowProfileModel profileModel) {
               roundedCornerImage(context, profileModel.listOfPost[3]),
             ],
           ),
-        )
+        ),
+        spacedDividerSmall,
       ],
     ),
   );
