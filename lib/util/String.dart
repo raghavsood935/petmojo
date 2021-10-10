@@ -64,3 +64,4 @@ String confirmPasswordHint = "Enter Confirm New Password";
 //assets path
   String leftHandImgPath = "assets/images/hello-2-left.png";
   String rightHandImgPath = "assets/images/hello-2-right.png";
+  String blobImgPath = "assets/images/Blob.png";
