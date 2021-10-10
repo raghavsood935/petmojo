@@ -8,6 +8,7 @@ import 'package:kubelite/models/application_models.dart';
 import 'package:kubelite/models/params/login_body.dart';
 import 'package:kubelite/models/params/profile_create_body.dart';
 import 'package:kubelite/models/params/register_body.dart';
+import 'package:kubelite/models/params/social_login_body.dart';
 import 'package:kubelite/models/user_response_models.dart';
 import 'package:kubelite/services/shared_preferences_service.dart';
 import 'package:kubelite/util/string_extension.dart';
@@ -61,6 +62,21 @@ class UserService {
     log.v('We have logging you in ...');
     BaseResponse<UserResponse> response =
         await _tamelyApi.loginAccount(loginBody);
+    if (response.getException != null) {
+      ServerError error = response.getException as ServerError;
+      _snackBarService.showSnackbar(message: error.getErrorMessage());
+    } else if (response.data != null) {
+      _currentUser = response.data!.localUser;
+      _sharedPreferenceService.authToken = response.data!.token ?? "";
+      log.v('_currentUser has been saved');
+    }
+  }
+
+  Future<void> socialLogin(SocialLoginBody socialLoginBody) async {
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
+    log.v('We have logging you in ...');
+    BaseResponse<UserResponse> response =
+        await _tamelyApi.facebookLogin(socialLoginBody);
     if (response.getException != null) {
       ServerError error = response.getException as ServerError;
       _snackBarService.showSnackbar(message: error.getErrorMessage());

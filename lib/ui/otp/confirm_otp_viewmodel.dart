@@ -1,9 +1,8 @@
-import 'package:kubelite/app/app.router.dart';
 import 'package:kubelite/ui/base/authentication_viewmodel.dart';
 
 class ConfirmOTPViewModel extends AuthenticationViewModel {
   bool _isValid = false;
-  ConfirmOTPViewModel() : super(successRoute: Routes.homeView);
+  ConfirmOTPViewModel();
   get isValid => _isValid;
 
   void navigateBack() => navigationService.back();

@@ -1,4 +1,5 @@
 String ISDARK = "";
+String APP_NAME = "Kubelite";
 
 String wireFrameTitle1 = "Create a memorable Pet Diary";
 String wireFrameTitle2 = "Connect with other animal lovers";
@@ -62,6 +63,6 @@ String confirmPasswordLabel = "Confirm New Password";
 String confirmPasswordHint = "Enter Confirm New Password";
 
 //assets path
-  String leftHandImgPath = "assets/images/hello-2-left.png";
-  String rightHandImgPath = "assets/images/hello-2-right.png";
-  String blobImgPath = "assets/images/Blob.png";
+String leftHandImgPath = "assets/images/hello-2-left.png";
+String rightHandImgPath = "assets/images/hello-2-right.png";
+String blobImgPath = "assets/images/Blob.png";

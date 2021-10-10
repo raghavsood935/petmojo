@@ -10,9 +10,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
+import '../ui/dashboard/dashboard.dart';
 import '../ui/forgotpassword/forgotpassword_view.dart';
 import '../ui/forgotpassword/new_password_view.dart';
-import '../ui/home/home_view.dart';
 import '../ui/login/login_view.dart';
 import '../ui/onboarding/onboarding_view.dart';
 import '../ui/otp/confirm_otp_view.dart';
@@ -22,9 +22,9 @@ import '../ui/startup/startup_view.dart';
 
 class Routes {
   static const String startupView = '/';
-  static const String homeView = '/home-view';
   static const String onBoardingView = '/on-boarding-view';
   static const String loginView = '/login-view';
+  static const String dashboard = '/Dashboard';
   static const String signUpView = '/sign-up-view';
   static const String confirmOTPView = '/confirm-ot-pView';
   static const String forgotPasswordView = '/forgot-password-view';
@@ -32,9 +32,9 @@ class Routes {
   static const String profileCreateView = '/profile-create-view';
   static const all = <String>{
     startupView,
-    homeView,
     onBoardingView,
     loginView,
+    dashboard,
     signUpView,
     confirmOTPView,
     forgotPasswordView,
@@ -48,9 +48,9 @@ class StackedRouter extends RouterBase {
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
     RouteDef(Routes.startupView, page: StartupView),
-    RouteDef(Routes.homeView, page: HomeView),
     RouteDef(Routes.onBoardingView, page: OnBoardingView),
     RouteDef(Routes.loginView, page: LoginView),
+    RouteDef(Routes.dashboard, page: Dashboard),
     RouteDef(Routes.signUpView, page: SignUpView),
     RouteDef(Routes.confirmOTPView, page: ConfirmOTPView),
     RouteDef(Routes.forgotPasswordView, page: ForgotPasswordView),
@@ -66,12 +66,6 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
-    HomeView: (data) {
-      return CupertinoPageRoute<dynamic>(
-        builder: (context) => const HomeView(),
-        settings: data,
-      );
-    },
     OnBoardingView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const OnBoardingView(),
@@ -84,6 +78,15 @@ class StackedRouter extends RouterBase {
       );
       return CupertinoPageRoute<dynamic>(
         builder: (context) => LoginView(key: args.key),
+        settings: data,
+      );
+    },
+    Dashboard: (data) {
+      var args = data.getArgs<DashboardArguments>(
+        orElse: () => DashboardArguments(),
+      );
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => Dashboard(key: args.key),
         settings: data,
       );
     },
@@ -145,6 +148,12 @@ class StackedRouter extends RouterBase {
 class LoginViewArguments {
   final Key? key;
   LoginViewArguments({this.key});
+}
+
+/// Dashboard arguments holder class
+class DashboardArguments {
+  final Key? key;
+  DashboardArguments({this.key});
 }
 
 /// SignUpView arguments holder class

@@ -10,7 +10,7 @@ class LoginViewModel extends AuthenticationViewModel {
   final navigationService = locator<NavigationService>();
 
   bool _isValid = false;
-  LoginViewModel() : super(successRoute: Routes.profileCreateView);
+  LoginViewModel();
 
   get isValid => _isValid;
 

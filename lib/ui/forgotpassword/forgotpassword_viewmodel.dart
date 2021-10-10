@@ -6,7 +6,7 @@ import 'package:stacked_services/stacked_services.dart';
 class ForgotPasswordViewModel extends AuthenticationViewModel {
   final navigationService = locator<NavigationService>();
   bool _isValid = false;
-  ForgotPasswordViewModel() : super(successRoute: Routes.homeView);
+  ForgotPasswordViewModel();
 
   get isValid => _isValid;
 

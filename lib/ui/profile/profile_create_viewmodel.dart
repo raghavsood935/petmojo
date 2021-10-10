@@ -10,11 +10,14 @@ import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.logger.dart';
 import 'package:kubelite/app/app.router.dart';
 import 'package:kubelite/enum/redirect_state.dart';
+import 'package:kubelite/models/params/profile_create_body.dart';
 import 'package:kubelite/models/user_response_models.dart';
 import 'package:kubelite/services/shared_preferences_service.dart';
 import 'package:kubelite/ui/base/authentication_viewmodel.dart';
 import 'package:kubelite/util/utils.dart';
 import 'package:stacked_services/stacked_services.dart';
+
+import 'profile_create_view.form.dart';
 
 class ProfileCreateViewModel extends AuthenticationViewModel {
   final navigationService = locator<NavigationService>();
@@ -25,7 +28,7 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
   final ImagePicker _picker = ImagePicker();
 
   bool _isValid = false;
-  ProfileCreateViewModel() : super(successRoute: Routes.homeView);
+  ProfileCreateViewModel();
 
   get isValid => _isValid;
 
@@ -79,8 +82,36 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
     }
   }
 
+  Future<void> saveProfileData() async {
+    if (!checkValidateField()) {
+      _snackBarService.showSnackbar(message: "Please enter all field");
+    }
+    if (await Util.checkInternetConnectivity()) {
+      ProfileCreateBody profileCreateBody = ProfileCreateBody(
+          nameValue!, usernameValue!, shortBioValue!, "", imagePath);
+      try {
+        await runBusyFuture(updateProfile(profileCreateBody),
+            throwException: true);
+      } catch (e) {
+        log.e(e);
+        _snackBarService.showSnackbar(message: "$e");
+      }
+    } else {
+      _snackBarService.showSnackbar(message: "No Internet connection");
+    }
+  }
+
   @override
   void setFormStatus() {
+    checkValidateField();
+  }
+
+  init() {
+    _sharedPreferencesService.currentState =
+        getRedirectStateName(RedirectState.ProfileCreate);
+  }
+
+  bool checkValidateField() {
     _isValid = true;
     formValueMap.keys.forEach((element) {
       String elementValue = formValueMap[element];
@@ -96,10 +127,6 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
     }
 
     notifyListeners();
-  }
-
-  init() {
-    _sharedPreferencesService.currentState =
-        getRedirectStateName(RedirectState.ProfileCreate);
+    return _isValid;
   }
 }

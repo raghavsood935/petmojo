@@ -8,6 +8,7 @@ import 'package:kubelite/app/app.logger.dart';
 import 'package:kubelite/models/params/login_body.dart';
 import 'package:kubelite/models/params/profile_create_body.dart';
 import 'package:kubelite/models/params/register_body.dart';
+import 'package:kubelite/models/params/social_login_body.dart';
 import 'package:kubelite/models/user_response_models.dart';
 import 'package:kubelite/services/shared_preferences_service.dart';
 import 'package:logger/logger.dart';
@@ -142,6 +143,20 @@ class TamelyApi {
     UserResponse response;
     try {
       response = await getApiClient(false).login(loginBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  Future<BaseResponse<UserResponse>> facebookLogin(
+      SocialLoginBody socialLoginBody) async {
+    log.d("facebookLogin called");
+    UserResponse response;
+    try {
+      response = await getApiClient(false).facebookLogin(socialLoginBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()

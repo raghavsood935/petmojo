@@ -14,7 +14,7 @@ class OnBoardingViewModel extends AuthenticationViewModel {
 
   final log = getLogger('OnBoardingViewModel');
 
-  OnBoardingViewModel() : super(successRoute: Routes.homeView);
+  OnBoardingViewModel();
 
   void initModel() {
     _sharedPrefService.currentState =

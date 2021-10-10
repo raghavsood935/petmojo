@@ -9,14 +9,14 @@ import 'forgotpassword_view.form.dart';
 class NewPasswordViewModel extends AuthenticationViewModel {
   final navigationService = locator<NavigationService>();
   bool _isValid = false;
-  NewPasswordViewModel() : super(successRoute: Routes.homeView);
+  NewPasswordViewModel();
 
   get isValid => _isValid;
 
   void navigateBack() => navigationService.back();
 
   void onForgotPassword() {
-    navigationService.navigateTo(Routes.homeView);
+    navigationService.navigateTo(Routes.dashboard);
   }
 
   void moveToOTPView() {

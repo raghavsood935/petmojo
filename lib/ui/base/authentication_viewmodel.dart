@@ -4,12 +4,17 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kubelite/api/server_error.dart';
 import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.logger.dart';
+import 'package:kubelite/app/app.router.dart';
 import 'package:kubelite/enum/redirect_state.dart';
 import 'package:kubelite/models/application_models.dart';
 import 'package:kubelite/models/params/login_body.dart';
+import 'package:kubelite/models/params/profile_create_body.dart';
 import 'package:kubelite/models/params/register_body.dart';
+import 'package:kubelite/models/params/social_login_body.dart';
 import 'package:kubelite/services/shared_preferences_service.dart';
 import 'package:kubelite/services/user_service.dart';
+import 'package:kubelite/util/string_extension.dart';
+import 'package:kubelite/util/utils.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -22,9 +27,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
   final _sharedPreferencesService = locator<SharedPreferencesService>();
   final _googleSignIn = GoogleSignIn();
 
-  final String successRoute;
-
-  AuthenticationViewModel({required this.successRoute});
+  AuthenticationViewModel();
 
   @override
   void setFormStatus() {}
@@ -52,31 +55,31 @@ abstract class AuthenticationViewModel extends FormViewModel {
         _snackBarService.showSnackbar(message: "Please enter valid values");
         return;
       }
-      RegisterBody registerBody =
-          RegisterBody(email, password, "fullName", email.split("@")[0]);
-      final result = await userService.createAccount(registerBody);
-      if (userService.hasLoggedInUser)
-        _handleLoggedInUser(userService.currentUser);
+      if (await Util.checkInternetConnectivity()) {
+        RegisterBody registerBody =
+            RegisterBody(email, password, "fullName", email.split("@")[0]);
+        final result = await userService.createAccount(registerBody);
+        if (userService.hasLoggedInUser)
+          _handleLoggedInUser(userService.currentUser);
+      } else {
+        _snackBarService.showSnackbar(message: "No Internet connection");
+      }
     } on ServerError catch (e) {
       log.e(e.toString());
       setValidationMessage(e.toString());
     }
   }
 
-  Future updateProfile() async {
+  Future updateProfile(ProfileCreateBody createBody) async {
     log.i('valued:$formValueMap');
     try {
-      String email = formValueMap["email"];
-      String password = formValueMap["password"];
-      if (email.isEmpty || password.isEmpty) {
-        _snackBarService.showSnackbar(message: "Please enter valid values");
-        return;
+      if (await Util.checkInternetConnectivity()) {
+        final result = await userService.updateProfile(createBody);
+        if (userService.hasLoggedInUser)
+          _handleLoggedInUser(userService.currentUser);
+      } else {
+        _snackBarService.showSnackbar(message: "No Internet connection");
       }
-      RegisterBody registerBody =
-          RegisterBody(email, password, "fullName", email.split("@")[0]);
-      final result = await userService.createAccount(registerBody);
-      if (userService.hasLoggedInUser)
-        _handleLoggedInUser(userService.currentUser);
     } on ServerError catch (e) {
       log.e(e.toString());
       setValidationMessage(e.toString());
@@ -92,11 +95,16 @@ abstract class AuthenticationViewModel extends FormViewModel {
         _snackBarService.showSnackbar(message: "Please enter valid values");
         return;
       }
-      LoginBody registerBody = LoginBody(email, password);
-      final result = await runBusyFuture(userService.loginAccount(registerBody),
-          throwException: true);
-      if (userService.hasLoggedInUser)
-        _handleLoggedInUser(userService.currentUser);
+      if (await Util.checkInternetConnectivity()) {
+        LoginBody registerBody = LoginBody(email, password);
+        final result = await runBusyFuture(
+            userService.loginAccount(registerBody),
+            throwException: true);
+        if (userService.hasLoggedInUser)
+          _handleLoggedInUser(userService.currentUser);
+      } else {
+        _snackBarService.showSnackbar(message: "No Internet connection");
+      }
     } on ServerError catch (e) {
       log.e(e.toString());
       setValidationMessage(e.toString());
@@ -198,6 +206,25 @@ abstract class AuthenticationViewModel extends FormViewModel {
     }
   }
 
+  Future handleSocialLogin(String token) async {
+    try {
+      if (await Util.checkInternetConnectivity()) {
+        SocialLoginBody socialLoginBody =
+            SocialLoginBody(token, DateTime.now().microsecond.toString());
+        final result = await runBusyFuture(
+            userService.socialLogin(socialLoginBody),
+            throwException: true);
+        if (userService.hasLoggedInUser)
+          _handleLoggedInUser(userService.currentUser);
+      } else {
+        _snackBarService.showSnackbar(message: "No Internet connection");
+      }
+    } on ServerError catch (e) {
+      log.e(e.toString());
+      setValidationMessage(e.toString());
+    }
+  }
+
   /// Checks if the result has an error. If it doesn't we navigate to the success view
   /// else we show the friendly validation message.
   // Future<void> _handleAuthenticationResponse(
@@ -229,9 +256,14 @@ abstract class AuthenticationViewModel extends FormViewModel {
   // }
 
   void _handleLoggedInUser(LocalUser currentUser) {
-    //TODO need to check new user
-    _sharedPreferencesService.currentState =
-        getRedirectStateName(RedirectState.Home);
-    navigationService.replaceWith(successRoute);
+    if (currentUser.username.isValid()) {
+      _sharedPreferencesService.currentState =
+          getRedirectStateName(RedirectState.Home);
+      navigationService.pushNamedAndRemoveUntil(Routes.dashboard);
+    } else {
+      _sharedPreferencesService.currentState =
+          getRedirectStateName(RedirectState.ProfileCreate);
+      navigationService.pushNamedAndRemoveUntil(Routes.profileCreateView);
+    }
   }
 }
