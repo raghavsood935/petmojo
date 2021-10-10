@@ -3,7 +3,7 @@ import 'package:kubelite/enum/connectivity_status.dart';
 import 'package:kubelite/services/connectivity_service.dart';
 import 'package:kubelite/services/shared_preferences_service.dart';
 import 'package:kubelite/theme_setup.dart';
-import 'package:kubelite/ui/home/home_view.dart';
+import 'package:kubelite/ui/dashboard/dashboard.dart';
 import 'package:kubelite/ui/startup/startup_view.dart';
 import 'package:kubelite/util/Color.dart';
 import 'package:provider/provider.dart';
@@ -67,7 +67,7 @@ class _TamelyAppState extends State<TamelyApp> {
       // } else if (_sharedPreferencesService.authToken.isEmpty) {
       //   return LoginView();
     } else {
-      return HomeView();
+      return Dashboard();
     }
   }
 }

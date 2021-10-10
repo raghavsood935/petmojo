@@ -10,7 +10,7 @@ class SignUpViewModel extends AuthenticationViewModel {
   final navigationService = locator<NavigationService>();
 
   bool _isValid = false;
-  SignUpViewModel() : super(successRoute: Routes.homeView);
+  SignUpViewModel();
 
   get isValid => _isValid;
 

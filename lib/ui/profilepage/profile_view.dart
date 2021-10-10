@@ -2,14 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kubelite/ui/profilepage/profile_viewmodel.dart';
 import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/String.dart';
 import 'package:kubelite/util/ui_helpers.dart';
 import 'package:kubelite/widgets/app_text.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class ProfileView extends StatelessWidget {
-  const ProfileView({Key? key}) : super(key: key);
+  final BuildContext menuScreenContext;
+  final Function onScreenHideButtonPressed;
+  final bool hideStatus;
+  const ProfileView(
+      {Key? key,
+      required this.menuScreenContext,
+      required this.onScreenHideButtonPressed,
+      this.hideStatus = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,19 +37,6 @@ class ProfileView extends StatelessWidget {
                         BoxDecoration(color: colors.lightBackgroundColor),
                     child: Stack(
                       children: [
-                        // // for left bg image
-                        // Positioned(
-                        //   top: 50,
-                        //   left: 5,
-                        //   child: Image.asset(leftHandImgPath),
-                        // ),
-                        // // for right bg image
-                        // Positioned(
-                        //   top: 150,
-                        //   right: 5,
-                        //   child: Image.asset(rightHandImgPath),
-                        // ),
-                        // for edit button at top right corner
                         Positioned(
                             top: 40,
                             right: 20,

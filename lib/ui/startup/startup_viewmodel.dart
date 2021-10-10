@@ -29,11 +29,11 @@ class StartUpViewModel extends FutureViewModel<void> implements Initialisable {
         break;
 
       case RedirectState.ProfileCreate:
-        _destinationRoute = Routes.loginView;
+        _destinationRoute = Routes.dashboard;
         break;
 
       case RedirectState.Home:
-        _destinationRoute = Routes.homeView;
+        _destinationRoute = Routes.dashboard;
         break;
     }
 

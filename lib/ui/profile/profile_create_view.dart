@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:kubelite/ui/profile/profile_create_viewmodel.dart';
 import 'package:kubelite/util/Color.dart';
 import 'package:kubelite/util/String.dart';
@@ -22,13 +25,16 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileCreateViewModel>.reactive(
-      onModelReady: (model) => listenToFormUpdated(model),
+      onModelReady: (model) {
+        listenToFormUpdated(model);
+        model.init();
+      },
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
         body: AuthenticationLayout(
           busy: model.isBusy,
           isValid: model.isValid,
-          onMainButtonTapped: model.loginAccount,
+          onMainButtonTapped: model.saveProfileData,
           onBackPressed: model.navigateBack,
           onForgotPassword: null,
           validationMessage: model.validationMessage,
@@ -41,6 +47,45 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: [
+              GestureDetector(
+                onTap: () {
+                  model.onImageButtonPressed(ImageSource.gallery, context);
+                },
+                child: CircleAvatar(
+                  radius: 70,
+                  backgroundColor: colors.primary,
+                  child: CircleAvatar(
+                    radius: 67,
+                    backgroundColor: colors.kcLightGreyBackground,
+                    child: Stack(
+                      children: [
+                        if (model.imagePath.isEmpty)
+                          CircleAvatar(
+                            backgroundColor: colors.primary,
+                            radius: 65,
+                            child: Icon(
+                              Icons.camera_alt_outlined,
+                              color: colors.white,
+                              size: 50,
+                            ),
+                          ),
+                        if (model.imagePath.isNotEmpty)
+                          CircleAvatar(
+                            backgroundColor: colors.primary,
+                            radius: 65,
+                            child: ClipOval(
+                              child: SizedBox(
+                                  width: 130,
+                                  height: 130,
+                                  child: Image.file(File(model.imagePath))),
+                            ),
+                          )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              verticalSpaceLarge,
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Align(
@@ -50,51 +95,6 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
                     textAlign: TextAlign.start,
                     color: colors.black,
                   ),
-                ),
-              ),
-              SizedBox(
-                height: 200,
-                child: Stack(
-                  children: [
-                    Positioned(
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: CircleAvatar(
-                        radius: 70,
-                        backgroundColor: colors.primary,
-                        child: CircleAvatar(
-                          radius: 67,
-                          backgroundColor: colors.kcLightGreyBackground,
-                          child: CircleAvatar(
-                            backgroundColor: colors.primary,
-                            radius: 65,
-                            child: Icon(
-                              Icons.camera_alt_outlined,
-                              color: colors.white,
-                              size: 50,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      left: 80,
-                      right: 0,
-                      child: CircleAvatar(
-                        backgroundColor: Colors.blue,
-                        radius: 20,
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.add,
-                            color: colors.white,
-                          ),
-                          onPressed: () {},
-                        ),
-                      ),
-                    )
-                  ],
                 ),
               ),
               AppInputField(
