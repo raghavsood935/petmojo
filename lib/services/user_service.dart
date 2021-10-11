@@ -72,11 +72,17 @@ class UserService {
     }
   }
 
-  Future<void> socialLogin(SocialLoginBody socialLoginBody) async {
+  Future<void> socialLogin(
+      SocialLoginBody socialLoginBody, bool isFacebook) async {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     log.v('We have logging you in ...');
-    BaseResponse<UserResponse> response =
-        await _tamelyApi.facebookLogin(socialLoginBody);
+    late BaseResponse<UserResponse> response;
+    if (isFacebook) {
+      response = await _tamelyApi.facebookLogin(socialLoginBody);
+    } else {
+      response = await _tamelyApi.googleLogin(socialLoginBody);
+    }
+
     if (response.getException != null) {
       ServerError error = response.getException as ServerError;
       _snackBarService.showSnackbar(message: error.getErrorMessage());

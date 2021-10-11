@@ -20,6 +20,7 @@ class Apis {
   static const String user = '/user';
   static const String changePassword = '/auth/password';
   static const String facebookLogin = '/auth/login/facebook';
+  static const String googleLogin = '/auth/login/google';
   static const String changeAvatar = '/user/avatar';
 }
 
@@ -32,6 +33,9 @@ abstract class ApiClient {
 
   @POST(Apis.facebookLogin)
   Future<UserResponse> facebookLogin(@Body() SocialLoginBody socialLoginBody);
+
+  @POST(Apis.googleLogin)
+  Future<UserResponse> googleLogin(@Body() SocialLoginBody socialLoginBody);
 
   @POST(Apis.register)
   Future<UserResponse> register(@Body() RegisterBody registerBody);
