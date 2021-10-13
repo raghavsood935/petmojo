@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/ui/singup/signup_view.form.dart';
 import 'package:kubelite/util/Color.dart';
 import 'package:kubelite/util/String.dart';
 import 'package:kubelite/util/ui_helpers.dart';
@@ -10,6 +9,7 @@ import 'package:kubelite/widgets/authentication_layout.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
+import 'signup_view.form.dart';
 import 'signup_viewmodel.dart';
 
 @FormView(fields: [
@@ -32,6 +32,8 @@ class SignUpView extends StatelessWidget with $SignUpView {
           onBackPressed: model.navigateBack,
           validationMessage: model.validationMessage,
           title: createAccountTitle,
+          onSignInWithFacebook: model.useFacebookAuthentication,
+          onSignInWithGoogle: model.useGoogleAuthentication,
           subtitle: '',
           isSocialLoginEnabled: true,
           mainButtonTitle: signUpButton,

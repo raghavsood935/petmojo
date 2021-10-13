@@ -112,9 +112,12 @@ class OnBoardingView extends StatelessWidget {
                   children: [
                     AppText.body("OR"),
                     horizontalSpaceSmall,
-                    AppText.body(
-                      continueGuestTitle,
-                      color: colors.primary,
+                    GestureDetector(
+                      onTap: model.moveAsGuest,
+                      child: AppText.body(
+                        continueGuestTitle,
+                        color: colors.primary,
+                      ),
                     ),
                   ],
                 ),

@@ -8,7 +8,7 @@ import 'package:kubelite/ui/login/login_view.dart';
 import 'package:kubelite/ui/onboarding/onboarding_view.dart';
 import 'package:kubelite/ui/otp/confirm_otp_view.dart';
 import 'package:kubelite/ui/profile/profile_create_view.dart';
-import 'package:kubelite/ui/singup/signup_view.dart';
+import 'package:kubelite/ui/signup/signup_view.dart';
 import 'package:kubelite/ui/startup/startup_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';

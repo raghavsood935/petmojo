@@ -17,7 +17,7 @@ import '../ui/login/login_view.dart';
 import '../ui/onboarding/onboarding_view.dart';
 import '../ui/otp/confirm_otp_view.dart';
 import '../ui/profile/profile_create_view.dart';
-import '../ui/singup/signup_view.dart';
+import '../ui/signup/signup_view.dart';
 import '../ui/startup/startup_view.dart';
 
 class Routes {

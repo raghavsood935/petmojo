@@ -1,4 +1,3 @@
-import 'package:auth_buttons/auth_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:kubelite/util/Color.dart';
 import 'package:kubelite/util/String.dart';
@@ -164,32 +163,45 @@ class AuthenticationLayout extends StatelessWidget {
                   ),
                 ),
                 verticalSpaceRegular,
-                FacebookAuthButton(
-                  onPressed: onSignInWithFacebook ?? () {},
-                  // darkMode: true,
-                  text: continueWithFB,
-                  style: AuthButtonStyle(
-                    iconSize: 24,
-                    height: 50,
-                    width: double.maxFinite,
-                    textStyle: TextStyle(color: Colors.white),
-                    buttonType: AuthButtonType.secondary,
+                Container(
+                  width: double.maxFinite,
+                  margin: const EdgeInsets.all(16),
+                  child: ElevatedButton.icon(
+                    onPressed: onSignInWithFacebook ?? () {},
+                    icon: Image.asset("assets/images/facebook.png"),
+                    label: AppText.body1(continueWithFB, color: Colors.white),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(colors.fbBlue),
+                      padding:
+                          MaterialStateProperty.all(const EdgeInsets.all(12)),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-                verticalSpaceRegular,
-                GoogleAuthButton(
-                  onPressed: onSignInWithGoogle ?? () {},
-                  text: continueWithGoogle,
-                  style: AuthButtonStyle(
-                    buttonColor: Color(0xff4285F4),
-                    iconSize: 24,
-                    width: double.maxFinite,
-                    iconBackground: Colors.white,
-                    buttonType: AuthButtonType.secondary,
-                    height: 50,
-                    textStyle: TextStyle(color: Colors.white),
+                Container(
+                  width: double.maxFinite,
+                  margin: const EdgeInsets.all(16),
+                  child: ElevatedButton.icon(
+                    onPressed: onSignInWithGoogle ?? () {},
+                    icon: Image.asset("assets/images/google.png"),
+                    label: AppText.body1(continueWithGoogle,
+                        color: colors.kcPrimaryTextColor),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(colors.white),
+                      padding:
+                          MaterialStateProperty.all(const EdgeInsets.all(12)),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
+                    ),
                   ),
-                )
+                ),
               ],
             ),
         ],
