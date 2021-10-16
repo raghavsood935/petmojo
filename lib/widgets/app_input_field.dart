@@ -8,6 +8,7 @@ class AppInputField extends StatelessWidget {
   final Widget? leading;
   final Widget? trailing;
   final bool password;
+  final bool readOnly;
   final TextInputType? textInputType;
   final TextCapitalization? textCapitalization;
   final void Function()? trailingTapped;
@@ -26,6 +27,7 @@ class AppInputField extends StatelessWidget {
       this.trailingTapped,
       this.password = false,
       this.textInputType = TextInputType.name,
+      this.readOnly = false,
       this.textCapitalization = TextCapitalization.sentences})
       : super(key: key);
 
@@ -42,6 +44,7 @@ class AppInputField extends StatelessWidget {
         keyboardType: textInputType,
         style: TextStyle(height: 1),
         obscureText: password,
+        readOnly: readOnly,
         decoration: InputDecoration(
           hintText: hint,
           labelText: label,

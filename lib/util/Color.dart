@@ -32,6 +32,7 @@ class colors {
   static const Color primaryLight = Color(0xffFEF4F7);
   static const Color secondary = Color(0xffFDCD96);
   static const Color backgroundColor = Color(0xffFAFAFA);
+  static const Color mediumBackgroundColor = Color(0xFFFAC9D7);
   static const Color lightBackgroundColor = Color(0xFFFEF4F7);
 
   static Color get fontColor =>
