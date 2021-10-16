@@ -1,11 +1,30 @@
+import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.logger.dart';
+import 'package:kubelite/app/app.router.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class ProfileViewModel extends BaseViewModel {
-  final log = getLogger('StartupViewModel');
-  // final _navigationService = locator<NavigationService>();
   // String? _addDetialsRoute = Routes.addDetialsProfileView;
   // dynamic _destinationArguments;
+
+  final log = getLogger('CreateAnimalProfileView');
+  final _navigationService = locator<NavigationService>();
+  String? _animalProfileCreateView = Routes.createAnimalPage;
+  dynamic _destinationArguments;
+
+  Future _createAnimalProfileView() async {
+    if (_animalProfileCreateView != null) {
+      await _navigationService.navigateTo(
+        _animalProfileCreateView!,
+        arguments: _destinationArguments,
+      );
+    }
+  }
+
+  void goToCreateAnimalProfileView() async {
+    await _createAnimalProfileView();
+  }
 
   Future _addDetialsPage() async {
     // if (_addDetialsRoute != null) {
@@ -38,17 +57,16 @@ class ProfileViewModel extends BaseViewModel {
   ];
 
   List<String> _dummyListOfPosts = [
-    "https://image.shutterstock.com/image-photo/sexy-smiling-male-model-260nw-439389151.jpg",
-    "https://media.istockphoto.com/photos/happy-smiling-man-looking-away-picture-id1158245623?k=20&m=1158245623&s=612x612&w=0&h=rGmn02kNdoQySPEoQmbbDBxOayL4sdW3QWqP9rjgxCg=",
-    "https://cdn.crello.com/api/media/small/165241112/stock-photo-handsome-smiling-man",
-    "https://image.shutterstock.com/image-photo/sexy-smiling-male-model-260nw-439389151.jpg",
-    "https://cdn.crello.com/api/media/small/165241112/stock-photo-handsome-smiling-man",
-    "https://image.shutterstock.com/image-photo/sexy-smiling-male-model-260nw-439389151.jpg",
-    "https://image.shutterstock.com/image-photo/sexy-smiling-male-model-260nw-439389151.jpg",
-    "https://media.istockphoto.com/photos/happy-smiling-man-looking-away-picture-id1158245623?k=20&m=1158245623&s=612x612&w=0&h=rGmn02kNdoQySPEoQmbbDBxOayL4sdW3QWqP9rjgxCg=",
-    "https://image.shutterstock.com/image-photo/sexy-smiling-male-model-260nw-439389151.jpg",
-    "https://cdn.crello.com/api/media/small/165241112/stock-photo-handsome-smiling-man",
-    "https://image.shutterstock.com/image-photo/sexy-smiling-male-model-260nw-439389151.jpg",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOGB8hL92pHixnkA7yY-IrWBfJNDSl3FTe8w&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOGB8hL92pHixnkA7yY-IrWBfJNDSl3FTe8w&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREXRvslazqeJ0hLFvkgCxmYefVVKceG3U7Gg&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZpYSLMlrAH9fclS4--Jgzvy8s51BnJdOY4w&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREXRvslazqeJ0hLFvkgCxmYefVVKceG3U7Gg&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOGB8hL92pHixnkA7yY-IrWBfJNDSl3FTe8w&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREXRvslazqeJ0hLFvkgCxmYefVVKceG3U7Gg&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZpYSLMlrAH9fclS4--Jgzvy8s51BnJdOY4w&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREXRvslazqeJ0hLFvkgCxmYefVVKceG3U7Gg&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOGB8hL92pHixnkA7yY-IrWBfJNDSl3FTe8w&usqp=CAU",
   ];
 
   List<String> get dummyListOfPosts => _dummyListOfPosts;

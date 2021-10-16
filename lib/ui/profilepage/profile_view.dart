@@ -229,7 +229,7 @@ class ProfileView extends StatelessWidget {
                                   size: 30,
                                   color: colors.primary,
                                 ),
-                                onPressed: () {},
+                                onPressed: model.goToCreateAnimalProfileView,
                               ),
                             ),
                             horizontalSpaceRegular,
@@ -264,19 +264,19 @@ class ProfileView extends StatelessWidget {
                   ),
                   //my posts grid view
                   Container(
-                padding: EdgeInsets.all(10),
-                color: colors.lightBackgroundColor,
-                child: StaggeredGridView.countBuilder(
-                  shrinkWrap: true,
-                  itemCount: model.dummyListOfPosts.length,
-                  crossAxisSpacing: 6,
-                  mainAxisSpacing: 6,
-                  crossAxisCount: 3,
-                  itemBuilder: (context, index) =>
-                      postItem(model.dummyListOfPosts[index], () {}),
-                  staggeredTileBuilder: (index) => StaggeredTile.fit(1),
-                ),
-              ),
+                    padding: EdgeInsets.all(10),
+                    color: colors.lightBackgroundColor,
+                    child: StaggeredGridView.countBuilder(
+                      shrinkWrap: true,
+                      itemCount: model.dummyListOfPosts.length,
+                      crossAxisSpacing: 6,
+                      mainAxisSpacing: 6,
+                      crossAxisCount: 3,
+                      itemBuilder: (context, index) =>
+                          postItem(model.dummyListOfPosts[index], () {}),
+                      staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+                    ),
+                  ),
                 ],
               ),
             )));
@@ -330,37 +330,39 @@ class ProfileView extends StatelessWidget {
           height: 150,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  icon,
-                  color: colors.primary,
-                  size: 30,
-                ),
-                verticalSpaceTiny,
-                AppText.body(
-                  message,
-                  color: colors.kcLightGreyColor,
-                  textAlign: TextAlign.center,
-                ),
-                verticalSpaceSmall,
-                GestureDetector(
-                  child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 5),
-                      width: 100,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: colors.primary,
-                      ),
-                      child: AppText.body(
-                        actionText,
-                        color: colors.white,
-                        textAlign: TextAlign.center,
-                      )),
-                  onTap: action,
-                )
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    icon,
+                    color: colors.primary,
+                    size: 30,
+                  ),
+                  verticalSpaceTiny,
+                  AppText.body(
+                    message,
+                    color: colors.kcLightGreyColor,
+                    textAlign: TextAlign.center,
+                  ),
+                  verticalSpaceSmall,
+                  GestureDetector(
+                    child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 5),
+                        width: 100,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: colors.primary,
+                        ),
+                        child: AppText.body(
+                          actionText,
+                          color: colors.white,
+                          textAlign: TextAlign.center,
+                        )),
+                    onTap: action,
+                  )
+                ],
+              ),
             ),
           ),
         ),
