@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:kubelite/ui/profilepage/profile_viewmodel.dart';
 import 'package:kubelite/util/Color.dart';
 import 'package:kubelite/util/ui_helpers.dart';
 import 'package:kubelite/widgets/app_text.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class ProfileView extends StatelessWidget {
   final BuildContext menuScreenContext;
@@ -184,7 +184,7 @@ class ProfileView extends StatelessWidget {
                           Icons.person_outline_rounded,
                           "Add your short bio, profile picture",
                           "Add details",
-                          model.goToaddDetialsProfileAction,
+                          model.goToAddDetailsProfileAction,
                         ),
                         completeProfileItem(
                             Icons.people_outline_rounded,
