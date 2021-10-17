@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kubelite/layers/create_animal_profile_layer.dart';
 import 'package:kubelite/models/animal_type_model.dart';
+import 'package:kubelite/models/breed_animal_model.dart';
 import 'package:kubelite/ui/profilepage/create_animal_profile/create_animal_page_viewe.form.dart';
 import 'package:kubelite/ui/profilepage/create_animal_profile/create_animal_view_model.dart';
 import 'package:kubelite/util/Color.dart';
@@ -319,7 +320,7 @@ Widget item(Widget child, String title, bool isManitory) {
 Widget selectItem(
     BuildContext context,
     TextEditingController controller,
-    List<String>? breedList,
+    List<BreedTypeModel>? breedList,
     List<bool> breedListBool,
     List<AnimalTypeModel>? animalTypeModel) {
   return AppInputField(
@@ -341,8 +342,11 @@ Widget selectItem(
   );
 }
 
-Widget buildSheet(TextEditingController TextController, List<String>? breedList,
-    List<bool> listOfBreedBool, List<AnimalTypeModel>? animalTypeModel) {
+Widget buildSheet(
+    TextEditingController TextController,
+    List<BreedTypeModel>? breedList,
+    List<bool> listOfBreedBool,
+    List<AnimalTypeModel>? animalTypeModel) {
   return DraggableScrollableSheet(
     initialChildSize: 0.85,
     maxChildSize: 0.85,
@@ -362,7 +366,6 @@ Widget buildSheet(TextEditingController TextController, List<String>? breedList,
             AppInputField(controller: TextController),
             BuildList(
               breedList: breedList,
-              breedListBool: listOfBreedBool,
             ),
           ],
         ),
@@ -375,12 +378,10 @@ class BuildList extends StatefulWidget {
   BuildList({
     Key? key,
     this.breedList,
-    this.breedListBool,
     this.animalTypeModel,
   }) : super(key: key);
 
-  List<String>? breedList = null;
-  List<bool>? breedListBool = null;
+  List<BreedTypeModel>? breedList = null;
   List<AnimalTypeModel>? animalTypeModel = null;
 
   @override
@@ -397,14 +398,11 @@ class _BuildListState extends State<BuildList> {
           itemCount: widget.breedList!.length,
           itemBuilder: (context, index) {
             return CheckboxListTile(
-              value: widget.breedListBool![index],
+              value: widget.breedList![index].isChecked,
               onChanged: (bool? value) {
-                print(value);
-                setState(() {
-                  widget.breedListBool![index] = value!;
-                });
+                setState(() => widget.breedList![index].setChecked(value));
               },
-              title: AppText.body(widget.breedList![index]),
+              title: AppText.body(widget.breedList![index].breedName),
               activeColor: colors.primary,
             );
           });

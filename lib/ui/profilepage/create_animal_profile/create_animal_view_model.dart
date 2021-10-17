@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.logger.dart';
+import 'package:kubelite/models/breed_animal_model.dart';
 import 'package:kubelite/shared/base_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -15,22 +16,17 @@ class CreateAnimalViewModel extends BaseModel {
 
   final List<String> animalTypeValues = ["Pet", "Stray", "Wild", "Farm"];
   final List<String> ageTypeValues = ["Baby", "Adult", "Young"];
-  final List<String> aniamlBreedTypeValues = [
-    "Breed 1",
-    "Breed 2",
-    "Breed 3",
-    "Breed 4",
-    "Breed 5",
-    "Breed 6",
-    "Breed 7",
-    "Breed 8",
-    "Breed 9",
-    "Breed 10",
-    "Breed 11",
-    "Breed 12",
-    "Breed 13",
-    "Breed 14",
-    "Breed 15"
+  final List<BreedTypeModel> aniamlBreedTypeValues = [
+    BreedTypeModel(),
+    BreedTypeModel(),
+    BreedTypeModel(),
+    BreedTypeModel(),
+    BreedTypeModel(),
+    BreedTypeModel(),
+    BreedTypeModel(),
+    BreedTypeModel(),
+    BreedTypeModel(),
+    BreedTypeModel(),
   ];
   List<bool> animalBreedBoolList = [];
   String selectedValue = "";
