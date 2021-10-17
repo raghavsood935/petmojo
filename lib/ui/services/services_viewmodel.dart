@@ -1,4 +1,4 @@
-import 'package:kubelite/model/services_model.dart';
+import 'package:kubelite/models/services_model.dart';
 import 'package:kubelite/shared/base_viewmodel.dart';
 
 class ServicesViewModel extends BaseModel {

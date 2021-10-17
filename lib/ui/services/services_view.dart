@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/model/services_model.dart';
+import 'package:kubelite/models/services_model.dart';
 import 'package:kubelite/ui/services/services_viewmodel.dart';
 import 'package:kubelite/util/Color.dart';
 import 'package:kubelite/util/ui_helpers.dart';
