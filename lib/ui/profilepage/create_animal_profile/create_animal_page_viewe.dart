@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kubelite/layers/create_animal_profile_layer.dart';
+import 'package:kubelite/models/animal_type_model.dart';
+import 'package:kubelite/models/breed_animal_model.dart';
 import 'package:kubelite/ui/profilepage/create_animal_profile/create_animal_page_viewe.form.dart';
 import 'package:kubelite/ui/profilepage/create_animal_profile/create_animal_view_model.dart';
 import 'package:kubelite/util/Color.dart';
@@ -146,7 +148,12 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                       false,
                     ),
                     animalBreedDDM: item(
-                      selectItem(context, breedController),
+                      selectItem(
+                          context,
+                          breedController,
+                          model.aniamlBreedTypeValues,
+                          model.animalBreedBoolList,
+                          null),
                       "Breed",
                       false,
                     ),
@@ -310,7 +317,12 @@ Widget item(Widget child, String title, bool isManitory) {
   );
 }
 
-Widget selectItem(BuildContext context, TextEditingController controller) {
+Widget selectItem(
+    BuildContext context,
+    TextEditingController controller,
+    List<BreedTypeModel>? breedList,
+    List<bool> breedListBool,
+    List<AnimalTypeModel>? animalTypeModel) {
   return AppInputField(
     controller: controller,
     readOnly: true,
@@ -325,11 +337,16 @@ Widget selectItem(BuildContext context, TextEditingController controller) {
           ),
         ),
         context: context,
-        builder: (context) => buildSheet(controller)),
+        builder: (context) =>
+            buildSheet(controller, breedList, breedListBool, animalTypeModel)),
   );
 }
 
-Widget buildSheet(TextEditingController TextController) {
+Widget buildSheet(
+    TextEditingController TextController,
+    List<BreedTypeModel>? breedList,
+    List<bool> listOfBreedBool,
+    List<AnimalTypeModel>? animalTypeModel) {
   return DraggableScrollableSheet(
     initialChildSize: 0.85,
     maxChildSize: 0.85,
@@ -341,16 +358,103 @@ Widget buildSheet(TextEditingController TextController) {
         ),
         color: colors.white,
       ),
-      child: Column(
-        children: [
-          AppText.headingThree("Select breed"),
-          verticalSpaceSmall,
-          AppInputField(controller: TextController),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            AppText.headingThree("Select breed"),
+            verticalSpaceSmall,
+            AppInputField(controller: TextController),
+            BuildList(
+              breedList: breedList,
+            ),
+          ],
+        ),
       ),
     ),
   );
 }
+
+class BuildList extends StatefulWidget {
+  BuildList({
+    Key? key,
+    this.breedList,
+    this.animalTypeModel,
+  }) : super(key: key);
+
+  List<BreedTypeModel>? breedList = null;
+  List<AnimalTypeModel>? animalTypeModel = null;
+
+  @override
+  _BuildListState createState() => _BuildListState();
+}
+
+class _BuildListState extends State<BuildList> {
+  @override
+  Widget build(BuildContext context) {
+    if (widget.breedList != null) {
+      return ListView.builder(
+          shrinkWrap: true,
+          physics: ScrollPhysics(),
+          itemCount: widget.breedList!.length,
+          itemBuilder: (context, index) {
+            return CheckboxListTile(
+              value: widget.breedList![index].isChecked,
+              onChanged: (bool? value) {
+                setState(() => widget.breedList![index].setChecked(value));
+              },
+              title: AppText.body(widget.breedList![index].breedName),
+              activeColor: colors.primary,
+            );
+          });
+    } else if (widget.animalTypeModel != null) {
+      return ListView.builder(
+        itemBuilder: (context, index) => ListTile(
+          title: AppText.body(
+            widget.animalTypeModel![index].type,
+          ),
+          trailing: CircleAvatar(
+            child: Image.network(widget.animalTypeModel![index].profileUrl),
+          ),
+        ),
+      );
+    } else {
+      return SizedBox();
+    }
+  }
+}
+
+// Widget buildList(
+//     List<String>? breedList, List<AnimalTypeModel>? animalTypeModel) {
+//   if (breedList != null) {
+//     return ListView.builder(
+//         shrinkWrap: true,
+//         itemCount: breedList.length,
+//         itemBuilder: (context, index) {
+//           bool isChecked = false;
+//           return CheckboxListTile(
+//             value: isChecked,
+//             onChanged: (bool? value) {
+//               isChecked = !isChecked;
+//             },
+//             title: AppText.body(breedList[index]),
+//             activeColor: colors.primary,
+//           );
+//         });
+//   } else if (animalTypeModel != null) {
+//     return ListView.builder(
+//       itemBuilder: (context, index) => ListTile(
+//         title: AppText.body(
+//           animalTypeModel[index].type,
+//         ),
+//         trailing: CircleAvatar(
+//           child: Image.network(animalTypeModel[index].profileUrl),
+//         ),
+//       ),
+//     );
+//   } else {
+//     return SizedBox();
+//   }
+// }
 
 Future<void> _selectTime(BuildContext context, TextEditingController tc) async {
   TimeOfDay selectedTime = TimeOfDay.now();

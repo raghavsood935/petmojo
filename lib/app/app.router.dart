@@ -8,6 +8,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kubelite/ui/profilepage/create_animal_profile/create_animal_page_viewe.dart';
 import 'package:stacked/stacked.dart';
 
 import '../ui/dashboard/dashboard.dart';
@@ -30,6 +31,7 @@ class Routes {
   static const String forgotPasswordView = '/forgot-password-view';
   static const String newPasswordView = '/new-password-view';
   static const String profileCreateView = '/profile-create-view';
+  static const String createAnimalPage = '/create-animal-page';
   static const all = <String>{
     startupView,
     onBoardingView,
@@ -40,6 +42,7 @@ class Routes {
     forgotPasswordView,
     newPasswordView,
     profileCreateView,
+    createAnimalPage,
   };
 }
 
@@ -56,6 +59,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.forgotPasswordView, page: ForgotPasswordView),
     RouteDef(Routes.newPasswordView, page: NewPasswordView),
     RouteDef(Routes.profileCreateView, page: ProfileCreateView),
+    RouteDef(Routes.createAnimalPage, page: CreateAnimalPageView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -134,6 +138,12 @@ class StackedRouter extends RouterBase {
       );
       return CupertinoPageRoute<dynamic>(
         builder: (context) => ProfileCreateView(key: args.key),
+        settings: data,
+      );
+    },
+    CreateAnimalPageView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => CreateAnimalPageView(),
         settings: data,
       );
     },

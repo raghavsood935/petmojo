@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/model/follow_profile_model.dart';
+import 'package:kubelite/models/follow_profile_model.dart';
 import 'package:kubelite/ui/profilepage/completed_profile/follow_people_action_viewmodel.dart';
 import 'package:kubelite/util/Color.dart';
 import 'package:kubelite/util/String.dart';
