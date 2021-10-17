@@ -164,4 +164,18 @@ class TamelyApi {
     }
     return BaseResponse()..data = response;
   }
+
+  Future<BaseResponse<UserResponse>> googleLogin(
+      SocialLoginBody socialLoginBody) async {
+    log.d("googleLogin called");
+    UserResponse response;
+    try {
+      response = await getApiClient(false).googleLogin(socialLoginBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
 }

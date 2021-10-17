@@ -8,7 +8,7 @@ class LocalUser with _$LocalUser {
   LocalUser._();
 
   factory LocalUser({
-    String? id,
+    @JsonKey(name: "_id") String? id,
     String? email,
     String? username,
   }) = _User;

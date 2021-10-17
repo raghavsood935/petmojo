@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kubelite/ui/home/home_view.dart';
 import 'package:kubelite/ui/profilepage/profile_view.dart';
 import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/String.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class Dashboard extends StatefulWidget {
@@ -142,7 +141,37 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(APP_NAME)),
+      appBar: AppBar(
+        title: Builder(
+          builder: (context) => IconButton(
+            padding: const EdgeInsets.all(0),
+            icon: SvgPicture.asset(
+              "assets/images/drawer.svg",
+              height: 30,
+              width: 30,
+            ),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
+        ),
+        backgroundColor: colors.primaryLight,
+        elevation: 0,
+        centerTitle: false,
+        titleSpacing: 0,
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: SvgPicture.asset(
+                "assets/images/notification.svg",
+              )),
+          IconButton(
+              onPressed: () {},
+              icon: SvgPicture.asset(
+                "assets/images/chat.svg",
+              )),
+        ],
+        // title: Text(APP_NAME),
+      ),
       drawer: Drawer(
         child: Center(
           child: Column(

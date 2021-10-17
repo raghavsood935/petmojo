@@ -31,6 +31,8 @@ class LoginView extends StatelessWidget with $LoginView {
           onBackPressed: model.navigateBack,
           onForgotPassword: model.onForgotPassword,
           validationMessage: model.validationMessage,
+          onSignInWithFacebook: model.useFacebookAuthentication,
+          onSignInWithGoogle: model.useGoogleAuthentication,
           title: loginAccountTitle,
           subtitle: '',
           isSocialLoginEnabled: true,

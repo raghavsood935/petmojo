@@ -21,7 +21,9 @@ class OnBoardingViewModel extends AuthenticationViewModel {
         getRedirectStateName(RedirectState.Welcome);
   }
 
-  void moveAsGuest() {}
+  void moveAsGuest() {
+    _navigationService.navigateTo(Routes.dashboard);
+  }
 
   void moveToLogin() {
     _navigationService.navigateTo(Routes.loginView);

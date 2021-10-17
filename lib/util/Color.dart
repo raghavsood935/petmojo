@@ -29,6 +29,7 @@ class colors {
   static const Color kcLightGreyBackground = Color(0xffEEF2F9);
 
   static const Color primary = Color(0xffF696B1);
+  static const Color primaryLight = Color(0xffFEF4F7);
   static const Color secondary = Color(0xffFDCD96);
   static const Color backgroundColor = Color(0xffFAFAFA);
   static const Color mediumBackgroundColor = Color(0xFFFAC9D7);
