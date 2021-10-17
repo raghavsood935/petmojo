@@ -94,7 +94,7 @@ class ProfileViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void goToaddDetialsProfileAction() async {
+  void goToAddDetailsProfileAction() async {
     await _addDetialsPage();
   }
 

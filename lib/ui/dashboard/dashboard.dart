@@ -1,75 +1,137 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kubelite/ui/dashboard/dashboard_viewmodel.dart';
 import 'package:kubelite/ui/home/home_view.dart';
 import 'package:kubelite/ui/profilepage/profile_view.dart';
 import 'package:kubelite/util/Color.dart';
+import 'package:kubelite/util/String.dart';
+import 'package:kubelite/util/ui_helpers.dart';
+import 'package:kubelite/widgets/app_text.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:stacked/stacked.dart';
 
-class Dashboard extends StatefulWidget {
+class Dashboard extends StatelessWidget {
   Dashboard({Key? key}) : super(key: key);
 
-  @override
-  _DashboardState createState() => _DashboardState();
-}
-
-class _DashboardState extends State<Dashboard> {
-  late PersistentTabController _controller;
-  late bool _hideNavBar;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = PersistentTabController(initialIndex: 0);
-    _hideNavBar = false;
-  }
-
-  List<Widget> _buildScreens() {
+  List<Widget> _buildScreens(BuildContext context, DashboardViewModel model) {
     return [
       HomeView(
         menuScreenContext: context,
-        hideStatus: _hideNavBar,
+        hideStatus: model.hideNavBar,
         onScreenHideButtonPressed: () {
-          setState(() {
-            _hideNavBar = !_hideNavBar;
-          });
+          model.hideNavBar = !model.hideNavBar;
         },
       ),
       HomeView(
         menuScreenContext: context,
-        hideStatus: _hideNavBar,
+        hideStatus: model.hideNavBar,
         onScreenHideButtonPressed: () {
-          setState(() {
-            _hideNavBar = !_hideNavBar;
-          });
+          model.hideNavBar = !model.hideNavBar;
         },
       ),
       HomeView(
         menuScreenContext: context,
-        hideStatus: _hideNavBar,
+        hideStatus: model.hideNavBar,
         onScreenHideButtonPressed: () {
-          setState(() {
-            _hideNavBar = !_hideNavBar;
-          });
+          model.hideNavBar = !model.hideNavBar;
         },
       ),
       HomeView(
         menuScreenContext: context,
-        hideStatus: _hideNavBar,
+        hideStatus: model.hideNavBar,
         onScreenHideButtonPressed: () {
-          setState(() {
-            _hideNavBar = !_hideNavBar;
-          });
+          model.hideNavBar = !model.hideNavBar;
         },
       ),
       ProfileView(
         menuScreenContext: context,
-        hideStatus: _hideNavBar,
+        hideStatus: model.hideNavBar,
         onScreenHideButtonPressed: () {
-          setState(() {
-            _hideNavBar = !_hideNavBar;
-          });
+          model.hideNavBar = !model.hideNavBar;
         },
       ),
+    ];
+  }
+
+  List<Widget> _buildDrawerScreens(
+      BuildContext context, DashboardViewModel model) {
+    return [
+      Icon(
+        Icons.clear,
+        color: colors.primary,
+        size: 30,
+      ),
+      verticalSpaceMedium,
+      Row(
+        children: [
+          CircleAvatar(
+            radius: 30,
+            backgroundColor: colors.black,
+            child: CircleAvatar(
+              radius: 28,
+              backgroundColor: colors.lightBackgroundColor,
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(model.productImage),
+                backgroundColor: Colors.transparent,
+                radius: 27,
+              ),
+            ),
+          ),
+          horizontalSpaceRegular,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppText.body1(model.profileName),
+              verticalSpaceTiny,
+              AppText.caption(model.userName)
+            ],
+          )
+        ],
+      ),
+      Divider(
+        color: colors.kcMediumGreyColor,
+      ),
+      SingleChildScrollView(
+        child: Column(
+          children: [
+            DrawerWidget(
+                title: walletTitle,
+                subTitle: walletSubTitle,
+                iconUrl: walletIcon,
+                onTap: model.onWalletPressed),
+            DrawerWidget(
+                title: bookingTitle,
+                subTitle: bookingSubTitle,
+                iconUrl: bookingIcon,
+                onTap: model.onWalletPressed),
+            DrawerWidget(
+                title: settingsTitle,
+                subTitle: settingsSubTitle,
+                iconUrl: settingsIcon,
+                onTap: model.onWalletPressed),
+            DrawerWidget(
+                title: bookmarksTitle,
+                subTitle: bookmarksSubTitle,
+                iconUrl: bookmarksIcon,
+                onTap: model.onWalletPressed),
+          ],
+        ),
+      ),
+      Spacer(),
+      Divider(
+        color: colors.kcMediumGreyColor,
+      ),
+      DrawerWidget(
+          title: feedbackTitle,
+          subTitle: feedbackSubTitle,
+          iconUrl: feedbackIcon,
+          onTap: model.onWalletPressed),
+      DrawerWidget(
+          title: helpTitle,
+          subTitle: helpSubTitle,
+          iconUrl: helpIcon,
+          onTap: model.onWalletPressed),
     ];
   }
 
@@ -140,73 +202,74 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Builder(
-          builder: (context) => IconButton(
-            padding: const EdgeInsets.all(0),
-            icon: SvgPicture.asset(
-              "assets/images/drawer.svg",
-              height: 30,
-              width: 30,
-            ),
-            onPressed: () => Scaffold.of(context).openDrawer(),
-          ),
-        ),
-        backgroundColor: colors.primaryLight,
-        elevation: 0,
-        centerTitle: false,
-        titleSpacing: 0,
-        automaticallyImplyLeading: false,
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: SvgPicture.asset(
-                "assets/images/notification.svg",
-              )),
-          IconButton(
-              onPressed: () {},
-              icon: SvgPicture.asset(
-                "assets/images/chat.svg",
-              )),
-        ],
-        // title: Text(APP_NAME),
-      ),
-      drawer: Drawer(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text('This is the Drawer'),
-            ],
-          ),
-        ),
-      ),
-      body: PersistentTabView.custom(
-        context,
-        controller: _controller,
-        screens: _buildScreens(),
-        confineInSafeArea: true,
-        itemCount: 5,
-        handleAndroidBackButtonPress: true,
-        stateManagement: true,
-        hideNavigationBar: _hideNavBar,
-        screenTransitionAnimation: ScreenTransitionAnimation(
-          animateTabTransition: true,
-          curve: Curves.ease,
-          duration: Duration(milliseconds: 200),
-        ),
-        customWidget: CustomNavBarWidget(
-          items: _navBarsItems(),
-          onItemSelected: (index) {
-            setState(() {
-              _controller.index = index;
-            });
-          },
-          selectedIndex: _controller.index,
-        ),
-      ),
-    );
+    return ViewModelBuilder<DashboardViewModel>.reactive(
+        viewModelBuilder: () => DashboardViewModel(),
+        builder: (context, model, child) => Scaffold(
+              appBar: AppBar(
+                title: Builder(
+                  builder: (context) => IconButton(
+                    padding: const EdgeInsets.all(0),
+                    icon: SvgPicture.asset(
+                      "assets/images/drawer.svg",
+                      height: 30,
+                      width: 30,
+                    ),
+                    onPressed: () => Scaffold.of(context).openDrawer(),
+                  ),
+                ),
+                backgroundColor: colors.primaryLight,
+                elevation: 0,
+                centerTitle: false,
+                titleSpacing: 0,
+                automaticallyImplyLeading: false,
+                actions: [
+                  IconButton(
+                      onPressed: () {},
+                      icon: SvgPicture.asset(
+                        "assets/images/notification.svg",
+                      )),
+                  IconButton(
+                      onPressed: () {},
+                      icon: SvgPicture.asset(
+                        "assets/images/chat.svg",
+                      )),
+                ],
+                // title: Text(APP_NAME),
+              ),
+              drawer: Drawer(
+                child: SafeArea(
+                    child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: _buildDrawerScreens(context, model)),
+                )),
+              ),
+              body: PersistentTabView.custom(
+                context,
+                controller: model.controller,
+                screens: _buildScreens(context, model),
+                confineInSafeArea: true,
+                itemCount: 5,
+                handleAndroidBackButtonPress: true,
+                stateManagement: true,
+                hideNavigationBar: model.hideNavBar,
+                screenTransitionAnimation: ScreenTransitionAnimation(
+                  animateTabTransition: true,
+                  curve: Curves.easeIn,
+                  duration: Duration(milliseconds: 100),
+                ),
+                customWidget: CustomNavBarWidget(
+                  items: _navBarsItems(),
+                  onItemSelected: (index) {
+                    model.controllerIndex(index);
+                  },
+                  selectedIndex: model.controller.index,
+                ),
+              ),
+            ));
   }
 }
 
@@ -292,6 +355,58 @@ class CustomNavBarWidget extends StatelessWidget {
           }).toList(),
         ),
       ),
+    );
+  }
+}
+
+class DrawerWidget extends ViewModelWidget<DashboardViewModel> {
+  final String title;
+  final String subTitle;
+  final String iconUrl;
+  final VoidCallback onTap;
+
+  DrawerWidget(
+      {required this.title,
+      required this.subTitle,
+      required this.iconUrl,
+      required this.onTap});
+
+  @override
+  Widget build(BuildContext context, DashboardViewModel viewModel) {
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SvgPicture.asset(
+                  iconUrl,
+                  height: 20,
+                  width: 20,
+                ),
+                horizontalSpaceSmall,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppText.body(
+                      title,
+                      color: colors.kcPrimaryTextColor,
+                    ),
+                    verticalSpaceTiny,
+                    AppText.caption(subTitle),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        Divider(
+          color: colors.kcMediumGreyColor,
+        ),
+      ],
     );
   }
 }

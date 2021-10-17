@@ -1,10 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.logger.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class AddDetialsProfileViewModel extends BaseViewModel {
+class AddDetailsProfileViewModel extends BaseViewModel {
   final log = getLogger('AddDetialsProfileView');
   final _navigationService = locator<NavigationService>();
 

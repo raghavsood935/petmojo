@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/ui/profilepage/completed_profile/add_detials_profile_viewmodel.dart';
+import 'package:kubelite/ui/profilepage/completed_profile/add_details_profile_viewmodel.dart';
 import 'package:kubelite/util/Color.dart';
 import 'package:kubelite/util/ui_helpers.dart';
 import 'package:kubelite/widgets/app_input_field.dart';
@@ -7,15 +7,15 @@ import 'package:kubelite/widgets/app_text.dart';
 import 'package:kubelite/widgets/main_btn.dart';
 import 'package:stacked/stacked.dart';
 
-class AddDetialsProfileView extends StatelessWidget {
-  const AddDetialsProfileView({Key? key}) : super(key: key);
+class AddDetailsProfileView extends StatelessWidget {
+  const AddDetailsProfileView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     TextEditingController bioTC = new TextEditingController();
 
-    return ViewModelBuilder<AddDetialsProfileViewModel>.reactive(
-      viewModelBuilder: () => AddDetialsProfileViewModel(),
+    return ViewModelBuilder<AddDetailsProfileViewModel>.reactive(
+      viewModelBuilder: () => AddDetailsProfileViewModel(),
       builder: (context, model, child) => Scaffold(
         body: SingleChildScrollView(
           child: Container(

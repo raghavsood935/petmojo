@@ -65,6 +65,31 @@ String confirmPasswordHint = "Enter Confirm New Password";
 //create Profile page
 String createAnimalTitle = "Create new animal profile";
 
+//Drawer layout
+String walletTitle = "Tamely Wallet";
+String walletSubTitle = "Add funds and redeem rewards!";
+String walletIcon = "assets/images/wallet.svg";
+
+String bookingTitle = "My bookings";
+String bookingSubTitle = "Check upcoming bookings or reorder";
+String bookingIcon = "assets/images/bookings.svg";
+
+String settingsTitle = "Settings";
+String settingsSubTitle = "Privacy, Security, Account";
+String settingsIcon = "assets/images/setting.svg";
+
+String bookmarksTitle = "Bookmarks";
+String bookmarksSubTitle = "Find saved posts here";
+String bookmarksIcon = "assets/images/bookmark.svg";
+
+String feedbackTitle = "Feedback";
+String feedbackSubTitle = "We appreciate your valuable feedback";
+String feedbackIcon = "assets/images/feedback.svg";
+
+String helpTitle = "Need Help ?";
+String helpSubTitle = "We are here to help you 24/7";
+String helpIcon = "assets/images/help.svg";
+
 //assets path
 String leftHandImgPath = "assets/images/hello-2-left.png";
 String rightHandImgPath = "assets/images/hello-2-right.png";
