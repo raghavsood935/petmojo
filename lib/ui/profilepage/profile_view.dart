@@ -179,6 +179,7 @@ class ProfileView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(10),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         completeProfileItem(
                           Icons.person_outline_rounded,
@@ -267,6 +268,7 @@ class ProfileView extends StatelessWidget {
                     padding: EdgeInsets.all(10),
                     color: colors.lightBackgroundColor,
                     child: StaggeredGridView.countBuilder(
+                      physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: model.dummyListOfPosts.length,
                       crossAxisSpacing: 6,
@@ -333,6 +335,7 @@ class ProfileView extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
                 children: [
                   Icon(
                     icon,
@@ -349,7 +352,7 @@ class ProfileView extends StatelessWidget {
                   GestureDetector(
                     child: Container(
                         padding: EdgeInsets.symmetric(vertical: 5),
-                        width: 100,
+                        width: double.maxFinite,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: colors.primary,

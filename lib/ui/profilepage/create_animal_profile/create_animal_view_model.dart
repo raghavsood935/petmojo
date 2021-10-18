@@ -1,11 +1,14 @@
+import 'dart:core';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.logger.dart';
+import 'package:kubelite/models/animal_type_model.dart';
 import 'package:kubelite/models/breed_animal_model.dart';
 import 'package:kubelite/shared/base_viewmodel.dart';
-import 'package:stacked/stacked.dart';
+import 'package:kubelite/util/String.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class CreateAnimalViewModel extends BaseModel {
@@ -16,6 +19,7 @@ class CreateAnimalViewModel extends BaseModel {
 
   final List<String> animalTypeValues = ["Pet", "Stray", "Wild", "Farm"];
   final List<String> ageTypeValues = ["Baby", "Adult", "Young"];
+  List<String> animalBreedSelectedList = [];
   final List<BreedTypeModel> aniamlBreedTypeValues = [
     BreedTypeModel(),
     BreedTypeModel(),
@@ -28,7 +32,32 @@ class CreateAnimalViewModel extends BaseModel {
     BreedTypeModel(),
     BreedTypeModel(),
   ];
-  List<bool> animalBreedBoolList = [];
+
+  final List<AnimalTypeModel> aniamlTypeListValues = [
+    AnimalTypeModel(),
+    AnimalTypeModel(),
+    AnimalTypeModel(),
+    AnimalTypeModel(),
+    AnimalTypeModel(),
+    AnimalTypeModel(),
+    AnimalTypeModel(),
+    AnimalTypeModel(),
+    AnimalTypeModel(),
+    AnimalTypeModel(),
+    AnimalTypeModel(),
+  ];
+
+  final List<AnimalGenderModel> animalGenderList = [
+    AnimalGenderModel(
+      "Male",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF3620nhlKrn_G8PNWR9PzVYy_UesDVdNtzg&usqp=CAU",
+    ),
+    AnimalGenderModel(
+      "Female",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF3620nhlKrn_G8PNWR9PzVYy_UesDVdNtzg&usqp=CAU",
+    ),
+  ];
+
   String selectedValue = "";
 
   bool matingValue = false;
@@ -36,12 +65,8 @@ class CreateAnimalViewModel extends BaseModel {
   bool resigteredWithKCValue = true;
   bool playBuddiesValue = false;
   String ageType = "Baby";
-
-  void iinitalList() {
-    for (int i = 0; i < aniamlBreedTypeValues.length; i++) {
-      animalBreedBoolList.add(true);
-    }
-  }
+  String selectedAnimalType = "";
+  String selectedAnimalGender = "";
 
   dynamic _pickImageError;
   XFile? _imageFile;
@@ -85,7 +110,7 @@ class CreateAnimalViewModel extends BaseModel {
     notifyListeners();
   }
 
-  onChangeresigteredKC(bool value) {
+  onChangeResigteredKC(bool value) {
     resigteredWithKCValue = value;
     notifyListeners();
   }
@@ -99,4 +124,72 @@ class CreateAnimalViewModel extends BaseModel {
     ageType = value!;
     notifyListeners();
   }
+
+  void onSave(BuildContext context, TextEditingController tc, int type) {
+    /*
+      1. for animal type,
+      2. for gender,
+      3. for animal breed.
+     */
+
+    log.d("Saving the data!!!");
+
+    switch (type) {
+      case 1:
+        {
+          if (selectedAnimalType != "") {
+            tc.text = selectedAnimalType;
+            Navigator.pop(context);
+          } else {
+            _snackBarService.showSnackbar(message: noBreedSelected);
+          }
+
+          break;
+        }
+      case 2:
+        {
+          if (selectedAnimalGender != "") {
+            tc.text = selectedAnimalGender;
+            Navigator.pop(context);
+          } else {
+            _snackBarService.showSnackbar(message: noBreedSelected);
+          }
+          break;
+        }
+      case 3:
+        {
+          animalBreedSelectedList.clear();
+          String breedDisplayString = "";
+          for (BreedTypeModel model in aniamlBreedTypeValues) {
+            if (model.isChecked) {
+              animalBreedSelectedList.add(model.breedName);
+              log.d(model.breedName);
+              breedDisplayString =
+                  "${breedDisplayString} ${model.breedName} , ";
+            }
+          }
+          if (animalBreedSelectedList != null &&
+              animalBreedSelectedList.length > 0) {
+            tc.text =
+                "${breedDisplayString.substring(0, breedDisplayString.length - 2)} . ";
+            Navigator.pop(context);
+          } else {
+            _snackBarService.showSnackbar(message: noBreedSelected);
+          }
+
+          break;
+        }
+    }
+  }
+}
+
+class AnimalGenderModel {
+  String _gender;
+  String _url;
+
+  AnimalGenderModel(this._gender, this._url);
+
+  get gender => this._gender;
+
+  get url => this._url;
 }

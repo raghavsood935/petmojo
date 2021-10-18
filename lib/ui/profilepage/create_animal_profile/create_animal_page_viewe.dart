@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kubelite/layers/create_animal_profile_layer.dart';
 import 'package:kubelite/models/animal_type_model.dart';
@@ -132,18 +133,30 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                       false,
                     ),
                     animalTypeDDM: item(
-                      AppInputField(
-                        controller: animalTypeController,
-                        hint: "TYPE",
-                      ),
+                      selectItem(
+                          context,
+                          animalTypeController,
+                          searchController,
+                          "Select the animal type",
+                          null,
+                          model.aniamlTypeListValues,
+                          null,
+                          model,
+                          1),
                       "Animal Type",
                       true,
                     ),
                     genderDDM: item(
-                      AppInputField(
-                        controller: genderController,
-                        hint: "GENDER",
-                      ),
+                      selectItem(
+                          context,
+                          genderController,
+                          searchController,
+                          "Select the gender",
+                          null,
+                          null,
+                          model.animalGenderList,
+                          model,
+                          2),
                       "Gender",
                       false,
                     ),
@@ -151,15 +164,25 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                       selectItem(
                           context,
                           breedController,
+                          searchController,
+                          "Select the breed",
                           model.aniamlBreedTypeValues,
-                          model.animalBreedBoolList,
-                          null),
+                          null,
+                          null,
+                          model,
+                          3),
                       "Breed",
                       false,
                     ),
                     dobTF: AppInputField(
                       controller: dobController,
                       hint: "dd/mm/yyyy",
+                      trailing: Icon(
+                        Icons.calendar_today,
+                        size: 18,
+                      ),
+                      trailingTapped: () => _selectDate(context, dobController),
+                      readOnly: true,
                     ),
                     ageChooseOptnDDM: dropDownButton(model.ageType,
                         model.ageTypeValues, "Choose age", model.onChangeAge),
@@ -193,7 +216,7 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                         trailing: Switch(
                             activeColor: colors.primary,
                             value: model.resigteredWithKCValue,
-                            onChanged: model.onChangeresigteredKC),
+                            onChanged: model.onChangeResigteredKC),
                       ),
                     ),
                     spacedDividerSmall,
@@ -320,12 +343,17 @@ Widget item(Widget child, String title, bool isManitory) {
 Widget selectItem(
     BuildContext context,
     TextEditingController controller,
+    TextEditingController searchController,
+    String hint,
     List<BreedTypeModel>? breedList,
-    List<bool> breedListBool,
-    List<AnimalTypeModel>? animalTypeModel) {
+    List<AnimalTypeModel>? animalTypeModel,
+    List<AnimalGenderModel>? animalGenderModel,
+    CreateAnimalViewModel model,
+    int type) {
   return AppInputField(
     controller: controller,
     readOnly: true,
+    hint: hint,
     trailing: Icon(Icons.arrow_drop_down),
     trailingTapped: () => showModalBottomSheet(
         enableDrag: false,
@@ -337,16 +365,20 @@ Widget selectItem(
           ),
         ),
         context: context,
-        builder: (context) =>
-            buildSheet(controller, breedList, breedListBool, animalTypeModel)),
+        builder: (context) => buildSheet(hint, controller, searchController,
+            breedList, animalTypeModel, animalGenderModel, model, type)),
   );
 }
 
 Widget buildSheet(
-    TextEditingController TextController,
+    String title,
+    TextEditingController textController,
+    TextEditingController searchController,
     List<BreedTypeModel>? breedList,
-    List<bool> listOfBreedBool,
-    List<AnimalTypeModel>? animalTypeModel) {
+    List<AnimalTypeModel>? animalTypeModel,
+    List<AnimalGenderModel>? animalGenderModel,
+    CreateAnimalViewModel model,
+    int type) {
   return DraggableScrollableSheet(
     initialChildSize: 0.85,
     maxChildSize: 0.85,
@@ -361,11 +393,25 @@ Widget buildSheet(
       child: SingleChildScrollView(
         child: Column(
           children: [
-            AppText.headingThree("Select breed"),
+            Align(
+              alignment: Alignment.centerRight,
+              child: GestureDetector(
+                child: AppText.caption(
+                  "Save",
+                  color: colors.primary,
+                ),
+                onTap: () => model.onSave(context, textController, type),
+              ),
+            ),
             verticalSpaceSmall,
-            AppInputField(controller: TextController),
+            AppText.headingThree(title),
+            verticalSpaceSmall,
+            AppInputField(controller: searchController),
             BuildList(
               breedList: breedList,
+              animalTypeModel: animalTypeModel,
+              animalGenderModel: animalGenderModel,
+              model: model,
             ),
           ],
         ),
@@ -377,18 +423,25 @@ Widget buildSheet(
 class BuildList extends StatefulWidget {
   BuildList({
     Key? key,
-    this.breedList,
-    this.animalTypeModel,
+    required this.breedList,
+    required this.animalTypeModel,
+    required this.animalGenderModel,
+    required this.model,
   }) : super(key: key);
 
   List<BreedTypeModel>? breedList = null;
   List<AnimalTypeModel>? animalTypeModel = null;
+  List<AnimalGenderModel>? animalGenderModel = null;
+
+  CreateAnimalViewModel model;
 
   @override
   _BuildListState createState() => _BuildListState();
 }
 
 class _BuildListState extends State<BuildList> {
+  int selectedIndex = -1;
+
   @override
   Widget build(BuildContext context) {
     if (widget.breedList != null) {
@@ -407,54 +460,82 @@ class _BuildListState extends State<BuildList> {
             );
           });
     } else if (widget.animalTypeModel != null) {
-      return ListView.builder(
-        itemBuilder: (context, index) => ListTile(
-          title: AppText.body(
-            widget.animalTypeModel![index].type,
-          ),
-          trailing: CircleAvatar(
-            child: Image.network(widget.animalTypeModel![index].profileUrl),
-          ),
+      print(selectedIndex);
+      return StaggeredGridView.countBuilder(
+        shrinkWrap: true,
+        itemCount: widget.animalTypeModel!.length,
+        crossAxisSpacing: 20,
+        mainAxisSpacing: 6,
+        crossAxisCount: 2,
+        itemBuilder: (context, index) => Container(
+          padding: EdgeInsets.all(6),
+          decoration: BoxDecoration(
+              border: Border.all(
+                width: 2,
+                color: selectedIndex == index
+                    ? colors.primary
+                    : Colors.transparent,
+              ),
+              borderRadius: BorderRadius.circular(10)),
+          // color:
+          child: ListTile(
+              contentPadding: EdgeInsets.zero,
+              title: AppText.body(
+                widget.animalTypeModel![index].type,
+              ),
+              leading: CircleAvatar(
+                backgroundImage:
+                    NetworkImage(widget.animalTypeModel![index].profileUrl),
+              ),
+              onTap: () {
+                widget.model.selectedAnimalType =
+                    widget.animalTypeModel![index].type;
+                setState(() {
+                  selectedIndex = index;
+                  print("SAA $selectedIndex fasd $index");
+                });
+              }),
         ),
+        staggeredTileBuilder: (index) => StaggeredTile.fit(1),
       );
+    } else if (widget.animalGenderModel != null) {
+      return ListView.builder(
+          itemCount: widget.animalGenderModel!.length,
+          shrinkWrap: true,
+          itemBuilder: (context, index) => Container(
+                padding: EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 2,
+                      color: selectedIndex == index
+                          ? colors.primary
+                          : Colors.transparent,
+                    ),
+                    borderRadius: BorderRadius.circular(10)),
+                // color:
+                child: ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: AppText.body(
+                      widget.animalGenderModel![index].gender,
+                    ),
+                    trailing: CircleAvatar(
+                      backgroundImage:
+                          NetworkImage(widget.animalGenderModel![index].url),
+                    ),
+                    onTap: () {
+                      widget.model.selectedAnimalGender =
+                          widget.animalGenderModel![index].gender;
+                      setState(() {
+                        selectedIndex = index;
+                        print("SAA $selectedIndex fasd $index");
+                      });
+                    }),
+              ));
     } else {
       return SizedBox();
     }
   }
 }
-
-// Widget buildList(
-//     List<String>? breedList, List<AnimalTypeModel>? animalTypeModel) {
-//   if (breedList != null) {
-//     return ListView.builder(
-//         shrinkWrap: true,
-//         itemCount: breedList.length,
-//         itemBuilder: (context, index) {
-//           bool isChecked = false;
-//           return CheckboxListTile(
-//             value: isChecked,
-//             onChanged: (bool? value) {
-//               isChecked = !isChecked;
-//             },
-//             title: AppText.body(breedList[index]),
-//             activeColor: colors.primary,
-//           );
-//         });
-//   } else if (animalTypeModel != null) {
-//     return ListView.builder(
-//       itemBuilder: (context, index) => ListTile(
-//         title: AppText.body(
-//           animalTypeModel[index].type,
-//         ),
-//         trailing: CircleAvatar(
-//           child: Image.network(animalTypeModel[index].profileUrl),
-//         ),
-//       ),
-//     );
-//   } else {
-//     return SizedBox();
-//   }
-// }
 
 Future<void> _selectTime(BuildContext context, TextEditingController tc) async {
   TimeOfDay selectedTime = TimeOfDay.now();
@@ -472,5 +553,18 @@ Future<void> _selectTime(BuildContext context, TextEditingController tc) async {
   if (picked_s != null && picked_s != selectedTime) {
     tc.text = picked_s.format(context);
   }
-  ;
+}
+
+Future<void> _selectDate(BuildContext context, TextEditingController tc) async {
+  DateTime selectedDate = DateTime.now();
+
+  final DateTime? picked_s = await showDatePicker(
+    context: context,
+    initialDate: selectedDate,
+    firstDate: DateTime(1900),
+    lastDate: selectedDate,
+  );
+  if (picked_s != null && picked_s != selectedDate) {
+    tc.text = picked_s.toIso8601String();
+  }
 }
