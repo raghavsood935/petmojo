@@ -98,3 +98,6 @@ String helpIcon = "assets/images/help.svg";
 String leftHandImgPath = "assets/images/hello-2-left.png";
 String rightHandImgPath = "assets/images/hello-2-right.png";
 String blobImgPath = "assets/images/Blob.png";
+
+//empty inputs Strings
+String noBreedSelected = "Select atlest one breed";
