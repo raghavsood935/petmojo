@@ -8,6 +8,8 @@ part of 'register_body.dart';
 
 RegisterBody _$RegisterBodyFromJson(Map<String, dynamic> json) {
   return RegisterBody(
+    json['username'] as String,
+    json['fullName'] as String,
     json['email'] as String,
     json['password'] as String,
   );
@@ -15,6 +17,8 @@ RegisterBody _$RegisterBodyFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$RegisterBodyToJson(RegisterBody instance) =>
     <String, dynamic>{
+      'username': instance.username,
+      'fullName': instance.fullName,
       'email': instance.email,
       'password': instance.password,
     };

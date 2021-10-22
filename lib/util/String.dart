@@ -28,8 +28,11 @@ String forgotPasswordSubTitle =
 String fullNameLabel = "Full Name*";
 String fullNameHint = "Enter your full name";
 
-String emailPhoneLabel = "Email Address or Phone Number";
-String enterEmailPhoneHint = "Enter email or phone number";
+String emailLabel = "Email Address";
+String enterEmailHint = "Enter email address";
+
+String emailUsernameLabel = "Email Address or Username";
+String enterEmailUserNameHint = "Enter email or username";
 
 String userNameLabel = "Username*";
 String userNameHint = "Enter unique username";
@@ -40,6 +43,7 @@ String shortBioHint = "We would love to know more about you!";
 String passwordLabel = "Password";
 String passwordHint = "Create Password";
 
+String resetPasswordButton = "Reset Password";
 String signUpButton = "SIGN UP";
 String confirmButton = "CONFIRM";
 String loginButtonTitle = "LOG IN";

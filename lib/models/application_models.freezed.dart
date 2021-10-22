@@ -20,7 +20,8 @@ LocalUser _$LocalUserFromJson(Map<String, dynamic> json) {
 class _$LocalUserTearOff {
   const _$LocalUserTearOff();
 
-  _User call({String? id, String? email, String? username}) {
+  _User call(
+      {@JsonKey(name: "_id") String? id, String? email, String? username}) {
     return _User(
       id: id,
       email: email,
@@ -38,6 +39,7 @@ const $LocalUser = _$LocalUserTearOff();
 
 /// @nodoc
 mixin _$LocalUser {
+  @JsonKey(name: "_id")
   String? get id => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   String? get username => throw _privateConstructorUsedError;
@@ -52,7 +54,8 @@ mixin _$LocalUser {
 abstract class $LocalUserCopyWith<$Res> {
   factory $LocalUserCopyWith(LocalUser value, $Res Function(LocalUser) then) =
       _$LocalUserCopyWithImpl<$Res>;
-  $Res call({String? id, String? email, String? username});
+  $Res call(
+      {@JsonKey(name: "_id") String? id, String? email, String? username});
 }
 
 /// @nodoc
@@ -91,7 +94,8 @@ abstract class _$UserCopyWith<$Res> implements $LocalUserCopyWith<$Res> {
   factory _$UserCopyWith(_User value, $Res Function(_User) then) =
       __$UserCopyWithImpl<$Res>;
   @override
-  $Res call({String? id, String? email, String? username});
+  $Res call(
+      {@JsonKey(name: "_id") String? id, String? email, String? username});
 }
 
 /// @nodoc
@@ -129,12 +133,14 @@ class __$UserCopyWithImpl<$Res> extends _$LocalUserCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_User extends _User {
-  _$_User({this.id, this.email, this.username}) : super._();
+  _$_User({@JsonKey(name: "_id") this.id, this.email, this.username})
+      : super._();
 
   factory _$_User.fromJson(Map<String, dynamic> json) =>
       _$_$_UserFromJson(json);
 
   @override
+  @JsonKey(name: "_id")
   final String? id;
   @override
   final String? email;
@@ -178,12 +184,16 @@ class _$_User extends _User {
 }
 
 abstract class _User extends LocalUser {
-  factory _User({String? id, String? email, String? username}) = _$_User;
+  factory _User(
+      {@JsonKey(name: "_id") String? id,
+      String? email,
+      String? username}) = _$_User;
   _User._() : super._();
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
   @override
+  @JsonKey(name: "_id")
   String? get id => throw _privateConstructorUsedError;
   @override
   String? get email => throw _privateConstructorUsedError;

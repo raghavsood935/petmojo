@@ -8,6 +8,7 @@ import 'package:kubelite/util/Color.dart';
 import 'package:kubelite/util/String.dart';
 import 'package:kubelite/util/ui_helpers.dart';
 import 'package:kubelite/widgets/app_text.dart';
+import 'package:kubelite/widgets/feed_app_bar.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:stacked/stacked.dart';
 
@@ -205,37 +206,7 @@ class Dashboard extends StatelessWidget {
     return ViewModelBuilder<DashboardViewModel>.reactive(
         viewModelBuilder: () => DashboardViewModel(),
         builder: (context, model, child) => Scaffold(
-              appBar: AppBar(
-                title: Builder(
-                  builder: (context) => IconButton(
-                    padding: const EdgeInsets.all(0),
-                    icon: SvgPicture.asset(
-                      "assets/images/drawer.svg",
-                      height: 30,
-                      width: 30,
-                    ),
-                    onPressed: () => Scaffold.of(context).openDrawer(),
-                  ),
-                ),
-                backgroundColor: colors.primaryLight,
-                elevation: 0,
-                centerTitle: false,
-                titleSpacing: 0,
-                automaticallyImplyLeading: false,
-                actions: [
-                  IconButton(
-                      onPressed: () {},
-                      icon: SvgPicture.asset(
-                        "assets/images/notification.svg",
-                      )),
-                  IconButton(
-                      onPressed: () {},
-                      icon: SvgPicture.asset(
-                        "assets/images/chat.svg",
-                      )),
-                ],
-                // title: Text(APP_NAME),
-              ),
+              appBar: FeedAppBar(),
               drawer: Drawer(
                 child: SafeArea(
                     child: Padding(

@@ -10,7 +10,7 @@ class ProfileViewModel extends BaseViewModel {
 
   final log = getLogger('CreateAnimalProfileView');
   final _navigationService = locator<NavigationService>();
-  String? _animalProfileCreateView = Routes.createAnimalPage;
+  String? _animalProfileCreateView = Routes.createAnimalPageView;
   dynamic _destinationArguments;
 
   Future _createAnimalProfileView() async {
