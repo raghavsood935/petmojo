@@ -48,6 +48,8 @@ abstract class AuthenticationViewModel extends FormViewModel {
   Future createAccount() async {
     log.i('valued:$formValueMap');
     try {
+      String username = formValueMap["username"];
+      String fullName = formValueMap["fullName"];
       String email = formValueMap["email"];
       String password = formValueMap["password"];
       if (email.isEmpty || password.isEmpty) {
@@ -55,7 +57,8 @@ abstract class AuthenticationViewModel extends FormViewModel {
         return;
       }
       if (await Util.checkInternetConnectivity()) {
-        RegisterBody registerBody = RegisterBody(email, password);
+        RegisterBody registerBody =
+            RegisterBody(username, fullName, email, password);
         final result = await runBusyFuture(
             userService.createAccount(registerBody),
             throwException: true);

@@ -17,8 +17,7 @@ class LoginViewModel extends AuthenticationViewModel {
   void navigateBack() => navigationService.back();
 
   void onForgotPassword() {
-    onProfileCreate();
-    // navigationService.navigateTo(Routes.forgotPasswordView);
+    navigationService.navigateTo(Routes.forgotPasswordView);
   }
 
   void onProfileCreate() {

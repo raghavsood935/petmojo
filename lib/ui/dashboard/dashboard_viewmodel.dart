@@ -75,4 +75,8 @@ class DashboardViewModel extends FutureViewModel<void>
   }
 
   void onWalletPressed() {}
+
+  void onNotificationPressed() {}
+
+  void onChatPressed() {}
 }
