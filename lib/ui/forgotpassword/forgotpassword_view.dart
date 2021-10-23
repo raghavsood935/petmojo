@@ -30,7 +30,7 @@ class ForgotPasswordView extends StatelessWidget with $ForgotPasswordView {
           title: forgotPasswordTitle,
           subtitle: forgotPasswordSubTitle,
           isSocialLoginEnabled: false,
-          mainButtonTitle: signUpButton,
+          mainButtonTitle: resetPasswordButton,
           form: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
@@ -41,14 +41,14 @@ class ForgotPasswordView extends StatelessWidget with $ForgotPasswordView {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: AppText.body1(
-                    emailPhoneLabel,
+                    emailLabel,
                     textAlign: TextAlign.start,
                     color: colors.black,
                   ),
                 ),
               ),
               AppInputField(
-                hint: enterEmailPhoneHint,
+                hint: enterEmailHint,
                 controller: emailController,
               ),
               verticalSpaceMedium,

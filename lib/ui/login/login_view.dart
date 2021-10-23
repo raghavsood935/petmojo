@@ -46,14 +46,14 @@ class LoginView extends StatelessWidget with $LoginView {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: AppText.body1(
-                    emailPhoneLabel,
+                    emailUsernameLabel,
                     textAlign: TextAlign.start,
                     color: colors.black,
                   ),
                 ),
               ),
               AppInputField(
-                hint: enterEmailPhoneHint,
+                hint: enterEmailUserNameHint,
                 controller: emailController,
                 textInputType: TextInputType.emailAddress,
               ),

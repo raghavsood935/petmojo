@@ -8,6 +8,7 @@ import 'package:kubelite/ui/login/login_view.dart';
 import 'package:kubelite/ui/onboarding/onboarding_view.dart';
 import 'package:kubelite/ui/otp/confirm_otp_view.dart';
 import 'package:kubelite/ui/profile/profile_create_view.dart';
+import 'package:kubelite/ui/profilepage/create_animal_profile/create_animal_page_viewe.dart';
 import 'package:kubelite/ui/signup/signup_view.dart';
 import 'package:kubelite/ui/startup/startup_view.dart';
 import 'package:stacked/stacked_annotations.dart';
@@ -24,6 +25,7 @@ import 'package:stacked_services/stacked_services.dart';
     CupertinoRoute(page: ForgotPasswordView),
     CupertinoRoute(page: NewPasswordView),
     CupertinoRoute(page: ProfileCreateView),
+    CupertinoRoute(page: CreateAnimalPageView),
   ],
   dependencies: [
     LazySingleton(classType: NavigationService),

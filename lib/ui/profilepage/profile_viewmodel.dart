@@ -1,19 +1,17 @@
 import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.logger.dart';
 import 'package:kubelite/app/app.router.dart';
-import 'package:kubelite/models/m_animals_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class ProfileViewModel extends BaseViewModel {
+  // String? _addDetialsRoute = Routes.addDetialsProfileView;
+  // dynamic _destinationArguments;
+
   final log = getLogger('CreateAnimalProfileView');
   final _navigationService = locator<NavigationService>();
-  String? _animalProfileCreateView = Routes.createAnimalPage;
-  String? _addDetailsRoute = Routes.addDetailViewProfileAction;
-  String? _followPeopleRoute = Routes.followPeopleViewProfileAction;
+  String? _animalProfileCreateView = Routes.createAnimalPageView;
   dynamic _destinationArguments;
-
-  bool profileCompleted = false;
 
   Future _createAnimalProfileView() async {
     if (_animalProfileCreateView != null) {
@@ -24,22 +22,17 @@ class ProfileViewModel extends BaseViewModel {
     }
   }
 
-  Future _addDetailsPage() async {
-    if (_addDetailsRoute != null) {
-      await _navigationService.navigateTo(
-        _addDetailsRoute!,
-        arguments: _destinationArguments,
-      );
-    }
+  void goToCreateAnimalProfileView() async {
+    await _createAnimalProfileView();
   }
 
-  Future _followPeoplePage() async {
-    if (_followPeopleRoute != null) {
-      await _navigationService.navigateTo(
-        _followPeopleRoute!,
-        arguments: _destinationArguments,
-      );
-    }
+  Future _addDetialsPage() async {
+    // if (_addDetialsRoute != null) {
+    //   await _navigationService.navigateTo(
+    //     _addDetialsRoute!,
+    //     arguments: _destinationArguments,
+    //   );
+    // }
   }
 
   String _profilename = "Joeylene Rivera";
@@ -55,16 +48,12 @@ class ProfileViewModel extends BaseViewModel {
 
   bool isMyAnimalsVisibile = false;
 
-  List<MyAnimalsModel> _dummyListOfMyAnimals = [
-    MyAnimalsModel(),
-    MyAnimalsModel(),
-    MyAnimalsModel(),
-    MyAnimalsModel(),
-    MyAnimalsModel(),
-    MyAnimalsModel(),
-    MyAnimalsModel(),
-    MyAnimalsModel(),
-    MyAnimalsModel(),
+  List<String> _dummyListOfMyAnimals = [
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZfzuK3MzuuBesw00QZdr4i0qDG79vpm8ktA&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJCNf4o2GO1wvZ-M-KBWbOvsZbALu4e192KQ&usqp=CAU",
+    "https://navs.org/wp-content/uploads/bb-plugin/cache/bunny-landscape.jpg",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF3620nhlKrn_G8PNWR9PzVYy_UesDVdNtzg&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEMOlKL-8FxujCmWSywkyHnhd-VZgYtiB8nU1Jqc0FicxeoRwtOJhcZXneks69WgHMWlY&usqp=CAU",
   ];
 
   List<String> _dummyListOfPosts = [
@@ -82,7 +71,7 @@ class ProfileViewModel extends BaseViewModel {
 
   List<String> get dummyListOfPosts => _dummyListOfPosts;
 
-  List<MyAnimalsModel> get dummyListOfMyAnimals => _dummyListOfMyAnimals;
+  List<String> get dummyListOfMyAnimals => _dummyListOfMyAnimals;
 
   String get profilename => _profilename;
 
@@ -106,18 +95,8 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   void goToAddDetailsProfileAction() async {
-    await _addDetailsPage();
+    await _addDetialsPage();
   }
 
-  void goToFollowPeopleProfileAction() async {
-    await _followPeoplePage();
-  }
-
-  void goToCreateAnimalProfileView() async {
-    await _createAnimalProfileView();
-  }
-
-  void goToProfileEditView() {
-    _navigationService.navigateTo(Routes.profileCreateView);
-  }
+  void followProfileAction() {}
 }

@@ -8,7 +8,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kubelite/ui/profilepage/create_animal_profile/create_animal_page_viewe.dart';
 import 'package:stacked/stacked.dart';
 
 import '../ui/dashboard/dashboard.dart';
@@ -18,6 +17,7 @@ import '../ui/login/login_view.dart';
 import '../ui/onboarding/onboarding_view.dart';
 import '../ui/otp/confirm_otp_view.dart';
 import '../ui/profile/profile_create_view.dart';
+import '../ui/profilepage/create_animal_profile/create_animal_page_viewe.dart';
 import '../ui/signup/signup_view.dart';
 import '../ui/startup/startup_view.dart';
 
@@ -31,7 +31,7 @@ class Routes {
   static const String forgotPasswordView = '/forgot-password-view';
   static const String newPasswordView = '/new-password-view';
   static const String profileCreateView = '/profile-create-view';
-  static const String createAnimalPage = '/create-animal-page';
+  static const String createAnimalPageView = '/create-animal-page-view';
   static const all = <String>{
     startupView,
     onBoardingView,
@@ -42,7 +42,7 @@ class Routes {
     forgotPasswordView,
     newPasswordView,
     profileCreateView,
-    createAnimalPage,
+    createAnimalPageView,
   };
 }
 
@@ -59,7 +59,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.forgotPasswordView, page: ForgotPasswordView),
     RouteDef(Routes.newPasswordView, page: NewPasswordView),
     RouteDef(Routes.profileCreateView, page: ProfileCreateView),
-    RouteDef(Routes.createAnimalPage, page: CreateAnimalPageView),
+    RouteDef(Routes.createAnimalPageView, page: CreateAnimalPageView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -142,8 +142,11 @@ class StackedRouter extends RouterBase {
       );
     },
     CreateAnimalPageView: (data) {
+      var args = data.getArgs<CreateAnimalPageViewArguments>(
+        orElse: () => CreateAnimalPageViewArguments(),
+      );
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => CreateAnimalPageView(),
+        builder: (context) => CreateAnimalPageView(key: args.key),
         settings: data,
       );
     },
@@ -197,4 +200,10 @@ class NewPasswordViewArguments {
 class ProfileCreateViewArguments {
   final Key? key;
   ProfileCreateViewArguments({this.key});
+}
+
+/// CreateAnimalPageView arguments holder class
+class CreateAnimalPageViewArguments {
+  final Key? key;
+  CreateAnimalPageViewArguments({this.key});
 }

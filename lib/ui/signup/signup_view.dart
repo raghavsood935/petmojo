@@ -13,6 +13,8 @@ import 'signup_view.form.dart';
 import 'signup_viewmodel.dart';
 
 @FormView(fields: [
+  FormTextField(name: 'username'),
+  FormTextField(name: 'fullName'),
   FormTextField(name: 'email'),
   FormTextField(name: 'password'),
 ])
@@ -46,14 +48,48 @@ class SignUpView extends StatelessWidget with $SignUpView {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: AppText.body1(
-                    emailPhoneLabel,
+                    userNameLabel,
                     textAlign: TextAlign.start,
                     color: colors.black,
                   ),
                 ),
               ),
               AppInputField(
-                hint: enterEmailPhoneHint,
+                hint: userNameHint,
+                controller: usernameController,
+                textInputType: TextInputType.text,
+              ),
+              verticalSpaceMedium,
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: AppText.body1(
+                    fullNameLabel,
+                    textAlign: TextAlign.start,
+                    color: colors.black,
+                  ),
+                ),
+              ),
+              AppInputField(
+                hint: fullNameHint,
+                controller: fullNameController,
+                textInputType: TextInputType.name,
+              ),
+              verticalSpaceMedium,
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: AppText.body1(
+                    emailLabel,
+                    textAlign: TextAlign.start,
+                    color: colors.black,
+                  ),
+                ),
+              ),
+              AppInputField(
+                hint: enterEmailHint,
                 controller: emailController,
                 textInputType: TextInputType.emailAddress,
               ),
