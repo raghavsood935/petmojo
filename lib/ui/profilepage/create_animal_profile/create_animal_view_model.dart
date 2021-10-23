@@ -10,9 +10,12 @@ import 'package:kubelite/models/breed_animal_model.dart';
 import 'package:kubelite/shared/base_viewmodel.dart';
 import 'package:kubelite/util/String.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:geolocator/geolocator.dart';
 
 class CreateAnimalViewModel extends BaseModel {
   final ImagePicker _picker = ImagePicker();
+
+  Position? _currentPosition = null;
 
   final log = getLogger('ProfileCreateViewModel');
   final _snackBarService = locator<SnackbarService>();
@@ -125,6 +128,12 @@ class CreateAnimalViewModel extends BaseModel {
     notifyListeners();
   }
 
+  Future<void> createAnimalProfile() async {
+    if (selectedValue.isNotEmpty && selectedValue == "Stray") {
+      getCurrentLocation();
+    } else {}
+  }
+
   void onSave(BuildContext context, TextEditingController tc, int type) {
     /*
       1. for animal type,
@@ -180,6 +189,76 @@ class CreateAnimalViewModel extends BaseModel {
           break;
         }
     }
+  }
+
+  selectBreedDDMFunction(BuildContext context, TextEditingController tc) async {
+    animalBreedSelectedList.clear();
+    String breedDisplayString = "";
+    for (BreedTypeModel model in aniamlBreedTypeValues) {
+      if (model.isChecked) {
+        animalBreedSelectedList.add(model.breedName);
+        log.d(model.breedName);
+        breedDisplayString = "${breedDisplayString} ${model.breedName} , ";
+      }
+    }
+    if (animalBreedSelectedList != null && animalBreedSelectedList.length > 0) {
+      tc.text =
+          "${breedDisplayString.substring(0, breedDisplayString.length - 2)} . ";
+      Navigator.pop(context);
+    } else {
+      _snackBarService.showSnackbar(message: noBreedSelected);
+    }
+  }
+
+  selectGenderDDMFunction(
+      BuildContext context, TextEditingController tc) async {
+    if (tc.text != "" && tc.text != null) {
+      Navigator.pop(context);
+    } else {
+      _snackBarService.showSnackbar(message: noGenderSelected);
+    }
+  }
+
+  selectAnimalTypeDDMFunction(
+      BuildContext context, TextEditingController tc) async {
+    if (tc.text != "" && tc.text != null) {
+      Navigator.pop(context);
+    } else {
+      _snackBarService.showSnackbar(message: noAnimalTypeSelected);
+    }
+  }
+
+  Future<void> getCurrentLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      _snackBarService.showSnackbar(message: locationPermissionDisabled);
+      return Future.error(locationPermissionDisabled);
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        _snackBarService.showSnackbar(message: locationPermissionDenied);
+        return Future.error(locationPermissionDenied);
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      _snackBarService.showSnackbar(
+          message: locationPermissionDeniedPermanently);
+      return Future.error(locationPermissionDeniedPermanently);
+    }
+
+    _currentPosition = await Geolocator.getCurrentPosition();
+
+    log.d(
+        "Latitude : ${_currentPosition!.latitude} , Longitude : ${_currentPosition!.longitude}");
   }
 }
 
