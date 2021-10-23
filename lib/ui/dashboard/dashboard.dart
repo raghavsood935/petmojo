@@ -2,8 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kubelite/ui/dashboard/dashboard_viewmodel.dart';
+import 'package:kubelite/ui/feed/feed_view.dart';
+import 'package:kubelite/ui/for_you/for_you_view.dart';
 import 'package:kubelite/ui/home/home_view.dart';
 import 'package:kubelite/ui/profilepage/profile_view.dart';
+import 'package:kubelite/ui/services/services_view.dart';
 import 'package:kubelite/util/Color.dart';
 import 'package:kubelite/util/String.dart';
 import 'package:kubelite/util/ui_helpers.dart';
@@ -17,7 +20,7 @@ class Dashboard extends StatelessWidget {
 
   List<Widget> _buildScreens(BuildContext context, DashboardViewModel model) {
     return [
-      HomeView(
+      FeedView(
         menuScreenContext: context,
         hideStatus: model.hideNavBar,
         onScreenHideButtonPressed: () {
@@ -31,14 +34,14 @@ class Dashboard extends StatelessWidget {
           model.hideNavBar = !model.hideNavBar;
         },
       ),
-      HomeView(
+      ForYouView(
         menuScreenContext: context,
         hideStatus: model.hideNavBar,
         onScreenHideButtonPressed: () {
           model.hideNavBar = !model.hideNavBar;
         },
       ),
-      HomeView(
+      ServicesView(
         menuScreenContext: context,
         hideStatus: model.hideNavBar,
         onScreenHideButtonPressed: () {
@@ -146,7 +149,7 @@ class Dashboard extends StatelessWidget {
         inactiveIcon: SvgPicture.asset(
           "assets/images/home.svg",
         ),
-        title: "Home",
+        title: "Feed",
         activeColorPrimary: colors.primary,
         inactiveColorPrimary: colors.kcLightGreyColor,
       ),
@@ -170,7 +173,7 @@ class Dashboard extends StatelessWidget {
         inactiveIcon: SvgPicture.asset(
           "assets/images/explore.svg",
         ),
-        title: ("Explore"),
+        title: ("For you"),
         activeColorPrimary: colors.primary,
         inactiveColorPrimary: colors.kcLightGreyColor,
       ),
