@@ -7,7 +7,15 @@ import 'package:kubelite/widgets/app_text.dart';
 import 'package:stacked/stacked.dart';
 
 class ServicesView extends StatelessWidget {
-  const ServicesView({Key? key}) : super(key: key);
+  final BuildContext menuScreenContext;
+  final Function onScreenHideButtonPressed;
+  final bool hideStatus;
+  const ServicesView(
+      {Key? key,
+      required this.menuScreenContext,
+      required this.onScreenHideButtonPressed,
+      this.hideStatus = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -99,10 +107,10 @@ class ServicesView extends StatelessWidget {
                             style: TextStyle(color: colors.green30),
                           ),
                           TextSpan(
-                              text:
-                                  "${model.appointmentType} ${model.appointmentDate}",
-                              style:
-                                  TextStyle(color: colors.kcPrimaryTextColor))
+                            text:
+                                "${model.appointmentType} ${model.appointmentDate}",
+                            style: TextStyle(color: colors.kcPrimaryTextColor),
+                          )
                         ]),
                       ),
                     ],

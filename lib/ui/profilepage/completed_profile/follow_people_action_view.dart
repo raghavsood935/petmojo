@@ -23,10 +23,10 @@ class FollowPeopleProfileActionView extends StatelessWidget {
               elevation: 0.0,
               expandedHeight: 100,
               flexibleSpace: FlexibleSpaceBar(
-                background: Align(
-                  alignment: Alignment.topRight,
-                  child: Image.asset(blobImgPath),
-                ),
+                // background: Align(
+                //   alignment: Alignment.topRight,
+                //   child: Image.asset(blobImgPath),
+                // ),
                 title: AppText.body(
                   model.title,
                 ),

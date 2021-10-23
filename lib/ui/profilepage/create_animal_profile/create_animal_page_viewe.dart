@@ -13,6 +13,7 @@ import 'package:kubelite/util/Color.dart';
 import 'package:kubelite/util/String.dart';
 import 'package:kubelite/util/ui_helpers.dart';
 import 'package:kubelite/widgets/app_input_field.dart';
+import 'package:kubelite/widgets/app_select_item.dart';
 import 'package:kubelite/widgets/app_text.dart';
 import 'package:kubelite/widgets/main_btn.dart';
 import 'package:stacked/stacked.dart';
@@ -133,44 +134,84 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                       false,
                     ),
                     animalTypeDDM: item(
-                      selectItem(
-                          context,
-                          animalTypeController,
-                          searchController,
-                          "Select the animal type",
-                          null,
-                          model.aniamlTypeListValues,
-                          null,
-                          model,
-                          1),
+                      AppSelectItem(
+                        title: "Select the animal type",
+                        textController: animalTypeController,
+                        searchController: searchController,
+                        animalTypeModel: model.aniamlTypeListValues,
+                        onSaveWidget: GestureDetector(
+                          child: AppText.caption(
+                            "Save",
+                            color: colors.primary,
+                          ),
+                          onTap: () => model.selectAnimalTypeDDMFunction(
+                              context, animalTypeController),
+                        ),
+                      ),
+                      // selectItem(
+                      //     context,
+                      //     animalTypeController,
+                      //     searchController,
+                      //     "Select the animal type",
+                      //     null,
+                      //     ,
+                      //     null,
+                      //     model,
+                      //     1),
                       "Animal Type",
                       true,
                     ),
                     genderDDM: item(
-                      selectItem(
-                          context,
-                          genderController,
-                          searchController,
-                          "Select the gender",
-                          null,
-                          null,
-                          model.animalGenderList,
-                          model,
-                          2),
+                      AppSelectItem(
+                        title: "Select the gender",
+                        textController: genderController,
+                        searchController: searchController,
+                        animalGenderModel: model.animalGenderList,
+                        onSaveWidget: GestureDetector(
+                            child: AppText.caption(
+                              "Save",
+                              color: colors.primary,
+                            ),
+                            onTap: () => model.selectGenderDDMFunction(
+                                context, genderController)),
+                      ),
+                      // selectItem(
+                      //     context,
+                      //     genderController,
+                      //     searchController,
+                      //     "Select the gender",
+                      //     null,
+                      //     null,
+                      //     model.animalGenderList,
+                      //     model,
+                      //     2),
                       "Gender",
                       false,
                     ),
                     animalBreedDDM: item(
-                      selectItem(
-                          context,
-                          breedController,
-                          searchController,
-                          "Select the breed",
-                          model.aniamlBreedTypeValues,
-                          null,
-                          null,
-                          model,
-                          3),
+                      AppSelectItem(
+                        title: "Select the breed",
+                        textController: breedController,
+                        searchController: searchController,
+                        breedList: model.aniamlBreedTypeValues,
+                        onSaveWidget: GestureDetector(
+                            child: AppText.caption(
+                              "Save",
+                              color: colors.primary,
+                            ),
+                            onTap: () => model.selectBreedDDMFunction(
+                                context, breedController)),
+                      ),
+                      // selectItem(
+                      //     context,
+                      //     breedController,
+                      //     searchController,
+                      //     "Select the breed",
+                      //     model.aniamlBreedTypeValues,
+                      //     null,
+                      //     null,
+                      //     model,
+                      //     3),
                       "Breed",
                       false,
                     ),
@@ -263,7 +304,7 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                             false)),
                     spacedDividerSmall,
                     MainButtonWidget(
-                        onMainButtonTapped: () {},
+                        onMainButtonTapped: model.createAnimalProfile,
                         mainButtonTitle: "CREATE PROFILE"),
                   ],
                 ),
@@ -340,202 +381,202 @@ Widget item(Widget child, String title, bool isManitory) {
   );
 }
 
-Widget selectItem(
-    BuildContext context,
-    TextEditingController controller,
-    TextEditingController searchController,
-    String hint,
-    List<BreedTypeModel>? breedList,
-    List<AnimalTypeModel>? animalTypeModel,
-    List<AnimalGenderModel>? animalGenderModel,
-    CreateAnimalViewModel model,
-    int type) {
-  return AppInputField(
-    controller: controller,
-    readOnly: true,
-    hint: hint,
-    trailing: Icon(Icons.arrow_drop_down),
-    trailingTapped: () => showModalBottomSheet(
-        enableDrag: false,
-        isScrollControlled: true,
-        backgroundColor: Colors.transparent,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(20),
-          ),
-        ),
-        context: context,
-        builder: (context) => buildSheet(hint, controller, searchController,
-            breedList, animalTypeModel, animalGenderModel, model, type)),
-  );
-}
-
-Widget buildSheet(
-    String title,
-    TextEditingController textController,
-    TextEditingController searchController,
-    List<BreedTypeModel>? breedList,
-    List<AnimalTypeModel>? animalTypeModel,
-    List<AnimalGenderModel>? animalGenderModel,
-    CreateAnimalViewModel model,
-    int type) {
-  return DraggableScrollableSheet(
-    initialChildSize: 0.85,
-    maxChildSize: 0.85,
-    builder: (context, controller) => Container(
-      padding: EdgeInsets.all(20.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(20),
-        ),
-        color: colors.white,
-      ),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.centerRight,
-              child: GestureDetector(
-                child: AppText.caption(
-                  "Save",
-                  color: colors.primary,
-                ),
-                onTap: () => model.onSave(context, textController, type),
-              ),
-            ),
-            verticalSpaceSmall,
-            AppText.headingThree(title),
-            verticalSpaceSmall,
-            AppInputField(controller: searchController),
-            BuildList(
-              breedList: breedList,
-              animalTypeModel: animalTypeModel,
-              animalGenderModel: animalGenderModel,
-              model: model,
-            ),
-          ],
-        ),
-      ),
-    ),
-  );
-}
-
-class BuildList extends StatefulWidget {
-  BuildList({
-    Key? key,
-    required this.breedList,
-    required this.animalTypeModel,
-    required this.animalGenderModel,
-    required this.model,
-  }) : super(key: key);
-
-  List<BreedTypeModel>? breedList = null;
-  List<AnimalTypeModel>? animalTypeModel = null;
-  List<AnimalGenderModel>? animalGenderModel = null;
-
-  CreateAnimalViewModel model;
-
-  @override
-  _BuildListState createState() => _BuildListState();
-}
-
-class _BuildListState extends State<BuildList> {
-  int selectedIndex = -1;
-
-  @override
-  Widget build(BuildContext context) {
-    if (widget.breedList != null) {
-      return ListView.builder(
-          shrinkWrap: true,
-          physics: ScrollPhysics(),
-          itemCount: widget.breedList!.length,
-          itemBuilder: (context, index) {
-            return CheckboxListTile(
-              value: widget.breedList![index].isChecked,
-              onChanged: (bool? value) {
-                setState(() => widget.breedList![index].setChecked(value));
-              },
-              title: AppText.body(widget.breedList![index].breedName),
-              activeColor: colors.primary,
-            );
-          });
-    } else if (widget.animalTypeModel != null) {
-      print(selectedIndex);
-      return StaggeredGridView.countBuilder(
-        shrinkWrap: true,
-        itemCount: widget.animalTypeModel!.length,
-        crossAxisSpacing: 20,
-        mainAxisSpacing: 6,
-        crossAxisCount: 2,
-        itemBuilder: (context, index) => Container(
-          padding: EdgeInsets.all(6),
-          decoration: BoxDecoration(
-              border: Border.all(
-                width: 2,
-                color: selectedIndex == index
-                    ? colors.primary
-                    : Colors.transparent,
-              ),
-              borderRadius: BorderRadius.circular(10)),
-          // color:
-          child: ListTile(
-              contentPadding: EdgeInsets.zero,
-              title: AppText.body(
-                widget.animalTypeModel![index].type,
-              ),
-              leading: CircleAvatar(
-                backgroundImage:
-                    NetworkImage(widget.animalTypeModel![index].profileUrl),
-              ),
-              onTap: () {
-                widget.model.selectedAnimalType =
-                    widget.animalTypeModel![index].type;
-                setState(() {
-                  selectedIndex = index;
-                  print("SAA $selectedIndex fasd $index");
-                });
-              }),
-        ),
-        staggeredTileBuilder: (index) => StaggeredTile.fit(1),
-      );
-    } else if (widget.animalGenderModel != null) {
-      return ListView.builder(
-          itemCount: widget.animalGenderModel!.length,
-          shrinkWrap: true,
-          itemBuilder: (context, index) => Container(
-                padding: EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 2,
-                      color: selectedIndex == index
-                          ? colors.primary
-                          : Colors.transparent,
-                    ),
-                    borderRadius: BorderRadius.circular(10)),
-                // color:
-                child: ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    title: AppText.body(
-                      widget.animalGenderModel![index].gender,
-                    ),
-                    trailing: CircleAvatar(
-                      backgroundImage:
-                          NetworkImage(widget.animalGenderModel![index].url),
-                    ),
-                    onTap: () {
-                      widget.model.selectedAnimalGender =
-                          widget.animalGenderModel![index].gender;
-                      setState(() {
-                        selectedIndex = index;
-                        print("SAA $selectedIndex fasd $index");
-                      });
-                    }),
-              ));
-    } else {
-      return SizedBox();
-    }
-  }
-}
+// Widget selectItem(
+//     BuildContext context,
+//     TextEditingController controller,
+//     TextEditingController searchController,
+//     String hint,
+//     List<BreedTypeModel>? breedList,
+//     List<AnimalTypeModel>? animalTypeModel,
+//     List<AnimalGenderModel>? animalGenderModel,
+//     CreateAnimalViewModel model,
+//     int type) {
+//   return AppInputField(
+//     controller: controller,
+//     readOnly: true,
+//     hint: hint,
+//     trailing: Icon(Icons.arrow_drop_down),
+//     trailingTapped: () => showModalBottomSheet(
+//         enableDrag: false,
+//         isScrollControlled: true,
+//         backgroundColor: Colors.transparent,
+//         shape: RoundedRectangleBorder(
+//           borderRadius: BorderRadius.vertical(
+//             top: Radius.circular(20),
+//           ),
+//         ),
+//         context: context,
+//         builder: (context) => buildSheet(hint, controller, searchController,
+//             breedList, animalTypeModel, animalGenderModel, model, type)),
+//   );
+// }
+//
+// Widget buildSheet(
+//     String title,
+//     TextEditingController textController,
+//     TextEditingController searchController,
+//     List<BreedTypeModel>? breedList,
+//     List<AnimalTypeModel>? animalTypeModel,
+//     List<AnimalGenderModel>? animalGenderModel,
+//     CreateAnimalViewModel model,
+//     int type) {
+//   return DraggableScrollableSheet(
+//     initialChildSize: 0.85,
+//     maxChildSize: 0.85,
+//     builder: (context, controller) => Container(
+//       padding: EdgeInsets.all(20.0),
+//       decoration: BoxDecoration(
+//         borderRadius: BorderRadius.vertical(
+//           top: Radius.circular(20),
+//         ),
+//         color: colors.white,
+//       ),
+//       child: SingleChildScrollView(
+//         child: Column(
+//           children: [
+//             Align(
+//               alignment: Alignment.centerRight,
+//               child: GestureDetector(
+//                 child: AppText.caption(
+//                   "Save",
+//                   color: colors.primary,
+//                 ),
+//                 onTap: () => model.onSave(context, textController, type),
+//               ),
+//             ),
+//             verticalSpaceSmall,
+//             AppText.headingThree(title),
+//             verticalSpaceSmall,
+//             AppInputField(controller: searchController),
+//             BuildList(
+//               breedList: breedList,
+//               animalTypeModel: animalTypeModel,
+//               animalGenderModel: animalGenderModel,
+//               model: model,
+//             ),
+//           ],
+//         ),
+//       ),
+//     ),
+//   );
+// }
+//
+// class BuildList extends StatefulWidget {
+//   BuildList({
+//     Key? key,
+//     required this.breedList,
+//     required this.animalTypeModel,
+//     required this.animalGenderModel,
+//     required this.model,
+//   }) : super(key: key);
+//
+//   List<BreedTypeModel>? breedList = null;
+//   List<AnimalTypeModel>? animalTypeModel = null;
+//   List<AnimalGenderModel>? animalGenderModel = null;
+//
+//   CreateAnimalViewModel model;
+//
+//   @override
+//   _BuildListState createState() => _BuildListState();
+// }
+//
+// class _BuildListState extends State<BuildList> {
+//   int selectedIndex = -1;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     if (widget.breedList != null) {
+//       return ListView.builder(
+//           shrinkWrap: true,
+//           physics: ScrollPhysics(),
+//           itemCount: widget.breedList!.length,
+//           itemBuilder: (context, index) {
+//             return CheckboxListTile(
+//               value: widget.breedList![index].isChecked,
+//               onChanged: (bool? value) {
+//                 setState(() => widget.breedList![index].setChecked(value));
+//               },
+//               title: AppText.body(widget.breedList![index].breedName),
+//               activeColor: colors.primary,
+//             );
+//           });
+//     } else if (widget.animalTypeModel != null) {
+//       print(selectedIndex);
+//       return StaggeredGridView.countBuilder(
+//         shrinkWrap: true,
+//         itemCount: widget.animalTypeModel!.length,
+//         crossAxisSpacing: 20,
+//         mainAxisSpacing: 6,
+//         crossAxisCount: 2,
+//         itemBuilder: (context, index) => Container(
+//           padding: EdgeInsets.all(6),
+//           decoration: BoxDecoration(
+//               border: Border.all(
+//                 width: 2,
+//                 color: selectedIndex == index
+//                     ? colors.primary
+//                     : Colors.transparent,
+//               ),
+//               borderRadius: BorderRadius.circular(10)),
+//           // color:
+//           child: ListTile(
+//               contentPadding: EdgeInsets.zero,
+//               title: AppText.body(
+//                 widget.animalTypeModel![index].type,
+//               ),
+//               leading: CircleAvatar(
+//                 backgroundImage:
+//                     NetworkImage(widget.animalTypeModel![index].profileUrl),
+//               ),
+//               onTap: () {
+//                 widget.model.selectedAnimalType =
+//                     widget.animalTypeModel![index].type;
+//                 setState(() {
+//                   selectedIndex = index;
+//                   print("SAA $selectedIndex fasd $index");
+//                 });
+//               }),
+//         ),
+//         staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+//       );
+//     } else if (widget.animalGenderModel != null) {
+//       return ListView.builder(
+//           itemCount: widget.animalGenderModel!.length,
+//           shrinkWrap: true,
+//           itemBuilder: (context, index) => Container(
+//                 padding: EdgeInsets.all(6),
+//                 decoration: BoxDecoration(
+//                     border: Border.all(
+//                       width: 2,
+//                       color: selectedIndex == index
+//                           ? colors.primary
+//                           : Colors.transparent,
+//                     ),
+//                     borderRadius: BorderRadius.circular(10)),
+//                 // color:
+//                 child: ListTile(
+//                     contentPadding: EdgeInsets.zero,
+//                     title: AppText.body(
+//                       widget.animalGenderModel![index].gender,
+//                     ),
+//                     trailing: CircleAvatar(
+//                       backgroundImage:
+//                           NetworkImage(widget.animalGenderModel![index].url),
+//                     ),
+//                     onTap: () {
+//                       widget.model.selectedAnimalGender =
+//                           widget.animalGenderModel![index].gender;
+//                       setState(() {
+//                         selectedIndex = index;
+//                         print("SAA $selectedIndex fasd $index");
+//                       });
+//                     }),
+//               ));
+//     } else {
+//       return SizedBox();
+//     }
+//   }
+// }
 
 Future<void> _selectTime(BuildContext context, TextEditingController tc) async {
   TimeOfDay selectedTime = TimeOfDay.now();
@@ -565,6 +606,6 @@ Future<void> _selectDate(BuildContext context, TextEditingController tc) async {
     lastDate: selectedDate,
   );
   if (picked_s != null && picked_s != selectedDate) {
-    tc.text = picked_s.toIso8601String();
+    tc.text = "${picked_s.day}-${picked_s.month}-${picked_s.year}";
   }
 }
