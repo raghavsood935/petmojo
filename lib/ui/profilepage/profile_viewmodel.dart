@@ -1,19 +1,15 @@
 import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.logger.dart';
 import 'package:kubelite/app/app.router.dart';
-import 'package:kubelite/models/m_animals_model.dart';
+import 'package:kubelite/models/my_animals_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class ProfileViewModel extends BaseViewModel {
   final log = getLogger('CreateAnimalProfileView');
   final _navigationService = locator<NavigationService>();
-  String? _animalProfileCreateView = Routes.createAnimalPage;
-  String? _addDetailsRoute = Routes.addDetailViewProfileAction;
-  String? _followPeopleRoute = Routes.followPeopleViewProfileAction;
+  String? _animalProfileCreateView = Routes.createAnimalPageView;
   dynamic _destinationArguments;
-
-  bool profileCompleted = false;
 
   Future _createAnimalProfileView() async {
     if (_animalProfileCreateView != null) {
@@ -25,21 +21,21 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   Future _addDetailsPage() async {
-    if (_addDetailsRoute != null) {
-      await _navigationService.navigateTo(
-        _addDetailsRoute!,
-        arguments: _destinationArguments,
-      );
-    }
+    // if (_addDetailsRoute != null) {
+    //   await _navigationService.navigateTo(
+    //     _addDetailsRoute!,
+    //     arguments: _destinationArguments,
+    //   );
+    // }
   }
 
   Future _followPeoplePage() async {
-    if (_followPeopleRoute != null) {
-      await _navigationService.navigateTo(
-        _followPeopleRoute!,
-        arguments: _destinationArguments,
-      );
-    }
+    // if (_followPeopleRoute != null) {
+    //   await _navigationService.navigateTo(
+    //     _followPeopleRoute!,
+    //     arguments: _destinationArguments,
+    //   );
+    // }
   }
 
   String _profilename = "Joeylene Rivera";
@@ -54,6 +50,7 @@ class ProfileViewModel extends BaseViewModel {
   int _noOfHearts = 0;
 
   bool isMyAnimalsVisibile = false;
+  bool _profileCompleted = false;
 
   List<MyAnimalsModel> _dummyListOfMyAnimals = [
     MyAnimalsModel(),
@@ -91,14 +88,20 @@ class ProfileViewModel extends BaseViewModel {
   String get actionText => _actionText;
 
   int get noOfAnimals => _noOfAnimals;
+
   int get noOfPosts => _noOfPosts;
+
   int get noOfFollowers => _noOfFollowers;
+
   int get noOfFollowing => _noOfFollowing;
+
   int get noOfHearts => _noOfHearts;
 
   int get completedProfileStepCount => _completedProfileStepCount;
 
   int get completedProfileTotalCount => _completedProfileTotalCount;
+
+  bool get profileCompleted => _profileCompleted;
 
   void myAnimalVisible() {
     isMyAnimalsVisibile = !isMyAnimalsVisibile;
@@ -117,7 +120,5 @@ class ProfileViewModel extends BaseViewModel {
     await _createAnimalProfileView();
   }
 
-  void goToProfileEditView() {
-    _navigationService.navigateTo(Routes.profileCreateView);
-  }
+  void goToProfileEditView() {}
 }
