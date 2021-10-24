@@ -1,5 +1,3 @@
-import 'dart:core';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -134,6 +132,62 @@ class CreateAnimalViewModel extends BaseModel {
     } else {}
   }
 
+  void onSave(BuildContext context, TextEditingController tc, int type) {
+    /*
+      1. for animal type,
+      2. for gender,
+      3. for animal breed.
+     */
+
+    log.d("Saving the data!!!");
+
+    switch (type) {
+      case 1:
+        {
+          if (selectedAnimalType != "") {
+            tc.text = selectedAnimalType;
+            Navigator.pop(context);
+          } else {
+            _snackBarService.showSnackbar(message: noBreedSelected);
+          }
+
+          break;
+        }
+      case 2:
+        {
+          if (selectedAnimalGender != "") {
+            tc.text = selectedAnimalGender;
+            Navigator.pop(context);
+          } else {
+            _snackBarService.showSnackbar(message: noBreedSelected);
+          }
+          break;
+        }
+      case 3:
+        {
+          animalBreedSelectedList.clear();
+          String breedDisplayString = "";
+          for (BreedTypeModel model in aniamlBreedTypeValues) {
+            if (model.isChecked) {
+              animalBreedSelectedList.add(model.breedName);
+              log.d(model.breedName);
+              breedDisplayString =
+                  "${breedDisplayString} ${model.breedName} , ";
+            }
+          }
+          if (animalBreedSelectedList != null &&
+              animalBreedSelectedList.length > 0) {
+            tc.text =
+                "${breedDisplayString.substring(0, breedDisplayString.length - 2)} . ";
+            Navigator.pop(context);
+          } else {
+            _snackBarService.showSnackbar(message: noBreedSelected);
+          }
+
+          break;
+        }
+    }
+  }
 
   selectBreedDDMFunction(BuildContext context, TextEditingController tc) async {
     animalBreedSelectedList.clear();
