@@ -28,11 +28,8 @@ String forgotPasswordSubTitle =
 String fullNameLabel = "Full Name*";
 String fullNameHint = "Enter your full name";
 
-String emailLabel = "Email Address";
-String enterEmailHint = "Enter email address";
-
-String emailUsernameLabel = "Email Address or Username";
-String enterEmailUserNameHint = "Enter email or username";
+String emailPhoneLabel = "Email Address or Phone Number";
+String enterEmailPhoneHint = "Enter email or phone number";
 
 String userNameLabel = "Username*";
 String userNameHint = "Enter unique username";
@@ -43,7 +40,6 @@ String shortBioHint = "We would love to know more about you!";
 String passwordLabel = "Password";
 String passwordHint = "Create Password";
 
-String resetPasswordButton = "Reset Password";
 String signUpButton = "SIGN UP";
 String confirmButton = "CONFIRM";
 String loginButtonTitle = "LOG IN";
@@ -98,6 +94,20 @@ String helpIcon = "assets/images/help.svg";
 String leftHandImgPath = "assets/images/hello-2-left.png";
 String rightHandImgPath = "assets/images/hello-2-right.png";
 String blobImgPath = "assets/images/Blob.png";
+String likesImgPath = "assets/images/likes_img.png";
+String animalFootPrintImgPath = "assets/images/pet_foot_print.png";
+String likeOutlineImgPath = "assets/images/likes_img_outline.png";
+String sendImgPath = "assets/images/send_outline.png";
+String bookmarkImgPath = "assets/images/bookmark_outline.png";
 
 //empty inputs Strings
-String noBreedSelected = "Select atlest one breed";
+String noBreedSelected = "Select one or more breed";
+String noAnimalTypeSelected = "Select one animal type";
+String noGenderSelected = "Select one gender";
+
+//location permissions String
+String locationPermissionDeniedPermanently =
+    'Location permissions are permanently denied, we cannot request permissions.';
+String locationPermissionDenied = 'Location permissions are denied';
+String locationPermissionDisabled =
+    'Location services are disabled.\nPlease turn on your location';
