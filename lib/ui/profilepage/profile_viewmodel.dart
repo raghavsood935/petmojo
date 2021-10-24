@@ -1,13 +1,11 @@
 import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.logger.dart';
 import 'package:kubelite/app/app.router.dart';
+import 'package:kubelite/models/my_animals_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class ProfileViewModel extends BaseViewModel {
-  // String? _addDetialsRoute = Routes.addDetialsProfileView;
-  // dynamic _destinationArguments;
-
   final log = getLogger('CreateAnimalProfileView');
   final _navigationService = locator<NavigationService>();
   String? _animalProfileCreateView = Routes.createAnimalPageView;
@@ -22,14 +20,19 @@ class ProfileViewModel extends BaseViewModel {
     }
   }
 
-  void goToCreateAnimalProfileView() async {
-    await _createAnimalProfileView();
+  Future _addDetailsPage() async {
+    // if (_addDetailsRoute != null) {
+    //   await _navigationService.navigateTo(
+    //     _addDetailsRoute!,
+    //     arguments: _destinationArguments,
+    //   );
+    // }
   }
 
-  Future _addDetialsPage() async {
-    // if (_addDetialsRoute != null) {
+  Future _followPeoplePage() async {
+    // if (_followPeopleRoute != null) {
     //   await _navigationService.navigateTo(
-    //     _addDetialsRoute!,
+    //     _followPeopleRoute!,
     //     arguments: _destinationArguments,
     //   );
     // }
@@ -47,13 +50,18 @@ class ProfileViewModel extends BaseViewModel {
   int _noOfHearts = 0;
 
   bool isMyAnimalsVisibile = false;
+  bool _profileCompleted = false;
 
-  List<String> _dummyListOfMyAnimals = [
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZfzuK3MzuuBesw00QZdr4i0qDG79vpm8ktA&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJCNf4o2GO1wvZ-M-KBWbOvsZbALu4e192KQ&usqp=CAU",
-    "https://navs.org/wp-content/uploads/bb-plugin/cache/bunny-landscape.jpg",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF3620nhlKrn_G8PNWR9PzVYy_UesDVdNtzg&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEMOlKL-8FxujCmWSywkyHnhd-VZgYtiB8nU1Jqc0FicxeoRwtOJhcZXneks69WgHMWlY&usqp=CAU",
+  List<MyAnimalsModel> _dummyListOfMyAnimals = [
+    MyAnimalsModel(),
+    MyAnimalsModel(),
+    MyAnimalsModel(),
+    MyAnimalsModel(),
+    MyAnimalsModel(),
+    MyAnimalsModel(),
+    MyAnimalsModel(),
+    MyAnimalsModel(),
+    MyAnimalsModel(),
   ];
 
   List<String> _dummyListOfPosts = [
@@ -71,7 +79,7 @@ class ProfileViewModel extends BaseViewModel {
 
   List<String> get dummyListOfPosts => _dummyListOfPosts;
 
-  List<String> get dummyListOfMyAnimals => _dummyListOfMyAnimals;
+  List<MyAnimalsModel> get dummyListOfMyAnimals => _dummyListOfMyAnimals;
 
   String get profilename => _profilename;
 
@@ -80,14 +88,20 @@ class ProfileViewModel extends BaseViewModel {
   String get actionText => _actionText;
 
   int get noOfAnimals => _noOfAnimals;
+
   int get noOfPosts => _noOfPosts;
+
   int get noOfFollowers => _noOfFollowers;
+
   int get noOfFollowing => _noOfFollowing;
+
   int get noOfHearts => _noOfHearts;
 
   int get completedProfileStepCount => _completedProfileStepCount;
 
   int get completedProfileTotalCount => _completedProfileTotalCount;
+
+  bool get profileCompleted => _profileCompleted;
 
   void myAnimalVisible() {
     isMyAnimalsVisibile = !isMyAnimalsVisibile;
@@ -95,8 +109,16 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   void goToAddDetailsProfileAction() async {
-    await _addDetialsPage();
+    await _addDetailsPage();
   }
 
-  void followProfileAction() {}
+  void goToFollowPeopleProfileAction() async {
+    await _followPeoplePage();
+  }
+
+  void goToCreateAnimalProfileView() async {
+    await _createAnimalProfileView();
+  }
+
+  void goToProfileEditView() {}
 }
