@@ -3,12 +3,14 @@ import 'package:kubelite/app/app.logger.dart';
 import 'package:kubelite/app/app.router.dart';
 import 'package:kubelite/enum/redirect_state.dart';
 import 'package:kubelite/services/shared_preferences_service.dart';
+import 'package:kubelite/services/user_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class StartUpViewModel extends FutureViewModel<void> implements Initialisable {
   final log = getLogger('StartupViewModel');
   final _navigationService = locator<NavigationService>();
+  final _userService = locator<UserService>();
   String? _destinationRoute;
   final _sharedPreferencesService = locator<SharedPreferencesService>();
   dynamic _destinationArguments;
@@ -19,24 +21,26 @@ class StartUpViewModel extends FutureViewModel<void> implements Initialisable {
     // _sharedPreferencesService.clearLoginData();
     var currentState = _sharedPreferencesService.currentState;
 
-    // switch (getRedirectState(currentState)) {
-    //   case RedirectState.Start:
-    //     _destinationRoute = null;
-    //     break;
-    //
-    //   case RedirectState.Welcome:
-    //     _destinationRoute = Routes.onBoardingView;
-    //     break;
-    //
-    //   case RedirectState.ProfileCreate:
-    //     _destinationRoute = Routes.profileCreateView;
-    //     break;
-    //
-    //   case RedirectState.Home:
-    //     _destinationRoute = Routes.dashboard;
-    //     break;
-    // }
-    _destinationRoute = Routes.dashboard;
+    switch (getRedirectState(currentState)) {
+      case RedirectState.Start:
+        _destinationRoute = null;
+        break;
+
+      case RedirectState.Welcome:
+        _destinationRoute = Routes.onBoardingView;
+        break;
+
+      case RedirectState.ProfileCreate:
+        _destinationRoute = Routes.profileCreateView;
+        _destinationArguments =
+            ProfileCreateViewArguments(user: _userService.currentUser);
+        break;
+
+      case RedirectState.Home:
+        _destinationRoute = Routes.dashboard;
+        break;
+    }
+    // _destinationRoute = Routes.dashboard;
 
     log.d("Current State : $_destinationRoute");
   }

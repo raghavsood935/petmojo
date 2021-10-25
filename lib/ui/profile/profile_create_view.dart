@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kubelite/models/application_models.dart';
 import 'package:kubelite/ui/profile/profile_create_viewmodel.dart';
 import 'package:kubelite/util/Color.dart';
 import 'package:kubelite/util/String.dart';
@@ -20,7 +21,8 @@ import 'profile_create_view.form.dart';
   FormTextField(name: 'shortBio'),
 ])
 class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
-  ProfileCreateView({Key? key}) : super(key: key);
+  final LocalUser user;
+  ProfileCreateView({Key? key, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,9 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
       onModelReady: (model) {
         listenToFormUpdated(model);
         model.init();
+        usernameController.text = user.username ?? "";
+        nameController.text = user.fullName ?? "";
+        shortBioController.text = user.bio ?? "";
       },
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
@@ -100,6 +105,7 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
               AppInputField(
                 hint: userNameHint,
                 controller: usernameController,
+                errorText: model.validUser(usernameController),
                 textInputType: TextInputType.name,
                 textCapitalization: TextCapitalization.none,
               ),
@@ -143,7 +149,7 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
           ),
         ),
       ),
-      viewModelBuilder: () => ProfileCreateViewModel(),
+      viewModelBuilder: () => ProfileCreateViewModel(user),
     );
   }
 }

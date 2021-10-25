@@ -23,7 +23,18 @@ class UserService {
 
   LocalUser? _currentUser;
 
-  LocalUser get currentUser => _currentUser!;
+  set currentUser(LocalUser value) {
+    _currentUser = value;
+    _sharedPreferenceService.saveCurrentUser(value);
+  }
+
+  LocalUser get currentUser {
+    if (_currentUser != null) {
+      return _currentUser!;
+    } else {
+      return _sharedPreferenceService.getCurrentUser();
+    }
+  }
 
   bool get hasLoggedInUser => _sharedPreferenceService.authToken.isValid();
 

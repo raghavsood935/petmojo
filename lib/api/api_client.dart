@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:kubelite/models/common_response.dart';
 import 'package:kubelite/models/params/login_body.dart';
 import 'package:kubelite/models/params/profile_create_body.dart';
 import 'package:kubelite/models/params/register_body.dart';
+import 'package:kubelite/models/params/reset_password_body.dart';
 import 'package:kubelite/models/params/social_login_body.dart';
 import 'package:kubelite/models/user_response_models.dart';
 import 'package:retrofit/http.dart';
@@ -17,8 +19,10 @@ class Apis {
 
   static const String login = '/auth/login';
   static const String register = '/auth/register';
+  static const String checkUserName = '/user/isusernameavailable/{username}';
   static const String user = '/user';
   static const String changePassword = '/auth/password';
+  static const String resetPassword = '/auth/reset-password-mail';
   static const String facebookLogin = '/auth/login/facebook';
   static const String googleLogin = '/auth/login/google';
   static const String changeAvatar = '/user/avatar';
@@ -31,6 +35,10 @@ abstract class ApiClient {
   @POST(Apis.login)
   Future<UserResponse> login(@Body() LoginBody loginBody);
 
+  @GET(Apis.resetPassword)
+  Future<CommonResponse> resetPassword(
+      @Body() ResetPasswordBody resetPasswordBody);
+
   @POST(Apis.facebookLogin)
   Future<UserResponse> facebookLogin(@Body() SocialLoginBody socialLoginBody);
 
@@ -39,6 +47,10 @@ abstract class ApiClient {
 
   @POST(Apis.register)
   Future<UserResponse> register(@Body() RegisterBody registerBody);
+
+  @GET(Apis.checkUserName)
+  Future<UserNameAvailableResponse> checkUserName(
+      @Path("username") String username);
 
   @PUT(Apis.user)
   Future<UserResponse> updateProfile(@Body() ProfileCreateBody createBody);

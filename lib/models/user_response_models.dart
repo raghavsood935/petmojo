@@ -16,3 +16,15 @@ class UserResponse with _$UserResponse {
   factory UserResponse.fromJson(Map<String, dynamic> json) =>
       _$UserResponseFromJson(json);
 }
+
+@freezed
+class UserNameAvailableResponse with _$UserNameAvailableResponse {
+  UserNameAvailableResponse._();
+
+  factory UserNameAvailableResponse({
+    @JsonKey(name: "isAvailable") @Default(false) bool isAvailable,
+  }) = _UserNameAvailableResponse;
+
+  factory UserNameAvailableResponse.fromJson(Map<String, dynamic> json) =>
+      _$UserNameAvailableResponseFromJson(json);
+}

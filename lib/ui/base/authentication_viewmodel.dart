@@ -48,8 +48,6 @@ abstract class AuthenticationViewModel extends FormViewModel {
   Future createAccount() async {
     log.i('valued:$formValueMap');
     try {
-      String username = formValueMap["username"];
-      String fullName = formValueMap["fullName"];
       String email = formValueMap["email"];
       String password = formValueMap["password"];
       if (email.isEmpty || password.isEmpty) {
@@ -57,8 +55,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
         return;
       }
       if (await Util.checkInternetConnectivity()) {
-        RegisterBody registerBody =
-            RegisterBody(username, fullName, email, password);
+        RegisterBody registerBody = RegisterBody(email, password);
         final result = await runBusyFuture(
             userService.createAccount(registerBody),
             throwException: true);
@@ -184,14 +181,14 @@ abstract class AuthenticationViewModel extends FormViewModel {
   }
 
   void _handleLoggedInUser(LocalUser currentUser) {
-    if (currentUser.username.isValid()) {
+    if (currentUser.fullName.isValid() && currentUser.username.isValid()) {
       _sharedPreferencesService.currentState =
           getRedirectStateName(RedirectState.Home);
       navigationService.pushNamedAndRemoveUntil(Routes.dashboard);
     } else {
       _sharedPreferencesService.currentState =
           getRedirectStateName(RedirectState.ProfileCreate);
-      navigationService.pushNamedAndRemoveUntil(Routes.profileCreateView);
+      navigationService.pushNamedAndRemoveUntil(Routes.profileCreateView, arguments: ProfileCreateViewArguments(user: currentUser));
     }
   }
 }

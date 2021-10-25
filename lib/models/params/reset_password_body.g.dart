@@ -1,20 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'register_body.dart';
+part of 'reset_password_body.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-RegisterBody _$RegisterBodyFromJson(Map<String, dynamic> json) {
-  return RegisterBody(
+ResetPasswordBody _$ResetPasswordBodyFromJson(Map<String, dynamic> json) {
+  return ResetPasswordBody(
     json['email'] as String,
-    json['password'] as String,
   );
 }
 
-Map<String, dynamic> _$RegisterBodyToJson(RegisterBody instance) =>
+Map<String, dynamic> _$ResetPasswordBodyToJson(ResetPasswordBody instance) =>
     <String, dynamic>{
       'email': instance.email,
-      'password': instance.password,
     };

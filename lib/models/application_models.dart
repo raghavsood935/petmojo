@@ -11,6 +11,9 @@ class LocalUser with _$LocalUser {
     @JsonKey(name: "_id") String? id,
     String? email,
     String? username,
+    String? fullName,
+    String? bio,
+    String? website,
   }) = _User;
 
   factory LocalUser.fromJson(Map<String, dynamic> json) =>
