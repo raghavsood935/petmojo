@@ -28,6 +28,12 @@ dependencies:
   # staggered grid view
   flutter_staggered_grid_view: ^0.4.0
 
+  #  for sliding images
+  flutter_swiper: ^1.1.6
+
+  #  get location
+  geolocator: ^7.7.1
+
   # state management
   stacked: ^2.1.9
   stacked_hooks: ^0.2.1

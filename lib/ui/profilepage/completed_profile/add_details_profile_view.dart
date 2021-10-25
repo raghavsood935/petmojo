@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:kubelite/ui/profilepage/completed_profile/add_details_profile_viewmodel.dart';
 import 'package:kubelite/util/Color.dart';
 import 'package:kubelite/util/ui_helpers.dart';
@@ -23,11 +26,11 @@ class AddDetailsProfileView extends StatelessWidget {
             width: screenWidth(context),
             child: Stack(
               children: [
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  child: Image.asset(model.bolbImgPath),
-                ),
+                // Positioned(
+                //   top: 0,
+                //   right: 0,
+                //   child: Image.asset(model.bolbImgPath),
+                // ),
                 Positioned(
                   top: 50,
                   left: 0,
@@ -47,19 +50,42 @@ class AddDetailsProfileView extends StatelessWidget {
                         verticalSpaceRegular,
                         Align(
                           alignment: Alignment.center,
-                          child: CircleAvatar(
-                            radius: 70,
-                            backgroundColor: colors.primary,
+                          child: GestureDetector(
+                            onTap: () {
+                              model.onImageButtonPressed(
+                                  ImageSource.gallery, context);
+                            },
                             child: CircleAvatar(
-                              radius: 69,
-                              backgroundColor: Colors.white,
+                              radius: 70,
+                              backgroundColor: colors.primary,
                               child: CircleAvatar(
-                                backgroundColor: colors.lightBackgroundColor,
-                                radius: 65,
-                                child: Icon(
-                                  Icons.camera_alt_outlined,
-                                  color: colors.primary,
-                                  size: 50,
+                                radius: 67,
+                                backgroundColor: colors.kcLightGreyBackground,
+                                child: Stack(
+                                  children: [
+                                    if (model.imagePath.isEmpty)
+                                      CircleAvatar(
+                                        backgroundColor: colors.primary,
+                                        radius: 65,
+                                        child: Icon(
+                                          Icons.camera_alt_outlined,
+                                          color: colors.white,
+                                          size: 50,
+                                        ),
+                                      ),
+                                    if (model.imagePath.isNotEmpty)
+                                      CircleAvatar(
+                                        backgroundColor: colors.primary,
+                                        radius: 65,
+                                        child: ClipOval(
+                                          child: SizedBox(
+                                              width: 130,
+                                              height: 130,
+                                              child: Image.file(
+                                                  File(model.imagePath))),
+                                        ),
+                                      )
+                                  ],
                                 ),
                               ),
                             ),

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kubelite/layers/create_animal_profile_layer.dart';
 import 'package:kubelite/models/animal_type_model.dart';
@@ -12,6 +13,7 @@ import 'package:kubelite/util/Color.dart';
 import 'package:kubelite/util/String.dart';
 import 'package:kubelite/util/ui_helpers.dart';
 import 'package:kubelite/widgets/app_input_field.dart';
+import 'package:kubelite/widgets/app_select_item.dart';
 import 'package:kubelite/widgets/app_text.dart';
 import 'package:kubelite/widgets/main_btn.dart';
 import 'package:stacked/stacked.dart';
@@ -132,34 +134,76 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                       false,
                     ),
                     animalTypeDDM: item(
-                      AppInputField(
-                        controller: animalTypeController,
-                        hint: "TYPE",
+                      AppSelectItem(
+                        title: "Select the animal type",
+                        textController: animalTypeController,
+                        searchController: searchController,
+                        animalTypeModel: model.aniamlTypeListValues,
+                        onSaveWidget: GestureDetector(
+                          child: AppText.caption(
+                            "Save",
+                            color: colors.primary,
+                          ),
+                          onTap: () => model.selectAnimalTypeDDMFunction(
+                              context, animalTypeController),
+                        ),
                       ),
+                      // selectItem(
+                      //     context,
+                      //     animalTypeController,
+                      //     searchController,
+                      //     "Select the animal type",
+                      //     null,
+                      //     ,
+                      //     null,
+                      //     model,
+                      //     1),
                       "Animal Type",
                       true,
                     ),
                     genderDDM: item(
-                      AppInputField(
-                        controller: genderController,
-                        hint: "GENDER",
+                      AppSelectItem(
+                        title: "Select the gender",
+                        textController: genderController,
+                        searchController: searchController,
+                        animalGenderModel: model.animalGenderList,
+                        onSaveWidget: GestureDetector(
+                            child: AppText.caption(
+                              "Save",
+                              color: colors.primary,
+                            ),
+                            onTap: () => model.selectGenderDDMFunction(
+                                context, genderController)),
                       ),
                       "Gender",
                       false,
                     ),
                     animalBreedDDM: item(
-                      selectItem(
-                          context,
-                          breedController,
-                          model.aniamlBreedTypeValues,
-                          model.animalBreedBoolList,
-                          null),
+                      AppSelectItem(
+                        title: "Select the breed",
+                        textController: breedController,
+                        searchController: searchController,
+                        breedList: model.aniamlBreedTypeValues,
+                        onSaveWidget: GestureDetector(
+                            child: AppText.caption(
+                              "Save",
+                              color: colors.primary,
+                            ),
+                            onTap: () => model.selectBreedDDMFunction(
+                                context, breedController)),
+                      ),
                       "Breed",
                       false,
                     ),
                     dobTF: AppInputField(
                       controller: dobController,
                       hint: "dd/mm/yyyy",
+                      trailing: Icon(
+                        Icons.calendar_today,
+                        size: 18,
+                      ),
+                      trailingTapped: () => _selectDate(context, dobController),
+                      readOnly: true,
                     ),
                     ageChooseOptnDDM: dropDownButton(model.ageType,
                         model.ageTypeValues, "Choose age", model.onChangeAge),
@@ -193,7 +237,7 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                         trailing: Switch(
                             activeColor: colors.primary,
                             value: model.resigteredWithKCValue,
-                            onChanged: model.onChangeresigteredKC),
+                            onChanged: model.onChangeResigteredKC),
                       ),
                     ),
                     spacedDividerSmall,
@@ -240,7 +284,7 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                             false)),
                     spacedDividerSmall,
                     MainButtonWidget(
-                        onMainButtonTapped: () {},
+                        onMainButtonTapped: model.createAnimalProfile,
                         mainButtonTitle: "CREATE PROFILE"),
                   ],
                 ),
@@ -317,145 +361,6 @@ Widget item(Widget child, String title, bool isManitory) {
   );
 }
 
-Widget selectItem(
-    BuildContext context,
-    TextEditingController controller,
-    List<BreedTypeModel>? breedList,
-    List<bool> breedListBool,
-    List<AnimalTypeModel>? animalTypeModel) {
-  return AppInputField(
-    controller: controller,
-    readOnly: true,
-    trailing: Icon(Icons.arrow_drop_down),
-    trailingTapped: () => showModalBottomSheet(
-        enableDrag: false,
-        isScrollControlled: true,
-        backgroundColor: Colors.transparent,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(20),
-          ),
-        ),
-        context: context,
-        builder: (context) =>
-            buildSheet(controller, breedList, breedListBool, animalTypeModel)),
-  );
-}
-
-Widget buildSheet(
-    TextEditingController TextController,
-    List<BreedTypeModel>? breedList,
-    List<bool> listOfBreedBool,
-    List<AnimalTypeModel>? animalTypeModel) {
-  return DraggableScrollableSheet(
-    initialChildSize: 0.85,
-    maxChildSize: 0.85,
-    builder: (context, controller) => Container(
-      padding: EdgeInsets.all(20.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(20),
-        ),
-        color: colors.white,
-      ),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            AppText.headingThree("Select breed"),
-            verticalSpaceSmall,
-            AppInputField(controller: TextController),
-            BuildList(
-              breedList: breedList,
-            ),
-          ],
-        ),
-      ),
-    ),
-  );
-}
-
-class BuildList extends StatefulWidget {
-  BuildList({
-    Key? key,
-    this.breedList,
-    this.animalTypeModel,
-  }) : super(key: key);
-
-  List<BreedTypeModel>? breedList = null;
-  List<AnimalTypeModel>? animalTypeModel = null;
-
-  @override
-  _BuildListState createState() => _BuildListState();
-}
-
-class _BuildListState extends State<BuildList> {
-  @override
-  Widget build(BuildContext context) {
-    if (widget.breedList != null) {
-      return ListView.builder(
-          shrinkWrap: true,
-          physics: ScrollPhysics(),
-          itemCount: widget.breedList!.length,
-          itemBuilder: (context, index) {
-            return CheckboxListTile(
-              value: widget.breedList![index].isChecked,
-              onChanged: (bool? value) {
-                setState(() => widget.breedList![index].setChecked(value));
-              },
-              title: AppText.body(widget.breedList![index].breedName),
-              activeColor: colors.primary,
-            );
-          });
-    } else if (widget.animalTypeModel != null) {
-      return ListView.builder(
-        itemBuilder: (context, index) => ListTile(
-          title: AppText.body(
-            widget.animalTypeModel![index].type,
-          ),
-          trailing: CircleAvatar(
-            child: Image.network(widget.animalTypeModel![index].profileUrl),
-          ),
-        ),
-      );
-    } else {
-      return SizedBox();
-    }
-  }
-}
-
-// Widget buildList(
-//     List<String>? breedList, List<AnimalTypeModel>? animalTypeModel) {
-//   if (breedList != null) {
-//     return ListView.builder(
-//         shrinkWrap: true,
-//         itemCount: breedList.length,
-//         itemBuilder: (context, index) {
-//           bool isChecked = false;
-//           return CheckboxListTile(
-//             value: isChecked,
-//             onChanged: (bool? value) {
-//               isChecked = !isChecked;
-//             },
-//             title: AppText.body(breedList[index]),
-//             activeColor: colors.primary,
-//           );
-//         });
-//   } else if (animalTypeModel != null) {
-//     return ListView.builder(
-//       itemBuilder: (context, index) => ListTile(
-//         title: AppText.body(
-//           animalTypeModel[index].type,
-//         ),
-//         trailing: CircleAvatar(
-//           child: Image.network(animalTypeModel[index].profileUrl),
-//         ),
-//       ),
-//     );
-//   } else {
-//     return SizedBox();
-//   }
-// }
-
 Future<void> _selectTime(BuildContext context, TextEditingController tc) async {
   TimeOfDay selectedTime = TimeOfDay.now();
 
@@ -472,5 +377,18 @@ Future<void> _selectTime(BuildContext context, TextEditingController tc) async {
   if (picked_s != null && picked_s != selectedTime) {
     tc.text = picked_s.format(context);
   }
-  ;
+}
+
+Future<void> _selectDate(BuildContext context, TextEditingController tc) async {
+  DateTime selectedDate = DateTime.now();
+
+  final DateTime? picked_s = await showDatePicker(
+    context: context,
+    initialDate: selectedDate,
+    firstDate: DateTime(1900),
+    lastDate: selectedDate,
+  );
+  if (picked_s != null && picked_s != selectedDate) {
+    tc.text = "${picked_s.day}-${picked_s.month}-${picked_s.year}";
+  }
 }

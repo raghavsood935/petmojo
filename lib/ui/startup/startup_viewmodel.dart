@@ -19,23 +19,24 @@ class StartUpViewModel extends FutureViewModel<void> implements Initialisable {
     // _sharedPreferencesService.clearLoginData();
     var currentState = _sharedPreferencesService.currentState;
 
-    switch (getRedirectState(currentState)) {
-      case RedirectState.Start:
-        _destinationRoute = null;
-        break;
-
-      case RedirectState.Welcome:
-        _destinationRoute = Routes.onBoardingView;
-        break;
-
-      case RedirectState.ProfileCreate:
-        _destinationRoute = Routes.profileCreateView;
-        break;
-
-      case RedirectState.Home:
-        _destinationRoute = Routes.dashboard;
-        break;
-    }
+    // switch (getRedirectState(currentState)) {
+    //   case RedirectState.Start:
+    //     _destinationRoute = null;
+    //     break;
+    //
+    //   case RedirectState.Welcome:
+    //     _destinationRoute = Routes.onBoardingView;
+    //     break;
+    //
+    //   case RedirectState.ProfileCreate:
+    //     _destinationRoute = Routes.profileCreateView;
+    //     break;
+    //
+    //   case RedirectState.Home:
+    //     _destinationRoute = Routes.dashboard;
+    //     break;
+    // }
+    _destinationRoute = Routes.dashboard;
 
     log.d("Current State : $_destinationRoute");
   }

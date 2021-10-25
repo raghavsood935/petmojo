@@ -98,3 +98,20 @@ String helpIcon = "assets/images/help.svg";
 String leftHandImgPath = "assets/images/hello-2-left.png";
 String rightHandImgPath = "assets/images/hello-2-right.png";
 String blobImgPath = "assets/images/Blob.png";
+String likesImgPath = "assets/images/likes_img.png";
+String animalFootPrintImgPath = "assets/images/pet_foot_print.png";
+String likeOutlineImgPath = "assets/images/likes_img_outline.png";
+String sendImgPath = "assets/images/send_outline.png";
+String bookmarkImgPath = "assets/images/bookmark_outline.png";
+
+//empty inputs Strings
+String noBreedSelected = "Select one or more breed";
+String noAnimalTypeSelected = "Select one animal type";
+String noGenderSelected = "Select one gender";
+
+//location permissions String
+String locationPermissionDeniedPermanently =
+    'Location permissions are permanently denied, we cannot request permissions.';
+String locationPermissionDenied = 'Location permissions are denied';
+String locationPermissionDisabled =
+    'Location services are disabled.\nPlease turn on your location';
