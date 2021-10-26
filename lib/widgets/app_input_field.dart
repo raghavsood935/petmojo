@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kubelite/util/Color.dart';
 
 class AppInputField extends StatelessWidget {
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String label;
   final String hint;
   final Widget? leading;
@@ -11,10 +11,15 @@ class AppInputField extends StatelessWidget {
   final bool readOnly;
   final TextInputType? textInputType;
   final TextCapitalization? textCapitalization;
+  final bool isSearchField;
   final void Function()? trailingTapped;
 
   final circularBorder = UnderlineInputBorder(
     borderRadius: BorderRadius.circular(8),
+  );
+
+  final roundedBorder = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(25),
   );
 
   AppInputField(
@@ -28,6 +33,7 @@ class AppInputField extends StatelessWidget {
       this.password = false,
       this.textInputType = TextInputType.name,
       this.readOnly = false,
+      this.isSearchField = false,
       this.textCapitalization = TextCapitalization.sentences})
       : super(key: key);
 
@@ -40,7 +46,7 @@ class AppInputField extends StatelessWidget {
       data: ThemeData(primaryColor: colors.primary),
       child: TextField(
         textCapitalization: textCapitalization!,
-        controller: controller,
+        controller: controller ?? TextEditingController(),
         keyboardType: textInputType,
         style: TextStyle(height: 1),
         obscureText: password,
@@ -50,25 +56,46 @@ class AppInputField extends StatelessWidget {
           labelText: label,
           floatingLabelBehavior: FloatingLabelBehavior.always,
           contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-          prefixIcon: leading,
+          prefixIcon: isSearchField
+              ? Icon(
+                  Icons.search,
+                  color: colors.primary,
+                )
+              : leading,
           suffixIcon: trailing != null
               ? GestureDetector(
                   onTap: trailingTapped,
                   child: trailing,
                 )
               : null,
-          border: circularBorder.copyWith(
-            borderSide: BorderSide(color: colors.kcLightGreyColor),
-          ),
-          errorBorder: circularBorder.copyWith(
-            borderSide: BorderSide(color: Colors.red),
-          ),
-          focusedBorder: circularBorder.copyWith(
-            borderSide: BorderSide(color: colors.primary),
-          ),
-          enabledBorder: circularBorder.copyWith(
-            borderSide: BorderSide(color: colors.kcLightGreyColor),
-          ),
+          border: isSearchField
+              ? roundedBorder.copyWith(
+                  borderSide: BorderSide(color: colors.kcLightGreyColor),
+                )
+              : circularBorder.copyWith(
+                  borderSide: BorderSide(color: colors.kcLightGreyColor),
+                ),
+          errorBorder: isSearchField
+              ? roundedBorder.copyWith(
+                  borderSide: BorderSide(color: Colors.red),
+                )
+              : circularBorder.copyWith(
+                  borderSide: BorderSide(color: Colors.red),
+                ),
+          focusedBorder: isSearchField
+              ? roundedBorder.copyWith(
+                  borderSide: BorderSide(color: colors.primary),
+                )
+              : circularBorder.copyWith(
+                  borderSide: BorderSide(color: colors.primary),
+                ),
+          enabledBorder: isSearchField
+              ? roundedBorder.copyWith(
+                  borderSide: BorderSide(color: colors.kcLightGreyColor),
+                )
+              : circularBorder.copyWith(
+                  borderSide: BorderSide(color: colors.kcLightGreyColor),
+                ),
           labelStyle: TextStyle(fontSize: 16, color: colors.kcPrimaryTextColor),
           hintStyle: TextStyle(fontSize: 14, color: colors.kcLightGreyColor),
         ),

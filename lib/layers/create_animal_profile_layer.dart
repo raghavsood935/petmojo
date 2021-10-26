@@ -61,11 +61,14 @@ class CreateAnimalProfileLayer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             horizontalSpaceSmall,
-            AppText.body1(
+            AppText.caption(
               "Age of $type",
               color: colors.black,
             ),
-            AppText.body1("(Choose DOB or baby/adult/young)"),
+            AppText.caption(
+              "(Choose DOB or baby/adult/young)",
+              color: colors.black,
+            ),
           ],
         ),
         Row(
@@ -75,7 +78,7 @@ class CreateAnimalProfileLayer extends StatelessWidget {
             Expanded(child: dobTF),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: AppText.body(
+              child: AppText.caption(
                 "OR",
                 color: colors.primary,
               ),

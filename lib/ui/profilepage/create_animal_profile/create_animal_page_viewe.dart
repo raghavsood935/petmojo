@@ -41,7 +41,7 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: AppText.subheading(createAnimalTitle),
+          title: AppText.body(createAnimalTitle),
           leading: IconButton(
             onPressed: () {},
             icon: Icon(Icons.arrow_back_sharp),
@@ -58,27 +58,27 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                   model.onImageButtonPressed(ImageSource.gallery, context);
                 },
                 child: CircleAvatar(
-                  radius: 70,
+                  radius: 50,
                   backgroundColor: colors.primary,
                   child: CircleAvatar(
-                    radius: 67,
+                    radius: 47,
                     backgroundColor: colors.kcLightGreyBackground,
                     child: Stack(
                       children: [
                         if (model.imagePath.isEmpty)
                           CircleAvatar(
                             backgroundColor: colors.primary,
-                            radius: 65,
+                            radius: 45,
                             child: Icon(
                               Icons.camera_alt_outlined,
                               color: colors.white,
-                              size: 50,
+                              size: 35,
                             ),
                           ),
                         if (model.imagePath.isNotEmpty)
                           CircleAvatar(
                             backgroundColor: colors.primary,
-                            radius: 65,
+                            radius: 45,
                             child: ClipOval(
                               child: SizedBox(
                                   width: 130,
@@ -92,7 +92,7 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                 ),
               ),
               SizedBox(
-                height: 100,
+                height: 50,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
@@ -104,191 +104,186 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                 ),
               ),
               horizontalSpaceSmall,
-              Card(
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                  child: CreateAnimalProfileLayer(
-                    nameTF: item(
-                      AppInputField(
-                        controller: nameController,
-                        hint: "Name here",
-                      ),
-                      "Name",
-                      true,
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                child: CreateAnimalProfileLayer(
+                  nameTF: item(
+                    AppInputField(
+                      controller: nameController,
+                      hint: "Name here",
                     ),
-                    usernameTF: item(
-                      AppInputField(
-                        controller: usernameController,
-                        hint: "Unique username",
-                      ),
-                      "Username",
-                      true,
+                    "Name",
+                    true,
+                  ),
+                  usernameTF: item(
+                    AppInputField(
+                      controller: usernameController,
+                      hint: "Unique username",
                     ),
-                    shortBioTF: item(
-                      AppInputField(
-                        controller: shortbioController,
-                        hint: "We would love to know more about the animal:)",
-                      ),
-                      "Short Bio",
-                      false,
+                    "Username",
+                    true,
+                  ),
+                  shortBioTF: item(
+                    AppInputField(
+                      controller: shortbioController,
+                      hint: "We would love to know more about the animal:)",
                     ),
-                    animalTypeDDM: item(
-                      AppSelectItem(
-                        title: "Select the animal type",
-                        textController: animalTypeController,
-                        searchController: searchController,
-                        animalTypeModel: model.aniamlTypeListValues,
-                        onSaveWidget: GestureDetector(
+                    "Short Bio",
+                    false,
+                  ),
+                  animalTypeDDM: item(
+                    AppSelectItem(
+                      title: "Select the animal type",
+                      textController: animalTypeController,
+                      searchController: searchController,
+                      animalTypeModel: model.aniamlTypeListValues,
+                      onSaveWidget: GestureDetector(
+                        child: AppText.caption(
+                          "Save",
+                          color: colors.primary,
+                        ),
+                        onTap: () => model.selectAnimalTypeDDMFunction(
+                            context, animalTypeController),
+                      ),
+                    ),
+                    // selectItem(
+                    //     context,
+                    //     animalTypeController,
+                    //     searchController,
+                    //     "Select the animal type",
+                    //     null,
+                    //     ,
+                    //     null,
+                    //     model,
+                    //     1),
+                    "Animal Type",
+                    true,
+                  ),
+                  genderDDM: item(
+                    AppSelectItem(
+                      title: "Select the gender",
+                      textController: genderController,
+                      searchController: searchController,
+                      animalGenderModel: model.animalGenderList,
+                      onSaveWidget: GestureDetector(
                           child: AppText.caption(
                             "Save",
                             color: colors.primary,
                           ),
-                          onTap: () => model.selectAnimalTypeDDMFunction(
-                              context, animalTypeController),
-                        ),
-                      ),
-                      // selectItem(
-                      //     context,
-                      //     animalTypeController,
-                      //     searchController,
-                      //     "Select the animal type",
-                      //     null,
-                      //     ,
-                      //     null,
-                      //     model,
-                      //     1),
-                      "Animal Type",
-                      true,
+                          onTap: () => model.selectGenderDDMFunction(
+                              context, genderController)),
                     ),
-                    genderDDM: item(
-                      AppSelectItem(
-                        title: "Select the gender",
-                        textController: genderController,
-                        searchController: searchController,
-                        animalGenderModel: model.animalGenderList,
-                        onSaveWidget: GestureDetector(
-                            child: AppText.caption(
-                              "Save",
-                              color: colors.primary,
-                            ),
-                            onTap: () => model.selectGenderDDMFunction(
-                                context, genderController)),
-                      ),
-                      "Gender",
-                      false,
-                    ),
-                    animalBreedDDM: item(
-                      AppSelectItem(
-                        title: "Select the breed",
-                        textController: breedController,
-                        searchController: searchController,
-                        breedList: model.aniamlBreedTypeValues,
-                        onSaveWidget: GestureDetector(
-                            child: AppText.caption(
-                              "Save",
-                              color: colors.primary,
-                            ),
-                            onTap: () => model.selectBreedDDMFunction(
-                                context, breedController)),
-                      ),
-                      "Breed",
-                      false,
-                    ),
-                    dobTF: AppInputField(
-                      controller: dobController,
-                      hint: "dd/mm/yyyy",
-                      trailing: Icon(
-                        Icons.calendar_today,
-                        size: 18,
-                      ),
-                      trailingTapped: () => _selectDate(context, dobController),
-                      readOnly: true,
-                    ),
-                    ageChooseOptnDDM: dropDownButton(model.ageType,
-                        model.ageTypeValues, "Choose age", model.onChangeAge),
-                    type: "Animal",
+                    "Gender",
+                    false,
                   ),
+                  animalBreedDDM: item(
+                    AppSelectItem(
+                      title: "Select the breed",
+                      textController: breedController,
+                      searchController: searchController,
+                      breedList: model.aniamlBreedTypeValues,
+                      onSaveWidget: GestureDetector(
+                          child: AppText.caption(
+                            "Save",
+                            color: colors.primary,
+                          ),
+                          onTap: () => model.selectBreedDDMFunction(
+                              context, breedController)),
+                    ),
+                    "Breed",
+                    false,
+                  ),
+                  dobTF: AppInputField(
+                    controller: dobController,
+                    hint: "dd/mm/yyyy",
+                    trailing: Icon(
+                      Icons.calendar_today,
+                      size: 18,
+                    ),
+                    trailingTapped: () => _selectDate(context, dobController),
+                    readOnly: true,
+                  ),
+                  ageChooseOptnDDM: dropDownButton(model.ageType,
+                      model.ageTypeValues, "Choose age", model.onChangeAge),
+                  type: "Animal",
                 ),
               ),
-              spacedDividerSmall,
-              Card(
-                child: Column(
-                  children: [
-                    ListTile(
-                      title: Text("Up for Mating"),
-                      trailing: Switch(
-                          activeColor: colors.primary,
-                          value: model.matingValue,
-                          onChanged: model.onChangeMating),
-                    ),
-                    spacedDividerSmall,
-                    ListTile(
-                      title: Text("Up for Adoption"),
-                      trailing: Switch(
-                          activeColor: colors.primary,
-                          value: model.adoptionValue,
-                          onChanged: model.onChangeAdoption),
-                    ),
-                    Visibility(
-                      visible: model.adoptionValue,
-                      child: ListTile(
-                        title: Text("Registered with Indian Kennel Club ?"),
-                        trailing: Switch(
-                            activeColor: colors.primary,
-                            value: model.resigteredWithKCValue,
-                            onChanged: model.onChangeResigteredKC),
-                      ),
-                    ),
-                    spacedDividerSmall,
-                    ListTile(
-                      title: Text("Up for Play-buddies"),
-                      trailing: Switch(
-                          activeColor: colors.primary,
-                          value: model.playBuddiesValue,
-                          onChanged: model.onChangePlayBuddies),
-                    ),
-                    Visibility(
-                        visible: model.playBuddiesValue,
-                        child: item(
-                            Row(
-                              children: [
-                                Expanded(
-                                    child: item(
-                                        AppInputField(
-                                          controller: fromTimeController,
-                                          hint: "select time",
-                                          readOnly: true,
-                                          trailing: Icon(Icons.alarm),
-                                          trailingTapped: () => _selectTime(
-                                              context, fromTimeController),
-                                        ),
-                                        "From time",
-                                        false)),
-                                horizontalSpaceRegular,
-                                Expanded(
-                                    child: item(
-                                        AppInputField(
-                                          controller: toTimeController,
-                                          hint: "select time",
-                                          readOnly: true,
-                                          trailing: Icon(Icons.alarm),
-                                          trailingTapped: () => _selectTime(
-                                              context, toTimeController),
-                                        ),
-                                        "To time",
-                                        false))
-                              ],
-                            ),
-                            "Up for Play-buddies Generally I’m available to play from ",
-                            false)),
-                    spacedDividerSmall,
-                    MainButtonWidget(
-                        onMainButtonTapped: model.createAnimalProfile,
-                        mainButtonTitle: "CREATE PROFILE"),
-                  ],
+              Divider(
+                color: colors.kcLightGreyColor,
+                thickness: 5,
+              ),
+              ListTile(
+                title: AppText.body1("Up for Mating"),
+                trailing: Switch(
+                    activeColor: colors.primary,
+                    value: model.matingValue,
+                    onChanged: model.onChangeMating),
+              ),
+              spacedDividerTiny,
+              ListTile(
+                title: AppText.body1("Up for Adoption"),
+                trailing: Switch(
+                    activeColor: colors.primary,
+                    value: model.adoptionValue,
+                    onChanged: model.onChangeAdoption),
+              ),
+              Visibility(
+                visible: model.adoptionValue,
+                child: ListTile(
+                  title: AppText.body1("Registered with Indian Kennel Club ?"),
+                  trailing: Switch(
+                      activeColor: colors.primary,
+                      value: model.resigteredWithKCValue,
+                      onChanged: model.onChangeResigteredKC),
                 ),
-              )
+              ),
+              spacedDividerTiny,
+              ListTile(
+                title: AppText.body1("Up for Play-buddies"),
+                trailing: Switch(
+                    activeColor: colors.primary,
+                    value: model.playBuddiesValue,
+                    onChanged: model.onChangePlayBuddies),
+              ),
+              Visibility(
+                  visible: model.playBuddiesValue,
+                  child: item(
+                      Row(
+                        children: [
+                          Expanded(
+                              child: item(
+                                  AppInputField(
+                                    controller: fromTimeController,
+                                    hint: "select time",
+                                    readOnly: true,
+                                    trailing: Icon(Icons.alarm),
+                                    trailingTapped: () => _selectTime(
+                                        context, fromTimeController),
+                                  ),
+                                  "From time",
+                                  false)),
+                          horizontalSpaceRegular,
+                          Expanded(
+                              child: item(
+                                  AppInputField(
+                                    controller: toTimeController,
+                                    hint: "select time",
+                                    readOnly: true,
+                                    trailing: Icon(Icons.alarm),
+                                    trailingTapped: () =>
+                                        _selectTime(context, toTimeController),
+                                  ),
+                                  "To time",
+                                  false))
+                        ],
+                      ),
+                      "Up for Play-buddies Generally I’m available to play from ",
+                      false)),
+              spacedDividerTiny,
+              MainButtonWidget(
+                  onMainButtonTapped: model.createAnimalProfile,
+                  mainButtonTitle: "CREATE PROFILE")
             ],
           ),
         ),
@@ -310,7 +305,7 @@ Widget dropDownButton(String value, List<String> listOfItems, String hint,
       hint: AppText.body(hint),
       items: listOfItems
           .map((item) => DropdownMenuItem<String>(
-                child: Text(item),
+                child: AppText.body1(item),
                 value: item,
               ))
           .toList(),
@@ -329,7 +324,10 @@ Widget radioButton(String value, String selectedValue, onChangeFun) {
         onChanged: onChangeFun,
         activeColor: colors.primary,
       ),
-      AppText.body(value),
+      AppText.caption(
+        value,
+        color: colors.black,
+      ),
     ],
   );
 }
@@ -344,12 +342,12 @@ Widget item(Widget child, String title, bool isManitory) {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           horizontalSpaceSmall,
-          AppText.body1(
+          AppText.caption(
             title,
             color: colors.black,
           ),
           isManitory
-              ? AppText.body1(
+              ? AppText.caption(
                   "*",
                   color: colors.primary,
                 )

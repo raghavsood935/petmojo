@@ -1,0 +1,53 @@
+import 'package:flutter/material.dart';
+import 'package:kubelite/models/hashtag_model.dart';
+import 'package:kubelite/widgets/app_text.dart';
+import 'package:stacked/stacked.dart';
+
+import 'hashtags_search_tab_view_model.dart';
+
+class HashtagsSearchTabView extends StatefulWidget {
+  const HashtagsSearchTabView({Key? key}) : super(key: key);
+
+  @override
+  _HashtagsSearchTabViewState createState() => _HashtagsSearchTabViewState();
+}
+
+class _HashtagsSearchTabViewState extends State<HashtagsSearchTabView> {
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<HashtagsSearchTabViewModel>.reactive(
+      viewModelBuilder: () => HashtagsSearchTabViewModel(),
+      builder: (context, model, child) => ListView(
+        padding: EdgeInsets.all(8),
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: AppText.body1("Result for Hashtag"),
+          ),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: ScrollPhysics(),
+            itemCount: model.listOfHashTag.length,
+            itemBuilder: (context, index) => listItem(
+              index,
+              model,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+Widget listItem(int index, HashtagsSearchTabViewModel viewModel) {
+  HashTagModel model = viewModel.listOfHashTag[index];
+  return ListTile(
+    contentPadding: EdgeInsets.zero,
+    title: AppText.body1(model.titleTag),
+    subtitle: AppText.caption(model.subTitleTag),
+    trailing: IconButton(
+      icon: Icon(Icons.cancel_outlined),
+      onPressed: () => viewModel.removeHashTagFromList(index),
+    ),
+  );
+}

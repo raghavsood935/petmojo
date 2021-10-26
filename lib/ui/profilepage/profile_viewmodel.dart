@@ -1,7 +1,11 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.logger.dart';
 import 'package:kubelite/app/app.router.dart';
 import 'package:kubelite/models/my_animals_model.dart';
+import 'package:kubelite/ui/profilepage/post_tabs/mentions_post_tab.dart';
+import 'package:kubelite/ui/profilepage/post_tabs/my_posts_tab.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -10,6 +14,16 @@ class ProfileViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   String? _animalProfileCreateView = Routes.createAnimalPageView;
   dynamic _destinationArguments;
+
+  List<Widget> _tabs = [MyPostsTabView(), MentionsPostTabView()];
+  List<Tab> _tabsTitle = [
+    Tab(
+      text: "My posts",
+    ),
+    Tab(
+      text: "Mentions",
+    )
+  ];
 
   Future _createAnimalProfileView() async {
     if (_animalProfileCreateView != null) {
@@ -64,21 +78,6 @@ class ProfileViewModel extends BaseViewModel {
     MyAnimalsModel(),
   ];
 
-  List<String> _dummyListOfPosts = [
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOGB8hL92pHixnkA7yY-IrWBfJNDSl3FTe8w&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOGB8hL92pHixnkA7yY-IrWBfJNDSl3FTe8w&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREXRvslazqeJ0hLFvkgCxmYefVVKceG3U7Gg&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZpYSLMlrAH9fclS4--Jgzvy8s51BnJdOY4w&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREXRvslazqeJ0hLFvkgCxmYefVVKceG3U7Gg&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOGB8hL92pHixnkA7yY-IrWBfJNDSl3FTe8w&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREXRvslazqeJ0hLFvkgCxmYefVVKceG3U7Gg&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZpYSLMlrAH9fclS4--Jgzvy8s51BnJdOY4w&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREXRvslazqeJ0hLFvkgCxmYefVVKceG3U7Gg&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOGB8hL92pHixnkA7yY-IrWBfJNDSl3FTe8w&usqp=CAU",
-  ];
-
-  List<String> get dummyListOfPosts => _dummyListOfPosts;
-
   List<MyAnimalsModel> get dummyListOfMyAnimals => _dummyListOfMyAnimals;
 
   String get profilename => _profilename;
@@ -102,6 +101,10 @@ class ProfileViewModel extends BaseViewModel {
   int get completedProfileTotalCount => _completedProfileTotalCount;
 
   bool get profileCompleted => _profileCompleted;
+
+  List<Widget> get tabs => _tabs;
+
+  List<Tab> get tabsTitle => _tabsTitle;
 
   void myAnimalVisible() {
     isMyAnimalsVisibile = !isMyAnimalsVisibile;

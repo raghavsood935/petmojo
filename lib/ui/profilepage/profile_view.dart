@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:kubelite/ui/profilepage/post_tabs/my_posts_tab.dart';
+import 'package:kubelite/ui/profilepage/post_tabs/post_tabs.dart';
 import 'package:kubelite/ui/profilepage/profile_viewmodel.dart';
 import 'package:kubelite/util/Color.dart';
 import 'package:kubelite/util/String.dart';
@@ -70,19 +72,19 @@ class ProfileView extends StatelessWidget {
                                 left: 0,
                                 right: 0,
                                 child: CircleAvatar(
-                                  radius: 60,
+                                  radius: 50,
                                   backgroundColor: colors.primary,
                                   child: CircleAvatar(
-                                    radius: 57,
+                                    radius: 47,
                                     backgroundColor:
                                         colors.lightBackgroundColor,
                                     child: CircleAvatar(
                                       backgroundColor: colors.primary,
-                                      radius: 55,
+                                      radius: 45,
                                       child: Icon(
                                         Icons.photo_camera_outlined,
                                         color: colors.white,
-                                        size: 40,
+                                        size: 35,
                                       ),
                                     ),
                                   ),
@@ -94,11 +96,12 @@ class ProfileView extends StatelessWidget {
                                 right: 0,
                                 child: CircleAvatar(
                                   backgroundColor: Colors.blue,
-                                  radius: 20,
+                                  radius: 15,
                                   child: IconButton(
                                     icon: Icon(
                                       Icons.add,
                                       color: colors.white,
+                                      size: 14,
                                     ),
                                     onPressed: () {},
                                   ),
@@ -107,16 +110,16 @@ class ProfileView extends StatelessWidget {
                             ],
                           ),
                         ),
-                        // verticalSpaceSmall,
+                        verticalSpaceTiny,
                         // profile name
-                        AppText.subheading(model.profilename),
+                        AppText.body(model.profilename),
 
-                        // verticalSpaceSmall,
+                        verticalSpaceTiny,
                         // username and animal count
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            AppText.body(
+                            AppText.body1(
                               model.username,
                               color: colors.kcMediumGreyColor,
                             ),
@@ -126,15 +129,15 @@ class ProfileView extends StatelessWidget {
                               backgroundColor: colors.primary,
                             ),
                             horizontalSpaceTiny,
-                            AppText.body2("${model.noOfAnimals}"),
+                            AppText.body1("${model.noOfAnimals}"),
                             horizontalSpaceTiny,
-                            AppText.body("animal",
+                            AppText.body1("animal",
                                 color: colors.kcMediumGreyColor),
                           ],
                         ),
                         verticalSpaceSmall,
                         // action text
-                        AppText.body2(
+                        AppText.caption(
                           model.actionText,
                           color: colors.primary,
                         ),
@@ -156,7 +159,7 @@ class ProfileView extends StatelessWidget {
                                     height: 30,
                                     width: 30,
                                   ),
-                                  AppText.body("${model.noOfHearts}")
+                                  AppText.subheading("${model.noOfHearts}")
                                 ],
                               )
                             ],
@@ -283,29 +286,9 @@ class ProfileView extends StatelessWidget {
               ),
               spacedDividerSmall,
               //my post section
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: AppText.body("My Posts"),
-                ),
-              ),
+              // PostTab(),
+              MyPostsTabView(),
               //my posts grid view
-              Container(
-                padding: EdgeInsets.all(10),
-                color: colors.lightBackgroundColor,
-                child: StaggeredGridView.countBuilder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: model.dummyListOfPosts.length,
-                  crossAxisSpacing: 6,
-                  mainAxisSpacing: 6,
-                  crossAxisCount: 3,
-                  itemBuilder: (context, index) =>
-                      postItem(model.dummyListOfPosts[index], () {}),
-                  staggeredTileBuilder: (index) => StaggeredTile.fit(1),
-                ),
-              ),
             ],
           ),
         ),
@@ -332,19 +315,23 @@ class ProfileView extends StatelessWidget {
       Column(
         children: [
           CircleAvatar(
-            backgroundColor: colors.primary,
+            backgroundColor: colors.black,
             radius: 30,
-            child: isImage
-                ? CircleAvatar(
-                    backgroundColor: colors.lightBackgroundColor,
-                    radius: 28,
-                    backgroundImage: bgImg,
-                  )
-                : CircleAvatar(
-                    backgroundColor: colors.lightBackgroundColor,
-                    radius: 28,
-                    child: child,
-                  ),
+            child: CircleAvatar(
+              radius: 29,
+              backgroundColor: Colors.white,
+              child: isImage
+                  ? CircleAvatar(
+                      backgroundColor: colors.lightBackgroundColor,
+                      radius: 26,
+                      backgroundImage: bgImg,
+                    )
+                  : CircleAvatar(
+                      backgroundColor: colors.lightBackgroundColor,
+                      radius: 26,
+                      child: child,
+                    ),
+            ),
           ),
           verticalSpaceTiny,
           AppText.caption(
@@ -356,8 +343,8 @@ class ProfileView extends StatelessWidget {
 
   Widget countRowItem(int count, String type) => Column(
         children: [
-          AppText.body("$count"),
-          AppText.caption(type),
+          AppText.subheading("$count"),
+          AppText.body1(type),
         ],
       );
 
