@@ -8,6 +8,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kubelite/ui/for_you/for_you_search/for_you_tab_search_view.dart';
 import 'package:stacked/stacked.dart';
 
 import '../ui/dashboard/dashboard.dart';
@@ -32,6 +33,7 @@ class Routes {
   static const String newPasswordView = '/new-password-view';
   static const String profileCreateView = '/profile-create-view';
   static const String createAnimalPageView = '/create-animal-page-view';
+  static const String forYouTabSearchView = '/for-you-tab-search-view';
   static const all = <String>{
     startupView,
     onBoardingView,
@@ -43,6 +45,7 @@ class Routes {
     newPasswordView,
     profileCreateView,
     createAnimalPageView,
+    forYouTabSearchView,
   };
 }
 
@@ -60,6 +63,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.newPasswordView, page: NewPasswordView),
     RouteDef(Routes.profileCreateView, page: ProfileCreateView),
     RouteDef(Routes.createAnimalPageView, page: CreateAnimalPageView),
+    RouteDef(Routes.forYouTabSearchView, page: ForYouTabSearchView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -150,6 +154,15 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    ForYouTabSearchView: (data) {
+      var args = data.getArgs<ForYouTabSearchViewArguments>(
+        orElse: () => ForYouTabSearchViewArguments(),
+      );
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => ForYouTabSearchView(key: args.key),
+        settings: data,
+      );
+    },
   };
 }
 
@@ -206,4 +219,10 @@ class ProfileCreateViewArguments {
 class CreateAnimalPageViewArguments {
   final Key? key;
   CreateAnimalPageViewArguments({this.key});
+}
+
+/// ForYouTabSearchView arguments holder class
+class ForYouTabSearchViewArguments {
+  final Key? key;
+  ForYouTabSearchViewArguments({this.key});
 }

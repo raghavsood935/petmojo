@@ -31,24 +31,21 @@ class FeedView extends StatelessWidget {
           physics: ScrollPhysics(),
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: EdgeInsets.only(left: 10, right: 10, top: 10),
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: rowItem(
-                        true,
-                        "My tales",
-                        model.myProfileImg,
-                      ),
+                    rowItem(
+                      true,
+                      "My tales",
+                      model.myProfileImg,
                     ),
                     horizontalSpaceRegular,
                     SizedBox(
-                      height: 100,
+                      height: 85,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
@@ -69,40 +66,64 @@ class FeedView extends StatelessWidget {
             spacedDividerSmall,
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: CircleAvatar(
-                  radius: 28,
-                  backgroundColor: colors.primary,
-                  child: CircleAvatar(
-                    radius: 25,
-                    backgroundImage: NetworkImage(model.myProfileImg),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 28,
+                    backgroundColor: colors.primary,
+                    child: CircleAvatar(
+                      radius: 25,
+                      backgroundImage: NetworkImage(model.myProfileImg),
+                    ),
                   ),
-                ),
-                title: AppInputField(
-                    controller: model.postTC, hint: "Create a pawsome post"),
-                trailing: GestureDetector(
-                  child: AppText.caption(
-                    "Photo/Video",
-                    color: colors.primary,
+                  Expanded(
+                    child: AppInputField(
+                        controller: model.postTC,
+                        hint: "Create a awesome post"),
                   ),
-                  // Flexible(
-                  //   child: Row(
-                  //     children: [
-                  //       Icon(
-                  //         Icons.photo,
-                  //         color: colors.primary,
-                  //       ),
-                  //       AppText.caption(
-                  //         "Photo/Video",
-                  //         color: colors.primary,
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                  onTap: () {},
-                ),
+                  Icon(Icons.photo, color: colors.primary),
+                  GestureDetector(
+                    child: AppText.caption(
+                      "Photo/Video",
+                      color: colors.primary,
+                    ),
+                  ),
+                ],
               ),
+              // ListTile(
+              //   contentPadding: EdgeInsets.zero,
+              //   leading: CircleAvatar(
+              //     radius: 28,
+              //     backgroundColor: colors.primary,
+              //     child: CircleAvatar(
+              //       radius: 25,
+              //       backgroundImage: NetworkImage(model.myProfileImg),
+              //     ),
+              //   ),
+              //   title: AppInputField(
+              //       controller: model.postTC, hint: "Create a pawsome post"),
+              //   trailing: GestureDetector(
+              //     child: AppText.caption(
+              //       "Photo/Video",
+              //       color: colors.primary,
+              //     ),
+              //     // Flexible(
+              //     //   child: Row(
+              //     //     children: [
+              //     //       Icon(
+              //     //         Icons.photo,
+              //     //         color: colors.primary,
+              //     //       ),
+              //     //       AppText.caption(
+              //     //         "Photo/Video",
+              //     //         color: colors.primary,
+              //     //       ),
+              //     //     ],
+              //     //   ),
+              //     // ),
+              //     onTap: () {},
+              //   ),
+              // ),
             ),
             spacedDividerSmall,
             ListView.separated(
@@ -130,20 +151,25 @@ class FeedView extends StatelessWidget {
 
 Widget rowItem(bool isCreateOne, String name, String url) {
   return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
     children: [
       SizedBox(
-        height: 75,
-        width: 75,
+        height: 60,
+        width: 60,
         child: Stack(
           children: [
             Positioned(
               child: CircleAvatar(
                 backgroundColor: colors.primary,
-                radius: 40,
+                radius: 30,
                 child: CircleAvatar(
-                  backgroundColor: colors.lightBackgroundColor,
-                  radius: 35,
-                  backgroundImage: NetworkImage(url),
+                  backgroundColor: colors.white,
+                  radius: 28,
+                  child: CircleAvatar(
+                    backgroundColor: colors.lightBackgroundColor,
+                    radius: 26,
+                    backgroundImage: NetworkImage(url),
+                  ),
                 ),
               ),
             ),
@@ -153,12 +179,12 @@ Widget rowItem(bool isCreateOne, String name, String url) {
               child: Visibility(
                 visible: isCreateOne,
                 child: CircleAvatar(
-                  radius: 15,
+                  radius: 10,
                   backgroundColor: colors.primary,
                   child: Icon(
                     Icons.add,
                     color: colors.white,
-                    size: 20,
+                    size: 14,
                   ),
                 ),
               ),
