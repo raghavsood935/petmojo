@@ -24,7 +24,7 @@ class ForgotPasswordView extends StatelessWidget with $ForgotPasswordView {
           busy: model.isBusy,
           isValid: model.isValid,
           // onMainButtonTapped: model.saveData,
-          onMainButtonTapped: model.moveToSetUpPassword,
+          onMainButtonTapped: model.resetPassword,
           onBackPressed: model.navigateBack,
           validationMessage: model.validationMessage,
           title: forgotPasswordTitle,
@@ -50,6 +50,7 @@ class ForgotPasswordView extends StatelessWidget with $ForgotPasswordView {
               AppInputField(
                 hint: enterEmailHint,
                 controller: emailController,
+                textInputType: TextInputType.emailAddress,
               ),
               verticalSpaceMedium,
             ],

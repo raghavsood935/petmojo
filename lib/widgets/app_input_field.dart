@@ -5,6 +5,7 @@ class AppInputField extends StatelessWidget {
   final TextEditingController? controller;
   final String label;
   final String hint;
+  final String errorText;
   final Widget? leading;
   final Widget? trailing;
   final bool password;
@@ -27,6 +28,7 @@ class AppInputField extends StatelessWidget {
       required this.controller,
       this.label = '',
       this.hint = '',
+      this.errorText = '',
       this.leading,
       this.trailing,
       this.trailingTapped,
@@ -54,6 +56,7 @@ class AppInputField extends StatelessWidget {
         decoration: InputDecoration(
           hintText: hint,
           labelText: label,
+          errorText: errorText,
           floatingLabelBehavior: FloatingLabelBehavior.always,
           contentPadding: const EdgeInsets.symmetric(horizontal: 10),
           prefixIcon: isSearchField

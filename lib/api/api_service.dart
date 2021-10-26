@@ -5,9 +5,11 @@ import 'package:kubelite/api/base_response.dart';
 import 'package:kubelite/api/server_error.dart';
 import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.logger.dart';
+import 'package:kubelite/models/common_response.dart';
 import 'package:kubelite/models/params/login_body.dart';
 import 'package:kubelite/models/params/profile_create_body.dart';
 import 'package:kubelite/models/params/register_body.dart';
+import 'package:kubelite/models/params/reset_password_body.dart';
 import 'package:kubelite/models/params/social_login_body.dart';
 import 'package:kubelite/models/user_response_models.dart';
 import 'package:kubelite/services/shared_preferences_service.dart';
@@ -143,6 +145,33 @@ class TamelyApi {
     UserResponse response;
     try {
       response = await getApiClient(false).login(loginBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  Future<BaseResponse<CommonResponse>> resetPassword(
+      ResetPasswordBody resetPasswordBody) async {
+    CommonResponse response;
+    try {
+      response = await getApiClient(false).resetPassword(resetPasswordBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  Future<BaseResponse<UserNameAvailableResponse>> checkUserName(
+      String userName) async {
+    log.d("checkUserName called");
+    UserNameAvailableResponse response;
+    try {
+      response = await getApiClient(true).checkUserName(userName);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()

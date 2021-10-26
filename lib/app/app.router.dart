@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:kubelite/ui/for_you/for_you_search/for_you_tab_search_view.dart';
 import 'package:stacked/stacked.dart';
 
+import '../models/application_models.dart';
 import '../ui/dashboard/dashboard.dart';
 import '../ui/forgotpassword/forgotpassword_view.dart';
 import '../ui/forgotpassword/new_password_view.dart';
@@ -137,11 +138,12 @@ class StackedRouter extends RouterBase {
       );
     },
     ProfileCreateView: (data) {
-      var args = data.getArgs<ProfileCreateViewArguments>(
-        orElse: () => ProfileCreateViewArguments(),
-      );
+      var args = data.getArgs<ProfileCreateViewArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => ProfileCreateView(key: args.key),
+        builder: (context) => ProfileCreateView(
+          key: args.key,
+          user: args.user,
+        ),
         settings: data,
       );
     },
@@ -212,7 +214,8 @@ class NewPasswordViewArguments {
 /// ProfileCreateView arguments holder class
 class ProfileCreateViewArguments {
   final Key? key;
-  ProfileCreateViewArguments({this.key});
+  final LocalUser user;
+  ProfileCreateViewArguments({this.key, required this.user});
 }
 
 /// CreateAnimalPageView arguments holder class

@@ -20,3 +20,16 @@ Map<String, dynamic> _$_$_UserResponseToJson(_$_UserResponse instance) =>
       'user': instance.localUser,
       'token': instance.token,
     };
+
+_$_UserNameAvailableResponse _$_$_UserNameAvailableResponseFromJson(
+    Map<String, dynamic> json) {
+  return _$_UserNameAvailableResponse(
+    isAvailable: json['isAvailable'] as bool,
+  );
+}
+
+Map<String, dynamic> _$_$_UserNameAvailableResponseToJson(
+        _$_UserNameAvailableResponse instance) =>
+    <String, dynamic>{
+      'isAvailable': instance.isAvailable,
+    };

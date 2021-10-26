@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -10,6 +11,7 @@ import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.logger.dart';
 import 'package:kubelite/app/app.router.dart';
 import 'package:kubelite/enum/redirect_state.dart';
+import 'package:kubelite/models/application_models.dart';
 import 'package:kubelite/models/params/profile_create_body.dart';
 import 'package:kubelite/models/user_response_models.dart';
 import 'package:kubelite/services/shared_preferences_service.dart';
@@ -28,7 +30,9 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
   final ImagePicker _picker = ImagePicker();
 
   bool _isValid = false;
-  ProfileCreateViewModel();
+  LocalUser user;
+
+  ProfileCreateViewModel(this.user);
 
   get isValid => _isValid;
 
@@ -104,6 +108,39 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
   @override
   void setFormStatus() {
     checkValidateField();
+    String username = formValueMap["username"];
+    _onSearchChanged(username);
+  }
+
+  Timer? _debounce;
+  String _userName = "";
+  bool _isValidUser = false;
+
+  _onSearchChanged(String query) async {
+    if (_userName != query) {
+      if (_debounce?.isActive ?? false) _debounce?.cancel();
+      _debounce = Timer(const Duration(milliseconds: 500), () async {
+        _userName = query;
+        if (await Util.checkInternetConnectivity()) {
+          try {
+            BaseResponse<UserNameAvailableResponse> availableResponse =
+                await runBusyFuture(_tamelyApi.checkUserName(query),
+                    throwException: true);
+            if (availableResponse.getException != null) {
+              ServerError error = availableResponse.getException as ServerError;
+              _snackBarService.showSnackbar(message: error.getErrorMessage());
+            } else if (availableResponse.data != null) {
+              _isValidUser = availableResponse.data!.isAvailable;
+            }
+          } catch (e) {
+            log.e(e);
+            _snackBarService.showSnackbar(message: "$e");
+          }
+        } else {
+          _snackBarService.showSnackbar(message: "No Internet connection");
+        }
+      });
+    }
   }
 
   init() {
@@ -122,11 +159,23 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
       }
     });
 
-    if (imagePath.isEmpty) {
+    // if (imagePath.isEmpty) {
+    //   _isValid = false;
+    // }
+
+    if (!_isValidUser) {
       _isValid = false;
     }
 
     notifyListeners();
     return _isValid;
+  }
+
+  String validUser(TextEditingController usernameController) {
+    if (_isValidUser) {
+      return "";
+    } else {
+      return "Username is not available";
+    }
   }
 }
