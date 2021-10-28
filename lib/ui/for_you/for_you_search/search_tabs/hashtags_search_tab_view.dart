@@ -3,6 +3,8 @@ import 'package:kubelite/models/hashtag_model.dart';
 import 'package:kubelite/widgets/app_text.dart';
 import 'package:stacked/stacked.dart';
 
+import 'package:kubelite/util/String.dart';
+
 import 'hashtags_search_tab_view_model.dart';
 
 class HashtagsSearchTabView extends StatefulWidget {
@@ -42,12 +44,16 @@ class _HashtagsSearchTabViewState extends State<HashtagsSearchTabView> {
 Widget listItem(int index, HashtagsSearchTabViewModel viewModel) {
   HashTagModel model = viewModel.listOfHashTag[index];
   return ListTile(
-    contentPadding: EdgeInsets.zero,
-    title: AppText.body1(model.titleTag),
-    subtitle: AppText.caption(model.subTitleTag),
-    trailing: IconButton(
-      icon: Icon(Icons.cancel_outlined),
-      onPressed: () => viewModel.removeHashTagFromList(index),
+    contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
+    title: AppText.body1(model.tag),
+    subtitle: AppText.caption("used in ${model.usedCount} posts"),
+    trailing: GestureDetector(
+      child: Image.asset(
+        crossImgPath,
+        height: 12,
+        width: 12,
+      ),
+      onTap: () => viewModel.removeHashTagFromList(index),
     ),
   );
 }

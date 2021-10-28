@@ -34,6 +34,9 @@ dependencies:
   #  get location
   geolocator: ^7.7.1
 
+  #  Auto complete text
+  flutter_typeahead: ^3.2.1
+
   # state management
   stacked: ^2.1.9
   stacked_hooks: ^0.2.1
@@ -103,6 +106,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/images/animal_type_images/
     - assets/lottie/
 
   fonts:

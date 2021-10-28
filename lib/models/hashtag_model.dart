@@ -1,8 +1,8 @@
 class HashTagModel {
-  String _titleTag = "#TAGASDF";
-  String _subTitleTag = "#LOKFJCIVJAS";
+  String _tag = "#ABCde";
+  String _usedCount = "129K";
 
-  String get titleTag => _titleTag;
+  String get tag => _tag;
 
-  String get subTitleTag => _subTitleTag;
+  String get usedCount => _usedCount;
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kubelite/models/profile_account_model.dart';
 import 'package:kubelite/ui/for_you/for_you_search/search_tabs/all_search_tab_view_model.dart';
 import 'package:kubelite/util/Color.dart';
+import 'package:kubelite/util/String.dart';
 import 'package:kubelite/widgets/app_text.dart';
 import 'package:stacked/stacked.dart';
 
@@ -43,7 +44,7 @@ class _AllSerachTabViewState extends State<AllSerachTabView> {
 Widget listItem(int index, AllSearchTabViewModel viewModel) {
   AccountProfileModel model = viewModel.listOfAccounts[index];
   return ListTile(
-    contentPadding: EdgeInsets.zero,
+    contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
     leading: CircleAvatar(
       backgroundColor: colors.primary,
       radius: 30,
@@ -59,9 +60,13 @@ Widget listItem(int index, AllSearchTabViewModel viewModel) {
     ),
     title: AppText.body1(model.profilename),
     subtitle: AppText.caption(model.username),
-    trailing: IconButton(
-      icon: Icon(Icons.cancel_outlined),
-      onPressed: () => viewModel.removeAccountFromList(index),
+    trailing: GestureDetector(
+      child: Image.asset(
+        crossImgPath,
+        height: 12,
+        width: 12,
+      ),
+      onTap: () => viewModel.removeAccountFromList(index),
     ),
   );
 }

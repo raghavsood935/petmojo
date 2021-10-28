@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.logger.dart';
-import 'package:kubelite/models/animal_type_model.dart';
 import 'package:kubelite/models/breed_animal_model.dart';
 import 'package:kubelite/shared/base_viewmodel.dart';
 import 'package:kubelite/util/String.dart';
@@ -17,11 +16,28 @@ class CreateAnimalViewModel extends BaseModel {
 
   final log = getLogger('ProfileCreateViewModel');
   final _snackBarService = locator<SnackbarService>();
+  final _navigationService = locator<NavigationService>();
 
   final List<String> animalTypeValues = ["Pet", "Stray", "Wild", "Farm"];
   final List<String> ageTypeValues = ["Baby", "Adult", "Young"];
   List<String> animalBreedSelectedList = [];
-  final List<BreedTypeModel> aniamlBreedTypeValues = [
+
+  List<AnimalTypeModel> listOfAnimalTypes = [];
+
+  List<String> availableBreedList = [
+    "dog",
+    "cat",
+    "horse",
+    "bird",
+    "rabbit",
+    "pig",
+    "fish",
+    "guinea pigs",
+    "hamster",
+    "insects"
+  ];
+
+  final List<BreedTypeModel> animalBreedTypeValues = [
     BreedTypeModel(),
     BreedTypeModel(),
     BreedTypeModel(),
@@ -34,40 +50,189 @@ class CreateAnimalViewModel extends BaseModel {
     BreedTypeModel(),
   ];
 
-  final List<AnimalTypeModel> aniamlTypeListValues = [
-    AnimalTypeModel(),
-    AnimalTypeModel(),
-    AnimalTypeModel(),
-    AnimalTypeModel(),
-    AnimalTypeModel(),
-    AnimalTypeModel(),
-    AnimalTypeModel(),
-    AnimalTypeModel(),
-    AnimalTypeModel(),
-    AnimalTypeModel(),
-    AnimalTypeModel(),
-  ];
-
-  final List<AnimalGenderModel> animalGenderList = [
-    AnimalGenderModel(
-      "Male",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF3620nhlKrn_G8PNWR9PzVYy_UesDVdNtzg&usqp=CAU",
+  final List<AnimalTypeModel> _petAnimalTypeListValues = [
+    AnimalTypeModel(
+      "Dog",
+      dogImgPath,
     ),
-    AnimalGenderModel(
-      "Female",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF3620nhlKrn_G8PNWR9PzVYy_UesDVdNtzg&usqp=CAU",
+    AnimalTypeModel(
+      "Cat",
+      catImgPath,
+    ),
+    AnimalTypeModel(
+      "Horse",
+      horseImgPath,
+    ),
+    AnimalTypeModel(
+      "Birds",
+      birdImgPath,
+    ),
+    AnimalTypeModel(
+      "Rabbit",
+      rabbitImgPath,
+    ),
+    AnimalTypeModel(
+      "Pig",
+      pigImgPath,
+    ),
+    AnimalTypeModel(
+      "Fish",
+      fishImgPath,
+    ),
+    AnimalTypeModel(
+      "Guinea pigs",
+      guineaPigImgPath,
+    ),
+    AnimalTypeModel(
+      "Hamsters",
+      hamstersImgPath,
     ),
   ];
 
-  String selectedValue = "";
+  final List<AnimalTypeModel> _strayAnimalTypeListValues = [
+    AnimalTypeModel(
+      "Dog",
+      dogImgPath,
+    ),
+    AnimalTypeModel(
+      "Cat",
+      catImgPath,
+    ),
+    AnimalTypeModel(
+      "Horse",
+      horseImgPath,
+    ),
+    AnimalTypeModel(
+      "Goat",
+      goatImgPath,
+    ),
+    AnimalTypeModel(
+      "Rabbit",
+      rabbitImgPath,
+    ),
+    AnimalTypeModel(
+      "Pig",
+      pigImgPath,
+    ),
+    AnimalTypeModel(
+      "Camel",
+      camelImgPath,
+    ),
+    AnimalTypeModel(
+      "Guinea pigs",
+      guineaPigImgPath,
+    ),
+    AnimalTypeModel(
+      "Cow",
+      cowImgPath,
+    ),
+    AnimalTypeModel(
+      "Donkeys ",
+      donkeyImgPath,
+    ),
+  ];
+
+  final List<AnimalTypeModel> _wildAnimalTypeListValues = [
+    AnimalTypeModel(
+      "Elephant",
+      elephantImgPath,
+    ),
+    AnimalTypeModel(
+      "Monkey",
+      monkeyImgPath,
+    ),
+    AnimalTypeModel(
+      "Gorillas",
+      gorillaImgPath,
+    ),
+    AnimalTypeModel(
+      "Lion",
+      lionImgPath,
+    ),
+    AnimalTypeModel(
+      "Tiger ",
+      tigerImgPath,
+    ),
+    AnimalTypeModel(
+      "Deer",
+      deerImgPath,
+    ),
+    AnimalTypeModel(
+      "Polar bear",
+      polarBearImgPath,
+    ),
+    AnimalTypeModel(
+      "Cheetah",
+      cheetahImgPath,
+    ),
+    AnimalTypeModel(
+      "Panda",
+      pandaImgPath,
+    ),
+  ];
+
+  final List<AnimalTypeModel> _farmAnimalTypeListValues = [
+    AnimalTypeModel(
+      "Chicken",
+      chickenImgPath,
+    ),
+    AnimalTypeModel(
+      "Cattle",
+      cowImgPath,
+    ),
+    AnimalTypeModel(
+      "Sheep",
+      sheepImgPath,
+    ),
+    AnimalTypeModel(
+      "Ducks",
+      duckImgPath,
+    ),
+    AnimalTypeModel(
+      "Goats",
+      goatImgPath,
+    ),
+    AnimalTypeModel(
+      "Alpaca",
+      alpacaImgPath,
+    ),
+    AnimalTypeModel(
+      "Pigs",
+      pigImgPath,
+    ),
+    AnimalTypeModel(
+      "Horse",
+      horseImgPath,
+    ),
+    AnimalTypeModel(
+      "Rabbit",
+      rabbitImgPath,
+    ),
+    AnimalTypeModel(
+      "Llama",
+      llamaImgPath,
+    ),
+    AnimalTypeModel(
+      "Donkeys",
+      donkeyImgPath,
+    ),
+  ];
+
+  final List<String> animalGenderList = [
+    "Male",
+    "Female",
+  ];
+
+  String selectedValue = "Pet";
 
   bool matingValue = false;
   bool adoptionValue = false;
-  bool resigteredWithKCValue = true;
+  bool resigteredWithKCValue = false;
   bool playBuddiesValue = false;
+  bool isBreedAvailable = false;
   String ageType = "Baby";
   String selectedAnimalType = "";
-  String selectedAnimalGender = "";
+  String selectedAnimalGender = "Male";
 
   dynamic _pickImageError;
   XFile? _imageFile;
@@ -96,8 +261,56 @@ class CreateAnimalViewModel extends BaseModel {
     }
   }
 
+  onBackPressed() {
+    _navigationService.back();
+  }
+
+  Future<void> setAnimalTypeList() async {
+    switch (selectedValue) {
+      case "Pet":
+        {
+          listOfAnimalTypes.clear();
+          listOfAnimalTypes.addAll(_petAnimalTypeListValues);
+          notifyListeners();
+          break;
+        }
+      case "Stray":
+        {
+          listOfAnimalTypes.clear();
+          listOfAnimalTypes.addAll(_strayAnimalTypeListValues);
+          notifyListeners();
+          break;
+        }
+
+      case "Wild":
+        {
+          listOfAnimalTypes.clear();
+          listOfAnimalTypes.addAll(_wildAnimalTypeListValues);
+          notifyListeners();
+          break;
+        }
+
+      case "Farm":
+        {
+          listOfAnimalTypes.clear();
+          listOfAnimalTypes.addAll(_farmAnimalTypeListValues);
+          notifyListeners();
+          break;
+        }
+
+      default:
+        {
+          listOfAnimalTypes.clear();
+          listOfAnimalTypes.addAll(_petAnimalTypeListValues);
+          notifyListeners();
+          break;
+        }
+    }
+  }
+
   onChangeRadio(String? value) {
     selectedValue = value!;
+    setAnimalTypeList();
     notifyListeners();
   }
 
@@ -126,73 +339,21 @@ class CreateAnimalViewModel extends BaseModel {
     notifyListeners();
   }
 
+  onChangeGender(String? value) {
+    selectedAnimalGender = value!;
+    notifyListeners();
+  }
+
   Future<void> createAnimalProfile() async {
     if (selectedValue.isNotEmpty && selectedValue == "Stray") {
       getCurrentLocation();
     } else {}
   }
 
-  void onSave(BuildContext context, TextEditingController tc, int type) {
-    /*
-      1. for animal type,
-      2. for gender,
-      3. for animal breed.
-     */
-
-    log.d("Saving the data!!!");
-
-    switch (type) {
-      case 1:
-        {
-          if (selectedAnimalType != "") {
-            tc.text = selectedAnimalType;
-            Navigator.pop(context);
-          } else {
-            _snackBarService.showSnackbar(message: noBreedSelected);
-          }
-
-          break;
-        }
-      case 2:
-        {
-          if (selectedAnimalGender != "") {
-            tc.text = selectedAnimalGender;
-            Navigator.pop(context);
-          } else {
-            _snackBarService.showSnackbar(message: noBreedSelected);
-          }
-          break;
-        }
-      case 3:
-        {
-          animalBreedSelectedList.clear();
-          String breedDisplayString = "";
-          for (BreedTypeModel model in aniamlBreedTypeValues) {
-            if (model.isChecked) {
-              animalBreedSelectedList.add(model.breedName);
-              log.d(model.breedName);
-              breedDisplayString =
-                  "${breedDisplayString} ${model.breedName} , ";
-            }
-          }
-          if (animalBreedSelectedList != null &&
-              animalBreedSelectedList.length > 0) {
-            tc.text =
-                "${breedDisplayString.substring(0, breedDisplayString.length - 2)} . ";
-            Navigator.pop(context);
-          } else {
-            _snackBarService.showSnackbar(message: noBreedSelected);
-          }
-
-          break;
-        }
-    }
-  }
-
   selectBreedDDMFunction(BuildContext context, TextEditingController tc) async {
     animalBreedSelectedList.clear();
     String breedDisplayString = "";
-    for (BreedTypeModel model in aniamlBreedTypeValues) {
+    for (BreedTypeModel model in animalBreedTypeValues) {
       if (model.isChecked) {
         animalBreedSelectedList.add(model.breedName);
         log.d(model.breedName);
@@ -208,22 +369,23 @@ class CreateAnimalViewModel extends BaseModel {
     }
   }
 
-  selectGenderDDMFunction(
-      BuildContext context, TextEditingController tc) async {
-    if (tc.text != "" && tc.text != null) {
-      Navigator.pop(context);
-    } else {
-      _snackBarService.showSnackbar(message: noGenderSelected);
-    }
-  }
-
   selectAnimalTypeDDMFunction(
       BuildContext context, TextEditingController tc) async {
     if (tc.text != "" && tc.text != null) {
       Navigator.pop(context);
+      checkBreedAvailable(tc.text.toLowerCase());
     } else {
       _snackBarService.showSnackbar(message: noAnimalTypeSelected);
     }
+  }
+
+  checkBreedAvailable(String value) {
+    if (availableBreedList.contains(value)) {
+      isBreedAvailable = true;
+    } else {
+      isBreedAvailable = false;
+    }
+    notifyListeners();
   }
 
   Future<void> getCurrentLocation() async {
@@ -260,13 +422,13 @@ class CreateAnimalViewModel extends BaseModel {
   }
 }
 
-class AnimalGenderModel {
-  String _gender;
-  String _url;
+class AnimalTypeModel {
+  String _type = "";
+  String _imageAssetPath = "";
 
-  AnimalGenderModel(this._gender, this._url);
+  AnimalTypeModel(this._type, this._imageAssetPath);
 
-  get gender => this._gender;
+  String get type => this._type;
 
-  get url => this._url;
+  String get imageAssetPath => _imageAssetPath;
 }

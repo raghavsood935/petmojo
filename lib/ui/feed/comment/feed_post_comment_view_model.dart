@@ -8,9 +8,14 @@ class FeedPostCommentViewModel extends BaseModel {
   List<FeedPostCommentModel> _listOfComments = [
     FeedPostCommentModel(),
     FeedPostCommentModel(),
+    FeedPostCommentModel(),
   ];
 
   TextEditingController get commentTC => _commentTC;
 
   List<FeedPostCommentModel> get listOfComments => _listOfComments;
+
+  void onClose(BuildContext context) {
+    Navigator.pop(context);
+  }
 }

@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:kubelite/ui/profilepage/post_tabs/my_posts_tab.dart';
-import 'package:kubelite/ui/profilepage/post_tabs/post_tabs.dart';
+import 'package:kubelite/ui/profilepage/post_tabs/mentions_post_tab.dart';
 import 'package:kubelite/ui/profilepage/profile_viewmodel.dart';
 import 'package:kubelite/util/Color.dart';
 import 'package:kubelite/util/String.dart';
@@ -41,6 +39,7 @@ class ProfileView extends StatelessWidget {
                 child: Stack(
                   children: [
                     Positioned(
+                      top: 30,
                       right: 20,
                       child: GestureDetector(
                         child: Row(children: [
@@ -220,6 +219,7 @@ class ProfileView extends StatelessWidget {
               // spacedDividerSmall,
 
               //my animals
+
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
@@ -236,7 +236,9 @@ class ProfileView extends StatelessWidget {
                   ],
                 ),
               ),
+
               //my animals list
+
               Visibility(
                 visible: model.isMyAnimalsVisibile,
                 child: Padding(
@@ -284,10 +286,53 @@ class ProfileView extends StatelessWidget {
                   ),
                 ),
               ),
+
               spacedDividerSmall,
               //my post section
-              // PostTab(),
-              MyPostsTabView(),
+
+              MentionsPostTabView(),
+
+              // DefaultTabController(
+              //   length: 2,
+              //   child: Column(
+              //     children: [
+              //       TabBar(
+              //         tabs: [
+              //           Tab(
+              //             text: "My posts",
+              //           ),
+              //           Tab(
+              //             text: "Mentions",
+              //           ),
+              //         ],
+              //       ),
+              //       TabBarView(
+              //         children: [
+              //           MyPostsTabView(),
+              //           MentionsPostTabView(),
+              //         ],
+              //       ),
+              //     ],
+              //   ),
+              // )
+
+              // Flexible(
+              //   child: TabBar(tabs: [
+              //     Tab(
+              //       text: "My posts",
+              //     ),
+              //     Tab(
+              //       text: "Mentions",
+              //     ),
+              //   ]),
+              // ),
+              // Flexible(
+              //   child: TabBarView(
+              //     children: [MyPostsTabView(), MentionsPostTabView()],
+              //   ),
+              // )
+
+              // MyPostsTabView(),
               //my posts grid view
             ],
           ),

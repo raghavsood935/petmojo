@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kubelite/models/feed_post_model.dart';
 import 'package:kubelite/ui/feed/comment/feed_post_comment_view.dart';
 import 'package:kubelite/ui/feed/feed_view_model.dart';
 import 'package:kubelite/util/Color.dart';
 import 'package:kubelite/util/String.dart';
 import 'package:kubelite/util/ui_helpers.dart';
-import 'package:kubelite/widgets/app_input_field.dart';
 import 'package:kubelite/widgets/app_text.dart';
+import 'package:kubelite/widgets/custom_circle_avatar.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
@@ -31,7 +30,7 @@ class FeedView extends StatelessWidget {
           physics: ScrollPhysics(),
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 10, right: 10, top: 10),
+              padding: EdgeInsets.only(left: 20, right: 10, top: 15),
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -63,24 +62,21 @@ class FeedView extends StatelessWidget {
                 ),
               ),
             ),
-            spacedDividerSmall,
+            spacedDividerTiny,
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               child: Row(
                 children: [
-                  CircleAvatar(
-                    radius: 28,
-                    backgroundColor: colors.primary,
-                    child: CircleAvatar(
-                      radius: 25,
-                      backgroundImage: NetworkImage(model.myProfileImg),
-                    ),
+                  CustomCircularAvatar(
+                    radius: 25.0,
+                    imgPath: model.myProfileImg,
                   ),
                   Expanded(
-                    child: AppInputField(
-                        controller: model.postTC,
-                        hint: "Create a awesome post"),
-                  ),
+                      child: AppText.caption(
+                    "Create a pawsome post",
+                    textAlign: TextAlign.center,
+                    color: colors.kcCaptionGreyColor,
+                  )),
                   Icon(Icons.photo, color: colors.primary),
                   GestureDetector(
                     child: AppText.caption(
@@ -90,42 +86,8 @@ class FeedView extends StatelessWidget {
                   ),
                 ],
               ),
-              // ListTile(
-              //   contentPadding: EdgeInsets.zero,
-              //   leading: CircleAvatar(
-              //     radius: 28,
-              //     backgroundColor: colors.primary,
-              //     child: CircleAvatar(
-              //       radius: 25,
-              //       backgroundImage: NetworkImage(model.myProfileImg),
-              //     ),
-              //   ),
-              //   title: AppInputField(
-              //       controller: model.postTC, hint: "Create a pawsome post"),
-              //   trailing: GestureDetector(
-              //     child: AppText.caption(
-              //       "Photo/Video",
-              //       color: colors.primary,
-              //     ),
-              //     // Flexible(
-              //     //   child: Row(
-              //     //     children: [
-              //     //       Icon(
-              //     //         Icons.photo,
-              //     //         color: colors.primary,
-              //     //       ),
-              //     //       AppText.caption(
-              //     //         "Photo/Video",
-              //     //         color: colors.primary,
-              //     //       ),
-              //     //     ],
-              //     //   ),
-              //     // ),
-              //     onTap: () {},
-              //   ),
-              // ),
             ),
-            spacedDividerSmall,
+            spacedDividerTiny,
             ListView.separated(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
@@ -159,18 +121,9 @@ Widget rowItem(bool isCreateOne, String name, String url) {
         child: Stack(
           children: [
             Positioned(
-              child: CircleAvatar(
-                backgroundColor: colors.primary,
-                radius: 30,
-                child: CircleAvatar(
-                  backgroundColor: colors.white,
-                  radius: 28,
-                  child: CircleAvatar(
-                    backgroundColor: colors.lightBackgroundColor,
-                    radius: 26,
-                    backgroundImage: NetworkImage(url),
-                  ),
-                ),
+              child: CustomCircularAvatar(
+                radius: 30.0,
+                imgPath: url,
               ),
             ),
             Positioned(
@@ -196,7 +149,11 @@ Widget rowItem(bool isCreateOne, String name, String url) {
                 visible: !isCreateOne,
                 child: Transform.rotate(
                   angle: 320,
-                  child: Image.asset(animalFootPrintImgPath),
+                  child: Image.asset(
+                    animalFootPrintImgPath,
+                    height: 15,
+                    width: 15,
+                  ),
                 ),
               ),
             ),
@@ -207,7 +164,11 @@ Widget rowItem(bool isCreateOne, String name, String url) {
                 visible: !isCreateOne,
                 child: Transform.rotate(
                   angle: 250,
-                  child: Image.asset(animalFootPrintImgPath),
+                  child: Image.asset(
+                    animalFootPrintImgPath,
+                    height: 15,
+                    width: 15,
+                  ),
                 ),
               ),
             ),
@@ -226,20 +187,20 @@ Widget rowItem(bool isCreateOne, String name, String url) {
 Widget postItem(
     BuildContext context, FeedPostModel model, String myProfileImgUrl) {
   return Padding(
-    padding: const EdgeInsets.all(8.0),
+    padding: const EdgeInsets.only(
+      left: 20.0,
+      top: 10.0,
+      bottom: 10.0,
+      right: 10.0,
+    ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ListTile(
-          leading: CircleAvatar(
-            radius: 25,
-            backgroundColor: colors.primary,
-            child: CircleAvatar(
-              radius: 23,
-              backgroundImage: NetworkImage(model.isAnimalPost
-                  ? model.animalProfileImgUrl
-                  : model.profileImgUrl),
-            ),
+          contentPadding: EdgeInsets.zero,
+          leading: CustomCircularAvatar(
+            radius: 23.0,
+            imgPath: model.profileImgUrl,
           ),
           title: model.isAnimalPost
               ? Row(
@@ -253,14 +214,20 @@ Widget postItem(
               : AppText.body2(model.username),
           subtitle: Row(
             children: [
-              AppText.caption(model.location),
+              AppText.caption(
+                model.location,
+                color: colors.kcCaptionGreyColor,
+              ),
               horizontalSpaceTiny,
               CircleAvatar(
                 backgroundColor: colors.primary,
                 radius: 2,
               ),
               horizontalSpaceTiny,
-              AppText.caption(model.uploadTime),
+              AppText.caption(
+                model.uploadTime,
+                color: colors.kcCaptionGreyColor,
+              ),
               horizontalSpaceTiny,
               Visibility(
                 visible: model.isAnimalPost,
@@ -275,12 +242,16 @@ Widget postItem(
                 child: Icon(
                   model.isPrivate ? Icons.lock : Icons.campaign_sharp,
                   size: 10,
+                  color: colors.kcCaptionGreyColor,
                 ),
               ),
               horizontalSpaceTiny,
               Visibility(
                 visible: model.isAnimalPost,
-                child: AppText.caption(model.isPrivate ? "Private" : "Public"),
+                child: AppText.caption(
+                  model.isPrivate ? "Private" : "Public",
+                  color: colors.kcCaptionGreyColor,
+                ),
               ),
             ],
           ),
@@ -296,7 +267,7 @@ Widget postItem(
             children: [
               LikeBtn(initialState: model.isLiked, onTap: () {}),
               horizontalSpaceSmall,
-              imageButton(false, () {}, assetsPath: sendImgPath),
+              imageButton(false, () {}, assetsPath: sendOutlineImgPath),
               horizontalSpaceSmall,
               imageButton(false, () {}, assetsPath: bookmarkImgPath),
             ],
@@ -305,6 +276,7 @@ Widget postItem(
             onPressed: () => showModalBottomSheet(
               enableDrag: true,
               isScrollControlled: true,
+              useRootNavigator: true,
               backgroundColor: Colors.transparent,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(
@@ -318,23 +290,24 @@ Widget postItem(
           ),
         ),
         AppText.body1(model.lastLikedPersonName),
+        verticalSpaceTiny,
         AppText.body1("${model.noOfComments} comments", color: colors.primary),
         GestureDetector(
           child: ListTile(
             contentPadding: EdgeInsets.zero,
-            leading: CircleAvatar(
-              radius: 20,
-              backgroundColor: colors.primary,
-              child: CircleAvatar(
-                radius: 18,
-                backgroundImage: NetworkImage(myProfileImgUrl),
-              ),
+            leading: CustomCircularAvatar(
+              radius: 20.0,
+              imgPath: myProfileImgUrl,
             ),
-            title: AppText.caption("Add a comment"),
+            title: AppText.caption(
+              "Add a comment",
+              color: colors.kcCaptionGreyColor,
+            ),
           ),
           onTap: () => showModalBottomSheet(
-            enableDrag: false,
+            // enableDrag: false,
             isScrollControlled: true,
+            useRootNavigator: true,
             backgroundColor: Colors.transparent,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(
@@ -368,9 +341,9 @@ Widget roundedImage(BuildContext context, String url) {
 Widget buildSheet(
     {bool isMore = false, bool isComment = false, String profileImgUrl = ""}) {
   return DraggableScrollableSheet(
-      initialChildSize: isComment ? 0.85 : 0.50,
-      maxChildSize: 0.85,
-      expand: true,
+      initialChildSize: isComment ? 0.90 : 0.50,
+      maxChildSize: 0.90,
+      // expand: true,
       builder: (context, controller) {
         if (isComment) {
           return FeedPostCommentView(
