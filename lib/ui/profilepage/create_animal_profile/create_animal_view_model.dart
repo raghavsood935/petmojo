@@ -6,6 +6,7 @@ import 'package:kubelite/app/app.logger.dart';
 import 'package:kubelite/models/breed_animal_model.dart';
 import 'package:kubelite/shared/base_viewmodel.dart';
 import 'package:kubelite/util/String.dart';
+import 'package:kubelite/util/Constant.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -23,32 +24,7 @@ class CreateAnimalViewModel extends BaseModel {
   List<String> animalBreedSelectedList = [];
 
   List<AnimalTypeModel> listOfAnimalTypes = [];
-
-  List<String> availableBreedList = [
-    "dog",
-    "cat",
-    "horse",
-    "bird",
-    "rabbit",
-    "pig",
-    "fish",
-    "guinea pigs",
-    "hamster",
-    "insects"
-  ];
-
-  final List<BreedTypeModel> animalBreedTypeValues = [
-    BreedTypeModel(),
-    BreedTypeModel(),
-    BreedTypeModel(),
-    BreedTypeModel(),
-    BreedTypeModel(),
-    BreedTypeModel(),
-    BreedTypeModel(),
-    BreedTypeModel(),
-    BreedTypeModel(),
-    BreedTypeModel(),
-  ];
+  List<BreedTypeModel> listOfAnimalBreed = [];
 
   final List<AnimalTypeModel> _petAnimalTypeListValues = [
     AnimalTypeModel(
@@ -353,10 +329,9 @@ class CreateAnimalViewModel extends BaseModel {
   selectBreedDDMFunction(BuildContext context, TextEditingController tc) async {
     animalBreedSelectedList.clear();
     String breedDisplayString = "";
-    for (BreedTypeModel model in animalBreedTypeValues) {
+    for (BreedTypeModel model in listOfAnimalBreed) {
       if (model.isChecked) {
         animalBreedSelectedList.add(model.breedName);
-        log.d(model.breedName);
         breedDisplayString = "${breedDisplayString} ${model.breedName} , ";
       }
     }
@@ -382,10 +357,155 @@ class CreateAnimalViewModel extends BaseModel {
   checkBreedAvailable(String value) {
     if (availableBreedList.contains(value)) {
       isBreedAvailable = true;
+      setBreedList(value);
     } else {
       isBreedAvailable = false;
     }
     notifyListeners();
+  }
+
+  setBreedList(String value) {
+    switch (value.toLowerCase()) {
+      case "dog":
+        {
+          listOfAnimalBreed.clear();
+          listOfAnimalBreed.addAll(dogBreedList);
+          break;
+        }
+
+      case "cat":
+        {
+          listOfAnimalBreed.clear();
+          listOfAnimalBreed.addAll(catBreedList);
+          break;
+        }
+
+      case "horse":
+        {
+          listOfAnimalBreed.clear();
+          listOfAnimalBreed.addAll(horseBreedList);
+          break;
+        }
+
+      case "bird":
+        {
+          listOfAnimalBreed.clear();
+          listOfAnimalBreed.addAll(birdsBreedList);
+          break;
+        }
+
+      case "rabbit":
+        {
+          listOfAnimalBreed.clear();
+          listOfAnimalBreed.addAll(rabbitBreedList);
+          break;
+        }
+
+      case "pig":
+        {
+          listOfAnimalBreed.clear();
+          listOfAnimalBreed.addAll(pigBreedList);
+          break;
+        }
+
+      case "fish":
+        {
+          listOfAnimalBreed.clear();
+          listOfAnimalBreed.addAll(fishBreedList);
+          break;
+        }
+
+      case "guinea pig":
+        {
+          listOfAnimalBreed.clear();
+          listOfAnimalBreed.addAll(guineaPigBreedList);
+          break;
+        }
+
+      case "hamster":
+        {
+          listOfAnimalBreed.clear();
+          listOfAnimalBreed.addAll(hamsterBreedList);
+          break;
+        }
+
+      case "insect":
+        {
+          listOfAnimalBreed.clear();
+          listOfAnimalBreed.addAll(insectsBreedList);
+          break;
+        }
+
+      case "dogs":
+        {
+          listOfAnimalBreed.clear();
+          listOfAnimalBreed.addAll(dogBreedList);
+          break;
+        }
+
+      case "cats":
+        {
+          listOfAnimalBreed.clear();
+          listOfAnimalBreed.addAll(catBreedList);
+          break;
+        }
+
+      case "horses":
+        {
+          listOfAnimalBreed.clear();
+          listOfAnimalBreed.addAll(horseBreedList);
+          break;
+        }
+
+      case "birds":
+        {
+          listOfAnimalBreed.clear();
+          listOfAnimalBreed.addAll(birdsBreedList);
+          break;
+        }
+
+      case "rabbits":
+        {
+          listOfAnimalBreed.clear();
+          listOfAnimalBreed.addAll(rabbitBreedList);
+          break;
+        }
+
+      case "pigs":
+        {
+          listOfAnimalBreed.clear();
+          listOfAnimalBreed.addAll(pigBreedList);
+          break;
+        }
+
+      case "guinea pigs":
+        {
+          listOfAnimalBreed.clear();
+          listOfAnimalBreed.addAll(guineaPigBreedList);
+          break;
+        }
+
+      case "hamsters":
+        {
+          listOfAnimalBreed.clear();
+          listOfAnimalBreed.addAll(hamsterBreedList);
+          break;
+        }
+
+      case "insects":
+        {
+          listOfAnimalBreed.clear();
+          listOfAnimalBreed.addAll(insectsBreedList);
+          break;
+        }
+
+      default:
+        {
+          listOfAnimalBreed.clear();
+          listOfAnimalBreed = [];
+          break;
+        }
+    }
   }
 
   Future<void> getCurrentLocation() async {

@@ -8,7 +8,6 @@ import 'package:kubelite/ui/profilepage/create_animal_profile/select_other_optio
 import 'package:kubelite/util/Color.dart';
 import 'package:kubelite/util/String.dart';
 import 'package:kubelite/util/ui_helpers.dart';
-import 'package:kubelite/widgets/custom_circle_avatar.dart';
 
 import 'app_input_field.dart';
 import 'app_text.dart';

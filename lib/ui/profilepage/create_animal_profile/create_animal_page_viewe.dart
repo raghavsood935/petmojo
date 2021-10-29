@@ -165,7 +165,7 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                         title: "Select the breed",
                         textController: breedController,
                         searchController: searchController,
-                        breedList: model.animalBreedTypeValues,
+                        breedList: model.listOfAnimalBreed,
                         onSaveWidget: GestureDetector(
                             child: AppText.caption(
                               "Save",
@@ -178,15 +178,22 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                       false,
                     ),
                   ),
-                  dobTF: AppInputField(
-                    controller: dobController,
-                    hint: "dd/mm/yyyy",
-                    trailing: Icon(
-                      Icons.calendar_today,
-                      size: 18,
+                  dobTF: GestureDetector(
+                    child: Container(
+                      color: Colors.transparent,
+                      child: IgnorePointer(
+                        child: AppInputField(
+                          controller: dobController,
+                          hint: "DD-MM-YYYY",
+                          trailing: Icon(
+                            Icons.calendar_today,
+                            size: 18,
+                          ),
+                          readOnly: true,
+                        ),
+                      ),
                     ),
-                    trailingTapped: () => _selectDate(context, dobController),
-                    readOnly: true,
+                    onTap: () => _selectDate(context, dobController),
                   ),
                   ageChooseOptnDDM: dropDownButton(model.ageType,
                       model.ageTypeValues, "Choose age", model.onChangeAge),
