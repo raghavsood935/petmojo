@@ -53,6 +53,7 @@ class AppInputField extends StatelessWidget {
         style: TextStyle(height: 1),
         obscureText: password,
         readOnly: readOnly,
+        maxLines: null,
         decoration: InputDecoration(
           hintText: hint,
           labelText: label,

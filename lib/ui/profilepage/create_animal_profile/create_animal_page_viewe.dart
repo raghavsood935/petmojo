@@ -5,7 +5,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kubelite/layers/create_animal_profile_layer.dart';
-import 'package:kubelite/models/animal_type_model.dart';
 import 'package:kubelite/models/breed_animal_model.dart';
 import 'package:kubelite/ui/profilepage/create_animal_profile/create_animal_page_viewe.form.dart';
 import 'package:kubelite/ui/profilepage/create_animal_profile/create_animal_view_model.dart';
@@ -43,7 +42,7 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
           centerTitle: true,
           title: AppText.body(createAnimalTitle),
           leading: IconButton(
-            onPressed: () {},
+            onPressed: model.onBackPressed,
             icon: Icon(Icons.arrow_back_sharp),
           ),
           backgroundColor: Colors.transparent,
@@ -134,10 +133,10 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                   ),
                   animalTypeDDM: item(
                     AppSelectItem(
-                      title: "Select the animal type",
+                      title: "Select the type of ${model.selectedValue}",
                       textController: animalTypeController,
                       searchController: searchController,
-                      animalTypeModel: model.aniamlTypeListValues,
+                      animalTypeModel: model.listOfAnimalTypes,
                       onSaveWidget: GestureDetector(
                         child: AppText.caption(
                           "Save",
@@ -147,62 +146,54 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                             context, animalTypeController),
                       ),
                     ),
-                    // selectItem(
-                    //     context,
-                    //     animalTypeController,
-                    //     searchController,
-                    //     "Select the animal type",
-                    //     null,
-                    //     ,
-                    //     null,
-                    //     model,
-                    //     1),
                     "Animal Type",
                     true,
                   ),
                   genderDDM: item(
-                    AppSelectItem(
-                      title: "Select the gender",
-                      textController: genderController,
-                      searchController: searchController,
-                      animalGenderModel: model.animalGenderList,
-                      onSaveWidget: GestureDetector(
-                          child: AppText.caption(
-                            "Save",
-                            color: colors.primary,
-                          ),
-                          onTap: () => model.selectGenderDDMFunction(
-                              context, genderController)),
-                    ),
+                    dropDownButton(
+                        model.selectedAnimalGender,
+                        model.animalGenderList,
+                        "Choose age",
+                        model.onChangeGender),
                     "Gender",
                     false,
                   ),
-                  animalBreedDDM: item(
-                    AppSelectItem(
-                      title: "Select the breed",
-                      textController: breedController,
-                      searchController: searchController,
-                      breedList: model.aniamlBreedTypeValues,
-                      onSaveWidget: GestureDetector(
-                          child: AppText.caption(
-                            "Save",
-                            color: colors.primary,
-                          ),
-                          onTap: () => model.selectBreedDDMFunction(
-                              context, breedController)),
+                  animalBreedDDM: Visibility(
+                    visible: model.isBreedAvailable,
+                    child: item(
+                      AppSelectItem(
+                        title: "Select the breed",
+                        textController: breedController,
+                        searchController: searchController,
+                        breedList: model.listOfAnimalBreed,
+                        onSaveWidget: GestureDetector(
+                            child: AppText.caption(
+                              "Save",
+                              color: colors.primary,
+                            ),
+                            onTap: () => model.selectBreedDDMFunction(
+                                context, breedController)),
+                      ),
+                      "Breed",
+                      false,
                     ),
-                    "Breed",
-                    false,
                   ),
-                  dobTF: AppInputField(
-                    controller: dobController,
-                    hint: "dd/mm/yyyy",
-                    trailing: Icon(
-                      Icons.calendar_today,
-                      size: 18,
+                  dobTF: GestureDetector(
+                    child: Container(
+                      color: Colors.transparent,
+                      child: IgnorePointer(
+                        child: AppInputField(
+                          controller: dobController,
+                          hint: "DD-MM-YYYY",
+                          trailing: Icon(
+                            Icons.calendar_today,
+                            size: 18,
+                          ),
+                          readOnly: true,
+                        ),
+                      ),
                     ),
-                    trailingTapped: () => _selectDate(context, dobController),
-                    readOnly: true,
+                    onTap: () => _selectDate(context, dobController),
                   ),
                   ageChooseOptnDDM: dropDownButton(model.ageType,
                       model.ageTypeValues, "Choose age", model.onChangeAge),
@@ -247,48 +238,65 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                     onChanged: model.onChangePlayBuddies),
               ),
               Visibility(
-                  visible: model.playBuddiesValue,
-                  child: item(
-                      Row(
-                        children: [
-                          Expanded(
-                              child: item(
-                                  AppInputField(
-                                    controller: fromTimeController,
-                                    hint: "select time",
-                                    readOnly: true,
-                                    trailing: Icon(Icons.alarm),
-                                    trailingTapped: () => _selectTime(
-                                        context, fromTimeController),
+                visible: model.playBuddiesValue,
+                child: item(
+                    Row(
+                      children: [
+                        Expanded(
+                            child: item(
+                                GestureDetector(
+                                  child: Container(
+                                    color: Colors.transparent,
+                                    child: IgnorePointer(
+                                      child: AppInputField(
+                                        controller: fromTimeController,
+                                        hint: "Select time",
+                                        readOnly: true,
+                                        leading: Icon(Icons.alarm),
+                                      ),
+                                    ),
                                   ),
-                                  "From time",
-                                  false)),
-                          horizontalSpaceRegular,
-                          Expanded(
-                              child: item(
-                                  AppInputField(
-                                    controller: toTimeController,
-                                    hint: "select time",
-                                    readOnly: true,
-                                    trailing: Icon(Icons.alarm),
-                                    trailingTapped: () =>
-                                        _selectTime(context, toTimeController),
+                                  onTap: () =>
+                                      _selectTime(context, fromTimeController),
+                                ),
+                                "From time",
+                                false)),
+                        horizontalSpaceRegular,
+                        Expanded(
+                            child: item(
+                                GestureDetector(
+                                  child: Container(
+                                    color: Colors.transparent,
+                                    child: IgnorePointer(
+                                      child: AppInputField(
+                                        controller: toTimeController,
+                                        hint: "Select time",
+                                        readOnly: true,
+                                        leading: Icon(Icons.alarm),
+                                      ),
+                                    ),
                                   ),
-                                  "To time",
-                                  false))
-                        ],
-                      ),
-                      "Up for Play-buddies Generally I’m available to play from ",
-                      false)),
+                                  onTap: () =>
+                                      _selectTime(context, toTimeController),
+                                ),
+                                "To time",
+                                false))
+                      ],
+                    ),
+                    "Generally I’m available to play",
+                    false),
+              ),
               spacedDividerTiny,
-              MainButtonWidget(
-                  onMainButtonTapped: model.createAnimalProfile,
-                  mainButtonTitle: "CREATE PROFILE")
+              verticalSpace(100),
             ],
           ),
         ),
+        bottomSheet: MainButtonWidget(
+            onMainButtonTapped: model.createAnimalProfile,
+            mainButtonTitle: "CREATE PROFILE"),
       ),
       viewModelBuilder: () => CreateAnimalViewModel(),
+      onModelReady: (model) => model.setAnimalTypeList(),
     );
   }
 }

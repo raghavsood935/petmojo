@@ -4,8 +4,6 @@ import 'package:kubelite/models/my_tales_model.dart';
 import 'package:kubelite/shared/base_viewmodel.dart';
 
 class FeedViewModel extends BaseModel {
-  TextEditingController _postTC = new TextEditingController();
-
   List<MyTalesModel> _dummyListOfTales = [
     MyTalesModel(),
     MyTalesModel(),
@@ -32,6 +30,4 @@ class FeedViewModel extends BaseModel {
   String get myProfileImg => _myProfileImg;
   List<MyTalesModel> get dummyListOfTales => _dummyListOfTales;
   List<FeedPostModel> get dummyListOfFeedPost => _dummyFeedPostModel;
-
-  TextEditingController get postTC => _postTC;
 }

@@ -1,7 +1,8 @@
 class BreedTypeModel {
-  String _id = "";
   String _breedName = "Breed";
   bool _isChecked = false;
+
+  BreedTypeModel(this._breedName);
 
   get breedName => this._breedName;
   get isChecked => this._isChecked;

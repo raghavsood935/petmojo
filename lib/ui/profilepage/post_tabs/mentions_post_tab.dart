@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:kubelite/ui/profilepage/post_tabs/mentions_post_tab_view_model.dart';
 import 'package:kubelite/util/Color.dart';
+import 'package:kubelite/util/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 
 class MentionsPostTabView extends StatelessWidget {
@@ -21,7 +22,7 @@ class MentionsPostTabView extends StatelessWidget {
           mainAxisSpacing: 6,
           crossAxisCount: 3,
           itemBuilder: (context, index) =>
-              postItem(model.dummyListOfPosts[index], () {}),
+              postItem(context, index, model.dummyListOfPosts[index], () {}),
           staggeredTileBuilder: (index) => StaggeredTile.fit(1),
         ),
       ),
@@ -29,8 +30,10 @@ class MentionsPostTabView extends StatelessWidget {
   }
 }
 
-Widget postItem(String url, void onTapFun()) => GestureDetector(
+Widget postItem(BuildContext context, int index, String url, void onTapFun()) =>
+    GestureDetector(
       child: Container(
+        height: getPostItemHeight(context, index),
         margin: EdgeInsets.all(3),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
@@ -42,3 +45,13 @@ Widget postItem(String url, void onTapFun()) => GestureDetector(
       ),
       onTap: onTapFun,
     );
+
+double getPostItemHeight(BuildContext context, int index) {
+  if (index == 0) {
+    return (thirdScreenWidth(context) - 24.0);
+  } else if ((index - 1) % 4 == 0) {
+    return ((thirdScreenWidth(context) * 1.5) - 30.0);
+  } else {
+    return (thirdScreenWidth(context) - 24.0);
+  }
+}
