@@ -35,6 +35,7 @@ class ForgotPasswordViewModel extends AuthenticationViewModel {
           ServerError error = response.getException as ServerError;
           _snackBarService.showSnackbar(message: error.getErrorMessage());
         } else if (response.data != null) {
+          sharedPreferencesService.authToken = response.data!.token ?? "";
           sharedPreferencesService.currentState =
               getRedirectStateName(RedirectState.Start);
           navigationService.pushNamedAndRemoveUntil(

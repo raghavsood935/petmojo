@@ -20,9 +20,10 @@ CommonResponse _$CommonResponseFromJson(Map<String, dynamic> json) {
 class _$CommonResponseTearOff {
   const _$CommonResponseTearOff();
 
-  _CommonResponse call({String? message}) {
+  _CommonResponse call({String? message, String? token}) {
     return _CommonResponse(
       message: message,
+      token: token,
     );
   }
 
@@ -37,6 +38,7 @@ const $CommonResponse = _$CommonResponseTearOff();
 /// @nodoc
 mixin _$CommonResponse {
   String? get message => throw _privateConstructorUsedError;
+  String? get token => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,7 +51,7 @@ abstract class $CommonResponseCopyWith<$Res> {
   factory $CommonResponseCopyWith(
           CommonResponse value, $Res Function(CommonResponse) then) =
       _$CommonResponseCopyWithImpl<$Res>;
-  $Res call({String? message});
+  $Res call({String? message, String? token});
 }
 
 /// @nodoc
@@ -64,11 +66,16 @@ class _$CommonResponseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? message = freezed,
+    Object? token = freezed,
   }) {
     return _then(_value.copyWith(
       message: message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      token: token == freezed
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -81,7 +88,7 @@ abstract class _$CommonResponseCopyWith<$Res>
           _CommonResponse value, $Res Function(_CommonResponse) then) =
       __$CommonResponseCopyWithImpl<$Res>;
   @override
-  $Res call({String? message});
+  $Res call({String? message, String? token});
 }
 
 /// @nodoc
@@ -98,11 +105,16 @@ class __$CommonResponseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? message = freezed,
+    Object? token = freezed,
   }) {
     return _then(_CommonResponse(
       message: message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      token: token == freezed
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -111,17 +123,19 @@ class __$CommonResponseCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_CommonResponse extends _CommonResponse {
-  _$_CommonResponse({this.message}) : super._();
+  _$_CommonResponse({this.message, this.token}) : super._();
 
   factory _$_CommonResponse.fromJson(Map<String, dynamic> json) =>
       _$_$_CommonResponseFromJson(json);
 
   @override
   final String? message;
+  @override
+  final String? token;
 
   @override
   String toString() {
-    return 'CommonResponse(message: $message)';
+    return 'CommonResponse(message: $message, token: $token)';
   }
 
   @override
@@ -129,12 +143,17 @@ class _$_CommonResponse extends _CommonResponse {
     return identical(this, other) ||
         (other is _CommonResponse &&
             (identical(other.message, message) ||
-                const DeepCollectionEquality().equals(other.message, message)));
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.token, token) ||
+                const DeepCollectionEquality().equals(other.token, token)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(message);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(token);
 
   @JsonKey(ignore: true)
   @override
@@ -148,7 +167,7 @@ class _$_CommonResponse extends _CommonResponse {
 }
 
 abstract class _CommonResponse extends CommonResponse {
-  factory _CommonResponse({String? message}) = _$_CommonResponse;
+  factory _CommonResponse({String? message, String? token}) = _$_CommonResponse;
   _CommonResponse._() : super._();
 
   factory _CommonResponse.fromJson(Map<String, dynamic> json) =
@@ -156,6 +175,8 @@ abstract class _CommonResponse extends CommonResponse {
 
   @override
   String? get message => throw _privateConstructorUsedError;
+  @override
+  String? get token => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CommonResponseCopyWith<_CommonResponse> get copyWith =>

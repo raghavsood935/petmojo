@@ -35,7 +35,7 @@ class NewPasswordView extends StatelessWidget with $NewPasswordView {
           title: setUpNewPasswordTitle,
           subtitle: "",
           isSocialLoginEnabled: false,
-          mainButtonTitle: signUpButton,
+          mainButtonTitle: setNewPasswordButton,
           form: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
@@ -69,7 +69,7 @@ class NewPasswordView extends StatelessWidget with $NewPasswordView {
               ),
               AppPasswordInputField(
                 hint: confirmPasswordHint,
-                controller: newPasswordController,
+                controller: confirmPasswordController,
               ),
             ],
           ),

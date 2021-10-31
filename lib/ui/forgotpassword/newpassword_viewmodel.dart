@@ -26,6 +26,14 @@ class NewPasswordViewModel extends AuthenticationViewModel {
         return;
       }
     });
+
+    String newPassword = formValueMap["newPassword"];
+    String confirmPassword = formValueMap["confirmPassword"];
+    if (newPassword != confirmPassword &&
+        (newPassword.isEmpty || confirmPassword.isEmpty)) {
+      _isValid = false;
+    }
+
     notifyListeners();
   }
 
