@@ -1,5 +1,6 @@
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:kubelite/api/base_response.dart';
 import 'package:kubelite/api/server_error.dart';
 import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.logger.dart';
@@ -10,6 +11,7 @@ import 'package:kubelite/models/params/login_body.dart';
 import 'package:kubelite/models/params/profile_create_body.dart';
 import 'package:kubelite/models/params/register_body.dart';
 import 'package:kubelite/models/params/social_login_body.dart';
+import 'package:kubelite/models/user_response_models.dart';
 import 'package:kubelite/services/shared_preferences_service.dart';
 import 'package:kubelite/services/user_service.dart';
 import 'package:kubelite/ui/otp/confirm_otp_viewmodel.dart';
@@ -71,15 +73,18 @@ abstract class AuthenticationViewModel extends FormViewModel {
     }
   }
 
-  Future updateProfile(ProfileCreateBody createBody) async {
+  Future<void> updateProfile(ProfileCreateBody createBody) async {
     log.i('valued:$formValueMap');
     try {
       if (await Util.checkInternetConnectivity()) {
-        final result = await runBusyFuture(
+        BaseResponse<UserResponse> response = await runBusyFuture(
             userService.updateProfile(createBody),
             throwException: true);
-        if (userService.hasLoggedInUser)
-          _handleLoggedInUser(userService.currentUser);
+        if (response.data != null) {
+          sharedPreferencesService.currentState =
+              getRedirectStateName(RedirectState.Home);
+          navigationService.pushNamedAndRemoveUntil(Routes.dashboard);
+        }
       } else {
         snackBarService.showSnackbar(message: "No Internet connection");
       }

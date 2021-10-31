@@ -102,8 +102,8 @@ class TamelyApi {
     return ApiClient(formDio);
   }
 
-  Future<BaseResponse<UserResponse>> uploadImage(File imageFile) async {
-    UserResponse response;
+  Future<BaseResponse<CommonResponse>> uploadImage(File imageFile) async {
+    CommonResponse response;
     try {
       response = await getMultiPartApiClient().updateImage(imageFile);
     } catch (error, stacktrace) {
@@ -118,7 +118,7 @@ class TamelyApi {
       ProfileCreateBody createBody) async {
     UserResponse response;
     try {
-      response = await getApiClient(false).register(createBody);
+      response = await getApiClient(true).updateProfile(createBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()

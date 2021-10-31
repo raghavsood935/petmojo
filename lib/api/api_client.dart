@@ -79,9 +79,5 @@ abstract class ApiClient {
 
   @PUT(Apis.changeAvatar)
   @MultiPart()
-  Future<UserResponse> updateImage(@Part(name: 'image') File image);
-
-  // @PUT(Apis.changePassword)
-  // Future<BaseResponse<JsonObject>> changePassword(
-  //     @Body() ChangePasswordBody changePasswordBody);
+  Future<CommonResponse> updateImage(@Part(name: 'image') File image);
 }

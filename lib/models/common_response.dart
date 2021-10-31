@@ -7,7 +7,8 @@ part 'common_response.g.dart';
 class CommonResponse with _$CommonResponse {
   CommonResponse._();
 
-  factory CommonResponse({String? message, String? token}) = _CommonResponse;
+  factory CommonResponse({String? message, String? token, String? avatar}) =
+      _CommonResponse;
 
   factory CommonResponse.fromJson(Map<String, dynamic> json) =>
       _$CommonResponseFromJson(json);

@@ -12,6 +12,7 @@ import 'package:kubelite/app/app.logger.dart';
 import 'package:kubelite/app/app.router.dart';
 import 'package:kubelite/enum/redirect_state.dart';
 import 'package:kubelite/models/application_models.dart';
+import 'package:kubelite/models/common_response.dart';
 import 'package:kubelite/models/params/profile_create_body.dart';
 import 'package:kubelite/models/user_response_models.dart';
 import 'package:kubelite/services/shared_preferences_service.dart';
@@ -37,6 +38,7 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
   get isValid => _isValid;
 
   String get imagePath => _imageFile?.path ?? "";
+  String avatarUrl = "";
 
   void navigateBack() => navigationService.back();
 
@@ -76,12 +78,15 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
       _snackBarService.showSnackbar(message: "Image is empty");
     }
     if (await Util.checkInternetConnectivity()) {
-      BaseResponse<UserResponse> response =
+      BaseResponse<CommonResponse> response =
           await _tamelyApi.uploadImage(File(_imageFile!.path));
       if (response.getException != null) {
         ServerError error = response.getException as ServerError;
         _snackBarService.showSnackbar(message: error.getErrorMessage());
-      } else if (response.data != null) {}
+      } else if (response.data != null) {
+        avatarUrl = response.data!.avatar ?? "";
+        checkValidateField();
+      }
     } else {
       _snackBarService.showSnackbar(message: "No Internet connection");
     }
@@ -93,7 +98,7 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
     }
     if (await Util.checkInternetConnectivity()) {
       ProfileCreateBody profileCreateBody = ProfileCreateBody(
-          nameValue!, usernameValue!, shortBioValue!, "", imagePath);
+          nameValue!, usernameValue!, shortBioValue!, "", avatarUrl);
       try {
         await runBusyFuture(updateProfile(profileCreateBody),
             throwException: true);
@@ -132,6 +137,7 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
               _snackBarService.showSnackbar(message: error.getErrorMessage());
             } else if (availableResponse.data != null) {
               _isValidUser = availableResponse.data!.isAvailable;
+              checkValidateField();
             }
           } catch (e) {
             log.e(e);
@@ -160,9 +166,9 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
       }
     });
 
-    // if (imagePath.isEmpty) {
-    //   _isValid = false;
-    // }
+    if (avatarUrl.isEmpty) {
+      _isValid = false;
+    }
 
     if (!_isValidUser) {
       _isValid = false;

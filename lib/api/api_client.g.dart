@@ -190,7 +190,7 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<UserResponse> updateImage(image) async {
+  Future<CommonResponse> updateImage(image) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = FormData();
@@ -199,12 +199,12 @@ class _ApiClient implements ApiClient {
         MultipartFile.fromFileSync(image.path,
             filename: image.path.split(Platform.pathSeparator).last)));
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<UserResponse>(
+        _setStreamType<CommonResponse>(
             Options(method: 'PUT', headers: <String, dynamic>{}, extra: _extra)
                 .compose(_dio.options, '/user/avatar',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = UserResponse.fromJson(_result.data!);
+    final value = CommonResponse.fromJson(_result.data!);
     return value;
   }
 

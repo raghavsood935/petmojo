@@ -40,7 +40,8 @@ class UserService {
 
   bool get hasLoggedInUser => _sharedPreferenceService.authToken.isValid();
 
-  Future<void> updateProfile(ProfileCreateBody body) async {
+  Future<BaseResponse<UserResponse>> updateProfile(
+      ProfileCreateBody body) async {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     log.v('We have no user account. Create a new user ...');
     BaseResponse<UserResponse> response =
@@ -53,6 +54,7 @@ class UserService {
       _sharedPreferenceService.authToken = response.data!.token ?? "";
       log.v('_currentUser has been saved');
     }
+    return response;
   }
 
   Future<void> createAccount(RegisterBody registerBody) async {
