@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kubelite/ui/dashboard/dashboard_viewmodel.dart';
-import 'package:kubelite/widgets/profile_selection.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/ui/dashboard/dashboard_viewmodel.dart';
+import 'package:tamely/widgets/profile_selection.dart';
 
 class FeedAppBar extends ViewModelWidget<DashboardViewModel>
     implements PreferredSizeWidget {

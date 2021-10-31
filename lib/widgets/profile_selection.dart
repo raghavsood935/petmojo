@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/Constant.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/Constant.dart';
 
 class ProfileSelectionAppBar extends StatelessWidget {
   const ProfileSelectionAppBar({

@@ -2,21 +2,19 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kubelite/layers/create_animal_profile_layer.dart';
-import 'package:kubelite/models/breed_animal_model.dart';
-import 'package:kubelite/ui/profilepage/create_animal_profile/create_animal_page_viewe.form.dart';
-import 'package:kubelite/ui/profilepage/create_animal_profile/create_animal_view_model.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/String.dart';
-import 'package:kubelite/util/ui_helpers.dart';
-import 'package:kubelite/widgets/app_input_field.dart';
-import 'package:kubelite/widgets/app_select_item.dart';
-import 'package:kubelite/widgets/app_text.dart';
-import 'package:kubelite/widgets/main_btn.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
+import 'package:tamely/layers/create_animal_profile_layer.dart';
+import 'package:tamely/ui/profilepage/create_animal_profile/create_animal_page_viewe.form.dart';
+import 'package:tamely/ui/profilepage/create_animal_profile/create_animal_view_model.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/String.dart';
+import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/widgets/app_input_field.dart';
+import 'package:tamely/widgets/app_select_item.dart';
+import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/main_btn.dart';
 
 @FormView(fields: [
   FormTextField(name: 'name'),

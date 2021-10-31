@@ -1,21 +1,21 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:kubelite/api/base_response.dart';
-import 'package:kubelite/api/server_error.dart';
-import 'package:kubelite/app/app.locator.dart';
-import 'package:kubelite/app/app.logger.dart';
-import 'package:kubelite/models/common_response.dart';
-import 'package:kubelite/models/params/login_body.dart';
-import 'package:kubelite/models/params/profile_create_body.dart';
-import 'package:kubelite/models/params/register_body.dart';
-import 'package:kubelite/models/params/reset_password_body.dart';
-import 'package:kubelite/models/params/social_login_body.dart';
-import 'package:kubelite/models/user_response_models.dart';
-import 'package:kubelite/services/shared_preferences_service.dart';
-import 'package:kubelite/ui/otp/confirm_otp_viewmodel.dart';
 import 'package:logger/logger.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:tamely/api/base_response.dart';
+import 'package:tamely/api/server_error.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/app/app.logger.dart';
+import 'package:tamely/models/common_response.dart';
+import 'package:tamely/models/params/login_body.dart';
+import 'package:tamely/models/params/profile_create_body.dart';
+import 'package:tamely/models/params/register_body.dart';
+import 'package:tamely/models/params/reset_password_body.dart';
+import 'package:tamely/models/params/social_login_body.dart';
+import 'package:tamely/models/user_response_models.dart';
+import 'package:tamely/services/shared_preferences_service.dart';
+import 'package:tamely/ui/otp/confirm_otp_viewmodel.dart';
 
 import 'api_client.dart';
 

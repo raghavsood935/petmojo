@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/ImageConstant.dart';
-import 'package:kubelite/widgets/app_text.dart';
-import 'package:kubelite/widgets/custom_circle_avatar.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/custom_circle_avatar.dart';
 
 import 'feed_post_comment_view_model.dart';
 

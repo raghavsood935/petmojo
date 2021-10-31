@@ -1,10 +1,10 @@
-import 'package:kubelite/app/app.locator.dart';
-import 'package:kubelite/app/app.logger.dart';
-import 'package:kubelite/app/app.router.dart';
-import 'package:kubelite/enum/redirect_state.dart';
-import 'package:kubelite/services/shared_preferences_service.dart';
-import 'package:kubelite/ui/base/authentication_viewmodel.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/app/app.logger.dart';
+import 'package:tamely/app/app.router.dart';
+import 'package:tamely/enum/redirect_state.dart';
+import 'package:tamely/services/shared_preferences_service.dart';
+import 'package:tamely/ui/base/authentication_viewmodel.dart';
 
 class OnBoardingViewModel extends AuthenticationViewModel {
   final _navigationService = locator<NavigationService>();

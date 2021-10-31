@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kubelite/app/app.locator.dart';
-import 'package:kubelite/app/app.logger.dart';
-import 'package:kubelite/app/app.router.dart';
-import 'package:kubelite/models/my_animals_model.dart';
-import 'package:kubelite/ui/profilepage/post_tabs/mentions_post_tab.dart';
-import 'package:kubelite/ui/profilepage/post_tabs/my_posts_tab.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/app/app.logger.dart';
+import 'package:tamely/app/app.router.dart';
+import 'package:tamely/models/my_animals_model.dart';
+import 'package:tamely/ui/profilepage/post_tabs/mentions_post_tab.dart';
+import 'package:tamely/ui/profilepage/post_tabs/my_posts_tab.dart';
 
 class ProfileViewModel extends BaseViewModel {
   final log = getLogger('CreateAnimalProfileView');
