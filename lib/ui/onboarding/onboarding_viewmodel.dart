@@ -1,14 +1,12 @@
 import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.logger.dart';
 import 'package:kubelite/app/app.router.dart';
+import 'package:kubelite/enum/redirect_state.dart';
 import 'package:kubelite/services/shared_preferences_service.dart';
 import 'package:kubelite/ui/base/authentication_viewmodel.dart';
-import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class OnBoardingViewModel extends AuthenticationViewModel {
-  final FirebaseAuthenticationService? _firebaseAuthenticationService =
-      locator<FirebaseAuthenticationService>();
   final _navigationService = locator<NavigationService>();
   final _sharedPrefService = locator<SharedPreferencesService>();
   final _bottomSheetService = locator<BottomSheetService>();
@@ -16,9 +14,16 @@ class OnBoardingViewModel extends AuthenticationViewModel {
 
   final log = getLogger('OnBoardingViewModel');
 
-  OnBoardingViewModel() : super(successRoute: Routes.homeView);
+  OnBoardingViewModel();
 
-  void moveAsGuest() {}
+  void initModel() {
+    _sharedPrefService.currentState =
+        getRedirectStateName(RedirectState.Welcome);
+  }
+
+  void moveAsGuest() {
+    _navigationService.navigateTo(Routes.dashboard);
+  }
 
   void moveToLogin() {
     _navigationService.navigateTo(Routes.loginView);
@@ -26,5 +31,9 @@ class OnBoardingViewModel extends AuthenticationViewModel {
 
   void moveToSignup() {
     _navigationService.navigateTo(Routes.signUpView);
+  }
+
+  void goBack() {
+    _navigationService.back();
   }
 }

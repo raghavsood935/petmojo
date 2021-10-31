@@ -1,24 +1,60 @@
+import 'package:kubelite/api/api_service.dart';
+import 'package:kubelite/api/base_response.dart';
+import 'package:kubelite/api/server_error.dart';
 import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.router.dart';
+import 'package:kubelite/enum/redirect_state.dart';
+import 'package:kubelite/models/common_response.dart';
+import 'package:kubelite/models/params/reset_password_body.dart';
 import 'package:kubelite/ui/base/authentication_viewmodel.dart';
-import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
+import 'package:kubelite/ui/otp/confirm_otp_viewmodel.dart';
+import 'package:kubelite/util/utils.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class ForgotPasswordViewModel extends AuthenticationViewModel {
-  final navigationService = locator<NavigationService>();
-
-  final _firebaseAuthenticationService =
-      locator<FirebaseAuthenticationService>();
+  final _navigationService = locator<NavigationService>();
+  final _tamelyApi = locator<TamelyApi>();
+  final _snackBarService = locator<SnackbarService>();
 
   bool _isValid = false;
-  ForgotPasswordViewModel() : super(successRoute: Routes.homeView);
+  ForgotPasswordViewModel();
 
   get isValid => _isValid;
 
   void navigateBack() => navigationService.back();
 
-  void moveToSetUpPassword() {
-    navigationService.replaceWith(Routes.newPasswordView);
+  Future<void> resetPassword() async {
+    if (await Util.checkInternetConnectivity()) {
+      String email = formValueMap["email"];
+      ResetPasswordBody resetPasswordBody = ResetPasswordBody(email);
+      try {
+        BaseResponse<CommonResponse> response = await runBusyFuture(
+            _tamelyApi.resetPassword(resetPasswordBody),
+            throwException: true);
+        if (response.getException != null) {
+          ServerError error = response.getException as ServerError;
+          _snackBarService.showSnackbar(message: error.getErrorMessage());
+        } else if (response.data != null) {
+          sharedPreferencesService.authToken = response.data!.token ?? "";
+          sharedPreferencesService.currentState =
+              getRedirectStateName(RedirectState.Start);
+          navigationService.pushNamedAndRemoveUntil(
+            Routes.confirmOTPView,
+            arguments: ConfirmOTPViewArguments(
+              isEmailVerify: true,
+              verificationData: email,
+              verificationType:
+                  getVerificationTypeName(VerificationType.forgetpwd),
+            ),
+          );
+        }
+      } catch (e) {
+        log.e(e);
+        _snackBarService.showSnackbar(message: "$e");
+      }
+    } else {
+      _snackBarService.showSnackbar(message: "No Internet connection");
+    }
   }
 
   @override
@@ -34,10 +70,5 @@ class ForgotPasswordViewModel extends AuthenticationViewModel {
     });
 
     notifyListeners();
-  }
-
-  @override
-  Future<FirebaseAuthenticationResult> runAuthentication() {
-    return Future.value();
   }
 }

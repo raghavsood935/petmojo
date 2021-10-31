@@ -18,18 +18,24 @@ dependencies:
 
   flutter_svg: ^0.22.0
   provider: ^5.0.0
-  share: ^2.0.4
-  uuid: ^3.0.4
   http: ^0.13.3
   lottie: ^1.0.1
-  shimmer: ^2.0.0
-  google_fonts: ^2.1.0
 
-  string_similarity: ^2.0.0
   url_launcher: ^6.0.7
   image_picker: ^0.8.1+1
   connectivity_plus: ^1.0.4
-  geocoding: ^2.0.0
+
+  # staggered grid view
+  flutter_staggered_grid_view: ^0.4.0
+
+  #  for sliding images
+  flutter_swiper: ^1.1.6
+
+  #  get location
+  geolocator: ^7.7.1
+
+  #  Auto complete text
+  flutter_typeahead: ^3.2.1
 
   # state management
   stacked: ^2.1.9
@@ -37,7 +43,6 @@ dependencies:
 
   # navigation
   stacked_services: ^0.8.8
-  stacked_firebase_auth: ^0.2.10
   stacked_themes: ^0.3.5
   shared_preferences: ^2.0.6
 
@@ -49,6 +54,7 @@ dependencies:
   # data models
   freezed_annotation: ^0.14.2
   json_annotation: ^4.0.1
+  google_sign_in: ^5.1.0
 
   retrofit: ^2.0.1
   dio: ^4.0.0
@@ -56,15 +62,12 @@ dependencies:
   built_value: ^8.1.1
   path_provider: ^2.0.2
   logger: ^1.0.0
-  auth_buttons: ^1.0.1+4
+  persistent_bottom_nav_bar: ^4.0.2
 
   #firebase
-#  google_maps_flutter: ^2.0.6
   firebase_crashlytics: ^2.2.1
   firebase_core: ^1.6.0
   firebase_dynamic_links: ^2.0.9
-  cloud_firestore: ^2.5.3
-  firebase_auth: ^3.1.1
   firebase_messaging: ^10.0.7
   firebase_remote_config: ^0.11.0
   flutter_local_notifications: ^8.2.0
@@ -103,6 +106,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/images/animal_type_images/
     - assets/lottie/
 
   fonts:

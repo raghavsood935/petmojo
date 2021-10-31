@@ -20,7 +20,9 @@ UserResponse _$UserResponseFromJson(Map<String, dynamic> json) {
 class _$UserResponseTearOff {
   const _$UserResponseTearOff();
 
-  _UserResponse call({LocalUser? localUser, String? token}) {
+  _UserResponse call(
+      {@JsonKey(name: "user") LocalUser? localUser,
+      @JsonKey(name: "token") String? token}) {
     return _UserResponse(
       localUser: localUser,
       token: token,
@@ -37,7 +39,9 @@ const $UserResponse = _$UserResponseTearOff();
 
 /// @nodoc
 mixin _$UserResponse {
+  @JsonKey(name: "user")
   LocalUser? get localUser => throw _privateConstructorUsedError;
+  @JsonKey(name: "token")
   String? get token => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -51,7 +55,9 @@ abstract class $UserResponseCopyWith<$Res> {
   factory $UserResponseCopyWith(
           UserResponse value, $Res Function(UserResponse) then) =
       _$UserResponseCopyWithImpl<$Res>;
-  $Res call({LocalUser? localUser, String? token});
+  $Res call(
+      {@JsonKey(name: "user") LocalUser? localUser,
+      @JsonKey(name: "token") String? token});
 
   $LocalUserCopyWith<$Res>? get localUser;
 }
@@ -100,7 +106,9 @@ abstract class _$UserResponseCopyWith<$Res>
           _UserResponse value, $Res Function(_UserResponse) then) =
       __$UserResponseCopyWithImpl<$Res>;
   @override
-  $Res call({LocalUser? localUser, String? token});
+  $Res call(
+      {@JsonKey(name: "user") LocalUser? localUser,
+      @JsonKey(name: "token") String? token});
 
   @override
   $LocalUserCopyWith<$Res>? get localUser;
@@ -137,14 +145,19 @@ class __$UserResponseCopyWithImpl<$Res> extends _$UserResponseCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_UserResponse extends _UserResponse {
-  _$_UserResponse({this.localUser, this.token}) : super._();
+  _$_UserResponse(
+      {@JsonKey(name: "user") this.localUser,
+      @JsonKey(name: "token") this.token})
+      : super._();
 
   factory _$_UserResponse.fromJson(Map<String, dynamic> json) =>
       _$_$_UserResponseFromJson(json);
 
   @override
+  @JsonKey(name: "user")
   final LocalUser? localUser;
   @override
+  @JsonKey(name: "token")
   final String? token;
 
   @override
@@ -181,19 +194,185 @@ class _$_UserResponse extends _UserResponse {
 }
 
 abstract class _UserResponse extends UserResponse {
-  factory _UserResponse({LocalUser? localUser, String? token}) =
-      _$_UserResponse;
+  factory _UserResponse(
+      {@JsonKey(name: "user") LocalUser? localUser,
+      @JsonKey(name: "token") String? token}) = _$_UserResponse;
   _UserResponse._() : super._();
 
   factory _UserResponse.fromJson(Map<String, dynamic> json) =
       _$_UserResponse.fromJson;
 
   @override
+  @JsonKey(name: "user")
   LocalUser? get localUser => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: "token")
   String? get token => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$UserResponseCopyWith<_UserResponse> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+UserNameAvailableResponse _$UserNameAvailableResponseFromJson(
+    Map<String, dynamic> json) {
+  return _UserNameAvailableResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$UserNameAvailableResponseTearOff {
+  const _$UserNameAvailableResponseTearOff();
+
+  _UserNameAvailableResponse call(
+      {@JsonKey(name: "isAvailable") bool isAvailable = false}) {
+    return _UserNameAvailableResponse(
+      isAvailable: isAvailable,
+    );
+  }
+
+  UserNameAvailableResponse fromJson(Map<String, Object> json) {
+    return UserNameAvailableResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $UserNameAvailableResponse = _$UserNameAvailableResponseTearOff();
+
+/// @nodoc
+mixin _$UserNameAvailableResponse {
+  @JsonKey(name: "isAvailable")
+  bool get isAvailable => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $UserNameAvailableResponseCopyWith<UserNameAvailableResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UserNameAvailableResponseCopyWith<$Res> {
+  factory $UserNameAvailableResponseCopyWith(UserNameAvailableResponse value,
+          $Res Function(UserNameAvailableResponse) then) =
+      _$UserNameAvailableResponseCopyWithImpl<$Res>;
+  $Res call({@JsonKey(name: "isAvailable") bool isAvailable});
+}
+
+/// @nodoc
+class _$UserNameAvailableResponseCopyWithImpl<$Res>
+    implements $UserNameAvailableResponseCopyWith<$Res> {
+  _$UserNameAvailableResponseCopyWithImpl(this._value, this._then);
+
+  final UserNameAvailableResponse _value;
+  // ignore: unused_field
+  final $Res Function(UserNameAvailableResponse) _then;
+
+  @override
+  $Res call({
+    Object? isAvailable = freezed,
+  }) {
+    return _then(_value.copyWith(
+      isAvailable: isAvailable == freezed
+          ? _value.isAvailable
+          : isAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$UserNameAvailableResponseCopyWith<$Res>
+    implements $UserNameAvailableResponseCopyWith<$Res> {
+  factory _$UserNameAvailableResponseCopyWith(_UserNameAvailableResponse value,
+          $Res Function(_UserNameAvailableResponse) then) =
+      __$UserNameAvailableResponseCopyWithImpl<$Res>;
+  @override
+  $Res call({@JsonKey(name: "isAvailable") bool isAvailable});
+}
+
+/// @nodoc
+class __$UserNameAvailableResponseCopyWithImpl<$Res>
+    extends _$UserNameAvailableResponseCopyWithImpl<$Res>
+    implements _$UserNameAvailableResponseCopyWith<$Res> {
+  __$UserNameAvailableResponseCopyWithImpl(_UserNameAvailableResponse _value,
+      $Res Function(_UserNameAvailableResponse) _then)
+      : super(_value, (v) => _then(v as _UserNameAvailableResponse));
+
+  @override
+  _UserNameAvailableResponse get _value =>
+      super._value as _UserNameAvailableResponse;
+
+  @override
+  $Res call({
+    Object? isAvailable = freezed,
+  }) {
+    return _then(_UserNameAvailableResponse(
+      isAvailable: isAvailable == freezed
+          ? _value.isAvailable
+          : isAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_UserNameAvailableResponse extends _UserNameAvailableResponse {
+  _$_UserNameAvailableResponse(
+      {@JsonKey(name: "isAvailable") this.isAvailable = false})
+      : super._();
+
+  factory _$_UserNameAvailableResponse.fromJson(Map<String, dynamic> json) =>
+      _$_$_UserNameAvailableResponseFromJson(json);
+
+  @override
+  @JsonKey(name: "isAvailable")
+  final bool isAvailable;
+
+  @override
+  String toString() {
+    return 'UserNameAvailableResponse(isAvailable: $isAvailable)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _UserNameAvailableResponse &&
+            (identical(other.isAvailable, isAvailable) ||
+                const DeepCollectionEquality()
+                    .equals(other.isAvailable, isAvailable)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(isAvailable);
+
+  @JsonKey(ignore: true)
+  @override
+  _$UserNameAvailableResponseCopyWith<_UserNameAvailableResponse>
+      get copyWith =>
+          __$UserNameAvailableResponseCopyWithImpl<_UserNameAvailableResponse>(
+              this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_UserNameAvailableResponseToJson(this);
+  }
+}
+
+abstract class _UserNameAvailableResponse extends UserNameAvailableResponse {
+  factory _UserNameAvailableResponse(
+          {@JsonKey(name: "isAvailable") bool isAvailable}) =
+      _$_UserNameAvailableResponse;
+  _UserNameAvailableResponse._() : super._();
+
+  factory _UserNameAvailableResponse.fromJson(Map<String, dynamic> json) =
+      _$_UserNameAvailableResponse.fromJson;
+
+  @override
+  @JsonKey(name: "isAvailable")
+  bool get isAvailable => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$UserNameAvailableResponseCopyWith<_UserNameAvailableResponse>
+      get copyWith => throw _privateConstructorUsedError;
 }

@@ -1,4 +1,3 @@
-import 'package:auth_buttons/auth_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:kubelite/util/Color.dart';
 import 'package:kubelite/util/String.dart';
@@ -17,6 +16,7 @@ class AuthenticationLayout extends StatelessWidget {
   final void Function()? onBackPressed;
   final void Function()? onSignInWithFacebook;
   final void Function()? onSignInWithGoogle;
+  final void Function()? onResendOTP;
   final String? validationMessage;
   final bool busy;
   final bool isValid;
@@ -34,6 +34,7 @@ class AuthenticationLayout extends StatelessWidget {
     this.onBackPressed,
     this.onSignInWithFacebook,
     this.onSignInWithGoogle,
+    this.onResendOTP,
     this.validationMessage,
     this.showTermsText = false,
     this.busy = false,
@@ -164,36 +165,125 @@ class AuthenticationLayout extends StatelessWidget {
                   ),
                 ),
                 verticalSpaceRegular,
-                FacebookAuthButton(
-                  onPressed: onSignInWithFacebook ?? () {},
-                  // darkMode: true,
-                  text: continueWithFB,
-                  style: AuthButtonStyle(
-                    iconSize: 24,
-                    height: 50,
-                    width: double.maxFinite,
-                    textStyle: TextStyle(color: Colors.white),
-                    buttonType: AuthButtonType.secondary,
+                Container(
+                  width: double.maxFinite,
+                  margin: const EdgeInsets.all(16),
+                  child: ElevatedButton.icon(
+                    onPressed: onSignInWithFacebook ?? () {},
+                    icon: Image.asset("assets/images/facebook.png"),
+                    label: AppText.body1(continueWithFB, color: Colors.white),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(colors.fbBlue),
+                      padding:
+                          MaterialStateProperty.all(const EdgeInsets.all(12)),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-                verticalSpaceRegular,
-                GoogleAuthButton(
-                  onPressed: onSignInWithGoogle ?? () {},
-                  text: continueWithGoogle,
-                  style: AuthButtonStyle(
-                    buttonColor: Color(0xff4285F4),
-                    iconSize: 24,
-                    width: double.maxFinite,
-                    iconBackground: Colors.white,
-                    buttonType: AuthButtonType.secondary,
-                    height: 50,
-                    textStyle: TextStyle(color: Colors.white),
+                Container(
+                  width: double.maxFinite,
+                  margin: const EdgeInsets.all(16),
+                  child: ElevatedButton.icon(
+                    onPressed: onSignInWithGoogle ?? () {},
+                    icon: Image.asset("assets/images/google.png"),
+                    label: AppText.body1(continueWithGoogle,
+                        color: colors.kcPrimaryTextColor),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(colors.white),
+                      padding:
+                          MaterialStateProperty.all(const EdgeInsets.all(12)),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
+                    ),
                   ),
-                )
+                ),
               ],
             ),
+          if (onResendOTP != null) ResendOTPWidget(onResendOTP: onResendOTP!),
         ],
       ),
     );
+  }
+}
+
+class ResendOTPWidget extends StatefulWidget {
+  ResendOTPWidget({Key? key, required this.onResendOTP}) : super(key: key);
+
+  final Function() onResendOTP;
+  @override
+  _ResendOTPWidgetState createState() => _ResendOTPWidgetState();
+}
+
+class _ResendOTPWidgetState extends State<ResendOTPWidget>
+    with TickerProviderStateMixin {
+  late AnimationController controller;
+
+  Duration get duration => controller.duration! * controller.value;
+
+  bool _expired = false;
+  set expired(bool value) {
+    _expired = value;
+  }
+
+  bool get expired => _expired;
+
+  @override
+  void initState() {
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 30),
+    );
+
+    controller.addListener(() {
+      if (duration.inSeconds == 0) {
+        setState(() {
+          expired = true;
+        });
+      }
+    });
+
+    controller.reverse(from: 30);
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: new Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          if (expired)
+            GestureDetector(
+                onTap: () {
+                  widget.onResendOTP();
+                  controller.reverse(from: 30);
+                },
+                child: AppText.body("Resend OTP")),
+          if (!expired)
+            AnimatedBuilder(
+              animation: controller,
+              builder: (BuildContext context, Widget? child) {
+                return new AppText.body1(
+                  'Resend OTP in ${duration.inSeconds}',
+                );
+              },
+            )
+        ],
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
   }
 }

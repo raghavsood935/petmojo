@@ -27,10 +27,14 @@ class colors {
   static const Color kcVeryLightGreyColor = Color(0xfff2f2f2);
   static const Color kcGreyBackground = Color(0xffe5e5e5);
   static const Color kcLightGreyBackground = Color(0xffEEF2F9);
+  static const Color kcCaptionGreyColor = Color(0xff999999);
 
   static const Color primary = Color(0xffF696B1);
+  static const Color primaryLight = Color(0xffFEF4F7);
   static const Color secondary = Color(0xffFDCD96);
   static const Color backgroundColor = Color(0xffFAFAFA);
+  static const Color mediumBackgroundColor = Color(0xFFFAC9D7);
+  static const Color lightBackgroundColor = Color(0xFFFEF4F7);
 
   static Color get fontColor =>
       ISDARK == "true" ? secondary : const Color(0xff4543C1);

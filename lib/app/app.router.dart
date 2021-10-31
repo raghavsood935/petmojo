@@ -10,33 +10,43 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
+import '../models/application_models.dart';
+import '../ui/dashboard/dashboard.dart';
+import '../ui/for_you/for_you_search/for_you_tab_search_view.dart';
 import '../ui/forgotpassword/forgotpassword_view.dart';
 import '../ui/forgotpassword/new_password_view.dart';
-import '../ui/home/home_view.dart';
 import '../ui/login/login_view.dart';
 import '../ui/onboarding/onboarding_view.dart';
 import '../ui/otp/confirm_otp_view.dart';
-import '../ui/singup/signup_view.dart';
+import '../ui/profile/profile_create_view.dart';
+import '../ui/profilepage/create_animal_profile/create_animal_page_viewe.dart';
+import '../ui/signup/signup_view.dart';
 import '../ui/startup/startup_view.dart';
 
 class Routes {
   static const String startupView = '/';
-  static const String homeView = '/home-view';
   static const String onBoardingView = '/on-boarding-view';
   static const String loginView = '/login-view';
+  static const String dashboard = '/Dashboard';
   static const String signUpView = '/sign-up-view';
   static const String confirmOTPView = '/confirm-ot-pView';
   static const String forgotPasswordView = '/forgot-password-view';
   static const String newPasswordView = '/new-password-view';
+  static const String profileCreateView = '/profile-create-view';
+  static const String createAnimalPageView = '/create-animal-page-view';
+  static const String forYouTabSearchView = '/for-you-tab-search-view';
   static const all = <String>{
     startupView,
-    homeView,
     onBoardingView,
     loginView,
+    dashboard,
     signUpView,
     confirmOTPView,
     forgotPasswordView,
     newPasswordView,
+    profileCreateView,
+    createAnimalPageView,
+    forYouTabSearchView,
   };
 }
 
@@ -45,13 +55,16 @@ class StackedRouter extends RouterBase {
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
     RouteDef(Routes.startupView, page: StartupView),
-    RouteDef(Routes.homeView, page: HomeView),
     RouteDef(Routes.onBoardingView, page: OnBoardingView),
     RouteDef(Routes.loginView, page: LoginView),
+    RouteDef(Routes.dashboard, page: Dashboard),
     RouteDef(Routes.signUpView, page: SignUpView),
     RouteDef(Routes.confirmOTPView, page: ConfirmOTPView),
     RouteDef(Routes.forgotPasswordView, page: ForgotPasswordView),
     RouteDef(Routes.newPasswordView, page: NewPasswordView),
+    RouteDef(Routes.profileCreateView, page: ProfileCreateView),
+    RouteDef(Routes.createAnimalPageView, page: CreateAnimalPageView),
+    RouteDef(Routes.forYouTabSearchView, page: ForYouTabSearchView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -59,12 +72,6 @@ class StackedRouter extends RouterBase {
     StartupView: (data) {
       return MaterialPageRoute<dynamic>(
         builder: (context) => const StartupView(),
-        settings: data,
-      );
-    },
-    HomeView: (data) {
-      return CupertinoPageRoute<dynamic>(
-        builder: (context) => const HomeView(),
         settings: data,
       );
     },
@@ -80,6 +87,15 @@ class StackedRouter extends RouterBase {
       );
       return CupertinoPageRoute<dynamic>(
         builder: (context) => LoginView(key: args.key),
+        settings: data,
+      );
+    },
+    Dashboard: (data) {
+      var args = data.getArgs<DashboardArguments>(
+        orElse: () => DashboardArguments(),
+      );
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => Dashboard(key: args.key),
         settings: data,
       );
     },
@@ -99,6 +115,7 @@ class StackedRouter extends RouterBase {
           key: args.key,
           isEmailVerify: args.isEmailVerify,
           verificationData: args.verificationData,
+          verificationType: args.verificationType,
         ),
         settings: data,
       );
@@ -121,6 +138,31 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    ProfileCreateView: (data) {
+      var args = data.getArgs<ProfileCreateViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => ProfileCreateView(
+          key: args.key,
+          user: args.user,
+        ),
+        settings: data,
+      );
+    },
+    CreateAnimalPageView: (data) {
+      var args = data.getArgs<CreateAnimalPageViewArguments>(
+        orElse: () => CreateAnimalPageViewArguments(),
+      );
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => CreateAnimalPageView(key: args.key),
+        settings: data,
+      );
+    },
+    ForYouTabSearchView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const ForYouTabSearchView(),
+        settings: data,
+      );
+    },
   };
 }
 
@@ -134,6 +176,12 @@ class LoginViewArguments {
   LoginViewArguments({this.key});
 }
 
+/// Dashboard arguments holder class
+class DashboardArguments {
+  final Key? key;
+  DashboardArguments({this.key});
+}
+
 /// SignUpView arguments holder class
 class SignUpViewArguments {
   final Key? key;
@@ -145,8 +193,12 @@ class ConfirmOTPViewArguments {
   final Key? key;
   final bool isEmailVerify;
   final String verificationData;
+  final String verificationType;
   ConfirmOTPViewArguments(
-      {this.key, required this.isEmailVerify, required this.verificationData});
+      {this.key,
+      required this.isEmailVerify,
+      required this.verificationData,
+      required this.verificationType});
 }
 
 /// ForgotPasswordView arguments holder class
@@ -159,4 +211,17 @@ class ForgotPasswordViewArguments {
 class NewPasswordViewArguments {
   final Key? key;
   NewPasswordViewArguments({this.key});
+}
+
+/// ProfileCreateView arguments holder class
+class ProfileCreateViewArguments {
+  final Key? key;
+  final LocalUser user;
+  ProfileCreateViewArguments({this.key, required this.user});
+}
+
+/// CreateAnimalPageView arguments holder class
+class CreateAnimalPageViewArguments {
+  final Key? key;
+  CreateAnimalPageViewArguments({this.key});
 }

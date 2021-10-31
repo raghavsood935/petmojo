@@ -27,11 +27,12 @@ class LoginView extends StatelessWidget with $LoginView {
         body: AuthenticationLayout(
           busy: model.isBusy,
           isValid: model.isValid,
-          // onMainButtonTapped: model.saveData,
-          onMainButtonTapped: model.moveToOTPView,
+          onMainButtonTapped: model.loginAccount,
           onBackPressed: model.navigateBack,
           onForgotPassword: model.onForgotPassword,
           validationMessage: model.validationMessage,
+          onSignInWithFacebook: model.useFacebookAuthentication,
+          onSignInWithGoogle: model.useGoogleAuthentication,
           title: loginAccountTitle,
           subtitle: '',
           isSocialLoginEnabled: true,
@@ -45,15 +46,16 @@ class LoginView extends StatelessWidget with $LoginView {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: AppText.body1(
-                    emailPhoneLabel,
+                    emailUsernameLabel,
                     textAlign: TextAlign.start,
                     color: colors.black,
                   ),
                 ),
               ),
               AppInputField(
-                hint: enterEmailPhoneHint,
+                hint: enterEmailUserNameHint,
                 controller: emailController,
+                textInputType: TextInputType.emailAddress,
               ),
               verticalSpaceMedium,
               Container(

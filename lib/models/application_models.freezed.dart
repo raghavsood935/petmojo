@@ -20,11 +20,22 @@ LocalUser _$LocalUserFromJson(Map<String, dynamic> json) {
 class _$LocalUserTearOff {
   const _$LocalUserTearOff();
 
-  _User call({String? id, String? email, String? username}) {
+  _User call(
+      {@JsonKey(name: "_id") String? id,
+      String? email,
+      String? username,
+      String? fullName,
+      String? bio,
+      String? website,
+      bool confirmed = false}) {
     return _User(
       id: id,
       email: email,
       username: username,
+      fullName: fullName,
+      bio: bio,
+      website: website,
+      confirmed: confirmed,
     );
   }
 
@@ -38,9 +49,14 @@ const $LocalUser = _$LocalUserTearOff();
 
 /// @nodoc
 mixin _$LocalUser {
+  @JsonKey(name: "_id")
   String? get id => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   String? get username => throw _privateConstructorUsedError;
+  String? get fullName => throw _privateConstructorUsedError;
+  String? get bio => throw _privateConstructorUsedError;
+  String? get website => throw _privateConstructorUsedError;
+  bool get confirmed => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -52,7 +68,14 @@ mixin _$LocalUser {
 abstract class $LocalUserCopyWith<$Res> {
   factory $LocalUserCopyWith(LocalUser value, $Res Function(LocalUser) then) =
       _$LocalUserCopyWithImpl<$Res>;
-  $Res call({String? id, String? email, String? username});
+  $Res call(
+      {@JsonKey(name: "_id") String? id,
+      String? email,
+      String? username,
+      String? fullName,
+      String? bio,
+      String? website,
+      bool confirmed});
 }
 
 /// @nodoc
@@ -68,6 +91,10 @@ class _$LocalUserCopyWithImpl<$Res> implements $LocalUserCopyWith<$Res> {
     Object? id = freezed,
     Object? email = freezed,
     Object? username = freezed,
+    Object? fullName = freezed,
+    Object? bio = freezed,
+    Object? website = freezed,
+    Object? confirmed = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -82,6 +109,22 @@ class _$LocalUserCopyWithImpl<$Res> implements $LocalUserCopyWith<$Res> {
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String?,
+      fullName: fullName == freezed
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bio: bio == freezed
+          ? _value.bio
+          : bio // ignore: cast_nullable_to_non_nullable
+              as String?,
+      website: website == freezed
+          ? _value.website
+          : website // ignore: cast_nullable_to_non_nullable
+              as String?,
+      confirmed: confirmed == freezed
+          ? _value.confirmed
+          : confirmed // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -91,7 +134,14 @@ abstract class _$UserCopyWith<$Res> implements $LocalUserCopyWith<$Res> {
   factory _$UserCopyWith(_User value, $Res Function(_User) then) =
       __$UserCopyWithImpl<$Res>;
   @override
-  $Res call({String? id, String? email, String? username});
+  $Res call(
+      {@JsonKey(name: "_id") String? id,
+      String? email,
+      String? username,
+      String? fullName,
+      String? bio,
+      String? website,
+      bool confirmed});
 }
 
 /// @nodoc
@@ -108,6 +158,10 @@ class __$UserCopyWithImpl<$Res> extends _$LocalUserCopyWithImpl<$Res>
     Object? id = freezed,
     Object? email = freezed,
     Object? username = freezed,
+    Object? fullName = freezed,
+    Object? bio = freezed,
+    Object? website = freezed,
+    Object? confirmed = freezed,
   }) {
     return _then(_User(
       id: id == freezed
@@ -122,6 +176,22 @@ class __$UserCopyWithImpl<$Res> extends _$LocalUserCopyWithImpl<$Res>
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String?,
+      fullName: fullName == freezed
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bio: bio == freezed
+          ? _value.bio
+          : bio // ignore: cast_nullable_to_non_nullable
+              as String?,
+      website: website == freezed
+          ? _value.website
+          : website // ignore: cast_nullable_to_non_nullable
+              as String?,
+      confirmed: confirmed == freezed
+          ? _value.confirmed
+          : confirmed // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -129,21 +199,39 @@ class __$UserCopyWithImpl<$Res> extends _$LocalUserCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_User extends _User {
-  _$_User({this.id, this.email, this.username}) : super._();
+  _$_User(
+      {@JsonKey(name: "_id") this.id,
+      this.email,
+      this.username,
+      this.fullName,
+      this.bio,
+      this.website,
+      this.confirmed = false})
+      : super._();
 
   factory _$_User.fromJson(Map<String, dynamic> json) =>
       _$_$_UserFromJson(json);
 
   @override
+  @JsonKey(name: "_id")
   final String? id;
   @override
   final String? email;
   @override
   final String? username;
+  @override
+  final String? fullName;
+  @override
+  final String? bio;
+  @override
+  final String? website;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool confirmed;
 
   @override
   String toString() {
-    return 'LocalUser(id: $id, email: $email, username: $username)';
+    return 'LocalUser(id: $id, email: $email, username: $username, fullName: $fullName, bio: $bio, website: $website, confirmed: $confirmed)';
   }
 
   @override
@@ -156,7 +244,18 @@ class _$_User extends _User {
                 const DeepCollectionEquality().equals(other.email, email)) &&
             (identical(other.username, username) ||
                 const DeepCollectionEquality()
-                    .equals(other.username, username)));
+                    .equals(other.username, username)) &&
+            (identical(other.fullName, fullName) ||
+                const DeepCollectionEquality()
+                    .equals(other.fullName, fullName)) &&
+            (identical(other.bio, bio) ||
+                const DeepCollectionEquality().equals(other.bio, bio)) &&
+            (identical(other.website, website) ||
+                const DeepCollectionEquality()
+                    .equals(other.website, website)) &&
+            (identical(other.confirmed, confirmed) ||
+                const DeepCollectionEquality()
+                    .equals(other.confirmed, confirmed)));
   }
 
   @override
@@ -164,7 +263,11 @@ class _$_User extends _User {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(email) ^
-      const DeepCollectionEquality().hash(username);
+      const DeepCollectionEquality().hash(username) ^
+      const DeepCollectionEquality().hash(fullName) ^
+      const DeepCollectionEquality().hash(bio) ^
+      const DeepCollectionEquality().hash(website) ^
+      const DeepCollectionEquality().hash(confirmed);
 
   @JsonKey(ignore: true)
   @override
@@ -178,17 +281,33 @@ class _$_User extends _User {
 }
 
 abstract class _User extends LocalUser {
-  factory _User({String? id, String? email, String? username}) = _$_User;
+  factory _User(
+      {@JsonKey(name: "_id") String? id,
+      String? email,
+      String? username,
+      String? fullName,
+      String? bio,
+      String? website,
+      bool confirmed}) = _$_User;
   _User._() : super._();
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
   @override
+  @JsonKey(name: "_id")
   String? get id => throw _privateConstructorUsedError;
   @override
   String? get email => throw _privateConstructorUsedError;
   @override
   String? get username => throw _privateConstructorUsedError;
+  @override
+  String? get fullName => throw _privateConstructorUsedError;
+  @override
+  String? get bio => throw _privateConstructorUsedError;
+  @override
+  String? get website => throw _privateConstructorUsedError;
+  @override
+  bool get confirmed => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$UserCopyWith<_User> get copyWith => throw _privateConstructorUsedError;

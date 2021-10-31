@@ -1,3 +1,5 @@
+import 'package:kubelite/enum/redirect_state.dart';
+import 'package:kubelite/models/application_models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesService {
@@ -10,10 +12,12 @@ class SharedPreferencesService {
 
   static const String HAS_USER = 'hasUser';
   static const String UID = 'uid';
-  static const String BUYER_ID = 'buyerId';
-  static const String BUYER_STORE_ID = 'buyerStoreId';
-  static const String BUSINESS_NAME = 'businessName';
-  static const String SELLER_ID = 'sellerId';
+  static const String USERNAME = 'username';
+  static const String FULLNAME = 'fullName';
+  static const String BIO = 'bio';
+  static const String EMAIL = 'email';
+  static const String WEBSITE = 'website';
+
   static const String CURRENT_LAT = 'currentPositionLatitude';
   static const String CURRENT_LON = 'currentPositionLongitude';
   static const String FCM_TOKEN = 'fcmToken';
@@ -22,6 +26,7 @@ class SharedPreferencesService {
   static const String YOUR_FIELD = 'yourField';
   static const String CART_TOTAL_ITEMS = 'cartTotalItems';
   static const String PHONE_NUMBER = 'phonenumber';
+  static const String CURRENT_STATE = 'currentState';
 
   //current address
   double locationRadius = 500;
@@ -53,11 +58,52 @@ class SharedPreferencesService {
   Future<void> clearLoginData() async {
     await _preferences.remove(UID);
     await _preferences.remove(HAS_USER);
-    await _preferences.remove(BUYER_ID);
-    await _preferences.remove(BUYER_STORE_ID);
-    await _preferences.remove(BUSINESS_NAME);
-    await _preferences.remove(SELLER_ID);
+    await _preferences.remove(CURRENT_STATE);
+    await _preferences.clear();
   }
+
+  Future<void> saveCurrentUser(LocalUser currentUser) async {
+    uid = currentUser.id ?? "";
+    username = currentUser.username ?? "";
+    fullName = currentUser.fullName ?? "";
+    bio = currentUser.bio ?? "";
+    email = currentUser.email ?? "";
+    website = currentUser.website ?? "";
+  }
+
+  LocalUser getCurrentUser() {
+    return LocalUser(
+        id: uid,
+        email: email,
+        username: username,
+        fullName: fullName,
+        bio: bio,
+        website: website);
+  }
+
+  String get uid => _getFromDisk(UID) ?? null;
+
+  set uid(String value) => _saveToDisk(UID, value);
+
+  String get username => _getFromDisk(USERNAME) ?? null;
+
+  set username(String value) => _saveToDisk(USERNAME, value);
+
+  String get fullName => _getFromDisk(FULLNAME) ?? null;
+
+  set fullName(String value) => _saveToDisk(FULLNAME, value);
+
+  String get bio => _getFromDisk(BIO) ?? null;
+
+  set bio(String value) => _saveToDisk(BIO, value);
+
+  String get email => _getFromDisk(EMAIL) ?? null;
+
+  set email(String value) => _saveToDisk(EMAIL, value);
+
+  String get website => _getFromDisk(WEBSITE) ?? null;
+
+  set website(String value) => _saveToDisk(WEBSITE, value);
 
   String get fcmToken => _getFromDisk(FCM_TOKEN) ?? null;
 
@@ -66,10 +112,6 @@ class SharedPreferencesService {
   String get authToken => _getFromDisk(AUTH_TOKEN) ?? null;
 
   set authToken(String value) => _saveToDisk(AUTH_TOKEN, value);
-
-  String get businessName => _getFromDisk(BUSINESS_NAME) ?? "Mittal Baker";
-
-  set businessName(String value) => _saveToDisk(BUSINESS_NAME, value);
 
   bool get homeVisible => _getFromDisk(HOME_VISIBLE) ?? false;
 
@@ -86,4 +128,9 @@ class SharedPreferencesService {
   String get phoneNumber => _getFromDisk(PHONE_NUMBER) ?? "";
 
   set phoneNumber(String value) => _saveToDisk(PHONE_NUMBER, value);
+
+  String get currentState =>
+      _getFromDisk(CURRENT_STATE) ?? getRedirectStateName(RedirectState.Start);
+
+  set currentState(String value) => _saveToDisk(CURRENT_STATE, value);
 }

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:kubelite/shared/connectivity_status.dart';
+import 'package:kubelite/enum/connectivity_status.dart';
 
 class ConnectivityService {
   // Create our public controller
