@@ -14,6 +14,7 @@ class LocalUser with _$LocalUser {
     String? fullName,
     String? bio,
     String? website,
+    @Default(false) bool confirmed,
   }) = _User;
 
   factory LocalUser.fromJson(Map<String, dynamic> json) =>

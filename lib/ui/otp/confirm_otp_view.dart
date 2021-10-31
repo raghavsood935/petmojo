@@ -15,8 +15,12 @@ import 'package:stacked/stacked_annotations.dart';
 class ConfirmOTPView extends StatelessWidget with $ConfirmOTPView {
   final bool isEmailVerify;
   final String verificationData;
+  final String verificationType;
   ConfirmOTPView(
-      {Key? key, required this.isEmailVerify, required this.verificationData})
+      {Key? key,
+      required this.isEmailVerify,
+      required this.verificationData,
+      required this.verificationType})
       : super(key: key);
 
   @override
@@ -28,8 +32,9 @@ class ConfirmOTPView extends StatelessWidget with $ConfirmOTPView {
         body: AuthenticationLayout(
           busy: model.isBusy,
           isValid: model.isValid,
+          onResendOTP: model.resendOTP,
           isSocialLoginEnabled: false,
-          onMainButtonTapped: model.saveData,
+          onMainButtonTapped: model.confirmOTP,
           onBackPressed: model.navigateBack,
           validationMessage: model.validationMessage,
           title: confirmEmailLabel,
@@ -55,13 +60,15 @@ class ConfirmOTPView extends StatelessWidget with $ConfirmOTPView {
               ),
               AppInputField(
                 hint: oneTimeHint,
+                textInputType: TextInputType.number,
                 controller: otpController,
               ),
             ],
           ),
         ),
       ),
-      viewModelBuilder: () => ConfirmOTPViewModel(),
+      viewModelBuilder: () => ConfirmOTPViewModel(
+          this.isEmailVerify, this.verificationData, this.verificationType),
     );
   }
 }

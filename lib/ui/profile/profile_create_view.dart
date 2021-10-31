@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kubelite/models/application_models.dart';
 import 'package:kubelite/ui/profile/profile_create_viewmodel.dart';
 import 'package:kubelite/util/Color.dart';
+import 'package:kubelite/util/ImageConstant.dart';
 import 'package:kubelite/util/String.dart';
 import 'package:kubelite/util/ui_helpers.dart';
 import 'package:kubelite/widgets/app_input_field.dart';
@@ -40,7 +42,7 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
           busy: model.isBusy,
           isValid: model.isValid,
           onMainButtonTapped: model.saveProfileData,
-          onBackPressed: model.navigateBack,
+          onBackPressed: null,
           onForgotPassword: null,
           validationMessage: model.validationMessage,
           title: completeProfileTitle,
@@ -66,12 +68,11 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
                       children: [
                         if (model.imagePath.isEmpty)
                           CircleAvatar(
-                            backgroundColor: colors.primary,
+                            backgroundColor: colors.primaryLight,
                             radius: 65,
-                            child: Icon(
-                              Icons.camera_alt_outlined,
-                              color: colors.white,
-                              size: 50,
+                            child: SvgPicture.asset(
+                              cameraIcon,
+                              color: colors.primary,
                             ),
                           ),
                         if (model.imagePath.isNotEmpty)
@@ -82,7 +83,10 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
                               child: SizedBox(
                                   width: 130,
                                   height: 130,
-                                  child: Image.file(File(model.imagePath))),
+                                  child: Image.file(
+                                    File(model.imagePath),
+                                    fit: BoxFit.fill,
+                                  )),
                             ),
                           )
                       ],

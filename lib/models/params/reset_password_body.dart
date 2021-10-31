@@ -13,3 +13,27 @@ class ResetPasswordBody {
 
   Map<String, dynamic> toJson() => _$ResetPasswordBodyToJson(this);
 }
+
+@JsonSerializable(explicitToJson: true)
+class ConfirmOTPBody {
+  final String otp;
+
+  ConfirmOTPBody(this.otp);
+
+  factory ConfirmOTPBody.fromJson(Map<String, dynamic> json) =>
+      _$ConfirmOTPBodyFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ConfirmOTPBodyToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class UpdatePasswordBody {
+  final String newPassword;
+
+  UpdatePasswordBody(this.newPassword);
+
+  factory UpdatePasswordBody.fromJson(Map<String, dynamic> json) =>
+      _$UpdatePasswordBodyFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UpdatePasswordBodyToJson(this);
+}

@@ -26,7 +26,7 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
   final log = getLogger('ProfileCreateViewModel');
   final _tamelyApi = locator<TamelyApi>();
   final _snackBarService = locator<SnackbarService>();
-  final _sharedPreferencesService = locator<SharedPreferencesService>();
+  final sharedPreferencesService = locator<SharedPreferencesService>();
   final ImagePicker _picker = ImagePicker();
 
   bool _isValid = false;
@@ -59,6 +59,7 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
 
       if (pickedFile != null) {
         _imageFile = pickedFile;
+        notifyListeners();
         await uploadImage();
       }
       log.d("ImagePath: $imagePath");
@@ -108,16 +109,16 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
   @override
   void setFormStatus() {
     checkValidateField();
-    String username = formValueMap["username"];
-    _onSearchChanged(username);
+    String username = formValueMap["username"] ?? "";
+    _userNameChanged(username);
   }
 
   Timer? _debounce;
   String _userName = "";
   bool _isValidUser = false;
 
-  _onSearchChanged(String query) async {
-    if (_userName != query) {
+  _userNameChanged(String query) async {
+    if (_userName != query && query.isNotEmpty) {
       if (_debounce?.isActive ?? false) _debounce?.cancel();
       _debounce = Timer(const Duration(milliseconds: 500), () async {
         _userName = query;
@@ -144,7 +145,7 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
   }
 
   init() {
-    _sharedPreferencesService.currentState =
+    sharedPreferencesService.currentState =
         getRedirectStateName(RedirectState.ProfileCreate);
   }
 

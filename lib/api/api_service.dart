@@ -13,6 +13,7 @@ import 'package:kubelite/models/params/reset_password_body.dart';
 import 'package:kubelite/models/params/social_login_body.dart';
 import 'package:kubelite/models/user_response_models.dart';
 import 'package:kubelite/services/shared_preferences_service.dart';
+import 'package:kubelite/ui/otp/confirm_otp_viewmodel.dart';
 import 'package:logger/logger.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -21,7 +22,7 @@ import 'api_client.dart';
 class TamelyApi {
   final _sharedPreferenceServices = locator<SharedPreferencesService>();
 
-  final log = Logger(printer: SimpleLogPrinter('VendorApi'));
+  final log = Logger(printer: SimpleLogPrinter('TamelyApi'));
 
   Dio dio = Dio(BaseOptions(
     connectTimeout: Apis.TIMEOUT,
@@ -60,7 +61,7 @@ class TamelyApi {
 
     if (isAuth) {
       dio.options.headers["authorization"] =
-          "Bearer ${_sharedPreferenceServices.authToken}";
+          "${_sharedPreferenceServices.authToken}";
     }
     return ApiClient(dio);
   }
@@ -78,7 +79,7 @@ class TamelyApi {
     dio.options.followRedirects = false;
     dio.options.headers['content-Type'] = 'multipart/form-data';
     dio.options.headers["authorization"] =
-        "Bearer ${_sharedPreferenceServices.authToken}";
+        "${_sharedPreferenceServices.authToken}";
     return ApiClient(dio);
   }
 
@@ -96,7 +97,7 @@ class TamelyApi {
     formDio.options.headers['content-Type'] = 'application/json';
     if (isAuth) {
       dio.options.headers["authorization"] =
-          "Bearer ${_sharedPreferenceServices.authToken}";
+          "${_sharedPreferenceServices.authToken}";
     }
     return ApiClient(formDio);
   }
@@ -132,6 +133,50 @@ class TamelyApi {
     UserResponse response;
     try {
       response = await getApiClient(false).register(registerBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  Future<BaseResponse<CommonResponse>> verifyAccount(String num) async {
+    log.d("verifyAccount called");
+    CommonResponse response;
+    try {
+      response = await getApiClient(true).verifyAccount(num);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  Future<BaseResponse<CommonResponse>> confirmAccount(
+      ConfirmOTPBody confirmOTPBody, String verificationType) async {
+    log.d("confirmAccount called");
+    CommonResponse response;
+    try {
+      if (verificationType == getVerificationTypeName(VerificationType.login))
+        response = await getApiClient(true).confirmAccount(confirmOTPBody);
+      else
+        response = await getApiClient(true).verifyResetPassword(confirmOTPBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  Future<BaseResponse<CommonResponse>> updatePassword(
+      UpdatePasswordBody updatePasswordBody) async {
+    log.d("updatePassword called");
+    CommonResponse response;
+    try {
+      response = await getApiClient(true).updatePassword(updatePasswordBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()

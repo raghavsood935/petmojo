@@ -3,7 +3,7 @@ String APP_NAME = "Kubelite";
 
 String wireFrameTitle1 = "Create a memorable Pet Diary";
 String wireFrameTitle2 = "Connect with other animal lovers";
-String wireFrameTitle3 = "Find height quality pet care services";
+String wireFrameTitle3 = "Find high quality pet care services";
 String wireFrameTitle4 = "Save time and money";
 String signUpLoginTitle = "SIGN UP/LOGIN";
 String emailPhoneTitle = "EMAIL/PHONE";
@@ -72,23 +72,18 @@ String createAnimalTitle = "Create new animal profile";
 //Drawer layout
 String walletTitle = "Tamely Wallet";
 String walletSubTitle = "Add funds and redeem rewards!";
-String walletIcon = "assets/images/wallet.svg";
 
 String bookingTitle = "My bookings";
 String bookingSubTitle = "Check upcoming bookings or reorder";
-String bookingIcon = "assets/images/bookings.svg";
 
 String settingsTitle = "Settings";
 String settingsSubTitle = "Privacy, Security, Account";
-String settingsIcon = "assets/images/setting.svg";
 
 String bookmarksTitle = "Bookmarks";
 String bookmarksSubTitle = "Find saved posts here";
-String bookmarksIcon = "assets/images/bookmark.svg";
 
 String feedbackTitle = "Feedback";
 String feedbackSubTitle = "We appreciate your valuable feedback";
-String feedbackIcon = "assets/images/feedback.svg";
 
 String helpTitle = "Need Help ?";
 String helpSubTitle = "We are here to help you 24/7";

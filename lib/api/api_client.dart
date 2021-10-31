@@ -23,6 +23,10 @@ class Apis {
   static const String user = '/user';
   static const String changePassword = '/auth/password';
   static const String resetPassword = '/auth/reset-password-mail';
+  static const String updatePassword = '/auth/update-password';
+  static const String verifyAccount = '/auth/resendotp/{num}';
+  static const String confirmAccount = '/user/confirm';
+  static const String verifyResetPassword = '/auth/verify-reset-otp';
   static const String facebookLogin = '/auth/login/facebook';
   static const String googleLogin = '/auth/login/google';
   static const String changeAvatar = '/user/avatar';
@@ -35,9 +39,27 @@ abstract class ApiClient {
   @POST(Apis.login)
   Future<UserResponse> login(@Body() LoginBody loginBody);
 
-  @GET(Apis.resetPassword)
+  @PATCH(Apis.resetPassword)
   Future<CommonResponse> resetPassword(
       @Body() ResetPasswordBody resetPasswordBody);
+
+  @PATCH(Apis.updatePassword)
+  Future<CommonResponse> updatePassword(
+      @Body() UpdatePasswordBody updatePasswordBody);
+
+  /*
+  path can be /login or /forgetpwd
+  For login verification and reset password verification
+   */
+  @POST(Apis.verifyAccount)
+  Future<CommonResponse> verifyAccount(@Path() String type);
+
+  @PUT(Apis.confirmAccount)
+  Future<CommonResponse> confirmAccount(@Body() ConfirmOTPBody confirmOTPBody);
+
+  @PUT(Apis.verifyResetPassword)
+  Future<CommonResponse> verifyResetPassword(
+      @Body() ConfirmOTPBody confirmOTPBody);
 
   @POST(Apis.facebookLogin)
   Future<UserResponse> facebookLogin(@Body() SocialLoginBody socialLoginBody);
