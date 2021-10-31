@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kubelite/models/hashtag_model.dart';
+import 'package:kubelite/util/ImageConstant.dart';
 import 'package:kubelite/widgets/app_text.dart';
 import 'package:stacked/stacked.dart';
-
-import 'package:kubelite/util/String.dart';
 
 import 'hashtags_search_tab_view_model.dart';
 

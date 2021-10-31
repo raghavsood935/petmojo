@@ -32,4 +32,8 @@ class OnBoardingViewModel extends AuthenticationViewModel {
   void moveToSignup() {
     _navigationService.navigateTo(Routes.signUpView);
   }
+
+  void goBack() {
+    _navigationService.back();
+  }
 }

@@ -6,7 +6,7 @@ import 'package:kubelite/models/breed_animal_model.dart';
 import 'package:kubelite/ui/profilepage/create_animal_profile/create_animal_view_model.dart';
 import 'package:kubelite/ui/profilepage/create_animal_profile/select_other_option_daiog/select_other_animal_type.dart';
 import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/String.dart';
+import 'package:kubelite/util/ImageConstant.dart';
 import 'package:kubelite/util/ui_helpers.dart';
 
 import 'app_input_field.dart';

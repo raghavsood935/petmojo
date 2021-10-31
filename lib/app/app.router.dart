@@ -8,11 +8,11 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kubelite/ui/for_you/for_you_search/for_you_tab_search_view.dart';
 import 'package:stacked/stacked.dart';
 
 import '../models/application_models.dart';
 import '../ui/dashboard/dashboard.dart';
+import '../ui/for_you/for_you_search/for_you_tab_search_view.dart';
 import '../ui/forgotpassword/forgotpassword_view.dart';
 import '../ui/forgotpassword/new_password_view.dart';
 import '../ui/login/login_view.dart';
@@ -115,6 +115,7 @@ class StackedRouter extends RouterBase {
           key: args.key,
           isEmailVerify: args.isEmailVerify,
           verificationData: args.verificationData,
+          verificationType: args.verificationType,
         ),
         settings: data,
       );
@@ -157,11 +158,8 @@ class StackedRouter extends RouterBase {
       );
     },
     ForYouTabSearchView: (data) {
-      var args = data.getArgs<ForYouTabSearchViewArguments>(
-        orElse: () => ForYouTabSearchViewArguments(),
-      );
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => ForYouTabSearchView(key: args.key),
+        builder: (context) => const ForYouTabSearchView(),
         settings: data,
       );
     },
@@ -195,8 +193,12 @@ class ConfirmOTPViewArguments {
   final Key? key;
   final bool isEmailVerify;
   final String verificationData;
+  final String verificationType;
   ConfirmOTPViewArguments(
-      {this.key, required this.isEmailVerify, required this.verificationData});
+      {this.key,
+      required this.isEmailVerify,
+      required this.verificationData,
+      required this.verificationType});
 }
 
 /// ForgotPasswordView arguments holder class
@@ -222,10 +224,4 @@ class ProfileCreateViewArguments {
 class CreateAnimalPageViewArguments {
   final Key? key;
   CreateAnimalPageViewArguments({this.key});
-}
-
-/// ForYouTabSearchView arguments holder class
-class ForYouTabSearchViewArguments {
-  final Key? key;
-  ForYouTabSearchViewArguments({this.key});
 }

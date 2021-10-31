@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.logger.dart';
 import 'package:kubelite/app/app.router.dart';
@@ -18,6 +19,7 @@ class StartUpViewModel extends FutureViewModel<void> implements Initialisable {
   bool get isDestinationAvailable => _destinationRoute != null;
 
   Future initialise() async {
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
     // _sharedPreferencesService.clearLoginData();
     var currentState = _sharedPreferencesService.currentState;
 
@@ -40,7 +42,10 @@ class StartUpViewModel extends FutureViewModel<void> implements Initialisable {
         _destinationRoute = Routes.dashboard;
         break;
     }
-    // _destinationRoute = Routes.dashboard;
+    // _destinationRoute = Routes.confirmOTPView;
+    // _destinationArguments = ConfirmOTPViewArguments(
+    //     isEmailVerify: true,
+    //     verificationData: _userService.currentUser.email ?? "");
 
     log.d("Current State : $_destinationRoute");
   }

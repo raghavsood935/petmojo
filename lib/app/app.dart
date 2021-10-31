@@ -2,6 +2,7 @@ import 'package:kubelite/api/api_service.dart';
 import 'package:kubelite/services/shared_preferences_service.dart';
 import 'package:kubelite/services/user_service.dart';
 import 'package:kubelite/ui/dashboard/dashboard.dart';
+import 'package:kubelite/ui/for_you/for_you_search/for_you_tab_search_view.dart';
 import 'package:kubelite/ui/forgotpassword/forgotpassword_view.dart';
 import 'package:kubelite/ui/forgotpassword/new_password_view.dart';
 import 'package:kubelite/ui/login/login_view.dart';
@@ -26,6 +27,7 @@ import 'package:stacked_services/stacked_services.dart';
     CupertinoRoute(page: NewPasswordView),
     CupertinoRoute(page: ProfileCreateView),
     CupertinoRoute(page: CreateAnimalPageView),
+    CupertinoRoute(page: ForYouTabSearchView),
   ],
   dependencies: [
     LazySingleton(classType: NavigationService),
