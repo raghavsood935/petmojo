@@ -17,7 +17,9 @@ class ConfirmOTPViewModel extends AuthenticationViewModel {
 
   get isValid => _isValid;
 
-  void navigateBack() => navigationService.back();
+  void navigateBack() {
+    navigationService.pushNamedAndRemoveUntil(Routes.loginView);
+  }
 
   @override
   void setFormStatus() {

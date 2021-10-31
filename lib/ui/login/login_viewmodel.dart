@@ -11,7 +11,9 @@ class LoginViewModel extends AuthenticationViewModel {
 
   get isValid => _isValid;
 
-  void navigateBack() => navigationService.back();
+  void navigateBack() {
+    navigationService.pushNamedAndRemoveUntil(Routes.onBoardingView);
+  }
 
   void onForgotPassword() {
     navigationService.navigateTo(Routes.forgotPasswordView);
