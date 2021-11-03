@@ -5,7 +5,6 @@ import 'package:kubelite/ui/community/community_view.dart';
 import 'package:kubelite/ui/dashboard/dashboard_viewmodel.dart';
 import 'package:kubelite/ui/feed/feed_view.dart';
 import 'package:kubelite/ui/for_you/for_you_view.dart';
-import 'package:kubelite/ui/home/home_view.dart';
 import 'package:kubelite/ui/profilepage/profile_view.dart';
 import 'package:kubelite/ui/services/services_view.dart';
 import 'package:kubelite/util/Color.dart';

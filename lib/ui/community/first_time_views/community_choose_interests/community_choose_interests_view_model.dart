@@ -2,7 +2,6 @@ import 'package:kubelite/app/app.locator.dart';
 import 'package:kubelite/app/app.router.dart';
 import 'package:kubelite/shared/base_viewmodel.dart';
 import 'package:kubelite/util/String.dart';
-import 'package:kubelite/util/animal_type_constant.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class CommunityChooseInterestViewModel extends BaseModel {
