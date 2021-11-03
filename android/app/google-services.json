@@ -7,6 +7,35 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:183984006291:android:3521358edc4f4ada761966",
+        "android_client_info": {
+          "package_name": "in.tamely.partner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "183984006291-q9hlhr157f2l4i41ed4vgmbv82v8fms9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCT2qVXOE6ayc0Bp3LPPYuY2js3r5lat10"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "183984006291-q9hlhr157f2l4i41ed4vgmbv82v8fms9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:183984006291:android:2f3e6df07fbaff91761966",
         "android_client_info": {
           "package_name": "in.tamely.user"

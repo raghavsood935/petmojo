@@ -121,6 +121,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
 
   Future<void> useGoogleAuthentication() async {
     try {
+      await _googleSignIn.signOut();
       final GoogleSignInAccount? googleSignInAccount =
           await _googleSignIn.signIn();
       if (googleSignInAccount == null) {
