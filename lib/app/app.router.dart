@@ -8,11 +8,13 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kubelite/ui/for_you/for_you_search/for_you_tab_search_view.dart';
 import 'package:stacked/stacked.dart';
 
 import '../models/application_models.dart';
+import '../ui/community/community_main_view/community_main_view.dart';
+import '../ui/community/first_time_views/community_choose_interests/community_choose_interests_view.dart';
 import '../ui/dashboard/dashboard.dart';
+import '../ui/for_you/for_you_search/for_you_tab_search_view.dart';
 import '../ui/forgotpassword/forgotpassword_view.dart';
 import '../ui/forgotpassword/new_password_view.dart';
 import '../ui/login/login_view.dart';
@@ -35,6 +37,9 @@ class Routes {
   static const String profileCreateView = '/profile-create-view';
   static const String createAnimalPageView = '/create-animal-page-view';
   static const String forYouTabSearchView = '/for-you-tab-search-view';
+  static const String communityChooseInterestView =
+      '/community-choose-interest-view';
+  static const String communityMainView = '/community-main-view';
   static const all = <String>{
     startupView,
     onBoardingView,
@@ -47,6 +52,8 @@ class Routes {
     profileCreateView,
     createAnimalPageView,
     forYouTabSearchView,
+    communityChooseInterestView,
+    communityMainView,
   };
 }
 
@@ -65,6 +72,9 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.profileCreateView, page: ProfileCreateView),
     RouteDef(Routes.createAnimalPageView, page: CreateAnimalPageView),
     RouteDef(Routes.forYouTabSearchView, page: ForYouTabSearchView),
+    RouteDef(Routes.communityChooseInterestView,
+        page: CommunityChooseInterestView),
+    RouteDef(Routes.communityMainView, page: CommunityMainView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -157,11 +167,20 @@ class StackedRouter extends RouterBase {
       );
     },
     ForYouTabSearchView: (data) {
-      var args = data.getArgs<ForYouTabSearchViewArguments>(
-        orElse: () => ForYouTabSearchViewArguments(),
-      );
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => ForYouTabSearchView(key: args.key),
+        builder: (context) => const ForYouTabSearchView(),
+        settings: data,
+      );
+    },
+    CommunityChooseInterestView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const CommunityChooseInterestView(),
+        settings: data,
+      );
+    },
+    CommunityMainView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const CommunityMainView(),
         settings: data,
       );
     },
@@ -222,10 +241,4 @@ class ProfileCreateViewArguments {
 class CreateAnimalPageViewArguments {
   final Key? key;
   CreateAnimalPageViewArguments({this.key});
-}
-
-/// ForYouTabSearchView arguments holder class
-class ForYouTabSearchViewArguments {
-  final Key? key;
-  ForYouTabSearchViewArguments({this.key});
 }

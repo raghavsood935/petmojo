@@ -15,6 +15,7 @@ String continueGuestTitle = "CONTINUE AS A GUEST";
 String createAccountTitle = "Create your account";
 String loginAccountTitle = "Login to your account";
 String completeProfileTitle = "Complete your Profile";
+String editProfileTitle = "Edit your Profile";
 String completeProfileSubTitle = "You are one step closer!";
 
 //forgot password
@@ -94,9 +95,17 @@ String helpTitle = "Need Help ?";
 String helpSubTitle = "We are here to help you 24/7";
 String helpIcon = "assets/images/help.svg";
 
+//community page
+String communityTitle = "Join the Tamely community!";
+String communityDescription =
+    "We are a family of animal lovers across the planet. Find, connect, meet, help and support other animal lovers.";
+String communityBannerImgPath = "assets/images/workflow_banner1.png";
+String tamelyGrp = "Tamely Groups";
+String tamelyGrpDescription =
+    "Join or create a group with other animal lovers, Discover interests and loving community.";
+
 //assets path
-String leftHandImgPath = "assets/images/hello-2-left.png";
-String rightHandImgPath = "assets/images/hello-2-right.png";
+String humanHandImgPath = "assets/images/human_hand.png";
 String blobImgPath = "assets/images/Blob.png";
 String likesImgPath = "assets/images/likes_img.png";
 String animalFootPrintImgPath = "assets/images/pet_foot_print.png";
@@ -105,6 +114,19 @@ String sendImgPath = "assets/images/send.png";
 String sendOutlineImgPath = "assets/images/send_outline.png";
 String bookmarkImgPath = "assets/images/bookmark_outline.png";
 String crossImgPath = "assets/images/cross.png";
+String groupOfPeoplesImgPath = "assets/images/group_of_peoples.png";
+
+// animal images
+String birdFullImgPath = "assets/images/animals/bird.png";
+String catFullImgPath = "assets/images/animals/cat.png";
+String dogFullImgPath = "assets/images/animals/dog.png";
+String fishFullImgPath = "assets/images/animals/fish.png";
+String horseFullImgPath = "assets/images/animals/horse.png";
+String pigFullImgPath = "assets/images/animals/pig.png";
+String rabbitFullImgPath = "assets/images/animals/rabbit.png";
+String reptilesFullImgPath = "assets/images/animals/reptiles.png";
+
+String petImgPath = "assets/images/animals/pet_img.png";
 
 //animal type images
 String alpacaImgPath = "assets/images/animal_type_images/alpaca.png";
@@ -146,3 +168,6 @@ String locationPermissionDeniedPermanently =
 String locationPermissionDenied = 'Location permissions are denied';
 String locationPermissionDisabled =
     'Location services are disabled.\nPlease turn on your location';
+
+//drop down down select text
+String select = "Select";

@@ -2,10 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kubelite/layers/create_animal_profile_layer.dart';
-import 'package:kubelite/models/breed_animal_model.dart';
 import 'package:kubelite/ui/profilepage/create_animal_profile/create_animal_page_viewe.form.dart';
 import 'package:kubelite/ui/profilepage/create_animal_profile/create_animal_view_model.dart';
 import 'package:kubelite/util/Color.dart';
@@ -14,7 +11,6 @@ import 'package:kubelite/util/ui_helpers.dart';
 import 'package:kubelite/widgets/app_input_field.dart';
 import 'package:kubelite/widgets/app_select_item.dart';
 import 'package:kubelite/widgets/app_text.dart';
-import 'package:kubelite/widgets/main_btn.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
@@ -37,274 +33,389 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<CreateAnimalViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: AppText.body(createAnimalTitle),
-          leading: IconButton(
-            onPressed: model.onBackPressed,
-            icon: Icon(Icons.arrow_back_sharp),
-          ),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  model.onImageButtonPressed(ImageSource.gallery, context);
-                },
-                child: CircleAvatar(
-                  radius: 50,
-                  backgroundColor: colors.primary,
-                  child: CircleAvatar(
-                    radius: 47,
-                    backgroundColor: colors.kcLightGreyBackground,
-                    child: Stack(
-                      children: [
-                        if (model.imagePath.isEmpty)
-                          CircleAvatar(
-                            backgroundColor: colors.primary,
-                            radius: 45,
-                            child: Icon(
-                              Icons.camera_alt_outlined,
-                              color: colors.white,
-                              size: 35,
+        builder: (context, model, child) => Scaffold(
+              appBar: AppBar(
+                centerTitle: true,
+                title: AppText.body(createAnimalTitle),
+                leading: IconButton(
+                  onPressed: model.onBackPressed,
+                  icon: Icon(Icons.arrow_back_sharp),
+                ),
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+              ),
+              body: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        model.onImageButtonPressed(
+                            ImageSource.gallery, context);
+                      },
+                      child: CircleAvatar(
+                        radius: 50,
+                        backgroundColor: colors.primary,
+                        child: CircleAvatar(
+                          radius: 47,
+                          backgroundColor: colors.kcLightGreyBackground,
+                          child: Stack(
+                            children: [
+                              if (model.imagePath.isEmpty)
+                                CircleAvatar(
+                                  backgroundColor: colors.primary,
+                                  radius: 45,
+                                  child: Icon(
+                                    Icons.camera_alt_outlined,
+                                    color: colors.white,
+                                    size: 35,
+                                  ),
+                                ),
+                              if (model.imagePath.isNotEmpty)
+                                CircleAvatar(
+                                  backgroundColor: colors.primary,
+                                  radius: 45,
+                                  child: ClipOval(
+                                    child: SizedBox(
+                                        width: 130,
+                                        height: 130,
+                                        child:
+                                            Image.file(File(model.imagePath))),
+                                  ),
+                                )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 50,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemCount: model.animalTypeValues.length,
+                        itemBuilder: (context, index) => radioButton(
+                            model.animalTypeValues[index],
+                            model.selectedValue,
+                            model.onChangeRadio),
+                      ),
+                    ),
+                    horizontalSpaceSmall,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 10),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Expanded(
+                                child: item(
+                                  AppInputField(
+                                    controller: nameController,
+                                    hint: "Name here",
+                                  ),
+                                  "Name",
+                                  true,
+                                ),
+                              ),
+                              verticalSpaceTiny,
+                              Expanded(
+                                child: item(
+                                  AppInputField(
+                                    controller: usernameController,
+                                    hint: "Unique username",
+                                  ),
+                                  "Username",
+                                  true,
+                                ),
+                              ),
+                            ],
+                          ),
+                          verticalSpaceTiny,
+                          item(
+                            AppInputField(
+                              controller: shortbioController,
+                              hint:
+                                  "We would love to know more about the animal:)",
+                            ),
+                            "Short Bio",
+                            false,
+                          ),
+                          verticalSpaceTiny,
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Expanded(
+                                child: item(
+                                  AppSelectItem(
+                                    title:
+                                        "Select the type of ${model.selectedValue}",
+                                    textController: animalTypeController,
+                                    searchController: searchController,
+                                    animalTypeModel: model.listOfAnimalTypes,
+                                    onSaveWidget: GestureDetector(
+                                      child: AppText.subheading(
+                                        "Save",
+                                        color: colors.primary,
+                                      ),
+                                      onTap: () =>
+                                          model.selectAnimalTypeDDMFunction(
+                                              context, animalTypeController),
+                                    ),
+                                  ),
+                                  "Animal Type",
+                                  true,
+                                ),
+                              ),
+                              verticalSpaceTiny,
+                              Expanded(
+                                child: item(
+                                  dropDownButton(
+                                      model.selectedAnimalGender,
+                                      model.animalGenderList,
+                                      "Choose age",
+                                      model.onChangeGender),
+                                  "Gender",
+                                  false,
+                                ),
+                              ),
+                            ],
+                          ),
+                          verticalSpaceTiny,
+                          Visibility(
+                            visible: model.isBreedAvailable,
+                            child: item(
+                              AppSelectItem(
+                                title: "Select the breed",
+                                textController: breedController,
+                                searchController: searchController,
+                                breedList: model.listOfAnimalBreed,
+                                onSaveWidget: GestureDetector(
+                                    child: AppText.caption(
+                                      "Save",
+                                      color: colors.primary,
+                                    ),
+                                    onTap: () => model.selectBreedDDMFunction(
+                                        context, breedController)),
+                              ),
+                              "Breed",
+                              false,
                             ),
                           ),
-                        if (model.imagePath.isNotEmpty)
-                          CircleAvatar(
-                            backgroundColor: colors.primary,
-                            radius: 45,
-                            child: ClipOval(
-                              child: SizedBox(
-                                  width: 130,
-                                  height: 130,
-                                  child: Image.file(File(model.imagePath))),
-                            ),
+                          verticalSpaceTiny,
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              horizontalSpaceSmall,
+                              AppText.caption(
+                                "Age of Animal",
+                                color: colors.black,
+                              ),
+                              horizontalSpaceTiny,
+                              AppText.caption(
+                                "(Choose DOB or baby/adult/young)",
+                                color: colors.kcMediumGreyColor,
+                              ),
+                            ],
+                          ),
+                          verticalSpaceTiny,
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Radio<String>(
+                                value: "DOB",
+                                splashRadius: 0,
+                                groupValue: model.selectedAnimalAgeChooseType,
+                                onChanged: model.onAnimalAgeTypeChangeRadio,
+                                activeColor: colors.primary,
+                              ),
+                              Expanded(
+                                child: GestureDetector(
+                                  child: Container(
+                                    color: Colors.transparent,
+                                    child: IgnorePointer(
+                                      child: AppInputField(
+                                        controller: dobController,
+                                        hint: "DD-MM-YYYY",
+                                        trailing: Icon(
+                                          Icons.calendar_today,
+                                          size: 18,
+                                        ),
+                                        readOnly: true,
+                                      ),
+                                    ),
+                                  ),
+                                  onTap: () =>
+                                      model.selectedAnimalAgeChooseType == "DOB"
+                                          ? model.selectDate(
+                                              context, dobController)
+                                          : {},
+                                ),
+                              ),
+                              Radio<String>(
+                                value: "AGE",
+                                splashRadius: 0,
+                                groupValue: model.selectedAnimalAgeChooseType,
+                                onChanged: model.onAnimalAgeTypeChangeRadio,
+                                activeColor: colors.primary,
+                              ),
+                              Expanded(
+                                child: dropDownButton(
+                                  model.ageType,
+                                  model.ageTypeValues,
+                                  "Choose age",
+                                  model.onChangeAge,
+                                  isEnabled:
+                                      model.selectedAnimalAgeChooseType ==
+                                          "AGE",
+                                ),
+                              ),
+                            ],
                           )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 50,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  itemCount: model.animalTypeValues.length,
-                  itemBuilder: (context, index) => radioButton(
-                      model.animalTypeValues[index],
-                      model.selectedValue,
-                      model.onChangeRadio),
-                ),
-              ),
-              horizontalSpaceSmall,
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                child: CreateAnimalProfileLayer(
-                  nameTF: item(
-                    AppInputField(
-                      controller: nameController,
-                      hint: "Name here",
-                    ),
-                    "Name",
-                    true,
-                  ),
-                  usernameTF: item(
-                    AppInputField(
-                      controller: usernameController,
-                      hint: "Unique username",
-                    ),
-                    "Username",
-                    true,
-                  ),
-                  shortBioTF: item(
-                    AppInputField(
-                      controller: shortbioController,
-                      hint: "We would love to know more about the animal:)",
-                    ),
-                    "Short Bio",
-                    false,
-                  ),
-                  animalTypeDDM: item(
-                    AppSelectItem(
-                      title: "Select the type of ${model.selectedValue}",
-                      textController: animalTypeController,
-                      searchController: searchController,
-                      animalTypeModel: model.listOfAnimalTypes,
-                      onSaveWidget: GestureDetector(
-                        child: AppText.caption(
-                          "Save",
-                          color: colors.primary,
-                        ),
-                        onTap: () => model.selectAnimalTypeDDMFunction(
-                            context, animalTypeController),
+                        ],
                       ),
                     ),
-                    "Animal Type",
-                    true,
-                  ),
-                  genderDDM: item(
-                    dropDownButton(
-                        model.selectedAnimalGender,
-                        model.animalGenderList,
-                        "Choose age",
-                        model.onChangeGender),
-                    "Gender",
-                    false,
-                  ),
-                  animalBreedDDM: Visibility(
-                    visible: model.isBreedAvailable,
-                    child: item(
-                      AppSelectItem(
-                        title: "Select the breed",
-                        textController: breedController,
-                        searchController: searchController,
-                        breedList: model.listOfAnimalBreed,
-                        onSaveWidget: GestureDetector(
-                            child: AppText.caption(
-                              "Save",
-                              color: colors.primary,
-                            ),
-                            onTap: () => model.selectBreedDDMFunction(
-                                context, breedController)),
-                      ),
-                      "Breed",
-                      false,
+                    Divider(
+                      color: colors.kcLightGreyColor,
+                      thickness: 5,
                     ),
-                  ),
-                  dobTF: GestureDetector(
-                    child: Container(
-                      color: Colors.transparent,
-                      child: IgnorePointer(
-                        child: AppInputField(
-                          controller: dobController,
-                          hint: "DD-MM-YYYY",
-                          trailing: Icon(
-                            Icons.calendar_today,
-                            size: 18,
+                    ListTile(
+                      title: AppText.body1("Up for Mating"),
+                      trailing: Switch(
+                          activeColor: colors.primary,
+                          value: model.matingValue,
+                          onChanged: model.onChangeMating),
+                    ),
+                    spacedDividerTiny,
+                    ListTile(
+                      title: AppText.body1("Up for Adoption"),
+                      trailing: Switch(
+                          activeColor: colors.primary,
+                          value: model.adoptionValue,
+                          onChanged: model.onChangeAdoption),
+                    ),
+                    Visibility(
+                      visible: model.adoptionValue,
+                      child: ListTile(
+                        title: AppText.body1(
+                            "Registered with Indian Kennel Club ?"),
+                        trailing: Switch(
+                            activeColor: colors.primary,
+                            value: model.resigteredWithKCValue,
+                            onChanged: model.onChangeResigteredKC),
+                      ),
+                    ),
+                    spacedDividerTiny,
+                    ListTile(
+                      title: AppText.body1("Up for Play-buddies"),
+                      trailing: Switch(
+                          activeColor: colors.primary,
+                          value: model.playBuddiesValue,
+                          onChanged: model.onChangePlayBuddies),
+                    ),
+                    Visibility(
+                      visible: model.playBuddiesValue,
+                      child: item(
+                          Row(
+                            children: [
+                              Expanded(
+                                  child: item(
+                                      GestureDetector(
+                                        child: Container(
+                                          color: Colors.transparent,
+                                          child: IgnorePointer(
+                                            child: AppInputField(
+                                              controller: fromTimeController,
+                                              hint: "Select time",
+                                              readOnly: true,
+                                              leading: Icon(Icons.alarm),
+                                            ),
+                                          ),
+                                        ),
+                                        onTap: () => model.selectTime(
+                                            context, fromTimeController),
+                                      ),
+                                      "From time",
+                                      false)),
+                              horizontalSpaceRegular,
+                              Expanded(
+                                  child: item(
+                                      GestureDetector(
+                                        child: Container(
+                                          color: Colors.transparent,
+                                          child: IgnorePointer(
+                                            child: AppInputField(
+                                              controller: toTimeController,
+                                              hint: "Select time",
+                                              readOnly: true,
+                                              leading: Icon(Icons.alarm),
+                                            ),
+                                          ),
+                                        ),
+                                        onTap: () => model.selectTime(
+                                            context, toTimeController),
+                                      ),
+                                      "To time",
+                                      false))
+                            ],
                           ),
-                          readOnly: true,
-                        ),
+                          "Generally I’m available to play",
+                          false),
+                    ),
+                    spacedDividerTiny,
+                    verticalSpace(100),
+                  ],
+                ),
+              ),
+              bottomSheet: Container(
+                width: double.maxFinite,
+                margin: const EdgeInsets.all(16),
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (model.isValid) {
+                      model.createAnimalProfile();
+                    }
+                  },
+                  child: AppText.body2("CREATE PROFILE", color: colors.white),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(model.isValid
+                        ? colors.primary
+                        : colors.kcMediumGreyColor),
+                    padding:
+                        MaterialStateProperty.all(const EdgeInsets.all(12)),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
                       ),
                     ),
-                    onTap: () => _selectDate(context, dobController),
                   ),
-                  ageChooseOptnDDM: dropDownButton(model.ageType,
-                      model.ageTypeValues, "Choose age", model.onChangeAge),
-                  type: "Animal",
                 ),
               ),
-              Divider(
-                color: colors.kcLightGreyColor,
-                thickness: 5,
-              ),
-              ListTile(
-                title: AppText.body1("Up for Mating"),
-                trailing: Switch(
-                    activeColor: colors.primary,
-                    value: model.matingValue,
-                    onChanged: model.onChangeMating),
-              ),
-              spacedDividerTiny,
-              ListTile(
-                title: AppText.body1("Up for Adoption"),
-                trailing: Switch(
-                    activeColor: colors.primary,
-                    value: model.adoptionValue,
-                    onChanged: model.onChangeAdoption),
-              ),
-              Visibility(
-                visible: model.adoptionValue,
-                child: ListTile(
-                  title: AppText.body1("Registered with Indian Kennel Club ?"),
-                  trailing: Switch(
-                      activeColor: colors.primary,
-                      value: model.resigteredWithKCValue,
-                      onChanged: model.onChangeResigteredKC),
-                ),
-              ),
-              spacedDividerTiny,
-              ListTile(
-                title: AppText.body1("Up for Play-buddies"),
-                trailing: Switch(
-                    activeColor: colors.primary,
-                    value: model.playBuddiesValue,
-                    onChanged: model.onChangePlayBuddies),
-              ),
-              Visibility(
-                visible: model.playBuddiesValue,
-                child: item(
-                    Row(
-                      children: [
-                        Expanded(
-                            child: item(
-                                GestureDetector(
-                                  child: Container(
-                                    color: Colors.transparent,
-                                    child: IgnorePointer(
-                                      child: AppInputField(
-                                        controller: fromTimeController,
-                                        hint: "Select time",
-                                        readOnly: true,
-                                        leading: Icon(Icons.alarm),
-                                      ),
-                                    ),
-                                  ),
-                                  onTap: () =>
-                                      _selectTime(context, fromTimeController),
-                                ),
-                                "From time",
-                                false)),
-                        horizontalSpaceRegular,
-                        Expanded(
-                            child: item(
-                                GestureDetector(
-                                  child: Container(
-                                    color: Colors.transparent,
-                                    child: IgnorePointer(
-                                      child: AppInputField(
-                                        controller: toTimeController,
-                                        hint: "Select time",
-                                        readOnly: true,
-                                        leading: Icon(Icons.alarm),
-                                      ),
-                                    ),
-                                  ),
-                                  onTap: () =>
-                                      _selectTime(context, toTimeController),
-                                ),
-                                "To time",
-                                false))
-                      ],
-                    ),
-                    "Generally I’m available to play",
-                    false),
-              ),
-              spacedDividerTiny,
-              verticalSpace(100),
-            ],
-          ),
-        ),
-        bottomSheet: MainButtonWidget(
-            onMainButtonTapped: model.createAnimalProfile,
-            mainButtonTitle: "CREATE PROFILE"),
-      ),
-      viewModelBuilder: () => CreateAnimalViewModel(),
-      onModelReady: (model) => model.setAnimalTypeList(),
-    );
+            ),
+        viewModelBuilder: () => CreateAnimalViewModel(),
+        onModelReady: (model) {
+          listenToFormUpdated(model);
+          model.setAnimalTypeList();
+        });
+    // {
+    //   model.setAnimalTypeList();
+    //   listenToFormUpdated(model);
+    // });
   }
 }
 
 Widget dropDownButton(String value, List<String> listOfItems, String hint,
-    void onChange(String? value)) {
+    void onChange(String? value),
+    {bool isEnabled = true}) {
   return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+    padding: const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 20.0),
     child: DropdownButton<String>(
       isExpanded: true,
       itemHeight: null,
@@ -313,11 +424,14 @@ Widget dropDownButton(String value, List<String> listOfItems, String hint,
       hint: AppText.body(hint),
       items: listOfItems
           .map((item) => DropdownMenuItem<String>(
-                child: AppText.body1(item),
+                child: AppText.body1(item,
+                    color: item == select
+                        ? colors.kcLightGreyColor
+                        : colors.black),
                 value: item,
               ))
           .toList(),
-      onChanged: onChange,
+      onChanged: isEnabled ? onChange : null,
     ),
   );
 }
@@ -365,36 +479,4 @@ Widget item(Widget child, String title, bool isManitory) {
       child,
     ],
   );
-}
-
-Future<void> _selectTime(BuildContext context, TextEditingController tc) async {
-  TimeOfDay selectedTime = TimeOfDay.now();
-
-  final TimeOfDay? picked_s = await showTimePicker(
-      context: context,
-      initialTime: selectedTime,
-      builder: (context, child) {
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
-          child: child!,
-        );
-      });
-
-  if (picked_s != null && picked_s != selectedTime) {
-    tc.text = picked_s.format(context);
-  }
-}
-
-Future<void> _selectDate(BuildContext context, TextEditingController tc) async {
-  DateTime selectedDate = DateTime.now();
-
-  final DateTime? picked_s = await showDatePicker(
-    context: context,
-    initialDate: selectedDate,
-    firstDate: DateTime(1900),
-    lastDate: selectedDate,
-  );
-  if (picked_s != null && picked_s != selectedDate) {
-    tc.text = "${picked_s.day}-${picked_s.month}-${picked_s.year}";
-  }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kubelite/ui/community/community_view.dart';
 import 'package:kubelite/ui/dashboard/dashboard_viewmodel.dart';
 import 'package:kubelite/ui/feed/feed_view.dart';
 import 'package:kubelite/ui/for_you/for_you_view.dart';
@@ -27,7 +28,7 @@ class Dashboard extends StatelessWidget {
           model.hideNavBar = !model.hideNavBar;
         },
       ),
-      HomeView(
+      CommunityView(
         menuScreenContext: context,
         hideStatus: model.hideNavBar,
         onScreenHideButtonPressed: () {

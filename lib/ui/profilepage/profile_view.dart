@@ -39,6 +39,24 @@ class ProfileView extends StatelessWidget {
                 child: Stack(
                   children: [
                     Positioned(
+                      top: 10,
+                      left: 5,
+                      child: Image.asset(humanHandImgPath),
+                    ),
+                    Positioned(
+                      top: 100,
+                      right: 0,
+                      child: Transform.rotate(
+                        angle: 5,
+                        child: Image.asset(
+                          humanHandImgPath,
+                          height: 75,
+                          width: 75,
+                        ),
+                      ),
+                    ),
+
+                    Positioned(
                       top: 30,
                       right: 20,
                       child: GestureDetector(
@@ -94,7 +112,7 @@ class ProfileView extends StatelessWidget {
                                 left: 80,
                                 right: 0,
                                 child: CircleAvatar(
-                                  backgroundColor: Colors.blue,
+                                  backgroundColor: colors.blue,
                                   radius: 15,
                                   child: IconButton(
                                     icon: Icon(
