@@ -1,6 +1,6 @@
-import 'package:kubelite/enum/redirect_state.dart';
-import 'package:kubelite/models/application_models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tamely/enum/redirect_state.dart';
+import 'package:tamely/models/application_models.dart';
 
 class SharedPreferencesService {
   late SharedPreferences _preferences;

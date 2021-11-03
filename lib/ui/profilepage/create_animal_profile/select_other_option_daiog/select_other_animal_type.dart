@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/Constant.dart';
-import 'package:kubelite/util/ui_helpers.dart';
-import 'package:kubelite/widgets/app_text.dart';
-import 'package:kubelite/widgets/main_btn.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/Constant.dart';
+import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/widgets/app_text.dart';
 
 class SelectOtherAnimalType extends StatefulWidget {
   SelectOtherAnimalType({Key? key, required this.searchTC}) : super(key: key);

@@ -1,20 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kubelite/ui/dashboard/dashboard_viewmodel.dart';
-import 'package:kubelite/ui/feed/feed_view.dart';
-import 'package:kubelite/ui/for_you/for_you_view.dart';
-import 'package:kubelite/ui/home/home_view.dart';
-import 'package:kubelite/ui/profilepage/profile_view.dart';
-import 'package:kubelite/ui/services/services_view.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/ImageConstant.dart';
-import 'package:kubelite/util/String.dart';
-import 'package:kubelite/util/ui_helpers.dart';
-import 'package:kubelite/widgets/app_text.dart';
-import 'package:kubelite/widgets/feed_app_bar.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/ui/dashboard/dashboard_viewmodel.dart';
+import 'package:tamely/ui/feed/feed_view.dart';
+import 'package:tamely/ui/for_you/for_you_view.dart';
+import 'package:tamely/ui/home/home_view.dart';
+import 'package:tamely/ui/profilepage/profile_view.dart';
+import 'package:tamely/ui/services/services_view.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/String.dart';
+import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/feed_app_bar.dart';
 
 class Dashboard extends StatelessWidget {
   Dashboard({Key? key}) : super(key: key);

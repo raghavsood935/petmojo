@@ -1,4 +1,4 @@
-import 'package:kubelite/models/breed_animal_model.dart';
+import 'package:tamely/models/breed_animal_model.dart';
 
 final String appName = '';
 

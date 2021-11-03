@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "814559776122",
-    "project_id": "tamely-app",
-    "storage_bucket": "tamely-app.appspot.com"
+    "project_number": "183984006291",
+    "project_id": "tamely-2021",
+    "storage_bucket": "tamely-2021.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:814559776122:android:7d0a0ae81aef079fc49ac3",
+        "mobilesdk_app_id": "1:183984006291:android:3521358edc4f4ada761966",
         "android_client_info": {
-          "package_name": "com.tamely.kubelite"
+          "package_name": "in.tamely.partner"
         }
       },
       "oauth_client": [
         {
-          "client_id": "814559776122-4h3m54nbp55k390ahlpes8m3akoohmj9.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.tamely.kubelite",
-            "certificate_hash": "aa9187bdcccee1e15b7286bc003a201d49b2cc5c"
-          }
-        },
-        {
-          "client_id": "814559776122-fkn1eufb6uc6ou3uta0kqdh87ofu74mo.apps.googleusercontent.com",
+          "client_id": "183984006291-q9hlhr157f2l4i41ed4vgmbv82v8fms9.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCh1O1D-2xi2cQknFMOjNoVWolfrXrxGrU"
+          "current_key": "AIzaSyCT2qVXOE6ayc0Bp3LPPYuY2js3r5lat10"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "814559776122-fkn1eufb6uc6ou3uta0kqdh87ofu74mo.apps.googleusercontent.com",
+              "client_id": "183984006291-q9hlhr157f2l4i41ed4vgmbv82v8fms9.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -44,27 +36,27 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:814559776122:android:43c1f25b6d6591dbc49ac3",
+        "mobilesdk_app_id": "1:183984006291:android:2f3e6df07fbaff91761966",
         "android_client_info": {
-          "package_name": "in.tamely.app"
+          "package_name": "in.tamely.user"
         }
       },
       "oauth_client": [
         {
-          "client_id": "814559776122-fkn1eufb6uc6ou3uta0kqdh87ofu74mo.apps.googleusercontent.com",
+          "client_id": "183984006291-q9hlhr157f2l4i41ed4vgmbv82v8fms9.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCh1O1D-2xi2cQknFMOjNoVWolfrXrxGrU"
+          "current_key": "AIzaSyCT2qVXOE6ayc0Bp3LPPYuY2js3r5lat10"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "814559776122-fkn1eufb6uc6ou3uta0kqdh87ofu74mo.apps.googleusercontent.com",
+              "client_id": "183984006291-q9hlhr157f2l4i41ed4vgmbv82v8fms9.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

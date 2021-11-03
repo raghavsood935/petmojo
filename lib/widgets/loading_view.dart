@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/widgets/app_text.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/widgets/app_text.dart';
 
 class LoadingView extends StatelessWidget {
   final String? text;

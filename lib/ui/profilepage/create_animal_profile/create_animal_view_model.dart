@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kubelite/app/app.locator.dart';
-import 'package:kubelite/app/app.logger.dart';
-import 'package:kubelite/models/breed_animal_model.dart';
-import 'package:kubelite/shared/base_viewmodel.dart';
-import 'package:kubelite/util/Constant.dart';
-import 'package:kubelite/util/ImageConstant.dart';
-import 'package:kubelite/util/String.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/app/app.logger.dart';
+import 'package:tamely/models/breed_animal_model.dart';
+import 'package:tamely/shared/base_viewmodel.dart';
+import 'package:tamely/util/Constant.dart';
+import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/String.dart';
 
 class CreateAnimalViewModel extends BaseModel {
   final ImagePicker _picker = ImagePicker();

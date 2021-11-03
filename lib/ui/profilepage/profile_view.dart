@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kubelite/ui/profilepage/post_tabs/mentions_post_tab.dart';
-import 'package:kubelite/ui/profilepage/profile_viewmodel.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/ImageConstant.dart';
-import 'package:kubelite/util/ui_helpers.dart';
-import 'package:kubelite/widgets/app_text.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/ui/profilepage/post_tabs/mentions_post_tab.dart';
+import 'package:tamely/ui/profilepage/profile_viewmodel.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/widgets/app_text.dart';
 
 class ProfileView extends StatelessWidget {
   final BuildContext menuScreenContext;

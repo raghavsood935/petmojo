@@ -1,5 +1,5 @@
 String ISDARK = "";
-String APP_NAME = "Kubelite";
+String APP_NAME = "tamely";
 
 String wireFrameTitle1 = "Create a memorable Pet Diary";
 String wireFrameTitle2 = "Connect with other animal lovers";

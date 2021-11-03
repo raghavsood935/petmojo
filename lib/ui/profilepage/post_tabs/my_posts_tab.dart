@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:kubelite/ui/profilepage/post_tabs/my_posts_tab_model.dart';
-import 'package:kubelite/util/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/ui/profilepage/post_tabs/my_posts_tab_model.dart';
+import 'package:tamely/util/ui_helpers.dart';
 
 class MyPostsTabView extends StatelessWidget {
   const MyPostsTabView({Key? key}) : super(key: key);

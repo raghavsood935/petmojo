@@ -1,14 +1,14 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:kubelite/models/common_response.dart';
-import 'package:kubelite/models/params/login_body.dart';
-import 'package:kubelite/models/params/profile_create_body.dart';
-import 'package:kubelite/models/params/register_body.dart';
-import 'package:kubelite/models/params/reset_password_body.dart';
-import 'package:kubelite/models/params/social_login_body.dart';
-import 'package:kubelite/models/user_response_models.dart';
 import 'package:retrofit/http.dart';
+import 'package:tamely/models/common_response.dart';
+import 'package:tamely/models/params/login_body.dart';
+import 'package:tamely/models/params/profile_create_body.dart';
+import 'package:tamely/models/params/register_body.dart';
+import 'package:tamely/models/params/reset_password_body.dart';
+import 'package:tamely/models/params/social_login_body.dart';
+import 'package:tamely/models/user_response_models.dart';
 
 part 'api_client.g.dart';
 

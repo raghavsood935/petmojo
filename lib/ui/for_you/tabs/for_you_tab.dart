@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:kubelite/ui/for_you/tabs/for_you_tab_view_model.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/ui_helpers.dart';
-import 'package:kubelite/widgets/app_input_field.dart';
-import 'package:kubelite/widgets/app_text.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/ui/for_you/tabs/for_you_tab_view_model.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/widgets/app_text.dart';
 
 class ForYouTab extends StatefulWidget {
   const ForYouTab({Key? key}) : super(key: key);

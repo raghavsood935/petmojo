@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:kubelite/models/application_models.dart';
+import 'package:tamely/models/application_models.dart';
 
 part 'user_response_models.freezed.dart';
 part 'user_response_models.g.dart';

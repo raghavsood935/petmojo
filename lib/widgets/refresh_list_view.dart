@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kubelite/widgets/loading_indicator.dart';
+import 'package:tamely/widgets/loading_indicator.dart';
 
 class RefreshListView extends StatefulWidget {
   final ScrollController? controller;

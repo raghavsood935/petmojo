@@ -1,4 +1,4 @@
-import 'package:kubelite/api/server_error.dart';
+import 'package:tamely/api/server_error.dart';
 
 class BaseResponse<T> {
   ServerError? _error;

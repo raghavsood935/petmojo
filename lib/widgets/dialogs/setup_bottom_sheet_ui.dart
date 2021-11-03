@@ -1,6 +1,6 @@
-import 'package:kubelite/app/app.locator.dart';
-import 'package:kubelite/enum/BottomSheetType.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/enum/BottomSheetType.dart';
 
 import 'basic_bottom_sheet.dart';
 

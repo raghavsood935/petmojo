@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kubelite/shared/base_viewmodel.dart';
-import 'package:kubelite/ui/for_you/for_you_search/search_tabs/account_search_tab_view.dart';
-import 'package:kubelite/ui/for_you/for_you_search/search_tabs/all_search_tab_view.dart';
-import 'package:kubelite/ui/for_you/for_you_search/search_tabs/hashtags_search_tab_view.dart';
+import 'package:tamely/shared/base_viewmodel.dart';
+import 'package:tamely/ui/for_you/for_you_search/search_tabs/account_search_tab_view.dart';
+import 'package:tamely/ui/for_you/for_you_search/search_tabs/all_search_tab_view.dart';
+import 'package:tamely/ui/for_you/for_you_search/search_tabs/hashtags_search_tab_view.dart';
 
 class ForYouTabSearchViewModel extends BaseModel {
   TextEditingController _searchTC = TextEditingController();

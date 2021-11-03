@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/util/Color.dart';
+import 'package:tamely/util/Color.dart';
 
 List<ThemeData> getThemes() {
   return [

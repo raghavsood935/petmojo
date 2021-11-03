@@ -1,4 +1,4 @@
-package com.tamely.kubelite
+package `in`.tamely.user
 
 import io.flutter.embedding.android.FlutterActivity
 
