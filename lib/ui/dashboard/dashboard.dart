@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/ui/community/community_view.dart';
 import 'package:tamely/ui/dashboard/dashboard_viewmodel.dart';
 import 'package:tamely/ui/feed/feed_view.dart';
 import 'package:tamely/ui/for_you/for_you_view.dart';
-import 'package:tamely/ui/home/home_view.dart';
 import 'package:tamely/ui/profilepage/profile_view.dart';
 import 'package:tamely/ui/services/services_view.dart';
 import 'package:tamely/util/Color.dart';
@@ -28,7 +28,7 @@ class Dashboard extends StatelessWidget {
           model.hideNavBar = !model.hideNavBar;
         },
       ),
-      HomeView(
+      CommunityView(
         menuScreenContext: context,
         hideStatus: model.hideNavBar,
         onScreenHideButtonPressed: () {

@@ -3,6 +3,8 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/services/user_service.dart';
+import 'package:tamely/ui/community/community_main_view/community_main_view.dart';
+import 'package:tamely/ui/community/first_time_views/community_choose_interests/community_choose_interests_view.dart';
 import 'package:tamely/ui/dashboard/dashboard.dart';
 import 'package:tamely/ui/for_you/for_you_search/for_you_tab_search_view.dart';
 import 'package:tamely/ui/forgotpassword/forgotpassword_view.dart';
@@ -28,6 +30,8 @@ import 'package:tamely/ui/startup/startup_view.dart';
     CupertinoRoute(page: ProfileCreateView),
     CupertinoRoute(page: CreateAnimalPageView),
     CupertinoRoute(page: ForYouTabSearchView),
+    CupertinoRoute(page: CommunityChooseInterestView),
+    CupertinoRoute(page: CommunityMainView),
   ],
   dependencies: [
     LazySingleton(classType: NavigationService),

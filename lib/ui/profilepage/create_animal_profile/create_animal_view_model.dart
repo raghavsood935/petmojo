@@ -1,17 +1,16 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
-import 'package:tamely/models/breed_animal_model.dart';
-import 'package:tamely/shared/base_viewmodel.dart';
-import 'package:tamely/util/Constant.dart';
-import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/String.dart';
+import 'package:tamely/util/animal_type_constant.dart';
 
-class CreateAnimalViewModel extends BaseModel {
+class CreateAnimalViewModel extends FormViewModel {
   final ImagePicker _picker = ImagePicker();
 
   Position? _currentPosition = null;
@@ -21,200 +20,51 @@ class CreateAnimalViewModel extends BaseModel {
   final _navigationService = locator<NavigationService>();
 
   final List<String> animalTypeValues = ["Pet", "Stray", "Wild", "Farm"];
-  final List<String> ageTypeValues = ["Baby", "Adult", "Young"];
+  final List<String> ageTypeValues = [select, "Baby", "Adult", "Young"];
+  final List<String> manitoryFeilds = ["name", "username", "animalType"];
   List<String> animalBreedSelectedList = [];
 
   List<AnimalTypeModel> listOfAnimalTypes = [];
   List<BreedTypeModel> listOfAnimalBreed = [];
 
-  final List<AnimalTypeModel> _petAnimalTypeListValues = [
-    AnimalTypeModel(
-      "Dog",
-      dogImgPath,
-    ),
-    AnimalTypeModel(
-      "Cat",
-      catImgPath,
-    ),
-    AnimalTypeModel(
-      "Horse",
-      horseImgPath,
-    ),
-    AnimalTypeModel(
-      "Birds",
-      birdImgPath,
-    ),
-    AnimalTypeModel(
-      "Rabbit",
-      rabbitImgPath,
-    ),
-    AnimalTypeModel(
-      "Pig",
-      pigImgPath,
-    ),
-    AnimalTypeModel(
-      "Fish",
-      fishImgPath,
-    ),
-    AnimalTypeModel(
-      "Guinea pigs",
-      guineaPigImgPath,
-    ),
-    AnimalTypeModel(
-      "Hamsters",
-      hamstersImgPath,
-    ),
-  ];
-
-  final List<AnimalTypeModel> _strayAnimalTypeListValues = [
-    AnimalTypeModel(
-      "Dog",
-      dogImgPath,
-    ),
-    AnimalTypeModel(
-      "Cat",
-      catImgPath,
-    ),
-    AnimalTypeModel(
-      "Horse",
-      horseImgPath,
-    ),
-    AnimalTypeModel(
-      "Goat",
-      goatImgPath,
-    ),
-    AnimalTypeModel(
-      "Rabbit",
-      rabbitImgPath,
-    ),
-    AnimalTypeModel(
-      "Pig",
-      pigImgPath,
-    ),
-    AnimalTypeModel(
-      "Camel",
-      camelImgPath,
-    ),
-    AnimalTypeModel(
-      "Guinea pigs",
-      guineaPigImgPath,
-    ),
-    AnimalTypeModel(
-      "Cow",
-      cowImgPath,
-    ),
-    AnimalTypeModel(
-      "Donkeys ",
-      donkeyImgPath,
-    ),
-  ];
-
-  final List<AnimalTypeModel> _wildAnimalTypeListValues = [
-    AnimalTypeModel(
-      "Elephant",
-      elephantImgPath,
-    ),
-    AnimalTypeModel(
-      "Monkey",
-      monkeyImgPath,
-    ),
-    AnimalTypeModel(
-      "Gorillas",
-      gorillaImgPath,
-    ),
-    AnimalTypeModel(
-      "Lion",
-      lionImgPath,
-    ),
-    AnimalTypeModel(
-      "Tiger ",
-      tigerImgPath,
-    ),
-    AnimalTypeModel(
-      "Deer",
-      deerImgPath,
-    ),
-    AnimalTypeModel(
-      "Polar bear",
-      polarBearImgPath,
-    ),
-    AnimalTypeModel(
-      "Cheetah",
-      cheetahImgPath,
-    ),
-    AnimalTypeModel(
-      "Panda",
-      pandaImgPath,
-    ),
-  ];
-
-  final List<AnimalTypeModel> _farmAnimalTypeListValues = [
-    AnimalTypeModel(
-      "Chicken",
-      chickenImgPath,
-    ),
-    AnimalTypeModel(
-      "Cattle",
-      cowImgPath,
-    ),
-    AnimalTypeModel(
-      "Sheep",
-      sheepImgPath,
-    ),
-    AnimalTypeModel(
-      "Ducks",
-      duckImgPath,
-    ),
-    AnimalTypeModel(
-      "Goats",
-      goatImgPath,
-    ),
-    AnimalTypeModel(
-      "Alpaca",
-      alpacaImgPath,
-    ),
-    AnimalTypeModel(
-      "Pigs",
-      pigImgPath,
-    ),
-    AnimalTypeModel(
-      "Horse",
-      horseImgPath,
-    ),
-    AnimalTypeModel(
-      "Rabbit",
-      rabbitImgPath,
-    ),
-    AnimalTypeModel(
-      "Llama",
-      llamaImgPath,
-    ),
-    AnimalTypeModel(
-      "Donkeys",
-      donkeyImgPath,
-    ),
-  ];
-
   final List<String> animalGenderList = [
+    select,
     "Male",
     "Female",
   ];
 
   String selectedValue = "Pet";
 
+  String selectedAnimalAgeChooseType = "DOB";
+
   bool matingValue = false;
   bool adoptionValue = false;
   bool resigteredWithKCValue = false;
   bool playBuddiesValue = false;
   bool isBreedAvailable = false;
-  String ageType = "Baby";
+  String ageType = select;
   String selectedAnimalType = "";
-  String selectedAnimalGender = "Male";
+  String selectedAnimalGender = select;
+
+  bool _isValid = false;
+
+  List<BreedTypeModel> _dogBreedList = [];
+  List<BreedTypeModel> _catBreedList = [];
+  List<BreedTypeModel> _horseBreedList = [];
+  List<BreedTypeModel> _birdsBreedList = [];
+  List<BreedTypeModel> _rabbitBreedList = [];
+  List<BreedTypeModel> _pigBreedList = [];
+  List<BreedTypeModel> _fishBreedList = [];
+  List<BreedTypeModel> _guineaPigBreedList = [];
+  List<BreedTypeModel> _hamsterBreedList = [];
+  List<BreedTypeModel> _insectsBreedList = [];
 
   dynamic _pickImageError;
   XFile? _imageFile;
 
   String get imagePath => _imageFile?.path ?? "";
+
+  bool get isValid => _isValid;
 
   void onImageButtonPressed(ImageSource source, BuildContext? context) async {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
@@ -247,14 +97,14 @@ class CreateAnimalViewModel extends BaseModel {
       case "Pet":
         {
           listOfAnimalTypes.clear();
-          listOfAnimalTypes.addAll(_petAnimalTypeListValues);
+          listOfAnimalTypes.addAll(petAnimalTypeListValues);
           notifyListeners();
           break;
         }
       case "Stray":
         {
           listOfAnimalTypes.clear();
-          listOfAnimalTypes.addAll(_strayAnimalTypeListValues);
+          listOfAnimalTypes.addAll(strayAnimalTypeListValues);
           notifyListeners();
           break;
         }
@@ -262,7 +112,7 @@ class CreateAnimalViewModel extends BaseModel {
       case "Wild":
         {
           listOfAnimalTypes.clear();
-          listOfAnimalTypes.addAll(_wildAnimalTypeListValues);
+          listOfAnimalTypes.addAll(wildAnimalTypeListValues);
           notifyListeners();
           break;
         }
@@ -270,7 +120,7 @@ class CreateAnimalViewModel extends BaseModel {
       case "Farm":
         {
           listOfAnimalTypes.clear();
-          listOfAnimalTypes.addAll(_farmAnimalTypeListValues);
+          listOfAnimalTypes.addAll(farmAnimalTypeListValues);
           notifyListeners();
           break;
         }
@@ -278,16 +128,56 @@ class CreateAnimalViewModel extends BaseModel {
       default:
         {
           listOfAnimalTypes.clear();
-          listOfAnimalTypes.addAll(_petAnimalTypeListValues);
+          listOfAnimalTypes.addAll(petAnimalTypeListValues);
           notifyListeners();
           break;
         }
     }
+
+    for (String breedName in dogBreedList) {
+      _dogBreedList.add(BreedTypeModel(breedName));
+    }
+    for (String breedName in catBreedList) {
+      _catBreedList.add(BreedTypeModel(breedName));
+    }
+    for (String breedName in birdsBreedList) {
+      _birdsBreedList.add(BreedTypeModel(breedName));
+    }
+    for (String breedName in horseBreedList) {
+      _horseBreedList.add(BreedTypeModel(breedName));
+    }
+    for (String breedName in rabbitBreedList) {
+      _rabbitBreedList.add(BreedTypeModel(breedName));
+    }
+    for (String breedName in pigBreedList) {
+      _pigBreedList.add(BreedTypeModel(breedName));
+    }
+    for (String breedName in fishBreedList) {
+      _fishBreedList.add(BreedTypeModel(breedName));
+    }
+    for (String breedName in guineaPigBreedList) {
+      _guineaPigBreedList.add(BreedTypeModel(breedName));
+    }
+    for (String breedName in hamsterBreedList) {
+      _hamsterBreedList.add(BreedTypeModel(breedName));
+    }
+    for (String breedName in insectsBreedList) {
+      _insectsBreedList.add(BreedTypeModel(breedName));
+    }
+  }
+
+  void closeKeyboard(BuildContext context) {
+    FocusScope.of(context).unfocus();
   }
 
   onChangeRadio(String? value) {
     selectedValue = value!;
     setAnimalTypeList();
+    notifyListeners();
+  }
+
+  onAnimalAgeTypeChangeRadio(String? value) {
+    selectedAnimalAgeChooseType = value!;
     notifyListeners();
   }
 
@@ -327,6 +217,44 @@ class CreateAnimalViewModel extends BaseModel {
     } else {}
   }
 
+  Future<void> selectTime(
+      BuildContext context, TextEditingController tc) async {
+    TimeOfDay selectedTime = TimeOfDay.now();
+
+    closeKeyboard(context);
+
+    final TimeOfDay? picked_s = await showTimePicker(
+        context: context,
+        initialTime: selectedTime,
+        builder: (context, child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+            child: child!,
+          );
+        });
+
+    if (picked_s != null && picked_s != selectedTime) {
+      tc.text = picked_s.format(context);
+    }
+  }
+
+  Future<void> selectDate(
+      BuildContext context, TextEditingController tc) async {
+    DateTime selectedDate = DateTime.now();
+
+    closeKeyboard(context);
+
+    final DateTime? picked_s = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(1900),
+      lastDate: selectedDate,
+    );
+    if (picked_s != null && picked_s != selectedDate) {
+      tc.text = "${picked_s.day}-${picked_s.month}-${picked_s.year}";
+    }
+  }
+
   selectBreedDDMFunction(BuildContext context, TextEditingController tc) async {
     animalBreedSelectedList.clear();
     String breedDisplayString = "";
@@ -349,6 +277,7 @@ class CreateAnimalViewModel extends BaseModel {
       BuildContext context, TextEditingController tc) async {
     if (tc.text != "" && tc.text != null) {
       Navigator.pop(context);
+      closeKeyboard(context);
       checkBreedAvailable(tc.text.toLowerCase());
     } else {
       _snackBarService.showSnackbar(message: noAnimalTypeSelected);
@@ -370,133 +299,133 @@ class CreateAnimalViewModel extends BaseModel {
       case "dog":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(dogBreedList);
+          listOfAnimalBreed.addAll(_dogBreedList);
           break;
         }
 
       case "cat":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(catBreedList);
+          listOfAnimalBreed.addAll(_catBreedList);
           break;
         }
 
       case "horse":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(horseBreedList);
+          listOfAnimalBreed.addAll(_horseBreedList);
           break;
         }
 
       case "bird":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(birdsBreedList);
+          listOfAnimalBreed.addAll(_birdsBreedList);
           break;
         }
 
       case "rabbit":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(rabbitBreedList);
+          listOfAnimalBreed.addAll(_rabbitBreedList);
           break;
         }
 
       case "pig":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(pigBreedList);
+          listOfAnimalBreed.addAll(_pigBreedList);
           break;
         }
 
       case "fish":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(fishBreedList);
+          listOfAnimalBreed.addAll(_fishBreedList);
           break;
         }
 
       case "guinea pig":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(guineaPigBreedList);
+          listOfAnimalBreed.addAll(_guineaPigBreedList);
           break;
         }
 
       case "hamster":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(hamsterBreedList);
+          listOfAnimalBreed.addAll(_hamsterBreedList);
           break;
         }
 
       case "insect":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(insectsBreedList);
+          listOfAnimalBreed.addAll(_insectsBreedList);
           break;
         }
 
       case "dogs":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(dogBreedList);
+          listOfAnimalBreed.addAll(_dogBreedList);
           break;
         }
 
       case "cats":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(catBreedList);
+          listOfAnimalBreed.addAll(_catBreedList);
           break;
         }
 
       case "horses":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(horseBreedList);
+          listOfAnimalBreed.addAll(_horseBreedList);
           break;
         }
 
       case "birds":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(birdsBreedList);
+          listOfAnimalBreed.addAll(_birdsBreedList);
           break;
         }
 
       case "rabbits":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(rabbitBreedList);
+          listOfAnimalBreed.addAll(_rabbitBreedList);
           break;
         }
 
       case "pigs":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(pigBreedList);
+          listOfAnimalBreed.addAll(_pigBreedList);
           break;
         }
 
       case "guinea pigs":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(guineaPigBreedList);
+          listOfAnimalBreed.addAll(_guineaPigBreedList);
           break;
         }
 
       case "hamsters":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(hamsterBreedList);
+          listOfAnimalBreed.addAll(_hamsterBreedList);
           break;
         }
 
       case "insects":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(insectsBreedList);
+          listOfAnimalBreed.addAll(_insectsBreedList);
           break;
         }
 
@@ -541,6 +470,24 @@ class CreateAnimalViewModel extends BaseModel {
     log.d(
         "Latitude : ${_currentPosition!.latitude} , Longitude : ${_currentPosition!.longitude}");
   }
+
+  @override
+  void setFormStatus() {
+    // TODO: implement setFormStatus
+    _isValid = true;
+    formValueMap.keys.forEach((element) {
+      if (manitoryFeilds.contains(element)) {
+        String elementValue = formValueMap[element];
+        log.d("ElementValue $elementValue");
+        if (elementValue.isEmpty) {
+          _isValid = false;
+          return;
+        }
+      }
+    });
+
+    notifyListeners();
+  }
 }
 
 class AnimalTypeModel {
@@ -552,4 +499,18 @@ class AnimalTypeModel {
   String get type => this._type;
 
   String get imageAssetPath => _imageAssetPath;
+}
+
+class BreedTypeModel {
+  String _breedName = "Breed";
+  bool _isChecked = false;
+
+  BreedTypeModel(this._breedName);
+
+  get breedName => this._breedName;
+  get isChecked => this._isChecked;
+
+  void setChecked(bool? value) {
+    this._isChecked = value!;
+  }
 }

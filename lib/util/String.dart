@@ -15,6 +15,7 @@ String continueGuestTitle = "CONTINUE AS A GUEST";
 String createAccountTitle = "Create your account";
 String loginAccountTitle = "Login to your account";
 String completeProfileTitle = "Complete your Profile";
+String editProfileTitle = "Edit your Profile";
 String completeProfileSubTitle = "You are one step closer!";
 
 //forgot password
@@ -89,6 +90,15 @@ String feedbackSubTitle = "We appreciate your valuable feedback";
 String helpTitle = "Need Help ?";
 String helpSubTitle = "We are here to help you 24/7";
 
+//community page
+String communityTitle = "Join the Tamely community!";
+String communityDescription =
+    "We are a family of animal lovers across the planet. Find, connect, meet, help and support other animal lovers.";
+String communityBannerImgPath = "assets/images/workflow_banner1.png";
+String tamelyGrp = "Tamely Groups";
+String tamelyGrpDescription =
+    "Join or create a group with other animal lovers, Discover interests and loving community.";
+
 //empty inputs Strings
 String noBreedSelected = "Select one or more breed";
 String noAnimalTypeSelected = "Select one animal type";
@@ -100,3 +110,6 @@ String locationPermissionDeniedPermanently =
 String locationPermissionDenied = 'Location permissions are denied';
 String locationPermissionDisabled =
     'Location services are disabled.\nPlease turn on your location';
+
+//drop down down select text
+String select = "Select";
