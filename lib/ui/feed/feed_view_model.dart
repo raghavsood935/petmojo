@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
-import 'package:kubelite/models/feed_post_model.dart';
-import 'package:kubelite/models/my_tales_model.dart';
-import 'package:kubelite/shared/base_viewmodel.dart';
+import 'package:tamely/models/feed_post_model.dart';
+import 'package:tamely/models/my_tales_model.dart';
+import 'package:tamely/shared/base_viewmodel.dart';
 
 class FeedViewModel extends BaseModel {
   List<MyTalesModel> _dummyListOfTales = [

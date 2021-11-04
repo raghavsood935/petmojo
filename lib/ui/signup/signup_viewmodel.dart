@@ -1,10 +1,6 @@
-import 'package:kubelite/app/app.locator.dart';
-import 'package:kubelite/app/app.router.dart';
-import 'package:kubelite/ui/base/authentication_viewmodel.dart';
-import 'package:kubelite/util/utils.dart';
 import 'package:stacked_services/stacked_services.dart';
-
-import 'signup_view.form.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/ui/base/authentication_viewmodel.dart';
 
 class SignUpViewModel extends AuthenticationViewModel {
   final navigationService = locator<NavigationService>();
@@ -15,13 +11,6 @@ class SignUpViewModel extends AuthenticationViewModel {
   get isValid => _isValid;
 
   void navigateBack() => navigationService.back();
-
-  void moveToOTPView() {
-    navigationService.replaceWith(Routes.confirmOTPView,
-        arguments: ConfirmOTPViewArguments(
-            isEmailVerify: Util.isNumeric(emailValue),
-            verificationData: emailValue ?? ""));
-  }
 
   @override
   void setFormStatus() {

@@ -1,27 +1,28 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:kubelite/api/base_response.dart';
-import 'package:kubelite/api/server_error.dart';
-import 'package:kubelite/app/app.locator.dart';
-import 'package:kubelite/app/app.logger.dart';
-import 'package:kubelite/models/common_response.dart';
-import 'package:kubelite/models/params/login_body.dart';
-import 'package:kubelite/models/params/profile_create_body.dart';
-import 'package:kubelite/models/params/register_body.dart';
-import 'package:kubelite/models/params/reset_password_body.dart';
-import 'package:kubelite/models/params/social_login_body.dart';
-import 'package:kubelite/models/user_response_models.dart';
-import 'package:kubelite/services/shared_preferences_service.dart';
 import 'package:logger/logger.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:tamely/api/base_response.dart';
+import 'package:tamely/api/server_error.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/app/app.logger.dart';
+import 'package:tamely/models/common_response.dart';
+import 'package:tamely/models/params/login_body.dart';
+import 'package:tamely/models/params/profile_create_body.dart';
+import 'package:tamely/models/params/register_body.dart';
+import 'package:tamely/models/params/reset_password_body.dart';
+import 'package:tamely/models/params/social_login_body.dart';
+import 'package:tamely/models/user_response_models.dart';
+import 'package:tamely/services/shared_preferences_service.dart';
+import 'package:tamely/ui/otp/confirm_otp_viewmodel.dart';
 
 import 'api_client.dart';
 
 class TamelyApi {
   final _sharedPreferenceServices = locator<SharedPreferencesService>();
 
-  final log = Logger(printer: SimpleLogPrinter('VendorApi'));
+  final log = Logger(printer: SimpleLogPrinter('TamelyApi'));
 
   Dio dio = Dio(BaseOptions(
     connectTimeout: Apis.TIMEOUT,
@@ -60,7 +61,7 @@ class TamelyApi {
 
     if (isAuth) {
       dio.options.headers["authorization"] =
-          "Bearer ${_sharedPreferenceServices.authToken}";
+          "${_sharedPreferenceServices.authToken}";
     }
     return ApiClient(dio);
   }
@@ -78,7 +79,7 @@ class TamelyApi {
     dio.options.followRedirects = false;
     dio.options.headers['content-Type'] = 'multipart/form-data';
     dio.options.headers["authorization"] =
-        "Bearer ${_sharedPreferenceServices.authToken}";
+        "${_sharedPreferenceServices.authToken}";
     return ApiClient(dio);
   }
 
@@ -96,13 +97,13 @@ class TamelyApi {
     formDio.options.headers['content-Type'] = 'application/json';
     if (isAuth) {
       dio.options.headers["authorization"] =
-          "Bearer ${_sharedPreferenceServices.authToken}";
+          "${_sharedPreferenceServices.authToken}";
     }
     return ApiClient(formDio);
   }
 
-  Future<BaseResponse<UserResponse>> uploadImage(File imageFile) async {
-    UserResponse response;
+  Future<BaseResponse<CommonResponse>> uploadImage(File imageFile) async {
+    CommonResponse response;
     try {
       response = await getMultiPartApiClient().updateImage(imageFile);
     } catch (error, stacktrace) {
@@ -117,7 +118,7 @@ class TamelyApi {
       ProfileCreateBody createBody) async {
     UserResponse response;
     try {
-      response = await getApiClient(false).register(createBody);
+      response = await getApiClient(true).updateProfile(createBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()
@@ -132,6 +133,50 @@ class TamelyApi {
     UserResponse response;
     try {
       response = await getApiClient(false).register(registerBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  Future<BaseResponse<CommonResponse>> verifyAccount(String num) async {
+    log.d("verifyAccount called");
+    CommonResponse response;
+    try {
+      response = await getApiClient(true).verifyAccount(num);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  Future<BaseResponse<CommonResponse>> confirmAccount(
+      ConfirmOTPBody confirmOTPBody, String verificationType) async {
+    log.d("confirmAccount called");
+    CommonResponse response;
+    try {
+      if (verificationType == getVerificationTypeName(VerificationType.login))
+        response = await getApiClient(true).confirmAccount(confirmOTPBody);
+      else
+        response = await getApiClient(true).verifyResetPassword(confirmOTPBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  Future<BaseResponse<CommonResponse>> updatePassword(
+      UpdatePasswordBody updatePasswordBody) async {
+    log.d("updatePassword called");
+    CommonResponse response;
+    try {
+      response = await getApiClient(true).updatePassword(updatePasswordBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()

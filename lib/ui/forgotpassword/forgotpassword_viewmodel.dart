@@ -1,12 +1,15 @@
-import 'package:kubelite/api/api_service.dart';
-import 'package:kubelite/api/base_response.dart';
-import 'package:kubelite/api/server_error.dart';
-import 'package:kubelite/app/app.locator.dart';
-import 'package:kubelite/models/common_response.dart';
-import 'package:kubelite/models/params/reset_password_body.dart';
-import 'package:kubelite/ui/base/authentication_viewmodel.dart';
-import 'package:kubelite/util/utils.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/api/api_service.dart';
+import 'package:tamely/api/base_response.dart';
+import 'package:tamely/api/server_error.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/app/app.router.dart';
+import 'package:tamely/enum/redirect_state.dart';
+import 'package:tamely/models/common_response.dart';
+import 'package:tamely/models/params/reset_password_body.dart';
+import 'package:tamely/ui/base/authentication_viewmodel.dart';
+import 'package:tamely/ui/otp/confirm_otp_viewmodel.dart';
+import 'package:tamely/util/utils.dart';
 
 class ForgotPasswordViewModel extends AuthenticationViewModel {
   final _navigationService = locator<NavigationService>();
@@ -20,14 +23,10 @@ class ForgotPasswordViewModel extends AuthenticationViewModel {
 
   void navigateBack() => navigationService.back();
 
-  // void moveToSetUpPassword() {
-  //   navigationService.replaceWith(Routes.newPasswordView);
-  // }
-
   Future<void> resetPassword() async {
     if (await Util.checkInternetConnectivity()) {
-      ResetPasswordBody resetPasswordBody =
-          ResetPasswordBody(formValueMap["email"]);
+      String email = formValueMap["email"];
+      ResetPasswordBody resetPasswordBody = ResetPasswordBody(email);
       try {
         BaseResponse<CommonResponse> response = await runBusyFuture(
             _tamelyApi.resetPassword(resetPasswordBody),
@@ -36,7 +35,18 @@ class ForgotPasswordViewModel extends AuthenticationViewModel {
           ServerError error = response.getException as ServerError;
           _snackBarService.showSnackbar(message: error.getErrorMessage());
         } else if (response.data != null) {
-          _navigationService.popRepeated(1);
+          sharedPreferencesService.authToken = response.data!.token ?? "";
+          sharedPreferencesService.currentState =
+              getRedirectStateName(RedirectState.Start);
+          navigationService.pushNamedAndRemoveUntil(
+            Routes.confirmOTPView,
+            arguments: ConfirmOTPViewArguments(
+              isEmailVerify: true,
+              verificationData: email,
+              verificationType:
+                  getVerificationTypeName(VerificationType.forgetpwd),
+            ),
+          );
         }
       } catch (e) {
         log.e(e);

@@ -14,6 +14,7 @@ _$_User _$_$_UserFromJson(Map<String, dynamic> json) {
     fullName: json['fullName'] as String?,
     bio: json['bio'] as String?,
     website: json['website'] as String?,
+    confirmed: json['confirmed'] as bool? ?? false,
   );
 }
 
@@ -24,4 +25,5 @@ Map<String, dynamic> _$_$_UserToJson(_$_User instance) => <String, dynamic>{
       'fullName': instance.fullName,
       'bio': instance.bio,
       'website': instance.website,
+      'confirmed': instance.confirmed,
     };

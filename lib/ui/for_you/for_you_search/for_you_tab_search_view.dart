@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/ui/for_you/for_you_search/for_you_tab_search_view_model.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/widgets/app_input_field.dart';
-import 'package:kubelite/widgets/app_text.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/ui/for_you/for_you_search/for_you_tab_search_view_model.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/widgets/app_input_field.dart';
+import 'package:tamely/widgets/app_text.dart';
 
 class ForYouTabSearchView extends StatefulWidget {
   const ForYouTabSearchView({Key? key}) : super(key: key);

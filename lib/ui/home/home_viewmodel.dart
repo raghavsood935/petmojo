@@ -1,7 +1,7 @@
-import 'package:kubelite/app/app.locator.dart';
-import 'package:kubelite/services/shared_preferences_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/services/shared_preferences_service.dart';
 
 class HomeViewModel extends FutureViewModel<void> implements Initialisable {
   final _navigationService = locator<NavigationService>();

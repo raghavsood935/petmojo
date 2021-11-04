@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/String.dart';
-import 'package:kubelite/util/ui_helpers.dart';
-import 'package:kubelite/widgets/app_text.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/String.dart';
+import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/widgets/app_text.dart';
 
 class AuthenticationLayout extends StatelessWidget {
   final String? title;
@@ -16,6 +16,7 @@ class AuthenticationLayout extends StatelessWidget {
   final void Function()? onBackPressed;
   final void Function()? onSignInWithFacebook;
   final void Function()? onSignInWithGoogle;
+  final void Function()? onResendOTP;
   final String? validationMessage;
   final bool busy;
   final bool isValid;
@@ -33,6 +34,7 @@ class AuthenticationLayout extends StatelessWidget {
     this.onBackPressed,
     this.onSignInWithFacebook,
     this.onSignInWithGoogle,
+    this.onResendOTP,
     this.validationMessage,
     this.showTermsText = false,
     this.busy = false,
@@ -204,8 +206,84 @@ class AuthenticationLayout extends StatelessWidget {
                 ),
               ],
             ),
+          if (onResendOTP != null) ResendOTPWidget(onResendOTP: onResendOTP!),
         ],
       ),
     );
+  }
+}
+
+class ResendOTPWidget extends StatefulWidget {
+  ResendOTPWidget({Key? key, required this.onResendOTP}) : super(key: key);
+
+  final Function() onResendOTP;
+  @override
+  _ResendOTPWidgetState createState() => _ResendOTPWidgetState();
+}
+
+class _ResendOTPWidgetState extends State<ResendOTPWidget>
+    with TickerProviderStateMixin {
+  late AnimationController controller;
+
+  Duration get duration => controller.duration! * controller.value;
+
+  bool _expired = false;
+  set expired(bool value) {
+    _expired = value;
+  }
+
+  bool get expired => _expired;
+
+  @override
+  void initState() {
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 30),
+    );
+
+    controller.addListener(() {
+      if (duration.inSeconds == 0) {
+        setState(() {
+          expired = true;
+        });
+      }
+    });
+
+    controller.reverse(from: 30);
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: new Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          if (expired)
+            GestureDetector(
+                onTap: () {
+                  widget.onResendOTP();
+                  controller.reverse(from: 30);
+                },
+                child: AppText.body("Resend OTP")),
+          if (!expired)
+            AnimatedBuilder(
+              animation: controller,
+              builder: (BuildContext context, Widget? child) {
+                return new AppText.body1(
+                  'Resend OTP in ${duration.inSeconds}',
+                );
+              },
+            )
+        ],
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
   }
 }

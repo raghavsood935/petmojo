@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kubelite/models/profile_account_model.dart';
-import 'package:kubelite/ui/for_you/for_you_search/search_tabs/all_search_tab_view_model.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/String.dart';
-import 'package:kubelite/widgets/app_text.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/models/profile_account_model.dart';
+import 'package:tamely/ui/for_you/for_you_search/search_tabs/all_search_tab_view_model.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/widgets/app_text.dart';
 
 class AllSerachTabView extends StatefulWidget {
   const AllSerachTabView({Key? key}) : super(key: key);

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/models/feed_post_model.dart';
-import 'package:kubelite/ui/feed/comment/feed_post_comment_view.dart';
-import 'package:kubelite/ui/feed/feed_view_model.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/String.dart';
-import 'package:kubelite/util/ui_helpers.dart';
-import 'package:kubelite/widgets/app_text.dart';
-import 'package:kubelite/widgets/custom_circle_avatar.dart';
-import 'package:stacked/stacked.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:stacked/stacked.dart';
+import 'package:tamely/models/feed_post_model.dart';
+import 'package:tamely/ui/feed/comment/feed_post_comment_view.dart';
+import 'package:tamely/ui/feed/feed_view_model.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/custom_circle_avatar.dart';
 
 class FeedView extends StatelessWidget {
   final BuildContext menuScreenContext;
@@ -267,7 +267,7 @@ Widget postItem(
             children: [
               LikeBtn(initialState: model.isLiked, onTap: () {}),
               horizontalSpaceSmall,
-              imageButton(false, () {}, assetsPath: sendOutlineImgPath),
+              imageButton(false, () {}, assetsPath: sendImgPath),
               horizontalSpaceSmall,
               imageButton(false, () {}, assetsPath: bookmarkImgPath),
             ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/ui/for_you/for_you_view_model.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/ui/for_you/for_you_view_model.dart';
 
 class ForYouView extends StatelessWidget {
   final BuildContext menuScreenContext;

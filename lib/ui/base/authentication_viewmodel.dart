@@ -1,29 +1,32 @@
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:kubelite/api/server_error.dart';
-import 'package:kubelite/app/app.locator.dart';
-import 'package:kubelite/app/app.logger.dart';
-import 'package:kubelite/app/app.router.dart';
-import 'package:kubelite/enum/redirect_state.dart';
-import 'package:kubelite/models/application_models.dart';
-import 'package:kubelite/models/params/login_body.dart';
-import 'package:kubelite/models/params/profile_create_body.dart';
-import 'package:kubelite/models/params/register_body.dart';
-import 'package:kubelite/models/params/social_login_body.dart';
-import 'package:kubelite/services/shared_preferences_service.dart';
-import 'package:kubelite/services/user_service.dart';
-import 'package:kubelite/util/string_extension.dart';
-import 'package:kubelite/util/utils.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/api/base_response.dart';
+import 'package:tamely/api/server_error.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/app/app.logger.dart';
+import 'package:tamely/app/app.router.dart';
+import 'package:tamely/enum/redirect_state.dart';
+import 'package:tamely/models/application_models.dart';
+import 'package:tamely/models/params/login_body.dart';
+import 'package:tamely/models/params/profile_create_body.dart';
+import 'package:tamely/models/params/register_body.dart';
+import 'package:tamely/models/params/social_login_body.dart';
+import 'package:tamely/models/user_response_models.dart';
+import 'package:tamely/services/shared_preferences_service.dart';
+import 'package:tamely/services/user_service.dart';
+import 'package:tamely/ui/otp/confirm_otp_viewmodel.dart';
+import 'package:tamely/util/string_extension.dart';
+import 'package:tamely/util/utils.dart';
 
 abstract class AuthenticationViewModel extends FormViewModel {
   final log = getLogger('AuthenticationViewModel');
 
   final userService = locator<UserService>();
   final navigationService = locator<NavigationService>();
-  final _snackBarService = locator<SnackbarService>();
-  final _sharedPreferencesService = locator<SharedPreferencesService>();
+  final snackBarService = locator<SnackbarService>();
+  final sharedPreferencesService = locator<SharedPreferencesService>();
   final _googleSignIn = GoogleSignIn();
 
   AuthenticationViewModel();
@@ -51,7 +54,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
       String email = formValueMap["email"];
       String password = formValueMap["password"];
       if (email.isEmpty || password.isEmpty) {
-        _snackBarService.showSnackbar(message: "Please enter valid values");
+        snackBarService.showSnackbar(message: "Please enter valid values");
         return;
       }
       if (await Util.checkInternetConnectivity()) {
@@ -62,7 +65,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
         if (userService.hasLoggedInUser)
           _handleLoggedInUser(userService.currentUser);
       } else {
-        _snackBarService.showSnackbar(message: "No Internet connection");
+        snackBarService.showSnackbar(message: "No Internet connection");
       }
     } on ServerError catch (e) {
       log.e(e.toString());
@@ -70,17 +73,20 @@ abstract class AuthenticationViewModel extends FormViewModel {
     }
   }
 
-  Future updateProfile(ProfileCreateBody createBody) async {
+  Future<void> updateProfile(ProfileCreateBody createBody) async {
     log.i('valued:$formValueMap');
     try {
       if (await Util.checkInternetConnectivity()) {
-        final result = await runBusyFuture(
+        BaseResponse<UserResponse> response = await runBusyFuture(
             userService.updateProfile(createBody),
             throwException: true);
-        if (userService.hasLoggedInUser)
-          _handleLoggedInUser(userService.currentUser);
+        if (response.data != null) {
+          sharedPreferencesService.currentState =
+              getRedirectStateName(RedirectState.Home);
+          navigationService.pushNamedAndRemoveUntil(Routes.dashboard);
+        }
       } else {
-        _snackBarService.showSnackbar(message: "No Internet connection");
+        snackBarService.showSnackbar(message: "No Internet connection");
       }
     } on ServerError catch (e) {
       log.e(e.toString());
@@ -94,7 +100,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
       String email = formValueMap["email"];
       String password = formValueMap["password"];
       if (email.isEmpty || password.isEmpty) {
-        _snackBarService.showSnackbar(message: "Please enter valid values");
+        snackBarService.showSnackbar(message: "Please enter valid values");
         return;
       }
       if (await Util.checkInternetConnectivity()) {
@@ -105,7 +111,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
         if (userService.hasLoggedInUser)
           _handleLoggedInUser(userService.currentUser);
       } else {
-        _snackBarService.showSnackbar(message: "No Internet connection");
+        snackBarService.showSnackbar(message: "No Internet connection");
       }
     } on ServerError catch (e) {
       log.e(e.toString());
@@ -115,11 +121,12 @@ abstract class AuthenticationViewModel extends FormViewModel {
 
   Future<void> useGoogleAuthentication() async {
     try {
+      await _googleSignIn.signOut();
       final GoogleSignInAccount? googleSignInAccount =
           await _googleSignIn.signIn();
       if (googleSignInAccount == null) {
         log.i('Process is canceled by the user');
-        _snackBarService.showSnackbar(
+        snackBarService.showSnackbar(
             message: "Google Sign In has been cancelled by the user");
         return;
       }
@@ -142,6 +149,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
 
   Future<void> useFacebookAuthentication() async {
     final facebookLogin = FacebookLogin();
+    facebookLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
     final result = await facebookLogin.logIn(['email']);
 
     switch (result.status) {
@@ -153,10 +161,10 @@ abstract class AuthenticationViewModel extends FormViewModel {
           _handleLoggedInUser(userService.currentUser);
         break;
       case FacebookLoginStatus.cancelledByUser:
-        _snackBarService.showSnackbar(message: "Cancelled by User");
+        snackBarService.showSnackbar(message: "Cancelled by User");
         break;
       case FacebookLoginStatus.error:
-        _snackBarService.showSnackbar(message: "${result.errorMessage}");
+        snackBarService.showSnackbar(message: "${result.errorMessage}");
         break;
     }
   }
@@ -172,7 +180,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
         if (userService.hasLoggedInUser)
           _handleLoggedInUser(userService.currentUser);
       } else {
-        _snackBarService.showSnackbar(message: "No Internet connection");
+        snackBarService.showSnackbar(message: "No Internet connection");
       }
     } on ServerError catch (e) {
       log.e(e.toString());
@@ -181,14 +189,30 @@ abstract class AuthenticationViewModel extends FormViewModel {
   }
 
   void _handleLoggedInUser(LocalUser currentUser) {
-    if (currentUser.fullName.isValid() && currentUser.username.isValid()) {
-      _sharedPreferencesService.currentState =
+    if (currentUser.fullName.isValid() &&
+        currentUser.username.isValid() &&
+        currentUser.confirmed) {
+      sharedPreferencesService.currentState =
           getRedirectStateName(RedirectState.Home);
       navigationService.pushNamedAndRemoveUntil(Routes.dashboard);
+    } else if (!currentUser.confirmed) {
+      sharedPreferencesService.currentState =
+          getRedirectStateName(RedirectState.Start);
+      navigationService.pushNamedAndRemoveUntil(
+        Routes.confirmOTPView,
+        arguments: ConfirmOTPViewArguments(
+          isEmailVerify: true,
+          verificationData: currentUser.email ?? "",
+          verificationType: getVerificationTypeName(VerificationType.login),
+        ),
+      );
     } else {
-      _sharedPreferencesService.currentState =
+      sharedPreferencesService.currentState =
           getRedirectStateName(RedirectState.ProfileCreate);
-      navigationService.pushNamedAndRemoveUntil(Routes.profileCreateView, arguments: ProfileCreateViewArguments(user: currentUser));
+      navigationService.pushNamedAndRemoveUntil(
+        Routes.profileCreateView,
+        arguments: ProfileCreateViewArguments(user: currentUser),
+      );
     }
   }
 }

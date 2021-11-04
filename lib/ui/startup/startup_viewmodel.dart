@@ -1,11 +1,12 @@
-import 'package:kubelite/app/app.locator.dart';
-import 'package:kubelite/app/app.logger.dart';
-import 'package:kubelite/app/app.router.dart';
-import 'package:kubelite/enum/redirect_state.dart';
-import 'package:kubelite/services/shared_preferences_service.dart';
-import 'package:kubelite/services/user_service.dart';
+import 'package:flutter/services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/app/app.logger.dart';
+import 'package:tamely/app/app.router.dart';
+import 'package:tamely/enum/redirect_state.dart';
+import 'package:tamely/services/shared_preferences_service.dart';
+import 'package:tamely/services/user_service.dart';
 
 class StartUpViewModel extends FutureViewModel<void> implements Initialisable {
   final log = getLogger('StartupViewModel');
@@ -18,6 +19,7 @@ class StartUpViewModel extends FutureViewModel<void> implements Initialisable {
   bool get isDestinationAvailable => _destinationRoute != null;
 
   Future initialise() async {
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
     // _sharedPreferencesService.clearLoginData();
     var currentState = _sharedPreferencesService.currentState;
 
@@ -40,7 +42,10 @@ class StartUpViewModel extends FutureViewModel<void> implements Initialisable {
         _destinationRoute = Routes.dashboard;
         break;
     }
-    // _destinationRoute = Routes.dashboard;
+    // _destinationRoute = Routes.confirmOTPView;
+    // _destinationArguments = ConfirmOTPViewArguments(
+    //     isEmailVerify: true,
+    //     verificationData: _userService.currentUser.email ?? "");
 
     log.d("Current State : $_destinationRoute");
   }

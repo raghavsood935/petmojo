@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart' hide Headers;
-import 'package:kubelite/app/app.logger.dart';
 import 'package:logger/logger.dart';
+import 'package:tamely/app/app.logger.dart';
 
 class ServerError implements Exception {
   int? _errorCode;

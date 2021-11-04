@@ -26,7 +26,8 @@ class _$LocalUserTearOff {
       String? username,
       String? fullName,
       String? bio,
-      String? website}) {
+      String? website,
+      bool confirmed = false}) {
     return _User(
       id: id,
       email: email,
@@ -34,6 +35,7 @@ class _$LocalUserTearOff {
       fullName: fullName,
       bio: bio,
       website: website,
+      confirmed: confirmed,
     );
   }
 
@@ -54,6 +56,7 @@ mixin _$LocalUser {
   String? get fullName => throw _privateConstructorUsedError;
   String? get bio => throw _privateConstructorUsedError;
   String? get website => throw _privateConstructorUsedError;
+  bool get confirmed => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -71,7 +74,8 @@ abstract class $LocalUserCopyWith<$Res> {
       String? username,
       String? fullName,
       String? bio,
-      String? website});
+      String? website,
+      bool confirmed});
 }
 
 /// @nodoc
@@ -90,6 +94,7 @@ class _$LocalUserCopyWithImpl<$Res> implements $LocalUserCopyWith<$Res> {
     Object? fullName = freezed,
     Object? bio = freezed,
     Object? website = freezed,
+    Object? confirmed = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -116,6 +121,10 @@ class _$LocalUserCopyWithImpl<$Res> implements $LocalUserCopyWith<$Res> {
           ? _value.website
           : website // ignore: cast_nullable_to_non_nullable
               as String?,
+      confirmed: confirmed == freezed
+          ? _value.confirmed
+          : confirmed // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -131,7 +140,8 @@ abstract class _$UserCopyWith<$Res> implements $LocalUserCopyWith<$Res> {
       String? username,
       String? fullName,
       String? bio,
-      String? website});
+      String? website,
+      bool confirmed});
 }
 
 /// @nodoc
@@ -151,6 +161,7 @@ class __$UserCopyWithImpl<$Res> extends _$LocalUserCopyWithImpl<$Res>
     Object? fullName = freezed,
     Object? bio = freezed,
     Object? website = freezed,
+    Object? confirmed = freezed,
   }) {
     return _then(_User(
       id: id == freezed
@@ -177,6 +188,10 @@ class __$UserCopyWithImpl<$Res> extends _$LocalUserCopyWithImpl<$Res>
           ? _value.website
           : website // ignore: cast_nullable_to_non_nullable
               as String?,
+      confirmed: confirmed == freezed
+          ? _value.confirmed
+          : confirmed // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -190,7 +205,8 @@ class _$_User extends _User {
       this.username,
       this.fullName,
       this.bio,
-      this.website})
+      this.website,
+      this.confirmed = false})
       : super._();
 
   factory _$_User.fromJson(Map<String, dynamic> json) =>
@@ -209,10 +225,13 @@ class _$_User extends _User {
   final String? bio;
   @override
   final String? website;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool confirmed;
 
   @override
   String toString() {
-    return 'LocalUser(id: $id, email: $email, username: $username, fullName: $fullName, bio: $bio, website: $website)';
+    return 'LocalUser(id: $id, email: $email, username: $username, fullName: $fullName, bio: $bio, website: $website, confirmed: $confirmed)';
   }
 
   @override
@@ -232,7 +251,11 @@ class _$_User extends _User {
             (identical(other.bio, bio) ||
                 const DeepCollectionEquality().equals(other.bio, bio)) &&
             (identical(other.website, website) ||
-                const DeepCollectionEquality().equals(other.website, website)));
+                const DeepCollectionEquality()
+                    .equals(other.website, website)) &&
+            (identical(other.confirmed, confirmed) ||
+                const DeepCollectionEquality()
+                    .equals(other.confirmed, confirmed)));
   }
 
   @override
@@ -243,7 +266,8 @@ class _$_User extends _User {
       const DeepCollectionEquality().hash(username) ^
       const DeepCollectionEquality().hash(fullName) ^
       const DeepCollectionEquality().hash(bio) ^
-      const DeepCollectionEquality().hash(website);
+      const DeepCollectionEquality().hash(website) ^
+      const DeepCollectionEquality().hash(confirmed);
 
   @JsonKey(ignore: true)
   @override
@@ -263,7 +287,8 @@ abstract class _User extends LocalUser {
       String? username,
       String? fullName,
       String? bio,
-      String? website}) = _$_User;
+      String? website,
+      bool confirmed}) = _$_User;
   _User._() : super._();
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
@@ -281,6 +306,8 @@ abstract class _User extends LocalUser {
   String? get bio => throw _privateConstructorUsedError;
   @override
   String? get website => throw _privateConstructorUsedError;
+  @override
+  bool get confirmed => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$UserCopyWith<_User> get copyWith => throw _privateConstructorUsedError;

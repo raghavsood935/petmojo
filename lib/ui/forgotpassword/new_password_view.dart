@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/ui/forgotpassword/newpassword_viewmodel.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/String.dart';
-import 'package:kubelite/util/ui_helpers.dart';
-import 'package:kubelite/widgets/app_input_field.dart';
-import 'package:kubelite/widgets/app_password_input_field.dart';
-import 'package:kubelite/widgets/app_text.dart';
-import 'package:kubelite/widgets/authentication_layout.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
+import 'package:tamely/ui/forgotpassword/newpassword_viewmodel.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/String.dart';
+import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/widgets/app_input_field.dart';
+import 'package:tamely/widgets/app_password_input_field.dart';
+import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/authentication_layout.dart';
 
 import 'new_password_view.form.dart';
 
@@ -29,13 +29,13 @@ class NewPasswordView extends StatelessWidget with $NewPasswordView {
           busy: model.isBusy,
           isValid: model.isValid,
           // onMainButtonTapped: model.saveData,
-          onMainButtonTapped: model.moveToOTPView,
+          onMainButtonTapped: model.confirmPassword,
           onBackPressed: model.navigateBack,
           validationMessage: model.validationMessage,
           title: setUpNewPasswordTitle,
           subtitle: "",
           isSocialLoginEnabled: false,
-          mainButtonTitle: signUpButton,
+          mainButtonTitle: setNewPasswordButton,
           form: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
@@ -69,7 +69,7 @@ class NewPasswordView extends StatelessWidget with $NewPasswordView {
               ),
               AppPasswordInputField(
                 hint: confirmPasswordHint,
-                controller: newPasswordController,
+                controller: confirmPasswordController,
               ),
             ],
           ),

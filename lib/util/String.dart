@@ -1,9 +1,9 @@
 String ISDARK = "";
-String APP_NAME = "Kubelite";
+String APP_NAME = "tamely";
 
 String wireFrameTitle1 = "Create a memorable Pet Diary";
 String wireFrameTitle2 = "Connect with other animal lovers";
-String wireFrameTitle3 = "Find height quality pet care services";
+String wireFrameTitle3 = "Find high quality pet care services";
 String wireFrameTitle4 = "Save time and money";
 String signUpLoginTitle = "SIGN UP/LOGIN";
 String emailPhoneTitle = "EMAIL/PHONE";
@@ -22,6 +22,7 @@ String completeProfileSubTitle = "You are one step closer!";
 String forgotPasswordLabel = "Forget Password?";
 String forgotPasswordTitle = "Password Recovery";
 String setUpNewPasswordTitle = "Set up new password";
+String setNewPasswordButton = "SET NEW PASSWORD";
 String forgotPasswordSubTitle =
     "Don't worry, it happen to us all. We'll get you signed back in before you know it.";
 
@@ -73,27 +74,21 @@ String createAnimalTitle = "Create new animal profile";
 //Drawer layout
 String walletTitle = "Tamely Wallet";
 String walletSubTitle = "Add funds and redeem rewards!";
-String walletIcon = "assets/images/wallet.svg";
 
 String bookingTitle = "My bookings";
 String bookingSubTitle = "Check upcoming bookings or reorder";
-String bookingIcon = "assets/images/bookings.svg";
 
 String settingsTitle = "Settings";
 String settingsSubTitle = "Privacy, Security, Account";
-String settingsIcon = "assets/images/setting.svg";
 
 String bookmarksTitle = "Bookmarks";
 String bookmarksSubTitle = "Find saved posts here";
-String bookmarksIcon = "assets/images/bookmark.svg";
 
 String feedbackTitle = "Feedback";
 String feedbackSubTitle = "We appreciate your valuable feedback";
-String feedbackIcon = "assets/images/feedback.svg";
 
 String helpTitle = "Need Help ?";
 String helpSubTitle = "We are here to help you 24/7";
-String helpIcon = "assets/images/help.svg";
 
 //community page
 String communityTitle = "Join the Tamely community!";
@@ -104,8 +99,12 @@ String tamelyGrp = "Tamely Groups";
 String tamelyGrpDescription =
     "Join or create a group with other animal lovers, Discover interests and loving community.";
 
+
+String helpIcon = "assets/images/help.svg";
+
 //assets path
-String humanHandImgPath = "assets/images/human_hand.png";
+String leftHandImgPath = "assets/images/hello-2-left.png";
+String rightHandImgPath = "assets/images/hello-2-right.png";
 String blobImgPath = "assets/images/Blob.png";
 String likesImgPath = "assets/images/likes_img.png";
 String animalFootPrintImgPath = "assets/images/pet_foot_print.png";
@@ -114,19 +113,6 @@ String sendImgPath = "assets/images/send.png";
 String sendOutlineImgPath = "assets/images/send_outline.png";
 String bookmarkImgPath = "assets/images/bookmark_outline.png";
 String crossImgPath = "assets/images/cross.png";
-String groupOfPeoplesImgPath = "assets/images/group_of_peoples.png";
-
-// animal images
-String birdFullImgPath = "assets/images/animals/bird.png";
-String catFullImgPath = "assets/images/animals/cat.png";
-String dogFullImgPath = "assets/images/animals/dog.png";
-String fishFullImgPath = "assets/images/animals/fish.png";
-String horseFullImgPath = "assets/images/animals/horse.png";
-String pigFullImgPath = "assets/images/animals/pig.png";
-String rabbitFullImgPath = "assets/images/animals/rabbit.png";
-String reptilesFullImgPath = "assets/images/animals/reptiles.png";
-
-String petImgPath = "assets/images/animals/pet_img.png";
 
 //animal type images
 String alpacaImgPath = "assets/images/animal_type_images/alpaca.png";
