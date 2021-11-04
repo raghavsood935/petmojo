@@ -9,13 +9,28 @@ String helpIcon = "assets/images/help.svg";
 //assets path
 String leftHandImgPath = "assets/images/hello-2-left.png";
 String rightHandImgPath = "assets/images/hello-2-right.png";
+String humanHandImgPath = "assets/images/human_hand.png";
 String blobImgPath = "assets/images/Blob.png";
 String likesImgPath = "assets/images/likes_img.png";
 String animalFootPrintImgPath = "assets/images/pet_foot_print.png";
 String likeOutlineImgPath = "assets/images/likes_img_outline.png";
-String sendImgPath = "assets/images/send_outline.png";
+String sendImgPath = "assets/images/send.png";
+String sendOutlineImgPath = "assets/images/send_outline.png";
 String bookmarkImgPath = "assets/images/bookmark_outline.png";
 String crossImgPath = "assets/images/cross.png";
+String groupOfPeoplesImgPath = "assets/images/group_of_peoples.png";
+
+// animal images
+String birdFullImgPath = "assets/images/animals/bird.png";
+String catFullImgPath = "assets/images/animals/cat.png";
+String dogFullImgPath = "assets/images/animals/dog.png";
+String fishFullImgPath = "assets/images/animals/fish.png";
+String horseFullImgPath = "assets/images/animals/horse.png";
+String pigFullImgPath = "assets/images/animals/pig.png";
+String rabbitFullImgPath = "assets/images/animals/rabbit.png";
+String reptilesFullImgPath = "assets/images/animals/reptiles.png";
+
+String petImgPath = "assets/images/animals/pet_img.png";
 
 //animal type images
 String alpacaImgPath = "assets/images/animal_type_images/alpaca.png";

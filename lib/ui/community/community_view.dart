@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/ui/community/community_main_view/community_main_view.dart';
-import 'package:kubelite/ui/community/community_view_model.dart';
-import 'package:kubelite/ui/community/first_time_views/community_start_banner/community_start_banner_view.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/ui/community/community_main_view/community_main_view.dart';
+import 'package:tamely/ui/community/community_view_model.dart';
+import 'package:tamely/ui/community/first_time_views/community_start_banner/community_start_banner_view.dart';
 
 class CommunityView extends StatelessWidget {
   final BuildContext menuScreenContext;

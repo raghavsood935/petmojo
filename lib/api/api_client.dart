@@ -52,7 +52,7 @@ abstract class ApiClient {
   For login verification and reset password verification
    */
   @POST(Apis.verifyAccount)
-  Future<CommonResponse> verifyAccount(@Path() String type);
+  Future<CommonResponse> verifyAccount(@Path("num") String type);
 
   @PUT(Apis.confirmAccount)
   Future<CommonResponse> confirmAccount(@Body() ConfirmOTPBody confirmOTPBody);

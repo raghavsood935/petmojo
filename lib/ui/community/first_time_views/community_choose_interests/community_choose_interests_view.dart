@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:kubelite/ui/community/first_time_views/community_choose_interests/animal_item.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/widgets/app_text.dart';
-import 'package:kubelite/widgets/main_btn.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/ui/community/first_time_views/community_choose_interests/animal_item.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/main_btn.dart';
 
 import 'community_choose_interests_view_model.dart';
 

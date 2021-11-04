@@ -125,6 +125,7 @@ class StackedRouter extends RouterBase {
           key: args.key,
           isEmailVerify: args.isEmailVerify,
           verificationData: args.verificationData,
+          verificationType: args.verificationType,
         ),
         settings: data,
       );
@@ -214,8 +215,12 @@ class ConfirmOTPViewArguments {
   final Key? key;
   final bool isEmailVerify;
   final String verificationData;
+  final String verificationType;
   ConfirmOTPViewArguments(
-      {this.key, required this.isEmailVerify, required this.verificationData});
+      {this.key,
+      required this.isEmailVerify,
+      required this.verificationData,
+      required this.verificationType});
 }
 
 /// ForgotPasswordView arguments holder class

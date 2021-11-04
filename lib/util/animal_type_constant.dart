@@ -1,6 +1,6 @@
-import 'package:kubelite/ui/profilepage/create_animal_profile/create_animal_view_model.dart';
+import 'package:tamely/ui/profilepage/create_animal_profile/create_animal_view_model.dart';
 
-import 'String.dart';
+import 'ImageConstant.dart';
 
 enum AnimalTypes {
   dog,

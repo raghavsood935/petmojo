@@ -5,7 +5,6 @@ import 'package:flutter/rendering.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
-import 'package:tamely/layers/create_animal_profile_layer.dart';
 import 'package:tamely/ui/profilepage/create_animal_profile/create_animal_page_viewe.form.dart';
 import 'package:tamely/ui/profilepage/create_animal_profile/create_animal_view_model.dart';
 import 'package:tamely/util/Color.dart';
@@ -14,7 +13,6 @@ import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_input_field.dart';
 import 'package:tamely/widgets/app_select_item.dart';
 import 'package:tamely/widgets/app_text.dart';
-import 'package:tamely/widgets/main_btn.dart';
 
 @FormView(fields: [
   FormTextField(name: 'name'),

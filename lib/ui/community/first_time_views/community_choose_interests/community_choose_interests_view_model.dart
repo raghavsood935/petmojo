@@ -1,8 +1,8 @@
-import 'package:kubelite/app/app.locator.dart';
-import 'package:kubelite/app/app.router.dart';
-import 'package:kubelite/shared/base_viewmodel.dart';
-import 'package:kubelite/util/String.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/app/app.router.dart';
+import 'package:tamely/shared/base_viewmodel.dart';
+import 'package:tamely/util/ImageConstant.dart';
 
 class CommunityChooseInterestViewModel extends BaseModel {
   final _navigationService = locator<NavigationService>();

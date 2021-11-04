@@ -1,5 +1,3 @@
-import 'package:tamely/models/breed_animal_model.dart';
-
 final String appName = '';
 
 final String packageName = '';
