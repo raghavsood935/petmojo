@@ -2,9 +2,10 @@
 /// *****************************************************
 ///  FlutterGen
 /// *****************************************************
-import 'package:flutter/services.dart';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/services.dart';
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
@@ -34,6 +35,20 @@ class $AssetsImagesGen {
   SvgGenImage get home => const SvgGenImage('assets/images/home.svg');
   AssetGenImage get humanHand =>
       const AssetGenImage('assets/images/human_hand.png');
+  SvgGenImage get icAaText => const SvgGenImage('assets/images/ic_aa_text.svg');
+  SvgGenImage get icExpand => const SvgGenImage('assets/images/ic_expand.svg');
+  SvgGenImage get icFilterColor =>
+      const SvgGenImage('assets/images/ic_filter_color.svg');
+  SvgGenImage get icFilterCrop =>
+      const SvgGenImage('assets/images/ic_filter_crop.svg');
+  SvgGenImage get icFilterFace =>
+      const SvgGenImage('assets/images/ic_filter_face.svg');
+  SvgGenImage get icGallery =>
+      const SvgGenImage('assets/images/ic_gallery.svg');
+  SvgGenImage get icRotateCamera =>
+      const SvgGenImage('assets/images/ic_rotate_camera.svg');
+  SvgGenImage get icSetting =>
+      const SvgGenImage('assets/images/ic_setting.svg');
   SvgGenImage get image => const SvgGenImage('assets/images/image.svg');
   AssetGenImage get lightSplashScreen =>
       const AssetGenImage('assets/images/light_splash_screen.png');

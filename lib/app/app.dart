@@ -32,6 +32,7 @@ import 'package:tamely/ui/startup/startup_view.dart';
     CupertinoRoute(page: ForYouTabSearchView),
     CupertinoRoute(page: CommunityChooseInterestView),
     CupertinoRoute(page: CommunityMainView),
+    // CupertinoRoute(page: CameraScreen),
   ],
   dependencies: [
     LazySingleton(classType: NavigationService),

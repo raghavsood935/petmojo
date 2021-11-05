@@ -2,8 +2,9 @@
 /// *****************************************************
 ///  FlutterGen
 /// *****************************************************
-import 'package:flutter/material.dart';
+
 import 'package:flutter/painting.dart';
+import 'package:flutter/material.dart';
 
 class ColorName {
   ColorName._();
