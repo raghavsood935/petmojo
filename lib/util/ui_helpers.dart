@@ -1,5 +1,6 @@
 // Horizontal Spacing
 import 'package:flutter/material.dart';
+import 'package:tamely/util/Color.dart';
 
 const Widget horizontalSpaceTiny = SizedBox(width: 5.0);
 const Widget horizontalSpaceSmall = SizedBox(width: 10.0);
@@ -43,7 +44,7 @@ Widget spacedDividerSmall = Column(
 Widget spacedDividerTiny = Column(
   children: const <Widget>[
     verticalSpaceTiny,
-    const Divider(color: Colors.blueGrey, height: 5.0),
+    const Divider(color: colors.kcLightGreyColor, height: 1.0),
     verticalSpaceTiny,
   ],
 );

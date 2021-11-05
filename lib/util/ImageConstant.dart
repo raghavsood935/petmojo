@@ -1,4 +1,5 @@
 String cameraIcon = "assets/images/camera.svg";
+String imageIcon = "assets/images/image.svg";
 String walletIcon = "assets/images/wallet.svg";
 String bookingIcon = "assets/images/bookings.svg";
 String settingsIcon = "assets/images/setting.svg";
@@ -13,6 +14,7 @@ String humanHandImgPath = "assets/images/human_hand.png";
 String blobImgPath = "assets/images/Blob.png";
 String likesImgPath = "assets/images/likes_img.png";
 String animalFootPrintImgPath = "assets/images/pet_foot_print.png";
+String animalFootImgPath = "assets/images/animalFoot.png";
 String likeOutlineImgPath = "assets/images/likes_img_outline.png";
 String sendImgPath = "assets/images/send.png";
 String sendOutlineImgPath = "assets/images/send_outline.png";

@@ -6,7 +6,9 @@ import 'package:tamely/ui/feed/comment/feed_post_comment_view.dart';
 import 'package:tamely/ui/feed/feed_view_model.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/util/utils.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/custom_circle_avatar.dart';
 
@@ -39,7 +41,7 @@ class FeedView extends StatelessWidget {
                   children: [
                     rowItem(
                       true,
-                      "My tales",
+                      myTales,
                       model.myProfileImg,
                     ),
                     horizontalSpaceRegular,
@@ -68,20 +70,27 @@ class FeedView extends StatelessWidget {
               child: Row(
                 children: [
                   CustomCircularAvatar(
-                    radius: 25.0,
+                    radius: 20.0,
                     imgPath: model.myProfileImg,
                   ),
-                  Expanded(
-                      child: AppText.caption(
-                    "Create a pawsome post",
+                  horizontalSpaceRegular,
+                  AppText.caption(
+                    createPost,
                     textAlign: TextAlign.center,
                     color: colors.kcCaptionGreyColor,
-                  )),
-                  Icon(Icons.photo, color: colors.primary),
+                  ),
+                  Spacer(),
                   GestureDetector(
-                    child: AppText.caption(
-                      "Photo/Video",
-                      color: colors.primary,
+                    onTap: model.createPost,
+                    child: Row(
+                      children: [
+                        Util.getImageChild(imageIcon, 16, 16),
+                        horizontalSpaceTiny,
+                        AppText.caption(
+                          photoVideo,
+                          color: colors.primary,
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -92,16 +101,15 @@ class FeedView extends StatelessWidget {
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               itemCount: model.dummyListOfFeedPost.length,
-              itemBuilder: (context, index) => postItem(
+              itemBuilder: (context, index) => feedItem(
                 context,
                 model.dummyListOfFeedPost[index],
                 model.myProfileImg,
               ),
               separatorBuilder: (BuildContext context, int index) => Divider(
-                // height: 20,
                 indent: 0,
                 thickness: 5,
-                color: colors.kcGreyBackground,
+                color: colors.kcLightGreyBackground,
               ),
             )
           ],
@@ -184,7 +192,7 @@ Widget rowItem(bool isCreateOne, String name, String url) {
   );
 }
 
-Widget postItem(
+Widget feedItem(
     BuildContext context, FeedPostModel model, String myProfileImgUrl) {
   return Padding(
     padding: const EdgeInsets.only(
@@ -199,7 +207,7 @@ Widget postItem(
         ListTile(
           contentPadding: EdgeInsets.zero,
           leading: CustomCircularAvatar(
-            radius: 23.0,
+            radius: 16.0,
             imgPath: model.profileImgUrl,
           ),
           title: model.isAnimalPost
@@ -326,11 +334,7 @@ Widget postItem(
 
 Widget roundedImage(BuildContext context, String url) {
   return ClipRRect(
-    // height: screenWidth(context),
-    // width: screenWidth(context),
-
     borderRadius: BorderRadius.circular(20),
-
     child: Image.network(
       url,
       fit: BoxFit.cover,
@@ -433,14 +437,14 @@ class _LikeBtnState extends State<LikeBtn> {
 class SwiperWidget extends StatefulWidget {
   SwiperWidget({Key? key, required this.model}) : super(key: key);
 
-  FeedPostModel model;
-  int _currentIndex = 1;
+  final FeedPostModel model;
 
   @override
   _SwiperWidgetState createState() => _SwiperWidgetState();
 }
 
 class _SwiperWidgetState extends State<SwiperWidget> {
+  int _currentIndex = 1;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -450,12 +454,12 @@ class _SwiperWidgetState extends State<SwiperWidget> {
         children: [
           Positioned(
             child: Swiper(
-              autoplay: true,
+              autoplay: false,
               itemCount: widget.model.postImgsList.length,
               itemBuilder: (context, index) =>
                   roundedImage(context, widget.model.postImgsList[index]),
               onIndexChanged: (int i) {
-                setState(() => widget._currentIndex = i + 1);
+                setState(() => _currentIndex = i + 1);
               },
             ),
           ),
@@ -463,13 +467,13 @@ class _SwiperWidgetState extends State<SwiperWidget> {
             top: 20,
             right: 20,
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 5),
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: colors.kcMediumGreyColor,
+                color: Color(0xFF87000000),
               ),
               child: AppText.caption(
-                "${widget._currentIndex}/${widget.model.postImgsList.length}",
+                "$_currentIndex/${widget.model.postImgsList.length}",
                 color: colors.white,
               ),
             ),

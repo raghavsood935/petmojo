@@ -8,8 +8,8 @@ class CustomCircularAvatar extends StatelessWidget {
     required this.imgPath,
   }) : super(key: key);
 
-  double radius;
-  String imgPath;
+  final double radius;
+  final String imgPath;
 
   @override
   Widget build(BuildContext context) {

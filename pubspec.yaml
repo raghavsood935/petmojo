@@ -23,6 +23,7 @@ dependencies:
 
   url_launcher: ^6.0.7
   image_picker: ^0.8.1+1
+  cached_network_image: ^3.1.0
   connectivity_plus: ^1.0.4
 
   # staggered grid view
@@ -63,6 +64,7 @@ dependencies:
   path_provider: ^2.0.2
   logger: ^1.0.0
   persistent_bottom_nav_bar: ^4.0.2
+  flutter_lints: ^1.0.4
 
   #firebase
   firebase_crashlytics: ^2.2.1
@@ -78,12 +80,42 @@ flutter_icons:
   android: true
   ios: true
 
+flutter_gen:
+  output: lib/gen_assets/
+  lineLength: 80
+
+  # Optional
+  integrations:
+    flutter_svg: true
+
+  assets:
+    enabled: true
+    package_parameter_enabled: false
+    # Assets.imagesChip
+    # style: camel-case
+
+    # Assets.images_chip
+    # style: snake-case
+
+    # Assets.images.chip (default style)
+    # style: dot-delimiter
+
+  fonts:
+    enabled: true
+
+  colors:
+    enabled: true
+    inputs:
+      - assets/color/colors.xml
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.9.1
 
   build_runner:
+  flutter_gen_runner:
   stacked_generator: ^0.5.1
 
   # data models

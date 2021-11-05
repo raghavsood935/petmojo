@@ -29,4 +29,6 @@ class FeedViewModel extends BaseModel {
   String get myProfileImg => _myProfileImg;
   List<MyTalesModel> get dummyListOfTales => _dummyListOfTales;
   List<FeedPostModel> get dummyListOfFeedPost => _dummyFeedPostModel;
+
+  void createPost() {}
 }
