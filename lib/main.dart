@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +15,12 @@ import 'widgets/dialogs/setup_dialog_ui.dart';
 void main() async {
   await initApp();
   runApp(TamelyApp());
+}
+
+String prettyPrint(Map json) {
+  JsonEncoder encoder = new JsonEncoder.withIndent('  ');
+  String pretty = encoder.convert(json);
+  return pretty;
 }
 
 Future initApp() async {

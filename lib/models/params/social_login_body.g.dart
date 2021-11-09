@@ -6,12 +6,11 @@ part of 'social_login_body.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SocialLoginBody _$SocialLoginBodyFromJson(Map<String, dynamic> json) {
-  return SocialLoginBody(
-    json['code'] as String,
-    json['state'] as String,
-  );
-}
+SocialLoginBody _$SocialLoginBodyFromJson(Map<String, dynamic> json) =>
+    SocialLoginBody(
+      json['code'] as String,
+      json['state'] as String,
+    );
 
 Map<String, dynamic> _$SocialLoginBodyToJson(SocialLoginBody instance) =>
     <String, dynamic>{

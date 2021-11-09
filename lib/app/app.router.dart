@@ -6,11 +6,13 @@
 
 // ignore_for_file: public_member_api_docs
 
+import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import '../models/application_models.dart';
+import '../ui/camera/camera_screen.dart';
 import '../ui/community/community_main_view/community_main_view.dart';
 import '../ui/community/first_time_views/community_choose_interests/community_choose_interests_view.dart';
 import '../ui/dashboard/dashboard.dart';
@@ -40,6 +42,7 @@ class Routes {
   static const String communityChooseInterestView =
       '/community-choose-interest-view';
   static const String communityMainView = '/community-main-view';
+  static const String cameraScreen = '/camera-screen';
   static const all = <String>{
     startupView,
     onBoardingView,
@@ -54,6 +57,7 @@ class Routes {
     forYouTabSearchView,
     communityChooseInterestView,
     communityMainView,
+    cameraScreen,
   };
 }
 
@@ -75,6 +79,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.communityChooseInterestView,
         page: CommunityChooseInterestView),
     RouteDef(Routes.communityMainView, page: CommunityMainView),
+    RouteDef(Routes.cameraScreen, page: CameraScreen),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -185,6 +190,13 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    CameraScreen: (data) {
+      var args = data.getArgs<CameraScreenArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => CameraScreen(args.cameras),
+        settings: data,
+      );
+    },
   };
 }
 
@@ -246,4 +258,10 @@ class ProfileCreateViewArguments {
 class CreateAnimalPageViewArguments {
   final Key? key;
   CreateAnimalPageViewArguments({this.key});
+}
+
+/// CameraScreen arguments holder class
+class CameraScreenArguments {
+  final List<CameraDescription> cameras;
+  CameraScreenArguments({required this.cameras});
 }

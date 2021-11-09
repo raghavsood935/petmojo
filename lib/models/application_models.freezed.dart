@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'application_models.dart';
 
@@ -39,7 +40,7 @@ class _$LocalUserTearOff {
     );
   }
 
-  LocalUser fromJson(Map<String, Object> json) {
+  LocalUser fromJson(Map<String, Object?> json) {
     return LocalUser.fromJson(json);
   }
 }
@@ -209,8 +210,7 @@ class _$_User extends _User {
       this.confirmed = false})
       : super._();
 
-  factory _$_User.fromJson(Map<String, dynamic> json) =>
-      _$_$_UserFromJson(json);
+  factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
   @override
   @JsonKey(name: "_id")
@@ -237,37 +237,23 @@ class _$_User extends _User {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _User &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.email, email) ||
-                const DeepCollectionEquality().equals(other.email, email)) &&
+        (other.runtimeType == runtimeType &&
+            other is _User &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.email, email) || other.email == email) &&
             (identical(other.username, username) ||
-                const DeepCollectionEquality()
-                    .equals(other.username, username)) &&
+                other.username == username) &&
             (identical(other.fullName, fullName) ||
-                const DeepCollectionEquality()
-                    .equals(other.fullName, fullName)) &&
-            (identical(other.bio, bio) ||
-                const DeepCollectionEquality().equals(other.bio, bio)) &&
-            (identical(other.website, website) ||
-                const DeepCollectionEquality()
-                    .equals(other.website, website)) &&
+                other.fullName == fullName) &&
+            (identical(other.bio, bio) || other.bio == bio) &&
+            (identical(other.website, website) || other.website == website) &&
             (identical(other.confirmed, confirmed) ||
-                const DeepCollectionEquality()
-                    .equals(other.confirmed, confirmed)));
+                other.confirmed == confirmed));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(email) ^
-      const DeepCollectionEquality().hash(username) ^
-      const DeepCollectionEquality().hash(fullName) ^
-      const DeepCollectionEquality().hash(bio) ^
-      const DeepCollectionEquality().hash(website) ^
-      const DeepCollectionEquality().hash(confirmed);
+  int get hashCode => Object.hash(
+      runtimeType, id, email, username, fullName, bio, website, confirmed);
 
   @JsonKey(ignore: true)
   @override
@@ -276,7 +262,7 @@ class _$_User extends _User {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_UserToJson(this);
+    return _$$_UserToJson(this);
   }
 }
 
@@ -295,19 +281,19 @@ abstract class _User extends LocalUser {
 
   @override
   @JsonKey(name: "_id")
-  String? get id => throw _privateConstructorUsedError;
+  String? get id;
   @override
-  String? get email => throw _privateConstructorUsedError;
+  String? get email;
   @override
-  String? get username => throw _privateConstructorUsedError;
+  String? get username;
   @override
-  String? get fullName => throw _privateConstructorUsedError;
+  String? get fullName;
   @override
-  String? get bio => throw _privateConstructorUsedError;
+  String? get bio;
   @override
-  String? get website => throw _privateConstructorUsedError;
+  String? get website;
   @override
-  bool get confirmed => throw _privateConstructorUsedError;
+  bool get confirmed;
   @override
   @JsonKey(ignore: true)
   _$UserCopyWith<_User> get copyWith => throw _privateConstructorUsedError;

@@ -38,7 +38,7 @@ class UserService {
     }
   }
 
-  bool get hasLoggedInUser => _sharedPreferenceService.authToken.isValid();
+  bool get hasLoggedInUser => currentUser.username.isValid();
 
   Future<BaseResponse<UserResponse>> updateProfile(
       ProfileCreateBody body) async {

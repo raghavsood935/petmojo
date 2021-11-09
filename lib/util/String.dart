@@ -113,3 +113,8 @@ String locationPermissionDisabled =
 
 //drop down down select text
 String select = "Select";
+
+//feed page
+String myTales = "My tales";
+String createPost = "Create a pawsome post";
+String photoVideo = "Photo/Video";

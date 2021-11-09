@@ -44,8 +44,11 @@ mixin $ProfileCreateView on StatelessWidget {
     // The dispose function for a TextEditingController sets all listeners to null
 
     usernameController.dispose();
+    usernameFocusNode.dispose();
     nameController.dispose();
+    nameFocusNode.dispose();
     shortBioController.dispose();
+    shortBioFocusNode.dispose();
   }
 }
 

@@ -6,15 +6,14 @@ part of 'profile_create_body.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ProfileCreateBody _$ProfileCreateBodyFromJson(Map<String, dynamic> json) {
-  return ProfileCreateBody(
-    json['fullName'] as String,
-    json['username'] as String,
-    json['bio'] as String,
-    json['website'] as String,
-    json['avatarUrl'] as String,
-  );
-}
+ProfileCreateBody _$ProfileCreateBodyFromJson(Map<String, dynamic> json) =>
+    ProfileCreateBody(
+      json['fullName'] as String,
+      json['username'] as String,
+      json['bio'] as String,
+      json['website'] as String,
+      json['avatarUrl'] as String,
+    );
 
 Map<String, dynamic> _$ProfileCreateBodyToJson(ProfileCreateBody instance) =>
     <String, dynamic>{

@@ -79,7 +79,7 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
     }
     if (await Util.checkInternetConnectivity()) {
       BaseResponse<CommonResponse> response =
-          await _tamelyApi.uploadImage(File(_imageFile!.path));
+          await runBusyFuture(_tamelyApi.uploadImage(File(_imageFile!.path)));
       if (response.getException != null) {
         ServerError error = response.getException as ServerError;
         _snackBarService.showSnackbar(message: error.getErrorMessage());

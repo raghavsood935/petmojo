@@ -34,6 +34,7 @@ mixin $ConfirmOTPView on StatelessWidget {
     // The dispose function for a TextEditingController sets all listeners to null
 
     otpController.dispose();
+    otpFocusNode.dispose();
   }
 }
 

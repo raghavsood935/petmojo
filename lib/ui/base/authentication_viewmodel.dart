@@ -1,4 +1,4 @@
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -148,23 +148,24 @@ abstract class AuthenticationViewModel extends FormViewModel {
   }
 
   Future<void> useFacebookAuthentication() async {
-    final facebookLogin = FacebookLogin();
-    facebookLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
-    final result = await facebookLogin.logIn(['email']);
+    final LoginResult result = await FacebookAuth.instance.login();
 
     switch (result.status) {
-      case FacebookLoginStatus.loggedIn:
-        log.d("Fb token: ${result.accessToken.token}");
-        await runBusyFuture(handleSocialLogin(result.accessToken.token, true),
+      case LoginStatus.success:
+        log.d("Fb token: ${result.accessToken}");
+        await runBusyFuture(handleSocialLogin(result.accessToken!.token, true),
             throwException: true);
         if (userService.hasLoggedInUser)
           _handleLoggedInUser(userService.currentUser);
         break;
-      case FacebookLoginStatus.cancelledByUser:
+      case LoginStatus.cancelled:
         snackBarService.showSnackbar(message: "Cancelled by User");
         break;
-      case FacebookLoginStatus.error:
-        snackBarService.showSnackbar(message: "${result.errorMessage}");
+      case LoginStatus.failed:
+        snackBarService.showSnackbar(message: "${result.message}");
+        break;
+      case LoginStatus.operationInProgress:
+        log.d("Operation in progress");
         break;
     }
   }
