@@ -15,7 +15,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
 
-  flutter_svg: ^0.22.0
+  flutter_svg: ^0.23.0+1
   provider: ^5.0.0
   http: ^0.13.3
   lottie: ^1.0.1
@@ -23,7 +23,7 @@ dependencies:
   url_launcher: ^6.0.7
   image_picker: ^0.8.1+1
   cached_network_image: ^3.1.0
-  connectivity_plus: ^1.0.4
+  connectivity_plus: ^2.0.2
 
   # staggered grid view
   flutter_staggered_grid_view: ^0.4.0
@@ -38,12 +38,13 @@ dependencies:
   flutter_typeahead: ^3.2.1
 
   # state management
-  stacked: ^2.1.9
+  stacked: ^2.2.5
   stacked_hooks: ^0.2.1
 
   # navigation
   stacked_services: ^0.8.8
-  stacked_themes: ^0.3.6
+  stacked_themes:
+   path: /Users/harshmittal/Development/Tamely/stacked/packages/stacked_themes
   shared_preferences: ^2.0.6
 
   # inversion of control
@@ -52,29 +53,33 @@ dependencies:
   observable_ish: ^3.0.0
 
   # data models
-  freezed_annotation: ^0.14.2
-  json_annotation: ^4.0.1
+  freezed_annotation: ^0.15.0
+  json_annotation: ^4.3.0
   google_sign_in: ^5.1.0
 
   retrofit: ^2.0.1
   dio: ^4.0.0
   pretty_dio_logger: ^1.1.1
+
   built_value: ^8.1.1
   path_provider: ^2.0.2
   logger: ^1.0.0
   persistent_bottom_nav_bar: ^4.0.2
   flutter_lints: ^1.0.4
 #  camera: ^0.9.2+2
+  camera:
+    git:
+      url: https://github.com/camsim99/plugins.git
+      path: packages/camera/camera
+      ref: 9e46048ad2e1f085c1e8f6c77391fa52025e681f
 
   #firebase
   firebase_crashlytics: ^2.2.1
   firebase_core: ^1.6.0
-  firebase_dynamic_links: ^2.0.9
-  firebase_messaging: ^10.0.7
+  firebase_dynamic_links: ^3.0.1
+  firebase_messaging: ^11.1.0
   firebase_remote_config: ^0.11.0
-  flutter_local_notifications: ^8.2.0
-#  flutter_facebook_login: ^3.0.0
-#  flutter_statusbarcolor_ns: ^0.4.0
+  flutter_local_notifications: ^9.0.3
   flutter_facebook_auth: ^3.5.6
 
 flutter_icons:
@@ -117,14 +122,14 @@ dev_dependencies:
   flutter_launcher_icons: ^0.9.1
 
   build_runner:
-  flutter_gen_runner:
-  stacked_generator: ^0.5.1
+  flutter_gen_runner: ^4.1.2
+  stacked_generator: ^0.5.6
 
   # data models
-  freezed: ^0.14.2
-  json_serializable: ^4.1.3
-  retrofit_generator: ^2.0.0
-  built_value_generator: ^8.1.1
+  freezed: ^0.15.0+1
+  json_serializable: ^6.0.1
+  retrofit_generator: ^2.2.0
+  built_value_generator: ^8.1.3
 
 
 # For information on the generic Dart part of this file, see the

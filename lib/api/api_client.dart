@@ -24,7 +24,7 @@ class Apis {
   static const String changePassword = '/auth/password';
   static const String resetPassword = '/auth/reset-password-mail';
   static const String updatePassword = '/auth/update-password';
-  static const String verifyAccount = '/auth/resendotp/{num}';
+  static const String verifyAccount = '/auth/resendotp/{type}';
   static const String confirmAccount = '/user/confirm';
   static const String verifyResetPassword = '/auth/verify-reset-otp';
   static const String facebookLogin = '/auth/login/facebook';
@@ -52,7 +52,7 @@ abstract class ApiClient {
   For login verification and reset password verification
    */
   @POST(Apis.verifyAccount)
-  Future<CommonResponse> verifyAccount(@Path("num") String type);
+  Future<CommonResponse> verifyAccount(@Path("type") String type);
 
   @PUT(Apis.confirmAccount)
   Future<CommonResponse> confirmAccount(@Body() ConfirmOTPBody confirmOTPBody);
