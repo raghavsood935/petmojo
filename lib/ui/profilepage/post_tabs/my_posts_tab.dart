@@ -15,7 +15,7 @@ class MyPostsTabView extends StatelessWidget {
       builder: (context, model, child) => Container(
         padding: EdgeInsets.all(10),
         child: StaggeredGridView.countBuilder(
-          physics: NeverScrollableScrollPhysics(),
+          physics: ScrollPhysics(),
           shrinkWrap: true,
           itemCount: model.dummyListOfPosts.length,
           crossAxisSpacing: 6,

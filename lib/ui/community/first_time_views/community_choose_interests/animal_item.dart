@@ -223,9 +223,12 @@ class _AnimalSubListTileState extends State<AnimalSubListTile> {
               width: 20,
               height: 20,
             ),
-            AppText.caption(
-              widget.animalSubTitle.name,
-              color: colors.black,
+            Expanded(
+              child: AppText.caption(
+                widget.animalSubTitle.name,
+                color: colors.black,
+                // isSingleLined: true,
+              ),
             ),
           ],
         ),

@@ -159,7 +159,6 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
     _isValid = true;
     formValueMap.keys.forEach((element) {
       String elementValue = formValueMap[element];
-      log.d("ElementValue $elementValue");
       if (elementValue.isEmpty) {
         _isValid = false;
         return;

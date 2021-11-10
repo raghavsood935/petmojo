@@ -94,10 +94,27 @@ String helpSubTitle = "We are here to help you 24/7";
 String communityTitle = "Join the Tamely community!";
 String communityDescription =
     "We are a family of animal lovers across the planet. Find, connect, meet, help and support other animal lovers.";
-String communityBannerImgPath = "assets/images/workflow_banner1.png";
 String tamelyGrp = "Tamely Groups";
 String tamelyGrpDescription =
     "Join or create a group with other animal lovers, Discover interests and loving community.";
+
+String blogTitle = "Blog";
+String blogDescription = "Learn how to care for your pet";
+
+//animal profile page
+String addMyGuardian = "Add my Guardians & Relations";
+String upForAdoption = "Up For Adoption";
+String upForMating = "Up For Mating";
+String upForPlayBuddies = "Up For Play-buddies";
+
+//animal profile preferences
+String friendlinessHumanRating = "Friendliness with Humans";
+String friendlinessAnimalRating = "Friendliness with Animals";
+
+String favourite = "Favourite things";
+String thingsDislike = "Things dislikes";
+String unique = "Unique habits/identification mark";
+String eating = "Eating habits";
 
 //empty inputs Strings
 String noBreedSelected = "Select one or more breed";

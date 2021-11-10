@@ -147,6 +147,7 @@ flutter:
     - assets/images/
     - assets/images/animal_type_images/
     - assets/images/animals/
+    - assets/images/community_page_images/
     - assets/lottie/
 
   fonts:

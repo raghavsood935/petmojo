@@ -3,6 +3,7 @@ import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
 import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/community_animal_interest.dart';
 
 class CommunityChooseInterestViewModel extends BaseModel {
   final _navigationService = locator<NavigationService>();
@@ -24,14 +25,14 @@ class CommunityChooseInterestViewModel extends BaseModel {
   }
 
   List<Animal> _listOfAnimals = [
-    Animal("Dogs", dogFullImgPath, ["SFGDFSG", "SAdfasdf", "ASDFasfdasd"]),
-    Animal("Cats", catFullImgPath, []),
-    Animal("Horse", horseFullImgPath, []),
-    Animal("Birds", birdFullImgPath, []),
-    Animal("Rabbit", rabbitFullImgPath, []),
-    Animal("Pig", pigFullImgPath, []),
-    Animal("Fish", fishFullImgPath, []),
-    Animal("Reptiles", reptilesFullImgPath, []),
+    Animal("Dogs", dogFullImgPath, dogInterests),
+    Animal("Cats", catFullImgPath, catInterests),
+    Animal("Horse", horseFullImgPath, horseInterests),
+    Animal("Birds", birdFullImgPath, birdsInterests),
+    Animal("Rabbit", rabbitFullImgPath, rabbitInterests),
+    Animal("Pig", pigFullImgPath, pigInterests),
+    Animal("Fish", fishFullImgPath, fishInterests),
+    Animal("Reptiles", reptilesFullImgPath, reptilesInterests),
   ];
 
   List<Animal> get listOfAnimals => _listOfAnimals;

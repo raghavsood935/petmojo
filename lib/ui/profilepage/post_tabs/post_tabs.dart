@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tamely/util/ui_helpers.dart';
 
 import 'mentions_post_tab.dart';
 import 'my_posts_tab.dart';
@@ -19,21 +20,22 @@ class PostTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: DefaultTabController(
-        length: 2,
-        child: Column(
-          children: [
-            Container(
-              child: TabBar(tabs: _tabsTitle),
+    return DefaultTabController(
+      length: 2,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Container(
+            child: TabBar(tabs: _tabsTitle),
+          ),
+          Container(
+            height: double.maxFinite,
+            // height: screenHeight(context),
+            child: TabBarView(
+              children: _tabs,
             ),
-            Container(
-              child: TabBarView(
-                children: _tabs,
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
 

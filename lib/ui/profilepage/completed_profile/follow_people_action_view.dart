@@ -70,7 +70,11 @@ Widget profileItem(BuildContext context, FollowProfileModel profileModel) {
               backgroundImage: NetworkImage(profileModel.profileImgUrl),
             ),
           ),
-          trailing: FollowBtn(initialState: profileModel.isFollowing),
+          trailing: FollowBtn(
+            initialState: profileModel.isFollowing,
+            trueValue: "Following",
+            falseValue: "Follow",
+          ),
         ),
         verticalSpaceSmall,
         Padding(

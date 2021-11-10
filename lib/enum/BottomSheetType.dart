@@ -1,1 +1,6 @@
-enum BottomSheetType { BasicBottomSheet }
+enum BottomSheetType {
+  BasicBottomSheet,
+  CommentsBottomSheet,
+  MoreOptionBottomSheet,
+  AddDetailsBottomSheet,
+}

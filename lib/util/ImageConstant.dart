@@ -21,6 +21,8 @@ String sendOutlineImgPath = "assets/images/send_outline.png";
 String bookmarkImgPath = "assets/images/bookmark_outline.png";
 String crossImgPath = "assets/images/cross.png";
 String groupOfPeoplesImgPath = "assets/images/group_of_peoples.png";
+String searchImgPath = "assets/images/Search.png";
+String addImgPath = "assets/images/Plus.png";
 
 // animal images
 String birdFullImgPath = "assets/images/animals/bird.png";
@@ -33,6 +35,19 @@ String rabbitFullImgPath = "assets/images/animals/rabbit.png";
 String reptilesFullImgPath = "assets/images/animals/reptiles.png";
 
 String petImgPath = "assets/images/animals/pet_img.png";
+
+//community images
+String communityBannerImgPath = "assets/images/workflow_banner1.png";
+String straysNearbyImgPath =
+    "assets/images/community_page_images/strays_nearby.png";
+String findPlayBuddiesImgPath =
+    "assets/images/community_page_images/buddies.png";
+String matingImgPath = "assets/images/community_page_images/mating.png";
+String lostAndFoundAnimalImgPath =
+    "assets/images/community_page_images/lost_and_found.png";
+String adoptionImgPath = "assets/images/community_page_images/adoption.png";
+String eventsImgPath = "assets/images/community_page_images/events.png";
+String blogImgPath = "assets/images/community_page_images/blogs.png";
 
 //animal type images
 String alpacaImgPath = "assets/images/animal_type_images/alpaca.png";

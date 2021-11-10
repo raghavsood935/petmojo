@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/ui/profilepage/post_tabs/mentions_post_tab.dart';
+import 'package:tamely/ui/profilepage/post_tabs/post_tabs.dart';
 import 'package:tamely/ui/profilepage/profile_viewmodel.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/edit_button.dart';
 
 class ProfileView extends StatelessWidget {
   final BuildContext menuScreenContext;
@@ -60,16 +62,7 @@ class ProfileView extends StatelessWidget {
                       top: 30,
                       right: 20,
                       child: GestureDetector(
-                        child: Row(children: [
-                          Icon(
-                            Icons.edit,
-                            color: colors.primary,
-                          ),
-                          AppText.body2(
-                            "Edit",
-                            color: colors.primary,
-                          ),
-                        ]),
+                        child: EditButton(),
                         onTap: model.goToProfileEditView,
                       ),
                     ),
@@ -288,11 +281,14 @@ class ProfileView extends StatelessWidget {
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
                             itemCount: model.dummyListOfMyAnimals.length,
-                            itemBuilder: (context, index) => roundedImageWidget(
-                              true,
-                              model.dummyListOfMyAnimals[index].name,
-                              bgImg: NetworkImage(
-                                  model.dummyListOfMyAnimals[index].url),
+                            itemBuilder: (context, index) => GestureDetector(
+                              child: roundedImageWidget(
+                                true,
+                                model.dummyListOfMyAnimals[index].name,
+                                bgImg: NetworkImage(
+                                    model.dummyListOfMyAnimals[index].url),
+                              ),
+                              onTap: model.goToAnimalProfileView,
                             ),
                             separatorBuilder:
                                 (BuildContext context, int index) =>
@@ -308,50 +304,7 @@ class ProfileView extends StatelessWidget {
               spacedDividerSmall,
               //my post section
 
-              MentionsPostTabView(),
-
-              // DefaultTabController(
-              //   length: 2,
-              //   child: Column(
-              //     children: [
-              //       TabBar(
-              //         tabs: [
-              //           Tab(
-              //             text: "My posts",
-              //           ),
-              //           Tab(
-              //             text: "Mentions",
-              //           ),
-              //         ],
-              //       ),
-              //       TabBarView(
-              //         children: [
-              //           MyPostsTabView(),
-              //           MentionsPostTabView(),
-              //         ],
-              //       ),
-              //     ],
-              //   ),
-              // )
-
-              // Flexible(
-              //   child: TabBar(tabs: [
-              //     Tab(
-              //       text: "My posts",
-              //     ),
-              //     Tab(
-              //       text: "Mentions",
-              //     ),
-              //   ]),
-              // ),
-              // Flexible(
-              //   child: TabBarView(
-              //     children: [MyPostsTabView(), MentionsPostTabView()],
-              //   ),
-              // )
-
-              // MyPostsTabView(),
-              //my posts grid view
+              PostTab(),
             ],
           ),
         ),

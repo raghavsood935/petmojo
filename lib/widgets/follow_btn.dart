@@ -4,8 +4,15 @@ import 'package:tamely/widgets/app_text.dart';
 
 class FollowBtn extends StatefulWidget {
   bool initialState = false;
+  String trueValue;
+  String falseValue;
 
-  FollowBtn({Key? key, required this.initialState}) : super(key: key);
+  FollowBtn(
+      {Key? key,
+      required this.initialState,
+      required this.trueValue,
+      required this.falseValue})
+      : super(key: key);
 
   @override
   _FollowBtnState createState() => _FollowBtnState();
@@ -16,7 +23,6 @@ class _FollowBtnState extends State<FollowBtn> {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
-          height: 30,
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
@@ -24,8 +30,8 @@ class _FollowBtnState extends State<FollowBtn> {
             color: widget.initialState ? Colors.white : colors.primary,
           ),
           child: widget.initialState
-              ? AppText.body("Following", color: colors.primary)
-              : AppText.body("Follow", color: Colors.white)),
+              ? AppText.caption(widget.trueValue, color: colors.primary)
+              : AppText.caption(widget.falseValue, color: Colors.white)),
       onTap: () {
         setState(() {
           widget.initialState = !widget.initialState;
