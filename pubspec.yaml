@@ -41,10 +41,10 @@ dependencies:
   stacked: ^2.2.5
   stacked_hooks: ^0.2.1
 
-  # navigation
+  # navigationr
   stacked_services: ^0.8.8
   stacked_themes:
-   path: /Users/harshmittal/Development/Tamely/stacked/packages/stacked_themes
+   path: stacked_themes
   shared_preferences: ^2.0.6
 
   # inversion of control
