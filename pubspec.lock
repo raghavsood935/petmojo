@@ -1162,8 +1162,8 @@ packages:
   stacked_themes:
     dependency: "direct main"
     description:
-      path: "/Users/harshmittal/Development/Tamely/stacked/packages/stacked_themes"
-      relative: false
+      path: stacked_themes
+      relative: true
     source: path
     version: "0.3.8"
   stream_channel:
