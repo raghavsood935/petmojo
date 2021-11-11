@@ -10,10 +10,13 @@ import 'package:tamely/ui/dashboard/dashboard.dart';
 import 'package:tamely/ui/for_you/for_you_search/for_you_tab_search_view.dart';
 import 'package:tamely/ui/forgotpassword/forgotpassword_view.dart';
 import 'package:tamely/ui/forgotpassword/new_password_view.dart';
+import 'package:tamely/ui/groups/groups_view.dart';
 import 'package:tamely/ui/login/login_view.dart';
 import 'package:tamely/ui/onboarding/onboarding_view.dart';
 import 'package:tamely/ui/otp/confirm_otp_view.dart';
 import 'package:tamely/ui/profile/profile_create_view.dart';
+import 'package:tamely/ui/profilepage/animal_profile/animal_profile_view.dart';
+import 'package:tamely/ui/profilepage/animal_profile/basic_info/basic_info_view.dart';
 import 'package:tamely/ui/profilepage/create_animal_profile/create_animal_page_viewe.dart';
 import 'package:tamely/ui/signup/signup_view.dart';
 import 'package:tamely/ui/startup/startup_view.dart';
@@ -33,6 +36,9 @@ import 'package:tamely/ui/startup/startup_view.dart';
     CupertinoRoute(page: ForYouTabSearchView),
     CupertinoRoute(page: CommunityChooseInterestView),
     CupertinoRoute(page: CommunityMainView),
+    CupertinoRoute(page: AnimalProfileView),
+    CupertinoRoute(page: AnimalBasicInfo),
+    CupertinoRoute(page: GroupsView),
     CupertinoRoute(page: CameraScreen),
   ],
   dependencies: [

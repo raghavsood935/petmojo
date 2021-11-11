@@ -2,12 +2,21 @@
 /// *****************************************************
 ///  FlutterGen
 /// *****************************************************
-import 'package:flutter/services.dart';
+
+// ignore_for_file: directives_ordering
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/services.dart';
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
+
+  /// File path: assets/images/Plus.png
+  AssetGenImage get plus => const AssetGenImage('assets/images/Plus.png');
+
+  /// File path: assets/images/Search.png
+  AssetGenImage get search => const AssetGenImage('assets/images/Search.png');
 
   /// File path: assets/images/animalFoot.png
   AssetGenImage get animalFoot =>
@@ -35,6 +44,9 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/community.svg
   SvgGenImage get community => const SvgGenImage('assets/images/community.svg');
+
+  $AssetsImagesCommunityPageImagesGen get communityPageImages =>
+      const $AssetsImagesCommunityPageImagesGen();
 
   /// File path: assets/images/cross.png
   AssetGenImage get cross => const AssetGenImage('assets/images/cross.png');
@@ -307,6 +319,38 @@ class $AssetsImagesAnimalsGen {
   /// File path: assets/images/animals/reptiles.png
   AssetGenImage get reptiles =>
       const AssetGenImage('assets/images/animals/reptiles.png');
+}
+
+class $AssetsImagesCommunityPageImagesGen {
+  const $AssetsImagesCommunityPageImagesGen();
+
+  /// File path: assets/images/community_page_images/adoption.png
+  AssetGenImage get adoption =>
+      const AssetGenImage('assets/images/community_page_images/adoption.png');
+
+  /// File path: assets/images/community_page_images/blogs.png
+  AssetGenImage get blogs =>
+      const AssetGenImage('assets/images/community_page_images/blogs.png');
+
+  /// File path: assets/images/community_page_images/buddies.png
+  AssetGenImage get buddies =>
+      const AssetGenImage('assets/images/community_page_images/buddies.png');
+
+  /// File path: assets/images/community_page_images/events.png
+  AssetGenImage get events =>
+      const AssetGenImage('assets/images/community_page_images/events.png');
+
+  /// File path: assets/images/community_page_images/lost_and_found.png
+  AssetGenImage get lostAndFound => const AssetGenImage(
+      'assets/images/community_page_images/lost_and_found.png');
+
+  /// File path: assets/images/community_page_images/mating.png
+  AssetGenImage get mating =>
+      const AssetGenImage('assets/images/community_page_images/mating.png');
+
+  /// File path: assets/images/community_page_images/strays_nearby.png
+  AssetGenImage get straysNearby => const AssetGenImage(
+      'assets/images/community_page_images/strays_nearby.png');
 }
 
 class Assets {

@@ -10,6 +10,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
 
 import '../models/application_models.dart';
 import '../ui/camera/camera_screen.dart';
@@ -19,10 +20,13 @@ import '../ui/dashboard/dashboard.dart';
 import '../ui/for_you/for_you_search/for_you_tab_search_view.dart';
 import '../ui/forgotpassword/forgotpassword_view.dart';
 import '../ui/forgotpassword/new_password_view.dart';
+import '../ui/groups/groups_view.dart';
 import '../ui/login/login_view.dart';
 import '../ui/onboarding/onboarding_view.dart';
 import '../ui/otp/confirm_otp_view.dart';
 import '../ui/profile/profile_create_view.dart';
+import '../ui/profilepage/animal_profile/animal_profile_view.dart';
+import '../ui/profilepage/animal_profile/basic_info/basic_info_view.dart';
 import '../ui/profilepage/create_animal_profile/create_animal_page_viewe.dart';
 import '../ui/signup/signup_view.dart';
 import '../ui/startup/startup_view.dart';
@@ -42,6 +46,9 @@ class Routes {
   static const String communityChooseInterestView =
       '/community-choose-interest-view';
   static const String communityMainView = '/community-main-view';
+  static const String animalProfileView = '/animal-profile-view';
+  static const String animalBasicInfo = '/animal-basic-info';
+  static const String groupsView = '/groups-view';
   static const String cameraScreen = '/camera-screen';
   static const all = <String>{
     startupView,
@@ -57,6 +64,9 @@ class Routes {
     forYouTabSearchView,
     communityChooseInterestView,
     communityMainView,
+    animalProfileView,
+    animalBasicInfo,
+    groupsView,
     cameraScreen,
   };
 }
@@ -79,6 +89,9 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.communityChooseInterestView,
         page: CommunityChooseInterestView),
     RouteDef(Routes.communityMainView, page: CommunityMainView),
+    RouteDef(Routes.animalProfileView, page: AnimalProfileView),
+    RouteDef(Routes.animalBasicInfo, page: AnimalBasicInfo),
+    RouteDef(Routes.groupsView, page: GroupsView),
     RouteDef(Routes.cameraScreen, page: CameraScreen),
   ];
   @override
@@ -190,6 +203,27 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    AnimalProfileView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const AnimalProfileView(),
+        settings: data,
+      );
+    },
+    AnimalBasicInfo: (data) {
+      var args = data.getArgs<AnimalBasicInfoArguments>(
+        orElse: () => AnimalBasicInfoArguments(),
+      );
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => AnimalBasicInfo(key: args.key),
+        settings: data,
+      );
+    },
+    GroupsView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const GroupsView(),
+        settings: data,
+      );
+    },
     CameraScreen: (data) {
       var args = data.getArgs<CameraScreenArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
@@ -258,6 +292,12 @@ class ProfileCreateViewArguments {
 class CreateAnimalPageViewArguments {
   final Key? key;
   CreateAnimalPageViewArguments({this.key});
+}
+
+/// AnimalBasicInfo arguments holder class
+class AnimalBasicInfoArguments {
+  final Key? key;
+  AnimalBasicInfoArguments({this.key});
 }
 
 /// CameraScreen arguments holder class

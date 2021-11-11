@@ -2,8 +2,11 @@
 /// *****************************************************
 ///  FlutterGen
 /// *****************************************************
-import 'package:flutter/material.dart';
+
+// ignore_for_file: directives_ordering
+
 import 'package:flutter/painting.dart';
+import 'package:flutter/material.dart';
 
 class ColorName {
   ColorName._();

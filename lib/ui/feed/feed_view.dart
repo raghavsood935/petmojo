@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/models/feed_post_model.dart';
-import 'package:tamely/ui/feed/comment/feed_post_comment_view.dart';
 import 'package:tamely/ui/feed/feed_view_model.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ImageConstant.dart';
@@ -101,11 +100,8 @@ class FeedView extends StatelessWidget {
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               itemCount: model.dummyListOfFeedPost.length,
-              itemBuilder: (context, index) => feedItem(
-                context,
-                model.dummyListOfFeedPost[index],
-                model.myProfileImg,
-              ),
+              itemBuilder: (context, index) => postItem(context,
+                  model.dummyListOfFeedPost[index], model.myProfileImg, model),
               separatorBuilder: (BuildContext context, int index) => Divider(
                 indent: 0,
                 thickness: 5,
@@ -192,8 +188,8 @@ Widget rowItem(bool isCreateOne, String name, String url) {
   );
 }
 
-Widget feedItem(
-    BuildContext context, FeedPostModel model, String myProfileImgUrl) {
+Widget postItem(BuildContext context, FeedPostModel model,
+    String myProfileImgUrl, FeedViewModel viewModel) {
   return Padding(
     padding: const EdgeInsets.only(
       left: 20.0,
@@ -281,19 +277,7 @@ Widget feedItem(
             ],
           ),
           trailing: IconButton(
-            onPressed: () => showModalBottomSheet(
-              enableDrag: true,
-              isScrollControlled: true,
-              useRootNavigator: true,
-              backgroundColor: Colors.transparent,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(20),
-                ),
-              ),
-              context: context,
-              builder: (context) => buildSheet(isMore: true),
-            ),
+            onPressed: () => viewModel.showMoreOptions(),
             icon: Icon(Icons.more_horiz),
           ),
         ),
@@ -312,20 +296,7 @@ Widget feedItem(
               color: colors.kcCaptionGreyColor,
             ),
           ),
-          onTap: () => showModalBottomSheet(
-            // enableDrag: false,
-            isScrollControlled: true,
-            useRootNavigator: true,
-            backgroundColor: Colors.transparent,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(20),
-              ),
-            ),
-            context: context,
-            builder: (context) =>
-                buildSheet(profileImgUrl: myProfileImgUrl, isComment: true),
-          ),
+          onTap: () => viewModel.showComments(),
         )
       ],
     ),
@@ -340,50 +311,6 @@ Widget roundedImage(BuildContext context, String url) {
       fit: BoxFit.cover,
     ),
   );
-}
-
-Widget buildSheet(
-    {bool isMore = false, bool isComment = false, String profileImgUrl = ""}) {
-  return DraggableScrollableSheet(
-      initialChildSize: isComment ? 0.90 : 0.50,
-      maxChildSize: 0.90,
-      // expand: true,
-      builder: (context, controller) {
-        if (isComment) {
-          return FeedPostCommentView(
-            myUserProfileImgUrl: profileImgUrl,
-          );
-        } else if (isMore) {
-          return Container(
-            padding: EdgeInsets.all(20.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(20),
-              ),
-              color: colors.white,
-            ),
-            child: ListView(
-              shrinkWrap: true,
-              children: [
-                ListTile(
-                  title: AppText.body2("Share post to"),
-                ),
-                ListTile(
-                  title: AppText.body2("Hide this post"),
-                ),
-                ListTile(
-                  title: AppText.body2("Unfollow"),
-                ),
-                ListTile(
-                  title: AppText.body2("Report abuse"),
-                ),
-              ],
-            ),
-          );
-        } else {
-          return SizedBox();
-        }
-      });
 }
 
 Widget imageButton(bool isNetworkImg, void onTap,

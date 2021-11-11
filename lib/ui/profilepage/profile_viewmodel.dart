@@ -13,6 +13,7 @@ class ProfileViewModel extends BaseViewModel {
   final log = getLogger('CreateAnimalProfileView');
   final _navigationService = locator<NavigationService>();
   String? _animalProfileCreateView = Routes.createAnimalPageView;
+  String? _animalProfileView = Routes.animalProfileView;
   dynamic _destinationArguments;
 
   List<Widget> _tabs = [MyPostsTabView(), MentionsPostTabView()];
@@ -29,6 +30,15 @@ class ProfileViewModel extends BaseViewModel {
     if (_animalProfileCreateView != null) {
       await _navigationService.navigateTo(
         _animalProfileCreateView!,
+        arguments: _destinationArguments,
+      );
+    }
+  }
+
+  Future _animalProfileViewGoTo() async {
+    if (_animalProfileView != null) {
+      await _navigationService.navigateTo(
+        _animalProfileView!,
         arguments: _destinationArguments,
       );
     }
@@ -121,6 +131,10 @@ class ProfileViewModel extends BaseViewModel {
 
   void goToCreateAnimalProfileView() async {
     await _createAnimalProfileView();
+  }
+
+  void goToAnimalProfileView() async {
+    await _animalProfileViewGoTo();
   }
 
   void goToProfileEditView() {}
