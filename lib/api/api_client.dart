@@ -15,7 +15,7 @@ part 'api_client.g.dart';
 ///APIs class is for api tags
 class Apis {
   static const MAX_SIZE = 10;
-  static const TIMEOUT = 6000;
+  static const TIMEOUT = 12000;
 
   static const String login = '/auth/login';
   static const String register = '/auth/register';
