@@ -1,18 +1,24 @@
+import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/app/app.router.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
 
 class MyGroupsTabViewModel extends BaseModel {
+  final _navigationService = locator<NavigationService>();
+
   List _listOfManagingGroups = [];
   List _listOfJoinedGroups = [GroupsModel()];
   List _listOfAlsoLikedGroups = [];
 
   List get listOfManagingGroups => _listOfManagingGroups;
 
-
   List get listOfAlsoLikedGroups => _listOfAlsoLikedGroups;
 
   List get listOfJoinedGroups => _listOfJoinedGroups;
 
-  Future createGroup() async {}
+  Future createGroup() async {
+    _navigationService.navigateTo(Routes.createGroupView);
+  }
 
   dummyInitial() {
     for (int i = 0; i < 10; i++) {

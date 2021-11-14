@@ -10,6 +10,8 @@ import 'package:tamely/ui/dashboard/dashboard.dart';
 import 'package:tamely/ui/for_you/for_you_search/for_you_tab_search_view.dart';
 import 'package:tamely/ui/forgotpassword/forgotpassword_view.dart';
 import 'package:tamely/ui/forgotpassword/new_password_view.dart';
+import 'package:tamely/ui/groups/create_group/create_group_view.dart';
+import 'package:tamely/ui/groups/group_info/group_info_view.dart';
 import 'package:tamely/ui/groups/groups_view.dart';
 import 'package:tamely/ui/login/login_view.dart';
 import 'package:tamely/ui/onboarding/onboarding_view.dart';
@@ -40,6 +42,8 @@ import 'package:tamely/ui/startup/startup_view.dart';
     CupertinoRoute(page: AnimalBasicInfo),
     CupertinoRoute(page: GroupsView),
     CupertinoRoute(page: CameraScreen),
+    CupertinoRoute(page: CreateGroupView),
+    CupertinoRoute(page: GroupInfoView),
   ],
   dependencies: [
     LazySingleton(classType: NavigationService),

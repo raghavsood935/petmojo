@@ -74,6 +74,16 @@ class AnimalProfileView extends StatelessWidget {
                           onTap: () {},
                         ),
                       ),
+
+                      Positioned(
+                          top: 30,
+                          left: 20,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.arrow_back_outlined,
+                            ),
+                            onPressed: model.goBack,
+                          )),
                       // for main contents at center
                       Positioned(
                           child: Column(

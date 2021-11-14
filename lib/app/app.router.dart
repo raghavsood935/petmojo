@@ -20,6 +20,8 @@ import '../ui/dashboard/dashboard.dart';
 import '../ui/for_you/for_you_search/for_you_tab_search_view.dart';
 import '../ui/forgotpassword/forgotpassword_view.dart';
 import '../ui/forgotpassword/new_password_view.dart';
+import '../ui/groups/create_group/create_group_view.dart';
+import '../ui/groups/group_info/group_info_view.dart';
 import '../ui/groups/groups_view.dart';
 import '../ui/login/login_view.dart';
 import '../ui/onboarding/onboarding_view.dart';
@@ -50,6 +52,8 @@ class Routes {
   static const String animalBasicInfo = '/animal-basic-info';
   static const String groupsView = '/groups-view';
   static const String cameraScreen = '/camera-screen';
+  static const String createGroupView = '/create-group-view';
+  static const String groupInfoView = '/group-info-view';
   static const all = <String>{
     startupView,
     onBoardingView,
@@ -68,6 +72,8 @@ class Routes {
     animalBasicInfo,
     groupsView,
     cameraScreen,
+    createGroupView,
+    groupInfoView,
   };
 }
 
@@ -93,6 +99,8 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.animalBasicInfo, page: AnimalBasicInfo),
     RouteDef(Routes.groupsView, page: GroupsView),
     RouteDef(Routes.cameraScreen, page: CameraScreen),
+    RouteDef(Routes.createGroupView, page: CreateGroupView),
+    RouteDef(Routes.groupInfoView, page: GroupInfoView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -228,6 +236,18 @@ class StackedRouter extends RouterBase {
       var args = data.getArgs<CameraScreenArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
         builder: (context) => CameraScreen(args.cameras),
+        settings: data,
+      );
+    },
+    CreateGroupView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const CreateGroupView(),
+        settings: data,
+      );
+    },
+    GroupInfoView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const GroupInfoView(),
         settings: data,
       );
     },
