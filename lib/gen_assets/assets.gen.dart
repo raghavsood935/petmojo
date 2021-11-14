@@ -2,12 +2,9 @@
 /// *****************************************************
 ///  FlutterGen
 /// *****************************************************
-
-// ignore_for_file: directives_ordering
-
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter/services.dart';
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
@@ -103,9 +100,18 @@ class $AssetsImagesGen {
   SvgGenImage get icGallery =>
       const SvgGenImage('assets/images/ic_gallery.svg');
 
+  /// File path: assets/images/ic_multi.svg
+  SvgGenImage get icMulti => const SvgGenImage('assets/images/ic_multi.svg');
+
+  /// File path: assets/images/ic_play.svg
+  SvgGenImage get icPlay => const SvgGenImage('assets/images/ic_play.svg');
+
   /// File path: assets/images/ic_rotate_camera.svg
   SvgGenImage get icRotateCamera =>
       const SvgGenImage('assets/images/ic_rotate_camera.svg');
+
+  /// File path: assets/images/ic_send_v3.svg
+  SvgGenImage get icSendV3 => const SvgGenImage('assets/images/ic_send_v3.svg');
 
   /// File path: assets/images/ic_setting.svg
   SvgGenImage get icSetting =>
@@ -113,6 +119,14 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/image.svg
   SvgGenImage get image => const SvgGenImage('assets/images/image.svg');
+
+  /// File path: assets/images/images_sample.jpg
+  AssetGenImage get imagesSample =>
+      const AssetGenImage('assets/images/images_sample.jpg');
+
+  /// File path: assets/images/images_sample_2.jpg
+  AssetGenImage get imagesSample2 =>
+      const AssetGenImage('assets/images/images_sample_2.jpg');
 
   /// File path: assets/images/light_splash_screen.png
   AssetGenImage get lightSplashScreen =>
