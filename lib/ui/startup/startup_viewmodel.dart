@@ -47,7 +47,7 @@ class StartUpViewModel extends FutureViewModel<void> implements Initialisable {
     //     isEmailVerify: true,
     //     verificationData: _userService.currentUser.email ?? "");
 
-    _destinationRoute = Routes.dashboard;
+    // _destinationRoute = Routes.dashboard;
 
     log.d("Current State : $_destinationRoute");
   }
