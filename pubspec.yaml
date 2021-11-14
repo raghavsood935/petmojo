@@ -37,6 +37,9 @@ dependencies:
   #  Auto complete text
   flutter_typeahead: ^3.2.1
 
+  #  dotted outline border
+  dotted_border: ^2.0.0+1
+
   # state management
   stacked: ^2.2.5
   stacked_hooks: ^0.2.1

@@ -64,4 +64,8 @@ class AnimalProfileViewModel extends BaseModel {
   void goToAnimalBasicInfo() async {
     await _animalBasicInfo();
   }
+
+  void goBack() async {
+    _navigationService.back();
+  }
 }

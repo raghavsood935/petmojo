@@ -19,49 +19,130 @@ class _MyGroupsTabViewState extends State<MyGroupsTabView> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<MyGroupsTabViewModel>.reactive(
       viewModelBuilder: () => MyGroupsTabViewModel(),
-      onModelReady : (model) => model.dummyInitial(),
-      builder: (context, model, child) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AppText.body("Groups you manage"),
-          verticalSpaceTiny,
-          model.listOfManagingGroups.isEmpty
-              ? newThingWidget("Find the groups you are the admin of",
-                  "Create group", model.createGroup())
-              : ListView.separated(
-                  shrinkWrap: true,
-                  itemCount: model.listOfManagingGroups.length,
-                  itemBuilder: (context, index) =>
-                      groupsListTile(model.listOfManagingGroups[index]),
-                  separatorBuilder: (BuildContext context, int index) =>
-                      spacedDividerTiny,
-                ),
-          spacedDividerBigTiny,
-          AppText.body("Groups you have joined"),
-          verticalSpaceTiny,
-          model.listOfJoinedGroups.isEmpty
-              ? newThingWidget("see the list of groups you have joined",
-                  "Discover groups", model.searchGroups())
-              : ListView.separated(
-                  shrinkWrap: true,
-                  itemCount: model.listOfJoinedGroups.length,
-                  itemBuilder: (context, index) =>
-                      groupsListTile(model.listOfJoinedGroups[index]),
-                  separatorBuilder: (context, index) => spacedDividerTiny,
-                ),
-          spacedDividerBigTiny,
-          AppText.body("You might also like"),
-          ListView.separated(
-            shrinkWrap: true,
-            itemBuilder: (context, index) =>
-                groupsListTile(model.listOfAlsoLikedGroups[index]),
-            separatorBuilder: (context, index) => spacedDividerTiny,
-            itemCount: model.listOfAlsoLikedGroups.length,
-          ),
-        ],
+      onModelReady: (model) => model.dummyInitial(),
+      builder: (context, model, child) => SingleChildScrollView(
+        physics: ScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 20, top: 15),
+              child: AppText.body2("Groups you manage"),
+            ),
+            verticalSpaceTiny,
+            model.listOfManagingGroups.isEmpty
+                ? Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppText.body1("Find the groups you are the admin of"),
+                        GestureDetector(
+                          child: Container(
+                            margin: EdgeInsets.symmetric(vertical: 15),
+                            padding: EdgeInsets.symmetric(
+                              vertical: 5,
+                              horizontal: 20,
+                            ),
+                            decoration: BoxDecoration(
+                              color: colors.primary,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: AppText.body1(
+                              "Create group",
+                              color: colors.white,
+                            ),
+                          ),
+                          onTap: () => model.createGroup(),
+                        )
+                      ],
+                    ),
+                  )
+                : ListView.separated(
+                    shrinkWrap: true,
+                    itemCount: model.listOfManagingGroups.length,
+                    itemBuilder: (context, index) =>
+                        groupsListTile(model.listOfManagingGroups[index]),
+                    separatorBuilder: (BuildContext context, int index) =>
+                        spacedDividerTiny,
+                  ),
+            spacedDividerBigTiny,
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: AppText.body2("Groups you have joined"),
+            ),
+            verticalSpaceTiny,
+            model.listOfJoinedGroups.isEmpty
+                ? Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppText.body1("See the list of groups you have joined"),
+                        GestureDetector(
+                          child: Container(
+                            margin: EdgeInsets.symmetric(vertical: 15),
+                            padding: EdgeInsets.symmetric(
+                              vertical: 5,
+                              horizontal: 20,
+                            ),
+                            decoration: BoxDecoration(
+                              color: colors.primary,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: AppText.body1(
+                              "Discover groups",
+                              color: colors.white,
+                            ),
+                          ),
+                          onTap: () => model.searchGroups(),
+                        )
+                      ],
+                    ),
+                  )
+                : ListView.separated(
+                    shrinkWrap: true,
+                    itemCount: model.listOfJoinedGroups.length,
+                    itemBuilder: (context, index) =>
+                        groupsListTile(model.listOfJoinedGroups[index]),
+                    separatorBuilder: (context, index) => spacedDividerTiny,
+                  ),
+            spacedDividerBigTiny,
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: AppText.body2("You might also like"),
+            ),
+            ListView.separated(
+              shrinkWrap: true,
+              physics: ScrollPhysics(),
+              itemBuilder: (context, index) =>
+                  alsoLikedGroupsListTile(model.listOfAlsoLikedGroups[index]),
+              separatorBuilder: (context, index) => spacedDividerTiny,
+              itemCount: model.listOfAlsoLikedGroups.length,
+            ),
+          ],
+        ),
       ),
     );
   }
+}
+
+Widget alsoLikedGroupsListTile(GroupsModel model) {
+  return ListTile(
+    title: AppText.body1(model.groupName),
+    subtitle: AppText.caption("${model.membersCount} members"),
+    leading: ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: Image.network(
+        model.groupProfileImgUrl,
+        height: 45,
+        width: 45,
+        fit: BoxFit.cover,
+      ),
+    ),
+    trailing:
+        FollowBtn(initialState: false, trueValue: "Joined", falseValue: "Join"),
+  );
 }
 
 Widget groupsListTile(GroupsModel model) {
@@ -74,52 +155,8 @@ Widget groupsListTile(GroupsModel model) {
         model.groupProfileImgUrl,
         height: 45,
         width: 45,
+        fit: BoxFit.cover,
       ),
-    ),
-    trailing:
-        FollowBtn(initialState: false, trueValue: "Joined", falseValue: "Join"),
-  );
-}
-
-Widget alsoLikeGroupsListTile(GroupsModel model) {
-  return ListTile(
-    title: AppText.body1(model.groupName),
-    subtitle: AppText.caption("${model.membersCount} members"),
-    leading: ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: Image.network(
-        model.groupProfileImgUrl,
-        height: 45,
-        width: 45,
-      ),
-    ),
-  );
-}
-
-Widget newThingWidget(String description, String buttonText, Future onTap) {
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Column(
-      children: [
-        AppText.caption(description),
-        verticalSpaceTiny,
-        GestureDetector(
-          child: Container(
-            padding: EdgeInsets.symmetric(
-              vertical: 5,
-              horizontal: 10,
-            ),
-            decoration: BoxDecoration(
-              color: colors.primary,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: AppText.caption(
-              buttonText,
-              color: colors.white,
-            ),
-          ),
-        )
-      ],
     ),
   );
 }
