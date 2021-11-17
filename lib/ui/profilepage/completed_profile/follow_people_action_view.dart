@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/models/follow_profile_model.dart';
-import 'package:kubelite/ui/profilepage/completed_profile/follow_people_action_viewmodel.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/String.dart';
-import 'package:kubelite/util/ui_helpers.dart';
-import 'package:kubelite/widgets/app_text.dart';
-import 'package:kubelite/widgets/follow_btn.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/models/follow_profile_model.dart';
+import 'package:tamely/ui/profilepage/completed_profile/follow_people_action_viewmodel.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/follow_btn.dart';
 
 class FollowPeopleProfileActionView extends StatelessWidget {
   const FollowPeopleProfileActionView({Key? key}) : super(key: key);
@@ -71,7 +70,11 @@ Widget profileItem(BuildContext context, FollowProfileModel profileModel) {
               backgroundImage: NetworkImage(profileModel.profileImgUrl),
             ),
           ),
-          trailing: FollowBtn(initialState: profileModel.isFollowing),
+          trailing: FollowBtn(
+            initialState: profileModel.isFollowing,
+            trueValue: "Following",
+            falseValue: "Follow",
+          ),
         ),
         verticalSpaceSmall,
         Padding(

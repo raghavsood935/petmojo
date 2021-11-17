@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/util/Color.dart';
+import 'package:tamely/util/Color.dart';
 
 class CustomCircularAvatar extends StatelessWidget {
   CustomCircularAvatar({
@@ -8,8 +8,8 @@ class CustomCircularAvatar extends StatelessWidget {
     required this.imgPath,
   }) : super(key: key);
 
-  double radius;
-  String imgPath;
+  final double radius;
+  final String imgPath;
 
   @override
   Widget build(BuildContext context) {

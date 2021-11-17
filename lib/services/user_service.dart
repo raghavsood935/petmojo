@@ -1,20 +1,20 @@
 import 'package:flutter/services.dart';
-import 'package:kubelite/api/api_service.dart';
-import 'package:kubelite/api/base_response.dart';
-import 'package:kubelite/api/server_error.dart';
-import 'package:kubelite/app/app.locator.dart';
-import 'package:kubelite/app/app.logger.dart';
-import 'package:kubelite/models/application_models.dart';
-import 'package:kubelite/models/common_response.dart';
-import 'package:kubelite/models/params/login_body.dart';
-import 'package:kubelite/models/params/profile_create_body.dart';
-import 'package:kubelite/models/params/register_body.dart';
-import 'package:kubelite/models/params/reset_password_body.dart';
-import 'package:kubelite/models/params/social_login_body.dart';
-import 'package:kubelite/models/user_response_models.dart';
-import 'package:kubelite/services/shared_preferences_service.dart';
-import 'package:kubelite/util/string_extension.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/api/api_service.dart';
+import 'package:tamely/api/base_response.dart';
+import 'package:tamely/api/server_error.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/app/app.logger.dart';
+import 'package:tamely/models/application_models.dart';
+import 'package:tamely/models/common_response.dart';
+import 'package:tamely/models/params/login_body.dart';
+import 'package:tamely/models/params/profile_create_body.dart';
+import 'package:tamely/models/params/register_body.dart';
+import 'package:tamely/models/params/reset_password_body.dart';
+import 'package:tamely/models/params/social_login_body.dart';
+import 'package:tamely/models/user_response_models.dart';
+import 'package:tamely/services/shared_preferences_service.dart';
+import 'package:tamely/util/string_extension.dart';
 
 class UserService {
   final log = getLogger('UserService');
@@ -38,7 +38,7 @@ class UserService {
     }
   }
 
-  bool get hasLoggedInUser => _sharedPreferenceService.authToken.isValid();
+  bool get hasLoggedInUser => currentUser.username.isValid();
 
   Future<BaseResponse<UserResponse>> updateProfile(
       ProfileCreateBody body) async {

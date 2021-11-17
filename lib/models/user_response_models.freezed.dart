@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'user_response_models.dart';
 
@@ -29,7 +30,7 @@ class _$UserResponseTearOff {
     );
   }
 
-  UserResponse fromJson(Map<String, Object> json) {
+  UserResponse fromJson(Map<String, Object?> json) {
     return UserResponse.fromJson(json);
   }
 }
@@ -151,7 +152,7 @@ class _$_UserResponse extends _UserResponse {
       : super._();
 
   factory _$_UserResponse.fromJson(Map<String, dynamic> json) =>
-      _$_$_UserResponseFromJson(json);
+      _$$_UserResponseFromJson(json);
 
   @override
   @JsonKey(name: "user")
@@ -168,19 +169,15 @@ class _$_UserResponse extends _UserResponse {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _UserResponse &&
+        (other.runtimeType == runtimeType &&
+            other is _UserResponse &&
             (identical(other.localUser, localUser) ||
-                const DeepCollectionEquality()
-                    .equals(other.localUser, localUser)) &&
-            (identical(other.token, token) ||
-                const DeepCollectionEquality().equals(other.token, token)));
+                other.localUser == localUser) &&
+            (identical(other.token, token) || other.token == token));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(localUser) ^
-      const DeepCollectionEquality().hash(token);
+  int get hashCode => Object.hash(runtimeType, localUser, token);
 
   @JsonKey(ignore: true)
   @override
@@ -189,7 +186,7 @@ class _$_UserResponse extends _UserResponse {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_UserResponseToJson(this);
+    return _$$_UserResponseToJson(this);
   }
 }
 
@@ -204,10 +201,10 @@ abstract class _UserResponse extends UserResponse {
 
   @override
   @JsonKey(name: "user")
-  LocalUser? get localUser => throw _privateConstructorUsedError;
+  LocalUser? get localUser;
   @override
   @JsonKey(name: "token")
-  String? get token => throw _privateConstructorUsedError;
+  String? get token;
   @override
   @JsonKey(ignore: true)
   _$UserResponseCopyWith<_UserResponse> get copyWith =>
@@ -230,7 +227,7 @@ class _$UserNameAvailableResponseTearOff {
     );
   }
 
-  UserNameAvailableResponse fromJson(Map<String, Object> json) {
+  UserNameAvailableResponse fromJson(Map<String, Object?> json) {
     return UserNameAvailableResponse.fromJson(json);
   }
 }
@@ -322,7 +319,7 @@ class _$_UserNameAvailableResponse extends _UserNameAvailableResponse {
       : super._();
 
   factory _$_UserNameAvailableResponse.fromJson(Map<String, dynamic> json) =>
-      _$_$_UserNameAvailableResponseFromJson(json);
+      _$$_UserNameAvailableResponseFromJson(json);
 
   @override
   @JsonKey(name: "isAvailable")
@@ -336,15 +333,14 @@ class _$_UserNameAvailableResponse extends _UserNameAvailableResponse {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _UserNameAvailableResponse &&
+        (other.runtimeType == runtimeType &&
+            other is _UserNameAvailableResponse &&
             (identical(other.isAvailable, isAvailable) ||
-                const DeepCollectionEquality()
-                    .equals(other.isAvailable, isAvailable)));
+                other.isAvailable == isAvailable));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(isAvailable);
+  int get hashCode => Object.hash(runtimeType, isAvailable);
 
   @JsonKey(ignore: true)
   @override
@@ -355,7 +351,7 @@ class _$_UserNameAvailableResponse extends _UserNameAvailableResponse {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_UserNameAvailableResponseToJson(this);
+    return _$$_UserNameAvailableResponseToJson(this);
   }
 }
 
@@ -370,7 +366,7 @@ abstract class _UserNameAvailableResponse extends UserNameAvailableResponse {
 
   @override
   @JsonKey(name: "isAvailable")
-  bool get isAvailable => throw _privateConstructorUsedError;
+  bool get isAvailable;
   @override
   @JsonKey(ignore: true)
   _$UserNameAvailableResponseCopyWith<_UserNameAvailableResponse>

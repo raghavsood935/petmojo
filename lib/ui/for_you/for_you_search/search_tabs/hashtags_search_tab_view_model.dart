@@ -1,5 +1,5 @@
-import 'package:kubelite/models/hashtag_model.dart';
-import 'package:kubelite/shared/base_viewmodel.dart';
+import 'package:tamely/models/hashtag_model.dart';
+import 'package:tamely/shared/base_viewmodel.dart';
 
 class HashtagsSearchTabViewModel extends BaseModel {
   List<HashTagModel> _listOfHashTag = [

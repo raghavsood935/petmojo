@@ -4,21 +4,21 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kubelite/api/api_service.dart';
-import 'package:kubelite/api/base_response.dart';
-import 'package:kubelite/api/server_error.dart';
-import 'package:kubelite/app/app.locator.dart';
-import 'package:kubelite/app/app.logger.dart';
-import 'package:kubelite/app/app.router.dart';
-import 'package:kubelite/enum/redirect_state.dart';
-import 'package:kubelite/models/application_models.dart';
-import 'package:kubelite/models/common_response.dart';
-import 'package:kubelite/models/params/profile_create_body.dart';
-import 'package:kubelite/models/user_response_models.dart';
-import 'package:kubelite/services/shared_preferences_service.dart';
-import 'package:kubelite/ui/base/authentication_viewmodel.dart';
-import 'package:kubelite/util/utils.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/api/api_service.dart';
+import 'package:tamely/api/base_response.dart';
+import 'package:tamely/api/server_error.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/app/app.logger.dart';
+import 'package:tamely/app/app.router.dart';
+import 'package:tamely/enum/redirect_state.dart';
+import 'package:tamely/models/application_models.dart';
+import 'package:tamely/models/common_response.dart';
+import 'package:tamely/models/params/profile_create_body.dart';
+import 'package:tamely/models/user_response_models.dart';
+import 'package:tamely/services/shared_preferences_service.dart';
+import 'package:tamely/ui/base/authentication_viewmodel.dart';
+import 'package:tamely/util/utils.dart';
 
 import 'profile_create_view.form.dart';
 
@@ -79,7 +79,7 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
     }
     if (await Util.checkInternetConnectivity()) {
       BaseResponse<CommonResponse> response =
-          await _tamelyApi.uploadImage(File(_imageFile!.path));
+          await runBusyFuture(_tamelyApi.uploadImage(File(_imageFile!.path)));
       if (response.getException != null) {
         ServerError error = response.getException as ServerError;
         _snackBarService.showSnackbar(message: error.getErrorMessage());
@@ -159,7 +159,6 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
     _isValid = true;
     formValueMap.keys.forEach((element) {
       String elementValue = formValueMap[element];
-      log.d("ElementValue $elementValue");
       if (elementValue.isEmpty) {
         _isValid = false;
         return;

@@ -1,5 +1,5 @@
-import 'package:kubelite/models/profile_account_model.dart';
-import 'package:kubelite/shared/base_viewmodel.dart';
+import 'package:tamely/models/profile_account_model.dart';
+import 'package:tamely/shared/base_viewmodel.dart';
 
 class AccountSearchTabViewModel extends BaseModel {
   List<AccountProfileModel> _listOfAccounts = [

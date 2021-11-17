@@ -1,4 +1,10 @@
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class Util {
   bool isOpen = false;
@@ -34,5 +40,42 @@ class Util {
       return false;
     }
     return true;
+  }
+
+  static Widget getImageChild(String imagePath, double? width, double? height) {
+    Widget imageWidget = Container();
+
+    if (imagePath.startsWith("http")) {
+      imageWidget = CachedNetworkImage(
+        imageUrl: imagePath,
+        placeholder: (context, url) => new CircularProgressIndicator(),
+        errorWidget: (context, url, error) => new Icon(Icons.error),
+      );
+    } else if (imagePath.contains("storage")) {
+      imageWidget = Image.file(
+        File(imagePath),
+        fit: BoxFit.contain,
+      );
+    } else if (imagePath.endsWith(".svg")) {
+      imageWidget = SvgPicture.asset(
+        imagePath,
+        fit: BoxFit.contain,
+      );
+    } else if (imagePath.endsWith(".png")) {
+      imageWidget = Image.asset(
+        imagePath,
+        fit: BoxFit.contain,
+      );
+    }
+
+    if (width != null && height != null) {
+      return Container(
+        height: height,
+        width: width,
+        child: imageWidget,
+      );
+    } else {
+      return imageWidget;
+    }
   }
 }

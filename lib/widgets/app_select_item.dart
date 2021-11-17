@@ -2,12 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:kubelite/models/breed_animal_model.dart';
-import 'package:kubelite/ui/profilepage/create_animal_profile/create_animal_view_model.dart';
-import 'package:kubelite/ui/profilepage/create_animal_profile/select_other_option_daiog/select_other_animal_type.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/ImageConstant.dart';
-import 'package:kubelite/util/ui_helpers.dart';
+import 'package:tamely/ui/profilepage/create_animal_profile/create_animal_view_model.dart';
+import 'package:tamely/ui/profilepage/create_animal_profile/select_other_option_daiog/select_other_animal_type.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/ui_helpers.dart';
 
 import 'app_input_field.dart';
 import 'app_text.dart';
@@ -81,7 +80,10 @@ class _AppSelectItemState extends State<AppSelectItem> {
                   verticalSpaceSmall,
                   AppText.headingThree(widget.title!),
                   verticalSpaceSmall,
-                  AppInputField(controller: widget.searchController!),
+                  AppInputField(
+                    controller: widget.searchController!,
+                    isSearchField: true,
+                  ),
                   BuildList(
                     breedList: widget.breedList,
                     animalTypeModel: widget.animalTypeModel,

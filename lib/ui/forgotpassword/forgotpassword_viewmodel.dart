@@ -1,15 +1,15 @@
-import 'package:kubelite/api/api_service.dart';
-import 'package:kubelite/api/base_response.dart';
-import 'package:kubelite/api/server_error.dart';
-import 'package:kubelite/app/app.locator.dart';
-import 'package:kubelite/app/app.router.dart';
-import 'package:kubelite/enum/redirect_state.dart';
-import 'package:kubelite/models/common_response.dart';
-import 'package:kubelite/models/params/reset_password_body.dart';
-import 'package:kubelite/ui/base/authentication_viewmodel.dart';
-import 'package:kubelite/ui/otp/confirm_otp_viewmodel.dart';
-import 'package:kubelite/util/utils.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/api/api_service.dart';
+import 'package:tamely/api/base_response.dart';
+import 'package:tamely/api/server_error.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/app/app.router.dart';
+import 'package:tamely/enum/redirect_state.dart';
+import 'package:tamely/models/common_response.dart';
+import 'package:tamely/models/params/reset_password_body.dart';
+import 'package:tamely/ui/base/authentication_viewmodel.dart';
+import 'package:tamely/ui/otp/confirm_otp_viewmodel.dart';
+import 'package:tamely/util/utils.dart';
 
 class ForgotPasswordViewModel extends AuthenticationViewModel {
   final _navigationService = locator<NavigationService>();

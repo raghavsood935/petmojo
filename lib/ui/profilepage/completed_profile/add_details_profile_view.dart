@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kubelite/ui/profilepage/completed_profile/add_details_profile_viewmodel.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/ui_helpers.dart';
-import 'package:kubelite/widgets/app_input_field.dart';
-import 'package:kubelite/widgets/app_text.dart';
-import 'package:kubelite/widgets/main_btn.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/ui/profilepage/completed_profile/add_details_profile_viewmodel.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/widgets/app_input_field.dart';
+import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/main_btn.dart';
 
 class AddDetailsProfileView extends StatelessWidget {
   const AddDetailsProfileView({Key? key}) : super(key: key);

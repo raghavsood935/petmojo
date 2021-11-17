@@ -1,21 +1,21 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:kubelite/models/common_response.dart';
-import 'package:kubelite/models/params/login_body.dart';
-import 'package:kubelite/models/params/profile_create_body.dart';
-import 'package:kubelite/models/params/register_body.dart';
-import 'package:kubelite/models/params/reset_password_body.dart';
-import 'package:kubelite/models/params/social_login_body.dart';
-import 'package:kubelite/models/user_response_models.dart';
 import 'package:retrofit/http.dart';
+import 'package:tamely/models/common_response.dart';
+import 'package:tamely/models/params/login_body.dart';
+import 'package:tamely/models/params/profile_create_body.dart';
+import 'package:tamely/models/params/register_body.dart';
+import 'package:tamely/models/params/reset_password_body.dart';
+import 'package:tamely/models/params/social_login_body.dart';
+import 'package:tamely/models/user_response_models.dart';
 
 part 'api_client.g.dart';
 
 ///APIs class is for api tags
 class Apis {
   static const MAX_SIZE = 10;
-  static const TIMEOUT = 6000;
+  static const TIMEOUT = 12000;
 
   static const String login = '/auth/login';
   static const String register = '/auth/register';
@@ -24,7 +24,7 @@ class Apis {
   static const String changePassword = '/auth/password';
   static const String resetPassword = '/auth/reset-password-mail';
   static const String updatePassword = '/auth/update-password';
-  static const String verifyAccount = '/auth/resendotp/{num}';
+  static const String verifyAccount = '/auth/resendotp/{type}';
   static const String confirmAccount = '/user/confirm';
   static const String verifyResetPassword = '/auth/verify-reset-otp';
   static const String facebookLogin = '/auth/login/facebook';
@@ -52,7 +52,7 @@ abstract class ApiClient {
   For login verification and reset password verification
    */
   @POST(Apis.verifyAccount)
-  Future<CommonResponse> verifyAccount(@Path() String type);
+  Future<CommonResponse> verifyAccount(@Path("type") String type);
 
   @PUT(Apis.confirmAccount)
   Future<CommonResponse> confirmAccount(@Body() ConfirmOTPBody confirmOTPBody);

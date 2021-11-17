@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kubelite/ui/profilepage/post_tabs/mentions_post_tab.dart';
-import 'package:kubelite/ui/profilepage/profile_viewmodel.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/ImageConstant.dart';
-import 'package:kubelite/util/ui_helpers.dart';
-import 'package:kubelite/widgets/app_text.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/ui/profilepage/post_tabs/mentions_post_tab.dart';
+import 'package:tamely/ui/profilepage/post_tabs/post_tabs.dart';
+import 'package:tamely/ui/profilepage/profile_viewmodel.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/edit_button.dart';
 
 class ProfileView extends StatelessWidget {
   final BuildContext menuScreenContext;
@@ -39,19 +41,28 @@ class ProfileView extends StatelessWidget {
                 child: Stack(
                   children: [
                     Positioned(
+                      top: 10,
+                      left: 5,
+                      child: Image.asset(humanHandImgPath),
+                    ),
+                    Positioned(
+                      top: 100,
+                      right: 0,
+                      child: Transform.rotate(
+                        angle: 5,
+                        child: Image.asset(
+                          humanHandImgPath,
+                          height: 75,
+                          width: 75,
+                        ),
+                      ),
+                    ),
+
+                    Positioned(
                       top: 30,
                       right: 20,
                       child: GestureDetector(
-                        child: Row(children: [
-                          Icon(
-                            Icons.edit,
-                            color: colors.primary,
-                          ),
-                          AppText.body2(
-                            "Edit",
-                            color: colors.primary,
-                          ),
-                        ]),
+                        child: EditButton(),
                         onTap: model.goToProfileEditView,
                       ),
                     ),
@@ -94,7 +105,7 @@ class ProfileView extends StatelessWidget {
                                 left: 80,
                                 right: 0,
                                 child: CircleAvatar(
-                                  backgroundColor: Colors.blue,
+                                  backgroundColor: colors.blue,
                                   radius: 15,
                                   child: IconButton(
                                     icon: Icon(
@@ -270,11 +281,14 @@ class ProfileView extends StatelessWidget {
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
                             itemCount: model.dummyListOfMyAnimals.length,
-                            itemBuilder: (context, index) => roundedImageWidget(
-                              true,
-                              model.dummyListOfMyAnimals[index].name,
-                              bgImg: NetworkImage(
-                                  model.dummyListOfMyAnimals[index].url),
+                            itemBuilder: (context, index) => GestureDetector(
+                              child: roundedImageWidget(
+                                true,
+                                model.dummyListOfMyAnimals[index].name,
+                                bgImg: NetworkImage(
+                                    model.dummyListOfMyAnimals[index].url),
+                              ),
+                              onTap: model.goToAnimalProfileView,
                             ),
                             separatorBuilder:
                                 (BuildContext context, int index) =>
@@ -290,50 +304,7 @@ class ProfileView extends StatelessWidget {
               spacedDividerSmall,
               //my post section
 
-              MentionsPostTabView(),
-
-              // DefaultTabController(
-              //   length: 2,
-              //   child: Column(
-              //     children: [
-              //       TabBar(
-              //         tabs: [
-              //           Tab(
-              //             text: "My posts",
-              //           ),
-              //           Tab(
-              //             text: "Mentions",
-              //           ),
-              //         ],
-              //       ),
-              //       TabBarView(
-              //         children: [
-              //           MyPostsTabView(),
-              //           MentionsPostTabView(),
-              //         ],
-              //       ),
-              //     ],
-              //   ),
-              // )
-
-              // Flexible(
-              //   child: TabBar(tabs: [
-              //     Tab(
-              //       text: "My posts",
-              //     ),
-              //     Tab(
-              //       text: "Mentions",
-              //     ),
-              //   ]),
-              // ),
-              // Flexible(
-              //   child: TabBarView(
-              //     children: [MyPostsTabView(), MentionsPostTabView()],
-              //   ),
-              // )
-
-              // MyPostsTabView(),
-              //my posts grid view
+              PostTab(),
             ],
           ),
         ),

@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'common_response.dart';
 
@@ -28,7 +29,7 @@ class _$CommonResponseTearOff {
     );
   }
 
-  CommonResponse fromJson(Map<String, Object> json) {
+  CommonResponse fromJson(Map<String, Object?> json) {
     return CommonResponse.fromJson(json);
   }
 }
@@ -138,7 +139,7 @@ class _$_CommonResponse extends _CommonResponse {
   _$_CommonResponse({this.message, this.token, this.avatar}) : super._();
 
   factory _$_CommonResponse.fromJson(Map<String, dynamic> json) =>
-      _$_$_CommonResponseFromJson(json);
+      _$$_CommonResponseFromJson(json);
 
   @override
   final String? message;
@@ -155,22 +156,15 @@ class _$_CommonResponse extends _CommonResponse {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _CommonResponse &&
-            (identical(other.message, message) ||
-                const DeepCollectionEquality()
-                    .equals(other.message, message)) &&
-            (identical(other.token, token) ||
-                const DeepCollectionEquality().equals(other.token, token)) &&
-            (identical(other.avatar, avatar) ||
-                const DeepCollectionEquality().equals(other.avatar, avatar)));
+        (other.runtimeType == runtimeType &&
+            other is _CommonResponse &&
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.token, token) || other.token == token) &&
+            (identical(other.avatar, avatar) || other.avatar == avatar));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(message) ^
-      const DeepCollectionEquality().hash(token) ^
-      const DeepCollectionEquality().hash(avatar);
+  int get hashCode => Object.hash(runtimeType, message, token, avatar);
 
   @JsonKey(ignore: true)
   @override
@@ -179,7 +173,7 @@ class _$_CommonResponse extends _CommonResponse {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_CommonResponseToJson(this);
+    return _$$_CommonResponseToJson(this);
   }
 }
 
@@ -192,11 +186,11 @@ abstract class _CommonResponse extends CommonResponse {
       _$_CommonResponse.fromJson;
 
   @override
-  String? get message => throw _privateConstructorUsedError;
+  String? get message;
   @override
-  String? get token => throw _privateConstructorUsedError;
+  String? get token;
   @override
-  String? get avatar => throw _privateConstructorUsedError;
+  String? get avatar;
   @override
   @JsonKey(ignore: true)
   _$CommonResponseCopyWith<_CommonResponse> get copyWith =>

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/util/Color.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/util/Color.dart';
 
 import 'home_viewmodel.dart';
 

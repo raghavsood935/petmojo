@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:kubelite/ui/profilepage/post_tabs/mentions_post_tab_view_model.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/ui/profilepage/post_tabs/mentions_post_tab_view_model.dart';
+import 'package:tamely/util/ui_helpers.dart';
 
 class MentionsPostTabView extends StatelessWidget {
-  const MentionsPostTabView({Key? key}) : super(key: key);
-
+  MentionsPostTabView({
+    Key? key,
+  }) : super(key: key);
+  // ScrollController controller;
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<MentionsPostTabViewModel>.reactive(
@@ -15,7 +16,7 @@ class MentionsPostTabView extends StatelessWidget {
       builder: (context, model, child) => Container(
         padding: EdgeInsets.all(10),
         child: StaggeredGridView.countBuilder(
-          physics: NeverScrollableScrollPhysics(),
+          physics: ScrollPhysics(),
           shrinkWrap: true,
           itemCount: model.dummyListOfPosts.length,
           crossAxisSpacing: 6,

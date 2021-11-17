@@ -46,6 +46,7 @@ class colors {
 
   static const Color pink = Color(0xffd4001d);
   static const Color red = Colors.red;
+  static const Color blue = Color(0xFF6070F9);
 
   static Color get lightBlack =>
       ISDARK == "true" ? whiteTemp : const Color(0xff52575C);
