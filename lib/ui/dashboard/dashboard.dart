@@ -109,17 +109,17 @@ class Dashboard extends StatelessWidget {
                 title: bookingTitle,
                 subTitle: bookingSubTitle,
                 iconUrl: bookingIcon,
-                onTap: model.onWalletPressed),
+                onTap: model.onMyBookingsPressed),
             DrawerWidget(
                 title: settingsTitle,
                 subTitle: settingsSubTitle,
                 iconUrl: settingsIcon,
-                onTap: model.onWalletPressed),
+                onTap: model.onSettingsPressed),
             DrawerWidget(
                 title: bookmarksTitle,
                 subTitle: bookmarksSubTitle,
                 iconUrl: bookmarksIcon,
-                onTap: model.onWalletPressed),
+                onTap: model.onBookmarksPressed),
           ],
         ),
       ),
@@ -131,12 +131,12 @@ class Dashboard extends StatelessWidget {
           title: feedbackTitle,
           subTitle: feedbackSubTitle,
           iconUrl: feedbackIcon,
-          onTap: model.onWalletPressed),
+          onTap: model.onFeedbackPressed),
       DrawerWidget(
           title: helpTitle,
           subTitle: helpSubTitle,
           iconUrl: helpIcon,
-          onTap: model.onWalletPressed),
+          onTap: model.onHelpPressed),
     ];
   }
 
