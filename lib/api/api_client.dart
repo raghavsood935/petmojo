@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
+import 'package:tamely/models/animal_profile_detail_model.dart';
 import 'package:tamely/models/common_response.dart';
+import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/models/params/change_bio_avatar_body.dart';
 import 'package:tamely/models/params/login_body.dart';
 import 'package:tamely/models/params/profile_create_body.dart';
@@ -35,6 +37,7 @@ class Apis {
   static const String userProfileDetails = '/user/userDetails';
   static const String userPosts = '/post/myPosts/0';
   static const String addBioAvatar = '/user/bioAndAvatar';
+  static const String animalProfileDetails = '/animal/getPetDetails';
 }
 
 @RestApi(baseUrl: "https://tamely.herokuapp.com/api/")
@@ -95,4 +98,9 @@ abstract class ApiClient {
   @PUT(Apis.addBioAvatar)
   Future<CommonResponse> changeBioAndAvatar(
       @Body() ChangeBioAvatarBody changeBioAvatarBody);
+
+  @POST(Apis.animalProfileDetails)
+  Future<AnimalProfileDetailModelResponse> getAnimalProfileDetail(@Body() AnimalProfileDetailsBody animalProfileDetailsBody);
+
+
 }

@@ -7,6 +7,7 @@ import 'package:tamely/ui/profilepage/create_animal_profile/select_other_option_
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/widgets/search_text_field.dart';
 
 import 'app_input_field.dart';
 import 'app_text.dart';
@@ -80,10 +81,7 @@ class _AppSelectItemState extends State<AppSelectItem> {
                   verticalSpaceSmall,
                   AppText.headingThree(widget.title!),
                   verticalSpaceSmall,
-                  AppInputField(
-                    controller: widget.searchController!,
-                    isSearchField: true,
-                  ),
+                  SearchTextField(controller: widget.searchController!, onChange: (String value){}, hint: "Search the breed"),
                   BuildList(
                     breedList: widget.breedList,
                     animalTypeModel: widget.animalTypeModel,

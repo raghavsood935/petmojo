@@ -35,4 +35,9 @@ class ForYouTabSearchViewModel extends BaseModel {
   void clearSearchText() {
     _searchTC.clear();
   }
+
+  Future<void> onSearchChange(String value) async{
+
+  }
+
 }

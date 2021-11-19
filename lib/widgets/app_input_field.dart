@@ -12,7 +12,6 @@ class AppInputField extends StatelessWidget {
   final bool readOnly;
   final TextInputType? textInputType;
   final TextCapitalization? textCapitalization;
-  final bool isSearchField;
   final void Function()? trailingTapped;
 
   final circularBorder = UnderlineInputBorder(
@@ -35,7 +34,6 @@ class AppInputField extends StatelessWidget {
       this.password = false,
       this.textInputType = TextInputType.name,
       this.readOnly = false,
-      this.isSearchField = false,
       this.textCapitalization = TextCapitalization.sentences})
       : super(key: key);
 
@@ -60,44 +58,23 @@ class AppInputField extends StatelessWidget {
           errorText: errorText,
           floatingLabelBehavior: FloatingLabelBehavior.always,
           contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-          prefixIcon: isSearchField
-              ? Icon(
-                  Icons.search,
-                  color: colors.primary,
-                )
-              : leading,
+          prefixIcon:  leading,
           suffixIcon: trailing != null
               ? GestureDetector(
                   onTap: trailingTapped,
                   child: trailing,
                 )
               : null,
-          border: isSearchField
-              ? roundedBorder.copyWith(
-                  borderSide: BorderSide(color: colors.kcLightGreyColor),
-                )
-              : circularBorder.copyWith(
+          border:  circularBorder.copyWith(
                   borderSide: BorderSide(color: colors.kcLightGreyColor),
                 ),
-          errorBorder: isSearchField
-              ? roundedBorder.copyWith(
-                  borderSide: BorderSide(color: Colors.red),
-                )
-              : circularBorder.copyWith(
+          errorBorder: circularBorder.copyWith(
                   borderSide: BorderSide(color: Colors.red),
                 ),
-          focusedBorder: isSearchField
-              ? roundedBorder.copyWith(
-                  borderSide: BorderSide(color: colors.primary),
-                )
-              : circularBorder.copyWith(
+          focusedBorder: circularBorder.copyWith(
                   borderSide: BorderSide(color: colors.primary),
                 ),
-          enabledBorder: isSearchField
-              ? roundedBorder.copyWith(
-                  borderSide: BorderSide(color: colors.kcLightGreyColor),
-                )
-              : circularBorder.copyWith(
+          enabledBorder:  circularBorder.copyWith(
                   borderSide: BorderSide(color: colors.kcLightGreyColor),
                 ),
           labelStyle: TextStyle(fontSize: 16, color: colors.kcPrimaryTextColor),

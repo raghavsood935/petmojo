@@ -11,7 +11,9 @@ import 'package:tamely/widgets/edit_button.dart';
 import 'animal_profile_view_model.dart';
 
 class AnimalProfileView extends StatelessWidget {
-  const AnimalProfileView({Key? key}) : super(key: key);
+  AnimalProfileView({Key? key,required this.petId}) : super(key: key);
+
+  String petId;
 
   @override
   Widget build(BuildContext context) {

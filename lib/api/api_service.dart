@@ -7,7 +7,9 @@ import 'package:tamely/api/base_response.dart';
 import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
+import 'package:tamely/models/animal_profile_detail_model.dart';
 import 'package:tamely/models/common_response.dart';
+import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/models/params/login_body.dart';
 import 'package:tamely/models/params/profile_create_body.dart';
 import 'package:tamely/models/params/register_body.dart';
@@ -289,6 +291,20 @@ class TamelyApi {
     try {
       response =
           await getApiClient(true).changeBioAndAvatar(changeBioAvatarBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  Future<BaseResponse<AnimalProfileDetailModelResponse>> getAnimalProfileDetail(
+      AnimalProfileDetailsBody animalProfileDetailsBody) async {
+    AnimalProfileDetailModelResponse response;
+    try {
+      response =
+          await getApiClient(true).changeBioAndAvatar(animalProfileDetailsBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()

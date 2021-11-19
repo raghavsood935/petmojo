@@ -241,8 +241,12 @@ class StackedRouter extends RouterBase {
       );
     },
     AnimalProfileView: (data) {
+      var args = data.getArgs<AnimalProfileViewArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => const AnimalProfileView(),
+        builder: (context) => AnimalProfileView(
+          key: args.key,
+          petId: args.petId,
+        ),
         settings: data,
       );
     },
@@ -353,6 +357,13 @@ class AddDetailsProfileViewArguments {
 class CreateAnimalPageViewArguments {
   final Key? key;
   CreateAnimalPageViewArguments({this.key});
+}
+
+/// AnimalProfileView arguments holder class
+class AnimalProfileViewArguments {
+  final Key? key;
+  final String petId;
+  AnimalProfileViewArguments({this.key, required this.petId});
 }
 
 /// AnimalBasicInfo arguments holder class
