@@ -19,11 +19,16 @@ class CustomCircularAvatar extends StatelessWidget {
       child: CircleAvatar(
         backgroundColor: colors.white,
         radius: (radius - 2.0),
-        child: CircleAvatar(
-          backgroundColor: colors.lightBackgroundColor,
-          radius: (radius - 4.0),
-          backgroundImage: NetworkImage(imgPath),
-        ),
+        child: imgPath != ""
+            ? CircleAvatar(
+                backgroundColor: colors.lightBackgroundColor,
+                radius: (radius - 4.0),
+                backgroundImage: NetworkImage(imgPath),
+              )
+            : CircleAvatar(
+                backgroundColor: colors.lightBackgroundColor,
+                radius: (radius - 4.0),
+              ),
       ),
     );
   }

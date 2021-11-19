@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:geocoder/geocoder.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -14,6 +15,7 @@ class CreateAnimalViewModel extends FormViewModel {
   final ImagePicker _picker = ImagePicker();
 
   Position? _currentPosition = null;
+  String _currentLocation = "";
 
   final log = getLogger('ProfileCreateViewModel');
   final _snackBarService = locator<SnackbarService>();
@@ -469,6 +471,26 @@ class CreateAnimalViewModel extends FormViewModel {
 
     log.d(
         "Latitude : ${_currentPosition!.latitude} , Longitude : ${_currentPosition!.longitude}");
+  }
+
+  Future getLocationFromLatLog(Position position) async {
+    if (position != null) {
+      try {
+        Coordinates coordinates =
+            new Coordinates(position.latitude, position.longitude);
+        var address =
+            await Geocoder.local.findAddressesFromCoordinates(coordinates);
+        if (address != null) {
+          var first = address.first;
+          _currentLocation =
+              "${first.addressLine}";
+          notifyListeners();
+          log.d("Your address : $_currentLocation");
+        }
+      } catch (e) {
+        print(e);
+      }
+    }
   }
 
   @override

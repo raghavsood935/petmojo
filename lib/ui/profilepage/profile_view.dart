@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:tamely/ui/profilepage/post_tabs/mentions_post_tab.dart';
 import 'package:tamely/ui/profilepage/post_tabs/post_tabs.dart';
 import 'package:tamely/ui/profilepage/profile_viewmodel.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/custom_circle_avatar.dart';
 import 'package:tamely/widgets/edit_button.dart';
 
 class ProfileView extends StatelessWidget {
@@ -25,16 +25,13 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileViewModel>.reactive(
       viewModelBuilder: () => ProfileViewModel(),
+      onModelReady: (model) => model.getUserProfileDetails(),
       builder: (context, model, child) => Scaffold(
         body: SingleChildScrollView(
           child: Column(
             children: [
               //top about widget
               Container(
-                // height: screenHeightPercentage(
-                //   context,
-                //   percentage: 0.40,
-                // ),
                 margin: EdgeInsets.only(bottom: 10),
                 width: screenWidth(context),
                 decoration: BoxDecoration(color: colors.lightBackgroundColor),
@@ -72,58 +69,60 @@ class ProfileView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
+                        verticalSpaceRegular,
+                        CustomCircularAvatar(
+                            radius: 50, imgPath: model.profileImgUrl),
                         // for profile image
-                        SizedBox(
-                          height: 125,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                bottom: 0,
-                                left: 0,
-                                right: 0,
-                                child: CircleAvatar(
-                                  radius: 50,
-                                  backgroundColor: colors.primary,
-                                  child: CircleAvatar(
-                                    radius: 47,
-                                    backgroundColor:
-                                        colors.lightBackgroundColor,
-                                    child: CircleAvatar(
-                                      backgroundColor: colors.primary,
-                                      radius: 45,
-                                      child: Icon(
-                                        Icons.photo_camera_outlined,
-                                        color: colors.white,
-                                        size: 35,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                bottom: 0,
-                                left: 80,
-                                right: 0,
-                                child: CircleAvatar(
-                                  backgroundColor: colors.blue,
-                                  radius: 15,
-                                  child: IconButton(
-                                    icon: Icon(
-                                      Icons.add,
-                                      color: colors.white,
-                                      size: 14,
-                                    ),
-                                    onPressed: () {},
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
+                        // SizedBox(
+                        //   height: 125,
+                        //   child: Stack(
+                        //     children: [
+                        //       Positioned(
+                        //         bottom: 0,
+                        //         left: 0,
+                        //         right: 0,
+                        //         child: CircleAvatar(
+                        //           radius: 50,
+                        //           backgroundColor: colors.primary,
+                        //           child: CircleAvatar(
+                        //             radius: 47,
+                        //             backgroundColor:
+                        //                 colors.lightBackgroundColor,
+                        //             child: CircleAvatar(
+                        //               backgroundColor: colors.primary,
+                        //               radius: 45,
+                        //               child: Icon(
+                        //                 Icons.photo_camera_outlined,
+                        //                 color: colors.white,
+                        //                 size: 35,
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //       Positioned(
+                        //         bottom: 0,
+                        //         left: 80,
+                        //         right: 0,
+                        //         child: CircleAvatar(
+                        //           backgroundColor: colors.blue,
+                        //           radius: 15,
+                        //           child: IconButton(
+                        //             icon: Icon(
+                        //               Icons.add,
+                        //               color: colors.white,
+                        //               size: 14,
+                        //             ),
+                        //             onPressed: () {},
+                        //           ),
+                        //         ),
+                        //       )
+                        //     ],
+                        //   ),
+                        // ),
                         verticalSpaceTiny,
                         // profile name
                         AppText.body(model.profilename),
-
                         verticalSpaceTiny,
                         // username and animal count
                         Row(
@@ -145,16 +144,38 @@ class ProfileView extends StatelessWidget {
                                 color: colors.kcMediumGreyColor),
                           ],
                         ),
-                        verticalSpaceSmall,
+                        Padding(
+                          padding: EdgeInsets.only(
+                            right: 40,
+                            left: 40,
+                            top: 5,
+                          ),
+                          child: Visibility(
+                            visible: model.shortBio.isNotEmpty,
+                            child: AppText.body1(
+                              model.shortBio,
+                              textAlign: TextAlign.center,
+                              color: colors.black,
+                            ),
+                          ),
+                        ),
+                        verticalSpaceTiny,
                         // action text
-                        AppText.caption(
-                          model.actionText,
-                          color: colors.primary,
+                        Visibility(
+                          visible: model.completedProfileStepCount <
+                              model.completedProfileTotalCount,
+                          child: GestureDetector(
+                            child: AppText.caption(
+                              model.actionText,
+                              color: colors.primary,
+                            ),
+                            onTap: model.goToCompleteProfile,
+                          ),
                         ),
                         spacedDividerSmall,
                         // post ,follower,following,hearts counts
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 25),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -186,11 +207,12 @@ class ProfileView extends StatelessWidget {
               //complete your profile info
 
               Visibility(
-                visible: model.profileCompleted,
+                visible: model.completedProfileStepCount <
+                    model.completedProfileTotalCount,
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisSize: MainAxisSize.max,
@@ -205,21 +227,26 @@ class ProfileView extends StatelessWidget {
                     ),
                     //action to complete profile
                     Padding(
-                      padding: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(15),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          completeProfileItem(
-                            Icons.person_outline_rounded,
-                            "Add your short bio, profile picture",
-                            "Add details",
-                            model.goToAddDetailsProfileAction,
+                          Visibility(
+                            visible: model.shortBio.isEmpty,
+                            child: completeProfileItem(
+                              Icons.person_outline_rounded,
+                              "Add your short bio, profile picture",
+                              "Add details",
+                              model.goToAddDetailsProfileAction,
+                            ),
                           ),
-                          completeProfileItem(
-                              Icons.people_outline_rounded,
-                              "Follow at least 5 people to improve feed suggestions",
-                              "Follow people",
-                              model.goToFollowPeopleProfileAction),
+                          Visibility(
+                            visible: model.noOfFollowing < 1,
+                            child: completeProfileItem(
+                                Icons.people_outline_rounded,
+                                "Follow at least 5 people to improve feed suggestions",
+                                "Follow people",
+                                model.goToFollowPeopleProfileAction),
+                          ),
                         ],
                       ),
                     ),
@@ -232,7 +259,7 @@ class ProfileView extends StatelessWidget {
               //my animals
 
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   mainAxisSize: MainAxisSize.max,
@@ -254,48 +281,52 @@ class ProfileView extends StatelessWidget {
                 visible: model.isMyAnimalsVisibile,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 20),
-                          child: roundedImageWidget(
-                            false,
-                            "Add",
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.add,
-                                size: 25,
-                                color: colors.primary,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 20),
+                            child: roundedImageWidget(
+                              false,
+                              "Add",
+                              child: IconButton(
+                                icon: Icon(
+                                  Icons.add,
+                                  size: 25,
+                                  color: colors.primary,
+                                ),
+                                onPressed: model.goToCreateAnimalProfileView,
                               ),
-                              onPressed: model.goToCreateAnimalProfileView,
                             ),
                           ),
-                        ),
-                        horizontalSpaceRegular,
-                        SizedBox(
-                          height: 100,
-                          child: ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            itemCount: model.dummyListOfMyAnimals.length,
-                            itemBuilder: (context, index) => GestureDetector(
-                              child: roundedImageWidget(
-                                true,
-                                model.dummyListOfMyAnimals[index].name,
-                                bgImg: NetworkImage(
-                                    model.dummyListOfMyAnimals[index].url),
+                          horizontalSpaceRegular,
+                          SizedBox(
+                            height: 100,
+                            child: ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemCount: model.listOfMyAnimals.length,
+                              itemBuilder: (context, index) => GestureDetector(
+                                child: roundedImageWidget(
+                                  true,
+                                  model.listOfMyAnimals[index].name!,
+                                  bgImg: NetworkImage(
+                                    model.listOfMyAnimals[index].avatar!,
+                                  ),
+                                ),
+                                onTap: model.goToAnimalProfileView,
                               ),
-                              onTap: model.goToAnimalProfileView,
+                              separatorBuilder:
+                                  (BuildContext context, int index) =>
+                                      horizontalSpaceSmall,
                             ),
-                            separatorBuilder:
-                                (BuildContext context, int index) =>
-                                    horizontalSpaceSmall,
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -307,6 +338,9 @@ class ProfileView extends StatelessWidget {
               PostTab(),
             ],
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: model.getUserProfileDetails,
         ),
       ),
     );
@@ -369,44 +403,54 @@ class ProfileView extends StatelessWidget {
       Card(
         elevation: 5.0,
         child: SizedBox(
-          width: 150,
-          height: 150,
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    icon,
-                    color: colors.primary,
-                    size: 30,
-                  ),
-                  verticalSpaceTiny,
-                  AppText.body(
+          width: 125,
+          height: 135,
+          child: Stack(
+            children: [
+              Positioned(
+                top: 5,
+                right: 0,
+                left: 0,
+                child: Icon(
+                  icon,
+                  color: colors.primary,
+                  size: 30,
+                ),
+              ),
+              Positioned(
+                top: 0,
+                bottom: 0,
+                right: 15,
+                left: 15,
+                child: Center(
+                  child: AppText.caption(
                     message,
                     color: colors.kcLightGreyColor,
                     textAlign: TextAlign.center,
                   ),
-                  verticalSpaceSmall,
-                  GestureDetector(
-                    child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 5),
-                        width: double.maxFinite,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: colors.primary,
-                        ),
-                        child: AppText.caption(
-                          actionText,
-                          color: colors.white,
-                          textAlign: TextAlign.center,
-                        )),
-                    onTap: action,
-                  )
-                ],
+                ),
               ),
-            ),
+              Positioned(
+                bottom: 10,
+                right: 15,
+                left: 15,
+                child: GestureDetector(
+                  child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 5),
+                      width: double.maxFinite,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: colors.primary,
+                      ),
+                      child: AppText.caption(
+                        actionText,
+                        color: colors.white,
+                        textAlign: TextAlign.center,
+                      )),
+                  onTap: action,
+                ),
+              )
+            ],
           ),
         ),
       );

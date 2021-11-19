@@ -3,11 +3,13 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:tamely/models/common_response.dart';
+import 'package:tamely/models/params/change_bio_avatar_body.dart';
 import 'package:tamely/models/params/login_body.dart';
 import 'package:tamely/models/params/profile_create_body.dart';
 import 'package:tamely/models/params/register_body.dart';
 import 'package:tamely/models/params/reset_password_body.dart';
 import 'package:tamely/models/params/social_login_body.dart';
+import 'package:tamely/models/user_profile_details_response.dart';
 import 'package:tamely/models/user_response_models.dart';
 
 part 'api_client.g.dart';
@@ -30,6 +32,9 @@ class Apis {
   static const String facebookLogin = '/auth/login/facebook';
   static const String googleLogin = '/auth/login/google';
   static const String changeAvatar = '/user/avatar';
+  static const String userProfileDetails = '/user/userDetails';
+  static const String userPosts = '/post/myPosts/0';
+  static const String addBioAvatar = '/user/bioAndAvatar';
 }
 
 @RestApi(baseUrl: "https://tamely.herokuapp.com/api/")
@@ -80,4 +85,14 @@ abstract class ApiClient {
   @PUT(Apis.changeAvatar)
   @MultiPart()
   Future<CommonResponse> updateImage(@Part(name: 'image') File image);
+
+  @GET(Apis.userProfileDetails)
+  Future<UserProfileDetailsResponse> getUserProfileDetails();
+
+  @GET(Apis.userPosts)
+  Future<CommonResponse> getUserPosts();
+
+  @PUT(Apis.addBioAvatar)
+  Future<CommonResponse> changeBioAndAvatar(
+      @Body() ChangeBioAvatarBody changeBioAvatarBody);
 }

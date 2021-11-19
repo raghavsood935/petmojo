@@ -31,13 +31,14 @@ class FeedView extends StatelessWidget {
           physics: ScrollPhysics(),
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 20, right: 10, top: 15),
+              padding: EdgeInsets.only(left: 0, right: 0, top: 15),
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    horizontalSpaceRegular,
                     rowItem(
                       true,
                       myTales,
@@ -120,13 +121,13 @@ Widget rowItem(bool isCreateOne, String name, String url) {
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       SizedBox(
-        height: 60,
-        width: 60,
+        height: 50,
+        width: 50,
         child: Stack(
           children: [
             Positioned(
               child: CustomCircularAvatar(
-                radius: 30.0,
+                radius: 25.0,
                 imgPath: url,
               ),
             ),
@@ -193,108 +194,186 @@ Widget postItem(BuildContext context, FeedPostModel model,
   return Padding(
     padding: const EdgeInsets.only(
       left: 20.0,
-      top: 10.0,
-      bottom: 10.0,
-      right: 10.0,
+      top: 5.0,
+      bottom: 5.0,
+      right: 20.0,
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ListTile(
-          contentPadding: EdgeInsets.zero,
-          leading: CustomCircularAvatar(
-            radius: 16.0,
-            imgPath: model.profileImgUrl,
-          ),
-          title: model.isAnimalPost
-              ? Row(
+        Row(
+          children: [
+            CustomCircularAvatar(
+              radius: 18.0,
+              imgPath: model.profileImgUrl,
+            ),
+            horizontalSpaceSmall,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                model.isAnimalPost
+                    ? Row(
+                        children: [
+                          AppText.body1Bold(
+                            "${model.animalProfileName} > ",
+                          ),
+                          AppText.caption(model.username),
+                        ],
+                      )
+                    : AppText.body1Bold(model.username),
+                Row(
                   children: [
-                    AppText.body2(
-                      "${model.animalProfileName} > ",
+                    AppText.caption(
+                      model.location,
+                      color: colors.kcCaptionGreyColor,
                     ),
-                    AppText.caption(model.username),
+                    horizontalSpaceTiny,
+                    CircleAvatar(
+                      backgroundColor: colors.primary,
+                      radius: 2,
+                    ),
+                    horizontalSpaceTiny,
+                    AppText.caption(
+                      model.uploadTime,
+                      color: colors.kcCaptionGreyColor,
+                    ),
+                    horizontalSpaceTiny,
+                    Visibility(
+                      visible: model.isAnimalPost,
+                      child: CircleAvatar(
+                        backgroundColor: colors.primary,
+                        radius: 2,
+                      ),
+                    ),
+                    horizontalSpaceTiny,
+                    Visibility(
+                      visible: model.isAnimalPost,
+                      child: Icon(
+                        model.isPrivate ? Icons.lock : Icons.campaign_sharp,
+                        size: 10,
+                        color: colors.kcCaptionGreyColor,
+                      ),
+                    ),
+                    horizontalSpaceTiny,
+                    Visibility(
+                      visible: model.isAnimalPost,
+                      child: AppText.caption(
+                        model.isPrivate ? "Private" : "Public",
+                        color: colors.kcCaptionGreyColor,
+                      ),
+                    ),
                   ],
-                )
-              : AppText.body2(model.username),
-          subtitle: Row(
-            children: [
-              AppText.caption(
-                model.location,
-                color: colors.kcCaptionGreyColor,
-              ),
-              horizontalSpaceTiny,
-              CircleAvatar(
-                backgroundColor: colors.primary,
-                radius: 2,
-              ),
-              horizontalSpaceTiny,
-              AppText.caption(
-                model.uploadTime,
-                color: colors.kcCaptionGreyColor,
-              ),
-              horizontalSpaceTiny,
-              Visibility(
-                visible: model.isAnimalPost,
-                child: CircleAvatar(
-                  backgroundColor: colors.primary,
-                  radius: 2,
                 ),
-              ),
-              horizontalSpaceTiny,
-              Visibility(
-                visible: model.isAnimalPost,
-                child: Icon(
-                  model.isPrivate ? Icons.lock : Icons.campaign_sharp,
-                  size: 10,
-                  color: colors.kcCaptionGreyColor,
-                ),
-              ),
-              horizontalSpaceTiny,
-              Visibility(
-                visible: model.isAnimalPost,
-                child: AppText.caption(
-                  model.isPrivate ? "Private" : "Public",
-                  color: colors.kcCaptionGreyColor,
-                ),
-              ),
-            ],
-          ),
+              ],
+            ),
+          ],
         ),
         verticalSpaceTiny,
+        // ListTile(
+        //   contentPadding: EdgeInsets.zero,
+        //   leading: CustomCircularAvatar(
+        //     radius: 19.0,
+        //     imgPath: model.profileImgUrl,
+        //   ),
+        //   title: model.isAnimalPost
+        //       ? Row(
+        //           children: [
+        //             AppText.body1Bold(
+        //               "${model.animalProfileName} > ",
+        //             ),
+        //             AppText.caption(model.username),
+        //           ],
+        //         )
+        //       : AppText.body1Bold(model.username),
+        //   subtitle: Row(
+        //     children: [
+        //       AppText.caption(
+        //         model.location,
+        //         color: colors.kcCaptionGreyColor,
+        //       ),
+        //       horizontalSpaceTiny,
+        //       CircleAvatar(
+        //         backgroundColor: colors.primary,
+        //         radius: 2,
+        //       ),
+        //       horizontalSpaceTiny,
+        //       AppText.caption(
+        //         model.uploadTime,
+        //         color: colors.kcCaptionGreyColor,
+        //       ),
+        //       horizontalSpaceTiny,
+        //       Visibility(
+        //         visible: model.isAnimalPost,
+        //         child: CircleAvatar(
+        //           backgroundColor: colors.primary,
+        //           radius: 2,
+        //         ),
+        //       ),
+        //       horizontalSpaceTiny,
+        //       Visibility(
+        //         visible: model.isAnimalPost,
+        //         child: Icon(
+        //           model.isPrivate ? Icons.lock : Icons.campaign_sharp,
+        //           size: 10,
+        //           color: colors.kcCaptionGreyColor,
+        //         ),
+        //       ),
+        //       horizontalSpaceTiny,
+        //       Visibility(
+        //         visible: model.isAnimalPost,
+        //         child: AppText.caption(
+        //           model.isPrivate ? "Private" : "Public",
+        //           color: colors.kcCaptionGreyColor,
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
         AppText.caption(model.description),
-        verticalSpaceTiny,
-        SwiperWidget(model: model),
-        verticalSpaceTiny,
-        ListTile(
-          contentPadding: EdgeInsets.zero,
-          title: Row(
-            children: [
-              LikeBtn(initialState: model.isLiked, onTap: () {}),
-              horizontalSpaceSmall,
-              imageButton(false, () {}, assetsPath: sendImgPath),
-              horizontalSpaceSmall,
-              imageButton(false, () {}, assetsPath: bookmarkImgPath),
-            ],
-          ),
-          trailing: IconButton(
-            onPressed: () => viewModel.showMoreOptions(),
-            icon: Icon(Icons.more_horiz),
-          ),
+        AppText.caption(
+          model.hastTag,
+          color: colors.blue,
         ),
-        AppText.body1(model.lastLikedPersonName),
+        verticalSpaceSmall,
+        SwiperWidget(model: model),
+        Row(
+          children: [
+            LikeBtn(initialState: model.isLiked, onTap: () {}),
+            horizontalSpaceSmall,
+            imageButton(false, () {}, assetsPath: sendOutlineImgPath),
+            horizontalSpaceSmall,
+            imageButton(false, () {}, assetsPath: bookmarkImgPath),
+            Expanded(
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  onPressed: () => viewModel.showMoreOptions(),
+                  icon: Icon(Icons.more_horiz),
+                ),
+              ),
+            ),
+          ],
+        ),
+        AppText.caption("Loved by ${model.lastLikedPersonName}"),
         verticalSpaceTiny,
-        AppText.body1("${model.noOfComments} comments", color: colors.primary),
+        AppText.caption(
+          "${model.noOfComments} comments",
+          color: colors.primary,
+        ),
+        verticalSpaceTiny,
         GestureDetector(
-          child: ListTile(
-            contentPadding: EdgeInsets.zero,
-            leading: CustomCircularAvatar(
-              radius: 20.0,
-              imgPath: myProfileImgUrl,
-            ),
-            title: AppText.caption(
-              "Add a comment",
-              color: colors.kcCaptionGreyColor,
-            ),
+          child: Row(
+            children: [
+              CustomCircularAvatar(
+                radius: 17.0,
+                imgPath: myProfileImgUrl,
+              ),
+              horizontalSpaceSmall,
+              AppText.caption(
+                "Add a comment",
+                color: colors.kcCaptionGreyColor,
+              ),
+            ],
           ),
           onTap: () => viewModel.showComments(),
         )
@@ -305,7 +384,7 @@ Widget postItem(BuildContext context, FeedPostModel model,
 
 Widget roundedImage(BuildContext context, String url) {
   return ClipRRect(
-    borderRadius: BorderRadius.circular(20),
+    borderRadius: BorderRadius.circular(10),
     child: Image.network(
       url,
       fit: BoxFit.cover,
@@ -375,8 +454,8 @@ class _SwiperWidgetState extends State<SwiperWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: screenWidth(context),
-      width: screenWidth(context),
+      height: screenWidthPercentage(context, percentage: 0.90),
+      width: screenWidthPercentage(context, percentage: 0.90),
       child: Stack(
         children: [
           Positioned(

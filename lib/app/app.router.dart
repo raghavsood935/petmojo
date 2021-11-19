@@ -29,6 +29,8 @@ import '../ui/post/camera_screen.dart';
 import '../ui/profile/profile_create_view.dart';
 import '../ui/profilepage/animal_profile/animal_profile_view.dart';
 import '../ui/profilepage/animal_profile/basic_info/basic_info_view.dart';
+import '../ui/profilepage/completed_profile/add_details_profile_view.dart';
+import '../ui/profilepage/completed_profile/follow_people_action_view.dart';
 import '../ui/profilepage/create_animal_profile/create_animal_page_viewe.dart';
 import '../ui/signup/signup_view.dart';
 import '../ui/startup/startup_view.dart';
@@ -43,6 +45,9 @@ class Routes {
   static const String forgotPasswordView = '/forgot-password-view';
   static const String newPasswordView = '/new-password-view';
   static const String profileCreateView = '/profile-create-view';
+  static const String addDetailsProfileView = '/add-details-profile-view';
+  static const String followPeopleProfileActionView =
+      '/follow-people-profile-action-view';
   static const String createAnimalPageView = '/create-animal-page-view';
   static const String forYouTabSearchView = '/for-you-tab-search-view';
   static const String communityChooseInterestView =
@@ -64,6 +69,8 @@ class Routes {
     forgotPasswordView,
     newPasswordView,
     profileCreateView,
+    addDetailsProfileView,
+    followPeopleProfileActionView,
     createAnimalPageView,
     forYouTabSearchView,
     communityChooseInterestView,
@@ -90,6 +97,9 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.forgotPasswordView, page: ForgotPasswordView),
     RouteDef(Routes.newPasswordView, page: NewPasswordView),
     RouteDef(Routes.profileCreateView, page: ProfileCreateView),
+    RouteDef(Routes.addDetailsProfileView, page: AddDetailsProfileView),
+    RouteDef(Routes.followPeopleProfileActionView,
+        page: FollowPeopleProfileActionView),
     RouteDef(Routes.createAnimalPageView, page: CreateAnimalPageView),
     RouteDef(Routes.forYouTabSearchView, page: ForYouTabSearchView),
     RouteDef(Routes.communityChooseInterestView,
@@ -180,7 +190,26 @@ class StackedRouter extends RouterBase {
         builder: (context) => ProfileCreateView(
           key: args.key,
           user: args.user,
+          isEdit: args.isEdit,
+          lastAvatarUrl: args.lastAvatarUrl,
         ),
+        settings: data,
+      );
+    },
+    AddDetailsProfileView: (data) {
+      var args = data.getArgs<AddDetailsProfileViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => AddDetailsProfileView(
+          key: args.key,
+          lastUrl: args.lastUrl,
+          lastBio: args.lastBio,
+        ),
+        settings: data,
+      );
+    },
+    FollowPeopleProfileActionView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const FollowPeopleProfileActionView(),
         settings: data,
       );
     },
@@ -305,7 +334,19 @@ class NewPasswordViewArguments {
 class ProfileCreateViewArguments {
   final Key? key;
   final LocalUser user;
-  ProfileCreateViewArguments({this.key, required this.user});
+  final dynamic isEdit;
+  final dynamic lastAvatarUrl;
+  ProfileCreateViewArguments(
+      {this.key, required this.user, this.isEdit, this.lastAvatarUrl});
+}
+
+/// AddDetailsProfileView arguments holder class
+class AddDetailsProfileViewArguments {
+  final Key? key;
+  final String lastUrl;
+  final String lastBio;
+  AddDetailsProfileViewArguments(
+      {this.key, required this.lastUrl, required this.lastBio});
 }
 
 /// CreateAnimalPageView arguments holder class

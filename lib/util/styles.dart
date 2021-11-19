@@ -49,6 +49,11 @@ const TextStyle body1Style = TextStyle(
   fontWeight: FontWeight.normal,
 );
 
+const TextStyle body1BoldStyle = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.bold,
+);
+
 const TextStyle body2Style = TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.bold,

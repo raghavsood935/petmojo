@@ -13,6 +13,8 @@ import 'package:tamely/models/params/profile_create_body.dart';
 import 'package:tamely/models/params/register_body.dart';
 import 'package:tamely/models/params/reset_password_body.dart';
 import 'package:tamely/models/params/social_login_body.dart';
+import 'package:tamely/models/params/change_bio_avatar_body.dart';
+import 'package:tamely/models/user_profile_details_response.dart';
 import 'package:tamely/models/user_response_models.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/ui/otp/confirm_otp_viewmodel.dart';
@@ -62,6 +64,7 @@ class TamelyApi {
     if (isAuth) {
       dio.options.headers["authorization"] =
           "${_sharedPreferenceServices.authToken}";
+      log.d("TOKEN :: ${_sharedPreferenceServices.authToken}");
     }
     return ApiClient(dio);
   }
@@ -225,6 +228,21 @@ class TamelyApi {
     return BaseResponse()..data = response;
   }
 
+  Future<BaseResponse<UserProfileDetailsResponse>>
+      getUserProfileDetail() async {
+    log.d("get user profile details");
+    UserProfileDetailsResponse response;
+    try {
+      response = await getApiClient(true).getUserProfileDetails();
+      response = await getApiClient(true).getUserProfileDetails();
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
   Future<BaseResponse<UserResponse>> facebookLogin(
       SocialLoginBody socialLoginBody) async {
     log.d("facebookLogin called");
@@ -245,6 +263,32 @@ class TamelyApi {
     UserResponse response;
     try {
       response = await getApiClient(false).googleLogin(socialLoginBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  Future<BaseResponse<CommonResponse>> getUserPosts() async {
+    CommonResponse response;
+    try {
+      response = await getApiClient(true).getUserPosts();
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  Future<BaseResponse<CommonResponse>> changeBioAndAvatar(
+      ChangeBioAvatarBody changeBioAvatarBody) async {
+    CommonResponse response;
+    try {
+      response =
+          await getApiClient(true).changeBioAndAvatar(changeBioAvatarBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()

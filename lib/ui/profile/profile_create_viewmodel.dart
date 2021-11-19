@@ -33,6 +33,11 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
   bool _isValid = false;
   LocalUser user;
 
+  String _fullName = "";
+  String _shortBio = "";
+
+  bool isEdit = false;
+
   ProfileCreateViewModel(this.user);
 
   get isValid => _isValid;
@@ -98,9 +103,9 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
     }
     if (await Util.checkInternetConnectivity()) {
       ProfileCreateBody profileCreateBody = ProfileCreateBody(
-          nameValue!, usernameValue!, shortBioValue!, "", avatarUrl);
+          nameValue!, usernameValue!, shortBioValue ?? "", "", avatarUrl);
       try {
-        await runBusyFuture(updateProfile(profileCreateBody),
+        await runBusyFuture(updateProfile(profileCreateBody, isEdit: isEdit),
             throwException: true);
       } catch (e) {
         log.e(e);
@@ -150,18 +155,25 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
     }
   }
 
-  init() {
-    sharedPreferencesService.currentState =
-        getRedirectStateName(RedirectState.ProfileCreate);
+  init(dynamic lastAvatarUrl, bool isEdit) {
+    // sharedPreferencesService.currentState =
+    //     getRedirectStateName(RedirectState.ProfileCreate);
+    this.isEdit = isEdit;
+    if (isEdit) {
+      avatarUrl = lastAvatarUrl;
+    }
+    notifyListeners();
   }
 
   bool checkValidateField() {
     _isValid = true;
     formValueMap.keys.forEach((element) {
-      String elementValue = formValueMap[element];
-      if (elementValue.isEmpty) {
-        _isValid = false;
-        return;
+      if (element != "shortBio") {
+        String elementValue = formValueMap[element];
+        if (elementValue.isEmpty) {
+          _isValid = false;
+          return;
+        }
       }
     });
 
@@ -184,4 +196,10 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
       return "Username is not available";
     }
   }
+
+  String get fullName => _fullName;
+
+  String get shortBio => _shortBio;
+
+  String get userName => _userName;
 }

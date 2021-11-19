@@ -5,6 +5,7 @@ class FeedPostModel {
   String _animalProfileName = "Cat Vibes only";
   String _location = "Gurgaon,Haryana";
   String _uploadTime = "2 days ago";
+  String _hastTag = "#petlover #animallover";
   String _profileImgUrl =
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREXRvslazqeJ0hLFvkgCxmYefVVKceG3U7Gg&usqp=CAU";
 
@@ -54,4 +55,6 @@ class FeedPostModel {
   String get animalProfileName => _animalProfileName;
 
   String get animalProfileImgUrl => _animalProfileImgUrl;
+
+  String get hastTag => _hastTag;
 }

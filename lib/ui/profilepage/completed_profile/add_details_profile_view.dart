@@ -1,24 +1,29 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/ui/profilepage/completed_profile/add_details_profile_viewmodel.dart';
 import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_input_field.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/main_btn.dart';
 
 class AddDetailsProfileView extends StatelessWidget {
-  const AddDetailsProfileView({Key? key}) : super(key: key);
+  AddDetailsProfileView(
+      {Key? key, required this.lastUrl, required this.lastBio})
+      : super(key: key);
+  String lastUrl;
+  String lastBio;
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController bioTC = new TextEditingController();
-
     return ViewModelBuilder<AddDetailsProfileViewModel>.reactive(
       viewModelBuilder: () => AddDetailsProfileViewModel(),
+      onModelReady: (model) => model.setPreviousValues(lastUrl, lastBio),
       builder: (context, model, child) => Scaffold(
         body: SingleChildScrollView(
           child: Container(
@@ -42,11 +47,16 @@ class AddDetailsProfileView extends StatelessWidget {
                       children: [
                         IconButton(
                           onPressed: model.goBack,
-                          icon: Icon(Icons.arrow_back),
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color: colors.black,
+                          ),
                         ),
                         verticalSpaceRegular,
-                        AppText.headingThree("Complete your Profile",
-                            textAlign: TextAlign.center),
+                        Align(
+                          alignment: Alignment.center,
+                          child: AppText.headingThree("Complete your Profile"),
+                        ),
                         verticalSpaceRegular,
                         Align(
                           alignment: Alignment.center,
@@ -63,14 +73,28 @@ class AddDetailsProfileView extends StatelessWidget {
                                 backgroundColor: colors.kcLightGreyBackground,
                                 child: Stack(
                                   children: [
-                                    if (model.imagePath.isEmpty)
+                                    if (model.imagePath.isEmpty ||
+                                        model.avatarUrl.isEmpty)
                                       CircleAvatar(
                                         backgroundColor: colors.primary,
                                         radius: 65,
-                                        child: Icon(
-                                          Icons.camera_alt_outlined,
+                                        child: SvgPicture.asset(
+                                          cameraIcon,
                                           color: colors.white,
-                                          size: 50,
+                                        ),
+                                      ),
+                                    if (model.avatarUrl.isNotEmpty &&
+                                        model.imagePath.isEmpty)
+                                      CircleAvatar(
+                                        backgroundColor: colors.primary,
+                                        radius: 65,
+                                        child: ClipOval(
+                                          child: SizedBox(
+                                            width: 130,
+                                            height: 130,
+                                            child:
+                                                Image.network(model.avatarUrl),
+                                          ),
                                         ),
                                       ),
                                     if (model.imagePath.isNotEmpty)
@@ -92,10 +116,14 @@ class AddDetailsProfileView extends StatelessWidget {
                           ),
                         ),
                         verticalSpaceMedium,
-                        AppText.body("Short Bio", textAlign: TextAlign.start),
-                        verticalSpaceSmall,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: AppText.body("Short Bio",
+                              textAlign: TextAlign.start),
+                        ),
+                        verticalSpaceTiny,
                         AppInputField(
-                          controller: bioTC,
+                          controller: model.bioTC,
                           hint: "We would love to know more about you!",
                         ),
                       ],
@@ -107,10 +135,12 @@ class AddDetailsProfileView extends StatelessWidget {
                   left: 0,
                   right: 0,
                   child: Visibility(
-                    visible: bioTC.text.isNotEmpty &&
+                    visible: model.bioTC.text.isNotEmpty &&
                         !model.checkIfTheKeyboardIsOpen(context),
                     child: MainButtonWidget(
-                        onMainButtonTapped: () {}, mainButtonTitle: "Save"),
+                      onMainButtonTapped: model.changeDetails,
+                      mainButtonTitle: "Save",
+                    ),
                   ),
                 )
               ],

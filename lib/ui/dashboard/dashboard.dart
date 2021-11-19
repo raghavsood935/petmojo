@@ -208,43 +208,44 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<DashboardViewModel>.reactive(
-        viewModelBuilder: () => DashboardViewModel(),
-        builder: (context, model, child) => Scaffold(
-              appBar: FeedAppBar(),
-              drawer: Drawer(
-                child: SafeArea(
-                    child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.max,
-                      children: _buildDrawerScreens(context, model)),
-                )),
-              ),
-              body: PersistentTabView.custom(
-                context,
-                controller: model.controller,
-                screens: _buildScreens(context, model),
-                confineInSafeArea: true,
-                itemCount: 5,
-                handleAndroidBackButtonPress: true,
-                stateManagement: true,
-                hideNavigationBar: model.hideNavBar,
-                screenTransitionAnimation: ScreenTransitionAnimation(
-                  animateTabTransition: true,
-                  curve: Curves.easeIn,
-                  duration: Duration(milliseconds: 100),
-                ),
-                customWidget: CustomNavBarWidget(
-                  items: _navBarsItems(),
-                  onItemSelected: (index) {
-                    model.controllerIndex(index);
-                  },
-                  selectedIndex: model.controller.index,
-                ),
-              ),
-            ));
+      viewModelBuilder: () => DashboardViewModel(),
+      builder: (context, model, child) => Scaffold(
+        appBar: FeedAppBar(),
+        drawer: Drawer(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: _buildDrawerScreens(context, model)),
+          ),
+        ),
+        body: PersistentTabView.custom(
+          context,
+          controller: model.controller,
+          screens: _buildScreens(context, model),
+          confineInSafeArea: true,
+          itemCount: 5,
+          handleAndroidBackButtonPress: true,
+          stateManagement: true,
+          hideNavigationBar: model.hideNavBar,
+          screenTransitionAnimation: ScreenTransitionAnimation(
+            animateTabTransition: true,
+            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 100),
+          ),
+          customWidget: CustomNavBarWidget(
+            items: _navBarsItems(),
+            onItemSelected: (index) {
+              model.controllerIndex(index);
+            },
+            selectedIndex: model.controller.index,
+          ),
+        ),
+        backgroundColor: colors.white,
+      ),
+    );
   }
 }
 
