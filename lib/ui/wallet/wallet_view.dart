@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tamely/util/String.dart';
-import 'package:tamely/util/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:tamely/util/Color.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/util/ui_helpers.dart';
 
