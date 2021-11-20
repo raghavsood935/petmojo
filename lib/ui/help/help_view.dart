@@ -20,7 +20,6 @@ class _HelpViewState extends State<HelpView> {
   final TextEditingController _phone = TextEditingController();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _content = TextEditingController();
-  final Color inputFieldColor = Color(0xFFFBF0F4);
   final String hintText =
       "Type your issue here. We will reach out to you shortly!";
   bool isPhone = true;
@@ -113,11 +112,11 @@ class _HelpViewState extends State<HelpView> {
               verticalSpaceMedium,
               TextAreaWidget(
                 ctrl: _content,
-                bgColor: inputFieldColor,
+                bgColor: colors.inputFieldColor,
                 hintText: hintText,
               ),
               verticalSpaceMedium,
-              ScreenShotInput(bgColor: inputFieldColor, onClick: () {}),
+              ScreenShotInput(bgColor: colors.inputFieldColor, onClick: () {}),
               verticalSpaceRegular,
               MainButtonWidget(
                   onMainButtonTapped: () {}, mainButtonTitle: "SUBMIT HELP")
