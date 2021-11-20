@@ -34,6 +34,7 @@ import '../ui/profile/profile_create_view.dart';
 import '../ui/profilepage/animal_profile/animal_profile_view.dart';
 import '../ui/profilepage/animal_profile/basic_info/basic_info_view.dart';
 import '../ui/profilepage/create_animal_profile/create_animal_page_viewe.dart';
+import '../ui/settings/settings_animal_view.dart';
 import '../ui/settings/settings_human_view.dart';
 import '../ui/signup/signup_view.dart';
 import '../ui/startup/startup_view.dart';
@@ -61,6 +62,7 @@ class Routes {
   static const String createGroupView = '/create-group-view';
   static const String groupInfoView = '/group-info-view';
   static const String settingsHumanView = '/settings-human-view';
+  static const String settingsAnimalView = '/settings-animal-view';
   static const String feedbackView = '/feedback-view';
   static const String bookingsView = '/bookings-view';
   static const String bookmarksView = '/bookmarks-view';
@@ -87,6 +89,7 @@ class Routes {
     createGroupView,
     groupInfoView,
     settingsHumanView,
+    settingsAnimalView,
     feedbackView,
     bookingsView,
     bookmarksView,
@@ -120,6 +123,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.createGroupView, page: CreateGroupView),
     RouteDef(Routes.groupInfoView, page: GroupInfoView),
     RouteDef(Routes.settingsHumanView, page: SettingsHumanView),
+    RouteDef(Routes.settingsAnimalView, page: SettingsAnimalView),
     RouteDef(Routes.feedbackView, page: FeedbackView),
     RouteDef(Routes.bookingsView, page: BookingsView),
     RouteDef(Routes.bookmarksView, page: BookmarksView),
@@ -279,6 +283,12 @@ class StackedRouter extends RouterBase {
     SettingsHumanView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const SettingsHumanView(),
+        settings: data,
+      );
+    },
+    SettingsAnimalView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const SettingsAnimalView(),
         settings: data,
       );
     },

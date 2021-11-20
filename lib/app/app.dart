@@ -24,6 +24,8 @@ import 'package:tamely/ui/signup/signup_view.dart';
 import 'package:tamely/ui/startup/startup_view.dart';
 
 import '../ui/settings/settings_human_view.dart';
+import '../ui/settings/settings_animal_view.dart';
+
 import '../ui/bookings/bookings_view.dart';
 import '../ui/bookmarks/bookmarks_view.dart';
 import '../ui/feedback/feedback_view.dart';
@@ -54,6 +56,7 @@ import '../ui/wallet/wallet_view.dart';
 
     // dashboard routes
     CupertinoRoute(page: SettingsHumanView),
+    CupertinoRoute(page: SettingsAnimalView),
     CupertinoRoute(page: FeedbackView),
     CupertinoRoute(page: BookingsView),
     CupertinoRoute(page: BookmarksView),
