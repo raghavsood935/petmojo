@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
 import 'package:tamely/util/String.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/util/ui_helpers.dart';
@@ -21,6 +22,7 @@ class _SettingsAnimalViewState extends State<SettingsAnimalView> {
 
   final String accVerify =
       "For certified NGOs or publicly known people, please drop an email at support@tamely.in to get certified. NGOs will be able to get donations directly from users.";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,9 +30,14 @@ class _SettingsAnimalViewState extends State<SettingsAnimalView> {
         elevation: 0.5,
         centerTitle: true,
         backgroundColor: Colors.white,
-        leading: Icon(
-          Icons.arrow_back_sharp,
-          color: Colors.black,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_sharp,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         title: AppText.subheading(settingsTitle),
         actions: [
@@ -164,7 +171,10 @@ class _SettingsAnimalViewState extends State<SettingsAnimalView> {
                   "Animal is lost(we will show in the lost profile and others may be help to find the animal)"),
             ),
             spacedDivider,
-            AppText.subheading("Logout"),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: AppText.subheading("Logout"),
+            ),
             spacedDivider,
             verticalSpaceLarge,
           ],

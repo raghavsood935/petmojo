@@ -10,6 +10,7 @@ class WalletView extends StatelessWidget {
       "Tamely wallet will be activated once  you have 1000+ followers. You can monetise your account and earn money by gathering more followers.";
   static const String text2 =
       "This is especially good for wild life photographers to earn money for their beautiful art!";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,9 +18,14 @@ class WalletView extends StatelessWidget {
         elevation: 1,
         centerTitle: true,
         backgroundColor: Colors.white,
-        leading: Icon(
-          Icons.arrow_back_sharp,
-          color: Colors.black,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_sharp,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         title: AppText.subheading(walletTitle),
         actions: [

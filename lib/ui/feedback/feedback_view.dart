@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/main_btn.dart';
-import 'package:tamely/widgets/app_input_field.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -27,6 +26,7 @@ class _FeedbackViewState extends State<FeedbackView> {
   bool design = false;
   bool idea = false;
   bool others = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,9 +35,14 @@ class _FeedbackViewState extends State<FeedbackView> {
         elevation: 1,
         centerTitle: true,
         backgroundColor: Colors.white,
-        leading: Icon(
-          Icons.arrow_back_sharp,
-          color: Colors.black,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_sharp,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         title: AppText.subheading(feedbackTitle),
         actions: [
@@ -63,7 +68,7 @@ class _FeedbackViewState extends State<FeedbackView> {
               verticalSpaceRegular,
               AppText.body2("Tags"),
               Wrap(
-                spacing: 30,
+                spacing: 10,
                 runSpacing: 2,
                 children: [
                   TagsWidget(
@@ -338,8 +343,8 @@ class TagsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 80,
-      height: 40,
+      width: 70,
+      height: 34,
       margin: const EdgeInsets.only(top: 10),
       decoration: BoxDecoration(
         border: Border.all(color: borderColor),
@@ -347,7 +352,7 @@ class TagsWidget extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: onMainButtonTapped,
-        child: AppText.body(mainButtonTitle, color: textColor),
+        child: AppText.body1(mainButtonTitle, color: textColor),
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(bgColor),
           // padding: MaterialStateProperty.all(const EdgeInsets.all(12)),

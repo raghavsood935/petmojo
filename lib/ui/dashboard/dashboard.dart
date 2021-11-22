@@ -62,10 +62,16 @@ class Dashboard extends StatelessWidget {
   List<Widget> _buildDrawerScreens(
       BuildContext context, DashboardViewModel model) {
     return [
-      Icon(
-        Icons.clear,
-        color: colors.primary,
-        size: 30,
+      IconButton(
+        splashRadius: 5,
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        icon: Icon(
+          Icons.clear,
+          color: colors.primary,
+          size: 30,
+        ),
       ),
       verticalSpaceMedium,
       Row(

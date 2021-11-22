@@ -32,9 +32,14 @@ class _HelpViewState extends State<HelpView> {
         elevation: 1,
         centerTitle: true,
         backgroundColor: Colors.white,
-        leading: Icon(
-          Icons.arrow_back_sharp,
-          color: Colors.black,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_sharp,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         title: AppText.subheading(helpTitle),
         actions: [
@@ -50,7 +55,7 @@ class _HelpViewState extends State<HelpView> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.only(left: 20, right: 20, top: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -109,13 +114,13 @@ class _HelpViewState extends State<HelpView> {
                       textInputType: TextInputType.emailAddress,
                     ),
               AppText.body2("Report a problem / spam / abuse"),
-              verticalSpaceMedium,
+              verticalSpaceSmall,
               TextAreaWidget(
                 ctrl: _content,
                 bgColor: colors.inputFieldColor,
                 hintText: hintText,
               ),
-              verticalSpaceMedium,
+              verticalSpaceRegular,
               ScreenShotInput(bgColor: colors.inputFieldColor, onClick: () {}),
               verticalSpaceRegular,
               MainButtonWidget(
@@ -145,7 +150,8 @@ class ButtonActions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 135,
+      width: 140,
+      height: 42,
       margin: const EdgeInsets.only(top: 16, right: 16),
       decoration: BoxDecoration(
         border: Border.all(color: borderColor),
@@ -153,7 +159,7 @@ class ButtonActions extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: onMainButtonTapped,
-        child: AppText.subheading(mainButtonTitle, color: textColor),
+        child: AppText.body(mainButtonTitle, color: textColor),
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(bgColor),
           padding: MaterialStateProperty.all(const EdgeInsets.all(12)),
