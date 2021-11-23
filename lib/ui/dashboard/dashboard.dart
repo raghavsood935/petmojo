@@ -62,10 +62,16 @@ class Dashboard extends StatelessWidget {
   List<Widget> _buildDrawerScreens(
       BuildContext context, DashboardViewModel model) {
     return [
-      Icon(
-        Icons.clear,
-        color: colors.primary,
-        size: 30,
+      IconButton(
+        splashRadius: 5,
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        icon: Icon(
+          Icons.clear,
+          color: colors.primary,
+          size: 30,
+        ),
       ),
       verticalSpaceMedium,
       Row(
@@ -109,17 +115,17 @@ class Dashboard extends StatelessWidget {
                 title: bookingTitle,
                 subTitle: bookingSubTitle,
                 iconUrl: bookingIcon,
-                onTap: model.onWalletPressed),
+                onTap: model.onMyBookingsPressed),
             DrawerWidget(
                 title: settingsTitle,
                 subTitle: settingsSubTitle,
                 iconUrl: settingsIcon,
-                onTap: model.onWalletPressed),
+                onTap: model.onSettingsPressed),
             DrawerWidget(
                 title: bookmarksTitle,
                 subTitle: bookmarksSubTitle,
                 iconUrl: bookmarksIcon,
-                onTap: model.onWalletPressed),
+                onTap: model.onBookmarksPressed),
           ],
         ),
       ),
@@ -131,12 +137,12 @@ class Dashboard extends StatelessWidget {
           title: feedbackTitle,
           subTitle: feedbackSubTitle,
           iconUrl: feedbackIcon,
-          onTap: model.onWalletPressed),
+          onTap: model.onFeedbackPressed),
       DrawerWidget(
           title: helpTitle,
           subTitle: helpSubTitle,
           iconUrl: helpIcon,
-          onTap: model.onWalletPressed),
+          onTap: model.onHelpPressed),
     ];
   }
 

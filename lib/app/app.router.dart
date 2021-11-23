@@ -13,15 +13,19 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
 import '../models/application_models.dart';
+import '../ui/bookings/bookings_view.dart';
+import '../ui/bookmarks/bookmarks_view.dart';
 import '../ui/community/community_main_view/community_main_view.dart';
 import '../ui/community/first_time_views/community_choose_interests/community_choose_interests_view.dart';
 import '../ui/dashboard/dashboard.dart';
+import '../ui/feedback/feedback_view.dart';
 import '../ui/for_you/for_you_search/for_you_tab_search_view.dart';
 import '../ui/forgotpassword/forgotpassword_view.dart';
 import '../ui/forgotpassword/new_password_view.dart';
 import '../ui/groups/create_group/create_group_view.dart';
 import '../ui/groups/group_info/group_info_view.dart';
 import '../ui/groups/groups_view.dart';
+import '../ui/help/help_view.dart';
 import '../ui/login/login_view.dart';
 import '../ui/onboarding/onboarding_view.dart';
 import '../ui/otp/confirm_otp_view.dart';
@@ -30,8 +34,11 @@ import '../ui/profile/profile_create_view.dart';
 import '../ui/profilepage/animal_profile/animal_profile_view.dart';
 import '../ui/profilepage/animal_profile/basic_info/basic_info_view.dart';
 import '../ui/profilepage/create_animal_profile/create_animal_page_viewe.dart';
+import '../ui/settings/settings_animal_view.dart';
+import '../ui/settings/settings_human_view.dart';
 import '../ui/signup/signup_view.dart';
 import '../ui/startup/startup_view.dart';
+import '../ui/wallet/wallet_view.dart';
 
 class Routes {
   static const String startupView = '/';
@@ -54,6 +61,13 @@ class Routes {
   static const String cameraScreen = '/camera-screen';
   static const String createGroupView = '/create-group-view';
   static const String groupInfoView = '/group-info-view';
+  static const String settingsHumanView = '/settings-human-view';
+  static const String settingsAnimalView = '/settings-animal-view';
+  static const String feedbackView = '/feedback-view';
+  static const String bookingsView = '/bookings-view';
+  static const String bookmarksView = '/bookmarks-view';
+  static const String helpView = '/help-view';
+  static const String walletView = '/wallet-view';
   static const all = <String>{
     startupView,
     onBoardingView,
@@ -74,6 +88,13 @@ class Routes {
     cameraScreen,
     createGroupView,
     groupInfoView,
+    settingsHumanView,
+    settingsAnimalView,
+    feedbackView,
+    bookingsView,
+    bookmarksView,
+    helpView,
+    walletView,
   };
 }
 
@@ -101,6 +122,14 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.cameraScreen, page: CameraScreen),
     RouteDef(Routes.createGroupView, page: CreateGroupView),
     RouteDef(Routes.groupInfoView, page: GroupInfoView),
+    RouteDef(Routes.settingsHumanView, page: SettingsHumanView),
+    RouteDef(Routes.settingsAnimalView, page: SettingsAnimalView),
+    RouteDef(Routes.feedbackView, page: FeedbackView),
+    RouteDef(Routes.bookingsView, page: BookingsView),
+    RouteDef(Routes.bookmarksView, page: BookmarksView),
+    RouteDef(Routes.feedbackView, page: FeedbackView),
+    RouteDef(Routes.helpView, page: HelpView),
+    RouteDef(Routes.walletView, page: WalletView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -248,6 +277,48 @@ class StackedRouter extends RouterBase {
     GroupInfoView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const GroupInfoView(),
+        settings: data,
+      );
+    },
+    SettingsHumanView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const SettingsHumanView(),
+        settings: data,
+      );
+    },
+    SettingsAnimalView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const SettingsAnimalView(),
+        settings: data,
+      );
+    },
+    FeedbackView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const FeedbackView(),
+        settings: data,
+      );
+    },
+    BookingsView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const BookingsView(),
+        settings: data,
+      );
+    },
+    BookmarksView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const BookmarksView(),
+        settings: data,
+      );
+    },
+    HelpView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const HelpView(),
+        settings: data,
+      );
+    },
+    WalletView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const WalletView(),
         settings: data,
       );
     },

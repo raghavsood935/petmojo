@@ -4,8 +4,10 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
+import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/redirect_state.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
+import 'package:flutter/material.dart';
 
 class DashboardViewModel extends FutureViewModel<void>
     implements Initialisable {
@@ -74,9 +76,31 @@ class DashboardViewModel extends FutureViewModel<void>
     notifyListeners();
   }
 
-  void onWalletPressed() {}
+  void onWalletPressed() async {
+    await _navigationService.navigateTo(Routes.walletView);
+  }
+
+  void onMyBookingsPressed() async {
+    await _navigationService.navigateTo(Routes.bookingsView);
+  }
+
+  void onSettingsPressed() async {
+    await _navigationService.navigateTo(Routes.settingsHumanView);
+  }
+
+  void onBookmarksPressed() async {
+    await _navigationService.navigateTo(Routes.bookmarksView);
+  }
 
   void onNotificationPressed() {}
 
   void onChatPressed() {}
+
+  void onFeedbackPressed() async {
+    await _navigationService.navigateTo(Routes.feedbackView);
+  }
+
+  void onHelpPressed() async {
+    await _navigationService.navigateTo(Routes.helpView);
+  }
 }
