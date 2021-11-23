@@ -9,13 +9,13 @@ part of 'edit_animal_profile_details_body.dart';
 EditAnimalProfileDetailsBody _$EditAnimalProfileDetailsBodyFromJson(
         Map<String, dynamic> json) =>
     EditAnimalProfileDetailsBody(
-      json['petId'] as String,
-      json['favouriteThings'] as String,
-      json['thingsDislikes'] as String,
-      json['uniqueHabits'] as String,
-      json['eatingHabits'] as String,
-      json['friendlinessWithHumans'] as int,
-      json['friendlinessWithAnimals'] as int,
+      json['petId'] as String?,
+      json['favouriteThings'] as String?,
+      json['thingsDislikes'] as String?,
+      json['uniqueHabits'] as String?,
+      json['eatingHabits'] as String?,
+      json['friendlinessWithHumans'] as int?,
+      json['friendlinessWithAnimals'] as int?,
     );
 
 Map<String, dynamic> _$EditAnimalProfileDetailsBodyToJson(
