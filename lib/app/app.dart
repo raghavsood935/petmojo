@@ -19,6 +19,8 @@ import 'package:tamely/ui/post/camera_screen.dart';
 import 'package:tamely/ui/profile/profile_create_view.dart';
 import 'package:tamely/ui/profilepage/animal_profile/animal_profile_view.dart';
 import 'package:tamely/ui/profilepage/animal_profile/basic_info/basic_info_view.dart';
+import 'package:tamely/ui/profilepage/completed_profile/add_details_profile_view.dart';
+import 'package:tamely/ui/profilepage/completed_profile/follow_people_action_view.dart';
 import 'package:tamely/ui/profilepage/create_animal_profile/create_animal_page_viewe.dart';
 import 'package:tamely/ui/signup/signup_view.dart';
 import 'package:tamely/ui/startup/startup_view.dart';
@@ -43,6 +45,8 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: ForgotPasswordView),
     CupertinoRoute(page: NewPasswordView),
     CupertinoRoute(page: ProfileCreateView),
+    CupertinoRoute(page: AddDetailsProfileView),
+    CupertinoRoute(page: FollowPeopleProfileActionView),
     CupertinoRoute(page: CreateAnimalPageView),
     CupertinoRoute(page: ForYouTabSearchView),
     CupertinoRoute(page: CommunityChooseInterestView),

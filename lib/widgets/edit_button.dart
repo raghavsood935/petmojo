@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ImageConstant.dart';
 
 import 'app_text.dart';
 
@@ -12,6 +14,18 @@ class EditButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // return isSmall
+    //     ? SvgPicture.asset(
+    //         editIcon,
+    //         color: colors.primary,
+    //         height: 14,
+    //         width: 14,
+    //       )
+    //     : SvgPicture.asset(
+    //         editIcon,
+    //         color: colors.primary,
+    //       );
+
     return Row(mainAxisSize: MainAxisSize.min, children: [
       Icon(
         Icons.edit,

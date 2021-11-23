@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/ui/dashboard/dashboard_viewmodel.dart';
@@ -35,9 +36,10 @@ class FeedAppBar extends ViewModelWidget<DashboardViewModel>
           ),
         ),
       ],
-      elevation: 1.5,
-      brightness: Brightness.light,
+      // elevation: 1.5,
+      // brightness: Brightness.light,
       backgroundColor: Colors.white,
+      backwardsCompatibility: false,
     );
   }
 

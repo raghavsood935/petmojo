@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tamely/models/my_animal_model.dart';
 import 'package:tamely/ui/profilepage/animal_profile/basic_info/general_info/general_info_view.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/widgets/app_text.dart';
@@ -7,9 +8,11 @@ import 'package:tamely/widgets/edit_button.dart';
 import 'preferences/preferences_view.dart';
 
 class AnimalBasicInfo extends StatefulWidget {
-  AnimalBasicInfo({Key? key}) : super(key: key);
+  AnimalBasicInfo({Key? key, required this.animalModelResponse})
+      : super(key: key);
 
-  List<Widget> _tabs = [GeneralInfoView(), PreferencesView()];
+  MyAnimalModelResponse animalModelResponse;
+
   List<Tab> _tabsTitle = [
     Tab(
       text: "General Info",
@@ -48,7 +51,14 @@ class _AnimalBasicInfoState extends State<AnimalBasicInfo> {
           ),
         ),
         body: TabBarView(
-          children: widget._tabs,
+          children: [
+            GeneralInfoView(
+              animalModelResponse: widget.animalModelResponse,
+            ),
+            PreferencesView(
+              petId: widget.animalModelResponse.Id!,
+            )
+          ],
         ),
       ),
     );

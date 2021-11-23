@@ -1,20 +1,30 @@
+import 'package:flutter/cupertino.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/api/api_service.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
+import 'package:tamely/enum/DialogType.dart';
+import 'package:tamely/models/animal_profile_detail_model.dart';
+import 'package:tamely/models/my_animal_model.dart';
+import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
+import 'package:tamely/util/utils.dart';
 
-class AnimalProfileViewModel extends BaseModel {
+class AnimalProfileViewModel extends FutureViewModel {
   final log = getLogger('AnimalProfileView');
   final _navigationService = locator<NavigationService>();
-  String? _animalBasicInfoRoute = Routes.animalBasicInfo;
-  dynamic _destinationArguments;
+  final _tamelyApi = locator<TamelyApi>();
+  final _dialogService = locator<DialogService>();
 
-  String _profilename = "Joeylene Rivera";
-  String _username = "username";
-  String _animalBreed = "Dog (Siberian Husky)";
-  String _shortBio =
-      "Helping B2C Tech Start-ups build a greate marketing websiter. Get on the right track with a 60 mins consultation ";
+  MyAnimalModelResponse? myAnimalModelResponse;
+
+  String _profilename = "";
+  String _username = "";
+  String _animalBreed = "";
+  String _avatar = "";
+  String _shortBio = "";
   int _completedProfileStepCount = 0;
   int _completedProfileTotalCount = 2;
   int _noOfPosts = 0;
@@ -29,6 +39,8 @@ class AnimalProfileViewModel extends BaseModel {
   String get profilename => _profilename;
 
   String get username => _username;
+
+  String get avatar => _avatar;
 
   String get shortBio => _shortBio;
 
@@ -52,20 +64,53 @@ class AnimalProfileViewModel extends BaseModel {
 
   bool get isUpForPlayBuddies => _isUpForPlayBuddies;
 
-  Future _animalBasicInfo() async {
-    if (_animalBasicInfoRoute != null) {
-      await _navigationService.navigateTo(
-        _animalBasicInfoRoute!,
-        arguments: _destinationArguments,
-      );
-    }
-  }
-
   void goToAnimalBasicInfo() async {
-    await _animalBasicInfo();
+    await _navigationService.navigateTo(Routes.animalBasicInfo,
+        arguments: AnimalBasicInfoArguments(
+            animalModelResponse: myAnimalModelResponse!));
   }
 
   void goBack() async {
     _navigationService.back();
+  }
+
+  Future getAnimalDetails(String id) async {
+    if (await Util.checkInternetConnectivity()) {
+      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
+        _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
+        var result = await runBusyFuture(
+            _tamelyApi.getAnimalProfileDetail(AnimalProfileDetailsBody(id)));
+        if (result != null) {
+          if (result.data != null) {
+            setValues(result.data!);
+          }
+        } else {
+          _dialogService.completeDialog(DialogResponse(confirmed: true));
+        }
+      });
+    } else {}
+  }
+
+  Future setValues(AnimalProfileDetailModelResponse response) async {
+    myAnimalModelResponse = response.animalprofileModel;
+
+    _profilename = response.animalprofileModel!.username ?? "";
+    _username = response.animalprofileModel!.name ?? "";
+    _shortBio = response.animalprofileModel!.bio ?? "";
+    _avatar = response.animalprofileModel!.avatar ?? "";
+    _animalBreed = response.animalprofileModel!.breed ?? "";
+
+    _isUpForAdoption = response.animalprofileModel!.adoption ?? false;
+    _isUpForMating = response.animalprofileModel!.mating ?? false;
+    _isUpForPlayBuddies = response.animalprofileModel!.playBuddies ?? false;
+
+    notifyListeners();
+    _dialogService.completeDialog(DialogResponse(confirmed: true));
+  }
+
+  @override
+  Future futureToRun() {
+    // TODO: implement futureToRun
+    throw UnimplementedError();
   }
 }

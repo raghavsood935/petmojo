@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/models/my_animal_model.dart';
 import 'package:tamely/ui/profilepage/animal_profile/basic_info/general_info/general_info_view_model.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/String.dart';
@@ -8,34 +9,42 @@ import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 
 class GeneralInfoView extends StatelessWidget {
-  const GeneralInfoView({Key? key}) : super(key: key);
-
+  GeneralInfoView({Key? key, required this.animalModelResponse})
+      : super(key: key);
+  MyAnimalModelResponse animalModelResponse;
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<GeneralInfoViewModel>.reactive(
       viewModelBuilder: () => GeneralInfoViewModel(),
+      onModelReady: (model) => model.getLocation(animalModelResponse.location!),
       builder: (context, model, child) => ListView(
         children: [
-          detailsRowItem("Name", model.name),
-          detailsRowItem("Animal Type", model.animalType),
-          detailsRowItem("Gender", model.gender),
+          detailsRowItem("Name", animalModelResponse.name ?? ""),
+          detailsRowItem("Animal Type", animalModelResponse.animalType ?? ""),
+          detailsRowItem("Gender", animalModelResponse.gender ?? ""),
           detailsRowItem("Service Pet", model.servicePet),
           detailsRowItem("Spayed", model.sprayed),
-          detailsRowItem("Breed", model.breed),
-          detailsRowItem("Age/Date of birth", model.age),
+          detailsRowItem("Breed", animalModelResponse.breed ?? ""),
+          detailsRowItem("Age/Date of birth", animalModelResponse.age ?? ""),
           spacedDividerBigTiny,
+          Visibility(
+              visible: animalModelResponse.category! == "Stray",
+              child: detailsRowItem("Location", model.location)),
+          Visibility(
+              visible: animalModelResponse.category! == "Stray",
+              child: spacedDividerBigTiny),
           Wrap(
             children: [
               Visibility(
-                visible: model.isUpForAdoption,
+                visible: animalModelResponse.adoption ?? false,
                 child: roundedText(upForAdoption),
               ),
               Visibility(
-                visible: model.isUpForMating,
+                visible: animalModelResponse.mating ?? false,
                 child: roundedText(upForMating),
               ),
               Visibility(
-                visible: model.isUpForPlayBuddies,
+                visible: animalModelResponse.playBuddies ?? false,
                 child: roundedText(upForPlayBuddies),
               ),
             ],

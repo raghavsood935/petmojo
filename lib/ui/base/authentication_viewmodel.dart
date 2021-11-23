@@ -73,7 +73,8 @@ abstract class AuthenticationViewModel extends FormViewModel {
     }
   }
 
-  Future<void> updateProfile(ProfileCreateBody createBody) async {
+  Future<void> updateProfile(ProfileCreateBody createBody,
+      {bool isEdit = false}) async {
     log.i('valued:$formValueMap');
     try {
       if (await Util.checkInternetConnectivity()) {
@@ -83,7 +84,11 @@ abstract class AuthenticationViewModel extends FormViewModel {
         if (response.data != null) {
           sharedPreferencesService.currentState =
               getRedirectStateName(RedirectState.Home);
-          navigationService.pushNamedAndRemoveUntil(Routes.dashboard);
+          if (isEdit) {
+            navigationService.back(result: 1);
+          } else {
+            navigationService.pushNamedAndRemoveUntil(Routes.dashboard);
+          }
         }
       } else {
         snackBarService.showSnackbar(message: "No Internet connection");

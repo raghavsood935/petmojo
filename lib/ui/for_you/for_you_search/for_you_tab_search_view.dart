@@ -4,6 +4,7 @@ import 'package:tamely/ui/for_you/for_you_search/for_you_tab_search_view_model.d
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/widgets/app_input_field.dart';
 import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/search_text_field.dart';
 
 class ForYouTabSearchView extends StatefulWidget {
   const ForYouTabSearchView({Key? key}) : super(key: key);
@@ -24,11 +25,7 @@ class _ForYouTabSearchViewState extends State<ForYouTabSearchView> {
             elevation: 0,
             automaticallyImplyLeading: false,
             title: Container(
-              child: AppInputField(
-                controller: model.searchTC,
-                isSearchField: true,
-                hint: "Search for profiles,keywords etc.",
-              ),
+              child: SearchTextField(controller: model.searchTC,hint: "Search for profiles,keywords etc.",onChange: model.onSearchChange,)
             ),
             actions: <Widget>[
               TextButton(

@@ -10,17 +10,13 @@ class AppInputField extends StatelessWidget {
   final Widget? trailing;
   final bool password;
   final bool readOnly;
+  final bool isDDM;
   final TextInputType? textInputType;
   final TextCapitalization? textCapitalization;
-  final bool isSearchField;
   final void Function()? trailingTapped;
 
   final circularBorder = UnderlineInputBorder(
     borderRadius: BorderRadius.circular(8),
-  );
-
-  final roundedBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(25),
   );
 
   AppInputField(
@@ -35,7 +31,7 @@ class AppInputField extends StatelessWidget {
       this.password = false,
       this.textInputType = TextInputType.name,
       this.readOnly = false,
-      this.isSearchField = false,
+      this.isDDM = false,
       this.textCapitalization = TextCapitalization.sentences})
       : super(key: key);
 
@@ -59,47 +55,28 @@ class AppInputField extends StatelessWidget {
           labelText: label,
           errorText: errorText,
           floatingLabelBehavior: FloatingLabelBehavior.always,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-          prefixIcon: isSearchField
-              ? Icon(
-                  Icons.search,
-                  color: colors.primary,
-                )
-              : leading,
+          contentPadding: isDDM
+              ? EdgeInsets.zero
+              : const EdgeInsets.symmetric(horizontal: 10),
+          prefixIcon: leading,
           suffixIcon: trailing != null
               ? GestureDetector(
                   onTap: trailingTapped,
                   child: trailing,
                 )
               : null,
-          border: isSearchField
-              ? roundedBorder.copyWith(
-                  borderSide: BorderSide(color: colors.kcLightGreyColor),
-                )
-              : circularBorder.copyWith(
-                  borderSide: BorderSide(color: colors.kcLightGreyColor),
-                ),
-          errorBorder: isSearchField
-              ? roundedBorder.copyWith(
-                  borderSide: BorderSide(color: Colors.red),
-                )
-              : circularBorder.copyWith(
-                  borderSide: BorderSide(color: Colors.red),
-                ),
-          focusedBorder: isSearchField
-              ? roundedBorder.copyWith(
-                  borderSide: BorderSide(color: colors.primary),
-                )
-              : circularBorder.copyWith(
-                  borderSide: BorderSide(color: colors.primary),
-                ),
-          enabledBorder: isSearchField
-              ? roundedBorder.copyWith(
-                  borderSide: BorderSide(color: colors.kcLightGreyColor),
-                )
-              : circularBorder.copyWith(
-                  borderSide: BorderSide(color: colors.kcLightGreyColor),
-                ),
+          border: circularBorder.copyWith(
+            borderSide: BorderSide(color: colors.kcLightGreyColor),
+          ),
+          // errorBorder: circularBorder.copyWith(
+          //         borderSide: BorderSide(color: Colors.red),
+          //       ),
+          focusedBorder: circularBorder.copyWith(
+            borderSide: BorderSide(color: colors.primary),
+          ),
+          enabledBorder: circularBorder.copyWith(
+            borderSide: BorderSide(color: colors.kcLightGreyColor),
+          ),
           labelStyle: TextStyle(fontSize: 16, color: colors.kcPrimaryTextColor),
           hintStyle: TextStyle(fontSize: 14, color: colors.kcLightGreyColor),
         ),

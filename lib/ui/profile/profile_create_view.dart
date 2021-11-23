@@ -24,14 +24,18 @@ import 'profile_create_view.form.dart';
 ])
 class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
   final LocalUser user;
-  ProfileCreateView({Key? key, required this.user}) : super(key: key);
+  final isEdit;
+  final lastAvatarUrl;
+  ProfileCreateView(
+      {Key? key, required this.user, this.isEdit, this.lastAvatarUrl})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileCreateViewModel>.reactive(
       onModelReady: (model) {
         listenToFormUpdated(model);
-        model.init();
+        model.init(lastAvatarUrl, isEdit ?? false);
         usernameController.text = user.username ?? "";
         nameController.text = user.fullName ?? "";
         shortBioController.text = user.bio ?? "";
@@ -45,8 +49,8 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
           onBackPressed: null,
           onForgotPassword: null,
           validationMessage: model.validationMessage,
-          title: completeProfileTitle,
-          subtitle: completeProfileSubTitle,
+          title: isEdit ?? false ? editProfileTitle : completeProfileTitle,
+          subtitle: isEdit ?? false ? "" : completeProfileSubTitle,
           isSocialLoginEnabled: false,
           showTermsText: false,
           mainButtonTitle: continueButtonTitle,
@@ -66,13 +70,26 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
                     backgroundColor: colors.kcLightGreyBackground,
                     child: Stack(
                       children: [
-                        if (model.imagePath.isEmpty)
+                        if (model.imagePath.isEmpty || model.avatarUrl.isEmpty)
                           CircleAvatar(
-                            backgroundColor: colors.primaryLight,
+                            backgroundColor: colors.primary,
                             radius: 65,
                             child: SvgPicture.asset(
                               cameraIcon,
-                              color: colors.primary,
+                              color: colors.white,
+                            ),
+                          ),
+                        if (model.avatarUrl.isNotEmpty &&
+                            model.imagePath.isEmpty)
+                          CircleAvatar(
+                            backgroundColor: colors.primary,
+                            radius: 65,
+                            child: ClipOval(
+                              child: SizedBox(
+                                width: 130,
+                                height: 130,
+                                child: Image.network(model.avatarUrl),
+                              ),
                             ),
                           ),
                         if (model.imagePath.isNotEmpty)
@@ -81,12 +98,12 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
                             radius: 65,
                             child: ClipOval(
                               child: SizedBox(
-                                  width: 130,
-                                  height: 130,
-                                  child: Image.file(
-                                    File(model.imagePath),
-                                    fit: BoxFit.fill,
-                                  )),
+                                width: 130,
+                                height: 130,
+                                child: Image.file(
+                                  File(model.imagePath),
+                                ),
+                              ),
                             ),
                           )
                       ],

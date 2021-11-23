@@ -33,7 +33,10 @@ class FollowPeopleProfileActionView extends StatelessWidget {
               ),
               leading: IconButton(
                 onPressed: model.goBack,
-                icon: Icon(Icons.arrow_back),
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: colors.black,
+                ),
               ),
             ),
             SliverList(

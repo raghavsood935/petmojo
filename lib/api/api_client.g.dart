@@ -220,6 +220,143 @@ class _ApiClient implements ApiClient {
     return value;
   }
 
+  @override
+  Future<UserProfileDetailsResponse> getUserProfileDetails() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UserProfileDetailsResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/user/userDetails',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = UserProfileDetailsResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<CommonResponse> getUserPosts() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CommonResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/post/myPosts/0',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = CommonResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<CommonResponse> changeBioAndAvatar(changeBioAvatarBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(changeBioAvatarBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CommonResponse>(
+            Options(method: 'PUT', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/user/bioAndAvatar',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = CommonResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<AnimalProfileCreateResopnse> animalProfileCreate(
+      name,
+      username,
+      avatar,
+      category,
+      bio,
+      animalType,
+      gender,
+      breed,
+      age,
+      mating,
+      adoption,
+      playBuddies,
+      registeredWithKennelClub,
+      playFrom,
+      playTo,
+      location) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = FormData();
+    _data.fields.add(MapEntry('name', name));
+    _data.fields.add(MapEntry('username', username));
+    _data.files.add(MapEntry(
+        'avatar',
+        MultipartFile.fromFileSync(avatar.path,
+            filename: avatar.path.split(Platform.pathSeparator).last)));
+    _data.fields.add(MapEntry('category', category));
+    _data.fields.add(MapEntry('bio', bio));
+    _data.fields.add(MapEntry('animalType', animalType));
+    _data.fields.add(MapEntry('gender', gender));
+    _data.fields.add(MapEntry('breed', breed));
+    _data.fields.add(MapEntry('age', age));
+    _data.fields.add(MapEntry('mating', mating.toString()));
+    _data.fields.add(MapEntry('adoption', adoption.toString()));
+    _data.fields.add(MapEntry('playBuddies', playBuddies.toString()));
+    _data.fields.add(MapEntry(
+        'registeredWithKennelClub', registeredWithKennelClub.toString()));
+    _data.fields.add(MapEntry('playFrom', playFrom));
+    _data.fields.add(MapEntry('playTo', playTo));
+    _data.fields.add(MapEntry('location', location));
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<AnimalProfileCreateResopnse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/animal/register',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = AnimalProfileCreateResopnse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<AnimalProfileDetailModelResponse> getAnimalProfileDetail(
+      animalProfileDetailsBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(animalProfileDetailsBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<AnimalProfileDetailModelResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/animal/getPetDetails',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = AnimalProfileDetailModelResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<AnimalProfileDetailModelResponse> editAnimalProfileDetails(
+      editAnimalProfileDetailsBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(editAnimalProfileDetailsBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<AnimalProfileDetailModelResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/animal/getPetDetails',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = AnimalProfileDetailModelResponse.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

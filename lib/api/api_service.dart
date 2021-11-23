@@ -7,12 +7,19 @@ import 'package:tamely/api/base_response.dart';
 import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
+import 'package:tamely/models/animal_profile_create_resopnse.dart';
+import 'package:tamely/models/animal_profile_detail_model.dart';
+import 'package:tamely/models/params/animal_profile_create_body.dart';
 import 'package:tamely/models/common_response.dart';
+import 'package:tamely/models/params/animal_details_body.dart';
+import 'package:tamely/models/params/edit_animal_profile_details_body.dart';
 import 'package:tamely/models/params/login_body.dart';
 import 'package:tamely/models/params/profile_create_body.dart';
 import 'package:tamely/models/params/register_body.dart';
 import 'package:tamely/models/params/reset_password_body.dart';
 import 'package:tamely/models/params/social_login_body.dart';
+import 'package:tamely/models/params/change_bio_avatar_body.dart';
+import 'package:tamely/models/user_profile_details_response.dart';
 import 'package:tamely/models/user_response_models.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/ui/otp/confirm_otp_viewmodel.dart';
@@ -62,6 +69,7 @@ class TamelyApi {
     if (isAuth) {
       dio.options.headers["authorization"] =
           "${_sharedPreferenceServices.authToken}";
+      log.d("TOKEN :: ${_sharedPreferenceServices.authToken}");
     }
     return ApiClient(dio);
   }
@@ -225,6 +233,20 @@ class TamelyApi {
     return BaseResponse()..data = response;
   }
 
+  Future<BaseResponse<UserProfileDetailsResponse>>
+      getUserProfileDetail() async {
+    log.d("get user profile details");
+    UserProfileDetailsResponse response;
+    try {
+      response = await getApiClient(true).getUserProfileDetails();
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
   Future<BaseResponse<UserResponse>> facebookLogin(
       SocialLoginBody socialLoginBody) async {
     log.d("facebookLogin called");
@@ -245,6 +267,108 @@ class TamelyApi {
     UserResponse response;
     try {
       response = await getApiClient(false).googleLogin(socialLoginBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  Future<BaseResponse<CommonResponse>> getUserPosts() async {
+    CommonResponse response;
+    try {
+      response = await getApiClient(true).getUserPosts();
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  Future<BaseResponse<CommonResponse>> changeBioAndAvatar(
+      ChangeBioAvatarBody changeBioAvatarBody) async {
+    CommonResponse response;
+    try {
+      response =
+          await getApiClient(true).changeBioAndAvatar(changeBioAvatarBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  Future<BaseResponse<AnimalProfileCreateResopnse>> createAnimalProfile(
+    String name,
+    String username,
+    File avatar,
+    String category,
+    String bio,
+    String animalType,
+    String gender,
+    String breed,
+    String age,
+    bool mating,
+    bool adoption,
+    bool playBuddies,
+    bool registeredWithKennelClub,
+    String playFrom,
+    String playTo,
+    String location,
+  ) async {
+    log.d("create animal profile called");
+    AnimalProfileCreateResopnse response;
+    try {
+      response = await getApiClient(true).animalProfileCreate(
+        name,
+        username,
+        avatar,
+        category,
+        bio,
+        animalType,
+        gender,
+        breed,
+        age,
+        mating,
+        adoption,
+        playBuddies,
+        registeredWithKennelClub,
+        playFrom,
+        playTo,
+        location,
+      );
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  Future<BaseResponse<AnimalProfileDetailModelResponse>> getAnimalProfileDetail(
+      AnimalProfileDetailsBody animalProfileDetailsBody) async {
+    AnimalProfileDetailModelResponse response;
+    try {
+      response = await getApiClient(true)
+          .getAnimalProfileDetail(animalProfileDetailsBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  Future<BaseResponse<AnimalProfileDetailModelResponse>>
+      editAnimalProfileDetails(
+          EditAnimalProfileDetailsBody editAnimalProfileDetailsBody) async {
+    AnimalProfileDetailModelResponse response;
+    try {
+      response = await getApiClient(true)
+          .editAnimalProfileDetails(editAnimalProfileDetailsBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()

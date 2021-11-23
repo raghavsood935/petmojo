@@ -16,22 +16,10 @@ class _CustomRateViewState extends State<CustomRateView> {
   List<bool> rateSelected = [false, false, false, false, false];
   List<int> totalRate = [1, 2, 3, 4, 5];
 
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   int i = 0;
-  //   while (i < 5) {
-  //     rateSelected.add(false);
-  //     totalRate.add(i + 1);
-  //     i++;
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
         children: totalRate
             .map(
@@ -47,38 +35,41 @@ class _CustomRateViewState extends State<CustomRateView> {
 
   Widget item(int position, bool selected) {
     return GestureDetector(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Container(
-            height: 50,
-            width: 50,
-            margin: EdgeInsets.only(right: 10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: selected ? colors.primary : colors.kcLightGreyColor,
-            ),
-            child: Center(
-              child: AppText.body1(
-                position.toString(),
-                color: selected ? colors.white : colors.black,
+      child: Padding(
+        padding: const EdgeInsets.only(right: 10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              height: 35,
+              width: 35,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: selected ? colors.primary : colors.kcLightGreyColor,
+              ),
+              child: Center(
+                child: AppText.body1(
+                  position.toString(),
+                  color: selected ? colors.white : colors.black,
+                ),
               ),
             ),
-          ),
-          Visibility(
-            visible: position == 1,
-            child: AppText.caption("Least"),
-          ),
-          Visibility(
-            visible: position == 5,
-            child: AppText.caption("Most"),
-          ),
-          Visibility(
-            visible: position != 5 && position != 1,
-            child: AppText.caption("  "),
-          ),
-        ],
+            Visibility(
+              visible: position == 1,
+              child: AppText.caption("Least"),
+            ),
+            Visibility(
+              visible: position == 5,
+              child: AppText.caption("Most"),
+            ),
+            Visibility(
+              visible: position != 5 && position != 1,
+              child: AppText.caption("  "),
+            ),
+          ],
+        ),
       ),
       onTap: () => onRankSelected(position - 1),
     );

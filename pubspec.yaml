@@ -34,6 +34,7 @@ dependencies:
 
   #  get location
   geolocator: ^7.7.1
+  geocoder: ^0.2.1
 
   #  Auto complete text
   flutter_typeahead: ^3.2.1
