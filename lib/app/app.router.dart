@@ -13,6 +13,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
 import '../models/application_models.dart';
+import '../models/my_animal_model.dart';
 import '../ui/community/community_main_view/community_main_view.dart';
 import '../ui/community/first_time_views/community_choose_interests/community_choose_interests_view.dart';
 import '../ui/dashboard/dashboard.dart';
@@ -251,11 +252,12 @@ class StackedRouter extends RouterBase {
       );
     },
     AnimalBasicInfo: (data) {
-      var args = data.getArgs<AnimalBasicInfoArguments>(
-        orElse: () => AnimalBasicInfoArguments(),
-      );
+      var args = data.getArgs<AnimalBasicInfoArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => AnimalBasicInfo(key: args.key),
+        builder: (context) => AnimalBasicInfo(
+          key: args.key,
+          animalModelResponse: args.animalModelResponse,
+        ),
         settings: data,
       );
     },
@@ -369,7 +371,8 @@ class AnimalProfileViewArguments {
 /// AnimalBasicInfo arguments holder class
 class AnimalBasicInfoArguments {
   final Key? key;
-  AnimalBasicInfoArguments({this.key});
+  final MyAnimalModelResponse animalModelResponse;
+  AnimalBasicInfoArguments({this.key, required this.animalModelResponse});
 }
 
 /// CameraScreen arguments holder class

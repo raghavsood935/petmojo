@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:lottie/lottie.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
@@ -61,6 +62,21 @@ class _StartupViewState extends State<StartupView>
           children: [
             FadeTransition(
               opacity: _fadeOut!,
+              // child: Center(
+              //   child: Column(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     mainAxisSize: MainAxisSize.max,
+              //     crossAxisAlignment: CrossAxisAlignment.center,
+              //     children: [
+              //       Image.asset(
+              //         lightSplashScreen,
+              //         height: 200,
+              //         width: 200,
+              //       ),
+              //       AppText.subheading(splashScreenSubTitle)
+              //     ],
+              //   ),
+              // )
               child: Lottie.asset(
                 'assets/lottie/tamely_loading.json',
                 width: double.maxFinite,
@@ -100,56 +116,60 @@ class _StartupViewState extends State<StartupView>
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: ListTile(
                           visualDensity:
                               VisualDensity(horizontal: 0, vertical: -4),
                           contentPadding: EdgeInsets.all(0),
-                          leading: Icon(
-                            Icons.check_box,
-                            color: colors.primary,
+                          leading: Checkbox(
+                            value: model.title1Value,
+                            onChanged: model.title1Change,
+                            activeColor: colors.primary,
                           ),
                           title: AppText.body1(wireFrameTitle1),
                           selected: true,
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: ListTile(
                           visualDensity:
                               VisualDensity(horizontal: 0, vertical: -4),
                           contentPadding: EdgeInsets.all(0),
-                          leading: Icon(
-                            Icons.check_box,
-                            color: colors.primary,
+                          leading: Checkbox(
+                            value: model.title2Value,
+                            onChanged: model.title2Change,
+                            activeColor: colors.primary,
                           ),
                           title: AppText.body1(wireFrameTitle2),
                           selected: true,
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: ListTile(
                           visualDensity:
                               VisualDensity(horizontal: 0, vertical: -4),
                           contentPadding: EdgeInsets.all(0),
-                          leading: Icon(
-                            Icons.check_box,
-                            color: colors.primary,
+                          leading: Checkbox(
+                            value: model.title3Value,
+                            onChanged: model.title3Change,
+                            activeColor: colors.primary,
                           ),
                           title: AppText.body1(wireFrameTitle3),
                           selected: true,
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: ListTile(
                           visualDensity:
                               VisualDensity(horizontal: 0, vertical: -4),
                           contentPadding: EdgeInsets.all(0),
-                          leading: Icon(
-                            Icons.check_box,
-                            color: colors.primary,
+                          leading: Checkbox(
+                            value: model.title4Value,
+                            onChanged: model.title4Change,
+                            activeColor: colors.primary,
                           ),
                           title: AppText.body1(wireFrameTitle4),
                           selected: true,

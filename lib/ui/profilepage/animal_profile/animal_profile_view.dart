@@ -6,12 +6,13 @@ import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/custom_circle_avatar.dart';
 import 'package:tamely/widgets/edit_button.dart';
 
 import 'animal_profile_view_model.dart';
 
 class AnimalProfileView extends StatelessWidget {
-  AnimalProfileView({Key? key,required this.petId}) : super(key: key);
+  AnimalProfileView({Key? key, required this.petId}) : super(key: key);
 
   String petId;
 
@@ -19,6 +20,7 @@ class AnimalProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<AnimalProfileViewModel>.reactive(
       viewModelBuilder: () => AnimalProfileViewModel(),
+      onModelReady: (model) => model.getAnimalDetails(petId),
       builder: (context, model, child) => Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
@@ -92,76 +94,86 @@ class AnimalProfileView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          verticalSpaceRegular,
+                          CustomCircularAvatar(
+                              radius: 50, imgPath: model.avatar),
+                          verticalSpaceTiny,
                           // for profile image
-                          SizedBox(
-                            height: 125,
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  bottom: 0,
-                                  left: 0,
-                                  right: 0,
-                                  child: CircleAvatar(
-                                    radius: 50,
-                                    backgroundColor: colors.primary,
-                                    child: CircleAvatar(
-                                      radius: 47,
-                                      backgroundColor:
-                                          colors.lightBackgroundColor,
-                                      child: CircleAvatar(
-                                        backgroundColor: colors.primary,
-                                        radius: 45,
-                                        child: Icon(
-                                          Icons.photo_camera_outlined,
-                                          color: colors.white,
-                                          size: 35,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 0,
-                                  left: 80,
-                                  right: 0,
-                                  child: CircleAvatar(
-                                    backgroundColor: colors.blue,
-                                    radius: 15,
-                                    child: IconButton(
-                                      icon: Icon(
-                                        Icons.add,
-                                        color: colors.white,
-                                        size: 14,
-                                      ),
-                                      onPressed: () {},
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
+                          // SizedBox(
+                          //   height: 125,
+                          //   child: Stack(
+                          //     children: [
+                          //       Positioned(
+                          //         bottom: 0,
+                          //         left: 0,
+                          //         right: 0,
+                          //         child: CircleAvatar(
+                          //           radius: 50,
+                          //           backgroundColor: colors.primary,
+                          //           child: CircleAvatar(
+                          //             radius: 47,
+                          //             backgroundColor:
+                          //                 colors.lightBackgroundColor,
+                          //             child: CircleAvatar(
+                          //               backgroundColor: colors.primary,
+                          //               radius: 45,
+                          //               child: Icon(
+                          //                 Icons.photo_camera_outlined,
+                          //                 color: colors.white,
+                          //                 size: 35,
+                          //               ),
+                          //             ),
+                          //           ),
+                          //         ),
+                          //       ),
+                          //       Positioned(
+                          //         bottom: 0,
+                          //         left: 80,
+                          //         right: 0,
+                          //         child: CircleAvatar(
+                          //           backgroundColor: colors.blue,
+                          //           radius: 15,
+                          //           child: IconButton(
+                          //             icon: Icon(
+                          //               Icons.add,
+                          //               color: colors.white,
+                          //               size: 14,
+                          //             ),
+                          //             onPressed: () {},
+                          //           ),
+                          //         ),
+                          //       )
+                          //     ],
+                          //   ),
+                          // ),
                           verticalSpaceTiny,
                           // profile name
                           AppText.body(model.profilename),
 
                           verticalSpaceTiny,
                           // username and animal count
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              AppText.body1(
-                                model.username,
-                                color: colors.kcMediumGreyColor,
-                              ),
-                              horizontalSpaceTiny,
-                              CircleAvatar(
-                                radius: 2,
-                                backgroundColor: colors.primary,
-                              ),
-                              horizontalSpaceTiny,
-                              AppText.body1(model.animalBreed,
-                                  color: colors.kcMediumGreyColor),
-                            ],
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 40),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                AppText.body1(
+                                  model.username,
+                                  isSingleLined: true,
+                                  color: colors.kcMediumGreyColor,
+                                ),
+                                horizontalSpaceTiny,
+                                CircleAvatar(
+                                  radius: 2,
+                                  backgroundColor: colors.primary,
+                                ),
+                                horizontalSpaceTiny,
+                                AppText.body1(
+                                    model.animalBreed.split(",").first,
+                                    isSingleLined: true,
+                                    color: colors.kcMediumGreyColor),
+                              ],
+                            ),
                           ),
                           verticalSpaceSmall,
                           Padding(

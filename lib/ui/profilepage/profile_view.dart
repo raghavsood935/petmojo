@@ -72,54 +72,6 @@ class ProfileView extends StatelessWidget {
                         verticalSpaceRegular,
                         CustomCircularAvatar(
                             radius: 50, imgPath: model.profileImgUrl),
-                        // for profile image
-                        // SizedBox(
-                        //   height: 125,
-                        //   child: Stack(
-                        //     children: [
-                        //       Positioned(
-                        //         bottom: 0,
-                        //         left: 0,
-                        //         right: 0,
-                        //         child: CircleAvatar(
-                        //           radius: 50,
-                        //           backgroundColor: colors.primary,
-                        //           child: CircleAvatar(
-                        //             radius: 47,
-                        //             backgroundColor:
-                        //                 colors.lightBackgroundColor,
-                        //             child: CircleAvatar(
-                        //               backgroundColor: colors.primary,
-                        //               radius: 45,
-                        //               child: Icon(
-                        //                 Icons.photo_camera_outlined,
-                        //                 color: colors.white,
-                        //                 size: 35,
-                        //               ),
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       ),
-                        //       Positioned(
-                        //         bottom: 0,
-                        //         left: 80,
-                        //         right: 0,
-                        //         child: CircleAvatar(
-                        //           backgroundColor: colors.blue,
-                        //           radius: 15,
-                        //           child: IconButton(
-                        //             icon: Icon(
-                        //               Icons.add,
-                        //               color: colors.white,
-                        //               size: 14,
-                        //             ),
-                        //             onPressed: () {},
-                        //           ),
-                        //         ),
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),
                         verticalSpaceTiny,
                         // profile name
                         AppText.body(model.profilename),
@@ -318,7 +270,8 @@ class ProfileView extends StatelessWidget {
                                     model.listOfMyAnimals[index].avatar!,
                                   ),
                                 ),
-                                onTap: model.goToAnimalProfileView,
+                                onTap: () => model.goToAnimalProfileView(
+                                    model.listOfMyAnimals[index].Id!),
                               ),
                               separatorBuilder:
                                   (BuildContext context, int index) =>
@@ -338,9 +291,6 @@ class ProfileView extends StatelessWidget {
               PostTab(),
             ],
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: model.getUserProfileDetails,
         ),
       ),
     );

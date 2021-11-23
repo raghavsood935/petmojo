@@ -2,12 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:tamely/ui/profilepage/create_animal_profile/create_animal_page_viewe.form.dart';
 import 'package:tamely/ui/profilepage/create_animal_profile/create_animal_view_model.dart';
 import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_input_field.dart';
@@ -39,7 +41,10 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                 title: AppText.body(createAnimalTitle),
                 leading: IconButton(
                   onPressed: model.onBackPressed,
-                  icon: Icon(Icons.arrow_back_sharp),
+                  icon: Icon(
+                    Icons.arrow_back_sharp,
+                    color: colors.black,
+                  ),
                 ),
                 backgroundColor: Colors.transparent,
                 elevation: 0,
@@ -63,14 +68,12 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                             children: [
                               if (model.imagePath.isEmpty)
                                 CircleAvatar(
-                                  backgroundColor: colors.primary,
-                                  radius: 45,
-                                  child: Icon(
-                                    Icons.camera_alt_outlined,
-                                    color: colors.white,
-                                    size: 35,
-                                  ),
-                                ),
+                                    backgroundColor: colors.primary,
+                                    radius: 45,
+                                    child: SvgPicture.asset(
+                                      cameraIcon,
+                                      color: colors.white,
+                                    )),
                               if (model.imagePath.isNotEmpty)
                                 CircleAvatar(
                                   backgroundColor: colors.primary,
@@ -88,18 +91,38 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 50,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemCount: model.animalTypeValues.length,
-                        itemBuilder: (context, index) => radioButton(
-                            model.animalTypeValues[index],
-                            model.selectedValue,
-                            model.onChangeRadio),
+
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 15.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          radioButton(model.animalTypeValues[0],
+                              model.selectedValue, model.onChangeRadio),
+                          radioButton(model.animalTypeValues[1],
+                              model.selectedValue, model.onChangeRadio),
+                          radioButton(model.animalTypeValues[2],
+                              model.selectedValue, model.onChangeRadio),
+                          radioButton(model.animalTypeValues[3],
+                              model.selectedValue, model.onChangeRadio),
+                        ],
                       ),
                     ),
+
+                    // SizedBox(
+                    //   height: 50,
+                    //   child: ListView.separated(
+                    //     scrollDirection: Axis.horizontal,
+                    //     shrinkWrap: true,
+                    //     itemCount: model.animalTypeValues.length,
+                    //     itemBuilder: (context, index) => radioButton(
+                    //         model.animalTypeValues[index],
+                    //         model.selectedValue,
+                    //         model.onChangeRadio),
+                    //     separatorBuilder: (context, index) =>
+                    //         horizontalSpaceSmall,
+                    //   ),
+                    // ),
                     horizontalSpaceSmall,
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -127,6 +150,8 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                                   AppInputField(
                                     controller: usernameController,
                                     hint: "Unique username",
+                                    errorText:
+                                        model.validUser(usernameController),
                                   ),
                                   "Username",
                                   true,
@@ -151,21 +176,20 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                             children: [
                               Expanded(
                                 child: item(
-                                  AppSelectItem(
-                                    title:
-                                        "Select the type of ${model.selectedValue}",
-                                    textController: animalTypeController,
-                                    searchController: searchController,
-                                    animalTypeModel: model.listOfAnimalTypes,
-                                    onSaveWidget: GestureDetector(
-                                      child: AppText.subheading(
-                                        "Save",
-                                        color: colors.primary,
+                                  GestureDetector(
+                                    child: Container(
+                                      color: Colors.transparent,
+                                      child: IgnorePointer(
+                                        child: AppInputField(
+                                          controller: animalTypeController,
+                                          readOnly: true,
+                                          hint: "Select animal type",
+                                          trailing: Icon(Icons.arrow_drop_down),
+                                        ),
                                       ),
-                                      onTap: () =>
-                                          model.selectAnimalTypeDDMFunction(
-                                              context, animalTypeController),
                                     ),
+                                    onTap: () => model
+                                        .selectAnimalType(animalTypeController),
                                   ),
                                   "Animal Type",
                                   true,
@@ -189,18 +213,20 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                           Visibility(
                             visible: model.isBreedAvailable,
                             child: item(
-                              AppSelectItem(
-                                title: "Select the breed",
-                                textController: breedController,
-                                searchController: searchController,
-                                breedList: model.listOfAnimalBreed,
-                                onSaveWidget: GestureDetector(
-                                    child: AppText.caption(
-                                      "Save",
-                                      color: colors.primary,
+                              GestureDetector(
+                                child: Container(
+                                  color: Colors.transparent,
+                                  child: IgnorePointer(
+                                    child: AppInputField(
+                                      controller: breedController,
+                                      readOnly: true,
+                                      hint: "Select breed",
+                                      trailing: Icon(Icons.arrow_drop_down),
                                     ),
-                                    onTap: () => model.selectBreedDDMFunction(
-                                        context, breedController)),
+                                  ),
+                                ),
+                                onTap: () =>
+                                    model.selectAnimalBreed(breedController),
                               ),
                               "Breed",
                               false,
@@ -238,20 +264,45 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                               ),
                               Expanded(
                                 child: GestureDetector(
-                                  child: Container(
-                                    color: Colors.transparent,
-                                    child: IgnorePointer(
-                                      child: AppInputField(
-                                        controller: dobController,
-                                        hint: "DD-MM-YYYY",
-                                        trailing: Icon(
-                                          Icons.calendar_today,
-                                          size: 18,
-                                        ),
-                                        readOnly: true,
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          AppText.caption(
+                                              model.selectedDateValue),
+                                          Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Icon(
+                                              Icons.calendar_today,
+                                              size: 20,
+                                              color: colors.kcLightGreyColor,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
+                                      Divider(
+                                        color: colors.kcLightGreyColor,
+                                        thickness: 1,
+                                      )
+                                    ],
                                   ),
+                                  // child: Container(
+                                  //   color: Colors.transparent,
+                                  //   child: IgnorePointer(
+                                  //     child: AppInputField(
+                                  //       controller: dobController,
+                                  //       hint: "DD-MM-YYYY",
+                                  //       trailing: Icon(
+                                  //         Icons.calendar_today,
+                                  //         size: 18,
+                                  //       ),
+                                  //       readOnly: true,
+                                  //     ),
+                                  //   ),
+                                  // ),
                                   onTap: () =>
                                       model.selectedAnimalAgeChooseType == "DOB"
                                           ? model.selectDate(
@@ -437,8 +488,17 @@ Widget dropDownButton(String value, List<String> listOfItems, String hint,
 }
 
 Widget radioButton(String value, String selectedValue, onChangeFun) {
+  // return RadioListTile(
+  //   value: value,
+  //   groupValue: selectedValue,
+  //   onChanged: onChangeFun,
+  //   activeColor: colors.primary,
+  //   contentPadding: EdgeInsets.zero,
+  // );
+
   return Row(
     mainAxisSize: MainAxisSize.min,
+    mainAxisAlignment: MainAxisAlignment.start,
     children: [
       Radio<String>(
         value: value,

@@ -1,25 +1,38 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:geocoder/geocoder.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/api/api_service.dart';
+import 'package:tamely/api/base_response.dart';
+import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
+import 'package:tamely/enum/BottomSheetType.dart';
+import 'package:tamely/enum/DialogType.dart';
+import 'package:tamely/models/common_response.dart';
+import 'package:tamely/models/user_response_models.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/animal_type_constant.dart';
+import 'package:tamely/util/utils.dart';
 
 class CreateAnimalViewModel extends FormViewModel {
+  final _tamelyApi = locator<TamelyApi>();
+  final _bottomSheetService = locator<BottomSheetService>();
+
   final ImagePicker _picker = ImagePicker();
 
   Position? _currentPosition = null;
-  String _currentLocation = "";
 
   final log = getLogger('ProfileCreateViewModel');
   final _snackBarService = locator<SnackbarService>();
   final _navigationService = locator<NavigationService>();
+  final _dialogService = locator<DialogService>();
 
   final List<String> animalTypeValues = ["Pet", "Stray", "Wild", "Farm"];
   final List<String> ageTypeValues = [select, "Baby", "Adult", "Young"];
@@ -27,7 +40,7 @@ class CreateAnimalViewModel extends FormViewModel {
   List<String> animalBreedSelectedList = [];
 
   List<AnimalTypeModel> listOfAnimalTypes = [];
-  List<BreedTypeModel> listOfAnimalBreed = [];
+  List<String> listOfAnimalBreed = [];
 
   final List<String> animalGenderList = [
     select,
@@ -39,34 +52,41 @@ class CreateAnimalViewModel extends FormViewModel {
 
   String selectedAnimalAgeChooseType = "DOB";
 
+  String selectedDateValue = "Select date";
+
   bool matingValue = false;
   bool adoptionValue = false;
   bool resigteredWithKCValue = false;
   bool playBuddiesValue = false;
   bool isBreedAvailable = false;
   String ageType = select;
+  int ageValue = 0;
   String selectedAnimalType = "";
   String selectedAnimalGender = select;
 
   bool _isValid = false;
 
-  List<BreedTypeModel> _dogBreedList = [];
-  List<BreedTypeModel> _catBreedList = [];
-  List<BreedTypeModel> _horseBreedList = [];
-  List<BreedTypeModel> _birdsBreedList = [];
-  List<BreedTypeModel> _rabbitBreedList = [];
-  List<BreedTypeModel> _pigBreedList = [];
-  List<BreedTypeModel> _fishBreedList = [];
-  List<BreedTypeModel> _guineaPigBreedList = [];
-  List<BreedTypeModel> _hamsterBreedList = [];
-  List<BreedTypeModel> _insectsBreedList = [];
-
   dynamic _pickImageError;
   XFile? _imageFile;
+  String avatarUrl = "";
 
   String get imagePath => _imageFile?.path ?? "";
 
   bool get isValid => _isValid;
+
+  Timer? _debounce;
+  String _username = "";
+  bool _isValidUsername = false;
+
+  bool get isValidUsername => _isValidUsername;
+
+  String validUser(TextEditingController usernameController) {
+    if (_isValidUsername) {
+      return "";
+    } else {
+      return "Username is not available";
+    }
+  }
 
   void onImageButtonPressed(ImageSource source, BuildContext? context) async {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
@@ -135,37 +155,6 @@ class CreateAnimalViewModel extends FormViewModel {
           break;
         }
     }
-
-    for (String breedName in dogBreedList) {
-      _dogBreedList.add(BreedTypeModel(breedName));
-    }
-    for (String breedName in catBreedList) {
-      _catBreedList.add(BreedTypeModel(breedName));
-    }
-    for (String breedName in birdsBreedList) {
-      _birdsBreedList.add(BreedTypeModel(breedName));
-    }
-    for (String breedName in horseBreedList) {
-      _horseBreedList.add(BreedTypeModel(breedName));
-    }
-    for (String breedName in rabbitBreedList) {
-      _rabbitBreedList.add(BreedTypeModel(breedName));
-    }
-    for (String breedName in pigBreedList) {
-      _pigBreedList.add(BreedTypeModel(breedName));
-    }
-    for (String breedName in fishBreedList) {
-      _fishBreedList.add(BreedTypeModel(breedName));
-    }
-    for (String breedName in guineaPigBreedList) {
-      _guineaPigBreedList.add(BreedTypeModel(breedName));
-    }
-    for (String breedName in hamsterBreedList) {
-      _hamsterBreedList.add(BreedTypeModel(breedName));
-    }
-    for (String breedName in insectsBreedList) {
-      _insectsBreedList.add(BreedTypeModel(breedName));
-    }
   }
 
   void closeKeyboard(BuildContext context) {
@@ -213,10 +202,87 @@ class CreateAnimalViewModel extends FormViewModel {
     notifyListeners();
   }
 
+  Future<void> uploadImage() async {
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
+    if (_imageFile == null) {
+      _snackBarService.showSnackbar(message: "Image is empty");
+    }
+    if (await Util.checkInternetConnectivity()) {
+      BaseResponse<CommonResponse> response =
+          await _tamelyApi.uploadImage(File(_imageFile!.path));
+      if (response.getException != null) {
+        ServerError error = response.getException as ServerError;
+        _snackBarService.showSnackbar(message: error.getErrorMessage());
+      } else if (response.data != null) {
+        avatarUrl = response.data!.avatar ?? "";
+        createAnimalProfileAccount();
+      }
+    } else {
+      _snackBarService.showSnackbar(message: "No Internet connection");
+    }
+  }
+
   Future<void> createAnimalProfile() async {
     if (selectedValue.isNotEmpty && selectedValue == "Stray") {
       getCurrentLocation();
-    } else {}
+    }
+    createAnimalProfileAccount();
+    // uploadImage().whenComplete(() => createAnimalProfileAccount());
+  }
+
+  Future createAnimalProfileAccount() async {
+    _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
+
+    String name = formValueMap["name"];
+    String username = formValueMap["username"];
+    String bio = formValueMap["shortbio"];
+    String breed = formValueMap["breed"];
+    String playFrom = formValueMap["fromTime"];
+    String playTo = formValueMap["toTime"];
+
+    String animalAge = "";
+
+    if (selectedAnimalAgeChooseType == "DOB") {
+      animalAge = "$ageValue";
+    } else {
+      if (ageType == select) {
+        _snackBarService.showSnackbar(message: "Please select age");
+      } else {
+        animalAge = ageType;
+      }
+    }
+
+    String currentLocationString = "";
+    if (_currentPosition != null) {
+      currentLocationString =
+          "${_currentPosition!.latitude},${_currentPosition!.longitude}";
+    }
+
+    var result = await runBusyFuture(_tamelyApi.createAnimalProfile(
+        name,
+        username,
+        File(_imageFile!.path),
+        selectedValue,
+        bio,
+        selectedAnimalType,
+        selectedAnimalGender,
+        breed,
+        animalAge,
+        matingValue,
+        adoptionValue,
+        playBuddiesValue,
+        resigteredWithKCValue,
+        playFrom,
+        playTo,
+        currentLocationString));
+
+    if (result.data != null) {
+      log.d(result.data!.token!);
+      _dialogService.completeDialog(DialogResponse(confirmed: true));
+      _navigationService.back(result: 1);
+    } else {
+      _dialogService.completeDialog(DialogResponse(confirmed: true));
+    }
   }
 
   Future<void> selectTime(
@@ -253,33 +319,64 @@ class CreateAnimalViewModel extends FormViewModel {
       lastDate: selectedDate,
     );
     if (picked_s != null && picked_s != selectedDate) {
-      tc.text = "${picked_s.day}-${picked_s.month}-${picked_s.year}";
+      selectedDateValue = "${picked_s.day}-${picked_s.month}-${picked_s.year}";
+
+      ageValue = selectedDate.year - picked_s.year;
+      int month1 = selectedDate.month;
+      int month2 = picked_s.month;
+
+      if (month2 > month1) {
+        ageValue--;
+      } else if (month1 == month2) {
+        int day1 = selectedDate.day;
+        int day2 = picked_s.day;
+        if (day2 > day1) {
+          ageValue--;
+        }
+      }
+
+      notifyListeners();
     }
   }
 
-  selectBreedDDMFunction(BuildContext context, TextEditingController tc) async {
-    animalBreedSelectedList.clear();
-    String breedDisplayString = "";
-    for (BreedTypeModel model in listOfAnimalBreed) {
-      if (model.isChecked) {
-        animalBreedSelectedList.add(model.breedName);
-        breedDisplayString = "${breedDisplayString} ${model.breedName} , ";
+  Future selectAnimalBreed(TextEditingController tc) async {
+    var result = await _bottomSheetService.showCustomSheet(
+      isScrollControlled: true,
+      variant: BottomSheetType.SelectBreedBottomSheet,
+      title: "Select breed",
+      customData: listOfAnimalBreed,
+    );
+    if (result != null) {
+      if (result.confirmed) {
+        tc.text = result.data.toString();
+        notifyListeners();
       }
     }
-    if (animalBreedSelectedList != null && animalBreedSelectedList.length > 0) {
-      tc.text =
-          "${breedDisplayString.substring(0, breedDisplayString.length - 2)} . ";
-      Navigator.pop(context);
-    } else {
-      _snackBarService.showSnackbar(message: noBreedSelected);
+  }
+
+  Future selectAnimalType(TextEditingController tc) async {
+    var result = await _bottomSheetService.showCustomSheet(
+      variant: BottomSheetType.SelectAnimalTypeBottomSheet,
+      isScrollControlled: true,
+      title: "Select the type of $selectedValue",
+      customData: listOfAnimalTypes,
+    );
+    if (result!.confirmed) {
+      tc.text = result!.data;
+      selectedAnimalType = result!.data;
+      notifyListeners();
+      checkBreedAvailable(tc.text.toLowerCase());
     }
   }
 
   selectAnimalTypeDDMFunction(
       BuildContext context, TextEditingController tc) async {
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
     if (tc.text != "" && tc.text != null) {
+      selectedAnimalType = tc.text;
+      notifyListeners();
       Navigator.pop(context);
-      closeKeyboard(context);
+      // closeKeyboard(context);
       checkBreedAvailable(tc.text.toLowerCase());
     } else {
       _snackBarService.showSnackbar(message: noAnimalTypeSelected);
@@ -296,138 +393,166 @@ class CreateAnimalViewModel extends FormViewModel {
     notifyListeners();
   }
 
+  _userNameChanged(String query) async {
+    if (_username != query && query.isNotEmpty) {
+      if (_debounce?.isActive ?? false) _debounce?.cancel();
+      _debounce = Timer(const Duration(milliseconds: 500), () async {
+        _username = query;
+        if (await Util.checkInternetConnectivity()) {
+          try {
+            BaseResponse<UserNameAvailableResponse> availableResponse =
+                await runBusyFuture(_tamelyApi.checkUserName(query),
+                    throwException: true);
+            if (availableResponse.getException != null) {
+              ServerError error = availableResponse.getException as ServerError;
+              _snackBarService.showSnackbar(message: error.getErrorMessage());
+            } else if (availableResponse.data != null) {
+              _isValidUsername = availableResponse.data!.isAvailable;
+              notifyListeners();
+            }
+          } catch (e) {
+            log.e(e);
+            _snackBarService.showSnackbar(message: "$e");
+          }
+        } else {
+          _snackBarService.showSnackbar(message: "No Internet connection");
+        }
+      });
+    }
+  }
+
   setBreedList(String value) {
     switch (value.toLowerCase()) {
       case "dog":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(_dogBreedList);
+          listOfAnimalBreed.addAll(dogBreedList);
           break;
         }
 
       case "cat":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(_catBreedList);
+          listOfAnimalBreed.addAll(catBreedList);
           break;
         }
 
       case "horse":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(_horseBreedList);
+          listOfAnimalBreed.addAll(horseBreedList);
           break;
         }
 
       case "bird":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(_birdsBreedList);
+          listOfAnimalBreed.addAll(birdsBreedList);
           break;
         }
 
       case "rabbit":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(_rabbitBreedList);
+          listOfAnimalBreed.addAll(rabbitBreedList);
           break;
         }
 
       case "pig":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(_pigBreedList);
+          listOfAnimalBreed.addAll(pigBreedList);
           break;
         }
 
       case "fish":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(_fishBreedList);
+          listOfAnimalBreed.addAll(fishBreedList);
           break;
         }
 
       case "guinea pig":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(_guineaPigBreedList);
+          listOfAnimalBreed.addAll(guineaPigBreedList);
           break;
         }
 
       case "hamster":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(_hamsterBreedList);
+          listOfAnimalBreed.addAll(hamsterBreedList);
           break;
         }
 
       case "insect":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(_insectsBreedList);
+          listOfAnimalBreed.addAll(insectsBreedList);
           break;
         }
 
       case "dogs":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(_dogBreedList);
+          listOfAnimalBreed.addAll(dogBreedList);
           break;
         }
 
       case "cats":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(_catBreedList);
+          listOfAnimalBreed.addAll(catBreedList);
           break;
         }
 
       case "horses":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(_horseBreedList);
+          listOfAnimalBreed.addAll(horseBreedList);
           break;
         }
 
       case "birds":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(_birdsBreedList);
+          listOfAnimalBreed.addAll(birdsBreedList);
           break;
         }
 
       case "rabbits":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(_rabbitBreedList);
+          listOfAnimalBreed.addAll(rabbitBreedList);
           break;
         }
 
       case "pigs":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(_pigBreedList);
+          listOfAnimalBreed.addAll(pigBreedList);
           break;
         }
 
       case "guinea pigs":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(_guineaPigBreedList);
+          listOfAnimalBreed.addAll(guineaPigBreedList);
           break;
         }
 
       case "hamsters":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(_hamsterBreedList);
+          listOfAnimalBreed.addAll(hamsterBreedList);
           break;
         }
 
       case "insects":
         {
           listOfAnimalBreed.clear();
-          listOfAnimalBreed.addAll(_insectsBreedList);
+          listOfAnimalBreed.addAll(insectsBreedList);
           break;
         }
 
@@ -473,34 +598,16 @@ class CreateAnimalViewModel extends FormViewModel {
         "Latitude : ${_currentPosition!.latitude} , Longitude : ${_currentPosition!.longitude}");
   }
 
-  Future getLocationFromLatLog(Position position) async {
-    if (position != null) {
-      try {
-        Coordinates coordinates =
-            new Coordinates(position.latitude, position.longitude);
-        var address =
-            await Geocoder.local.findAddressesFromCoordinates(coordinates);
-        if (address != null) {
-          var first = address.first;
-          _currentLocation =
-              "${first.addressLine}";
-          notifyListeners();
-          log.d("Your address : $_currentLocation");
-        }
-      } catch (e) {
-        print(e);
-      }
-    }
-  }
-
   @override
   void setFormStatus() {
     // TODO: implement setFormStatus
     _isValid = true;
     formValueMap.keys.forEach((element) {
       if (manitoryFeilds.contains(element)) {
+        if (element == "username") {
+          _userNameChanged(element);
+        }
         String elementValue = formValueMap[element];
-        log.d("ElementValue $elementValue");
         if (elementValue.isEmpty) {
           _isValid = false;
           return;
@@ -521,18 +628,4 @@ class AnimalTypeModel {
   String get type => this._type;
 
   String get imageAssetPath => _imageAssetPath;
-}
-
-class BreedTypeModel {
-  String _breedName = "Breed";
-  bool _isChecked = false;
-
-  BreedTypeModel(this._breedName);
-
-  get breedName => this._breedName;
-  get isChecked => this._isChecked;
-
-  void setChecked(bool? value) {
-    this._isChecked = value!;
-  }
 }

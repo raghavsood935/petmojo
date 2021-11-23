@@ -3,4 +3,7 @@ enum BottomSheetType {
   CommentsBottomSheet,
   MoreOptionBottomSheet,
   AddDetailsBottomSheet,
+  SelectAnimalTypeBottomSheet,
+  SelectOtherAnimalTypeBottomSheet,
+  SelectBreedBottomSheet,
 }

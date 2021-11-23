@@ -18,6 +18,31 @@ class StartUpViewModel extends FutureViewModel<void> implements Initialisable {
 
   bool get isDestinationAvailable => _destinationRoute != null;
 
+  bool title1Value = true;
+  bool title2Value = true;
+  bool title3Value = true;
+  bool title4Value = true;
+
+  void title1Change(bool? value) {
+    title1Value = value!;
+    notifyListeners();
+  }
+
+  void title2Change(bool? value) {
+    title2Value = value!;
+    notifyListeners();
+  }
+
+  void title3Change(bool? value) {
+    title3Value = value!;
+    notifyListeners();
+  }
+
+  void title4Change(bool? value) {
+    title4Value = value!;
+    notifyListeners();
+  }
+
   Future initialise() async {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     // _sharedPreferencesService.clearLoginData();

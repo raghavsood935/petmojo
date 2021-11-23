@@ -5,7 +5,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/ui_helpers.dart';
-import 'package:tamely/widgets/comment/comment_view_model.dart';
+import 'package:tamely/widgets/bottom_sheet_view_models/comment_view_model.dart';
 
 import '../app_text.dart';
 import '../custom_circle_avatar.dart';

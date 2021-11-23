@@ -1,6 +1,8 @@
 String ISDARK = "";
 String APP_NAME = "tamely";
 
+String splashScreenSubTitle = "Animals are love!";
+
 String wireFrameTitle1 = "Create a memorable Pet Diary";
 String wireFrameTitle2 = "Connect with other animal lovers";
 String wireFrameTitle3 = "Find high quality pet care services";

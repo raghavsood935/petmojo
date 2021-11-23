@@ -30,7 +30,6 @@ class ProfileViewModel extends BaseViewModel {
   final _tamelyApi = locator<TamelyApi>();
 
   String? _animalProfileCreateView = Routes.createAnimalPageView;
-  String? _animalProfileView = Routes.animalProfileView;
   dynamic _destinationArguments;
 
   List<Widget> _tabs = [MyPostsTabView(), MentionsPostTabView()];
@@ -45,19 +44,14 @@ class ProfileViewModel extends BaseViewModel {
 
   Future _createAnimalProfileView() async {
     if (_animalProfileCreateView != null) {
-      await _navigationService.navigateTo(
+      var result = await _navigationService.navigateTo(
         _animalProfileCreateView!,
         arguments: _destinationArguments,
       );
-    }
-  }
 
-  Future _animalProfileViewGoTo() async {
-    if (_animalProfileView != null) {
-      await _navigationService.navigateTo(
-        _animalProfileView!,
-        arguments: _destinationArguments,
-      );
+      if (result == 1) {
+        getUserProfileDetails();
+      }
     }
   }
 
@@ -74,24 +68,20 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   Future getUserProfileDetails() async {
-    _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
-    BaseResponse<UserProfileDetailsResponse> response =
-        await _tamelyApi.getUserProfileDetail();
-    if (response.getException != null) {
-      ServerError error = response.getException as ServerError;
-      _snackBarService.showSnackbar(message: error.getErrorMessage());
-      _navigationService.back();
-    } else if (response.data != null) {
-      setValues(response.data!);
-    }else {
-      _navigationService.back();
-    }
-    // var response = await _userService.getUserProfileDetails();
-    // if (response != null) {
-    //   setValues(response.data!);
-    // } else {
-    //   _navigationService.back();
-    // }
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
+      _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
+      BaseResponse<UserProfileDetailsResponse> response =
+          await _tamelyApi.getUserProfileDetail();
+      if (response.getException != null) {
+        ServerError error = response.getException as ServerError;
+        _snackBarService.showSnackbar(message: error.getErrorMessage());
+        _navigationService.back();
+      } else if (response.data != null) {
+        setValues(response.data!);
+      } else {
+        _navigationService.back();
+      }
+    });
   }
 
   Future getUserPosts() async {
@@ -171,8 +161,9 @@ class ProfileViewModel extends BaseViewModel {
     await _createAnimalProfileView();
   }
 
-  void goToAnimalProfileView() async {
-    await _animalProfileViewGoTo();
+  void goToAnimalProfileView(String petId) async {
+    await _navigationService.navigateTo(Routes.animalProfileView,
+        arguments: AnimalProfileViewArguments(petId: petId));
   }
 
   void goToCompleteProfile() async {

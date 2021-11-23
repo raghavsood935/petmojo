@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/ui/profilepage/post_tabs/my_posts_tab_model.dart';
+import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/widgets/app_text.dart';
 
 class MyPostsTabView extends StatelessWidget {
   const MyPostsTabView({Key? key}) : super(key: key);
@@ -14,7 +16,19 @@ class MyPostsTabView extends StatelessWidget {
       viewModelBuilder: () => MyPostsTabViewModel(),
       builder: (context, model, child) => Container(
         padding: EdgeInsets.all(10),
-        child: StaggeredGridView.countBuilder(
+        child:  model.dummyListOfPosts.length==0?  CircleAvatar(
+          backgroundColor: colors.black,
+          radius: 30,
+          child: CircleAvatar(
+            radius: 29,
+            backgroundColor: Colors.white,
+            child: CircleAvatar(
+              backgroundColor: colors.lightBackgroundColor,
+              radius: 26,
+              child: Icon(Icons.add),
+            ),
+          ),
+        )  :StaggeredGridView.countBuilder(
           physics: ScrollPhysics(),
           shrinkWrap: true,
           itemCount: model.dummyListOfPosts.length,

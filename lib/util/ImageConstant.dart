@@ -1,4 +1,7 @@
+String lightSplashScreen = "assets/images/light_splash_screen.png";
+
 String cameraIcon = "assets/images/camera.svg";
+String editIcon = "assets/images/edit.svg";
 String imageIcon = "assets/images/image.svg";
 String walletIcon = "assets/images/wallet.svg";
 String bookingIcon = "assets/images/bookings.svg";

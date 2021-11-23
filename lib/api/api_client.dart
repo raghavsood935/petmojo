@@ -2,10 +2,13 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
+import 'package:tamely/models/animal_profile_create_resopnse.dart';
 import 'package:tamely/models/animal_profile_detail_model.dart';
 import 'package:tamely/models/common_response.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/models/params/change_bio_avatar_body.dart';
+import 'package:tamely/models/params/animal_profile_create_body.dart';
+import 'package:tamely/models/params/edit_animal_profile_details_body.dart';
 import 'package:tamely/models/params/login_body.dart';
 import 'package:tamely/models/params/profile_create_body.dart';
 import 'package:tamely/models/params/register_body.dart';
@@ -37,7 +40,9 @@ class Apis {
   static const String userProfileDetails = '/user/userDetails';
   static const String userPosts = '/post/myPosts/0';
   static const String addBioAvatar = '/user/bioAndAvatar';
+  static const String animalProfileCreate = '/animal/register';
   static const String animalProfileDetails = '/animal/getPetDetails';
+  static const String animalProfileEditDetails = '/animal/editPet';
 }
 
 @RestApi(baseUrl: "https://tamely.herokuapp.com/api/")
@@ -99,8 +104,31 @@ abstract class ApiClient {
   Future<CommonResponse> changeBioAndAvatar(
       @Body() ChangeBioAvatarBody changeBioAvatarBody);
 
+  @POST(Apis.animalProfileCreate)
+  Future<AnimalProfileCreateResopnse> animalProfileCreate(
+    @Part(name: "name") String name,
+    @Part(name: "username") String username,
+    @Part(name: "avatar") File avatar,
+    @Part(name: "category") String category,
+    @Part(name: "bio") String bio,
+    @Part(name: "animalType") String animalType,
+    @Part(name: "gender") String gender,
+    @Part(name: "breed") String breed,
+    @Part(name: "age") String age,
+    @Part(name: "mating") bool mating,
+    @Part(name: "adoption") bool adoption,
+    @Part(name: "playBuddies") bool playBuddies,
+    @Part(name: "registeredWithKennelClub") bool registeredWithKennelClub,
+    @Part(name: "playFrom") String playFrom,
+    @Part(name: "playTo") String playTo,
+    @Part(name: "location") String location,
+  );
+
   @POST(Apis.animalProfileDetails)
-  Future<AnimalProfileDetailModelResponse> getAnimalProfileDetail(@Body() AnimalProfileDetailsBody animalProfileDetailsBody);
+  Future<AnimalProfileDetailModelResponse> getAnimalProfileDetail(
+      @Body() AnimalProfileDetailsBody animalProfileDetailsBody);
 
-
+  @POST(Apis.animalProfileDetails)
+  Future<AnimalProfileDetailModelResponse> editAnimalProfileDetails(
+      @Body() EditAnimalProfileDetailsBody editAnimalProfileDetailsBody);
 }

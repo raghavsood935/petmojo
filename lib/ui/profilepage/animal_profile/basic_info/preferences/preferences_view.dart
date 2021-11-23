@@ -9,7 +9,9 @@ import 'package:tamely/widgets/custom_rate_widget.dart';
 import 'package:tamely/widgets/edit_button.dart';
 
 class PreferencesView extends StatefulWidget {
-  const PreferencesView({Key? key}) : super(key: key);
+  PreferencesView({Key? key, required this.petId}) : super(key: key);
+
+  String petId;
 
   @override
   _PreferencesViewState createState() => _PreferencesViewState();
@@ -20,55 +22,76 @@ class _PreferencesViewState extends State<PreferencesView> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<PreferencesViewModel>.reactive(
       viewModelBuilder: () => PreferencesViewModel(),
+      onModelReady: (model) => model.onInit(widget.petId),
       builder: (context, model, child) => ListView(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 10.0, left: 20),
-            child: AppText.body1(friendlinessHumanRating),
-          ),
-          CustomRateView(onRateChange: model.friendlinessWithHumanChange),
-          Padding(
-            padding: const EdgeInsets.only(top: 10.0, left: 20),
-            child: AppText.body1(friendlinessAnimalRating),
-          ),
-          CustomRateView(onRateChange: model.friendlinessWithAnimalChange),
-          spacedDividerBigTiny,
           ListTile(
-            title: AppText.body1(favourite),
-            subtitle: AppText.caption(model.favourite),
-            trailing: GestureDetector(
+            contentPadding: EdgeInsets.symmetric(horizontal: 20),
+            title: AppText.body1(friendlinessHumanRating),
+            subtitle:
+                CustomRateView(onRateChange: model.friendlinessWithHumanChange),
+            trailing: saveWithLoading(
+              GestureDetector(
+                child: AppText.body1(
+                  "Save",
+                  color: colors.primary,
+                ),
+                onTap: () => model.friendlinessWithHumansChangeSave(),
+              ),
+              model.withHumanChanged,
+              model.withHumanLoading,
+            ),
+          ),
+          ListTile(
+            contentPadding: EdgeInsets.symmetric(horizontal: 20),
+            title: AppText.body1(friendlinessAnimalRating),
+            subtitle: CustomRateView(
+                onRateChange: model.friendlinessWithAnimalChange),
+            trailing: saveWithLoading(
+              GestureDetector(
+                child: AppText.body1(
+                  "Save",
+                  color: colors.primary,
+                ),
+                onTap: () => model.friendlinessWithAnimalChangeSave(),
+              ),
+              model.withAnimalsChanged,
+              model.withAnimalsLoading,
+            ),
+          ),
+          spacedDividerBigTiny,
+          detailsWidget(
+            favourite,
+            model.favourite,
+            GestureDetector(
               child: model.favourite.isEmpty ? add() : EditButton.small(),
               onTap: model.showEditFavourite,
             ),
           ),
-          spacedDividerTiny,
-          ListTile(
-            title: AppText.body1(thingsDislike),
-            subtitle: AppText.caption(model.thingsDislike),
-            trailing: GestureDetector(
+          detailsWidget(
+            thingsDislike,
+            model.thingsDislike,
+            GestureDetector(
               child: model.thingsDislike.isEmpty ? add() : EditButton.small(),
               onTap: model.showEditThingsDislike,
             ),
           ),
-          spacedDividerTiny,
-          ListTile(
-            title: AppText.body1(unique),
-            subtitle: AppText.caption(model.uniqueHabits),
-            trailing: GestureDetector(
+          detailsWidget(
+            unique,
+            model.uniqueHabits,
+            GestureDetector(
               child: model.uniqueHabits.isEmpty ? add() : EditButton.small(),
               onTap: model.showEditUniqueHabits,
             ),
           ),
-          spacedDividerTiny,
-          ListTile(
-            title: AppText.body1(eating),
-            subtitle: AppText.caption(model.eatingHabit),
-            trailing: GestureDetector(
+          detailsWidget(
+            eating,
+            model.eatingHabit,
+            GestureDetector(
               child: model.eatingHabit.isEmpty ? add() : EditButton.small(),
               onTap: model.showEditEatingHabits,
             ),
           ),
-          spacedDividerTiny,
         ],
       ),
     );
@@ -85,3 +108,69 @@ Widget add() => Row(
         ),
       ],
     );
+
+Widget saveWithLoading(Widget widget, bool isChanged, bool isLoading) {
+  return isChanged
+      ? isLoading
+          ? Transform.scale(
+              scale: 0.5,
+              child: CircularProgressIndicator(
+                color: colors.primary,
+              ),
+            )
+          : widget
+      : SizedBox();
+}
+
+Widget detailsWidget(String title, String description, Widget trailing) {
+  return Column(
+    children: [
+      Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 5,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                left: 20,
+                top: 5,
+                right: 10,
+                bottom: 5,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: AppText.body1(
+                      title,
+                      textAlign: TextAlign.start,
+                      color: colors.black,
+                    ),
+                  ),
+                  verticalSpaceTiny,
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Visibility(
+                      visible: description.isNotEmpty,
+                      child: AppText.caption(
+                        description,
+                        textAlign: TextAlign.start,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: trailing,
+          ),
+        ],
+      ),
+      spacedDividerTiny,
+    ],
+  );
+}
