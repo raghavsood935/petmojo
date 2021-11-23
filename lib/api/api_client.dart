@@ -7,7 +7,6 @@ import 'package:tamely/models/animal_profile_detail_model.dart';
 import 'package:tamely/models/common_response.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/models/params/change_bio_avatar_body.dart';
-import 'package:tamely/models/params/animal_profile_create_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_details_body.dart';
 import 'package:tamely/models/params/login_body.dart';
 import 'package:tamely/models/params/profile_create_body.dart';
@@ -16,6 +15,21 @@ import 'package:tamely/models/params/reset_password_body.dart';
 import 'package:tamely/models/params/social_login_body.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
 import 'package:tamely/models/user_response_models.dart';
+import 'package:tamely/models/get_appointment_details_response.dart';
+import 'package:tamely/models/get_pet_details_response.dart';
+import 'package:tamely/models/get_report_response.dart';
+import 'package:tamely/models/get_scroll_status_response.dart';
+import 'package:tamely/models/my_appointments_response.dart';
+import 'package:tamely/models/params/change_appointment_status_body.dart';
+import 'package:tamely/models/params/get_appointment_details_body.dart';
+import 'package:tamely/models/params/get_runone_report_body.dart';
+import 'package:tamely/models/params/get_runtwo_report_body.dart';
+import 'package:tamely/models/params/get_scroll_status_body.dart';
+import 'package:tamely/models/params/set_runone_rating_body.dart';
+import 'package:tamely/models/params/set_runtwo_rating_body.dart';
+import 'package:tamely/models/params/set_testimony_body.dart';
+import 'package:tamely/models/send_data_response.dart';
+import 'package:tamely/models/params/book_a_run_body.dart';
 
 part 'api_client.g.dart';
 
@@ -43,6 +57,29 @@ class Apis {
   static const String animalProfileCreate = '/animal/register';
   static const String animalProfileDetails = '/animal/getPetDetails';
   static const String animalProfileEditDetails = '/animal/editPet';
+
+  // Booking Appointments
+
+  static const String getPetDetails = '/serviceBooking/getPetDetails';
+  static const String bookARun = '/serviceBooking/serviceBooking';
+
+  // My Bookings Flow
+  static const String getActiveAppointments =
+      '/serviceBooking/getmyactiveAppointments';
+  static const String getBookedAppointments =
+      '/serviceBooking/getmybookedAppointments';
+  static const String getPastAppointments =
+      '/serviceBooking/getmypastAppointments';
+  static const String getAppointmentDetails =
+      '/serviceBooking/getAppointmentDetails';
+  static const String changeAppointmentStatus =
+      '/serviceBooking/changeAppointmentstatus';
+  static const String getScrollStatus =
+      '/serviceBooking/getscrollAppointmentstatus';
+  static const String getRunningReport = '/serviceBooking/getReport';
+  static const String setRunningRating =
+      '/serviceBooking/giveRatingstoeachWalk';
+  static const String setTestimony = '/serviceBooking/giveRatingstoeachWalk';
 }
 
 @RestApi(baseUrl: "https://tamely.herokuapp.com/api/")
@@ -131,4 +168,68 @@ abstract class ApiClient {
   @POST(Apis.animalProfileDetails)
   Future<AnimalProfileDetailModelResponse> editAnimalProfileDetails(
       @Body() EditAnimalProfileDetailsBody editAnimalProfileDetailsBody);
+
+  // Booking Appointments
+
+  // -- Get Pet Details
+  @POST(Apis.getPetDetails)
+  Future<GetPetDetailsResponse> getPetDetails();
+
+  // -- Booking A Run
+  @POST(Apis.bookARun)
+  Future<SendDataResponse> bookARun(@Body() BookARunBody bookARunBody);
+
+  // My Bookings Flow
+
+  // -- Get active appointments
+  @POST(Apis.getActiveAppointments)
+  Future<MyAppointmentsResponse> getActiveAppointments();
+
+  // -- Get booked appointments
+  @POST(Apis.getBookedAppointments)
+  Future<MyAppointmentsResponse> getBookedAppointments();
+
+  // -- Get past appointments
+  @POST(Apis.getPastAppointments)
+  Future<MyAppointmentsResponse> getPastAppointments();
+
+  // -- Get Appointment Details
+  @POST(Apis.getAppointmentDetails)
+  Future<GetAppointmentDetailsResponse> getAppointmentDetails(
+      @Body() GetAppointmentDetailsBody getAppointmentDetailsBody);
+
+  // -- Change Appointment Status
+  @POST(Apis.changeAppointmentStatus)
+  Future<SendDataResponse> changeAppointmentStatus(
+      @Body() ChangeAppointmentStatusBody changeAppointmentStatusBody);
+
+  // -- Get Scroll Status
+  @POST(Apis.getScrollStatus)
+  Future<GetScrollStatusResponse> getScrollStatus(
+      @Body() GetScrollStatusBody getScrollStatusBody);
+
+  // -- Get Report Run One (from this)
+  @POST(Apis.getRunningReport)
+  Future<GetReportResponse> getRunOneReport(
+      @Body() GetReportOneBody getReportOneBody);
+
+  // -- Get Report Run Two
+  @POST(Apis.getRunningReport)
+  Future<GetReportResponse> getRunTwoReport(
+      @Body() GetReportTwoBody getReportTwoBody);
+
+  // -- Set Rating Run One
+  @POST(Apis.setRunningRating)
+  Future<SendDataResponse> setRunOneRating(
+      @Body() SetRunOneRatingBody setRunOneRatingBody);
+
+  // -- Set Rating Run Two
+  @POST(Apis.setRunningRating)
+  Future<SendDataResponse> setRunTwoRating(
+      @Body() SetRunTwoRatingBody setRunTwoRatingBody);
+
+  // -- Set Testimony
+  @POST(Apis.setTestimony)
+  Future<SendDataResponse> setTestimony(
+      @Body() SetTestimonyBody setTestimonyBody);
 }

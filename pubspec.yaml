@@ -88,6 +88,12 @@ dependencies:
   flutter_facebook_auth: ^3.5.6
   font_awesome_flutter: ^9.2.0
 
+  # for date scroller
+  date_picker_timeline: ^1.2.3
+
+  # for date
+  intl: ^0.17.0
+
 flutter_icons:
   image_path: assets/images/light_splash_screen.png
   android: true

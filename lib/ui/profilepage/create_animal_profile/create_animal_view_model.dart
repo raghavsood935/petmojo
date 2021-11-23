@@ -362,8 +362,8 @@ class CreateAnimalViewModel extends FormViewModel {
       customData: listOfAnimalTypes,
     );
     if (result!.confirmed) {
-      tc.text = result!.data;
-      selectedAnimalType = result!.data;
+      tc.text = result.data;
+      selectedAnimalType = result.data;
       notifyListeners();
       checkBreedAvailable(tc.text.toLowerCase());
     }

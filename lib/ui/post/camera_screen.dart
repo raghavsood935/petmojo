@@ -351,7 +351,7 @@ class _CameraScreenState extends State<CameraScreen>
               onPressed: controller != null ? onAudioModeButtonPressed : null,
             ),
             IconButton(
-              icon: Icon(controller?.value?.isCaptureOrientationLocked ?? false
+              icon: Icon(controller?.value.isCaptureOrientationLocked ?? false
                   ? Icons.screen_lock_rotation
                   : Icons.screen_rotation),
               color: Colors.blue,
@@ -378,7 +378,7 @@ class _CameraScreenState extends State<CameraScreen>
           children: [
             IconButton(
               icon: Icon(Icons.flash_off),
-              color: controller?.value?.flashMode == FlashMode.off
+              color: controller?.value.flashMode == FlashMode.off
                   ? Colors.orange
                   : Colors.blue,
               onPressed: controller != null
@@ -497,12 +497,12 @@ class _CameraScreenState extends State<CameraScreen>
 
   Widget _focusModeControlRowWidget() {
     final ButtonStyle styleAuto = TextButton.styleFrom(
-      primary: controller?.value?.focusMode == FocusMode.auto
+      primary: controller?.value.focusMode == FocusMode.auto
           ? Colors.orange
           : Colors.blue,
     );
     final ButtonStyle styleLocked = TextButton.styleFrom(
-      primary: controller?.value?.focusMode == FocusMode.locked
+      primary: controller?.value.focusMode == FocusMode.locked
           ? Colors.orange
           : Colors.blue,
     );

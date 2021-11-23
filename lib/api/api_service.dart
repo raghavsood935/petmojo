@@ -23,6 +23,21 @@ import 'package:tamely/models/user_profile_details_response.dart';
 import 'package:tamely/models/user_response_models.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/ui/otp/confirm_otp_viewmodel.dart';
+import 'package:tamely/models/get_appointment_details_response.dart';
+import 'package:tamely/models/get_pet_details_response.dart';
+import 'package:tamely/models/get_report_response.dart';
+import 'package:tamely/models/get_scroll_status_response.dart';
+import 'package:tamely/models/my_appointments_response.dart';
+import 'package:tamely/models/params/book_a_run_body.dart';
+import 'package:tamely/models/params/change_appointment_status_body.dart';
+import 'package:tamely/models/params/get_appointment_details_body.dart';
+import 'package:tamely/models/params/get_runone_report_body.dart';
+import 'package:tamely/models/params/get_runtwo_report_body.dart';
+import 'package:tamely/models/params/get_scroll_status_body.dart';
+import 'package:tamely/models/params/set_runone_rating_body.dart';
+import 'package:tamely/models/params/set_runtwo_rating_body.dart';
+import 'package:tamely/models/params/set_testimony_body.dart';
+import 'package:tamely/models/send_data_response.dart';
 
 import 'api_client.dart';
 
@@ -369,6 +384,203 @@ class TamelyApi {
     try {
       response = await getApiClient(true)
           .editAnimalProfileDetails(editAnimalProfileDetailsBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // Booking Appointments
+
+  // -- Get Pet Details
+  Future<BaseResponse<GetPetDetailsResponse>> getPetDetails() async {
+    log.d("googleLogin called");
+    GetPetDetailsResponse response;
+    try {
+      response = await getApiClient(true).getPetDetails();
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Booking A Run
+  Future<BaseResponse<SendDataResponse>> bookARun(
+      BookARunBody bookARunBody) async {
+    log.d("googleLogin called");
+    SendDataResponse response;
+    try {
+      response = await getApiClient(true).bookARun(bookARunBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // My Bookings Flow
+
+  // -- Get active appointments
+  Future<BaseResponse<MyAppointmentsResponse>> getActiveAppointments() async {
+    print("2");
+    MyAppointmentsResponse response;
+    try {
+      response = await getApiClient(true).getActiveAppointments();
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Get booked appointments
+  Future<BaseResponse<MyAppointmentsResponse>> getBookedAppointments() async {
+    print("2");
+    MyAppointmentsResponse response;
+    try {
+      response = await getApiClient(true).getBookedAppointments();
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Get past appointments
+  Future<BaseResponse<MyAppointmentsResponse>> getPastAppointments() async {
+    print("2");
+    MyAppointmentsResponse response;
+    try {
+      response = await getApiClient(true).getPastAppointments();
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Get Appointment Details
+  Future<BaseResponse<GetAppointmentDetailsResponse>> getAppointmentDetails(
+      GetAppointmentDetailsBody getAppointmentDetailsBody) async {
+    print("2");
+    GetAppointmentDetailsResponse response;
+    try {
+      response = await getApiClient(true)
+          .getAppointmentDetails(getAppointmentDetailsBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Change Appointment Status
+  Future<BaseResponse<SendDataResponse>> changeAppointmentStatus(
+      ChangeAppointmentStatusBody changeAppointmentStatusBody) async {
+    print("2");
+    SendDataResponse response;
+    try {
+      response = await getApiClient(true)
+          .changeAppointmentStatus(changeAppointmentStatusBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Get Scroll Status
+  Future<BaseResponse<GetScrollStatusResponse>> getScrollStatus(
+      GetScrollStatusBody getScrollStatusBody) async {
+    print("2");
+    GetScrollStatusResponse response;
+    try {
+      response = await getApiClient(true).getScrollStatus(getScrollStatusBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Get Report Run One
+  Future<BaseResponse<GetReportResponse>> getRunOneReport(
+      GetReportOneBody getReportOneBody) async {
+    print("2");
+    GetReportResponse response;
+    try {
+      response = await getApiClient(true).getRunOneReport(getReportOneBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Get Report Run Two
+  Future<BaseResponse<GetReportResponse>> getRunTwoReport(
+      GetReportTwoBody getReportTwoBody) async {
+    print("2");
+    GetReportResponse response;
+    try {
+      response = await getApiClient(true).getRunTwoReport(getReportTwoBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Set Rating Run One
+  Future<BaseResponse<SendDataResponse>> setRunOneRating(
+      SetRunOneRatingBody setRunOneRatingBody) async {
+    print("2");
+    SendDataResponse response;
+    try {
+      response = await getApiClient(true).setRunOneRating(setRunOneRatingBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Set Rating Run Two
+  Future<BaseResponse<SendDataResponse>> setRunTwoRating(
+      SetRunTwoRatingBody setRunTwoRatingBody) async {
+    print("2");
+    SendDataResponse response;
+    try {
+      response = await getApiClient(true).setRunTwoRating(setRunTwoRatingBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Set Testimony
+  Future<BaseResponse<SendDataResponse>> setTestimony(
+      SetTestimonyBody setTestimonyBody) async {
+    print("2");
+    SendDataResponse response;
+    try {
+      response = await getApiClient(true).setTestimony(setTestimonyBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()

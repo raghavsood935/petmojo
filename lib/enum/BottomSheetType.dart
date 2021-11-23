@@ -6,4 +6,8 @@ enum BottomSheetType {
   SelectAnimalTypeBottomSheet,
   SelectOtherAnimalTypeBottomSheet,
   SelectBreedBottomSheet,
+  SubmitApprovalBottomSheet,
+  EndWalkBottomSheet,
+  ConfirmEndWalkBottomSheet,
+  CancelSubscriptionBottomSheet,
 }

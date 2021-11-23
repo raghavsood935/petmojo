@@ -3,15 +3,21 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/services/user_service.dart';
+import 'package:tamely/ui/appointmentdetails/appointmentdetails_view.dart';
+import 'package:tamely/ui/appointments/appointments_view.dart';
+import 'package:tamely/ui/chat/chat_view.dart';
 import 'package:tamely/ui/community/community_main_view/community_main_view.dart';
 import 'package:tamely/ui/community/first_time_views/community_choose_interests/community_choose_interests_view.dart';
 import 'package:tamely/ui/dashboard/dashboard.dart';
+import 'package:tamely/ui/dogrunners/dogrunners_view.dart';
+import 'package:tamely/ui/dogrunningbooking/dogrunningbooking_view.dart';
 import 'package:tamely/ui/for_you/for_you_search/for_you_tab_search_view.dart';
 import 'package:tamely/ui/forgotpassword/forgotpassword_view.dart';
 import 'package:tamely/ui/forgotpassword/new_password_view.dart';
 import 'package:tamely/ui/groups/create_group/create_group_view.dart';
 import 'package:tamely/ui/groups/group_info/group_info_view.dart';
 import 'package:tamely/ui/groups/groups_view.dart';
+import 'package:tamely/ui/livemap/livemap_view.dart';
 import 'package:tamely/ui/login/login_view.dart';
 import 'package:tamely/ui/onboarding/onboarding_view.dart';
 import 'package:tamely/ui/otp/confirm_otp_view.dart';
@@ -22,8 +28,13 @@ import 'package:tamely/ui/profilepage/animal_profile/basic_info/basic_info_view.
 import 'package:tamely/ui/profilepage/completed_profile/add_details_profile_view.dart';
 import 'package:tamely/ui/profilepage/completed_profile/follow_people_action_view.dart';
 import 'package:tamely/ui/profilepage/create_animal_profile/create_animal_page_viewe.dart';
+import 'package:tamely/ui/reportcard/reportcard_view.dart';
 import 'package:tamely/ui/signup/signup_view.dart';
 import 'package:tamely/ui/startup/startup_view.dart';
+import 'package:tamely/ui/tamelydogrunning/tamelydogrunning_view.dart';
+import 'package:tamely/ui/tamelydogrunning/tamelyoverview/tamelyoverview_view.dart';
+import 'package:tamely/ui/tamelydogrunning/tamelyratechart/tamelyratechart_view.dart';
+import 'package:tamely/ui/tamelydogrunning/tamelyreviews/tamelyreviews_view.dart';
 
 import '../ui/settings/settings_human_view.dart';
 import '../ui/settings/settings_animal_view.dart';
@@ -67,6 +78,20 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: FeedbackView),
     CupertinoRoute(page: HelpView),
     CupertinoRoute(page: WalletView),
+
+    //
+    CupertinoRoute(page: DogRunnersView),
+    CupertinoRoute(page: TamelyOverviewView),
+    CupertinoRoute(page: TamelyRateChartView),
+    CupertinoRoute(page: TamelyReviewsView),
+    CupertinoRoute(page: TamelyDogRunnersView),
+    CupertinoRoute(page: DogRunningBookingView),
+    //
+    CupertinoRoute(page: AppointmentsView),
+    CupertinoRoute(page: AppointmentDetailsView),
+    CupertinoRoute(page: ChatView),
+    CupertinoRoute(page: LiveMapView),
+    CupertinoRoute(page: ReportCardView),
   ],
   dependencies: [
     LazySingleton(classType: NavigationService),

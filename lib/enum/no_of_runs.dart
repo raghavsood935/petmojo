@@ -1,0 +1,1 @@
+enum NoOfRuns { One, Two }

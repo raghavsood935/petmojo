@@ -80,7 +80,7 @@ class SelectAnimalTypeBottomSheet extends StatelessWidget {
                 );
                 if (result!.confirmed) {
                   onDialogTap(
-                      SheetResponse(confirmed: true, data: result!.data));
+                      SheetResponse(confirmed: true, data: result.data));
                 }
               }),
         ],
