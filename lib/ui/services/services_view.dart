@@ -67,7 +67,7 @@ class ServicesView extends StatelessWidget {
                 gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2),
                 itemBuilder: (context, index) =>
-                    servicesItem(context, model.listOfServices[index]),
+                    servicesItem(context, model.listOfServices[index], model),
                 itemCount: model.listOfServices.length,
               ),
               spacedDivider,
@@ -115,11 +115,14 @@ class ServicesView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  trailing: CircleAvatar(
-                    backgroundColor: colors.primary,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.arrow_forward, color: colors.white),
+                  trailing: GestureDetector(
+                    onTap: model.toMyBookings,
+                    child: CircleAvatar(
+                      backgroundColor: colors.primary,
+                      child: IconButton(
+                        onPressed: model.toMyBookings,
+                        icon: Icon(Icons.arrow_forward, color: colors.white),
+                      ),
                     ),
                   ),
                 ),
@@ -132,36 +135,40 @@ class ServicesView extends StatelessWidget {
   }
 }
 
-Widget servicesItem(BuildContext context, ServicesModel model) {
-  return Container(
-    margin: EdgeInsets.all(5),
-    padding: EdgeInsets.all(10),
-    width: screenWidthPercentage(context, percentage: 0.40),
-    decoration: BoxDecoration(
-      border: Border.all(color: colors.kcLightGreyBackground, width: 2),
-      borderRadius: BorderRadius.circular(20),
-    ),
-    child: ListView(
-      shrinkWrap: true,
-      children: [
-        ListTile(
-          contentPadding: EdgeInsets.zero,
-          leading: CircleAvatar(
-            backgroundColor: colors.mediumBackgroundColor,
-            child: Icon(
-              Icons.luggage_rounded,
-              color: colors.primary,
+Widget servicesItem(
+    BuildContext context, ServicesModel model, ServicesViewModel viewModel) {
+  return GestureDetector(
+    onTap: viewModel.toDogWalking,
+    child: Container(
+      margin: EdgeInsets.all(5),
+      padding: EdgeInsets.all(10),
+      width: screenWidthPercentage(context, percentage: 0.40),
+      decoration: BoxDecoration(
+        border: Border.all(color: colors.kcLightGreyBackground, width: 2),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: ListView(
+        shrinkWrap: true,
+        children: [
+          ListTile(
+            contentPadding: EdgeInsets.zero,
+            leading: CircleAvatar(
+              backgroundColor: colors.mediumBackgroundColor,
+              child: Icon(
+                Icons.luggage_rounded,
+                color: colors.primary,
+              ),
             ),
+            title: AppText.body1(model.title),
+            subtitle: AppText.caption("${model.noOfProviders} Providers"),
           ),
-          title: AppText.body1(model.title),
-          subtitle: AppText.caption("${model.noOfProviders} Providers"),
-        ),
-        verticalSpaceSmall,
-        AppText.body(
-          model.description,
-          color: colors.kcMediumGreyColor,
-        )
-      ],
+          verticalSpaceSmall,
+          AppText.body(
+            model.description,
+            color: colors.kcMediumGreyColor,
+          )
+        ],
+      ),
     ),
   );
 }

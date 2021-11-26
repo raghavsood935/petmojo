@@ -35,10 +35,8 @@ import 'package:tamely/ui/tamelydogrunning/tamelydogrunning_view.dart';
 import 'package:tamely/ui/tamelydogrunning/tamelyoverview/tamelyoverview_view.dart';
 import 'package:tamely/ui/tamelydogrunning/tamelyratechart/tamelyratechart_view.dart';
 import 'package:tamely/ui/tamelydogrunning/tamelyreviews/tamelyreviews_view.dart';
-
 import '../ui/settings/settings_human_view.dart';
 import '../ui/settings/settings_animal_view.dart';
-
 import '../ui/bookings/bookings_view.dart';
 import '../ui/bookmarks/bookmarks_view.dart';
 import '../ui/feedback/feedback_view.dart';
