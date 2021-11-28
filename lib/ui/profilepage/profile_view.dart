@@ -300,42 +300,48 @@ class ProfileView extends StatelessWidget {
                 // PostTab(),
 
                 if (model.listOfPosts.length == 0)
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: CircleAvatar(
-                      backgroundColor: colors.black,
-                      radius: 30,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
                       child: CircleAvatar(
-                        radius: 29,
-                        backgroundColor: Colors.white,
+                        backgroundColor: colors.black,
+                        radius: 30,
                         child: CircleAvatar(
-                          backgroundColor: colors.lightBackgroundColor,
-                          radius: 26,
-                          child: Icon(
-                            Icons.add,
-                            color: colors.primary,
+                          radius: 29,
+                          backgroundColor: Colors.white,
+                          child: CircleAvatar(
+                            backgroundColor: colors.lightBackgroundColor,
+                            radius: 26,
+                            child: Icon(
+                              Icons.add,
+                              color: colors.primary,
+                            ),
                           ),
                         ),
                       ),
                     ),
                   )
                 else
-                  StaggeredGridView.countBuilder(
-                    physics: ScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: model.listOfPosts.length,
-                    crossAxisSpacing: 6,
-                    mainAxisSpacing: 6,
-                    crossAxisCount: 3,
-                    itemBuilder: (context, index) => GestureDetector(
-                      onTap: () {},
-                      child: postItem(
-                        context,
-                        index,
-                        model.listOfPosts[index].thumbnail!,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: StaggeredGridView.countBuilder(
+                      physics: ScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: model.listOfPosts.length,
+                      crossAxisSpacing: 6,
+                      mainAxisSpacing: 6,
+                      crossAxisCount: 3,
+                      itemBuilder: (context, index) => GestureDetector(
+                        onTap: () {},
+                        child: postItem(
+                          context,
+                          index,
+                          model.listOfPosts[index].thumbnail!,
+                        ),
                       ),
+                      staggeredTileBuilder: (index) => StaggeredTile.fit(1),
                     ),
-                    staggeredTileBuilder: (index) => StaggeredTile.fit(1),
                   ),
               ],
             ),
