@@ -13,7 +13,6 @@ import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_input_field.dart';
-import 'package:tamely/widgets/app_select_item.dart';
 import 'package:tamely/widgets/app_text.dart';
 
 @FormView(fields: [
@@ -30,7 +29,10 @@ import 'package:tamely/widgets/app_text.dart';
   FormTextField(name: 'toTime'),
 ])
 class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
-  CreateAnimalPageView({Key? key}) : super(key: key);
+  CreateAnimalPageView({Key? key, this.petId, this.isEdit}) : super(key: key);
+
+  final bool? isEdit;
+  final String? petId;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,9 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
         builder: (context, model, child) => Scaffold(
               appBar: AppBar(
                 centerTitle: true,
-                title: AppText.body(createAnimalTitle),
+                title: AppText.body(
+                  isEdit ?? false ? editAnimalTitle : createAnimalTitle,
+                ),
                 leading: IconButton(
                   onPressed: model.onBackPressed,
                   icon: Icon(
@@ -63,21 +67,39 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                         backgroundColor: colors.primary,
                         child: CircleAvatar(
                           radius: 47,
-                          backgroundColor: colors.kcLightGreyBackground,
+                          backgroundColor: colors.white,
                           child: Stack(
                             children: [
-                              if (model.imagePath.isEmpty)
+                              if (model.imagePath.isEmpty ||
+                                  model.avatarUrl.isEmpty)
                                 CircleAvatar(
-                                    backgroundColor: colors.primary,
-                                    radius: 45,
-                                    child: SvgPicture.asset(
-                                      cameraIcon,
-                                      color: colors.white,
-                                    )),
+                                  backgroundColor: colors.primary,
+                                  radius: 65,
+                                  child: SvgPicture.asset(
+                                    cameraIcon,
+                                    color: colors.white,
+                                  ),
+                                ),
+                              if (model.avatarUrl.isNotEmpty &&
+                                  model.imagePath.isEmpty)
+                                CircleAvatar(
+                                  backgroundColor: colors.primary,
+                                  radius: 64,
+                                  child: ClipOval(
+                                    child: SizedBox(
+                                      width: 95,
+                                      height: 95,
+                                      child: Image.network(
+                                        model.avatarUrl,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               if (model.imagePath.isNotEmpty)
                                 CircleAvatar(
                                   backgroundColor: colors.primary,
-                                  radius: 45,
+                                  radius: 65,
                                   child: ClipOval(
                                     child: SizedBox(
                                         width: 130,
@@ -91,7 +113,6 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                         ),
                       ),
                     ),
-
                     Padding(
                       padding: const EdgeInsets.only(left: 10, right: 15.0),
                       child: Row(
@@ -233,102 +254,95 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                             ),
                           ),
                           verticalSpaceTiny,
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              horizontalSpaceSmall,
-                              AppText.caption(
-                                "Age of Animal",
-                                color: colors.black,
-                              ),
-                              horizontalSpaceTiny,
-                              AppText.caption(
-                                "(Choose DOB or baby/adult/young)",
-                                color: colors.kcMediumGreyColor,
-                              ),
-                            ],
+                          Visibility(
+                            visible: !(isEdit ?? false),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                horizontalSpaceSmall,
+                                AppText.caption(
+                                  "Age of Animal",
+                                  color: colors.black,
+                                ),
+                                horizontalSpaceTiny,
+                                AppText.caption(
+                                  "(Choose DOB or baby/adult/young)",
+                                  color: colors.kcMediumGreyColor,
+                                ),
+                              ],
+                            ),
                           ),
                           verticalSpaceTiny,
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Radio<String>(
-                                value: "DOB",
-                                splashRadius: 0,
-                                groupValue: model.selectedAnimalAgeChooseType,
-                                onChanged: model.onAnimalAgeTypeChangeRadio,
-                                activeColor: colors.primary,
-                              ),
-                              Expanded(
-                                child: GestureDetector(
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          AppText.caption(
-                                              model.selectedDateValue),
-                                          Align(
-                                            alignment: Alignment.centerRight,
-                                            child: Icon(
-                                              Icons.calendar_today,
-                                              size: 20,
-                                              color: colors.kcLightGreyColor,
+                          Visibility(
+                            visible: !(isEdit ?? false),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Radio<String>(
+                                  value: "DOB",
+                                  splashRadius: 0,
+                                  groupValue: model.selectedAnimalAgeChooseType,
+                                  onChanged: model.onAnimalAgeTypeChangeRadio,
+                                  activeColor: colors.primary,
+                                ),
+                                Expanded(
+                                  child: GestureDetector(
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            AppText.caption(
+                                                model.selectedDateValue),
+                                            Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Icon(
+                                                Icons.calendar_today,
+                                                size: 20,
+                                                color: colors.kcLightGreyColor,
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      Divider(
-                                        color: colors.kcLightGreyColor,
-                                        thickness: 1,
-                                      )
-                                    ],
+                                          ],
+                                        ),
+                                        Divider(
+                                          color: colors.kcLightGreyColor,
+                                          thickness: 1,
+                                        )
+                                      ],
+                                    ),
+                                    onTap: () =>
+                                        model.selectedAnimalAgeChooseType ==
+                                                "DOB"
+                                            ? model.selectDate(
+                                                context, dobController)
+                                            : {},
                                   ),
-                                  // child: Container(
-                                  //   color: Colors.transparent,
-                                  //   child: IgnorePointer(
-                                  //     child: AppInputField(
-                                  //       controller: dobController,
-                                  //       hint: "DD-MM-YYYY",
-                                  //       trailing: Icon(
-                                  //         Icons.calendar_today,
-                                  //         size: 18,
-                                  //       ),
-                                  //       readOnly: true,
-                                  //     ),
-                                  //   ),
-                                  // ),
-                                  onTap: () =>
-                                      model.selectedAnimalAgeChooseType == "DOB"
-                                          ? model.selectDate(
-                                              context, dobController)
-                                          : {},
                                 ),
-                              ),
-                              Radio<String>(
-                                value: "AGE",
-                                splashRadius: 0,
-                                groupValue: model.selectedAnimalAgeChooseType,
-                                onChanged: model.onAnimalAgeTypeChangeRadio,
-                                activeColor: colors.primary,
-                              ),
-                              Expanded(
-                                child: dropDownButton(
-                                  model.ageType,
-                                  model.ageTypeValues,
-                                  "Choose age",
-                                  model.onChangeAge,
-                                  isEnabled:
-                                      model.selectedAnimalAgeChooseType ==
-                                          "AGE",
+                                Radio<String>(
+                                  value: "AGE",
+                                  splashRadius: 0,
+                                  groupValue: model.selectedAnimalAgeChooseType,
+                                  onChanged: model.onAnimalAgeTypeChangeRadio,
+                                  activeColor: colors.primary,
                                 ),
-                              ),
-                            ],
+                                Expanded(
+                                  child: dropDownButton(
+                                    model.ageType,
+                                    model.ageTypeValues,
+                                    "Choose age",
+                                    model.onChangeAge,
+                                    isEnabled:
+                                        model.selectedAnimalAgeChooseType ==
+                                            "AGE",
+                                  ),
+                                ),
+                              ],
+                            ),
                           )
                         ],
                       ),
@@ -364,6 +378,30 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                       ),
                     ),
                     spacedDividerTiny,
+                    Visibility(
+                      visible: isEdit ?? false,
+                      child: ListTile(
+                        title: AppText.body1("Service Pet"),
+                        trailing: Switch(
+                            activeColor: colors.primary,
+                            value: model.servicePetValue,
+                            onChanged: model.onChangeServicePet),
+                      ),
+                    ),
+                    Visibility(
+                        visible: isEdit ?? false, child: spacedDividerTiny),
+                    Visibility(
+                      visible: isEdit ?? false,
+                      child: ListTile(
+                        title: AppText.body1("Spayed/Neutered"),
+                        trailing: Switch(
+                            activeColor: colors.primary,
+                            value: model.spayedPetValue,
+                            onChanged: model.onChangeSpayed),
+                      ),
+                    ),
+                    Visibility(
+                        visible: isEdit ?? false, child: spacedDividerTiny),
                     ListTile(
                       title: AppText.body1("Up for Play-buddies"),
                       trailing: Switch(
@@ -431,10 +469,16 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                 child: ElevatedButton(
                   onPressed: () {
                     if (model.isValid) {
-                      model.createAnimalProfile();
+                      if (isEdit ?? false) {
+                        model.editAnimalProfile(petId!);
+                      } else {
+                        model.createAnimalProfile();
+                      }
                     }
                   },
-                  child: AppText.body2("CREATE PROFILE", color: colors.white),
+                  child: AppText.body2(
+                      isEdit ?? false ? "EDIT PROFILE" : "CREATE PROFILE",
+                      color: colors.white),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(model.isValid
                         ? colors.primary
@@ -452,6 +496,17 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
             ),
         viewModelBuilder: () => CreateAnimalViewModel(),
         onModelReady: (model) {
+          model.init(
+              petId ?? "",
+              isEdit ?? false,
+              nameController,
+              usernameController,
+              shortbioController,
+              animalTypeController,
+              breedController,
+              dobController,
+              fromTimeController,
+              toTimeController);
           listenToFormUpdated(model);
           model.setAnimalTypeList();
         });

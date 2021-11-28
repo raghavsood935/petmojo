@@ -9,7 +9,6 @@ import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/models/animal_profile_detail_model.dart';
 import 'package:tamely/models/my_animal_model.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
-import 'package:tamely/shared/base_viewmodel.dart';
 import 'package:tamely/util/utils.dart';
 
 class AnimalProfileViewModel extends FutureViewModel {
@@ -19,6 +18,8 @@ class AnimalProfileViewModel extends FutureViewModel {
   final _dialogService = locator<DialogService>();
 
   MyAnimalModelResponse? myAnimalModelResponse;
+
+  String _Id = "";
 
   String _profilename = "";
   String _username = "";
@@ -65,21 +66,37 @@ class AnimalProfileViewModel extends FutureViewModel {
   bool get isUpForPlayBuddies => _isUpForPlayBuddies;
 
   void goToAnimalBasicInfo() async {
-    await _navigationService.navigateTo(Routes.animalBasicInfo,
+    var result = await _navigationService.navigateTo(Routes.animalBasicInfo,
         arguments: AnimalBasicInfoArguments(
             animalModelResponse: myAnimalModelResponse!));
+
+    if (result == 1) {
+      getAnimalDetails();
+    }
+  }
+
+  void goToAddGuardiansAndRelations() async {
+    await _navigationService.navigateTo(
+      Routes.guardiansAndRelatedAnimalsView,
+    );
   }
 
   void goBack() async {
     _navigationService.back();
   }
 
-  Future getAnimalDetails(String id) async {
+  void init(String Id) {
+    _Id = Id;
+    notifyListeners();
+    getAnimalDetails();
+  }
+
+  Future getAnimalDetails() async {
     if (await Util.checkInternetConnectivity()) {
       WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
         _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
         var result = await runBusyFuture(
-            _tamelyApi.getAnimalProfileDetail(AnimalProfileDetailsBody(id)));
+            _tamelyApi.getAnimalProfileDetail(AnimalProfileDetailsBody(_Id)));
         if (result != null) {
           if (result.data != null) {
             setValues(result.data!);

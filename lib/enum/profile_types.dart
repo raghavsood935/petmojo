@@ -1,0 +1,1 @@
+enum ProfileTypes { Animal, Human }

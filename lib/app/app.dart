@@ -6,7 +6,12 @@ import 'package:tamely/services/user_service.dart';
 import 'package:tamely/ui/appointmentdetails/appointmentdetails_view.dart';
 import 'package:tamely/ui/appointments/appointments_view.dart';
 import 'package:tamely/ui/chat/chat_view.dart';
+import 'package:tamely/ui/community/community_main_view/adoption/adoption_view.dart';
 import 'package:tamely/ui/community/community_main_view/community_main_view.dart';
+import 'package:tamely/ui/community/community_main_view/mating/mating_view.dart';
+import 'package:tamely/ui/community/community_main_view/play_buddies/play_buddies_view.dart';
+import 'package:tamely/ui/community/community_main_view/strays_near_you/strays_near_you_map_page/strays_near_you_map_view.dart';
+import 'package:tamely/ui/community/community_main_view/strays_near_you/strays_near_you_view.dart';
 import 'package:tamely/ui/community/first_time_views/community_choose_interests/community_choose_interests_view.dart';
 import 'package:tamely/ui/dashboard/dashboard.dart';
 import 'package:tamely/ui/dogrunners/dogrunners_view.dart';
@@ -25,6 +30,7 @@ import 'package:tamely/ui/post/camera_screen.dart';
 import 'package:tamely/ui/profile/profile_create_view.dart';
 import 'package:tamely/ui/profilepage/animal_profile/animal_profile_view.dart';
 import 'package:tamely/ui/profilepage/animal_profile/basic_info/basic_info_view.dart';
+import 'package:tamely/ui/profilepage/animal_profile/guardians_and_relations/guardians_and_relations.dart';
 import 'package:tamely/ui/profilepage/completed_profile/add_details_profile_view.dart';
 import 'package:tamely/ui/profilepage/completed_profile/follow_people_action_view.dart';
 import 'package:tamely/ui/profilepage/create_animal_profile/create_animal_page_viewe.dart';
@@ -66,6 +72,14 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: CameraScreen),
     CupertinoRoute(page: CreateGroupView),
     CupertinoRoute(page: GroupInfoView),
+    CupertinoRoute(page: GuardiansAndRelatedAnimalsView),
+
+    //community routes
+    CupertinoRoute(page: StraysNearYouView),
+    CupertinoRoute(page: StrayNearYouMapView),
+    CupertinoRoute(page: PlayBuddiesView),
+    CupertinoRoute(page: MatingView),
+    CupertinoRoute(page: AdoptionView),
 
     // dashboard routes
     CupertinoRoute(page: SettingsHumanView),

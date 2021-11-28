@@ -16,23 +16,25 @@ import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/enum/BottomSheetType.dart';
 import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/models/common_response.dart';
+import 'package:tamely/models/my_animal_model.dart';
+import 'package:tamely/models/params/animal_details_body.dart';
+import 'package:tamely/models/params/edit_animal_profile_body.dart';
 import 'package:tamely/models/user_response_models.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/animal_type_constant.dart';
 import 'package:tamely/util/utils.dart';
 
 class CreateAnimalViewModel extends FormViewModel {
-  final _tamelyApi = locator<TamelyApi>();
+  final log = getLogger('ProfileCreateViewModel');
   final _bottomSheetService = locator<BottomSheetService>();
+  final _navigationService = locator<NavigationService>();
+  final _tamelyApi = locator<TamelyApi>();
+  final _dialogService = locator<DialogService>();
+  final _snackBarService = locator<SnackbarService>();
 
   final ImagePicker _picker = ImagePicker();
 
   Position? _currentPosition = null;
-
-  final log = getLogger('ProfileCreateViewModel');
-  final _snackBarService = locator<SnackbarService>();
-  final _navigationService = locator<NavigationService>();
-  final _dialogService = locator<DialogService>();
 
   final List<String> animalTypeValues = ["Pet", "Stray", "Wild", "Farm"];
   final List<String> ageTypeValues = [select, "Baby", "Adult", "Young"];
@@ -58,9 +60,12 @@ class CreateAnimalViewModel extends FormViewModel {
   bool adoptionValue = false;
   bool resigteredWithKCValue = false;
   bool playBuddiesValue = false;
+  bool servicePetValue = false;
+  bool spayedPetValue = false;
+  bool vaccinatedValue = false;
   bool isBreedAvailable = false;
   String ageType = select;
-  int ageValue = 0;
+  String dob = "";
   String selectedAnimalType = "";
   String selectedAnimalGender = select;
 
@@ -112,6 +117,67 @@ class CreateAnimalViewModel extends FormViewModel {
 
   onBackPressed() {
     _navigationService.back();
+  }
+
+  Future init(
+    String petId,
+    bool isEdit,
+    TextEditingController name,
+    TextEditingController username,
+    TextEditingController bio,
+    TextEditingController animalType,
+    TextEditingController breed,
+    TextEditingController dobTc,
+    TextEditingController fromTime,
+    TextEditingController toTime,
+  ) async {
+    if (isEdit) {
+      if (await Util.checkInternetConnectivity()) {
+        WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
+          _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
+          var result = await runBusyFuture(_tamelyApi
+              .getAnimalProfileDetail(AnimalProfileDetailsBody(petId)));
+          if (result != null) {
+            if (result.data != null) {
+              MyAnimalModelResponse model = result.data!.animalprofileModel!;
+
+              name.text = model.name ?? "";
+              username.text = model.username ?? "";
+              bio.text = model.bio ?? "";
+              animalType.text = model.animalType ?? "";
+              selectedAnimalGender = model.gender ?? select;
+              breed.text = model.breed ?? "";
+
+              if (model.age!.contains("-")) {
+                dobTc.text = model.age ?? "";
+                dob = model.age ?? "";
+                selectedAnimalAgeChooseType = "DOB";
+              } else {
+                ageType = model.age ?? "";
+                selectedAnimalAgeChooseType = "AGE";
+              }
+              fromTime.text = model.playFrom ?? "";
+              toTime.text = model.playTo ?? "";
+              avatarUrl = model.avatar ?? "";
+
+              selectedValue = model.category ?? "Pet";
+              selectedAnimalType = model.animalType ?? "";
+              selectedAnimalGender = model.gender ?? "Pet";
+
+              adoptionValue = model.adoption ?? false;
+              matingValue = model.mating ?? false;
+              resigteredWithKCValue = false;
+              playBuddiesValue = model.playBuddies ?? false;
+
+              notifyListeners();
+              _dialogService.completeDialog(DialogResponse(confirmed: true));
+            }
+          } else {
+            _dialogService.completeDialog(DialogResponse(confirmed: true));
+          }
+        });
+      } else {}
+    }
   }
 
   Future<void> setAnimalTypeList() async {
@@ -187,6 +253,16 @@ class CreateAnimalViewModel extends FormViewModel {
     notifyListeners();
   }
 
+  onChangeSpayed(bool value) {
+    spayedPetValue = value;
+    notifyListeners();
+  }
+
+  onChangeServicePet(bool value) {
+    servicePetValue = value;
+    notifyListeners();
+  }
+
   onChangePlayBuddies(bool value) {
     playBuddiesValue = value;
     notifyListeners();
@@ -243,7 +319,7 @@ class CreateAnimalViewModel extends FormViewModel {
     String animalAge = "";
 
     if (selectedAnimalAgeChooseType == "DOB") {
-      animalAge = "$ageValue";
+      animalAge = dob;
     } else {
       if (ageType == select) {
         _snackBarService.showSnackbar(message: "Please select age");
@@ -285,6 +361,90 @@ class CreateAnimalViewModel extends FormViewModel {
     }
   }
 
+  Future editAnimalProfile(String petId) async {
+    if (_imageFile != null) {
+      uploadImage().whenComplete(() => editAnimalProfileAccount(petId));
+    } else {
+      editAnimalProfileAccount(petId);
+    }
+  }
+
+  Future editAnimalProfileAccount(String petId) async {
+    _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
+
+    String name = formValueMap["name"];
+    String username = formValueMap["username"];
+    String bio = formValueMap["shortbio"];
+    String breed = formValueMap["breed"];
+    String playFrom = formValueMap["fromTime"];
+    String playTo = formValueMap["toTime"];
+
+    String animalAge = "";
+
+    if (selectedAnimalAgeChooseType == "DOB") {
+      animalAge = dob;
+    } else {
+      if (ageType == select) {
+        _snackBarService.showSnackbar(message: "Please select age");
+      } else {
+        animalAge = ageType;
+      }
+    }
+
+    // EditAnimalProfileBody body = EditAnimalProfileBody(
+    //     name,
+    //     username,
+    //     avatarUrl,
+    //     selectedValue,
+    //     bio,
+    //     selectedAnimalType,
+    //     breed,
+    //     selectedAnimalGender,
+    //     animalAge,
+    //     matingValue,
+    //     adoptionValue,
+    //     playBuddiesValue,
+    //     playFrom,
+    //     playTo,
+    //     servicePetValue,
+    //     spayedPetValue,
+    //     petId);
+
+    //developer.pranav19@gmail.com
+    //Pranav@123
+
+    // var result = await _tamelyApi.editAnimalProfile(body);
+
+    var result = await runBusyFuture(_tamelyApi.editAnimalProfile(
+        name,
+        username,
+        avatarUrl,
+        selectedValue,
+        bio,
+        selectedAnimalType,
+        selectedAnimalGender,
+        breed,
+        animalAge,
+        matingValue,
+        adoptionValue,
+        playBuddiesValue,
+        playFrom,
+        playTo,
+        "",
+        servicePetValue,
+        spayedPetValue,
+        petId));
+
+    if (result.data != null) {
+      if (result.data!.success ?? false) {
+        _dialogService.completeDialog(DialogResponse(confirmed: true));
+        _navigationService.back(result: 1);
+      }
+    } else {
+      _dialogService.completeDialog(DialogResponse(confirmed: true));
+    }
+  }
+
   Future<void> selectTime(
       BuildContext context, TextEditingController tc) async {
     TimeOfDay selectedTime = TimeOfDay.now();
@@ -321,19 +481,21 @@ class CreateAnimalViewModel extends FormViewModel {
     if (picked_s != null && picked_s != selectedDate) {
       selectedDateValue = "${picked_s.day}-${picked_s.month}-${picked_s.year}";
 
-      ageValue = selectedDate.year - picked_s.year;
-      int month1 = selectedDate.month;
-      int month2 = picked_s.month;
+      dob = selectedDateValue;
 
-      if (month2 > month1) {
-        ageValue--;
-      } else if (month1 == month2) {
-        int day1 = selectedDate.day;
-        int day2 = picked_s.day;
-        if (day2 > day1) {
-          ageValue--;
-        }
-      }
+      // ageValue = selectedDate.year - picked_s.year;
+      // int month1 = selectedDate.month;
+      // int month2 = picked_s.month;
+      //
+      // if (month2 > month1) {
+      //   ageValue--;
+      // } else if (month1 == month2) {
+      //   int day1 = selectedDate.day;
+      //   int day2 = picked_s.day;
+      //   if (day2 > day1) {
+      //     ageValue--;
+      //   }
+      // }
 
       notifyListeners();
     }
@@ -361,11 +523,21 @@ class CreateAnimalViewModel extends FormViewModel {
       title: "Select the type of $selectedValue",
       customData: listOfAnimalTypes,
     );
+
     if (result!.confirmed) {
       tc.text = result.data;
       selectedAnimalType = result.data;
       notifyListeners();
       checkBreedAvailable(tc.text.toLowerCase());
+
+      if (result != null) {
+        if (result.confirmed) {
+          tc.text = result.data;
+          selectedAnimalType = result.data;
+          notifyListeners();
+          checkBreedAvailable(tc.text.toLowerCase());
+        }
+      }
     }
   }
 

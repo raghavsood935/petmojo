@@ -20,6 +20,8 @@ enum AnimalCategory {
   Farm,
 }
 
+List<String> animalRelations = ["Father", "Mother", "Siblings", "Friend", "NA"];
+
 List<String> availableBreedList = [
   "dog",
   "cat",

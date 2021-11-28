@@ -74,6 +74,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/help.svg
   SvgGenImage get help => const SvgGenImage('assets/images/help.svg');
 
+  /// File path: assets/images/high_demand.png
+  AssetGenImage get highDemand =>
+      const AssetGenImage('assets/images/high_demand.png');
+
   /// File path: assets/images/home.svg
   SvgGenImage get home => const SvgGenImage('assets/images/home.svg');
 
@@ -147,6 +151,13 @@ class $AssetsImagesGen {
   AssetGenImage get loginBanner =>
       const AssetGenImage('assets/images/login_banner.png');
 
+  /// File path: assets/images/logo.png
+  AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
+
+  /// File path: assets/images/logo_with_name.png
+  AssetGenImage get logoWithName =>
+      const AssetGenImage('assets/images/logo_with_name.png');
+
   /// File path: assets/images/main_bg.png
   AssetGenImage get mainBg => const AssetGenImage('assets/images/main_bg.png');
 
@@ -164,6 +175,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/send_outline.png
   AssetGenImage get sendOutline =>
       const AssetGenImage('assets/images/send_outline.png');
+
+  $AssetsImagesServicePageImagesGen get servicePageImages =>
+      const $AssetsImagesServicePageImagesGen();
 
   /// File path: assets/images/services.svg
   SvgGenImage get services => const SvgGenImage('assets/images/services.svg');
@@ -368,6 +382,30 @@ class $AssetsImagesCommunityPageImagesGen {
   /// File path: assets/images/community_page_images/strays_nearby.png
   AssetGenImage get straysNearby => const AssetGenImage(
       'assets/images/community_page_images/strays_nearby.png');
+}
+
+class $AssetsImagesServicePageImagesGen {
+  const $AssetsImagesServicePageImagesGen();
+
+  /// File path: assets/images/service_page_images/daily_dog_running.png
+  AssetGenImage get dailyDogRunning => const AssetGenImage(
+      'assets/images/service_page_images/daily_dog_running.png');
+
+  /// File path: assets/images/service_page_images/house_sitting.png
+  AssetGenImage get houseSitting => const AssetGenImage(
+      'assets/images/service_page_images/house_sitting.png');
+
+  /// File path: assets/images/service_page_images/pet_boarding.png
+  AssetGenImage get petBoarding =>
+      const AssetGenImage('assets/images/service_page_images/pet_boarding.png');
+
+  /// File path: assets/images/service_page_images/pet_grooming.png
+  AssetGenImage get petGrooming =>
+      const AssetGenImage('assets/images/service_page_images/pet_grooming.png');
+
+  /// File path: assets/images/service_page_images/vet_consultation.png
+  AssetGenImage get vetConsultation => const AssetGenImage(
+      'assets/images/service_page_images/vet_consultation.png');
 }
 
 class Assets {

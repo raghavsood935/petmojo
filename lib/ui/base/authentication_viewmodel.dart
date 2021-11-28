@@ -144,7 +144,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
           throwException: true);
 
       if (userService.hasLoggedInUser)
-        _handleLoggedInUser(userService.currentUser);
+        _handleLoggedInUser(userService.currentUser, isGoogleSignIn: true);
 
       log.d("GoogleLogin ${googleSignInAuthentication.accessToken}");
     } catch (e) {
@@ -161,7 +161,9 @@ abstract class AuthenticationViewModel extends FormViewModel {
         await runBusyFuture(handleSocialLogin(result.accessToken!.token, true),
             throwException: true);
         if (userService.hasLoggedInUser)
-          _handleLoggedInUser(userService.currentUser);
+          _handleLoggedInUser(
+            userService.currentUser,
+          );
         break;
       case LoginStatus.cancelled:
         snackBarService.showSnackbar(message: "Cancelled by User");
@@ -194,14 +196,15 @@ abstract class AuthenticationViewModel extends FormViewModel {
     }
   }
 
-  void _handleLoggedInUser(LocalUser currentUser) {
+  void _handleLoggedInUser(LocalUser currentUser,
+      {bool isGoogleSignIn = false}) {
     if (currentUser.fullName.isValid() &&
         currentUser.username.isValid() &&
         currentUser.confirmed) {
       sharedPreferencesService.currentState =
           getRedirectStateName(RedirectState.Home);
       navigationService.pushNamedAndRemoveUntil(Routes.dashboard);
-    } else if (!currentUser.confirmed) {
+    } else if (!currentUser.confirmed && !isGoogleSignIn) {
       sharedPreferencesService.currentState =
           getRedirectStateName(RedirectState.Start);
       navigationService.pushNamedAndRemoveUntil(
@@ -212,13 +215,18 @@ abstract class AuthenticationViewModel extends FormViewModel {
           verificationType: getVerificationTypeName(VerificationType.login),
         ),
       );
+      // } else if (currentUser.) {
+      //
+      //   sharedPreferencesService.currentState =
+      //       getRedirectStateName(RedirectState.ProfileCreate);
+      //   navigationService.pushNamedAndRemoveUntil(
+      //     Routes.profileCreateView,
+      //     arguments: ProfileCreateViewArguments(user: currentUser),
+      //   );
     } else {
       sharedPreferencesService.currentState =
-          getRedirectStateName(RedirectState.ProfileCreate);
-      navigationService.pushNamedAndRemoveUntil(
-        Routes.profileCreateView,
-        arguments: ProfileCreateViewArguments(user: currentUser),
-      );
+          getRedirectStateName(RedirectState.Home);
+      navigationService.pushNamedAndRemoveUntil(Routes.dashboard);
     }
   }
 }

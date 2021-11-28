@@ -13,23 +13,28 @@ class AddDetailsBottomSheetViewModel extends BaseModel {
   bool get isLoading => _isLoading;
 
   Future<void> onSave(AddDetailsBottomSheet widget, String value) async {
+    print("Asdfasdfasdfasdfasdfasd");
+
     String petId = widget.sheetRequest.data[0];
     int type = widget.sheetRequest.data[1];
+
+    print("type ::::::: $type");
 
     _isLoading = true;
     notifyListeners();
 
     EditAnimalProfileDetailsBody body = EditAnimalProfileDetailsBody(
       petId,
-      type == 1 ? value : null,
-      type == 2 ? value : null,
-      type == 3 ? value : null,
-      type == 4 ? value : null,
-      null,
-      null,
+      0,
+      0,
+      type == 1 ? value : "0",
+      type == 2 ? value : "0",
+      type == 3 ? value : "0",
+      type == 4 ? value : "0",
     );
 
-    await _tamelyApi.editAnimalProfileDetails(body).whenComplete(() {
+    var result =
+        await _tamelyApi.editAnimalProfileDetails(body).whenComplete(() {
       _isLoading = false;
       notifyListeners();
       widget.onDialogTap(
@@ -39,5 +44,7 @@ class AddDetailsBottomSheetViewModel extends BaseModel {
         ),
       );
     });
+
+    print(result);
   }
 }

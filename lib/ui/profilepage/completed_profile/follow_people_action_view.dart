@@ -1,103 +1,133 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:tamely/models/follow_profile_model.dart';
+import 'package:tamely/models/profile_model_response.dart';
 import 'package:tamely/ui/profilepage/completed_profile/follow_people_action_viewmodel.dart';
 import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/custom_circle_avatar.dart';
 import 'package:tamely/widgets/follow_btn.dart';
+import 'package:tamely/widgets/follow_static_btn.dart';
 
-class FollowPeopleProfileActionView extends StatelessWidget {
-  const FollowPeopleProfileActionView({Key? key}) : super(key: key);
+class FollowPeopleProfileActionView extends StatefulWidget {
+  FollowPeopleProfileActionView({Key? key, required this.id}) : super(key: key);
 
+  String id;
+
+  @override
+  _FollowPeopleProfileActionViewState createState() =>
+      _FollowPeopleProfileActionViewState();
+}
+
+class _FollowPeopleProfileActionViewState
+    extends State<FollowPeopleProfileActionView> {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<FollowPeopleProfileActionViewModel>.reactive(
       viewModelBuilder: () => FollowPeopleProfileActionViewModel(),
+      onModelReady: (model) => model.init(widget.id),
       builder: (context, model, child) => Scaffold(
-        body: CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBar(
-              backgroundColor: Colors.white,
-              elevation: 0.0,
-              expandedHeight: 100,
-              flexibleSpace: FlexibleSpaceBar(
-                // background: Align(
-                //   alignment: Alignment.topRight,
-                //   child: Image.asset(blobImgPath),
-                // ),
-                title: AppText.body(
-                  model.title,
+        body: SafeArea(
+            child: SingleChildScrollView(
+          physics: ScrollPhysics(),
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 40),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: IconButton(
+                        onPressed: model.goBack,
+                        icon: Icon(
+                          Icons.arrow_back,
+                          color: colors.black,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 4,
+                      child: AppText.subheading(
+                        model.title,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
                 ),
-                centerTitle: true,
-              ),
-              leading: IconButton(
-                onPressed: model.goBack,
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: colors.black,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: ListView.builder(
+                    physics: ScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: model.listOfProfileModel.length,
+                    itemBuilder: (context, index) => ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: AppText.body(
+                        model.listOfProfileModel[index].username ?? "-",
+                        color: colors.black,
+                      ),
+                      subtitle: AppText.body1(
+                          model.listOfProfileModel[index].fullname ?? "-"),
+                      leading: CustomCircularAvatar(
+                          radius: 24,
+                          imgPath: model.listOfProfileModel[index].avatar ??
+                              emptyProfileImgUrl),
+                      trailing: GestureDetector(
+                        onTap: () {
+                          if ((model.listOfProfileModel[index].following ??
+                                  0) ==
+                              0) {
+                            model.sendFollowRequest(
+                                model.listOfProfileModel[index]);
+                          }
+                          // setState(() {
+                          //   model.listOfProfileModel[index].setIsFollowing(
+                          //     !(model.listOfProfileModel[index].isFollowing),
+                          //   );
+                          // });
+                        },
+                        child: FollowingStaticBtn(
+                          trueValue: "Following",
+                          falseValue: "Follow",
+                          state: (model.listOfProfileModel[index].following ??
+                                  0) ==
+                              1,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+                Visibility(
+                  visible: model.isLoading,
+                  child: CircularProgressIndicator(
+                    color: colors.primary,
+                  ),
+                ),
+                Visibility(
+                  visible: !model.isLoading,
+                  child: GestureDetector(
+                    onTap: model.getProfilesList,
+                    child: AppText.body1Bold(
+                      "See more profiles",
+                      color: colors.primary,
+                    ),
+                  ),
+                ),
+              ],
             ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) =>
-                    profileItem(context, model.listOfProfileModel[index]),
-                childCount: model.listOfProfileModel.length,
-              ),
-            )
-          ],
-        ),
+          ),
+        )),
       ),
     );
   }
 }
 
-Widget profileItem(BuildContext context, FollowProfileModel profileModel) {
-  return Container(
-    width: 100,
-    color: Colors.white,
-    child: Column(
-      children: [
-        ListTile(
-          title: AppText.body(
-            profileModel.profileName,
-            color: colors.black,
-          ),
-          subtitle: AppText.body1(profileModel.userName),
-          leading: CircleAvatar(
-            radius: 30,
-            backgroundColor: colors.black,
-            child: CircleAvatar(
-              radius: 25,
-              backgroundImage: NetworkImage(profileModel.profileImgUrl),
-            ),
-          ),
-          trailing: FollowBtn(
-            initialState: profileModel.isFollowing,
-            trueValue: "Following",
-            falseValue: "Follow",
-          ),
-        ),
-        verticalSpaceSmall,
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              roundedCornerImage(context, profileModel.listOfPost[0]),
-              roundedCornerImage(context, profileModel.listOfPost[1]),
-              roundedCornerImage(context, profileModel.listOfPost[2]),
-              roundedCornerImage(context, profileModel.listOfPost[3]),
-            ],
-          ),
-        ),
-        spacedDividerSmall,
-      ],
-    ),
-  );
-}
+// Widget profileItem(ProfileResponse profileModel) {
+//   bool isFollowing = false;
+//   return
+// }
 
 Widget roundedCornerImage(BuildContext context, String url) {
   return SizedBox(

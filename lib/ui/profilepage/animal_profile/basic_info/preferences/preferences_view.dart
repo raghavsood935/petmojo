@@ -22,14 +22,16 @@ class _PreferencesViewState extends State<PreferencesView> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<PreferencesViewModel>.reactive(
       viewModelBuilder: () => PreferencesViewModel(),
-      onModelReady: (model) => model.onInit(widget.petId),
+      onModelReady: (model) => model.onInit(widget.petId).whenComplete(()=>setState((){})),
       builder: (context, model, child) => ListView(
         children: [
           ListTile(
             contentPadding: EdgeInsets.symmetric(horizontal: 20),
             title: AppText.body1(friendlinessHumanRating),
-            subtitle:
-                CustomRateView(onRateChange: model.friendlinessWithHumanChange),
+            subtitle: CustomRateView(
+              initialRate: model.friendlinessWithHumans,
+              onRateChange: model.friendlinessWithHumanChange,
+            ),
             trailing: saveWithLoading(
               GestureDetector(
                 child: AppText.body1(
@@ -46,6 +48,7 @@ class _PreferencesViewState extends State<PreferencesView> {
             contentPadding: EdgeInsets.symmetric(horizontal: 20),
             title: AppText.body1(friendlinessAnimalRating),
             subtitle: CustomRateView(
+                initialRate: model.friendlinessWithAnimals,
                 onRateChange: model.friendlinessWithAnimalChange),
             trailing: saveWithLoading(
               GestureDetector(

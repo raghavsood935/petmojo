@@ -3,9 +3,11 @@ import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
 import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/String.dart';
 
 class CommunityMainViewModel extends BaseModel {
   final navigationService = locator<NavigationService>();
+  final snackBarService = locator<SnackbarService>();
 
   String _location = "T-129 Emerald Hills Gurugram...";
 
@@ -37,6 +39,43 @@ class CommunityMainViewModel extends BaseModel {
 
   Future<void> goToGroupsView() async {
     navigationService.navigateTo(Routes.groupsView);
+  }
+
+  Future<void> onTapMethodForSocialCenter(int index) async {
+    switch (index) {
+      case 0:
+        {
+          navigationService.navigateTo(Routes.straysNearYouView);
+          break;
+        }
+      case 1:
+        {
+          navigationService.navigateTo(Routes.playBuddiesView);
+          break;
+        }
+      case 2:
+        {
+          navigationService.navigateTo(Routes.matingView);
+          break;
+        }
+      case 3:
+        {
+          // navigationService.navigateTo(Routes.straysNearYouView);
+          snackBarService.showSnackbar(message: onDevelop);
+          break;
+        }
+      case 4:
+        {
+          navigationService.navigateTo(Routes.adoptionView);
+          break;
+        }
+      case 5:
+        {
+          // navigationService.navigateTo(Routes.straysNearYouView);
+          snackBarService.showSnackbar(message: onDevelop);
+          break;
+        }
+    }
   }
 
   Future<void> dummyStartFunction() async {

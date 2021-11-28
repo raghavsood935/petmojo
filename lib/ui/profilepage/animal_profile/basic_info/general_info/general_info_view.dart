@@ -16,16 +16,19 @@ class GeneralInfoView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<GeneralInfoViewModel>.reactive(
       viewModelBuilder: () => GeneralInfoViewModel(),
-      onModelReady: (model) => model.getLocation(animalModelResponse.location!),
+      onModelReady: (model) {
+        model.setSomeDetails(animalModelResponse);
+        model.getLocation(animalModelResponse.location!);
+      },
       builder: (context, model, child) => ListView(
         children: [
           detailsRowItem("Name", animalModelResponse.name ?? ""),
           detailsRowItem("Animal Type", animalModelResponse.animalType ?? ""),
           detailsRowItem("Gender", animalModelResponse.gender ?? ""),
-          detailsRowItem("Service Pet", model.servicePet),
-          detailsRowItem("Spayed", model.sprayed),
           detailsRowItem("Breed", animalModelResponse.breed ?? ""),
           detailsRowItem("Age/Date of birth", animalModelResponse.age ?? ""),
+          detailsRowItem("Service Pet", model.serviecPet),
+          detailsRowItem("Spayed", model.spayed),
           spacedDividerBigTiny,
           Visibility(
               visible: animalModelResponse.category! == "Stray",
@@ -45,7 +48,8 @@ class GeneralInfoView extends StatelessWidget {
               ),
               Visibility(
                 visible: animalModelResponse.playBuddies ?? false,
-                child: roundedText(upForPlayBuddies),
+                child: roundedText(
+                    "upForPlayBuddies (${animalModelResponse.playFrom} - ${animalModelResponse.playTo})"),
               ),
             ],
           )

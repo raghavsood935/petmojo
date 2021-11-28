@@ -48,8 +48,11 @@ class CommunityMainView extends StatelessWidget {
                   gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3),
                   physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) => socialCenterItem(
-                      context, model.listOfSocialCenterModel[index]),
+                  itemBuilder: (context, index) => GestureDetector(
+                        child: socialCenterItem(
+                            context, model.listOfSocialCenterModel[index]),
+                        onTap: () => model.onTapMethodForSocialCenter(index),
+                      ),
                   itemCount: model.listOfSocialCenterModel.length),
             ),
             spacedDividerBigTiny,

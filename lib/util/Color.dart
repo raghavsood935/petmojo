@@ -37,6 +37,9 @@ class colors {
   static const Color lightBackgroundColor = Color(0xFFFEF4F7);
   static const Color inputFieldColor = Color(0xFFFBF0F4);
 
+  static const Color lightBlueBackgroundColor = Color(0xFFE0EBFF);
+  static const Color blueColor = Color(0xFF0066FF);
+
   static Color get fontColor =>
       ISDARK == "true" ? secondary : const Color(0xff4543C1);
   static const Color grad1Color = Color(0xffFFBD69);

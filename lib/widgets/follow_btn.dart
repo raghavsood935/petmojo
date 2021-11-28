@@ -7,11 +7,14 @@ class FollowBtn extends StatefulWidget {
   String trueValue;
   String falseValue;
 
+  bool? isStatic;
+
   FollowBtn(
       {Key? key,
       required this.initialState,
       required this.trueValue,
-      required this.falseValue})
+      required this.falseValue,
+      this.isStatic})
       : super(key: key);
 
   @override
@@ -21,22 +24,51 @@ class FollowBtn extends StatefulWidget {
 class _FollowBtnState extends State<FollowBtn> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: colors.primary),
-            color: widget.initialState ? Colors.white : colors.primary,
-          ),
-          child: widget.initialState
-              ? AppText.caption(widget.trueValue, color: colors.primary)
-              : AppText.caption(widget.falseValue, color: Colors.white)),
-      onTap: () {
-        setState(() {
-          widget.initialState = !widget.initialState;
-        });
-      },
-    );
+    return widget.isStatic ?? false
+        ? Container(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: colors.primary),
+              color: widget.initialState ? Colors.white : colors.primary,
+            ),
+            child: widget.initialState
+                ? AppText.caption(
+                    widget.trueValue,
+                    color: colors.primary,
+                    textAlign: TextAlign.center,
+                  )
+                : AppText.caption(
+                    widget.falseValue,
+                    color: Colors.white,
+                    textAlign: TextAlign.center,
+                  ))
+        : GestureDetector(
+            child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: colors.primary),
+                  color: widget.initialState ? Colors.white : colors.primary,
+                ),
+                child: widget.initialState
+                    ? AppText.caption(
+                        widget.trueValue,
+                        color: colors.primary,
+                        textAlign: TextAlign.center,
+                      )
+                    : AppText.caption(
+                        widget.falseValue,
+                        color: Colors.white,
+                        textAlign: TextAlign.center,
+                      )),
+            onTap: () {
+              if (!(widget.isStatic ?? false)) {
+                setState(() {
+                  widget.initialState = !widget.initialState;
+                });
+              }
+            },
+          );
   }
 }

@@ -72,6 +72,7 @@ String confirmPasswordHint = "Enter Confirm New Password";
 
 //create Profile page
 String createAnimalTitle = "Create new animal profile";
+String editAnimalTitle = "Edit animal profile";
 
 //Drawer layout
 String walletTitle = "Tamely Wallet";
@@ -103,11 +104,33 @@ String tamelyGrpDescription =
 String blogTitle = "Blog";
 String blogDescription = "Learn how to care for your pet";
 
+String strayTitle = "Strays near you";
+String straySubTitle = "Discover Stray animals near you!";
+String strayDescription =
+    "Look-up stray animals in your neighborhood. Stay updated about their location, health status and more! Apply to become a guardian for a stray animal. Help create a loving and empathetic community near you.";
+
+String playBuddiesTitle = "Playbuddies";
+String playBuddiesSubTitle =
+    "Find a perfect- playmate and a life-long friend of your pet!";
+String playBuddiesDescription =
+    "Our platform provides a great way for your furry friend to make friends near your neighborhood! Meet-up in a park, colony or at home. See your fur-babies having fun and an incredible play time.";
+
+String matingTitle = "Animal Mating";
+String matingSubTitle = "Animal Mating";
+String matingDescription =
+    "Only breeders registered with Animal Welfare board of India and who have a valid license of animal breeding from local authority are allowed to carry breeding practices on our platform.\n\nWe only allow responsible and ethical animal breeding with animal welfare at its core. Breeders are obliged to find responsible homes for their litter they have bred, ensuring new owners are a good match and understand their lifelong duty of care to their new pet.\n\nPlease report suspicious activity as we will take immediate disciplinary action and inform legal authorities towards unethical breeders and/or non-compliance of animal welfare";
+
+String adoptionTitle = "Adoption";
+String adoptionSubTitle = "Could you offer a loving home to an amazing animal?";
+String adoptionDescription =
+    "Start your search for a pet to adopt today. Find a companion who is just right for you. We encourage you to adopt and rescue stray animals who need a home rather than purchasing from breeders.";
+
 //animal profile page
 String addMyGuardian = "Add my Guardians & Relations";
 String upForAdoption = "Up For Adoption";
 String upForMating = "Up For Mating";
 String upForPlayBuddies = "Up For Play-buddies";
+String inviteGuardians = "Invite guardians >";
 
 //animal profile preferences
 String friendlinessHumanRating = "Friendliness with Humans";
@@ -412,3 +435,7 @@ String endWalkButtonTwo = "Confirm";
 String confirmEndWalkTitle = "Report has been generated";
 String confirmEndWalkMainButton = "Go to booking details";
 String confirmEndWalkSecondButton = "See Report";
+
+//under development
+
+String onDevelop = "Under the development";

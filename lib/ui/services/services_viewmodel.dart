@@ -3,6 +3,8 @@ import 'package:tamely/app/app.router.dart';
 import 'package:tamely/models/services_model.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/String.dart';
 
 class ServicesViewModel extends BaseModel {
   String _location = "T-129 Emerald Hills Gurugram...";
@@ -10,13 +12,52 @@ class ServicesViewModel extends BaseModel {
   String _appointmentDate = "14 Oct 2021";
   String _appointmentType = "Pet boarding";
   final _navigationService = locator<NavigationService>();
+  final _snackBarService = locator<SnackbarService>();
 
   List<ServicesModel> _listOfServices = [
-    ServicesModel(),
-    ServicesModel(),
-    ServicesModel(),
-    ServicesModel(),
+    ServicesModel("Daily Dog Running", dailyDogRunning,
+        isHigDemand: true,
+        descripitons: [
+          "Daily 30 min sessions.",
+          "Live GPS Tracking.",
+          "Live photo of run/walk sharing",
+          "Trusted and Passionate dog Walker"
+        ]),
+    ServicesModel("House Sitting", houseSitting,
+        description:
+            "Reliable and loving pet sitter that visits your pet ar home. Track and receive video/photo updates."),
+    ServicesModel("Pet Boarding", petBoarding,
+        description:
+            "Verified, experienced and trusted boarders that take care of yours pets while you are away. Track and receive video updates"),
+    ServicesModel("Pet Grooming", petGrooming,
+        description:
+            "Choose our professional and caring pet groomers that make your pet look like a million dollars!"),
   ];
+
+  Future onServiceTap(int index) async {
+    switch (index) {
+      case 0:
+        {
+          _navigationService.navigateTo(Routes.dogRunnersView);
+          break;
+        }
+      case 1:
+        {
+          _snackBarService.showSnackbar(message: onDevelop);
+          break;
+        }
+      case 2:
+        {
+          _snackBarService.showSnackbar(message: onDevelop);
+          break;
+        }
+      case 3:
+        {
+          _snackBarService.showSnackbar(message: onDevelop);
+          break;
+        }
+    }
+  }
 
   String get location => this._location;
 

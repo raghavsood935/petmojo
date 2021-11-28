@@ -237,18 +237,18 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<CommonResponse> getUserPosts() async {
+  Future<ListOfPostResponse> getUserPosts() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<CommonResponse>(
+        _setStreamType<ListOfPostResponse>(
             Options(method: 'GET', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/post/myPosts/0',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = CommonResponse.fromJson(_result.data!);
+    final value = ListOfPostResponse.fromJson(_result.data!);
     return value;
   }
 
@@ -322,6 +322,58 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<EditResponse> editAnimalProfile(
+      name,
+      username,
+      avatar,
+      category,
+      bio,
+      animalType,
+      gender,
+      breed,
+      age,
+      mating,
+      adoption,
+      playBuddies,
+      playFrom,
+      playTo,
+      location,
+      servicePet,
+      spayed,
+      animalId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = FormData();
+    _data.fields.add(MapEntry('name', name));
+    _data.fields.add(MapEntry('username', username));
+    _data.fields.add(MapEntry('avatar', avatar));
+    _data.fields.add(MapEntry('category', category));
+    _data.fields.add(MapEntry('bio', bio));
+    _data.fields.add(MapEntry('animalType', animalType));
+    _data.fields.add(MapEntry('gender', gender));
+    _data.fields.add(MapEntry('breed', breed));
+    _data.fields.add(MapEntry('age', age));
+    _data.fields.add(MapEntry('mating', mating.toString()));
+    _data.fields.add(MapEntry('adoption', adoption.toString()));
+    _data.fields.add(MapEntry('playBuddies', playBuddies.toString()));
+    _data.fields.add(MapEntry('playFrom', playFrom));
+    _data.fields.add(MapEntry('playTo', playTo));
+    _data.fields.add(MapEntry('location', location));
+    _data.fields.add(MapEntry('servicePet', servicePet.toString()));
+    _data.fields.add(MapEntry('spayed', spayed.toString()));
+    _data.fields.add(MapEntry('animalId', animalId));
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<EditResponse>(
+            Options(method: 'PUT', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/animal/editPet',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = EditResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<AnimalProfileDetailModelResponse> getAnimalProfileDetail(
       animalProfileDetailsBody) async {
     const _extra = <String, dynamic>{};
@@ -350,10 +402,45 @@ class _ApiClient implements ApiClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<AnimalProfileDetailModelResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/animal/getPetDetails',
+                .compose(_dio.options, '/animal/editPetHabits',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = AnimalProfileDetailModelResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ListOfProfilesResponse> showPeoplesToFollow(
+      showPeopleToFollowBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(showPeopleToFollowBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ListOfProfilesResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/user/showPeopleToFollow',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ListOfProfilesResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<EditResponse> sendFollowRequest(sendFollowRequestBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(sendFollowRequestBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<EditResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/post/sendfollowrequest',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = EditResponse.fromJson(_result.data!);
     return value;
   }
 

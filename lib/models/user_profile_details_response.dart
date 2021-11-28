@@ -11,9 +11,10 @@ class UserProfileDetailsResponse with _$UserProfileDetailsResponse {
 
   factory UserProfileDetailsResponse({
     @JsonKey(name: "user_details") UserDetailsModelResponse? userDetailsModel,
-    @JsonKey(name: "newAnimalArr") List<MyAnimalModelResponse>? myAnimals,
     @JsonKey(name: "totalFollowers") int? totalFollowers,
     @JsonKey(name: "totalFollowings") int? totalFollowings,
+    @JsonKey(name: "totalLikes") int? totalLikes,
+    @JsonKey(name: "totalPosts") int? totalPosts,
   }) = _UserProfileDetailsResponse;
 
   factory UserProfileDetailsResponse.fromJson(Map<String, dynamic> json) =>

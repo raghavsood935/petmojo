@@ -28,20 +28,20 @@ class _$UserDetailsModelResponseTearOff {
       @JsonKey(name: "_id") String? Id,
       @JsonKey(name: "email") String? email,
       @JsonKey(name: "username") String? username,
-      @JsonKey(name: "__v") int? v,
       @JsonKey(name: "avatar") String? avatar,
       @JsonKey(name: "bio") String? bio,
-      @JsonKey(name: "fullName") String? fullName}) {
+      @JsonKey(name: "fullName") String? fullName,
+      @JsonKey(name: "pets") List<PetBasicDetailsResponse>? listOfPets}) {
     return _UserDetailsModelResponse(
       private: private,
       confirmed: confirmed,
       Id: Id,
       email: email,
       username: username,
-      v: v,
       avatar: avatar,
       bio: bio,
       fullName: fullName,
+      listOfPets: listOfPets,
     );
   }
 
@@ -65,14 +65,15 @@ mixin _$UserDetailsModelResponse {
   String? get email => throw _privateConstructorUsedError;
   @JsonKey(name: "username")
   String? get username => throw _privateConstructorUsedError;
-  @JsonKey(name: "__v")
-  int? get v => throw _privateConstructorUsedError;
   @JsonKey(name: "avatar")
   String? get avatar => throw _privateConstructorUsedError;
   @JsonKey(name: "bio")
   String? get bio => throw _privateConstructorUsedError;
   @JsonKey(name: "fullName")
   String? get fullName => throw _privateConstructorUsedError;
+  @JsonKey(name: "pets")
+  List<PetBasicDetailsResponse>? get listOfPets =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -91,10 +92,10 @@ abstract class $UserDetailsModelResponseCopyWith<$Res> {
       @JsonKey(name: "_id") String? Id,
       @JsonKey(name: "email") String? email,
       @JsonKey(name: "username") String? username,
-      @JsonKey(name: "__v") int? v,
       @JsonKey(name: "avatar") String? avatar,
       @JsonKey(name: "bio") String? bio,
-      @JsonKey(name: "fullName") String? fullName});
+      @JsonKey(name: "fullName") String? fullName,
+      @JsonKey(name: "pets") List<PetBasicDetailsResponse>? listOfPets});
 }
 
 /// @nodoc
@@ -113,10 +114,10 @@ class _$UserDetailsModelResponseCopyWithImpl<$Res>
     Object? Id = freezed,
     Object? email = freezed,
     Object? username = freezed,
-    Object? v = freezed,
     Object? avatar = freezed,
     Object? bio = freezed,
     Object? fullName = freezed,
+    Object? listOfPets = freezed,
   }) {
     return _then(_value.copyWith(
       private: private == freezed
@@ -139,10 +140,6 @@ class _$UserDetailsModelResponseCopyWithImpl<$Res>
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String?,
-      v: v == freezed
-          ? _value.v
-          : v // ignore: cast_nullable_to_non_nullable
-              as int?,
       avatar: avatar == freezed
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
@@ -155,6 +152,10 @@ class _$UserDetailsModelResponseCopyWithImpl<$Res>
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
               as String?,
+      listOfPets: listOfPets == freezed
+          ? _value.listOfPets
+          : listOfPets // ignore: cast_nullable_to_non_nullable
+              as List<PetBasicDetailsResponse>?,
     ));
   }
 }
@@ -172,10 +173,10 @@ abstract class _$UserDetailsModelResponseCopyWith<$Res>
       @JsonKey(name: "_id") String? Id,
       @JsonKey(name: "email") String? email,
       @JsonKey(name: "username") String? username,
-      @JsonKey(name: "__v") int? v,
       @JsonKey(name: "avatar") String? avatar,
       @JsonKey(name: "bio") String? bio,
-      @JsonKey(name: "fullName") String? fullName});
+      @JsonKey(name: "fullName") String? fullName,
+      @JsonKey(name: "pets") List<PetBasicDetailsResponse>? listOfPets});
 }
 
 /// @nodoc
@@ -197,10 +198,10 @@ class __$UserDetailsModelResponseCopyWithImpl<$Res>
     Object? Id = freezed,
     Object? email = freezed,
     Object? username = freezed,
-    Object? v = freezed,
     Object? avatar = freezed,
     Object? bio = freezed,
     Object? fullName = freezed,
+    Object? listOfPets = freezed,
   }) {
     return _then(_UserDetailsModelResponse(
       private: private == freezed
@@ -223,10 +224,6 @@ class __$UserDetailsModelResponseCopyWithImpl<$Res>
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String?,
-      v: v == freezed
-          ? _value.v
-          : v // ignore: cast_nullable_to_non_nullable
-              as int?,
       avatar: avatar == freezed
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
@@ -239,6 +236,10 @@ class __$UserDetailsModelResponseCopyWithImpl<$Res>
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
               as String?,
+      listOfPets: listOfPets == freezed
+          ? _value.listOfPets
+          : listOfPets // ignore: cast_nullable_to_non_nullable
+              as List<PetBasicDetailsResponse>?,
     ));
   }
 }
@@ -252,10 +253,10 @@ class _$_UserDetailsModelResponse extends _UserDetailsModelResponse {
       @JsonKey(name: "_id") this.Id,
       @JsonKey(name: "email") this.email,
       @JsonKey(name: "username") this.username,
-      @JsonKey(name: "__v") this.v,
       @JsonKey(name: "avatar") this.avatar,
       @JsonKey(name: "bio") this.bio,
-      @JsonKey(name: "fullName") this.fullName})
+      @JsonKey(name: "fullName") this.fullName,
+      @JsonKey(name: "pets") this.listOfPets})
       : super._();
 
   factory _$_UserDetailsModelResponse.fromJson(Map<String, dynamic> json) =>
@@ -277,9 +278,6 @@ class _$_UserDetailsModelResponse extends _UserDetailsModelResponse {
   @JsonKey(name: "username")
   final String? username;
   @override
-  @JsonKey(name: "__v")
-  final int? v;
-  @override
   @JsonKey(name: "avatar")
   final String? avatar;
   @override
@@ -288,10 +286,13 @@ class _$_UserDetailsModelResponse extends _UserDetailsModelResponse {
   @override
   @JsonKey(name: "fullName")
   final String? fullName;
+  @override
+  @JsonKey(name: "pets")
+  final List<PetBasicDetailsResponse>? listOfPets;
 
   @override
   String toString() {
-    return 'UserDetailsModelResponse(private: $private, confirmed: $confirmed, Id: $Id, email: $email, username: $username, v: $v, avatar: $avatar, bio: $bio, fullName: $fullName)';
+    return 'UserDetailsModelResponse(private: $private, confirmed: $confirmed, Id: $Id, email: $email, username: $username, avatar: $avatar, bio: $bio, fullName: $fullName, listOfPets: $listOfPets)';
   }
 
   @override
@@ -306,16 +307,26 @@ class _$_UserDetailsModelResponse extends _UserDetailsModelResponse {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.username, username) ||
                 other.username == username) &&
-            (identical(other.v, v) || other.v == v) &&
             (identical(other.avatar, avatar) || other.avatar == avatar) &&
             (identical(other.bio, bio) || other.bio == bio) &&
             (identical(other.fullName, fullName) ||
-                other.fullName == fullName));
+                other.fullName == fullName) &&
+            const DeepCollectionEquality()
+                .equals(other.listOfPets, listOfPets));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, private, confirmed, Id, email,
-      username, v, avatar, bio, fullName);
+  int get hashCode => Object.hash(
+      runtimeType,
+      private,
+      confirmed,
+      Id,
+      email,
+      username,
+      avatar,
+      bio,
+      fullName,
+      const DeepCollectionEquality().hash(listOfPets));
 
   @JsonKey(ignore: true)
   @override
@@ -336,10 +347,10 @@ abstract class _UserDetailsModelResponse extends UserDetailsModelResponse {
           @JsonKey(name: "_id") String? Id,
           @JsonKey(name: "email") String? email,
           @JsonKey(name: "username") String? username,
-          @JsonKey(name: "__v") int? v,
           @JsonKey(name: "avatar") String? avatar,
           @JsonKey(name: "bio") String? bio,
-          @JsonKey(name: "fullName") String? fullName}) =
+          @JsonKey(name: "fullName") String? fullName,
+          @JsonKey(name: "pets") List<PetBasicDetailsResponse>? listOfPets}) =
       _$_UserDetailsModelResponse;
   _UserDetailsModelResponse._() : super._();
 
@@ -362,9 +373,6 @@ abstract class _UserDetailsModelResponse extends UserDetailsModelResponse {
   @JsonKey(name: "username")
   String? get username;
   @override
-  @JsonKey(name: "__v")
-  int? get v;
-  @override
   @JsonKey(name: "avatar")
   String? get avatar;
   @override
@@ -373,6 +381,9 @@ abstract class _UserDetailsModelResponse extends UserDetailsModelResponse {
   @override
   @JsonKey(name: "fullName")
   String? get fullName;
+  @override
+  @JsonKey(name: "pets")
+  List<PetBasicDetailsResponse>? get listOfPets;
   @override
   @JsonKey(ignore: true)
   _$UserDetailsModelResponseCopyWith<_UserDetailsModelResponse> get copyWith =>

@@ -60,41 +60,48 @@ class _StartupViewState extends State<StartupView>
         backgroundColor: Colors.white,
         body: Stack(
           children: [
-            FadeTransition(
-              opacity: _fadeOut!,
-              // child: Center(
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     mainAxisSize: MainAxisSize.max,
-              //     crossAxisAlignment: CrossAxisAlignment.center,
-              //     children: [
-              //       Image.asset(
-              //         lightSplashScreen,
-              //         height: 200,
-              //         width: 200,
-              //       ),
-              //       AppText.subheading(splashScreenSubTitle)
-              //     ],
-              //   ),
-              // )
-              child: Lottie.asset(
-                'assets/lottie/tamely_loading.json',
-                width: double.maxFinite,
-                height: double.maxFinite,
-                onLoaded: (composition) {
-                  animationController.addStatusListener((status) {
-                    if (status == AnimationStatus.completed) {
-                      model.moveToRedirectState();
-                      if (!model.isDestinationAvailable) animation2?.forward();
-                    }
-                  });
+            Positioned(
+              top: 0,
+              bottom: 0,
+              right: 0,
+              left: 0,
+              child: FadeTransition(
+                opacity: _fadeOut!,
+                // child: Center(
+                //   child: Column(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     mainAxisSize: MainAxisSize.max,
+                //     crossAxisAlignment: CrossAxisAlignment.center,
+                //     children: [
+                //       Image.asset(
+                //         lightSplashScreen,
+                //         height: 200,
+                //         width: 200,
+                //       ),
+                //       AppText.subheading(splashScreenSubTitle)
+                //     ],
+                //   ),
+                // )
+                child: Lottie.asset(
+                  'assets/lottie/tamely_loading.json',
+                  width: double.maxFinite,
+                  height: double.maxFinite,
+                  onLoaded: (composition) {
+                    animationController.addStatusListener((status) {
+                      if (status == AnimationStatus.completed) {
+                        model.moveToRedirectState();
+                        if (!model.isDestinationAvailable) animation2?.forward();
+                      }
+                    });
 
-                  // Configure the AnimationController with the duration of the
-                  // Lottie file and start the animation.
-                  animationController
-                    ..duration = composition.duration
-                    ..forward();
-                },
+                    // Configure the AnimationController with the duration of the
+                    // Lottie file and start the animation.
+                    animationController
+                      ..duration = composition.duration
+                      ..forward();
+                  },
+                ),
+                // child: Center(child: Image.asset(logoWithText)),
               ),
             ),
             FadeTransition(

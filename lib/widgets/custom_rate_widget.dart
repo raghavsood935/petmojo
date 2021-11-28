@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/widgets/app_text.dart';
 
 class CustomRateView extends StatefulWidget {
-  CustomRateView({Key? key, required this.onRateChange}) : super(key: key);
+  CustomRateView(
+      {Key? key, required this.onRateChange, required this.initialRate})
+      : super(key: key);
 
+  int initialRate;
   Function(int i) onRateChange;
 
   @override
@@ -16,8 +21,11 @@ class _CustomRateViewState extends State<CustomRateView> {
   List<bool> rateSelected = [false, false, false, false, false];
   List<int> totalRate = [1, 2, 3, 4, 5];
 
+  final _snackbosService = locator<SnackbarService>();
+
   @override
   Widget build(BuildContext context) {
+    print("ADFASDFSADFSF AS DSAF  ASDS  ASFAS  A VSAD ${widget.initialRate}");
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
@@ -88,4 +96,13 @@ class _CustomRateViewState extends State<CustomRateView> {
     });
     widget.onRateChange(position);
   }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+  //     _snackbosService.showSnackbar(message: "${widget.initialRate}");
+  //     onRankSelected(widget.initialRate - 1);
+  //   });
+  // }
 }

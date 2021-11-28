@@ -1,41 +1,14 @@
 import 'dart:ffi';
 
 import 'package:geocoder/geocoder.dart';
+import 'package:tamely/models/my_animal_model.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
 
 class GeneralInfoViewModel extends BaseModel {
-  String _name = "Leo";
-  String _animalType = "Dog";
-  String _gender = "Male";
-  String _servicePet = "Yes";
-  String _sprayed = "Yes";
-  String _breed = "Husky";
-  String _age = "7 yrs";
-  bool _isUpForAdoption = true;
-  bool _isUpForMating = true;
-  bool _isUpForPlayBuddies = true;
+  String _location = "gasrgraesadrgwer";
 
-  String location = "gasrgraesadrgwer";
-
-  String get name => _name;
-
-  String get animalType => _animalType;
-
-  String get gender => _gender;
-
-  String get servicePet => _servicePet;
-
-  String get sprayed => _sprayed;
-
-  String get breed => _breed;
-
-  String get age => _age;
-
-  bool get isUpForAdoption => _isUpForAdoption;
-
-  bool get isUpForMating => _isUpForMating;
-
-  bool get isUpForPlayBuddies => _isUpForPlayBuddies;
+  String _serviecPet = "";
+  String _spayed = "";
 
   Future getLocation(String latLog) async {
     List<String> position = latLog.split(",");
@@ -52,15 +25,36 @@ class GeneralInfoViewModel extends BaseModel {
           await Geocoder.local.findAddressesFromCoordinates(coordinates);
       var first = addresses.first;
 
-      location = first.addressLine;
+      _location = first.addressLine;
 
       notifyListeners();
 
-      print(location);
+      print(_location);
     } else {
-      location = "AAAAAAAAAAA";
+      _location = "AAAAAAAAAAA";
       print("EMPTY");
       notifyListeners();
     }
   }
+
+  Future setSomeDetails(MyAnimalModelResponse animalModelResponse) async {
+    if (animalModelResponse.servicePet == null) {
+      _serviecPet = "-";
+    } else {
+      _serviecPet = animalModelResponse.servicePet! ? "Yes" : "No";
+    }
+
+    if (animalModelResponse.spayed == null) {
+      _spayed = "-";
+    } else {
+      _spayed = animalModelResponse.spayed! ? "Yes" : "No";
+    }
+    notifyListeners();
+  }
+
+  String get location => _location;
+
+  String get serviecPet => _serviecPet;
+
+  String get spayed => _spayed;
 }
