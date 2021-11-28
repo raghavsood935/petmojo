@@ -128,6 +128,7 @@ class DogRunnersView extends StatelessWidget {
                               Container(
                                 height: 50,
                                 width: 40,
+                                child: Image.asset("assets/images/mini.png"),
                               ),
                               horizontalSpaceSmall,
                               Column(

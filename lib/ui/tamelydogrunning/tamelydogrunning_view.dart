@@ -43,20 +43,21 @@ class TamelyDogRunnersView extends StatelessWidget {
                       child: Container(
                         height: 70,
                         width: 90,
+                        child: Image.asset("assets/images/mini.png"),
                       ),
                     ),
-                    Positioned(
-                      right: 25,
-                      child: IconButton(
-                        padding: EdgeInsets.zero,
-                        alignment: Alignment.centerRight,
-                        icon: Icon(
-                          Icons.menu,
-                          color: Colors.black,
-                        ),
-                        onPressed: model.navigateBack,
-                      ),
-                    ),
+                    // Positioned(
+                    //   right: 25,
+                    //   child: IconButton(
+                    //     padding: EdgeInsets.zero,
+                    //     alignment: Alignment.centerRight,
+                    //     icon: Icon(
+                    //       Icons.menu,
+                    //       color: Colors.black,
+                    //     ),
+                    //     onPressed: model.navigateBack,
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
