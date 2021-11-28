@@ -5,12 +5,17 @@ import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'dogrunningbooking_viewmodel.dart';
 
-class DogRunningBookingView extends StatelessWidget {
+class DogRunningBookingView extends StatefulWidget {
   DogRunningBookingView({Key? key}) : super(key: key);
 
   @override
+  State<DogRunningBookingView> createState() => _DogRunningBookingViewState();
+}
+
+class _DogRunningBookingViewState extends State<DogRunningBookingView> {
+  @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<DogRunningBookingViewModel>.nonReactive(
+    return ViewModelBuilder<DogRunningBookingViewModel>.reactive(
       onModelReady: (model) {
         model.getPets();
       },
@@ -113,22 +118,27 @@ class DogRunningBookingView extends StatelessWidget {
             color: colors.white,
             padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10.0),
             child: GestureDetector(
-              onTap: model.onMainButtonPressed,
+              onTap: model.isValid ? model.onMainButtonPressed : null,
               child: Container(
                 width: double.infinity,
                 height: 50,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: colors.primary,
+                  color:
+                      model.isValid ? colors.primary : colors.kcLightGreyColor,
                   borderRadius: BorderRadius.circular(50),
                 ),
-                child: Text(
-                  model.mainBtnTitles[model.currentIndex],
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14),
-                ),
+                child: model.loading
+                    ? CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(Colors.white),
+                      )
+                    : Text(
+                        model.mainBtnTitles[model.currentIndex],
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14),
+                      ),
               ),
             ),
           ),

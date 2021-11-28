@@ -25,12 +25,27 @@ class AppointmentListResponse with _$AppointmentListResponse {
     @JsonKey(name: "bookingStatus") int? bookingStatus,
     @JsonKey(name: "serviceType") int? serviceType,
     @JsonKey(name: "_id") String? appointmentId,
-    @JsonKey(name: "User") String? userId,
+    @JsonKey(name: "User") UserDetailsResponse? user,
     @JsonKey(name: "bookingDetails") BookingDetailsResponse? bookingDetails,
   }) = _AppointmentListResponse;
 
   factory AppointmentListResponse.fromJson(Map<String, dynamic> json) =>
       _$AppointmentListResponseFromJson(json);
+}
+
+@freezed
+class UserDetailsResponse with _$UserDetailsResponse {
+  UserDetailsResponse._();
+
+  factory UserDetailsResponse({
+    @JsonKey(name: "_id") String? userId,
+    @JsonKey(name: "username") String? username,
+    @JsonKey(name: "fullName") String? fullName,
+    @JsonKey(name: "avatar") String? avatar,
+  }) = _UserDetailsResponse;
+
+  factory UserDetailsResponse.fromJson(Map<String, dynamic> json) =>
+      _$UserDetailsResponseFromJson(json);
 }
 
 @freezed

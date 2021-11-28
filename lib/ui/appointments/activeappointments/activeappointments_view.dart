@@ -6,7 +6,6 @@ import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/custom_circle_avatar.dart';
-
 import 'activeappointments_viewmodel.dart';
 
 class ActiveAppointmentsView extends StatelessWidget {

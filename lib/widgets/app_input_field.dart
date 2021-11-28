@@ -14,6 +14,7 @@ class AppInputField extends StatelessWidget {
   final TextInputType? textInputType;
   final TextCapitalization? textCapitalization;
   final void Function()? trailingTapped;
+  final void Function(String?)? onChanged;
 
   final circularBorder = UnderlineInputBorder(
     borderRadius: BorderRadius.circular(8),
@@ -32,7 +33,8 @@ class AppInputField extends StatelessWidget {
       this.textInputType = TextInputType.name,
       this.readOnly = false,
       this.isDDM = false,
-      this.textCapitalization = TextCapitalization.sentences})
+      this.textCapitalization = TextCapitalization.sentences,
+      this.onChanged})
       : super(key: key);
 
   @override
@@ -44,6 +46,7 @@ class AppInputField extends StatelessWidget {
       data: ThemeData(primaryColor: colors.primary),
       child: TextField(
         textCapitalization: textCapitalization!,
+        onChanged: onChanged,
         controller: controller ?? TextEditingController(),
         keyboardType: textInputType,
         style: TextStyle(height: 1),

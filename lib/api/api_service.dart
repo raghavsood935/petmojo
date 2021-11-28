@@ -9,7 +9,9 @@ import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/models/animal_profile_create_resopnse.dart';
 import 'package:tamely/models/animal_profile_detail_model.dart';
+import 'package:tamely/models/book_a_run_response.dart';
 import 'package:tamely/models/edit_response.dart';
+import 'package:tamely/models/get_payment_details_response.dart';
 import 'package:tamely/models/list_of_post_response.dart';
 import 'package:tamely/models/list_of_profile_response.dart';
 import 'package:tamely/models/params/animal_profile_create_body.dart';
@@ -17,6 +19,7 @@ import 'package:tamely/models/common_response.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_details_body.dart';
+import 'package:tamely/models/params/get_payment_details_body.dart';
 import 'package:tamely/models/params/login_body.dart';
 import 'package:tamely/models/params/profile_create_body.dart';
 import 'package:tamely/models/params/register_body.dart';
@@ -505,12 +508,28 @@ class TamelyApi {
   }
 
   // -- Booking A Run
-  Future<BaseResponse<SendDataResponse>> bookARun(
+  Future<BaseResponse<BookARunResponse>> bookARun(
       BookARunBody bookARunBody) async {
     log.d("googleLogin called");
-    SendDataResponse response;
+    BookARunResponse response;
     try {
       response = await getApiClient(true).bookARun(bookARunBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Get Payment details
+  Future<BaseResponse<GetPaymentDetailsResponse>> getPaymentDetails(
+      GetPaymentDetailsBody getPaymentDetailsBody) async {
+    log.d("googleLogin called");
+    GetPaymentDetailsResponse response;
+    try {
+      response =
+          await getApiClient(true).getPaymentDetails(getPaymentDetailsBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()

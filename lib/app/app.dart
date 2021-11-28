@@ -26,6 +26,7 @@ import 'package:tamely/ui/livemap/livemap_view.dart';
 import 'package:tamely/ui/login/login_view.dart';
 import 'package:tamely/ui/onboarding/onboarding_view.dart';
 import 'package:tamely/ui/otp/confirm_otp_view.dart';
+import 'package:tamely/ui/payment/payment_view.dart';
 import 'package:tamely/ui/post/camera_screen.dart';
 import 'package:tamely/ui/profile/profile_create_view.dart';
 import 'package:tamely/ui/profilepage/animal_profile/animal_profile_view.dart';
@@ -87,18 +88,19 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: FeedbackView),
     CupertinoRoute(page: BookingsView),
     CupertinoRoute(page: BookmarksView),
-    CupertinoRoute(page: FeedbackView),
     CupertinoRoute(page: HelpView),
     CupertinoRoute(page: WalletView),
 
-    //
+    // Dog running
     CupertinoRoute(page: DogRunnersView),
     CupertinoRoute(page: TamelyOverviewView),
     CupertinoRoute(page: TamelyRateChartView),
     CupertinoRoute(page: TamelyReviewsView),
     CupertinoRoute(page: TamelyDogRunnersView),
     CupertinoRoute(page: DogRunningBookingView),
-    //
+    CupertinoRoute(page: PaymentView),
+
+    // My Appointments
     CupertinoRoute(page: AppointmentsView),
     CupertinoRoute(page: AppointmentDetailsView),
     CupertinoRoute(page: ChatView),

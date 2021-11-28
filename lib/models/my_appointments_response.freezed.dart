@@ -200,7 +200,7 @@ class _$AppointmentListResponseTearOff {
       @JsonKey(name: "_id")
           String? appointmentId,
       @JsonKey(name: "User")
-          String? userId,
+          UserDetailsResponse? user,
       @JsonKey(name: "bookingDetails")
           BookingDetailsResponse? bookingDetails}) {
     return _AppointmentListResponse(
@@ -208,7 +208,7 @@ class _$AppointmentListResponseTearOff {
       bookingStatus: bookingStatus,
       serviceType: serviceType,
       appointmentId: appointmentId,
-      userId: userId,
+      user: user,
       bookingDetails: bookingDetails,
     );
   }
@@ -233,7 +233,7 @@ mixin _$AppointmentListResponse {
   @JsonKey(name: "_id")
   String? get appointmentId => throw _privateConstructorUsedError;
   @JsonKey(name: "User")
-  String? get userId => throw _privateConstructorUsedError;
+  UserDetailsResponse? get user => throw _privateConstructorUsedError;
   @JsonKey(name: "bookingDetails")
   BookingDetailsResponse? get bookingDetails =>
       throw _privateConstructorUsedError;
@@ -254,9 +254,10 @@ abstract class $AppointmentListResponseCopyWith<$Res> {
       @JsonKey(name: "bookingStatus") int? bookingStatus,
       @JsonKey(name: "serviceType") int? serviceType,
       @JsonKey(name: "_id") String? appointmentId,
-      @JsonKey(name: "User") String? userId,
+      @JsonKey(name: "User") UserDetailsResponse? user,
       @JsonKey(name: "bookingDetails") BookingDetailsResponse? bookingDetails});
 
+  $UserDetailsResponseCopyWith<$Res>? get user;
   $BookingDetailsResponseCopyWith<$Res>? get bookingDetails;
 }
 
@@ -275,7 +276,7 @@ class _$AppointmentListResponseCopyWithImpl<$Res>
     Object? bookingStatus = freezed,
     Object? serviceType = freezed,
     Object? appointmentId = freezed,
-    Object? userId = freezed,
+    Object? user = freezed,
     Object? bookingDetails = freezed,
   }) {
     return _then(_value.copyWith(
@@ -295,15 +296,26 @@ class _$AppointmentListResponseCopyWithImpl<$Res>
           ? _value.appointmentId
           : appointmentId // ignore: cast_nullable_to_non_nullable
               as String?,
-      userId: userId == freezed
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String?,
+      user: user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserDetailsResponse?,
       bookingDetails: bookingDetails == freezed
           ? _value.bookingDetails
           : bookingDetails // ignore: cast_nullable_to_non_nullable
               as BookingDetailsResponse?,
     ));
+  }
+
+  @override
+  $UserDetailsResponseCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserDetailsResponseCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value));
+    });
   }
 
   @override
@@ -331,9 +343,11 @@ abstract class _$AppointmentListResponseCopyWith<$Res>
       @JsonKey(name: "bookingStatus") int? bookingStatus,
       @JsonKey(name: "serviceType") int? serviceType,
       @JsonKey(name: "_id") String? appointmentId,
-      @JsonKey(name: "User") String? userId,
+      @JsonKey(name: "User") UserDetailsResponse? user,
       @JsonKey(name: "bookingDetails") BookingDetailsResponse? bookingDetails});
 
+  @override
+  $UserDetailsResponseCopyWith<$Res>? get user;
   @override
   $BookingDetailsResponseCopyWith<$Res>? get bookingDetails;
 }
@@ -356,7 +370,7 @@ class __$AppointmentListResponseCopyWithImpl<$Res>
     Object? bookingStatus = freezed,
     Object? serviceType = freezed,
     Object? appointmentId = freezed,
-    Object? userId = freezed,
+    Object? user = freezed,
     Object? bookingDetails = freezed,
   }) {
     return _then(_AppointmentListResponse(
@@ -376,10 +390,10 @@ class __$AppointmentListResponseCopyWithImpl<$Res>
           ? _value.appointmentId
           : appointmentId // ignore: cast_nullable_to_non_nullable
               as String?,
-      userId: userId == freezed
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String?,
+      user: user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserDetailsResponse?,
       bookingDetails: bookingDetails == freezed
           ? _value.bookingDetails
           : bookingDetails // ignore: cast_nullable_to_non_nullable
@@ -396,7 +410,7 @@ class _$_AppointmentListResponse extends _AppointmentListResponse {
       @JsonKey(name: "bookingStatus") this.bookingStatus,
       @JsonKey(name: "serviceType") this.serviceType,
       @JsonKey(name: "_id") this.appointmentId,
-      @JsonKey(name: "User") this.userId,
+      @JsonKey(name: "User") this.user,
       @JsonKey(name: "bookingDetails") this.bookingDetails})
       : super._();
 
@@ -417,14 +431,14 @@ class _$_AppointmentListResponse extends _AppointmentListResponse {
   final String? appointmentId;
   @override
   @JsonKey(name: "User")
-  final String? userId;
+  final UserDetailsResponse? user;
   @override
   @JsonKey(name: "bookingDetails")
   final BookingDetailsResponse? bookingDetails;
 
   @override
   String toString() {
-    return 'AppointmentListResponse(petDetails: $petDetails, bookingStatus: $bookingStatus, serviceType: $serviceType, appointmentId: $appointmentId, userId: $userId, bookingDetails: $bookingDetails)';
+    return 'AppointmentListResponse(petDetails: $petDetails, bookingStatus: $bookingStatus, serviceType: $serviceType, appointmentId: $appointmentId, user: $user, bookingDetails: $bookingDetails)';
   }
 
   @override
@@ -440,7 +454,7 @@ class _$_AppointmentListResponse extends _AppointmentListResponse {
                 other.serviceType == serviceType) &&
             (identical(other.appointmentId, appointmentId) ||
                 other.appointmentId == appointmentId) &&
-            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.user, user) || other.user == user) &&
             (identical(other.bookingDetails, bookingDetails) ||
                 other.bookingDetails == bookingDetails));
   }
@@ -452,7 +466,7 @@ class _$_AppointmentListResponse extends _AppointmentListResponse {
       bookingStatus,
       serviceType,
       appointmentId,
-      userId,
+      user,
       bookingDetails);
 
   @JsonKey(ignore: true)
@@ -478,7 +492,7 @@ abstract class _AppointmentListResponse extends AppointmentListResponse {
       @JsonKey(name: "_id")
           String? appointmentId,
       @JsonKey(name: "User")
-          String? userId,
+          UserDetailsResponse? user,
       @JsonKey(name: "bookingDetails")
           BookingDetailsResponse? bookingDetails}) = _$_AppointmentListResponse;
   _AppointmentListResponse._() : super._();
@@ -500,13 +514,250 @@ abstract class _AppointmentListResponse extends AppointmentListResponse {
   String? get appointmentId;
   @override
   @JsonKey(name: "User")
-  String? get userId;
+  UserDetailsResponse? get user;
   @override
   @JsonKey(name: "bookingDetails")
   BookingDetailsResponse? get bookingDetails;
   @override
   @JsonKey(ignore: true)
   _$AppointmentListResponseCopyWith<_AppointmentListResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+UserDetailsResponse _$UserDetailsResponseFromJson(Map<String, dynamic> json) {
+  return _UserDetailsResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$UserDetailsResponseTearOff {
+  const _$UserDetailsResponseTearOff();
+
+  _UserDetailsResponse call(
+      {@JsonKey(name: "_id") String? userId,
+      @JsonKey(name: "username") String? username,
+      @JsonKey(name: "fullName") String? fullName,
+      @JsonKey(name: "avatar") String? avatar}) {
+    return _UserDetailsResponse(
+      userId: userId,
+      username: username,
+      fullName: fullName,
+      avatar: avatar,
+    );
+  }
+
+  UserDetailsResponse fromJson(Map<String, Object?> json) {
+    return UserDetailsResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $UserDetailsResponse = _$UserDetailsResponseTearOff();
+
+/// @nodoc
+mixin _$UserDetailsResponse {
+  @JsonKey(name: "_id")
+  String? get userId => throw _privateConstructorUsedError;
+  @JsonKey(name: "username")
+  String? get username => throw _privateConstructorUsedError;
+  @JsonKey(name: "fullName")
+  String? get fullName => throw _privateConstructorUsedError;
+  @JsonKey(name: "avatar")
+  String? get avatar => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $UserDetailsResponseCopyWith<UserDetailsResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UserDetailsResponseCopyWith<$Res> {
+  factory $UserDetailsResponseCopyWith(
+          UserDetailsResponse value, $Res Function(UserDetailsResponse) then) =
+      _$UserDetailsResponseCopyWithImpl<$Res>;
+  $Res call(
+      {@JsonKey(name: "_id") String? userId,
+      @JsonKey(name: "username") String? username,
+      @JsonKey(name: "fullName") String? fullName,
+      @JsonKey(name: "avatar") String? avatar});
+}
+
+/// @nodoc
+class _$UserDetailsResponseCopyWithImpl<$Res>
+    implements $UserDetailsResponseCopyWith<$Res> {
+  _$UserDetailsResponseCopyWithImpl(this._value, this._then);
+
+  final UserDetailsResponse _value;
+  // ignore: unused_field
+  final $Res Function(UserDetailsResponse) _then;
+
+  @override
+  $Res call({
+    Object? userId = freezed,
+    Object? username = freezed,
+    Object? fullName = freezed,
+    Object? avatar = freezed,
+  }) {
+    return _then(_value.copyWith(
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      username: username == freezed
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fullName: fullName == freezed
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      avatar: avatar == freezed
+          ? _value.avatar
+          : avatar // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$UserDetailsResponseCopyWith<$Res>
+    implements $UserDetailsResponseCopyWith<$Res> {
+  factory _$UserDetailsResponseCopyWith(_UserDetailsResponse value,
+          $Res Function(_UserDetailsResponse) then) =
+      __$UserDetailsResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {@JsonKey(name: "_id") String? userId,
+      @JsonKey(name: "username") String? username,
+      @JsonKey(name: "fullName") String? fullName,
+      @JsonKey(name: "avatar") String? avatar});
+}
+
+/// @nodoc
+class __$UserDetailsResponseCopyWithImpl<$Res>
+    extends _$UserDetailsResponseCopyWithImpl<$Res>
+    implements _$UserDetailsResponseCopyWith<$Res> {
+  __$UserDetailsResponseCopyWithImpl(
+      _UserDetailsResponse _value, $Res Function(_UserDetailsResponse) _then)
+      : super(_value, (v) => _then(v as _UserDetailsResponse));
+
+  @override
+  _UserDetailsResponse get _value => super._value as _UserDetailsResponse;
+
+  @override
+  $Res call({
+    Object? userId = freezed,
+    Object? username = freezed,
+    Object? fullName = freezed,
+    Object? avatar = freezed,
+  }) {
+    return _then(_UserDetailsResponse(
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      username: username == freezed
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fullName: fullName == freezed
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      avatar: avatar == freezed
+          ? _value.avatar
+          : avatar // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_UserDetailsResponse extends _UserDetailsResponse {
+  _$_UserDetailsResponse(
+      {@JsonKey(name: "_id") this.userId,
+      @JsonKey(name: "username") this.username,
+      @JsonKey(name: "fullName") this.fullName,
+      @JsonKey(name: "avatar") this.avatar})
+      : super._();
+
+  factory _$_UserDetailsResponse.fromJson(Map<String, dynamic> json) =>
+      _$$_UserDetailsResponseFromJson(json);
+
+  @override
+  @JsonKey(name: "_id")
+  final String? userId;
+  @override
+  @JsonKey(name: "username")
+  final String? username;
+  @override
+  @JsonKey(name: "fullName")
+  final String? fullName;
+  @override
+  @JsonKey(name: "avatar")
+  final String? avatar;
+
+  @override
+  String toString() {
+    return 'UserDetailsResponse(userId: $userId, username: $username, fullName: $fullName, avatar: $avatar)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _UserDetailsResponse &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.username, username) ||
+                other.username == username) &&
+            (identical(other.fullName, fullName) ||
+                other.fullName == fullName) &&
+            (identical(other.avatar, avatar) || other.avatar == avatar));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, userId, username, fullName, avatar);
+
+  @JsonKey(ignore: true)
+  @override
+  _$UserDetailsResponseCopyWith<_UserDetailsResponse> get copyWith =>
+      __$UserDetailsResponseCopyWithImpl<_UserDetailsResponse>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_UserDetailsResponseToJson(this);
+  }
+}
+
+abstract class _UserDetailsResponse extends UserDetailsResponse {
+  factory _UserDetailsResponse(
+      {@JsonKey(name: "_id") String? userId,
+      @JsonKey(name: "username") String? username,
+      @JsonKey(name: "fullName") String? fullName,
+      @JsonKey(name: "avatar") String? avatar}) = _$_UserDetailsResponse;
+  _UserDetailsResponse._() : super._();
+
+  factory _UserDetailsResponse.fromJson(Map<String, dynamic> json) =
+      _$_UserDetailsResponse.fromJson;
+
+  @override
+  @JsonKey(name: "_id")
+  String? get userId;
+  @override
+  @JsonKey(name: "username")
+  String? get username;
+  @override
+  @JsonKey(name: "fullName")
+  String? get fullName;
+  @override
+  @JsonKey(name: "avatar")
+  String? get avatar;
+  @override
+  @JsonKey(ignore: true)
+  _$UserDetailsResponseCopyWith<_UserDetailsResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

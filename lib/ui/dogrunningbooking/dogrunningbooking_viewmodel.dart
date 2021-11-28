@@ -12,6 +12,7 @@ import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/dog_running_package.dart';
 import 'package:tamely/enum/no_of_runs.dart';
+import 'package:tamely/models/book_a_run_response.dart';
 import 'package:tamely/models/get_pet_details_response.dart';
 import 'package:tamely/models/params/book_a_run_body.dart';
 import 'package:tamely/models/send_data_response.dart';
@@ -71,18 +72,63 @@ class DogRunningBookingViewModel extends FormViewModel {
     notifyListeners();
   }
 
-  void onMainButtonPressed() {
+  String _bookingId = "";
+  String get bookingId => _bookingId;
+
+  Future onMainButtonPressed() async {
     if (currentIndex < 2) {
+      print("nknbf $currentIndex");
       controller.animateToPage(currentIndex + 1,
           duration: Duration(milliseconds: 500), curve: Curves.easeIn);
     } else if (currentIndex == 2) {
-      bookARun();
-      //_navigationService.replaceWith(Routes.groupInfoView);
+      await bookARun();
+      if (bookingId != "") {
+        _navigationService.replaceWith(
+          Routes.paymentView,
+          arguments: PaymentViewArguments(
+              amount: amount.toInt(), bookingId: bookingId),
+        );
+      }
+    }
+    notifyListeners();
+    if (currentIndex == 0) {
+      _isValid = false;
+    } else if (currentIndex == 1) {
+      _isValid = false;
     }
     notifyListeners();
   }
 
+  bool _isValid = true;
+  bool get isValid => _isValid;
+
+  bool _loading = false;
+  bool get loading => _loading;
+
   // Book a run
+
+  void secondPageValidation(String? value) {
+    _isValid = true;
+    if (addressLineOneController.text == "") {
+      _isValid = false;
+    }
+    if (addressLineTwoController.text == "") {
+      _isValid = false;
+    }
+    // if (addressLineThreeController.text == "") {
+    //   _isValid = false;
+    // }
+    if (phoneController.text == "") {
+      _isValid = false;
+    }
+    if (alternateNameController.text == "") {
+      _isValid = false;
+    }
+    if (alternatePhoneController.text == "") {
+      _isValid = false;
+    }
+    notifyListeners();
+  }
 
   NoOfRuns? selectedRun = NoOfRuns.One;
 
@@ -102,7 +148,7 @@ class DogRunningBookingViewModel extends FormViewModel {
   bool _hasPets = false;
   bool get hasPets => _hasPets;
 
-  static List<String> _dogsId = [""];
+  static List<String> _dogsId = ["111111111111111111111111"];
   List<String> get dogsId => _dogsId;
 
   static List<String> _dogsOwned = ["Dog"];
@@ -159,6 +205,7 @@ class DogRunningBookingViewModel extends FormViewModel {
   TextEditingController specialInstructionsController = TextEditingController();
   TextEditingController addressLineOneController = TextEditingController();
   TextEditingController addressLineTwoController = TextEditingController();
+  TextEditingController addressLineThreeController = TextEditingController();
   TextEditingController cityController = TextEditingController();
   TextEditingController pinCodeController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -204,13 +251,47 @@ class DogRunningBookingViewModel extends FormViewModel {
 
   // Booking details
 
+  void thirdPageValidation() {
+    _isValid = true;
+    if (!isDatePicked) {
+      _isValid = false;
+    }
+    if (_frequency != 1) {
+      if (_selectedDay1 == false &&
+          _selectedDay2 == false &&
+          _selectedDay3 == false &&
+          _selectedDay4 == false &&
+          _selectedDay5 == false &&
+          _selectedDay6 == false &&
+          _selectedDay7 == false) {
+        _isValid = false;
+      }
+    }
+    if (_selectedWeekdayOne == false &&
+        _selectedWeekdayTwo == false &&
+        _selectedWeekdayThree == false &&
+        _selectedWeekdayFour == false &&
+        _selectedWeekdayFive == false) {
+      _isValid = false;
+    }
+    if (dayFrequency == 2) {
+      if (_selectedWeekendOne == false &&
+          _selectedWeekendTwo == false &&
+          _selectedWeekendThree == false &&
+          _selectedWeekendFour == false &&
+          _selectedWeekendFive == false) {
+        _isValid = false;
+      }
+    }
+  }
+
   // Select Package
 
   String _description = "Once";
   String get description => _description;
 
-  int _amount = 300;
-  int get amount => _amount;
+  double _amount = 300;
+  double get amount => _amount;
 
   int _frequency = 1;
   int get frequency => _frequency;
@@ -249,14 +330,76 @@ class DogRunningBookingViewModel extends FormViewModel {
       _dayFrequency = 2;
     }
     notifyListeners();
+    thirdPageValidation();
+    promoCodeValidation("value");
+  }
+
+  // -- Offers
+
+  bool _isOfferValid = false;
+  bool get isOfferValid => _isOfferValid;
+
+  String _promoCode = "";
+  String get promoCode => _promoCode;
+
+  double _savedAmount = 0;
+  double get savedAmount => _savedAmount;
+
+  TextEditingController promoCodeController = TextEditingController();
+
+  void promoCodeValidation(String? value) {
+    if (promoCodeController.text == "Discount5%") {
+      _isOfferValid = true;
+      _promoCode = "Discount5%";
+      _savedAmount = (amount * 0.05);
+      _amount = amount - (amount * 0.05);
+    } else if (promoCodeController.text == "Discount10%") {
+      _isOfferValid = true;
+      _promoCode = "Discount10%";
+      print(amount);
+      _savedAmount = (amount * 0.10);
+      _amount = amount - (amount * 0.10);
+    } else if (promoCodeController.text == "Discount15%") {
+      _isOfferValid = true;
+      _promoCode = "Discount15%";
+      _savedAmount = (amount * 0.15);
+      _amount = amount - (amount * 0.15);
+    } else if (promoCodeController.text == "Discount20%") {
+      _isOfferValid = true;
+      _promoCode = "Discount20%";
+      _savedAmount = (amount * 0.20);
+      _amount = amount - (amount * 0.20);
+    } else if (promoCodeController.text == "Discount25%") {
+      _isOfferValid = true;
+      _promoCode = "Discount20%";
+      _savedAmount = (amount * 0.20);
+      _amount = amount - (amount * 0.20);
+    } else if (promoCodeController.text == "Discount30%") {
+      _isOfferValid = true;
+      _promoCode = "Discount30%";
+      _savedAmount = (amount * 0.30);
+      _amount = amount - (amount * 0.30);
+    } else if (promoCodeController.text == "Discount35%") {
+      _isOfferValid = true;
+      _promoCode = "Discount35%";
+      _savedAmount = (amount * 0.35);
+      _amount = amount - (amount * 0.35);
+    }
+    notifyListeners();
+  }
+
+  void updatePromoCode() {
+    notifyListeners();
   }
 
   // -- start date
 
   TextEditingController datePickers = TextEditingController();
 
-  DateTime _pickedDate = DateTime.now();
+  bool _isDatePicked = false;
+  bool get isDatePicked => _isDatePicked;
 
+  DateTime _pickedDate = DateTime.now();
   DateTime get pickedDate => _pickedDate;
 
   Future<void> selectDate(
@@ -272,7 +415,9 @@ class DogRunningBookingViewModel extends FormViewModel {
       print(picked);
       tc.text = "${picked.day}-${picked.month}-${picked.year}";
       _pickedDate = picked;
+      _isDatePicked = true;
       notifyListeners();
+      thirdPageValidation();
     }
   }
 
@@ -304,6 +449,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedDay7 = false;
     getOffDate();
     notifyListeners();
+    thirdPageValidation();
   }
 
   void setSelectedDay2() {
@@ -316,6 +462,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedDay7 = false;
     getOffDate();
     notifyListeners();
+    thirdPageValidation();
   }
 
   void setSelectedDay3() {
@@ -328,6 +475,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedDay7 = false;
     getOffDate();
     notifyListeners();
+    thirdPageValidation();
   }
 
   void setSelectedDay4() {
@@ -340,6 +488,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedDay7 = false;
     getOffDate();
     notifyListeners();
+    thirdPageValidation();
   }
 
   void setSelectedDay5() {
@@ -352,6 +501,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedDay7 = false;
     getOffDate();
     notifyListeners();
+    thirdPageValidation();
   }
 
   void setSelectedDay6() {
@@ -364,6 +514,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedDay7 = false;
     getOffDate();
     notifyListeners();
+    thirdPageValidation();
   }
 
   void setSelectedDay7() {
@@ -376,6 +527,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedDay7 = !_selectedDay7;
     getOffDate();
     notifyListeners();
+    thirdPageValidation();
   }
 
   DateTime _offDate = DateTime.now();
@@ -429,14 +581,14 @@ class DogRunningBookingViewModel extends FormViewModel {
   bool _selectedWeekdayThree = false;
   bool _selectedWeekdayFour = false;
   bool _selectedWeekdayFive = false;
-  bool _selectedWeekdaySix = false;
+  //bool _selectedWeekdaySix = false;
 
   bool get selectedWeekdayOne => _selectedWeekdayOne;
   bool get selectedWeekdayTwo => _selectedWeekdayTwo;
   bool get selectedWeekdayThree => _selectedWeekdayThree;
   bool get selectedWeekdayFour => _selectedWeekdayFour;
   bool get selectedWeekdayFive => _selectedWeekdayFive;
-  bool get selectedWeekdaySix => _selectedWeekdaySix;
+  //bool get selectedWeekdaySix => _selectedWeekdaySix;
 
   void setSelectedWeekday1() {
     _weekDayTiming = timingsOne;
@@ -446,8 +598,9 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedWeekdayThree = false;
     _selectedWeekdayFour = false;
     _selectedWeekdayFive = false;
-    _selectedWeekdaySix = false;
+    //_selectedWeekdaySix = false;
     notifyListeners();
+    thirdPageValidation();
   }
 
   void setSelectedWeekday2() {
@@ -457,8 +610,9 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedWeekdayThree = false;
     _selectedWeekdayFour = false;
     _selectedWeekdayFive = false;
-    _selectedWeekdaySix = false;
+    //_selectedWeekdaySix = false;
     notifyListeners();
+    thirdPageValidation();
   }
 
   void setSelectedWeekday3() {
@@ -468,8 +622,9 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedWeekdayThree = !_selectedWeekdayThree;
     _selectedWeekdayFour = false;
     _selectedWeekdayFive = false;
-    _selectedWeekdaySix = false;
+    // _selectedWeekdaySix = false;
     notifyListeners();
+    thirdPageValidation();
   }
 
   void setSelectedWeekday4() {
@@ -479,8 +634,9 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedWeekdayThree = false;
     _selectedWeekdayFour = !_selectedWeekdayFour;
     _selectedWeekdayFive = false;
-    _selectedWeekdaySix = false;
+    //_selectedWeekdaySix = false;
     notifyListeners();
+    thirdPageValidation();
   }
 
   void setSelectedWeekday5() {
@@ -490,20 +646,22 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedWeekdayThree = false;
     _selectedWeekdayFour = false;
     _selectedWeekdayFive = !_selectedWeekdayFive;
-    _selectedWeekdaySix = false;
+    //_selectedWeekdaySix = false;
     notifyListeners();
+    thirdPageValidation();
   }
 
-  void setSelectedWeekday6() {
-    _weekDayTiming = timingsSix;
-    _selectedWeekdayOne = false;
-    _selectedWeekdayTwo = false;
-    _selectedWeekdayThree = false;
-    _selectedWeekdayFour = false;
-    _selectedWeekdayFive = false;
-    _selectedWeekdaySix = !_selectedWeekdaySix;
-    notifyListeners();
-  }
+  // void setSelectedWeekday6() {
+  //   _weekDayTiming = timingsSix;
+  //   _selectedWeekdayOne = false;
+  //   _selectedWeekdayTwo = false;
+  //   _selectedWeekdayThree = false;
+  //   _selectedWeekdayFour = false;
+  //   _selectedWeekdayFive = false;
+  //   _selectedWeekdaySix = !_selectedWeekdaySix;
+  //   notifyListeners();
+  //   thirdPageValidation();
+  // }
 
   // -- Timings - Weekends
 
@@ -515,14 +673,14 @@ class DogRunningBookingViewModel extends FormViewModel {
   bool _selectedWeekendThree = false;
   bool _selectedWeekendFour = false;
   bool _selectedWeekendFive = false;
-  bool _selectedWeekendSix = false;
+  //bool _selectedWeekendSix = false;
 
   bool get selectedWeekendOne => _selectedWeekendOne;
   bool get selectedWeekendTwo => _selectedWeekendTwo;
   bool get selectedWeekendThree => _selectedWeekendThree;
   bool get selectedWeekendFour => _selectedWeekendFour;
   bool get selectedWeekendFive => _selectedWeekendFive;
-  bool get selectedWeekendSix => _selectedWeekendSix;
+  //bool get selectedWeekendSix => _selectedWeekendSix;
 
   void setSelectedWeekend1() {
     _weekEndTiming = timingsOne;
@@ -531,8 +689,9 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedWeekendThree = false;
     _selectedWeekendFour = false;
     _selectedWeekendFive = false;
-    _selectedWeekendSix = false;
+    //_selectedWeekendSix = false;
     notifyListeners();
+    thirdPageValidation();
   }
 
   void setSelectedWeekend2() {
@@ -542,8 +701,9 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedWeekendThree = false;
     _selectedWeekendFour = false;
     _selectedWeekendFive = false;
-    _selectedWeekendSix = false;
+    //_selectedWeekendSix = false;
     notifyListeners();
+    thirdPageValidation();
   }
 
   void setSelectedWeekend3() {
@@ -553,8 +713,9 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedWeekendThree = !_selectedWeekendThree;
     _selectedWeekendFour = false;
     _selectedWeekendFive = false;
-    _selectedWeekendSix = false;
+    //_selectedWeekendSix = false;
     notifyListeners();
+    thirdPageValidation();
   }
 
   void setSelectedWeekend4() {
@@ -564,8 +725,9 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedWeekendThree = false;
     _selectedWeekendFour = !_selectedWeekendFour;
     _selectedWeekendFive = false;
-    _selectedWeekendSix = false;
+    //_selectedWeekendSix = false;
     notifyListeners();
+    thirdPageValidation();
   }
 
   void setSelectedWeekend5() {
@@ -575,20 +737,22 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedWeekendThree = false;
     _selectedWeekendFour = false;
     _selectedWeekendFive = !_selectedWeekendFive;
-    _selectedWeekendSix = false;
+    //_selectedWeekendSix = false;
     notifyListeners();
+    thirdPageValidation();
   }
 
-  void setSelectedWeekend6() {
-    _weekEndTiming = timingsSix;
-    _selectedWeekendOne = false;
-    _selectedWeekendTwo = false;
-    _selectedWeekendThree = false;
-    _selectedWeekendFour = false;
-    _selectedWeekendFive = false;
-    _selectedWeekendSix = !_selectedWeekendSix;
-    notifyListeners();
-  }
+  // void setSelectedWeekend6() {
+  //   _weekEndTiming = timingsSix;
+  //   _selectedWeekendOne = false;
+  //   _selectedWeekendTwo = false;
+  //   _selectedWeekendThree = false;
+  //   _selectedWeekendFour = false;
+  //   _selectedWeekendFive = false;
+  //   _selectedWeekendSix = !_selectedWeekendSix;
+  //   notifyListeners();
+  //   thirdPageValidation();
+  // }
 
   bool _previousRunnersAvailable = false;
 
@@ -652,7 +816,9 @@ class DogRunningBookingViewModel extends FormViewModel {
     notifyListeners();
   }
 
-  void bookARun() async {
+  Future bookARun() async {
+    _loading = true;
+    notifyListeners();
     //
     DateTime startDateConverted =
         pickedDate.add(Duration(hours: 5, minutes: 30));
@@ -687,8 +853,8 @@ class DogRunningBookingViewModel extends FormViewModel {
     // empty
     PetRunningLocationBody petRunningLocationBody = PetRunningLocationBody(
       addressLineOneController.text,
-      addressLineOneController.text,
-      addressLineOneController.text,
+      addressLineTwoController.text,
+      addressLineThreeController.text,
       addressLineOneController.text,
       addressLineOneController.text,
     );
@@ -723,11 +889,11 @@ class DogRunningBookingViewModel extends FormViewModel {
           offDateTimeStamp,
           runDetailsBody,
         );
-        BaseResponse<SendDataResponse> result = await runBusyFuture(
+        BaseResponse<BookARunResponse> result = await runBusyFuture(
             _tamelyApi.bookARun(bookARunBody),
             throwException: true);
         if (result.data != null) {
-          // send here
+          _bookingId = result.data!.bookingId!;
         }
         notifyListeners();
       } else {
@@ -736,6 +902,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     } on ServerError catch (e) {
       log.e(e.toString());
     }
+    _loading = false;
     notifyListeners();
   }
 

@@ -44,7 +44,6 @@ class DogRunnersView extends StatelessWidget {
                 ],
               ),
               spacedDividerSmall,
-              verticalSpaceSmall,
               // Division 1 - Pin code
               // Padding(
               //   padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -71,21 +70,58 @@ class DogRunnersView extends StatelessWidget {
               //   ),
               // ),
 
+              // Location
+              Container(
+                width: screenWidth(context),
+                color: colors.primaryLight,
+                height: 45,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.location_on_outlined,
+                        size: 20,
+                        color: colors.black,
+                      ),
+                      horizontalSpaceSmall,
+                      AppText.body1(
+                        model.address,
+                        color: colors.black,
+                      ),
+                      Spacer(),
+                      GestureDetector(
+                        onTap: model.changeAddress,
+                        child: AppText.body2(
+                          "Change",
+                          color: colors.primary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              spacedDividerSmall,
+
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25),
+                child: AppText.body1Bold(
+                  chooseCompanyTitle,
+                ),
+              ),
+              spacedDividerSmall,
+
               // Division 1 - Company
               Visibility(
                 visible: model.companyAvailable,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppText.body1(
-                        chooseCompanyTitle,
-                      ),
-                      verticalSpaceRegular,
-                      GestureDetector(
-                        onTap: model.toTamelyDogRunning,
-                        child: Container(
+                child: GestureDetector(
+                  onTap: model.toTamelyDogRunning,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -208,8 +244,8 @@ class DogRunnersView extends StatelessWidget {
                             ],
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

@@ -14,11 +14,6 @@ class DogRunnersViewModel extends FutureViewModel<void>
     _navigationService.back();
   }
 
-  bool _companyAvailable = true;
-
-  bool get companyAvailable => _companyAvailable;
-
-  // Dummy values
   String _companyAddress = "Gurugram, Haryana";
   int _noOfJobs = 24;
   double _noOfRating = 4.5;
@@ -31,6 +26,17 @@ class DogRunnersViewModel extends FutureViewModel<void>
 
   void toTamelyDogRunning() async {
     await _navigationService.navigateTo(Routes.tamelyDogRunnersView);
+  }
+
+  bool _companyAvailable = true;
+  bool get companyAvailable => _companyAvailable;
+
+  String _address = "Gurugram, Haryana";
+  String get address => _address;
+
+  void changeAddress() {
+    // Google maps
+    notifyListeners();
   }
 
   @override

@@ -94,6 +94,9 @@ dependencies:
   # for date
   intl: ^0.17.0
 
+  #for payment
+  razorpay_flutter: ^1.2.7
+
 flutter_icons:
   image_path: assets/images/logo.png
   android: true

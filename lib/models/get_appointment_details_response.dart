@@ -17,7 +17,7 @@ class GetAppointmentDetailsResponse with _$GetAppointmentDetailsResponse {
     @JsonKey(name: "serviceType") int? serviceType,
     @JsonKey(name: "_id") String? appointmentId,
     @JsonKey(name: "ServiceProvider") String? serviceProviderId,
-    @JsonKey(name: "User") String? userId,
+    @JsonKey(name: "User") UserDetailsResponse? user,
     @JsonKey(name: "bookingDetails") GetBookingDetailsResponse? bookingDetails,
   }) = _GetAppointmentDetailsResponse;
 

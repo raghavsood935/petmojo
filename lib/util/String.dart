@@ -166,7 +166,7 @@ String photoVideo = "Photo/Video";
 // Dog Runners page
 String godRunnersTitle = "Dog runners";
 
-String chooseCompanyTitle = "Choose any company";
+String chooseCompanyTitle = "Service Provider(s) Near You -";
 
 String tamelyDogRunningTitle = "Tamely Dog Running";
 
@@ -270,26 +270,29 @@ String detailFive = "Protective of my home (may bark & snarl)";
 String bookingDetailsTitle = "Booking details";
 String bookingDetailsSubtitle = "Where will the pet go for a run?";
 
-String addressLineOneLabel = "Address line 1";
-String addressLineOneHint = "House no, Block, Area";
+String addressLineOneLabel = "Your Location*";
+String addressLineOneHint = "Pick location";
 
-String addressLineTwoLabel = "Address line 2";
-String addressLineTwoHint = "Land mark, colony etc";
+String addressLineTwoLabel = "Complete Address*";
+String addressLineTwoHint = "House no. / Flat no. / Floor/ Building";
+
+String addressLineThreeLabel = "How to reach ?";
+String addressLineThreeHint = "Nearby Landmarks";
 
 String stateLabel = "State / province";
 String cityLabel = "City";
 String pinCodeLabel = "PIN Code";
 
-String phoneVerificationLabel = "Phone number verification";
+String phoneVerificationLabel = "Phone number verification*";
 String phoneVerificationHint = "Enter phone number";
 
 String addAddressSubtitle =
-    "Your phone number is not shared with the customer. It is for us to contact you during any emergency. Unique in-app numbers are assigned for pet parents and walkers to call or chat while keeping their actual numbers private)";
+    "Your phone number is not shared with the customer. It is for us to contact you during any emergency. Unique in-app numbers are assigned for pet parents and runners to call or chat while keeping their actual numbers private)";
 
 String alternatePersonLabel = "Alternate Person";
-String alternatePersonNameLabel = "Name";
+String alternatePersonNameLabel = "Name*";
 String alternatePersonNameHint = "Name here";
-String alternatePersonPhoneLabel = "Phone number";
+String alternatePersonPhoneLabel = "Phone number*";
 String alternatePersonPhoneHint = "Phone number";
 
 // Select Package
@@ -424,7 +427,7 @@ String distanceCoversLabel = "Distance covered :";
 String liveRunButton = "LIVE RUN";
 
 // -- End Walk
-String endWalkTitle = "Are you sure you want to end this walk?";
+String endWalkTitle = "Are you sure you want to end this run?";
 String endWalkSubtitleOne = "Only select confirm - if pet is returned";
 String endWalkSubtitleTwo =
     "After you click on service completed - Chat window will be disabled and report generated.";

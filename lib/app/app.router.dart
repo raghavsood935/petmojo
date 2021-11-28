@@ -42,6 +42,7 @@ import '../ui/livemap/livemap_view.dart';
 import '../ui/login/login_view.dart';
 import '../ui/onboarding/onboarding_view.dart';
 import '../ui/otp/confirm_otp_view.dart';
+import '../ui/payment/payment_view.dart';
 import '../ui/post/camera_screen.dart';
 import '../ui/profile/profile_create_view.dart';
 import '../ui/profilepage/animal_profile/animal_profile_view.dart';
@@ -105,6 +106,7 @@ class Routes {
   static const String tamelyReviewsView = '/tamely-reviews-view';
   static const String tamelyDogRunnersView = '/tamely-dog-runners-view';
   static const String dogRunningBookingView = '/dog-running-booking-view';
+  static const String paymentView = '/payment-view';
   static const String appointmentsView = '/appointments-view';
   static const String appointmentDetailsView = '/appointment-details-view';
   static const String chatView = '/chat-view';
@@ -151,6 +153,7 @@ class Routes {
     tamelyReviewsView,
     tamelyDogRunnersView,
     dogRunningBookingView,
+    paymentView,
     appointmentsView,
     appointmentDetailsView,
     chatView,
@@ -198,7 +201,6 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.feedbackView, page: FeedbackView),
     RouteDef(Routes.bookingsView, page: BookingsView),
     RouteDef(Routes.bookmarksView, page: BookmarksView),
-    RouteDef(Routes.feedbackView, page: FeedbackView),
     RouteDef(Routes.helpView, page: HelpView),
     RouteDef(Routes.walletView, page: WalletView),
     RouteDef(Routes.dogRunnersView, page: DogRunnersView),
@@ -207,6 +209,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.tamelyReviewsView, page: TamelyReviewsView),
     RouteDef(Routes.tamelyDogRunnersView, page: TamelyDogRunnersView),
     RouteDef(Routes.dogRunningBookingView, page: DogRunningBookingView),
+    RouteDef(Routes.paymentView, page: PaymentView),
     RouteDef(Routes.appointmentsView, page: AppointmentsView),
     RouteDef(Routes.appointmentDetailsView, page: AppointmentDetailsView),
     RouteDef(Routes.chatView, page: ChatView),
@@ -515,6 +518,17 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    PaymentView: (data) {
+      var args = data.getArgs<PaymentViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => PaymentView(
+          key: args.key,
+          amount: args.amount,
+          bookingId: args.bookingId,
+        ),
+        settings: data,
+      );
+    },
     AppointmentsView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const AppointmentsView(),
@@ -678,6 +692,15 @@ class GuardiansAndRelatedAnimalsViewArguments {
 class DogRunningBookingViewArguments {
   final Key? key;
   DogRunningBookingViewArguments({this.key});
+}
+
+/// PaymentView arguments holder class
+class PaymentViewArguments {
+  final Key? key;
+  final int amount;
+  final String bookingId;
+  PaymentViewArguments(
+      {this.key, required this.amount, required this.bookingId});
 }
 
 /// AppointmentDetailsView arguments holder class

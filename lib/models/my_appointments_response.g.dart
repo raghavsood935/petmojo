@@ -30,7 +30,9 @@ _$_AppointmentListResponse _$$_AppointmentListResponseFromJson(
       bookingStatus: json['bookingStatus'] as int?,
       serviceType: json['serviceType'] as int?,
       appointmentId: json['_id'] as String?,
-      userId: json['User'] as String?,
+      user: json['User'] == null
+          ? null
+          : UserDetailsResponse.fromJson(json['User'] as Map<String, dynamic>),
       bookingDetails: json['bookingDetails'] == null
           ? null
           : BookingDetailsResponse.fromJson(
@@ -44,8 +46,26 @@ Map<String, dynamic> _$$_AppointmentListResponseToJson(
       'bookingStatus': instance.bookingStatus,
       'serviceType': instance.serviceType,
       '_id': instance.appointmentId,
-      'User': instance.userId,
+      'User': instance.user,
       'bookingDetails': instance.bookingDetails,
+    };
+
+_$_UserDetailsResponse _$$_UserDetailsResponseFromJson(
+        Map<String, dynamic> json) =>
+    _$_UserDetailsResponse(
+      userId: json['_id'] as String?,
+      username: json['username'] as String?,
+      fullName: json['fullName'] as String?,
+      avatar: json['avatar'] as String?,
+    );
+
+Map<String, dynamic> _$$_UserDetailsResponseToJson(
+        _$_UserDetailsResponse instance) =>
+    <String, dynamic>{
+      '_id': instance.userId,
+      'username': instance.username,
+      'fullName': instance.fullName,
+      'avatar': instance.avatar,
     };
 
 _$_BookingDetailsResponse _$$_BookingDetailsResponseFromJson(
