@@ -29,6 +29,11 @@ const TextStyle bodyStyle = TextStyle(
   fontWeight: FontWeight.w400,
 );
 
+const TextStyle titleStyle = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.w600,
+);
+
 const TextStyle subheadingStyle = TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.w400,
@@ -41,6 +46,11 @@ const TextStyle captionStyle = TextStyle(
 
 const TextStyle overlineStyle = TextStyle(
   fontSize: 10,
+  fontWeight: FontWeight.normal,
+);
+
+const TextStyle tinyStyle = TextStyle(
+  fontSize: 8,
   fontWeight: FontWeight.normal,
 );
 

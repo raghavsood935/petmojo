@@ -25,17 +25,20 @@ class _$UserProfileDetailsResponseTearOff {
   _UserProfileDetailsResponse call(
       {@JsonKey(name: "user_details")
           UserDetailsModelResponse? userDetailsModel,
-      @JsonKey(name: "newAnimalArr")
-          List<MyAnimalModelResponse>? myAnimals,
       @JsonKey(name: "totalFollowers")
           int? totalFollowers,
       @JsonKey(name: "totalFollowings")
-          int? totalFollowings}) {
+          int? totalFollowings,
+      @JsonKey(name: "totalLikes")
+          int? totalLikes,
+      @JsonKey(name: "totalPosts")
+          int? totalPosts}) {
     return _UserProfileDetailsResponse(
       userDetailsModel: userDetailsModel,
-      myAnimals: myAnimals,
       totalFollowers: totalFollowers,
       totalFollowings: totalFollowings,
+      totalLikes: totalLikes,
+      totalPosts: totalPosts,
     );
   }
 
@@ -52,13 +55,14 @@ mixin _$UserProfileDetailsResponse {
   @JsonKey(name: "user_details")
   UserDetailsModelResponse? get userDetailsModel =>
       throw _privateConstructorUsedError;
-  @JsonKey(name: "newAnimalArr")
-  List<MyAnimalModelResponse>? get myAnimals =>
-      throw _privateConstructorUsedError;
   @JsonKey(name: "totalFollowers")
   int? get totalFollowers => throw _privateConstructorUsedError;
   @JsonKey(name: "totalFollowings")
   int? get totalFollowings => throw _privateConstructorUsedError;
+  @JsonKey(name: "totalLikes")
+  int? get totalLikes => throw _privateConstructorUsedError;
+  @JsonKey(name: "totalPosts")
+  int? get totalPosts => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -74,12 +78,14 @@ abstract class $UserProfileDetailsResponseCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "user_details")
           UserDetailsModelResponse? userDetailsModel,
-      @JsonKey(name: "newAnimalArr")
-          List<MyAnimalModelResponse>? myAnimals,
       @JsonKey(name: "totalFollowers")
           int? totalFollowers,
       @JsonKey(name: "totalFollowings")
-          int? totalFollowings});
+          int? totalFollowings,
+      @JsonKey(name: "totalLikes")
+          int? totalLikes,
+      @JsonKey(name: "totalPosts")
+          int? totalPosts});
 
   $UserDetailsModelResponseCopyWith<$Res>? get userDetailsModel;
 }
@@ -96,19 +102,16 @@ class _$UserProfileDetailsResponseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? userDetailsModel = freezed,
-    Object? myAnimals = freezed,
     Object? totalFollowers = freezed,
     Object? totalFollowings = freezed,
+    Object? totalLikes = freezed,
+    Object? totalPosts = freezed,
   }) {
     return _then(_value.copyWith(
       userDetailsModel: userDetailsModel == freezed
           ? _value.userDetailsModel
           : userDetailsModel // ignore: cast_nullable_to_non_nullable
               as UserDetailsModelResponse?,
-      myAnimals: myAnimals == freezed
-          ? _value.myAnimals
-          : myAnimals // ignore: cast_nullable_to_non_nullable
-              as List<MyAnimalModelResponse>?,
       totalFollowers: totalFollowers == freezed
           ? _value.totalFollowers
           : totalFollowers // ignore: cast_nullable_to_non_nullable
@@ -116,6 +119,14 @@ class _$UserProfileDetailsResponseCopyWithImpl<$Res>
       totalFollowings: totalFollowings == freezed
           ? _value.totalFollowings
           : totalFollowings // ignore: cast_nullable_to_non_nullable
+              as int?,
+      totalLikes: totalLikes == freezed
+          ? _value.totalLikes
+          : totalLikes // ignore: cast_nullable_to_non_nullable
+              as int?,
+      totalPosts: totalPosts == freezed
+          ? _value.totalPosts
+          : totalPosts // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
   }
@@ -144,12 +155,14 @@ abstract class _$UserProfileDetailsResponseCopyWith<$Res>
   $Res call(
       {@JsonKey(name: "user_details")
           UserDetailsModelResponse? userDetailsModel,
-      @JsonKey(name: "newAnimalArr")
-          List<MyAnimalModelResponse>? myAnimals,
       @JsonKey(name: "totalFollowers")
           int? totalFollowers,
       @JsonKey(name: "totalFollowings")
-          int? totalFollowings});
+          int? totalFollowings,
+      @JsonKey(name: "totalLikes")
+          int? totalLikes,
+      @JsonKey(name: "totalPosts")
+          int? totalPosts});
 
   @override
   $UserDetailsModelResponseCopyWith<$Res>? get userDetailsModel;
@@ -170,19 +183,16 @@ class __$UserProfileDetailsResponseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? userDetailsModel = freezed,
-    Object? myAnimals = freezed,
     Object? totalFollowers = freezed,
     Object? totalFollowings = freezed,
+    Object? totalLikes = freezed,
+    Object? totalPosts = freezed,
   }) {
     return _then(_UserProfileDetailsResponse(
       userDetailsModel: userDetailsModel == freezed
           ? _value.userDetailsModel
           : userDetailsModel // ignore: cast_nullable_to_non_nullable
               as UserDetailsModelResponse?,
-      myAnimals: myAnimals == freezed
-          ? _value.myAnimals
-          : myAnimals // ignore: cast_nullable_to_non_nullable
-              as List<MyAnimalModelResponse>?,
       totalFollowers: totalFollowers == freezed
           ? _value.totalFollowers
           : totalFollowers // ignore: cast_nullable_to_non_nullable
@@ -190,6 +200,14 @@ class __$UserProfileDetailsResponseCopyWithImpl<$Res>
       totalFollowings: totalFollowings == freezed
           ? _value.totalFollowings
           : totalFollowings // ignore: cast_nullable_to_non_nullable
+              as int?,
+      totalLikes: totalLikes == freezed
+          ? _value.totalLikes
+          : totalLikes // ignore: cast_nullable_to_non_nullable
+              as int?,
+      totalPosts: totalPosts == freezed
+          ? _value.totalPosts
+          : totalPosts // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
   }
@@ -200,9 +218,10 @@ class __$UserProfileDetailsResponseCopyWithImpl<$Res>
 class _$_UserProfileDetailsResponse extends _UserProfileDetailsResponse {
   _$_UserProfileDetailsResponse(
       {@JsonKey(name: "user_details") this.userDetailsModel,
-      @JsonKey(name: "newAnimalArr") this.myAnimals,
       @JsonKey(name: "totalFollowers") this.totalFollowers,
-      @JsonKey(name: "totalFollowings") this.totalFollowings})
+      @JsonKey(name: "totalFollowings") this.totalFollowings,
+      @JsonKey(name: "totalLikes") this.totalLikes,
+      @JsonKey(name: "totalPosts") this.totalPosts})
       : super._();
 
   factory _$_UserProfileDetailsResponse.fromJson(Map<String, dynamic> json) =>
@@ -212,18 +231,21 @@ class _$_UserProfileDetailsResponse extends _UserProfileDetailsResponse {
   @JsonKey(name: "user_details")
   final UserDetailsModelResponse? userDetailsModel;
   @override
-  @JsonKey(name: "newAnimalArr")
-  final List<MyAnimalModelResponse>? myAnimals;
-  @override
   @JsonKey(name: "totalFollowers")
   final int? totalFollowers;
   @override
   @JsonKey(name: "totalFollowings")
   final int? totalFollowings;
+  @override
+  @JsonKey(name: "totalLikes")
+  final int? totalLikes;
+  @override
+  @JsonKey(name: "totalPosts")
+  final int? totalPosts;
 
   @override
   String toString() {
-    return 'UserProfileDetailsResponse(userDetailsModel: $userDetailsModel, myAnimals: $myAnimals, totalFollowers: $totalFollowers, totalFollowings: $totalFollowings)';
+    return 'UserProfileDetailsResponse(userDetailsModel: $userDetailsModel, totalFollowers: $totalFollowers, totalFollowings: $totalFollowings, totalLikes: $totalLikes, totalPosts: $totalPosts)';
   }
 
   @override
@@ -233,20 +255,19 @@ class _$_UserProfileDetailsResponse extends _UserProfileDetailsResponse {
             other is _UserProfileDetailsResponse &&
             (identical(other.userDetailsModel, userDetailsModel) ||
                 other.userDetailsModel == userDetailsModel) &&
-            const DeepCollectionEquality().equals(other.myAnimals, myAnimals) &&
             (identical(other.totalFollowers, totalFollowers) ||
                 other.totalFollowers == totalFollowers) &&
             (identical(other.totalFollowings, totalFollowings) ||
-                other.totalFollowings == totalFollowings));
+                other.totalFollowings == totalFollowings) &&
+            (identical(other.totalLikes, totalLikes) ||
+                other.totalLikes == totalLikes) &&
+            (identical(other.totalPosts, totalPosts) ||
+                other.totalPosts == totalPosts));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      userDetailsModel,
-      const DeepCollectionEquality().hash(myAnimals),
-      totalFollowers,
-      totalFollowings);
+  int get hashCode => Object.hash(runtimeType, userDetailsModel, totalFollowers,
+      totalFollowings, totalLikes, totalPosts);
 
   @JsonKey(ignore: true)
   @override
@@ -264,12 +285,14 @@ abstract class _UserProfileDetailsResponse extends UserProfileDetailsResponse {
   factory _UserProfileDetailsResponse(
       {@JsonKey(name: "user_details")
           UserDetailsModelResponse? userDetailsModel,
-      @JsonKey(name: "newAnimalArr")
-          List<MyAnimalModelResponse>? myAnimals,
       @JsonKey(name: "totalFollowers")
           int? totalFollowers,
       @JsonKey(name: "totalFollowings")
-          int? totalFollowings}) = _$_UserProfileDetailsResponse;
+          int? totalFollowings,
+      @JsonKey(name: "totalLikes")
+          int? totalLikes,
+      @JsonKey(name: "totalPosts")
+          int? totalPosts}) = _$_UserProfileDetailsResponse;
   _UserProfileDetailsResponse._() : super._();
 
   factory _UserProfileDetailsResponse.fromJson(Map<String, dynamic> json) =
@@ -279,14 +302,17 @@ abstract class _UserProfileDetailsResponse extends UserProfileDetailsResponse {
   @JsonKey(name: "user_details")
   UserDetailsModelResponse? get userDetailsModel;
   @override
-  @JsonKey(name: "newAnimalArr")
-  List<MyAnimalModelResponse>? get myAnimals;
-  @override
   @JsonKey(name: "totalFollowers")
   int? get totalFollowers;
   @override
   @JsonKey(name: "totalFollowings")
   int? get totalFollowings;
+  @override
+  @JsonKey(name: "totalLikes")
+  int? get totalLikes;
+  @override
+  @JsonKey(name: "totalPosts")
+  int? get totalPosts;
   @override
   @JsonKey(ignore: true)
   _$UserProfileDetailsResponseCopyWith<_UserProfileDetailsResponse>

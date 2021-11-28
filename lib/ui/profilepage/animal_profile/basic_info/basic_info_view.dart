@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/app/app.router.dart';
 import 'package:tamely/models/my_animal_model.dart';
 import 'package:tamely/ui/profilepage/animal_profile/basic_info/general_info/general_info_view.dart';
 import 'package:tamely/util/Color.dart';
@@ -27,6 +30,8 @@ class AnimalBasicInfo extends StatefulWidget {
 }
 
 class _AnimalBasicInfoState extends State<AnimalBasicInfo> {
+  final _navigationService = locator<NavigationService>();
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -43,7 +48,18 @@ class _AnimalBasicInfoState extends State<AnimalBasicInfo> {
                 padding: const EdgeInsets.only(right: 10),
                 child: EditButton(),
               ),
-              onTap: () {},
+              onTap: () async {
+                var result = await _navigationService.navigateTo(
+                  Routes.createAnimalPageView,
+                  arguments: CreateAnimalPageViewArguments(
+                    petId: widget.animalModelResponse.Id!,
+                    isEdit: true,
+                  ),
+                );
+                if (result == 1) {
+                  _navigationService.back(result: 1);
+                }
+              },
             )
           ],
           bottom: TabBar(

@@ -52,10 +52,10 @@ class PreferencesViewModel extends FutureViewModel {
 
   bool get withAnimalsLoading => _withAnimalsLoading;
 
-  void onInit(String _id) {
+  Future onInit(String _id) async{
     _petId = _id;
     notifyListeners();
-    getValues();
+    await getValues();
   }
 
   Future<void> getValues() async {
@@ -66,7 +66,7 @@ class PreferencesViewModel extends FutureViewModel {
             .getAnimalProfileDetail(AnimalProfileDetailsBody(_petId)));
         if (result != null) {
           if (result.data != null) {
-            setValues(result.data!);
+            await setValues(result.data!);
           }
         } else {
           _dialogService.completeDialog(DialogResponse(confirmed: true));
@@ -76,6 +76,7 @@ class PreferencesViewModel extends FutureViewModel {
   }
 
   Future setValues(AnimalProfileDetailModelResponse response) async {
+
     _friendlinessWithHumans =
         response.animalprofileModel!.friendlinessWithHumans ?? 0;
     _friendlinessWithAnimals =
@@ -109,12 +110,12 @@ class PreferencesViewModel extends FutureViewModel {
     notifyListeners();
     EditAnimalProfileDetailsBody body = EditAnimalProfileDetailsBody(
       _petId,
-      null,
-      null,
-      null,
-      null,
-      null,
+      0,
       _friendlinessWithAnimals,
+      "0",
+      "0",
+      "0",
+      "0",
     );
 
     var result =
@@ -130,12 +131,12 @@ class PreferencesViewModel extends FutureViewModel {
     notifyListeners();
     EditAnimalProfileDetailsBody body = EditAnimalProfileDetailsBody(
       _petId,
-      null,
-      null,
-      null,
-      null,
       _friendlinessWithHumans,
-      null,
+      0,
+      "0",
+      "0",
+      "0",
+      "0",
     );
 
     var result =

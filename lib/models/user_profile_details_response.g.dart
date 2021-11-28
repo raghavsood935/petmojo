@@ -13,19 +13,18 @@ _$_UserProfileDetailsResponse _$$_UserProfileDetailsResponseFromJson(
           ? null
           : UserDetailsModelResponse.fromJson(
               json['user_details'] as Map<String, dynamic>),
-      myAnimals: (json['newAnimalArr'] as List<dynamic>?)
-          ?.map(
-              (e) => MyAnimalModelResponse.fromJson(e as Map<String, dynamic>))
-          .toList(),
       totalFollowers: json['totalFollowers'] as int?,
       totalFollowings: json['totalFollowings'] as int?,
+      totalLikes: json['totalLikes'] as int?,
+      totalPosts: json['totalPosts'] as int?,
     );
 
 Map<String, dynamic> _$$_UserProfileDetailsResponseToJson(
         _$_UserProfileDetailsResponse instance) =>
     <String, dynamic>{
       'user_details': instance.userDetailsModel,
-      'newAnimalArr': instance.myAnimals,
       'totalFollowers': instance.totalFollowers,
       'totalFollowings': instance.totalFollowings,
+      'totalLikes': instance.totalLikes,
+      'totalPosts': instance.totalPosts,
     };

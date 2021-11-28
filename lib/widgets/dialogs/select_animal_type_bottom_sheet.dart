@@ -78,9 +78,11 @@ class SelectAnimalTypeBottomSheet extends StatelessWidget {
                 var result = await _bottomSheetService.showCustomSheet(
                   variant: BottomSheetType.SelectOtherAnimalTypeBottomSheet,
                 );
-                if (result!.confirmed) {
-                  onDialogTap(
-                      SheetResponse(confirmed: true, data: result.data));
+                if (result != null) {
+                  if (result.confirmed) {
+                    onDialogTap(
+                        SheetResponse(confirmed: true, data: result.data));
+                  }
                 }
               }),
         ],

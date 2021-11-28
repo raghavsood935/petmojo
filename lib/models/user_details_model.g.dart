@@ -14,10 +14,13 @@ _$_UserDetailsModelResponse _$$_UserDetailsModelResponseFromJson(
       Id: json['_id'] as String?,
       email: json['email'] as String?,
       username: json['username'] as String?,
-      v: json['__v'] as int?,
       avatar: json['avatar'] as String?,
       bio: json['bio'] as String?,
       fullName: json['fullName'] as String?,
+      listOfPets: (json['pets'] as List<dynamic>?)
+          ?.map((e) =>
+              PetBasicDetailsResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$_UserDetailsModelResponseToJson(
@@ -28,8 +31,8 @@ Map<String, dynamic> _$$_UserDetailsModelResponseToJson(
       '_id': instance.Id,
       'email': instance.email,
       'username': instance.username,
-      '__v': instance.v,
       'avatar': instance.avatar,
       'bio': instance.bio,
       'fullName': instance.fullName,
+      'pets': instance.listOfPets,
     };

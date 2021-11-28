@@ -1,4 +1,10 @@
+//if empty profile image for that this image url
+String emptyProfileImgUrl =
+    "https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_640.png";
+
 String lightSplashScreen = "assets/images/light_splash_screen.png";
+
+String logoWithText = "assets/images/logo_with_name.png";
 
 String cameraIcon = "assets/images/camera.svg";
 String editIcon = "assets/images/edit.svg";
@@ -26,6 +32,8 @@ String crossImgPath = "assets/images/cross.png";
 String groupOfPeoplesImgPath = "assets/images/group_of_peoples.png";
 String searchImgPath = "assets/images/Search.png";
 String addImgPath = "assets/images/Plus.png";
+String loginBannerImgPath = "assets/images/login_banner.png";
+String highDemandImgPath = "assets/images/high_demand.png";
 
 // animal images
 String birdFullImgPath = "assets/images/animals/bird.png";
@@ -51,6 +59,15 @@ String lostAndFoundAnimalImgPath =
 String adoptionImgPath = "assets/images/community_page_images/adoption.png";
 String eventsImgPath = "assets/images/community_page_images/events.png";
 String blogImgPath = "assets/images/community_page_images/blogs.png";
+
+//service page
+String dailyDogRunning =
+    "assets/images/service_page_images/daily_dog_running.png";
+String houseSitting = "assets/images/service_page_images/house_sitting.png";
+String petBoarding = "assets/images/service_page_images/pet_boarding.png";
+String vetConsultation =
+    "assets/images/service_page_images/vet_consultation.png";
+String petGrooming = "assets/images/service_page_images/pet_grooming.png";
 
 //animal type images
 String alpacaImgPath = "assets/images/animal_type_images/alpaca.png";

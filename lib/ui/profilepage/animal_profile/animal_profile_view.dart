@@ -20,7 +20,7 @@ class AnimalProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<AnimalProfileViewModel>.reactive(
       viewModelBuilder: () => AnimalProfileViewModel(),
-      onModelReady: (model) => model.getAnimalDetails(petId),
+      onModelReady: (model) => model.init(petId),
       builder: (context, model, child) => Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
@@ -69,7 +69,6 @@ class AnimalProfileView extends StatelessWidget {
                           ),
                         ),
                       ),
-
                       Positioned(
                         top: 30,
                         right: 20,
@@ -80,14 +79,15 @@ class AnimalProfileView extends StatelessWidget {
                       ),
 
                       Positioned(
-                          top: 30,
-                          left: 20,
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.arrow_back_outlined,
-                            ),
-                            onPressed: model.goBack,
-                          )),
+                        top: 30,
+                        left: 20,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.arrow_back_outlined,
+                          ),
+                          onPressed: model.goBack,
+                        ),
+                      ),
                       // for main contents at center
                       Positioned(
                           child: Column(
@@ -186,9 +186,12 @@ class AnimalProfileView extends StatelessWidget {
                           ),
                           verticalSpaceSmall,
                           // action text
-                          AppText.caption(
-                            addMyGuardian,
-                            color: colors.primary,
+                          GestureDetector(
+                            child: AppText.caption(
+                              addMyGuardian,
+                              color: colors.primary,
+                            ),
+                            onTap: model.goToAddGuardiansAndRelations,
                           ),
                           spacedDividerSmall,
                           // post ,follower,following,hearts counts

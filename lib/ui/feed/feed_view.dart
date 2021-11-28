@@ -121,13 +121,13 @@ Widget rowItem(bool isCreateOne, String name, String url) {
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       SizedBox(
-        height: 50,
-        width: 50,
+        height: 60,
+        width: 60,
         child: Stack(
           children: [
             Positioned(
               child: CustomCircularAvatar(
-                radius: 25.0,
+                radius: 30.0,
                 imgPath: url,
               ),
             ),
@@ -204,7 +204,7 @@ Widget postItem(BuildContext context, FeedPostModel model,
         Row(
           children: [
             CustomCircularAvatar(
-              radius: 18.0,
+              radius: 20.0,
               imgPath: model.profileImgUrl,
             ),
             horizontalSpaceSmall,

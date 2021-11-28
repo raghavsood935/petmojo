@@ -5,13 +5,19 @@ import 'package:retrofit/http.dart';
 import 'package:tamely/models/animal_profile_create_resopnse.dart';
 import 'package:tamely/models/animal_profile_detail_model.dart';
 import 'package:tamely/models/common_response.dart';
+import 'package:tamely/models/edit_response.dart';
+import 'package:tamely/models/list_of_post_response.dart';
+import 'package:tamely/models/list_of_profile_response.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/models/params/change_bio_avatar_body.dart';
+import 'package:tamely/models/params/edit_animal_profile_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_details_body.dart';
 import 'package:tamely/models/params/login_body.dart';
 import 'package:tamely/models/params/profile_create_body.dart';
 import 'package:tamely/models/params/register_body.dart';
 import 'package:tamely/models/params/reset_password_body.dart';
+import 'package:tamely/models/params/send_follow_request_body/send_follow_request_body.dart';
+import 'package:tamely/models/params/show_people_to_follow_body.dart';
 import 'package:tamely/models/params/social_login_body.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
 import 'package:tamely/models/user_response_models.dart';
@@ -54,9 +60,16 @@ class Apis {
   static const String userProfileDetails = '/user/userDetails';
   static const String userPosts = '/post/myPosts/0';
   static const String addBioAvatar = '/user/bioAndAvatar';
+
+  //animal profile
   static const String animalProfileCreate = '/animal/register';
   static const String animalProfileDetails = '/animal/getPetDetails';
-  static const String animalProfileEditDetails = '/animal/editPet';
+  static const String animalProfileEdit = '/animal/editPet';
+  static const String animalProfileEditDetails = '/animal/editPetHabits';
+
+  //complete profile
+  static const String showPeopleToFollow = '/user/showPeopleToFollow';
+  static const String sendFollowRequest = '/post/sendfollowrequest';
 
   // Booking Appointments
 
@@ -135,7 +148,7 @@ abstract class ApiClient {
   Future<UserProfileDetailsResponse> getUserProfileDetails();
 
   @GET(Apis.userPosts)
-  Future<CommonResponse> getUserPosts();
+  Future<ListOfPostResponse> getUserPosts();
 
   @PUT(Apis.addBioAvatar)
   Future<CommonResponse> changeBioAndAvatar(
@@ -161,13 +174,47 @@ abstract class ApiClient {
     @Part(name: "location") String location,
   );
 
+  @PUT(Apis.animalProfileEdit)
+  Future<EditResponse> editAnimalProfile(
+    @Part(name: "name") String name,
+    @Part(name: "username") String username,
+    @Part(name: "avatar") String avatar,
+    @Part(name: "category") String category,
+    @Part(name: "bio") String bio,
+    @Part(name: "animalType") String animalType,
+    @Part(name: "gender") String gender,
+    @Part(name: "breed") String breed,
+    @Part(name: "age") String age,
+    @Part(name: "mating") bool mating,
+    @Part(name: "adoption") bool adoption,
+    @Part(name: "playBuddies") bool playBuddies,
+    @Part(name: "playFrom") String playFrom,
+    @Part(name: "playTo") String playTo,
+    @Part(name: "location") String location,
+    @Part(name: "servicePet") bool servicePet,
+    @Part(name: "spayed") bool spayed,
+    @Part(name: "animalId") String animalId,
+  );
+
   @POST(Apis.animalProfileDetails)
   Future<AnimalProfileDetailModelResponse> getAnimalProfileDetail(
       @Body() AnimalProfileDetailsBody animalProfileDetailsBody);
 
-  @POST(Apis.animalProfileDetails)
+  // @PUT(Apis.animalProfileEdit)
+  // Future<EditResponse> editAnimalProfile(
+  //     @Body() EditAnimalProfileBody editAnimalProfileBody);
+
+  @POST(Apis.animalProfileEditDetails)
   Future<AnimalProfileDetailModelResponse> editAnimalProfileDetails(
       @Body() EditAnimalProfileDetailsBody editAnimalProfileDetailsBody);
+
+  @GET(Apis.showPeopleToFollow)
+  Future<ListOfProfilesResponse> showPeoplesToFollow(
+      @Body() ShowPeopleToFollowBody showPeopleToFollowBody);
+
+  @POST(Apis.sendFollowRequest)
+  Future<EditResponse> sendFollowRequest(
+      @Body() SendFollowRequestBody sendFollowRequestBody);
 
   // Booking Appointments
 

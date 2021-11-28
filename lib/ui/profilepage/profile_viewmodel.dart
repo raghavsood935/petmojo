@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
@@ -11,15 +10,12 @@ import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/models/application_models.dart';
-import 'package:tamely/models/common_response.dart';
-import 'package:tamely/models/my_animal_model.dart';
-import 'package:tamely/models/my_animals_model.dart';
+import 'package:tamely/models/list_of_post_response.dart';
+import 'package:tamely/models/pet_basic_details_response.dart';
+import 'package:tamely/models/post_response.dart';
 import 'package:tamely/models/user_details_model.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
-import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/services/user_service.dart';
-import 'package:tamely/ui/profilepage/post_tabs/mentions_post_tab.dart';
-import 'package:tamely/ui/profilepage/post_tabs/my_posts_tab.dart';
 
 class ProfileViewModel extends BaseViewModel {
   final log = getLogger('CreateAnimalProfileView');
@@ -31,16 +27,6 @@ class ProfileViewModel extends BaseViewModel {
 
   String? _animalProfileCreateView = Routes.createAnimalPageView;
   dynamic _destinationArguments;
-
-  List<Widget> _tabs = [MyPostsTabView(), MentionsPostTabView()];
-  List<Tab> _tabsTitle = [
-    Tab(
-      text: "My posts",
-    ),
-    Tab(
-      text: "Mentions",
-    )
-  ];
 
   Future _createAnimalProfileView() async {
     if (_animalProfileCreateView != null) {
@@ -67,6 +53,11 @@ class ProfileViewModel extends BaseViewModel {
     }
   }
 
+  Future init() async {
+    getUserProfileDetails();
+    getUserPosts();
+  }
+
   Future getUserProfileDetails() async {
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
       _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
@@ -85,15 +76,18 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   Future getUserPosts() async {
-    BaseResponse<CommonResponse> response = await _tamelyApi.getUserPosts();
+    BaseResponse<ListOfPostResponse> response = await _tamelyApi.getUserPosts();
     if (response.getException != null) {
       ServerError error = response.getException as ServerError;
       _snackBarService.showSnackbar(message: error.getErrorMessage());
     } else if (response.data != null) {
       log.d(response.data!.toString());
+      _listOfPosts.addAll(response.data!.listOfPosts ?? []);
+      notifyListeners();
     }
   }
 
+  String _Id = "";
   String _profilename = "";
   String _username = "";
   String _profileImgUrl = "";
@@ -110,9 +104,12 @@ class ProfileViewModel extends BaseViewModel {
   bool isMyAnimalsVisibile = false;
   bool _profileCompleted = false;
 
-  List<MyAnimalModelResponse> _listOfMyAnimals = [];
+  List<PetBasicDetailsResponse> _listOfMyAnimals = [];
+  List<PostResponse> _listOfPosts = [];
 
-  List<MyAnimalModelResponse> get listOfMyAnimals => _listOfMyAnimals;
+  List<PetBasicDetailsResponse> get listOfMyAnimals => _listOfMyAnimals;
+
+  List<PostResponse> get listOfPosts => _listOfPosts;
 
   String get profilename => _profilename;
 
@@ -140,10 +137,6 @@ class ProfileViewModel extends BaseViewModel {
 
   bool get profileCompleted => _profileCompleted;
 
-  List<Widget> get tabs => _tabs;
-
-  List<Tab> get tabsTitle => _tabsTitle;
-
   void myAnimalVisible() {
     isMyAnimalsVisibile = !isMyAnimalsVisibile;
     notifyListeners();
@@ -154,7 +147,8 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   void goToFollowPeopleProfileAction() async {
-    await _navigationService.navigateTo(Routes.followPeopleProfileActionView);
+    await _navigationService.navigateTo(Routes.followPeopleProfileActionView,
+        arguments: FollowPeopleProfileActionViewArguments(id: _Id));
   }
 
   void goToCreateAnimalProfileView() async {
@@ -195,15 +189,18 @@ class ProfileViewModel extends BaseViewModel {
 
     UserDetailsModelResponse userDetailsModelResponse =
         response.userDetailsModel!;
+    _Id = userDetailsModelResponse.Id ?? "";
     _profilename = userDetailsModelResponse.username ?? "";
     _username = userDetailsModelResponse.fullName ?? "";
     _profileImgUrl = userDetailsModelResponse.avatar ?? "";
     _shortBio = userDetailsModelResponse.bio ?? "";
-    _noOfAnimals = response.myAnimals!.length;
+    _noOfAnimals = userDetailsModelResponse.listOfPets!.length;
     _noOfFollowers = response.totalFollowers!;
     _noOfFollowing = response.totalFollowings!;
+    _noOfPosts = response.totalPosts ?? 0;
+    _noOfHearts = response.totalLikes ?? 0;
 
-    _listOfMyAnimals.addAll(response.myAnimals!);
+    _listOfMyAnimals.addAll(userDetailsModelResponse.listOfPets ?? []);
 
     if (_shortBio.isNotEmpty) {
       _completedProfileStepCount++;
@@ -214,6 +211,6 @@ class ProfileViewModel extends BaseViewModel {
     }
 
     notifyListeners();
-    _navigationService.back();
+    _dialogService.completeDialog(DialogResponse(confirmed: true));
   }
 }

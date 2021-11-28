@@ -9,14 +9,20 @@ import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/models/animal_profile_create_resopnse.dart';
 import 'package:tamely/models/animal_profile_detail_model.dart';
+import 'package:tamely/models/edit_response.dart';
+import 'package:tamely/models/list_of_post_response.dart';
+import 'package:tamely/models/list_of_profile_response.dart';
 import 'package:tamely/models/params/animal_profile_create_body.dart';
 import 'package:tamely/models/common_response.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
+import 'package:tamely/models/params/edit_animal_profile_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_details_body.dart';
 import 'package:tamely/models/params/login_body.dart';
 import 'package:tamely/models/params/profile_create_body.dart';
 import 'package:tamely/models/params/register_body.dart';
 import 'package:tamely/models/params/reset_password_body.dart';
+import 'package:tamely/models/params/send_follow_request_body/send_follow_request_body.dart';
+import 'package:tamely/models/params/show_people_to_follow_body.dart';
 import 'package:tamely/models/params/social_login_body.dart';
 import 'package:tamely/models/params/change_bio_avatar_body.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
@@ -290,8 +296,8 @@ class TamelyApi {
     return BaseResponse()..data = response;
   }
 
-  Future<BaseResponse<CommonResponse>> getUserPosts() async {
-    CommonResponse response;
+  Future<BaseResponse<ListOfPostResponse>> getUserPosts() async {
+    ListOfPostResponse response;
     try {
       response = await getApiClient(true).getUserPosts();
     } catch (error, stacktrace) {
@@ -384,6 +390,96 @@ class TamelyApi {
     try {
       response = await getApiClient(true)
           .editAnimalProfileDetails(editAnimalProfileDetailsBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+  //
+  // Future<BaseResponse<EditResponse>> editAnimalProfile(
+  //     EditAnimalProfileBody editAnimalProfileBody) async {
+  //   EditResponse response;
+  //   try {
+  //     response =
+  //         await getApiClient(true).editAnimalProfile(editAnimalProfileBody);
+  //   } catch (error, stacktrace) {
+  //     print("Exception occurred: $error stackTrace: $stacktrace");
+  //     return BaseResponse()
+  //       ..setException(ServerError.withError(error: error as DioError));
+  //   }
+  //   return BaseResponse()..data = response;
+  // }
+
+  Future<BaseResponse<EditResponse>> editAnimalProfile(
+      String name,
+      String username,
+      String avatar,
+      String category,
+      String bio,
+      String animalType,
+      String gender,
+      String breed,
+      String age,
+      bool mating,
+      bool adoption,
+      bool playBuddies,
+      String playFrom,
+      String playTo,
+      String location,
+      bool servicePet,
+      bool spayed,
+      String animalId) async {
+    EditResponse response;
+    try {
+      response = await getApiClient(true).editAnimalProfile(
+          name,
+          username,
+          avatar,
+          category,
+          bio,
+          animalType,
+          gender,
+          breed,
+          age,
+          mating,
+          adoption,
+          playBuddies,
+          playFrom,
+          playTo,
+          location,
+          servicePet,
+          spayed,
+          animalId);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  Future<BaseResponse<ListOfProfilesResponse>> showPeoplesToFollow(
+      ShowPeopleToFollowBody showPeopleToFollowBody) async {
+    ListOfProfilesResponse response;
+    try {
+      response =
+          await getApiClient(true).showPeoplesToFollow(showPeopleToFollowBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  Future<BaseResponse<EditResponse>> sendFollowRequest(
+      SendFollowRequestBody sendFollowRequestBody) async {
+    EditResponse response;
+    try {
+      response =
+          await getApiClient(true).sendFollowRequest(sendFollowRequestBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()

@@ -20,7 +20,12 @@ import '../ui/appointments/appointments_view.dart';
 import '../ui/bookings/bookings_view.dart';
 import '../ui/bookmarks/bookmarks_view.dart';
 import '../ui/chat/chat_view.dart';
+import '../ui/community/community_main_view/adoption/adoption_view.dart';
 import '../ui/community/community_main_view/community_main_view.dart';
+import '../ui/community/community_main_view/mating/mating_view.dart';
+import '../ui/community/community_main_view/play_buddies/play_buddies_view.dart';
+import '../ui/community/community_main_view/strays_near_you/strays_near_you_map_page/strays_near_you_map_view.dart';
+import '../ui/community/community_main_view/strays_near_you/strays_near_you_view.dart';
 import '../ui/community/first_time_views/community_choose_interests/community_choose_interests_view.dart';
 import '../ui/dashboard/dashboard.dart';
 import '../ui/dogrunners/dogrunners_view.dart';
@@ -41,6 +46,7 @@ import '../ui/post/camera_screen.dart';
 import '../ui/profile/profile_create_view.dart';
 import '../ui/profilepage/animal_profile/animal_profile_view.dart';
 import '../ui/profilepage/animal_profile/basic_info/basic_info_view.dart';
+import '../ui/profilepage/animal_profile/guardians_and_relations/guardians_and_relations.dart';
 import '../ui/profilepage/completed_profile/add_details_profile_view.dart';
 import '../ui/profilepage/completed_profile/follow_people_action_view.dart';
 import '../ui/profilepage/create_animal_profile/create_animal_page_viewe.dart';
@@ -79,6 +85,13 @@ class Routes {
   static const String cameraScreen = '/camera-screen';
   static const String createGroupView = '/create-group-view';
   static const String groupInfoView = '/group-info-view';
+  static const String guardiansAndRelatedAnimalsView =
+      '/guardians-and-related-animals-view';
+  static const String straysNearYouView = '/strays-near-you-view';
+  static const String strayNearYouMapView = '/stray-near-you-map-view';
+  static const String playBuddiesView = '/play-buddies-view';
+  static const String matingView = '/mating-view';
+  static const String adoptionView = '/adoption-view';
   static const String settingsHumanView = '/settings-human-view';
   static const String settingsAnimalView = '/settings-animal-view';
   static const String feedbackView = '/feedback-view';
@@ -119,8 +132,15 @@ class Routes {
     cameraScreen,
     createGroupView,
     groupInfoView,
+    guardiansAndRelatedAnimalsView,
+    straysNearYouView,
+    strayNearYouMapView,
+    playBuddiesView,
+    matingView,
+    adoptionView,
     settingsHumanView,
     settingsAnimalView,
+    feedbackView,
     bookingsView,
     bookmarksView,
     helpView,
@@ -166,6 +186,13 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.cameraScreen, page: CameraScreen),
     RouteDef(Routes.createGroupView, page: CreateGroupView),
     RouteDef(Routes.groupInfoView, page: GroupInfoView),
+    RouteDef(Routes.guardiansAndRelatedAnimalsView,
+        page: GuardiansAndRelatedAnimalsView),
+    RouteDef(Routes.straysNearYouView, page: StraysNearYouView),
+    RouteDef(Routes.strayNearYouMapView, page: StrayNearYouMapView),
+    RouteDef(Routes.playBuddiesView, page: PlayBuddiesView),
+    RouteDef(Routes.matingView, page: MatingView),
+    RouteDef(Routes.adoptionView, page: AdoptionView),
     RouteDef(Routes.settingsHumanView, page: SettingsHumanView),
     RouteDef(Routes.settingsAnimalView, page: SettingsAnimalView),
     RouteDef(Routes.feedbackView, page: FeedbackView),
@@ -282,8 +309,13 @@ class StackedRouter extends RouterBase {
       );
     },
     FollowPeopleProfileActionView: (data) {
+      var args =
+          data.getArgs<FollowPeopleProfileActionViewArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => const FollowPeopleProfileActionView(),
+        builder: (context) => FollowPeopleProfileActionView(
+          key: args.key,
+          id: args.id,
+        ),
         settings: data,
       );
     },
@@ -292,7 +324,11 @@ class StackedRouter extends RouterBase {
         orElse: () => CreateAnimalPageViewArguments(),
       );
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => CreateAnimalPageView(key: args.key),
+        builder: (context) => CreateAnimalPageView(
+          key: args.key,
+          petId: args.petId,
+          isEdit: args.isEdit,
+        ),
         settings: data,
       );
     },
@@ -356,6 +392,45 @@ class StackedRouter extends RouterBase {
     GroupInfoView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const GroupInfoView(),
+        settings: data,
+      );
+    },
+    GuardiansAndRelatedAnimalsView: (data) {
+      var args = data.getArgs<GuardiansAndRelatedAnimalsViewArguments>(
+        orElse: () => GuardiansAndRelatedAnimalsViewArguments(),
+      );
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => GuardiansAndRelatedAnimalsView(key: args.key),
+        settings: data,
+      );
+    },
+    StraysNearYouView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const StraysNearYouView(),
+        settings: data,
+      );
+    },
+    StrayNearYouMapView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const StrayNearYouMapView(),
+        settings: data,
+      );
+    },
+    PlayBuddiesView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const PlayBuddiesView(),
+        settings: data,
+      );
+    },
+    MatingView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const MatingView(),
+        settings: data,
+      );
+    },
+    AdoptionView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const AdoptionView(),
         settings: data,
       );
     },
@@ -558,10 +633,19 @@ class AddDetailsProfileViewArguments {
       {this.key, required this.lastUrl, required this.lastBio});
 }
 
+/// FollowPeopleProfileActionView arguments holder class
+class FollowPeopleProfileActionViewArguments {
+  final Key? key;
+  final String id;
+  FollowPeopleProfileActionViewArguments({this.key, required this.id});
+}
+
 /// CreateAnimalPageView arguments holder class
 class CreateAnimalPageViewArguments {
   final Key? key;
-  CreateAnimalPageViewArguments({this.key});
+  final String? petId;
+  final bool? isEdit;
+  CreateAnimalPageViewArguments({this.key, this.petId, this.isEdit});
 }
 
 /// AnimalProfileView arguments holder class
@@ -582,6 +666,12 @@ class AnimalBasicInfoArguments {
 class CameraScreenArguments {
   final List<CameraDescription> cameras;
   CameraScreenArguments({required this.cameras});
+}
+
+/// GuardiansAndRelatedAnimalsView arguments holder class
+class GuardiansAndRelatedAnimalsViewArguments {
+  final Key? key;
+  GuardiansAndRelatedAnimalsViewArguments({this.key});
 }
 
 /// DogRunningBookingView arguments holder class

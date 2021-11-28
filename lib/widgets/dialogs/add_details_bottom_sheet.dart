@@ -35,6 +35,7 @@ class _AddDetailsBottomSheetState extends State<AddDetailsBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
+    print("INSIDE THE WIDGET");
     return ViewModelBuilder<AddDetailsBottomSheetViewModel>.reactive(
       viewModelBuilder: () => AddDetailsBottomSheetViewModel(),
       builder: (context, model, child) => Container(
@@ -46,35 +47,27 @@ class _AddDetailsBottomSheetState extends State<AddDetailsBottomSheet> {
             verticalSpaceTiny,
             AppInputField(controller: tc),
             verticalSpaceRegular,
-            Container(
-              width: double.maxFinite,
-              margin: const EdgeInsets.all(16),
-              child: ElevatedButton(
-                onPressed: widget.onDialogTap(
-                  SheetResponse(
-                    confirmed: true,
-                    data: tc.text,
-                  ),
+            GestureDetector(
+              child: Container(
+                width: double.maxFinite,
+                padding: EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  color: colors.primary,
                 ),
                 child: model.isLoading
-                    ? CircularProgressIndicator(
-                        color: colors.white,
+                    ? Center(
+                        child: CircularProgressIndicator(
+                          color: colors.white,
+                        ),
                       )
-                    : AppText.subheading("Save", color: Colors.white),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(colors.primary),
-                  padding: MaterialStateProperty.all(const EdgeInsets.all(12)),
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                  ),
-                ),
+                    : AppText.subheading(
+                        "Save",
+                        textAlign: TextAlign.center,
+                        color: Colors.white,
+                      ),
               ),
-            ),
-            MainButtonWidget(
-              onMainButtonTapped: () => model.onSave(widget, tc.text),
-              mainButtonTitle: widget.sheetRequest.mainButtonTitle!,
+              onTap: () => model.onSave(widget, tc.text),
             ),
           ],
         ),
