@@ -102,14 +102,14 @@ class TamelyOverviewView extends StatelessWidget {
                         runSpacing: 10.0,
                         children: [
                           ImageDisplay(
-                            imageUrl: "assets/images/pet_foot_print.png",
+                            imageUrl: "assets/images/dog_pic_one.png",
                           ),
-                          ImageDisplay(
-                            imageUrl: "assets/images/pet_foot_print.png",
-                          ),
-                          ImageDisplay(
-                            imageUrl: "assets/images/pet_foot_print.png",
-                          ),
+                          // ImageDisplay(
+                          //   imageUrl: "assets/images/pet_foot_print.png",
+                          // ),
+                          // ImageDisplay(
+                          //   imageUrl: "assets/images/pet_foot_print.png",
+                          // ),
                         ],
                       ),
                       verticalSpaceSmall,

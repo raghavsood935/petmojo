@@ -327,14 +327,13 @@ class AppointmentDetailsView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             model.serviceCompleted
-                                ? SvgPicture.asset(
-                                    "assets/images/tick_square.svg",
+                                ? Icon(
+                                    Icons.check_circle,
+                                    color: colors.green30,
                                   )
-                                : SvgPicture.asset(
-                                    "assets/images/close_square.svg",
-                                    height: 22,
-                                    width: 22,
-                                    color: colors.primary,
+                                : Icon(
+                                    Icons.error,
+                                    color: colors.white,
                                   ),
                             horizontalSpaceSmall,
                             AppText.caption(
