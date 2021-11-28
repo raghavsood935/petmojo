@@ -478,6 +478,24 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<GetPaymentDetailsResponse> getPaymentDetails(
+      getPaymentDetailsBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(getPaymentDetailsBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetPaymentDetailsResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/serviceBooking/generateOrderId',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GetPaymentDetailsResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<MyAppointmentsResponse> getActiveAppointments() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

@@ -80,9 +80,20 @@ class PastAppointmentsViewModel extends FutureViewModel<void>
                 PastAppointmentClass(dogs: []);
             newAppointment.appointmentId = each.appointmentId;
             newAppointment.bookingId = each.bookingDetails!.bookingId;
-            newAppointment.userName = "each.userName";
-            newAppointment.userPicture =
-                "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg";
+
+            try {
+              newAppointment.userName = each.user!.fullName!;
+            } catch (e) {
+              newAppointment.userName = "";
+            }
+
+            try {
+              newAppointment.userPicture = each.user!.avatar!;
+            } catch (e) {
+              newAppointment.userPicture =
+                  "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg";
+            }
+
             newAppointment.serviceName =
                 each.serviceType == 0 ? dogWalkingTitle : dogWalkingTitle;
             newAppointment.subscriptionType =

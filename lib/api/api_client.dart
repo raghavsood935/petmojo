@@ -6,12 +6,14 @@ import 'package:tamely/models/animal_profile_create_resopnse.dart';
 import 'package:tamely/models/animal_profile_detail_model.dart';
 import 'package:tamely/models/common_response.dart';
 import 'package:tamely/models/edit_response.dart';
+import 'package:tamely/models/get_payment_details_response.dart';
 import 'package:tamely/models/list_of_post_response.dart';
 import 'package:tamely/models/list_of_profile_response.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/models/params/change_bio_avatar_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_details_body.dart';
+import 'package:tamely/models/params/get_payment_details_body.dart';
 import 'package:tamely/models/params/login_body.dart';
 import 'package:tamely/models/params/profile_create_body.dart';
 import 'package:tamely/models/params/register_body.dart';
@@ -70,6 +72,7 @@ class Apis {
   //complete profile
   static const String showPeopleToFollow = '/user/showPeopleToFollow';
   static const String sendFollowRequest = '/post/sendfollowrequest';
+  static const String getPaymentDetails = '/serviceBooking/generateOrderId';
 
   // Booking Appointments
 
@@ -225,6 +228,11 @@ abstract class ApiClient {
   // -- Booking A Run
   @POST(Apis.bookARun)
   Future<SendDataResponse> bookARun(@Body() BookARunBody bookARunBody);
+
+  // -- Get Payment details
+  @POST(Apis.getPaymentDetails)
+  Future<GetPaymentDetailsResponse> getPaymentDetails(
+      @Body() GetPaymentDetailsBody getPaymentDetailsBody);
 
   // My Bookings Flow
 

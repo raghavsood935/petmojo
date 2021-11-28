@@ -97,6 +97,81 @@ class SelectPackageView extends ViewModelWidget<DogRunningBookingViewModel> {
             ),
             verticalSpaceMedium,
 
+            // offers
+            Visibility(
+              visible: !model.isOfferValid,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: AppText.body2("Offers"),
+                    ),
+                    verticalSpaceTiny,
+                    AppInputField(
+                      hint: "Enter Promo Code",
+                      controller: model.promoCodeController,
+                      onChanged: model.promoCodeValidation,
+                      //errorText: model.validUser(emailController),
+                      textInputType: TextInputType.name,
+                      textCapitalization: TextCapitalization.none,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            !model.isOfferValid
+                ? const Divider(
+                    color: colors.kcLightGreyBackground,
+                    height: 5.0,
+                    thickness: 5.0,
+                  )
+                : Container(),
+            !model.isOfferValid ? verticalSpaceMedium : Container(),
+
+            // Offer Done
+            Visibility(
+              visible: model.isOfferValid,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppText.body2("Offers"),
+                    verticalSpaceSmall,
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.check_circle_outline_rounded,
+                          color: colors.primary,
+                        ),
+                        horizontalSpaceSmall,
+                        AppText.body2("Promo ${model.promoCode} Applied"),
+                      ],
+                    ),
+                    verticalSpaceSmall,
+                    Column(
+                      children: [
+                        AppText.body2("You saved"),
+                        AppText.body2("INR ${model.savedAmount}"),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            model.isOfferValid ? verticalSpaceMedium : Container(),
+            model.isOfferValid
+                ? const Divider(
+                    color: colors.kcLightGreyBackground,
+                    height: 5.0,
+                    thickness: 5.0,
+                  )
+                : Container(),
+            model.isOfferValid ? verticalSpaceMedium : Container(),
+
             // Start Date
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -104,12 +179,12 @@ class SelectPackageView extends ViewModelWidget<DogRunningBookingViewModel> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   AppText.body2(startDateLabel),
-                  verticalSpaceSmall,
+                  verticalSpaceTiny,
                   Row(
                     children: [
-                      Image.asset(
-                        "assets/images/Calendar.png",
-                      ),
+                      // Image.asset(
+                      //   "assets/images/Calendar.png",
+                      // ),
                       horizontalSpaceSmall,
                       GestureDetector(
                         onTap: () =>
@@ -230,11 +305,11 @@ class SelectPackageView extends ViewModelWidget<DogRunningBookingViewModel> {
                         selected: model.selectedWeekdayFive,
                         onTapped: model.setSelectedWeekday5,
                       ),
-                      TimingItems(
-                        timing: timingsSix,
-                        selected: model.selectedWeekdaySix,
-                        onTapped: model.setSelectedWeekday6,
-                      ),
+                      // TimingItems(
+                      //   timing: timingsSix,
+                      //   selected: model.selectedWeekdaySix,
+                      //   onTapped: model.setSelectedWeekday6,
+                      // ),
                     ],
                   ),
                   model.dayFrequency == 2 ? verticalSpaceMedium : Container(),
@@ -273,11 +348,11 @@ class SelectPackageView extends ViewModelWidget<DogRunningBookingViewModel> {
                           selected: model.selectedWeekendFive,
                           onTapped: model.setSelectedWeekend5,
                         ),
-                        TimingItems(
-                          timing: timingsSix,
-                          selected: model.selectedWeekendSix,
-                          onTapped: model.setSelectedWeekend6,
-                        ),
+                        // TimingItems(
+                        //   timing: timingsSix,
+                        //   selected: model.selectedWeekendSix,
+                        //   onTapped: model.setSelectedWeekend6,
+                        // ),
                       ],
                     ),
                   ),

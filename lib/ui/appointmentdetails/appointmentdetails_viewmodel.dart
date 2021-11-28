@@ -5,6 +5,7 @@ import 'package:tamely/api/api_service.dart';
 import 'package:tamely/api/base_response.dart';
 import 'package:tamely/api/server_error.dart';
 import 'package:tamely/enum/BottomSheetType.dart';
+import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/enum/selectedStart.dart';
 import 'package:tamely/enum/walkNumber.dart';
 import 'package:tamely/models/get_appointment_details_response.dart';
@@ -35,6 +36,7 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
   final userService = locator<UserService>();
   final snackBarService = locator<SnackbarService>();
   final _tamelyApi = locator<TamelyApi>();
+  final _dialogService = locator<DialogService>();
 
   final String appointmentId;
   AppointmentDetailsViewModel(this.appointmentId);
@@ -401,6 +403,7 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
     print("4");
     try {
       if (await Util.checkInternetConnectivity()) {
+        _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
         GetAppointmentDetailsBody registerBody =
             GetAppointmentDetailsBody(appointmentId);
         BaseResponse<GetAppointmentDetailsResponse> result =
@@ -498,10 +501,21 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
           _numberOfDays = result.data!.bookingDetails!.package!.numberOfDays!;
           _numberOfWalk = result.data!.bookingDetails!.package!.numberOfTimes!;
           notifyListeners();
-          //change
-          _userName = result.data!.appointmentId!;
 
-          _userId = result.data!.userId!;
+          try {
+            _userName = result.data!.user!.fullName!;
+          } catch (e) {
+            _userName = "";
+          }
+
+          try {
+            _userPicture = result.data!.user!.avatar!;
+          } catch (e) {
+            _userPicture =
+                "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg";
+          }
+
+          _userId = result.data!.user!.userId!;
           _serviceProviderId = result.data!.serviceProviderId!;
 
           _walkOneTime = result.data!.bookingDetails!.run1Time!;
@@ -576,6 +590,7 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
 
           notifyListeners();
         }
+        _dialogService.completeDialog(DialogResponse(confirmed: true));
       } else {
         snackBarService.showSnackbar(message: "No Internet connection");
       }

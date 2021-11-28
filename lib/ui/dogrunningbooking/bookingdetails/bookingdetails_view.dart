@@ -45,6 +45,7 @@ class BookingDetailsView extends ViewModelWidget<DogRunningBookingViewModel> {
                   AppInputField(
                     hint: addressLineOneHint,
                     controller: model.addressLineOneController,
+                    onChanged: model.secondPageValidation,
                     //errorText: model.validUser(emailController),
                     textInputType: TextInputType.name,
                     textCapitalization: TextCapitalization.none,
@@ -64,6 +65,27 @@ class BookingDetailsView extends ViewModelWidget<DogRunningBookingViewModel> {
                   AppInputField(
                     hint: addressLineTwoHint,
                     controller: model.addressLineTwoController,
+                    onChanged: model.secondPageValidation,
+                    //errorText: model.validUser(phoneController),
+                    textInputType: TextInputType.name,
+                    textCapitalization: TextCapitalization.none,
+                  ),
+                  // Address 3
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: AppText.body1(
+                        addressLineThreeLabel,
+                        textAlign: TextAlign.start,
+                        color: colors.black,
+                      ),
+                    ),
+                  ),
+                  AppInputField(
+                    hint: addressLineThreeHint,
+                    controller: model.addressLineThreeController,
+                    onChanged: model.secondPageValidation,
                     //errorText: model.validUser(phoneController),
                     textInputType: TextInputType.name,
                     textCapitalization: TextCapitalization.none,
@@ -98,6 +120,7 @@ class BookingDetailsView extends ViewModelWidget<DogRunningBookingViewModel> {
                   AppInputField(
                     hint: phoneVerificationHint,
                     controller: model.phoneController,
+                    onChanged: model.secondPageValidation,
                     //errorText: model.validUser(emailController),
                     textInputType: TextInputType.phone,
                     textCapitalization: TextCapitalization.none,
@@ -151,6 +174,7 @@ class BookingDetailsView extends ViewModelWidget<DogRunningBookingViewModel> {
                   AppInputField(
                     hint: alternatePersonNameHint,
                     controller: model.alternateNameController,
+                    onChanged: model.secondPageValidation,
                     //errorText: model.validUser(emailController),
                     textInputType: TextInputType.name,
                     textCapitalization: TextCapitalization.none,
@@ -170,6 +194,7 @@ class BookingDetailsView extends ViewModelWidget<DogRunningBookingViewModel> {
                   AppInputField(
                     hint: alternatePersonPhoneHint,
                     controller: model.alternatePhoneController,
+                    onChanged: model.secondPageValidation,
                     //errorText: model.validUser(phoneController),
                     textInputType: TextInputType.phone,
                     textCapitalization: TextCapitalization.none,
