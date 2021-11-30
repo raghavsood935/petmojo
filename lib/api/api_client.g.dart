@@ -245,10 +245,26 @@ class _ApiClient implements ApiClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ListOfPostResponse>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/post/myPosts/0',
+                .compose(_dio.options, '/post/myPosts',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ListOfPostResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ListOfFeedPostResponse> getFeedPosts() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ListOfFeedPostResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/post/feed/0',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ListOfFeedPostResponse.fromJson(_result.data!);
     return value;
   }
 
@@ -441,6 +457,40 @@ class _ApiClient implements ApiClient {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = EditResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<CommonResponse> submitFeedback(submitFeedbackBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(submitFeedbackBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CommonResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/hamburger/submitFeedback',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = CommonResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<CommonResponse> getHelp(needHelpBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(needHelpBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CommonResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/hamburger/getHelp',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = CommonResponse.fromJson(_result.data!);
     return value;
   }
 

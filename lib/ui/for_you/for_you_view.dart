@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/ui/for_you/for_you_view_model.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/widgets/app_text.dart';
 
 class ForYouView extends StatelessWidget {
   final BuildContext menuScreenContext;
@@ -17,17 +19,26 @@ class ForYouView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ForYouViewModel>.reactive(
       viewModelBuilder: () => ForYouViewModel(),
-      builder: (context, model, child) => DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          appBar: TabBar(
-            tabs: model.tabsTitle,
-          ),
-          body: TabBarView(
-            children: model.tabs,
+
+      builder: (context, model, child) => Scaffold(
+        body: Center(
+          child: AppText.body1Bold(
+            "This page is under development",
+            color: colors.primary,
           ),
         ),
       ),
+      // builder: (context, model, child) => DefaultTabController(
+      //   length: 2,
+      //   child: Scaffold(
+      //     appBar: TabBar(
+      //       tabs: model.tabsTitle,
+      //     ),
+      //     body: TabBarView(
+      //       children: model.tabs,
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

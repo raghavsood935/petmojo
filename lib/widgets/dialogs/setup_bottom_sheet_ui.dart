@@ -9,6 +9,7 @@ import 'package:tamely/widgets/dialogs/select_animal_type_bottom_sheet.dart';
 import 'package:tamely/widgets/dialogs/select_other_animal_type_bottom_sheet.dart';
 
 import 'basic_bottom_sheet.dart';
+import 'cancel_subscription_bottom_sheet.dart';
 
 void setupBottomSheetUi() {
   var bottomSheetService = locator<BottomSheetService>();
@@ -45,6 +46,12 @@ void setupBottomSheetUi() {
             ),
     BottomSheetType.SelectBreedBottomSheet:
         (context, sheetRequest, completer) => SelectAnimalBreedBottomSheet(
+              sheetRequest: sheetRequest,
+              onDialogTap: completer,
+            ),
+
+    BottomSheetType.CancelSubscriptionBottomSheet:
+        (context, sheetRequest, completer) => CancelSubscriptionBottomSheet(
               sheetRequest: sheetRequest,
               onDialogTap: completer,
             ),

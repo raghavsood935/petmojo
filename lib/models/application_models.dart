@@ -9,12 +9,12 @@ class LocalUser with _$LocalUser {
 
   factory LocalUser({
     @JsonKey(name: "_id") String? id,
-    String? email,
-    String? username,
+    @JsonKey(name: "email") String? email,
+    @JsonKey(name: "username") String? username,
     String? fullName,
     String? bio,
     String? website,
-    @Default(false) bool confirmed,
+    @Default(false) @JsonKey(name: "confirmed") bool confirmed,
   }) = _User;
 
   factory LocalUser.fromJson(Map<String, dynamic> json) =>

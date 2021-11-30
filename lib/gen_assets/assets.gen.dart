@@ -12,6 +12,10 @@ import 'package:flutter/services.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/Calendar.png
+  AssetGenImage get calendar =>
+      const AssetGenImage('assets/images/Calendar.png');
+
   /// File path: assets/images/Plus.png
   AssetGenImage get plus => const AssetGenImage('assets/images/Plus.png');
 
@@ -50,6 +54,10 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/cross.png
   AssetGenImage get cross => const AssetGenImage('assets/images/cross.png');
+
+  /// File path: assets/images/dog_pic_one.png
+  AssetGenImage get dogPicOne =>
+      const AssetGenImage('assets/images/dog_pic_one.png');
 
   /// File path: assets/images/drawer.svg
   SvgGenImage get drawer => const SvgGenImage('assets/images/drawer.svg');
@@ -158,12 +166,21 @@ class $AssetsImagesGen {
   AssetGenImage get logoWithName =>
       const AssetGenImage('assets/images/logo_with_name.png');
 
+  /// File path: assets/images/logout.svg
+  SvgGenImage get logout => const SvgGenImage('assets/images/logout.svg');
+
   /// File path: assets/images/main_bg.png
   AssetGenImage get mainBg => const AssetGenImage('assets/images/main_bg.png');
+
+  /// File path: assets/images/mini.png
+  AssetGenImage get mini => const AssetGenImage('assets/images/mini.png');
 
   /// File path: assets/images/notification.svg
   SvgGenImage get notification =>
       const SvgGenImage('assets/images/notification.svg');
+
+  /// File path: assets/images/opening.png
+  AssetGenImage get opening => const AssetGenImage('assets/images/opening.png');
 
   /// File path: assets/images/pet_foot_print.png
   AssetGenImage get petFootPrint =>
@@ -386,6 +403,10 @@ class $AssetsImagesCommunityPageImagesGen {
 
 class $AssetsImagesServicePageImagesGen {
   const $AssetsImagesServicePageImagesGen();
+
+  /// File path: assets/images/service_page_images/appointments.png
+  AssetGenImage get appointments =>
+      const AssetGenImage('assets/images/service_page_images/appointments.png');
 
   /// File path: assets/images/service_page_images/daily_dog_running.png
   AssetGenImage get dailyDogRunning => const AssetGenImage(

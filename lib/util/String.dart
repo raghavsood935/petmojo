@@ -93,6 +93,9 @@ String feedbackSubTitle = "We appreciate your valuable feedback";
 String helpTitle = "Need Help ?";
 String helpSubTitle = "We are here to help you 24/7";
 
+String logoutTitle = "Logout";
+String logoutSubTitle = "We will miss you!";
+
 //community page
 String communityTitle = "Join the Tamely community!";
 String communityDescription =
@@ -124,6 +127,13 @@ String adoptionTitle = "Adoption";
 String adoptionSubTitle = "Could you offer a loving home to an amazing animal?";
 String adoptionDescription =
     "Start your search for a pet to adopt today. Find a companion who is just right for you. We encourage you to adopt and rescue stray animals who need a home rather than purchasing from breeders.";
+
+//service page
+// service category
+String dogwalkingTitle = "Daily Dog Running";
+String houseSittingTitle = "House Sitting";
+String petBoardingTitle = "Pet Boarding";
+String petGroomingTitle = "Pet Grooming";
 
 //animal profile page
 String addMyGuardian = "Add my Guardians & Relations";
@@ -438,6 +448,13 @@ String endWalkButtonTwo = "Confirm";
 String confirmEndWalkTitle = "Report has been generated";
 String confirmEndWalkMainButton = "Go to booking details";
 String confirmEndWalkSecondButton = "See Report";
+
+// feed back tags
+String bugTag = "Bug";
+String featuresTag = "Features";
+String designTag = "Design";
+String ideaTag = "Idea";
+String othersTag = "Others";
 
 //under development
 

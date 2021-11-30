@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:tamely/models/my_animal_model.dart';
+import 'package:tamely/models/pet_basic_details_response.dart';
 import 'package:tamely/models/user_details_model.dart';
 
 part 'user_profile_details_response.freezed.dart';

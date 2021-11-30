@@ -15,7 +15,7 @@ class ServicesViewModel extends BaseModel {
   final _snackBarService = locator<SnackbarService>();
 
   List<ServicesModel> _listOfServices = [
-    ServicesModel("Daily Dog Running", dailyDogRunning,
+    ServicesModel(dogwalkingTitle, dailyDogRunning,
         isHigDemand: true,
         descripitons: [
           "Daily 30 min sessions.",
@@ -23,13 +23,13 @@ class ServicesViewModel extends BaseModel {
           "Live photo of run/walk sharing",
           "Trusted and Passionate dog Walker"
         ]),
-    ServicesModel("House Sitting", houseSitting,
+    ServicesModel(houseSittingTitle, houseSitting,
         description:
             "Reliable and loving pet sitter that visits your pet ar home. Track and receive video/photo updates."),
-    ServicesModel("Pet Boarding", petBoarding,
+    ServicesModel(petBoardingTitle, petBoarding,
         description:
             "Verified, experienced and trusted boarders that take care of yours pets while you are away. Track and receive video updates"),
-    ServicesModel("Pet Grooming", petGrooming,
+    ServicesModel(petGroomingTitle, petGrooming,
         description:
             "Choose our professional and caring pet groomers that make your pet look like a million dollars!"),
   ];
@@ -43,17 +43,32 @@ class ServicesViewModel extends BaseModel {
         }
       case 1:
         {
-          _snackBarService.showSnackbar(message: onDevelop);
+          _navigationService.navigateTo(
+            Routes.dummyDevelopmentScreen,
+            arguments: DummyDevelopmentScreenArguments(
+              title: houseSittingTitle,
+            ),
+          );
           break;
         }
       case 2:
         {
-          _snackBarService.showSnackbar(message: onDevelop);
+          _navigationService.navigateTo(
+            Routes.dummyDevelopmentScreen,
+            arguments: DummyDevelopmentScreenArguments(
+              title: petBoardingTitle,
+            ),
+          );
           break;
         }
       case 3:
         {
-          _snackBarService.showSnackbar(message: onDevelop);
+          _navigationService.navigateTo(
+            Routes.dummyDevelopmentScreen,
+            arguments: DummyDevelopmentScreenArguments(
+              title: petGroomingTitle,
+            ),
+          );
           break;
         }
     }

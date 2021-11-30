@@ -55,6 +55,7 @@ class Dashboard extends StatelessWidget {
         onScreenHideButtonPressed: () {
           model.hideNavBar = !model.hideNavBar;
         },
+        isInspectView: false,
       ),
     ];
   }
@@ -83,7 +84,7 @@ class Dashboard extends StatelessWidget {
               radius: 28,
               backgroundColor: colors.lightBackgroundColor,
               child: CircleAvatar(
-                backgroundImage: NetworkImage(model.productImage),
+                backgroundImage: NetworkImage(model.avatarUrl),
                 backgroundColor: Colors.transparent,
                 radius: 27,
               ),
@@ -143,6 +144,11 @@ class Dashboard extends StatelessWidget {
           subTitle: helpSubTitle,
           iconUrl: helpIcon,
           onTap: model.onHelpPressed),
+      DrawerWidget(
+          title: logoutTitle,
+          subTitle: logoutSubTitle,
+          iconUrl: logoutIcon,
+          onTap: model.onLogOutPressed),
     ];
   }
 
@@ -215,6 +221,7 @@ class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<DashboardViewModel>.reactive(
       viewModelBuilder: () => DashboardViewModel(),
+      onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
         appBar: FeedAppBar(),
         drawer: Drawer(

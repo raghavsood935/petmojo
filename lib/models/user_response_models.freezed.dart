@@ -23,10 +23,12 @@ class _$UserResponseTearOff {
 
   _UserResponse call(
       {@JsonKey(name: "user") LocalUser? localUser,
-      @JsonKey(name: "token") String? token}) {
+      @JsonKey(name: "token") String? token,
+      @JsonKey(name: "isNewUser") bool? isNewUser}) {
     return _UserResponse(
       localUser: localUser,
       token: token,
+      isNewUser: isNewUser,
     );
   }
 
@@ -44,6 +46,8 @@ mixin _$UserResponse {
   LocalUser? get localUser => throw _privateConstructorUsedError;
   @JsonKey(name: "token")
   String? get token => throw _privateConstructorUsedError;
+  @JsonKey(name: "isNewUser")
+  bool? get isNewUser => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -58,7 +62,8 @@ abstract class $UserResponseCopyWith<$Res> {
       _$UserResponseCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(name: "user") LocalUser? localUser,
-      @JsonKey(name: "token") String? token});
+      @JsonKey(name: "token") String? token,
+      @JsonKey(name: "isNewUser") bool? isNewUser});
 
   $LocalUserCopyWith<$Res>? get localUser;
 }
@@ -75,6 +80,7 @@ class _$UserResponseCopyWithImpl<$Res> implements $UserResponseCopyWith<$Res> {
   $Res call({
     Object? localUser = freezed,
     Object? token = freezed,
+    Object? isNewUser = freezed,
   }) {
     return _then(_value.copyWith(
       localUser: localUser == freezed
@@ -85,6 +91,10 @@ class _$UserResponseCopyWithImpl<$Res> implements $UserResponseCopyWith<$Res> {
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
+      isNewUser: isNewUser == freezed
+          ? _value.isNewUser
+          : isNewUser // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 
@@ -109,7 +119,8 @@ abstract class _$UserResponseCopyWith<$Res>
   @override
   $Res call(
       {@JsonKey(name: "user") LocalUser? localUser,
-      @JsonKey(name: "token") String? token});
+      @JsonKey(name: "token") String? token,
+      @JsonKey(name: "isNewUser") bool? isNewUser});
 
   @override
   $LocalUserCopyWith<$Res>? get localUser;
@@ -129,6 +140,7 @@ class __$UserResponseCopyWithImpl<$Res> extends _$UserResponseCopyWithImpl<$Res>
   $Res call({
     Object? localUser = freezed,
     Object? token = freezed,
+    Object? isNewUser = freezed,
   }) {
     return _then(_UserResponse(
       localUser: localUser == freezed
@@ -139,6 +151,10 @@ class __$UserResponseCopyWithImpl<$Res> extends _$UserResponseCopyWithImpl<$Res>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
+      isNewUser: isNewUser == freezed
+          ? _value.isNewUser
+          : isNewUser // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -148,7 +164,8 @@ class __$UserResponseCopyWithImpl<$Res> extends _$UserResponseCopyWithImpl<$Res>
 class _$_UserResponse extends _UserResponse {
   _$_UserResponse(
       {@JsonKey(name: "user") this.localUser,
-      @JsonKey(name: "token") this.token})
+      @JsonKey(name: "token") this.token,
+      @JsonKey(name: "isNewUser") this.isNewUser})
       : super._();
 
   factory _$_UserResponse.fromJson(Map<String, dynamic> json) =>
@@ -160,10 +177,13 @@ class _$_UserResponse extends _UserResponse {
   @override
   @JsonKey(name: "token")
   final String? token;
+  @override
+  @JsonKey(name: "isNewUser")
+  final bool? isNewUser;
 
   @override
   String toString() {
-    return 'UserResponse(localUser: $localUser, token: $token)';
+    return 'UserResponse(localUser: $localUser, token: $token, isNewUser: $isNewUser)';
   }
 
   @override
@@ -173,11 +193,13 @@ class _$_UserResponse extends _UserResponse {
             other is _UserResponse &&
             (identical(other.localUser, localUser) ||
                 other.localUser == localUser) &&
-            (identical(other.token, token) || other.token == token));
+            (identical(other.token, token) || other.token == token) &&
+            (identical(other.isNewUser, isNewUser) ||
+                other.isNewUser == isNewUser));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, localUser, token);
+  int get hashCode => Object.hash(runtimeType, localUser, token, isNewUser);
 
   @JsonKey(ignore: true)
   @override
@@ -193,7 +215,8 @@ class _$_UserResponse extends _UserResponse {
 abstract class _UserResponse extends UserResponse {
   factory _UserResponse(
       {@JsonKey(name: "user") LocalUser? localUser,
-      @JsonKey(name: "token") String? token}) = _$_UserResponse;
+      @JsonKey(name: "token") String? token,
+      @JsonKey(name: "isNewUser") bool? isNewUser}) = _$_UserResponse;
   _UserResponse._() : super._();
 
   factory _UserResponse.fromJson(Map<String, dynamic> json) =
@@ -205,6 +228,9 @@ abstract class _UserResponse extends UserResponse {
   @override
   @JsonKey(name: "token")
   String? get token;
+  @override
+  @JsonKey(name: "isNewUser")
+  bool? get isNewUser;
   @override
   @JsonKey(ignore: true)
   _$UserResponseCopyWith<_UserResponse> get copyWith =>

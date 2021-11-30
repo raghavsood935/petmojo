@@ -65,37 +65,35 @@ class _FollowPeopleProfileActionViewState
                     itemBuilder: (context, index) => ListTile(
                       contentPadding: EdgeInsets.zero,
                       title: AppText.body(
-                        model.listOfProfileModel[index].username ?? "-",
+                        model.listOfProfileModel[index].profile.username ?? "-",
                         color: colors.black,
                       ),
                       subtitle: AppText.body1(
-                          model.listOfProfileModel[index].fullname ?? "-"),
+                          model.listOfProfileModel[index].profile.fullname ??
+                              "-"),
                       leading: CustomCircularAvatar(
                           radius: 24,
-                          imgPath: model.listOfProfileModel[index].avatar ??
-                              emptyProfileImgUrl),
+                          imgPath:
+                              model.listOfProfileModel[index].profile.avatar ??
+                                  emptyProfileImgUrl),
                       trailing: GestureDetector(
                         onTap: () {
-                          if ((model.listOfProfileModel[index].following ??
-                                  0) ==
-                              0) {
+                          if (!(model.listOfProfileModel[index].isFollowing)) {
                             model.sendFollowRequest(
-                                model.listOfProfileModel[index]);
+                                model.listOfProfileModel[index].profile);
+                            setState(() {
+                              model.listOfProfileModel[index].changeFollowing();
+                            });
                           }
-                          // setState(() {
-                          //   model.listOfProfileModel[index].setIsFollowing(
-                          //     !(model.listOfProfileModel[index].isFollowing),
-                          //   );
-                          // });
                         },
                         child: FollowingStaticBtn(
-                          trueValue: "Following",
-                          falseValue: "Follow",
-                          state: (model.listOfProfileModel[index].following ??
-                                  0) ==
-                              1,
-                        ),
+                            trueValue: "Following",
+                            falseValue: "Follow",
+                            state:
+                                (model.listOfProfileModel[index].isFollowing)),
                       ),
+                      onTap: () => model.goToProfileDetailsPage(
+                          model.listOfProfileModel[index].profile.Id!),
                     ),
                   ),
                 ),

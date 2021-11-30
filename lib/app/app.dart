@@ -16,6 +16,7 @@ import 'package:tamely/ui/community/first_time_views/community_choose_interests/
 import 'package:tamely/ui/dashboard/dashboard.dart';
 import 'package:tamely/ui/dogrunners/dogrunners_view.dart';
 import 'package:tamely/ui/dogrunningbooking/dogrunningbooking_view.dart';
+import 'package:tamely/ui/dummy_development_screen.dart';
 import 'package:tamely/ui/for_you/for_you_search/for_you_tab_search_view.dart';
 import 'package:tamely/ui/forgotpassword/forgotpassword_view.dart';
 import 'package:tamely/ui/forgotpassword/new_password_view.dart';
@@ -24,10 +25,12 @@ import 'package:tamely/ui/groups/group_info/group_info_view.dart';
 import 'package:tamely/ui/groups/groups_view.dart';
 import 'package:tamely/ui/livemap/livemap_view.dart';
 import 'package:tamely/ui/login/login_view.dart';
+import 'package:tamely/ui/notification/notifications.dart';
 import 'package:tamely/ui/onboarding/onboarding_view.dart';
 import 'package:tamely/ui/otp/confirm_otp_view.dart';
 import 'package:tamely/ui/payment/payment_view.dart';
 import 'package:tamely/ui/post/camera_screen.dart';
+import 'package:tamely/ui/post_detail/post_detial_page_view.dart';
 import 'package:tamely/ui/profile/profile_create_view.dart';
 import 'package:tamely/ui/profilepage/animal_profile/animal_profile_view.dart';
 import 'package:tamely/ui/profilepage/animal_profile/basic_info/basic_info_view.dart';
@@ -35,6 +38,7 @@ import 'package:tamely/ui/profilepage/animal_profile/guardians_and_relations/gua
 import 'package:tamely/ui/profilepage/completed_profile/add_details_profile_view.dart';
 import 'package:tamely/ui/profilepage/completed_profile/follow_people_action_view.dart';
 import 'package:tamely/ui/profilepage/create_animal_profile/create_animal_page_viewe.dart';
+import 'package:tamely/ui/profilepage/profile_view.dart';
 import 'package:tamely/ui/reportcard/reportcard_view.dart';
 import 'package:tamely/ui/signup/signup_view.dart';
 import 'package:tamely/ui/startup/startup_view.dart';
@@ -53,6 +57,9 @@ import '../ui/wallet/wallet_view.dart';
 @StackedApp(
   routes: [
     MaterialRoute(page: StartupView, initial: true),
+    //dummy development
+    CupertinoRoute(page: DummyDevelopmentScreen),
+
     CupertinoRoute(page: OnBoardingView),
     CupertinoRoute(page: LoginView),
     CupertinoRoute(page: Dashboard),
@@ -60,6 +67,7 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: ConfirmOTPView),
     CupertinoRoute(page: ForgotPasswordView),
     CupertinoRoute(page: NewPasswordView),
+    CupertinoRoute(page: ProfileView),
     CupertinoRoute(page: ProfileCreateView),
     CupertinoRoute(page: AddDetailsProfileView),
     CupertinoRoute(page: FollowPeopleProfileActionView),
@@ -74,6 +82,7 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: CreateGroupView),
     CupertinoRoute(page: GroupInfoView),
     CupertinoRoute(page: GuardiansAndRelatedAnimalsView),
+    CupertinoRoute(page: PostDetialsPageView),
 
     //community routes
     CupertinoRoute(page: StraysNearYouView),
@@ -90,6 +99,7 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: BookmarksView),
     CupertinoRoute(page: HelpView),
     CupertinoRoute(page: WalletView),
+    CupertinoRoute(page: Notifications),
 
     // Dog running
     CupertinoRoute(page: DogRunnersView),

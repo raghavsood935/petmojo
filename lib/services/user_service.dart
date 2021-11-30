@@ -71,6 +71,7 @@ class UserService {
     } else if (response.data != null) {
       _currentUser = response.data!.localUser;
       _sharedPreferenceService.authToken = response.data!.token ?? "";
+
       if (_currentUser != null) {
         _sharedPreferenceService.saveCurrentUser(_currentUser!);
         log.v('_currentUser has been saved');
@@ -78,7 +79,7 @@ class UserService {
     }
   }
 
-  Future<void> loginAccount(LoginBody loginBody) async {
+  Future<bool?> loginAccount(LoginBody loginBody) async {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     log.v('We have logging you in ...');
     BaseResponse<UserResponse> response =
@@ -87,10 +88,12 @@ class UserService {
       ServerError error = response.getException as ServerError;
       _snackBarService.showSnackbar(message: error.getErrorMessage());
     } else if (response.data != null) {
+      bool? isNewUser = response.data!.isNewUser;
       _currentUser = response.data!.localUser;
       _sharedPreferenceService.authToken = response.data!.token ?? "";
       log.v("TOKEN :  ${_sharedPreferenceService.authToken}");
       log.v('_currentUser has been saved');
+      return isNewUser;
     }
   }
 
@@ -122,7 +125,7 @@ class UserService {
     return await _tamelyApi.updatePassword(updatePasswordBody);
   }
 
-  Future<void> socialLogin(
+  Future<bool?> socialLogin(
       SocialLoginBody socialLoginBody, bool isFacebook) async {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     log.v('We have logging you in ...');
@@ -137,9 +140,11 @@ class UserService {
       ServerError error = response.getException as ServerError;
       _snackBarService.showSnackbar(message: error.getErrorMessage());
     } else if (response.data != null) {
+      bool? isNewUser = response.data!.isNewUser;
       _currentUser = response.data!.localUser;
       _sharedPreferenceService.authToken = response.data!.token ?? "";
       log.v('_currentUser has been saved');
+      return isNewUser;
     }
   }
 

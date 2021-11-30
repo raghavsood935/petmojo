@@ -15,6 +15,7 @@ String settingsIcon = "assets/images/setting.svg";
 String bookmarksIcon = "assets/images/bookmark.svg";
 String feedbackIcon = "assets/images/feedback.svg";
 String helpIcon = "assets/images/help.svg";
+String logoutIcon = "assets/images/logout.svg";
 
 //assets path
 String leftHandImgPath = "assets/images/hello-2-left.png";

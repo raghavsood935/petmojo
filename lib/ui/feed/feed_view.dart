@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/models/feed_post_model.dart';
+import 'package:tamely/models/feed_post_response.dart';
+import 'package:tamely/models/post_response.dart';
 import 'package:tamely/ui/feed/feed_view_model.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ImageConstant.dart';
@@ -26,6 +29,7 @@ class FeedView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<FeedViewModel>.reactive(
       viewModelBuilder: () => FeedViewModel(),
+      onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
         body: ListView(
           physics: ScrollPhysics(),
@@ -189,7 +193,7 @@ Widget rowItem(bool isCreateOne, String name, String url) {
   );
 }
 
-Widget postItem(BuildContext context, FeedPostModel model,
+Widget postItem(BuildContext context, FeedPostResponse model,
     String myProfileImgUrl, FeedViewModel viewModel) {
   return Padding(
     padding: const EdgeInsets.only(
@@ -205,63 +209,65 @@ Widget postItem(BuildContext context, FeedPostModel model,
           children: [
             CustomCircularAvatar(
               radius: 20.0,
-              imgPath: model.profileImgUrl,
+              imgPath: model.author!.first.avatar ?? emptyProfileImgUrl,
             ),
             horizontalSpaceSmall,
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                model.isAnimalPost
-                    ? Row(
-                        children: [
-                          AppText.body1Bold(
-                            "${model.animalProfileName} > ",
-                          ),
-                          AppText.caption(model.username),
-                        ],
-                      )
-                    : AppText.body1Bold(model.username),
+                // model.postOwnerDetails!.postOwnerType == "Animal"
+                //     ? Row(
+                //         children: [
+                //           AppText.body1Bold(
+                //             "${model.author!.first.username} > ",
+                //           ),
+                //           // AppText.caption(model.),
+                //         ],
+                //       )
+                AppText.body1Bold(model.author!.first.username!),
                 Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    // AppText.caption(
+                    //   model.location,
+                    //   color: colors.kcCaptionGreyColor,
+                    // ),
+                    // horizontalSpaceTiny,
+                    // CircleAvatar(
+                    //   backgroundColor: colors.primary,
+                    //   radius: 2,
+                    // ),
+                    // horizontalSpaceTiny,
                     AppText.caption(
-                      model.location,
+                      utcToLocal(model.date!),
                       color: colors.kcCaptionGreyColor,
                     ),
-                    horizontalSpaceTiny,
-                    CircleAvatar(
-                      backgroundColor: colors.primary,
-                      radius: 2,
-                    ),
-                    horizontalSpaceTiny,
-                    AppText.caption(
-                      model.uploadTime,
-                      color: colors.kcCaptionGreyColor,
-                    ),
-                    horizontalSpaceTiny,
-                    Visibility(
-                      visible: model.isAnimalPost,
-                      child: CircleAvatar(
-                        backgroundColor: colors.primary,
-                        radius: 2,
-                      ),
-                    ),
-                    horizontalSpaceTiny,
-                    Visibility(
-                      visible: model.isAnimalPost,
-                      child: Icon(
-                        model.isPrivate ? Icons.lock : Icons.campaign_sharp,
-                        size: 10,
-                        color: colors.kcCaptionGreyColor,
-                      ),
-                    ),
-                    horizontalSpaceTiny,
-                    Visibility(
-                      visible: model.isAnimalPost,
-                      child: AppText.caption(
-                        model.isPrivate ? "Private" : "Public",
-                        color: colors.kcCaptionGreyColor,
-                      ),
-                    ),
+                    // horizontalSpaceTiny,
+                    // Visibility(
+                    //   visible: model.isAnimalPost,
+                    //   child: CircleAvatar(
+                    //     backgroundColor: colors.primary,
+                    //     radius: 2,
+                    //   ),
+                    // ),
+                    // horizontalSpaceTiny,
+                    // Visibility(
+                    //   visible: model.isAnimalPost,
+                    //   child: Icon(
+                    //     model.isPrivate ? Icons.lock : Icons.campaign_sharp,
+                    //     size: 10,
+                    //     color: colors.kcCaptionGreyColor,
+                    //   ),
+                    // ),
+                    // horizontalSpaceTiny,
+                    // Visibility(
+                    //   visible: model.isAnimalPost,
+                    //   child: AppText.caption(
+                    //     model.isPrivate ? "Private" : "Public",
+                    //     color: colors.kcCaptionGreyColor,
+                    //   ),
+                    // ),
                   ],
                 ),
               ],
@@ -269,76 +275,22 @@ Widget postItem(BuildContext context, FeedPostModel model,
           ],
         ),
         verticalSpaceTiny,
-        // ListTile(
-        //   contentPadding: EdgeInsets.zero,
-        //   leading: CustomCircularAvatar(
-        //     radius: 19.0,
-        //     imgPath: model.profileImgUrl,
-        //   ),
-        //   title: model.isAnimalPost
-        //       ? Row(
-        //           children: [
-        //             AppText.body1Bold(
-        //               "${model.animalProfileName} > ",
-        //             ),
-        //             AppText.caption(model.username),
-        //           ],
-        //         )
-        //       : AppText.body1Bold(model.username),
-        //   subtitle: Row(
-        //     children: [
-        //       AppText.caption(
-        //         model.location,
-        //         color: colors.kcCaptionGreyColor,
-        //       ),
-        //       horizontalSpaceTiny,
-        //       CircleAvatar(
-        //         backgroundColor: colors.primary,
-        //         radius: 2,
-        //       ),
-        //       horizontalSpaceTiny,
-        //       AppText.caption(
-        //         model.uploadTime,
-        //         color: colors.kcCaptionGreyColor,
-        //       ),
-        //       horizontalSpaceTiny,
-        //       Visibility(
-        //         visible: model.isAnimalPost,
-        //         child: CircleAvatar(
-        //           backgroundColor: colors.primary,
-        //           radius: 2,
-        //         ),
-        //       ),
-        //       horizontalSpaceTiny,
-        //       Visibility(
-        //         visible: model.isAnimalPost,
-        //         child: Icon(
-        //           model.isPrivate ? Icons.lock : Icons.campaign_sharp,
-        //           size: 10,
-        //           color: colors.kcCaptionGreyColor,
-        //         ),
-        //       ),
-        //       horizontalSpaceTiny,
-        //       Visibility(
-        //         visible: model.isAnimalPost,
-        //         child: AppText.caption(
-        //           model.isPrivate ? "Private" : "Public",
-        //           color: colors.kcCaptionGreyColor,
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // ),
-        AppText.caption(model.description),
-        AppText.caption(
-          model.hastTag,
-          color: colors.blue,
+        AppText.caption(model.caption!),
+        Wrap(
+          children: model.hashtags!
+              .map(
+                (e) => AppText.caption(
+                  "#$e",
+                  color: colors.blue,
+                ),
+              )
+              .toList(),
         ),
         verticalSpaceSmall,
         SwiperWidget(model: model),
         Row(
           children: [
-            LikeBtn(initialState: model.isLiked, onTap: () {}),
+            LikeBtn(initialState: false, onTap: () {}),
             horizontalSpaceSmall,
             imageButton(false, () {}, assetsPath: sendOutlineImgPath),
             horizontalSpaceSmall,
@@ -354,10 +306,11 @@ Widget postItem(BuildContext context, FeedPostModel model,
             ),
           ],
         ),
-        AppText.caption("Loved by ${model.lastLikedPersonName}"),
+        // AppText.caption(
+        //     "Loved by ${model.postVotes.toString().replaceAll("[", "replace").replaceAll("]", "")}"),
         verticalSpaceTiny,
         AppText.caption(
-          "${model.noOfComments} comments",
+          "${model.commentResponse!.comments!.length} comments",
           color: colors.primary,
         ),
         verticalSpaceTiny,
@@ -404,6 +357,16 @@ Widget imageButton(bool isNetworkImg, void onTap,
   );
 }
 
+String utcToLocal(String utcTime) {
+  var strToDateTime = DateTime.parse(utcTime);
+  final convertLocal = strToDateTime.toLocal();
+
+  var newFormat = DateFormat("dd-MM-yyyy hh::ss aaa");
+  String updateDate = newFormat.format(convertLocal);
+
+  return updateDate;
+}
+
 class LikeBtn extends StatefulWidget {
   LikeBtn({Key? key, required bool initialState, required Function onTap})
       : super(key: key);
@@ -443,7 +406,7 @@ class _LikeBtnState extends State<LikeBtn> {
 class SwiperWidget extends StatefulWidget {
   SwiperWidget({Key? key, required this.model}) : super(key: key);
 
-  final FeedPostModel model;
+  final FeedPostResponse model;
 
   @override
   _SwiperWidgetState createState() => _SwiperWidgetState();
@@ -461,9 +424,9 @@ class _SwiperWidgetState extends State<SwiperWidget> {
           Positioned(
             child: Swiper(
               autoplay: false,
-              itemCount: widget.model.postImgsList.length,
+              itemCount: [widget.model.image].length,
               itemBuilder: (context, index) =>
-                  roundedImage(context, widget.model.postImgsList[index]),
+                  roundedImage(context, widget.model.image!),
               onIndexChanged: (int i) {
                 setState(() => _currentIndex = i + 1);
               },
@@ -479,7 +442,7 @@ class _SwiperWidgetState extends State<SwiperWidget> {
                 color: Color(0xFF87000000),
               ),
               child: AppText.caption(
-                "$_currentIndex/${widget.model.postImgsList.length}",
+                "$_currentIndex/${[widget.model.image].length}",
                 color: colors.white,
               ),
             ),

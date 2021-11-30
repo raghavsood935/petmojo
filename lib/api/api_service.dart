@@ -12,6 +12,7 @@ import 'package:tamely/models/animal_profile_detail_model.dart';
 import 'package:tamely/models/book_a_run_response.dart';
 import 'package:tamely/models/edit_response.dart';
 import 'package:tamely/models/get_payment_details_response.dart';
+import 'package:tamely/models/list_of_feed_post_response.dart';
 import 'package:tamely/models/list_of_post_response.dart';
 import 'package:tamely/models/list_of_profile_response.dart';
 import 'package:tamely/models/params/animal_profile_create_body.dart';
@@ -19,8 +20,10 @@ import 'package:tamely/models/common_response.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_details_body.dart';
+import 'package:tamely/models/params/feedback_body.dart';
 import 'package:tamely/models/params/get_payment_details_body.dart';
 import 'package:tamely/models/params/login_body.dart';
+import 'package:tamely/models/params/need_help_body.dart';
 import 'package:tamely/models/params/profile_create_body.dart';
 import 'package:tamely/models/params/register_body.dart';
 import 'package:tamely/models/params/reset_password_body.dart';
@@ -311,6 +314,18 @@ class TamelyApi {
     return BaseResponse()..data = response;
   }
 
+  Future<BaseResponse<ListOfFeedPostResponse>> getFeedPosts() async {
+    ListOfFeedPostResponse response;
+    try {
+      response = await getApiClient(true).getFeedPosts();
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
   Future<BaseResponse<CommonResponse>> changeBioAndAvatar(
       ChangeBioAvatarBody changeBioAvatarBody) async {
     CommonResponse response;
@@ -400,20 +415,6 @@ class TamelyApi {
     }
     return BaseResponse()..data = response;
   }
-  //
-  // Future<BaseResponse<EditResponse>> editAnimalProfile(
-  //     EditAnimalProfileBody editAnimalProfileBody) async {
-  //   EditResponse response;
-  //   try {
-  //     response =
-  //         await getApiClient(true).editAnimalProfile(editAnimalProfileBody);
-  //   } catch (error, stacktrace) {
-  //     print("Exception occurred: $error stackTrace: $stacktrace");
-  //     return BaseResponse()
-  //       ..setException(ServerError.withError(error: error as DioError));
-  //   }
-  //   return BaseResponse()..data = response;
-  // }
 
   Future<BaseResponse<EditResponse>> editAnimalProfile(
       String name,
@@ -483,6 +484,34 @@ class TamelyApi {
     try {
       response =
           await getApiClient(true).sendFollowRequest(sendFollowRequestBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  //send feedback
+  Future<BaseResponse<CommonResponse>> sendFeedback(
+      SubmitFeedbackBody submitFeedbackBody) async {
+    CommonResponse response;
+    try {
+      response = await getApiClient(true).submitFeedback(submitFeedbackBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  //get help
+  Future<BaseResponse<CommonResponse>> getHelp(
+      NeedHelpBody needHelpBody) async {
+    CommonResponse response;
+    try {
+      response = await getApiClient(true).getHelp(needHelpBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()
