@@ -15,6 +15,7 @@ import 'package:stacked/stacked_annotations.dart';
 import '../enum/walkNumber.dart';
 import '../models/application_models.dart';
 import '../models/my_animal_model.dart';
+import '../models/post_response.dart';
 import '../ui/appointmentdetails/appointmentdetails_view.dart';
 import '../ui/appointments/appointments_view.dart';
 import '../ui/bookings/bookings_view.dart';
@@ -30,6 +31,7 @@ import '../ui/community/first_time_views/community_choose_interests/community_ch
 import '../ui/dashboard/dashboard.dart';
 import '../ui/dogrunners/dogrunners_view.dart';
 import '../ui/dogrunningbooking/dogrunningbooking_view.dart';
+import '../ui/dummy_development_screen.dart';
 import '../ui/feedback/feedback_view.dart';
 import '../ui/for_you/for_you_search/for_you_tab_search_view.dart';
 import '../ui/forgotpassword/forgotpassword_view.dart';
@@ -40,10 +42,12 @@ import '../ui/groups/groups_view.dart';
 import '../ui/help/help_view.dart';
 import '../ui/livemap/livemap_view.dart';
 import '../ui/login/login_view.dart';
+import '../ui/notification/notifications.dart';
 import '../ui/onboarding/onboarding_view.dart';
 import '../ui/otp/confirm_otp_view.dart';
 import '../ui/payment/payment_view.dart';
 import '../ui/post/camera_screen.dart';
+import '../ui/post_detail/post_detial_page_view.dart';
 import '../ui/profile/profile_create_view.dart';
 import '../ui/profilepage/animal_profile/animal_profile_view.dart';
 import '../ui/profilepage/animal_profile/basic_info/basic_info_view.dart';
@@ -51,6 +55,7 @@ import '../ui/profilepage/animal_profile/guardians_and_relations/guardians_and_r
 import '../ui/profilepage/completed_profile/add_details_profile_view.dart';
 import '../ui/profilepage/completed_profile/follow_people_action_view.dart';
 import '../ui/profilepage/create_animal_profile/create_animal_page_viewe.dart';
+import '../ui/profilepage/profile_view.dart';
 import '../ui/reportcard/reportcard_view.dart';
 import '../ui/settings/settings_animal_view.dart';
 import '../ui/settings/settings_human_view.dart';
@@ -64,6 +69,7 @@ import '../ui/wallet/wallet_view.dart';
 
 class Routes {
   static const String startupView = '/';
+  static const String dummyDevelopmentScreen = '/dummy-development-screen';
   static const String onBoardingView = '/on-boarding-view';
   static const String loginView = '/login-view';
   static const String dashboard = '/Dashboard';
@@ -71,6 +77,7 @@ class Routes {
   static const String confirmOTPView = '/confirm-ot-pView';
   static const String forgotPasswordView = '/forgot-password-view';
   static const String newPasswordView = '/new-password-view';
+  static const String profileView = '/profile-view';
   static const String profileCreateView = '/profile-create-view';
   static const String addDetailsProfileView = '/add-details-profile-view';
   static const String followPeopleProfileActionView =
@@ -88,6 +95,7 @@ class Routes {
   static const String groupInfoView = '/group-info-view';
   static const String guardiansAndRelatedAnimalsView =
       '/guardians-and-related-animals-view';
+  static const String postDetialsPageView = '/post-detials-page-view';
   static const String straysNearYouView = '/strays-near-you-view';
   static const String strayNearYouMapView = '/stray-near-you-map-view';
   static const String playBuddiesView = '/play-buddies-view';
@@ -100,6 +108,7 @@ class Routes {
   static const String bookmarksView = '/bookmarks-view';
   static const String helpView = '/help-view';
   static const String walletView = '/wallet-view';
+  static const String notifications = '/Notifications';
   static const String dogRunnersView = '/dog-runners-view';
   static const String tamelyOverviewView = '/tamely-overview-view';
   static const String tamelyRateChartView = '/tamely-rate-chart-view';
@@ -114,6 +123,7 @@ class Routes {
   static const String reportCardView = '/report-card-view';
   static const all = <String>{
     startupView,
+    dummyDevelopmentScreen,
     onBoardingView,
     loginView,
     dashboard,
@@ -121,6 +131,7 @@ class Routes {
     confirmOTPView,
     forgotPasswordView,
     newPasswordView,
+    profileView,
     profileCreateView,
     addDetailsProfileView,
     followPeopleProfileActionView,
@@ -135,6 +146,7 @@ class Routes {
     createGroupView,
     groupInfoView,
     guardiansAndRelatedAnimalsView,
+    postDetialsPageView,
     straysNearYouView,
     strayNearYouMapView,
     playBuddiesView,
@@ -147,6 +159,7 @@ class Routes {
     bookmarksView,
     helpView,
     walletView,
+    notifications,
     dogRunnersView,
     tamelyOverviewView,
     tamelyRateChartView,
@@ -167,6 +180,7 @@ class StackedRouter extends RouterBase {
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
     RouteDef(Routes.startupView, page: StartupView),
+    RouteDef(Routes.dummyDevelopmentScreen, page: DummyDevelopmentScreen),
     RouteDef(Routes.onBoardingView, page: OnBoardingView),
     RouteDef(Routes.loginView, page: LoginView),
     RouteDef(Routes.dashboard, page: Dashboard),
@@ -174,6 +188,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.confirmOTPView, page: ConfirmOTPView),
     RouteDef(Routes.forgotPasswordView, page: ForgotPasswordView),
     RouteDef(Routes.newPasswordView, page: NewPasswordView),
+    RouteDef(Routes.profileView, page: ProfileView),
     RouteDef(Routes.profileCreateView, page: ProfileCreateView),
     RouteDef(Routes.addDetailsProfileView, page: AddDetailsProfileView),
     RouteDef(Routes.followPeopleProfileActionView,
@@ -191,6 +206,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.groupInfoView, page: GroupInfoView),
     RouteDef(Routes.guardiansAndRelatedAnimalsView,
         page: GuardiansAndRelatedAnimalsView),
+    RouteDef(Routes.postDetialsPageView, page: PostDetialsPageView),
     RouteDef(Routes.straysNearYouView, page: StraysNearYouView),
     RouteDef(Routes.strayNearYouMapView, page: StrayNearYouMapView),
     RouteDef(Routes.playBuddiesView, page: PlayBuddiesView),
@@ -203,6 +219,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.bookmarksView, page: BookmarksView),
     RouteDef(Routes.helpView, page: HelpView),
     RouteDef(Routes.walletView, page: WalletView),
+    RouteDef(Routes.notifications, page: Notifications),
     RouteDef(Routes.dogRunnersView, page: DogRunnersView),
     RouteDef(Routes.tamelyOverviewView, page: TamelyOverviewView),
     RouteDef(Routes.tamelyRateChartView, page: TamelyRateChartView),
@@ -222,6 +239,16 @@ class StackedRouter extends RouterBase {
     StartupView: (data) {
       return MaterialPageRoute<dynamic>(
         builder: (context) => const StartupView(),
+        settings: data,
+      );
+    },
+    DummyDevelopmentScreen: (data) {
+      var args = data.getArgs<DummyDevelopmentScreenArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => DummyDevelopmentScreen(
+          key: args.key,
+          title: args.title,
+        ),
         settings: data,
       );
     },
@@ -285,6 +312,20 @@ class StackedRouter extends RouterBase {
       );
       return CupertinoPageRoute<dynamic>(
         builder: (context) => NewPasswordView(key: args.key),
+        settings: data,
+      );
+    },
+    ProfileView: (data) {
+      var args = data.getArgs<ProfileViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => ProfileView(
+          key: args.key,
+          menuScreenContext: args.menuScreenContext,
+          onScreenHideButtonPressed: args.onScreenHideButtonPressed,
+          hideStatus: args.hideStatus,
+          isInspectView: args.isInspectView,
+          inspectProfileId: args.inspectProfileId,
+        ),
         settings: data,
       );
     },
@@ -407,6 +448,16 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    PostDetialsPageView: (data) {
+      var args = data.getArgs<PostDetialsPageViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => PostDetialsPageView(
+          key: args.key,
+          postResponse: args.postResponse,
+        ),
+        settings: data,
+      );
+    },
     StraysNearYouView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const StraysNearYouView(),
@@ -476,6 +527,15 @@ class StackedRouter extends RouterBase {
     WalletView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const WalletView(),
+        settings: data,
+      );
+    },
+    Notifications: (data) {
+      var args = data.getArgs<NotificationsArguments>(
+        orElse: () => NotificationsArguments(),
+      );
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => Notifications(key: args.key),
         settings: data,
       );
     },
@@ -585,6 +645,13 @@ class StackedRouter extends RouterBase {
 /// Arguments holder classes
 /// *************************************************************************
 
+/// DummyDevelopmentScreen arguments holder class
+class DummyDevelopmentScreenArguments {
+  final Key? key;
+  final String title;
+  DummyDevelopmentScreenArguments({this.key, required this.title});
+}
+
 /// LoginView arguments holder class
 class LoginViewArguments {
   final Key? key;
@@ -626,6 +693,23 @@ class ForgotPasswordViewArguments {
 class NewPasswordViewArguments {
   final Key? key;
   NewPasswordViewArguments({this.key});
+}
+
+/// ProfileView arguments holder class
+class ProfileViewArguments {
+  final Key? key;
+  final BuildContext menuScreenContext;
+  final Function onScreenHideButtonPressed;
+  final bool hideStatus;
+  final bool isInspectView;
+  final String? inspectProfileId;
+  ProfileViewArguments(
+      {this.key,
+      required this.menuScreenContext,
+      required this.onScreenHideButtonPressed,
+      this.hideStatus = false,
+      required this.isInspectView,
+      this.inspectProfileId});
 }
 
 /// ProfileCreateView arguments holder class
@@ -686,6 +770,19 @@ class CameraScreenArguments {
 class GuardiansAndRelatedAnimalsViewArguments {
   final Key? key;
   GuardiansAndRelatedAnimalsViewArguments({this.key});
+}
+
+/// PostDetialsPageView arguments holder class
+class PostDetialsPageViewArguments {
+  final Key? key;
+  final PostResponse postResponse;
+  PostDetialsPageViewArguments({this.key, required this.postResponse});
+}
+
+/// Notifications arguments holder class
+class NotificationsArguments {
+  final Key? key;
+  NotificationsArguments({this.key});
 }
 
 /// DogRunningBookingView arguments holder class

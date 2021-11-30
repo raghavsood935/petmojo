@@ -122,11 +122,11 @@ class Dashboard extends StatelessWidget {
                 subTitle: settingsSubTitle,
                 iconUrl: settingsIcon,
                 onTap: model.onSettingsPressed),
-            DrawerWidget(
-                title: bookmarksTitle,
-                subTitle: bookmarksSubTitle,
-                iconUrl: bookmarksIcon,
-                onTap: model.onBookmarksPressed),
+            // DrawerWidget(
+            //     title: bookmarksTitle,
+            //     subTitle: bookmarksSubTitle,
+            //     iconUrl: bookmarksIcon,
+            //     onTap: model.onBookmarksPressed),
           ],
         ),
       ),

@@ -82,6 +82,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
     try {
       if (await Util.checkInternetConnectivity()) {
         _activeAppointments.clear();
+
         // Booked Appointments
         BaseResponse<MyAppointmentsResponse> resultTwo = await runBusyFuture(
             _tamelyApi.getBookedAppointments(),
@@ -101,12 +102,8 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
               newAppointment.userName = "";
             }
 
-            try {
-              newAppointment.userPicture = each.user!.avatar!;
-            } catch (e) {
-              newAppointment.userPicture =
-                  "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg";
-            }
+            newAppointment.userPicture =
+                "https://drive.google.com/file/d/16IaPIGrT8gkAx-UGzVD9GsWXZ2Slvq2X/view?usp=sharing";
 
             newAppointment.serviceName =
                 each.serviceType == 0 ? dogWalkingTitle : dogWalkingTitle;
@@ -146,12 +143,8 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
               newAppointment.userName = "";
             }
 
-            try {
-              newAppointment.userPicture = each.user!.avatar!;
-            } catch (e) {
-              newAppointment.userPicture =
-                  "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg";
-            }
+            newAppointment.userPicture =
+                "https://drive.google.com/file/d/16IaPIGrT8gkAx-UGzVD9GsWXZ2Slvq2X/view?usp=sharing";
 
             newAppointment.serviceName =
                 each.serviceType == 0 ? dogWalkingTitle : dogWalkingTitle;

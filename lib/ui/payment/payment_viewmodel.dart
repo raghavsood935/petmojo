@@ -92,7 +92,7 @@ class PaymentViewModel extends FutureViewModel<void> implements Initialisable {
 
   void openCheckout() async {
     var options = {
-      'key': 'rzp_test_62It5CXig75Mep',
+      'key': 'rzp_live_nW3NeCWRb24E5y',
       'amount': getPaymentDetailsResponse.amount,
       'name': '',
       'order_id': getPaymentDetailsResponse.orderId,

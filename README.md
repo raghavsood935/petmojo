@@ -21,5 +21,7 @@ flutter pub run build_runner build --delete-conflicting-outputs
 
 flutter build apk --no-sound-null-safety
 
+flutter build appbundle --no-sound-null-safety
+
 #for flutter icon
 flutter pub run flutter_launcher_icons:main

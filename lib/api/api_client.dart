@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:tamely/models/animal_profile_create_resopnse.dart';
 import 'package:tamely/models/animal_profile_detail_model.dart';
+import 'package:tamely/models/book_a_run_response.dart';
 import 'package:tamely/models/common_response.dart';
 import 'package:tamely/models/edit_response.dart';
 import 'package:tamely/models/get_payment_details_response.dart';
@@ -12,7 +13,6 @@ import 'package:tamely/models/list_of_post_response.dart';
 import 'package:tamely/models/list_of_profile_response.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/models/params/change_bio_avatar_body.dart';
-import 'package:tamely/models/params/edit_animal_profile_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_details_body.dart';
 import 'package:tamely/models/params/feedback_body.dart';
 import 'package:tamely/models/params/get_payment_details_body.dart';
@@ -41,7 +41,6 @@ import 'package:tamely/models/params/set_runtwo_rating_body.dart';
 import 'package:tamely/models/params/set_testimony_body.dart';
 import 'package:tamely/models/send_data_response.dart';
 import 'package:tamely/models/params/book_a_run_body.dart';
-
 part 'api_client.g.dart';
 
 ///APIs class is for api tags
@@ -85,7 +84,6 @@ class Apis {
   static const String feedPosts = '/post/feed/0';
 
   // Booking Appointments
-
   static const String getPetDetails = '/serviceBooking/getPetDetails';
   static const String bookARun = '/serviceBooking/serviceBooking';
 
@@ -246,7 +244,7 @@ abstract class ApiClient {
 
   // -- Booking A Run
   @POST(Apis.bookARun)
-  Future<SendDataResponse> bookARun(@Body() BookARunBody bookARunBody);
+  Future<BookARunResponse> bookARun(@Body() BookARunBody bookARunBody);
 
   // -- Get Payment details
   @POST(Apis.getPaymentDetails)

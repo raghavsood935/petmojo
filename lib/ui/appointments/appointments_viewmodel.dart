@@ -35,13 +35,23 @@ class AppointmentsViewModel extends FutureViewModel<void>
     try {
       if (await Util.checkInternetConnectivity()) {
         _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
-        BaseResponse<MyAppointmentsResponse> result = await runBusyFuture(
+
+        BaseResponse<MyAppointmentsResponse> resultOne = await runBusyFuture(
+            _tamelyApi.getBookedAppointments(),
+            throwException: true);
+
+        BaseResponse<MyAppointmentsResponse> resultTwo = await runBusyFuture(
             _tamelyApi.getActiveAppointments(),
             throwException: true);
-        if (result.data != null) {
-          List<AppointmentListResponse>? appointments =
-              result.data!.appointmentsList;
-          if (appointments!.length != 0) {
+
+        if (resultOne.data != null && resultTwo.data != null) {
+          List<AppointmentListResponse>? appointmentsOne =
+              resultOne.data!.appointmentsList;
+
+          List<AppointmentListResponse>? appointmentsTwo =
+              resultTwo.data!.appointmentsList;
+
+          if (appointmentsOne!.length != 0 || appointmentsTwo!.length != 0) {
             _hasAppointments = true;
           } else {
             _hasAppointments = false;

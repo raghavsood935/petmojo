@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-
 part 'show_people_to_follow_body.g.dart';
 
 @JsonSerializable(explicitToJson: true)

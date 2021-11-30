@@ -511,19 +511,19 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<SendDataResponse> bookARun(bookARunBody) async {
+  Future<BookARunResponse> bookARun(bookARunBody) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(bookARunBody.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<SendDataResponse>(
+        _setStreamType<BookARunResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/serviceBooking/serviceBooking',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = SendDataResponse.fromJson(_result.data!);
+    final value = BookARunResponse.fromJson(_result.data!);
     return value;
   }
 
