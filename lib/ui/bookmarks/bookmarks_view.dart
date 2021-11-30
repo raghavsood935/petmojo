@@ -10,10 +10,6 @@ class BookmarksView extends StatefulWidget {
 class _BookmarksViewState extends State<BookmarksView> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text("Bookmarks"),
-      ),
-    );
+    return Container();
   }
 }

@@ -1,0 +1,3 @@
+// class BookmarksViewModel extends BaseModel{
+//
+// }

@@ -15,11 +15,15 @@ class ProfileView extends StatelessWidget {
   final BuildContext menuScreenContext;
   final Function onScreenHideButtonPressed;
   final bool hideStatus;
+  final bool isInspectView;
+  final String? inspectProfileId;
   const ProfileView(
       {Key? key,
       required this.menuScreenContext,
       required this.onScreenHideButtonPressed,
-      this.hideStatus = false})
+      this.hideStatus = false,
+      required this.isInspectView,
+      this.inspectProfileId})
       : super(key: key);
 
   @override
@@ -58,12 +62,15 @@ class ProfileView extends StatelessWidget {
                         ),
                       ),
 
-                      Positioned(
-                        top: 30,
-                        right: 20,
-                        child: GestureDetector(
-                          child: EditButton(),
-                          onTap: model.goToProfileEditView,
+                      Visibility(
+                        visible: !isInspectView,
+                        child: Positioned(
+                          top: 30,
+                          right: 20,
+                          child: GestureDetector(
+                            child: EditButton(),
+                            onTap: model.goToProfileEditView,
+                          ),
                         ),
                       ),
                       // for main contents at center
@@ -213,20 +220,23 @@ class ProfileView extends StatelessWidget {
 
                 //my animals
 
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      AppText.body("My Animals"),
-                      IconButton(
-                        icon: Icon(model.isMyAnimalsVisibile
-                            ? Icons.arrow_drop_up
-                            : Icons.arrow_drop_down),
-                        onPressed: model.myAnimalVisible,
-                      )
-                    ],
+                Visibility(
+                  visible: !isInspectView,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        AppText.body("My Animals"),
+                        IconButton(
+                          icon: Icon(model.isMyAnimalsVisibile
+                              ? Icons.arrow_drop_up
+                              : Icons.arrow_drop_down),
+                          onPressed: model.myAnimalVisible,
+                        )
+                      ],
+                    ),
                   ),
                 ),
 
@@ -265,27 +275,35 @@ class ProfileView extends StatelessWidget {
                                 scrollDirection: Axis.horizontal,
                                 shrinkWrap: true,
                                 itemCount: model.listOfMyAnimals.length,
-                                itemBuilder: (context, index) =>
-                                    GestureDetector(
-                                  child: roundedImageWidget(
-                                    true,
-                                    model.listOfMyAnimals[index]
-                                            .detailsResponse!.name ??
-                                        "",
-                                    bgImg: NetworkImage(
+                                itemBuilder: (context, index) => Visibility(
+                                  visible:
+                                      model.listOfMyAnimals[index].confirmed ??
+                                          false,
+                                  child: GestureDetector(
+                                    child: roundedImageWidget(
+                                      true,
                                       model.listOfMyAnimals[index]
-                                              .detailsResponse!.avatar ??
-                                          emptyProfileImgUrl,
+                                              .detailsResponse!.name ??
+                                          "",
+                                      bgImg: NetworkImage(
+                                        model.listOfMyAnimals[index]
+                                                .detailsResponse!.avatar ??
+                                            emptyProfileImgUrl,
+                                      ),
                                     ),
+                                    onTap: () => model.goToAnimalProfileView(
+                                        model.listOfMyAnimals[index]
+                                            .detailsResponse!.Id!),
                                   ),
-                                  onTap: () => model.goToAnimalProfileView(model
-                                      .listOfMyAnimals[index]
-                                      .detailsResponse!
-                                      .Id!),
                                 ),
                                 separatorBuilder:
                                     (BuildContext context, int index) =>
-                                        horizontalSpaceSmall,
+                                        Visibility(
+                                            visible: model
+                                                    .listOfMyAnimals[index]
+                                                    .confirmed ??
+                                                false,
+                                            child: horizontalSpaceSmall),
                               ),
                             )
                           ],
@@ -302,25 +320,27 @@ class ProfileView extends StatelessWidget {
                 if (model.listOfPosts.length == 0)
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: CircleAvatar(
-                        backgroundColor: colors.black,
-                        radius: 30,
-                        child: CircleAvatar(
-                          radius: 29,
-                          backgroundColor: Colors.white,
-                          child: CircleAvatar(
-                            backgroundColor: colors.lightBackgroundColor,
-                            radius: 26,
-                            child: Icon(
-                              Icons.add,
-                              color: colors.primary,
+                    child: isInspectView
+                        ? AppText.body1Bold("Nothing to show")
+                        : Align(
+                            alignment: Alignment.centerLeft,
+                            child: CircleAvatar(
+                              backgroundColor: colors.black,
+                              radius: 30,
+                              child: CircleAvatar(
+                                radius: 29,
+                                backgroundColor: Colors.white,
+                                child: CircleAvatar(
+                                  backgroundColor: colors.lightBackgroundColor,
+                                  radius: 26,
+                                  child: Icon(
+                                    Icons.add,
+                                    color: colors.primary,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                    ),
                   )
                 else
                   Padding(
@@ -333,7 +353,8 @@ class ProfileView extends StatelessWidget {
                       mainAxisSpacing: 6,
                       crossAxisCount: 3,
                       itemBuilder: (context, index) => GestureDetector(
-                        onTap: () {},
+                        onTap: () =>
+                            model.goToPostDetailsView(model.listOfPosts[index]),
                         child: postItem(
                           context,
                           index,

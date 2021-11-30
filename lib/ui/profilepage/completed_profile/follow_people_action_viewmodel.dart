@@ -2,6 +2,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
+import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/profile_types.dart';
 import 'package:tamely/models/follow_profile_model.dart';
 import 'package:tamely/models/params/send_follow_request_body/from_request_body.dart';
@@ -23,9 +24,9 @@ class FollowPeopleProfileActionViewModel extends BaseModel {
   int _counter = 0;
   bool _isLoading = true;
 
-  List<ProfileResponse> _listOfProfileModel = [];
+  List<CustomProfile> _listOfProfileModel = [];
 
-  List<ProfileResponse> get listOfProfileModel => _listOfProfileModel;
+  List<CustomProfile> get listOfProfileModel => _listOfProfileModel;
 
   bool get isLoading => _isLoading;
 
@@ -47,7 +48,9 @@ class FollowPeopleProfileActionViewModel extends BaseModel {
     var result = await _tamelyApi.showPeoplesToFollow(body);
     if (result.data != null) {
       if (result.data!.listOfProfiles != null) {
-        _listOfProfileModel.addAll(result.data!.listOfProfiles ?? []);
+        for (ProfileResponse response in result.data!.listOfProfiles ?? []) {
+          _listOfProfileModel.add(CustomProfile(response));
+        }
         _counter++;
         _isLoading = false;
         notifyListeners();
@@ -57,6 +60,10 @@ class FollowPeopleProfileActionViewModel extends BaseModel {
 
   void goBack() async {
     _navigationService.back();
+  }
+
+  Future goToProfileDetailsPage(String profileId) async {
+    // await _navigationService.navigateTo(Routes.pro)
   }
 
   Future sendFollowRequest(ProfileResponse profileResponse) async {
@@ -72,5 +79,22 @@ class FollowPeopleProfileActionViewModel extends BaseModel {
     if (result.data != null) {
       if (result.data!.success ?? false) {}
     }
+  }
+}
+
+class CustomProfile {
+  ProfileResponse _profile;
+  bool _isFollowing = false;
+
+  CustomProfile(this._profile) {
+    _isFollowing = (_profile.following ?? 0) == 1;
+  }
+
+  bool get isFollowing => _isFollowing;
+
+  ProfileResponse get profile => _profile;
+
+  void changeFollowing() {
+    _isFollowing = !_isFollowing;
   }
 }

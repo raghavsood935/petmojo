@@ -7,14 +7,17 @@ import 'package:tamely/models/animal_profile_detail_model.dart';
 import 'package:tamely/models/common_response.dart';
 import 'package:tamely/models/edit_response.dart';
 import 'package:tamely/models/get_payment_details_response.dart';
+import 'package:tamely/models/list_of_feed_post_response.dart';
 import 'package:tamely/models/list_of_post_response.dart';
 import 'package:tamely/models/list_of_profile_response.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/models/params/change_bio_avatar_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_details_body.dart';
+import 'package:tamely/models/params/feedback_body.dart';
 import 'package:tamely/models/params/get_payment_details_body.dart';
 import 'package:tamely/models/params/login_body.dart';
+import 'package:tamely/models/params/need_help_body.dart';
 import 'package:tamely/models/params/profile_create_body.dart';
 import 'package:tamely/models/params/register_body.dart';
 import 'package:tamely/models/params/reset_password_body.dart';
@@ -60,7 +63,7 @@ class Apis {
   static const String googleLogin = '/auth/login/google';
   static const String changeAvatar = '/user/avatar';
   static const String userProfileDetails = '/user/userDetails';
-  static const String userPosts = '/post/myPosts/0';
+  static const String userPosts = '/post/myPosts';
   static const String addBioAvatar = '/user/bioAndAvatar';
 
   //animal profile
@@ -73,6 +76,13 @@ class Apis {
   static const String showPeopleToFollow = '/user/showPeopleToFollow';
   static const String sendFollowRequest = '/post/sendfollowrequest';
   static const String getPaymentDetails = '/serviceBooking/generateOrderId';
+
+  //hamburger
+  static const String submitFeedback = '/hamburger/submitFeedback';
+  static const String getHelp = '/hamburger/getHelp';
+
+  //feed page
+  static const String feedPosts = '/post/feed/0';
 
   // Booking Appointments
 
@@ -153,6 +163,9 @@ abstract class ApiClient {
   @GET(Apis.userPosts)
   Future<ListOfPostResponse> getUserPosts();
 
+  @GET(Apis.feedPosts)
+  Future<ListOfFeedPostResponse> getFeedPosts();
+
   @PUT(Apis.addBioAvatar)
   Future<CommonResponse> changeBioAndAvatar(
       @Body() ChangeBioAvatarBody changeBioAvatarBody);
@@ -203,10 +216,6 @@ abstract class ApiClient {
   Future<AnimalProfileDetailModelResponse> getAnimalProfileDetail(
       @Body() AnimalProfileDetailsBody animalProfileDetailsBody);
 
-  // @PUT(Apis.animalProfileEdit)
-  // Future<EditResponse> editAnimalProfile(
-  //     @Body() EditAnimalProfileBody editAnimalProfileBody);
-
   @POST(Apis.animalProfileEditDetails)
   Future<AnimalProfileDetailModelResponse> editAnimalProfileDetails(
       @Body() EditAnimalProfileDetailsBody editAnimalProfileDetailsBody);
@@ -218,6 +227,16 @@ abstract class ApiClient {
   @POST(Apis.sendFollowRequest)
   Future<EditResponse> sendFollowRequest(
       @Body() SendFollowRequestBody sendFollowRequestBody);
+
+  // Hamburger
+  // -- submit our feedback
+  @POST(Apis.submitFeedback)
+  Future<CommonResponse> submitFeedback(
+      @Body() SubmitFeedbackBody submitFeedbackBody);
+
+  // -- need help
+  @POST(Apis.getHelp)
+  Future<CommonResponse> getHelp(@Body() NeedHelpBody needHelpBody);
 
   // Booking Appointments
 

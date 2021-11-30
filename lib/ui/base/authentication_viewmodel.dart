@@ -63,7 +63,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
             userService.createAccount(registerBody),
             throwException: true);
         if (userService.hasLoggedInUser)
-          _handleLoggedInUser(userService.currentUser);
+          _handleLoggedInUser(userService.currentUser, true);
       } else {
         snackBarService.showSnackbar(message: "No Internet connection");
       }
@@ -110,11 +110,11 @@ abstract class AuthenticationViewModel extends FormViewModel {
       }
       if (await Util.checkInternetConnectivity()) {
         LoginBody registerBody = LoginBody(email, password);
-        final result = await runBusyFuture(
+        bool? result = await runBusyFuture(
             userService.loginAccount(registerBody),
             throwException: true);
         if (userService.hasLoggedInUser)
-          _handleLoggedInUser(userService.currentUser);
+          _handleLoggedInUser(userService.currentUser, result!);
       } else {
         snackBarService.showSnackbar(message: "No Internet connection");
       }
@@ -139,12 +139,13 @@ abstract class AuthenticationViewModel extends FormViewModel {
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount.authentication;
 
-      final result = await runBusyFuture(
+      bool? result = await runBusyFuture(
           handleSocialLogin(googleSignInAuthentication.accessToken!, false),
           throwException: true);
 
       if (userService.hasLoggedInUser)
-        _handleLoggedInUser(userService.currentUser, isGoogleSignIn: true);
+        _handleLoggedInUser(userService.currentUser, result!,
+            isGoogleSignIn: true);
 
       log.d("GoogleLogin ${googleSignInAuthentication.accessToken}");
     } catch (e) {
@@ -161,9 +162,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
         await runBusyFuture(handleSocialLogin(result.accessToken!.token, true),
             throwException: true);
         if (userService.hasLoggedInUser)
-          _handleLoggedInUser(
-            userService.currentUser,
-          );
+          _handleLoggedInUser(userService.currentUser, true);
         break;
       case LoginStatus.cancelled:
         snackBarService.showSnackbar(message: "Cancelled by User");
@@ -177,16 +176,17 @@ abstract class AuthenticationViewModel extends FormViewModel {
     }
   }
 
-  Future handleSocialLogin(String token, bool isFacebook) async {
+  Future<bool?> handleSocialLogin(String token, bool isFacebook) async {
     try {
       if (await Util.checkInternetConnectivity()) {
         SocialLoginBody socialLoginBody =
             SocialLoginBody(token, DateTime.now().microsecond.toString());
-        final result = await runBusyFuture(
+        bool? result = await runBusyFuture(
             userService.socialLogin(socialLoginBody, isFacebook),
             throwException: true);
-        if (userService.hasLoggedInUser)
-          _handleLoggedInUser(userService.currentUser);
+        return result;
+        // if (userService.hasLoggedInUser)
+        //   _handleLoggedInUser(userService.currentUser);
       } else {
         snackBarService.showSnackbar(message: "No Internet connection");
       }
@@ -196,11 +196,9 @@ abstract class AuthenticationViewModel extends FormViewModel {
     }
   }
 
-  void _handleLoggedInUser(LocalUser currentUser,
+  void _handleLoggedInUser(LocalUser currentUser, bool isNewUser,
       {bool isGoogleSignIn = false}) {
-    if (currentUser.fullName.isValid() &&
-        currentUser.username.isValid() &&
-        currentUser.confirmed) {
+    if (currentUser.confirmed && !isNewUser) {
       sharedPreferencesService.currentState =
           getRedirectStateName(RedirectState.Home);
       navigationService.pushNamedAndRemoveUntil(Routes.dashboard);
@@ -215,18 +213,11 @@ abstract class AuthenticationViewModel extends FormViewModel {
           verificationType: getVerificationTypeName(VerificationType.login),
         ),
       );
-      // } else if (currentUser.) {
-      //
-      //   sharedPreferencesService.currentState =
-      //       getRedirectStateName(RedirectState.ProfileCreate);
-      //   navigationService.pushNamedAndRemoveUntil(
-      //     Routes.profileCreateView,
-      //     arguments: ProfileCreateViewArguments(user: currentUser),
-      //   );
-    } else {
+    } else if (isNewUser) {
       sharedPreferencesService.currentState =
-          getRedirectStateName(RedirectState.Home);
-      navigationService.pushNamedAndRemoveUntil(Routes.dashboard);
+          getRedirectStateName(RedirectState.ProfileCreate);
+      navigationService.pushNamedAndRemoveUntil(Routes.profileCreateView,
+          arguments: ProfileCreateViewArguments(user: currentUser));
     }
   }
 }

@@ -64,7 +64,7 @@ class AppointmentsView extends StatelessWidget {
                           height: 77,
                           width: 77,
                           child: Image.asset(
-                            "assets/images/create_service_images/appointments.png",
+                            "assets/images/service_page_images/appointments.png",
                           ),
                         ),
                         verticalSpaceRegular,

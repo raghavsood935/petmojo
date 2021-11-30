@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:stacked/stacked.dart';
 import 'package:tamely/util/String.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tamely/widgets/app_text.dart';
@@ -9,6 +11,8 @@ import 'package:tamely/widgets/app_input_field.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:dotted_border/dotted_border.dart';
 
+import 'help_viewmodel.dart';
+
 class HelpView extends StatefulWidget {
   const HelpView({Key? key}) : super(key: key);
 
@@ -17,119 +21,117 @@ class HelpView extends StatefulWidget {
 }
 
 class _HelpViewState extends State<HelpView> {
-  final TextEditingController _phone = TextEditingController();
-  final TextEditingController _email = TextEditingController();
-  final TextEditingController _content = TextEditingController();
-  final String hintText =
-      "Type your issue here. We will reach out to you shortly!";
-  bool isPhone = true;
-  bool isEmail = false;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        elevation: 1,
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_sharp,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: AppText.subheading(helpTitle),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: SvgPicture.asset(
-              "assets/images/help.svg",
-              width: 20,
-              height: 20,
-            ),
-          )
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.only(left: 20, right: 20, top: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AppText.body2("How would you like us to reach you?"),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  (isPhone)
-                      ? ButtonActions(
-                          onMainButtonTapped: () {},
-                          mainButtonTitle: "Phone",
-                        )
-                      : ButtonActions(
-                          bgColor: Colors.white,
-                          textColor: colors.kcPrimaryTextColor,
-                          borderColor: Colors.black,
-                          onMainButtonTapped: () {
-                            setState(() {
-                              isPhone = !isPhone;
-                              isEmail = !isEmail;
-                            });
-                          },
-                          mainButtonTitle: "Phone",
-                        ),
-                  (isEmail)
-                      ? ButtonActions(
-                          onMainButtonTapped: () {},
-                          mainButtonTitle: "E-mail",
-                        )
-                      : ButtonActions(
-                          bgColor: Colors.white,
-                          textColor: colors.kcPrimaryTextColor,
-                          borderColor: Colors.black,
-                          onMainButtonTapped: () {
-                            setState(() {
-                              if (!isEmail) {
-                                isEmail = !isEmail;
-                                isPhone = !isPhone;
-                              }
-                            });
-                          },
-                          mainButtonTitle: "E-mail",
-                        ),
+    return ViewModelBuilder<HelpViewModel>.reactive(
+        viewModelBuilder: () => HelpViewModel(),
+        builder: (context, model, child) => Scaffold(
+              resizeToAvoidBottomInset: false,
+              appBar: AppBar(
+                elevation: 1,
+                centerTitle: true,
+                backgroundColor: Colors.white,
+                leading: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back_sharp,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                title: AppText.subheading(helpTitle),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: SvgPicture.asset(
+                      "assets/images/help.svg",
+                      width: 20,
+                      height: 20,
+                    ),
+                  )
                 ],
               ),
-              verticalSpaceMedium,
-              (isPhone)
-                  ? AppInputField(
-                      controller: _phone,
-                      label: 'Phone Number',
-                      textInputType: TextInputType.phone,
-                    )
-                  : AppInputField(
-                      controller: _email,
-                      label: "E-mail ID",
-                      textInputType: TextInputType.emailAddress,
-                    ),
-              AppText.body2("Report a problem / spam / abuse"),
-              verticalSpaceSmall,
-              TextAreaWidget(
-                ctrl: _content,
-                bgColor: colors.inputFieldColor,
-                hintText: hintText,
+              body: SingleChildScrollView(
+                child: Container(
+                  padding: EdgeInsets.only(left: 20, right: 20, top: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppText.body2("How would you like us to reach you?"),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          (model.isPhone)
+                              ? ButtonActions(
+                                  onMainButtonTapped: () {},
+                                  mainButtonTitle: "Phone",
+                                )
+                              : ButtonActions(
+                                  bgColor: Colors.white,
+                                  textColor: colors.kcPrimaryTextColor,
+                                  borderColor: Colors.black,
+                                  onMainButtonTapped: model.onPhoneChange,
+                                  mainButtonTitle: "Phone",
+                                ),
+                          (model.isEmail)
+                              ? ButtonActions(
+                                  onMainButtonTapped: () {},
+                                  mainButtonTitle: "E-mail",
+                                )
+                              : ButtonActions(
+                                  bgColor: Colors.white,
+                                  textColor: colors.kcPrimaryTextColor,
+                                  borderColor: Colors.black,
+                                  onMainButtonTapped: model.onEmailChange,
+                                  mainButtonTitle: "E-mail",
+                                ),
+                        ],
+                      ),
+                      verticalSpaceMedium,
+                      (model.isPhone)
+                          ? AppInputField(
+                              controller: model.phone,
+                              label: 'Phone Number',
+                              textInputType: TextInputType.phone,
+                            )
+                          : AppInputField(
+                              controller: model.email,
+                              label: "E-mail ID",
+                              textInputType: TextInputType.emailAddress,
+                            ),
+                      AppText.body2("Report a problem / spam / abuse"),
+                      verticalSpaceSmall,
+                      TextAreaWidget(
+                        ctrl: model.content,
+                        bgColor: colors.inputFieldColor,
+                        hintText: model.hintText,
+                      ),
+                      verticalSpaceRegular,
+                      ScreenShotInput(
+                          bgColor: colors.inputFieldColor,
+                          onClick: () => model.onImageButtonPressed(
+                              ImageSource.gallery, context)),
+                      verticalSpaceTiny,
+                      Visibility(
+                        visible: model.avatarUrl.isNotEmpty,
+                        child: Image.network(
+                          model.avatarUrl,
+                          width:
+                              screenWidthPercentage(context, percentage: 0.85),
+                          height:
+                              screenWidthPercentage(context, percentage: 0.85),
+                        ),
+                      ),
+                      verticalSpaceRegular,
+                      MainButtonWidget(
+                          onMainButtonTapped: model.onSubmit,
+                          mainButtonTitle: "SUBMIT HELP")
+                    ],
+                  ),
+                ),
               ),
-              verticalSpaceRegular,
-              ScreenShotInput(bgColor: colors.inputFieldColor, onClick: () {}),
-              verticalSpaceRegular,
-              MainButtonWidget(
-                  onMainButtonTapped: () {}, mainButtonTitle: "SUBMIT HELP")
-            ],
-          ),
-        ),
-      ),
-    );
+            ));
   }
 }
 

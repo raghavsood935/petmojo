@@ -160,6 +160,11 @@ class ProfileViewModel extends BaseViewModel {
         arguments: AnimalProfileViewArguments(petId: petId));
   }
 
+  void goToPostDetailsView(PostResponse postResponse) async {
+    await _navigationService.navigateTo(Routes.postDetialsPageView,
+        arguments: PostDetialsPageViewArguments(postResponse: postResponse));
+  }
+
   void goToCompleteProfile() async {
     if (_shortBio.isEmpty) {
       goToAddDetailsProfileAction();

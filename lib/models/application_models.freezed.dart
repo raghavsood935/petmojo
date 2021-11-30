@@ -23,12 +23,12 @@ class _$LocalUserTearOff {
 
   _User call(
       {@JsonKey(name: "_id") String? id,
-      String? email,
-      String? username,
+      @JsonKey(name: "email") String? email,
+      @JsonKey(name: "username") String? username,
       String? fullName,
       String? bio,
       String? website,
-      bool confirmed = false}) {
+      @JsonKey(name: "confirmed") bool confirmed = false}) {
     return _User(
       id: id,
       email: email,
@@ -52,11 +52,14 @@ const $LocalUser = _$LocalUserTearOff();
 mixin _$LocalUser {
   @JsonKey(name: "_id")
   String? get id => throw _privateConstructorUsedError;
+  @JsonKey(name: "email")
   String? get email => throw _privateConstructorUsedError;
+  @JsonKey(name: "username")
   String? get username => throw _privateConstructorUsedError;
   String? get fullName => throw _privateConstructorUsedError;
   String? get bio => throw _privateConstructorUsedError;
   String? get website => throw _privateConstructorUsedError;
+  @JsonKey(name: "confirmed")
   bool get confirmed => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -71,12 +74,12 @@ abstract class $LocalUserCopyWith<$Res> {
       _$LocalUserCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(name: "_id") String? id,
-      String? email,
-      String? username,
+      @JsonKey(name: "email") String? email,
+      @JsonKey(name: "username") String? username,
       String? fullName,
       String? bio,
       String? website,
-      bool confirmed});
+      @JsonKey(name: "confirmed") bool confirmed});
 }
 
 /// @nodoc
@@ -137,12 +140,12 @@ abstract class _$UserCopyWith<$Res> implements $LocalUserCopyWith<$Res> {
   @override
   $Res call(
       {@JsonKey(name: "_id") String? id,
-      String? email,
-      String? username,
+      @JsonKey(name: "email") String? email,
+      @JsonKey(name: "username") String? username,
       String? fullName,
       String? bio,
       String? website,
-      bool confirmed});
+      @JsonKey(name: "confirmed") bool confirmed});
 }
 
 /// @nodoc
@@ -202,12 +205,12 @@ class __$UserCopyWithImpl<$Res> extends _$LocalUserCopyWithImpl<$Res>
 class _$_User extends _User {
   _$_User(
       {@JsonKey(name: "_id") this.id,
-      this.email,
-      this.username,
+      @JsonKey(name: "email") this.email,
+      @JsonKey(name: "username") this.username,
       this.fullName,
       this.bio,
       this.website,
-      this.confirmed = false})
+      @JsonKey(name: "confirmed") this.confirmed = false})
       : super._();
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
@@ -216,8 +219,10 @@ class _$_User extends _User {
   @JsonKey(name: "_id")
   final String? id;
   @override
+  @JsonKey(name: "email")
   final String? email;
   @override
+  @JsonKey(name: "username")
   final String? username;
   @override
   final String? fullName;
@@ -225,8 +230,8 @@ class _$_User extends _User {
   final String? bio;
   @override
   final String? website;
-  @JsonKey(defaultValue: false)
   @override
+  @JsonKey(name: "confirmed")
   final bool confirmed;
 
   @override
@@ -269,12 +274,12 @@ class _$_User extends _User {
 abstract class _User extends LocalUser {
   factory _User(
       {@JsonKey(name: "_id") String? id,
-      String? email,
-      String? username,
+      @JsonKey(name: "email") String? email,
+      @JsonKey(name: "username") String? username,
       String? fullName,
       String? bio,
       String? website,
-      bool confirmed}) = _$_User;
+      @JsonKey(name: "confirmed") bool confirmed}) = _$_User;
   _User._() : super._();
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
@@ -283,8 +288,10 @@ abstract class _User extends LocalUser {
   @JsonKey(name: "_id")
   String? get id;
   @override
+  @JsonKey(name: "email")
   String? get email;
   @override
+  @JsonKey(name: "username")
   String? get username;
   @override
   String? get fullName;
@@ -293,6 +300,7 @@ abstract class _User extends LocalUser {
   @override
   String? get website;
   @override
+  @JsonKey(name: "confirmed")
   bool get confirmed;
   @override
   @JsonKey(ignore: true)

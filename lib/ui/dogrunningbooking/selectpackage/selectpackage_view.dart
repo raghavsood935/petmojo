@@ -182,9 +182,9 @@ class SelectPackageView extends ViewModelWidget<DogRunningBookingViewModel> {
                   verticalSpaceTiny,
                   Row(
                     children: [
-                      // Image.asset(
-                      //   "assets/images/Calendar.png",
-                      // ),
+                      Image.asset(
+                        "assets/images/Calendar.png",
+                      ),
                       horizontalSpaceSmall,
                       GestureDetector(
                         onTap: () =>

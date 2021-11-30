@@ -12,12 +12,14 @@ _$_UserResponse _$$_UserResponseFromJson(Map<String, dynamic> json) =>
           ? null
           : LocalUser.fromJson(json['user'] as Map<String, dynamic>),
       token: json['token'] as String?,
+      isNewUser: json['isNewUser'] as bool?,
     );
 
 Map<String, dynamic> _$$_UserResponseToJson(_$_UserResponse instance) =>
     <String, dynamic>{
       'user': instance.localUser,
       'token': instance.token,
+      'isNewUser': instance.isNewUser,
     };
 
 _$_UserNameAvailableResponse _$$_UserNameAvailableResponseFromJson(
