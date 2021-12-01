@@ -140,7 +140,6 @@ class DashboardViewModel extends FutureViewModel<void>
     _sharedPrefService.clearLoginData();
     _sharedPrefService.currentState =
         getRedirectStateName(RedirectState.Welcome);
-
     _navigationService.pushNamedAndRemoveUntil(Routes.onBoardingView);
   }
 }

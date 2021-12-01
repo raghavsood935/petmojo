@@ -35,9 +35,9 @@ class _$GetAppointmentDetailsResponseTearOff {
           int? serviceType,
       @JsonKey(name: "_id")
           String? appointmentId,
-      @JsonKey(name: "ServiceProvider")
-          String? serviceProviderId,
       @JsonKey(name: "User")
+          String? userId,
+      @JsonKey(name: "ServiceProvider")
           UserDetailsResponse? user,
       @JsonKey(name: "bookingDetails")
           GetBookingDetailsResponse? bookingDetails}) {
@@ -48,7 +48,7 @@ class _$GetAppointmentDetailsResponseTearOff {
       hasTestimony: hasTestimony,
       serviceType: serviceType,
       appointmentId: appointmentId,
-      serviceProviderId: serviceProviderId,
+      userId: userId,
       user: user,
       bookingDetails: bookingDetails,
     );
@@ -77,9 +77,9 @@ mixin _$GetAppointmentDetailsResponse {
   int? get serviceType => throw _privateConstructorUsedError;
   @JsonKey(name: "_id")
   String? get appointmentId => throw _privateConstructorUsedError;
-  @JsonKey(name: "ServiceProvider")
-  String? get serviceProviderId => throw _privateConstructorUsedError;
   @JsonKey(name: "User")
+  String? get userId => throw _privateConstructorUsedError;
+  @JsonKey(name: "ServiceProvider")
   UserDetailsResponse? get user => throw _privateConstructorUsedError;
   @JsonKey(name: "bookingDetails")
   GetBookingDetailsResponse? get bookingDetails =>
@@ -110,9 +110,9 @@ abstract class $GetAppointmentDetailsResponseCopyWith<$Res> {
           int? serviceType,
       @JsonKey(name: "_id")
           String? appointmentId,
-      @JsonKey(name: "ServiceProvider")
-          String? serviceProviderId,
       @JsonKey(name: "User")
+          String? userId,
+      @JsonKey(name: "ServiceProvider")
           UserDetailsResponse? user,
       @JsonKey(name: "bookingDetails")
           GetBookingDetailsResponse? bookingDetails});
@@ -138,7 +138,7 @@ class _$GetAppointmentDetailsResponseCopyWithImpl<$Res>
     Object? hasTestimony = freezed,
     Object? serviceType = freezed,
     Object? appointmentId = freezed,
-    Object? serviceProviderId = freezed,
+    Object? userId = freezed,
     Object? user = freezed,
     Object? bookingDetails = freezed,
   }) {
@@ -167,9 +167,9 @@ class _$GetAppointmentDetailsResponseCopyWithImpl<$Res>
           ? _value.appointmentId
           : appointmentId // ignore: cast_nullable_to_non_nullable
               as String?,
-      serviceProviderId: serviceProviderId == freezed
-          ? _value.serviceProviderId
-          : serviceProviderId // ignore: cast_nullable_to_non_nullable
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String?,
       user: user == freezed
           ? _value.user
@@ -227,9 +227,9 @@ abstract class _$GetAppointmentDetailsResponseCopyWith<$Res>
           int? serviceType,
       @JsonKey(name: "_id")
           String? appointmentId,
-      @JsonKey(name: "ServiceProvider")
-          String? serviceProviderId,
       @JsonKey(name: "User")
+          String? userId,
+      @JsonKey(name: "ServiceProvider")
           UserDetailsResponse? user,
       @JsonKey(name: "bookingDetails")
           GetBookingDetailsResponse? bookingDetails});
@@ -261,7 +261,7 @@ class __$GetAppointmentDetailsResponseCopyWithImpl<$Res>
     Object? hasTestimony = freezed,
     Object? serviceType = freezed,
     Object? appointmentId = freezed,
-    Object? serviceProviderId = freezed,
+    Object? userId = freezed,
     Object? user = freezed,
     Object? bookingDetails = freezed,
   }) {
@@ -290,9 +290,9 @@ class __$GetAppointmentDetailsResponseCopyWithImpl<$Res>
           ? _value.appointmentId
           : appointmentId // ignore: cast_nullable_to_non_nullable
               as String?,
-      serviceProviderId: serviceProviderId == freezed
-          ? _value.serviceProviderId
-          : serviceProviderId // ignore: cast_nullable_to_non_nullable
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String?,
       user: user == freezed
           ? _value.user
@@ -316,8 +316,8 @@ class _$_GetAppointmentDetailsResponse extends _GetAppointmentDetailsResponse {
       @JsonKey(name: "israted") this.hasTestimony,
       @JsonKey(name: "serviceType") this.serviceType,
       @JsonKey(name: "_id") this.appointmentId,
-      @JsonKey(name: "ServiceProvider") this.serviceProviderId,
-      @JsonKey(name: "User") this.user,
+      @JsonKey(name: "User") this.userId,
+      @JsonKey(name: "ServiceProvider") this.user,
       @JsonKey(name: "bookingDetails") this.bookingDetails})
       : super._();
 
@@ -344,10 +344,10 @@ class _$_GetAppointmentDetailsResponse extends _GetAppointmentDetailsResponse {
   @JsonKey(name: "_id")
   final String? appointmentId;
   @override
-  @JsonKey(name: "ServiceProvider")
-  final String? serviceProviderId;
-  @override
   @JsonKey(name: "User")
+  final String? userId;
+  @override
+  @JsonKey(name: "ServiceProvider")
   final UserDetailsResponse? user;
   @override
   @JsonKey(name: "bookingDetails")
@@ -355,7 +355,7 @@ class _$_GetAppointmentDetailsResponse extends _GetAppointmentDetailsResponse {
 
   @override
   String toString() {
-    return 'GetAppointmentDetailsResponse(petDetails: $petDetails, bookingStatus: $bookingStatus, serviceStatus: $serviceStatus, hasTestimony: $hasTestimony, serviceType: $serviceType, appointmentId: $appointmentId, serviceProviderId: $serviceProviderId, user: $user, bookingDetails: $bookingDetails)';
+    return 'GetAppointmentDetailsResponse(petDetails: $petDetails, bookingStatus: $bookingStatus, serviceStatus: $serviceStatus, hasTestimony: $hasTestimony, serviceType: $serviceType, appointmentId: $appointmentId, userId: $userId, user: $user, bookingDetails: $bookingDetails)';
   }
 
   @override
@@ -375,8 +375,7 @@ class _$_GetAppointmentDetailsResponse extends _GetAppointmentDetailsResponse {
                 other.serviceType == serviceType) &&
             (identical(other.appointmentId, appointmentId) ||
                 other.appointmentId == appointmentId) &&
-            (identical(other.serviceProviderId, serviceProviderId) ||
-                other.serviceProviderId == serviceProviderId) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.user, user) || other.user == user) &&
             (identical(other.bookingDetails, bookingDetails) ||
                 other.bookingDetails == bookingDetails));
@@ -391,7 +390,7 @@ class _$_GetAppointmentDetailsResponse extends _GetAppointmentDetailsResponse {
       hasTestimony,
       serviceType,
       appointmentId,
-      serviceProviderId,
+      userId,
       user,
       bookingDetails);
 
@@ -422,9 +421,9 @@ abstract class _GetAppointmentDetailsResponse
               int? serviceType,
           @JsonKey(name: "_id")
               String? appointmentId,
-          @JsonKey(name: "ServiceProvider")
-              String? serviceProviderId,
           @JsonKey(name: "User")
+              String? userId,
+          @JsonKey(name: "ServiceProvider")
               UserDetailsResponse? user,
           @JsonKey(name: "bookingDetails")
               GetBookingDetailsResponse? bookingDetails}) =
@@ -453,10 +452,10 @@ abstract class _GetAppointmentDetailsResponse
   @JsonKey(name: "_id")
   String? get appointmentId;
   @override
-  @JsonKey(name: "ServiceProvider")
-  String? get serviceProviderId;
-  @override
   @JsonKey(name: "User")
+  String? get userId;
+  @override
+  @JsonKey(name: "ServiceProvider")
   UserDetailsResponse? get user;
   @override
   @JsonKey(name: "bookingDetails")

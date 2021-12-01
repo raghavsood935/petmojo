@@ -22,6 +22,7 @@ import 'package:tamely/models/params/profile_create_body.dart';
 import 'package:tamely/models/params/register_body.dart';
 import 'package:tamely/models/params/reset_password_body.dart';
 import 'package:tamely/models/params/send_follow_request_body/send_follow_request_body.dart';
+import 'package:tamely/models/params/set_payment_details_body.dart';
 import 'package:tamely/models/params/show_people_to_follow_body.dart';
 import 'package:tamely/models/params/social_login_body.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
@@ -74,7 +75,6 @@ class Apis {
   //complete profile
   static const String showPeopleToFollow = '/user/showPeopleToFollow';
   static const String sendFollowRequest = '/post/sendfollowrequest';
-  static const String getPaymentDetails = '/serviceBooking/generateOrderId';
 
   //hamburger
   static const String submitFeedback = '/hamburger/submitFeedback';
@@ -86,6 +86,8 @@ class Apis {
   // Booking Appointments
   static const String getPetDetails = '/serviceBooking/getPetDetails';
   static const String bookARun = '/serviceBooking/serviceBooking';
+  static const String getPaymentDetails = '/serviceBooking/generateOrderId';
+  static const String setPaymentDetails = '/service/postPayment';
 
   // My Bookings Flow
   static const String getActiveAppointments =
@@ -250,6 +252,11 @@ abstract class ApiClient {
   @POST(Apis.getPaymentDetails)
   Future<GetPaymentDetailsResponse> getPaymentDetails(
       @Body() GetPaymentDetailsBody getPaymentDetailsBody);
+
+  // -- Set Payment details
+  @PATCH(Apis.setPaymentDetails)
+  Future<SendDataResponse> setPaymentDetails(
+      @Body() SetPaymentDetailsBody setPaymentDetailsBody);
 
   // My Bookings Flow
 

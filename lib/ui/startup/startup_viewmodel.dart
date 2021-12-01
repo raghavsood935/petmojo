@@ -45,7 +45,7 @@ class StartUpViewModel extends FutureViewModel<void> implements Initialisable {
 
   Future initialise() async {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
-    // _sharedPreferencesService.clearLoginData();
+    _sharedPreferencesService.clearLoginData();
     var currentState = _sharedPreferencesService.currentState;
 
     switch (getRedirectState(currentState)) {

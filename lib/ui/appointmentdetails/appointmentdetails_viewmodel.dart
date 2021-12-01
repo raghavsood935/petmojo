@@ -515,8 +515,8 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
                 "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg";
           }
 
-          _userId = result.data!.user!.userId!;
-          _serviceProviderId = result.data!.serviceProviderId!;
+          _userId = result.data!.userId!;
+          _serviceProviderId = result.data!.user!.userId!;
 
           _walkOneTime = result.data!.bookingDetails!.run1Time!;
           _walkTwoTime = result.data!.bookingDetails!.run2Time!;

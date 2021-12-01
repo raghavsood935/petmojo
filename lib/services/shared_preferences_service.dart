@@ -59,6 +59,7 @@ class SharedPreferencesService {
     await _preferences.remove(UID);
     await _preferences.remove(HAS_USER);
     await _preferences.remove(CURRENT_STATE);
+    await _preferences.remove(AUTH_TOKEN);
     await _preferences.clear();
   }
 

@@ -17,10 +17,11 @@ _$_GetAppointmentDetailsResponse _$$_GetAppointmentDetailsResponseFromJson(
       hasTestimony: json['israted'] as bool?,
       serviceType: json['serviceType'] as int?,
       appointmentId: json['_id'] as String?,
-      serviceProviderId: json['ServiceProvider'] as String?,
-      user: json['User'] == null
+      userId: json['User'] as String?,
+      user: json['ServiceProvider'] == null
           ? null
-          : UserDetailsResponse.fromJson(json['User'] as Map<String, dynamic>),
+          : UserDetailsResponse.fromJson(
+              json['ServiceProvider'] as Map<String, dynamic>),
       bookingDetails: json['bookingDetails'] == null
           ? null
           : GetBookingDetailsResponse.fromJson(
@@ -36,8 +37,8 @@ Map<String, dynamic> _$$_GetAppointmentDetailsResponseToJson(
       'israted': instance.hasTestimony,
       'serviceType': instance.serviceType,
       '_id': instance.appointmentId,
-      'ServiceProvider': instance.serviceProviderId,
-      'User': instance.user,
+      'User': instance.userId,
+      'ServiceProvider': instance.user,
       'bookingDetails': instance.bookingDetails,
     };
 

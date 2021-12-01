@@ -25,7 +25,7 @@ class AppointmentListResponse with _$AppointmentListResponse {
     @JsonKey(name: "bookingStatus") int? bookingStatus,
     @JsonKey(name: "serviceType") int? serviceType,
     @JsonKey(name: "_id") String? appointmentId,
-    @JsonKey(name: "User") UserDetailsResponse? user,
+    @JsonKey(name: "ServiceProvider") UserDetailsResponse? user,
     @JsonKey(name: "bookingDetails") BookingDetailsResponse? bookingDetails,
   }) = _AppointmentListResponse;
 

@@ -195,8 +195,8 @@ class ProfileViewModel extends BaseViewModel {
     UserDetailsModelResponse userDetailsModelResponse =
         response.userDetailsModel!;
     _Id = userDetailsModelResponse.Id ?? "";
-    _profilename = userDetailsModelResponse.username ?? "";
-    _username = userDetailsModelResponse.fullName ?? "";
+    _profilename = userDetailsModelResponse.fullName ?? "";
+    _username = userDetailsModelResponse.username ?? "";
     _profileImgUrl = userDetailsModelResponse.avatar ?? "";
     _shortBio = userDetailsModelResponse.bio ?? "";
     _noOfAnimals = userDetailsModelResponse.listOfPets!.length;

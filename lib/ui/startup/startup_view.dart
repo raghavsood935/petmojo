@@ -83,14 +83,15 @@ class _StartupViewState extends State<StartupView>
                 //   ),
                 // )
                 child: Lottie.asset(
-                  'assets/lottie/tamely_loading.json',
+                  'assets/lottie/new_animation.json',
                   width: double.maxFinite,
                   height: double.maxFinite,
                   onLoaded: (composition) {
                     animationController.addStatusListener((status) {
                       if (status == AnimationStatus.completed) {
                         model.moveToRedirectState();
-                        if (!model.isDestinationAvailable) animation2?.forward();
+                        if (!model.isDestinationAvailable)
+                          animation2?.forward();
                       }
                     });
 
@@ -101,7 +102,7 @@ class _StartupViewState extends State<StartupView>
                       ..forward();
                   },
                 ),
-                // child: Center(child: Image.asset(logoWithText)),
+                //child: Center(child: Image.asset(logoWithText)),
               ),
             ),
             FadeTransition(

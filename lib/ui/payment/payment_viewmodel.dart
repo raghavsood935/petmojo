@@ -10,6 +10,8 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/models/get_payment_details_response.dart';
 import 'package:tamely/models/params/get_payment_details_body.dart';
+import 'package:tamely/models/params/set_payment_details_body.dart';
+import 'package:tamely/models/send_data_response.dart';
 import 'package:tamely/util/utils.dart';
 
 class PaymentViewModel extends FutureViewModel<void> implements Initialisable {
@@ -69,6 +71,25 @@ class PaymentViewModel extends FutureViewModel<void> implements Initialisable {
     notifyListeners();
   }
 
+  void setPaymentDetails() async {
+    try {
+      if (await Util.checkInternetConnectivity()) {
+        SetPaymentDetailsBody setPaymentDetailsBody = SetPaymentDetailsBody(
+            bookingId, getPaymentDetailsResponse.orderId!);
+        BaseResponse<SendDataResponse> result = await runBusyFuture(
+            _tamelyApi.setPaymentDetails(setPaymentDetailsBody),
+            throwException: true);
+
+        notifyListeners();
+      } else {
+        snackBarService.showSnackbar(message: "No Internet connection");
+      }
+    } on ServerError catch (e) {
+      log.e(e.toString());
+    }
+    notifyListeners();
+  }
+
   late Razorpay _razorpay;
 
   startState() {
@@ -114,6 +135,8 @@ class PaymentViewModel extends FutureViewModel<void> implements Initialisable {
     print("I print: Success");
     _paymentCompleted = true;
     _paymentFailed = false;
+    notifyListeners();
+    setPaymentDetails();
     notifyListeners();
     // Do something when payment succeeds
   }

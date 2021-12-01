@@ -30,9 +30,10 @@ _$_AppointmentListResponse _$$_AppointmentListResponseFromJson(
       bookingStatus: json['bookingStatus'] as int?,
       serviceType: json['serviceType'] as int?,
       appointmentId: json['_id'] as String?,
-      user: json['User'] == null
+      user: json['ServiceProvider'] == null
           ? null
-          : UserDetailsResponse.fromJson(json['User'] as Map<String, dynamic>),
+          : UserDetailsResponse.fromJson(
+              json['ServiceProvider'] as Map<String, dynamic>),
       bookingDetails: json['bookingDetails'] == null
           ? null
           : BookingDetailsResponse.fromJson(
@@ -46,7 +47,7 @@ Map<String, dynamic> _$$_AppointmentListResponseToJson(
       'bookingStatus': instance.bookingStatus,
       'serviceType': instance.serviceType,
       '_id': instance.appointmentId,
-      'User': instance.user,
+      'ServiceProvider': instance.user,
       'bookingDetails': instance.bookingDetails,
     };
 

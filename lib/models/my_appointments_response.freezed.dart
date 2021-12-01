@@ -199,7 +199,7 @@ class _$AppointmentListResponseTearOff {
           int? serviceType,
       @JsonKey(name: "_id")
           String? appointmentId,
-      @JsonKey(name: "User")
+      @JsonKey(name: "ServiceProvider")
           UserDetailsResponse? user,
       @JsonKey(name: "bookingDetails")
           BookingDetailsResponse? bookingDetails}) {
@@ -232,7 +232,7 @@ mixin _$AppointmentListResponse {
   int? get serviceType => throw _privateConstructorUsedError;
   @JsonKey(name: "_id")
   String? get appointmentId => throw _privateConstructorUsedError;
-  @JsonKey(name: "User")
+  @JsonKey(name: "ServiceProvider")
   UserDetailsResponse? get user => throw _privateConstructorUsedError;
   @JsonKey(name: "bookingDetails")
   BookingDetailsResponse? get bookingDetails =>
@@ -254,7 +254,7 @@ abstract class $AppointmentListResponseCopyWith<$Res> {
       @JsonKey(name: "bookingStatus") int? bookingStatus,
       @JsonKey(name: "serviceType") int? serviceType,
       @JsonKey(name: "_id") String? appointmentId,
-      @JsonKey(name: "User") UserDetailsResponse? user,
+      @JsonKey(name: "ServiceProvider") UserDetailsResponse? user,
       @JsonKey(name: "bookingDetails") BookingDetailsResponse? bookingDetails});
 
   $UserDetailsResponseCopyWith<$Res>? get user;
@@ -343,7 +343,7 @@ abstract class _$AppointmentListResponseCopyWith<$Res>
       @JsonKey(name: "bookingStatus") int? bookingStatus,
       @JsonKey(name: "serviceType") int? serviceType,
       @JsonKey(name: "_id") String? appointmentId,
-      @JsonKey(name: "User") UserDetailsResponse? user,
+      @JsonKey(name: "ServiceProvider") UserDetailsResponse? user,
       @JsonKey(name: "bookingDetails") BookingDetailsResponse? bookingDetails});
 
   @override
@@ -410,7 +410,7 @@ class _$_AppointmentListResponse extends _AppointmentListResponse {
       @JsonKey(name: "bookingStatus") this.bookingStatus,
       @JsonKey(name: "serviceType") this.serviceType,
       @JsonKey(name: "_id") this.appointmentId,
-      @JsonKey(name: "User") this.user,
+      @JsonKey(name: "ServiceProvider") this.user,
       @JsonKey(name: "bookingDetails") this.bookingDetails})
       : super._();
 
@@ -430,7 +430,7 @@ class _$_AppointmentListResponse extends _AppointmentListResponse {
   @JsonKey(name: "_id")
   final String? appointmentId;
   @override
-  @JsonKey(name: "User")
+  @JsonKey(name: "ServiceProvider")
   final UserDetailsResponse? user;
   @override
   @JsonKey(name: "bookingDetails")
@@ -491,7 +491,7 @@ abstract class _AppointmentListResponse extends AppointmentListResponse {
           int? serviceType,
       @JsonKey(name: "_id")
           String? appointmentId,
-      @JsonKey(name: "User")
+      @JsonKey(name: "ServiceProvider")
           UserDetailsResponse? user,
       @JsonKey(name: "bookingDetails")
           BookingDetailsResponse? bookingDetails}) = _$_AppointmentListResponse;
@@ -513,7 +513,7 @@ abstract class _AppointmentListResponse extends AppointmentListResponse {
   @JsonKey(name: "_id")
   String? get appointmentId;
   @override
-  @JsonKey(name: "User")
+  @JsonKey(name: "ServiceProvider")
   UserDetailsResponse? get user;
   @override
   @JsonKey(name: "bookingDetails")

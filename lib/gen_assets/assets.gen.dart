@@ -213,6 +213,9 @@ class $AssetsImagesGen {
 class $AssetsLottieGen {
   const $AssetsLottieGen();
 
+  /// File path: assets/lottie/new_animation.json
+  String get newAnimation => 'assets/lottie/new_animation.json';
+
   /// File path: assets/lottie/splash.json
   String get splash => 'assets/lottie/splash.json';
 

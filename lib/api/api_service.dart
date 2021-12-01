@@ -28,6 +28,7 @@ import 'package:tamely/models/params/profile_create_body.dart';
 import 'package:tamely/models/params/register_body.dart';
 import 'package:tamely/models/params/reset_password_body.dart';
 import 'package:tamely/models/params/send_follow_request_body/send_follow_request_body.dart';
+import 'package:tamely/models/params/set_payment_details_body.dart';
 import 'package:tamely/models/params/show_people_to_follow_body.dart';
 import 'package:tamely/models/params/social_login_body.dart';
 import 'package:tamely/models/params/change_bio_avatar_body.dart';
@@ -559,6 +560,22 @@ class TamelyApi {
     try {
       response =
           await getApiClient(true).getPaymentDetails(getPaymentDetailsBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Set Payment details
+  Future<BaseResponse<SendDataResponse>> setPaymentDetails(
+      SetPaymentDetailsBody setPaymentDetailsBody) async {
+    log.d("googleLogin called");
+    SendDataResponse response;
+    try {
+      response =
+          await getApiClient(true).setPaymentDetails(setPaymentDetailsBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()
