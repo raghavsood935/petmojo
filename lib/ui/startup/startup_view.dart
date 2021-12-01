@@ -67,21 +67,6 @@ class _StartupViewState extends State<StartupView>
               left: 0,
               child: FadeTransition(
                 opacity: _fadeOut!,
-                // child: Center(
-                //   child: Column(
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     mainAxisSize: MainAxisSize.max,
-                //     crossAxisAlignment: CrossAxisAlignment.center,
-                //     children: [
-                //       Image.asset(
-                //         lightSplashScreen,
-                //         height: 200,
-                //         width: 200,
-                //       ),
-                //       AppText.subheading(splashScreenSubTitle)
-                //     ],
-                //   ),
-                // )
                 child: Lottie.asset(
                   'assets/lottie/new_animation.json',
                   width: double.maxFinite,
@@ -102,7 +87,6 @@ class _StartupViewState extends State<StartupView>
                       ..forward();
                   },
                 ),
-                //child: Center(child: Image.asset(logoWithText)),
               ),
             ),
             FadeTransition(
