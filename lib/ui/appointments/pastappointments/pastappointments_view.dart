@@ -169,10 +169,10 @@ class PastAppointmentItem extends StatelessWidget {
               AppText.body1(
                 subscriptionType!,
               ),
-              verticalSpaceTiny,
-              AppText.body1(
-                "$upcomingLabel - $dateAndTime!",
-              ),
+              // verticalSpaceTiny,
+              // AppText.body1(
+              //   "$upcomingLabel - $dateAndTime!",
+              // ),
               verticalSpaceSmall,
               status == PastAppointmentStatus.Canceled
                   ? Container(

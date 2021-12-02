@@ -99,7 +99,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             try {
               newAppointment.userName = each.user!.fullName!;
             } catch (e) {
-              newAppointment.userName = "";
+              newAppointment.userName = "Dog Runner";
             }
 
             newAppointment.userPicture =
@@ -140,7 +140,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             try {
               newAppointment.userName = each.user!.fullName!;
             } catch (e) {
-              newAppointment.userName = "";
+              newAppointment.userName = "Dog Runner";
             }
 
             newAppointment.userPicture =

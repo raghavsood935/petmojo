@@ -389,7 +389,9 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
     notifyListeners();
   }
 
-  void toBookAgain() {}
+  void toBookAgain() {
+    _navigationService.navigateTo(Routes.dogRunningBookingView);
+  }
 
   //
   void dateSelected(date) {
@@ -492,8 +494,9 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
 
           _amount = result.data!.bookingDetails!.package!.amount!;
 
-          int amountInt = int.parse(amount);
-          double cancelAmountInt = amountInt / 2;
+          double amountDouble = double.parse(amount);
+          double cancelAmountInt = amountDouble / 2;
+
           _cancelAmount = cancelAmountInt.toString();
 
           _subscriptionType =
@@ -505,7 +508,7 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
           try {
             _userName = result.data!.user!.fullName!;
           } catch (e) {
-            _userName = "";
+            _userName = "Dog Runner";
           }
 
           try {

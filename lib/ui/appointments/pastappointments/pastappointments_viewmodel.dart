@@ -84,21 +84,16 @@ class PastAppointmentsViewModel extends FutureViewModel<void>
             try {
               newAppointment.userName = each.user!.fullName!;
             } catch (e) {
-              newAppointment.userName = "";
+              newAppointment.userName = "Dog Runner";
             }
 
-            try {
-              newAppointment.userPicture = each.user!.avatar!;
-            } catch (e) {
-              newAppointment.userPicture =
-                  "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg";
-            }
+            newAppointment.userPicture =
+                "https://drive.google.com/file/d/16IaPIGrT8gkAx-UGzVD9GsWXZ2Slvq2X/view?usp=sharing";
 
             newAppointment.serviceName =
                 each.serviceType == 0 ? dogWalkingTitle : dogWalkingTitle;
             newAppointment.subscriptionType =
                 "(${each.bookingDetails!.package!.subscriptionType} , ${each.bookingDetails!.package!.numberOfTimes}/day )";
-            newAppointment.dateAndTime = each.bookingDetails!.startDate;
             newAppointment.dateAndTime = each.bookingDetails!.startDate;
             List<PetDetailsResponse>? petDetails = each.petDetails;
             for (var one in petDetails!) {

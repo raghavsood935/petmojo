@@ -790,22 +790,29 @@ class DogRunningBookingViewModel extends FormViewModel {
   }
 
   void getPets() async {
+    print("called");
     try {
       if (await Util.checkInternetConnectivity()) {
         BaseResponse<GetPetDetailsResponse> result = await runBusyFuture(
             _tamelyApi.getPetDetails(),
             throwException: true);
         List<PetDetailsResponse> petsList = result.data!.pets!;
+
         if (petsList.length != 0) {
+          _dogsOwned.clear();
+          _dogsId.clear();
           _hasPets = true;
           for (var each in petsList) {
             PetInfoResponse petsData = each.pet!;
             _dogsOwned.add(petsData.petName!);
             _dogsId.add(petsData.petId!);
           }
+          _dogsOwned.add("Dog");
+          _dogsId.add("111111111111111111111111");
         } else if (petsList.length == 0) {
           _hasPets = false;
         }
+        print("called end");
         notifyListeners();
       } else {
         snackBarService.showSnackbar(message: "No Internet connection");
