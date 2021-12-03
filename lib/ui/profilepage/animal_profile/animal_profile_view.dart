@@ -74,7 +74,7 @@ class AnimalProfileView extends StatelessWidget {
                         right: 20,
                         child: GestureDetector(
                           child: EditButton(),
-                          onTap: () {},
+                          onTap: model.goToAnimalEdit,
                         ),
                       ),
 
@@ -163,9 +163,12 @@ class AnimalProfileView extends StatelessWidget {
                                   color: colors.kcMediumGreyColor,
                                 ),
                                 horizontalSpaceTiny,
-                                CircleAvatar(
-                                  radius: 2,
-                                  backgroundColor: colors.primary,
+                                Visibility(
+                                  visible: model.animalBreed.isNotEmpty,
+                                  child: CircleAvatar(
+                                    radius: 2,
+                                    backgroundColor: colors.primary,
+                                  ),
                                 ),
                                 horizontalSpaceTiny,
                                 AppText.body1(
@@ -218,32 +221,43 @@ class AnimalProfileView extends StatelessWidget {
                             ),
                           ),
                           verticalSpaceSmall,
+                          Divider(color: colors.kcLightGreyColor, height: 1.0),
                         ],
                       ))
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 30,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
+                Visibility(
+                  visible: model.isUpForAdoption ||
+                      model.isUpForMating ||
+                      model.isUpForPlayBuddies,
+                  child: Column(
                     children: [
-                      Visibility(
-                        visible: model.isUpForAdoption,
-                        child: roundedText(upForAdoption),
+                      SizedBox(
+                        height: 30,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            Visibility(
+                              visible: model.isUpForAdoption,
+                              child: roundedText(upForAdoption),
+                            ),
+                            Visibility(
+                              visible: model.isUpForMating,
+                              child: roundedText(upForMating),
+                            ),
+                            Visibility(
+                              visible: model.isUpForPlayBuddies,
+                              child: roundedText(upForPlayBuddies),
+                            ),
+                          ],
+                        ),
                       ),
-                      Visibility(
-                        visible: model.isUpForMating,
-                        child: roundedText(upForMating),
-                      ),
-                      Visibility(
-                        visible: model.isUpForPlayBuddies,
-                        child: roundedText(upForPlayBuddies),
-                      ),
+                      verticalSpaceSmall,
+                      Divider(color: colors.kcLightGreyColor, height: 1.0),
                     ],
                   ),
                 ),
-                spacedDividerTiny,
                 ListTile(
                   title: AppText.body2("Basic Info"),
                   trailing: Icon(Icons.arrow_forward_ios_rounded),

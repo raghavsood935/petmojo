@@ -54,7 +54,11 @@ class SelectAnimalTypeBottomSheet extends StatelessWidget {
                     radius: (25 - 2.0),
                     child: ClipOval(
                       child: Image.asset(
-                          sheetRequest.customData![index].imageAssetPath),
+                        sheetRequest.customData![index].imageAssetPath,
+                        height: 50,
+                        width: 50,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),

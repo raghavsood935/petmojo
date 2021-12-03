@@ -25,13 +25,13 @@ class AnimalBasicInfo extends StatefulWidget {
     )
   ];
 
+  final _navigationService = locator<NavigationService>();
+
   @override
   _AnimalBasicInfoState createState() => _AnimalBasicInfoState();
 }
 
 class _AnimalBasicInfoState extends State<AnimalBasicInfo> {
-  final _navigationService = locator<NavigationService>();
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -42,26 +42,33 @@ class _AnimalBasicInfoState extends State<AnimalBasicInfo> {
           backgroundColor: colors.white,
           title: AppText.body2("Basic Info"),
           centerTitle: true,
-          actions: [
-            GestureDetector(
-              child: Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: EditButton(),
-              ),
-              onTap: () async {
-                var result = await _navigationService.navigateTo(
-                  Routes.createAnimalPageView,
-                  arguments: CreateAnimalPageViewArguments(
-                    petId: widget.animalModelResponse.Id!,
-                    isEdit: true,
-                  ),
-                );
-                if (result == 1) {
-                  _navigationService.back(result: 1);
-                }
-              },
-            )
-          ],
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: colors.black,
+            ),
+            onPressed: () => widget._navigationService.back(),
+          ),
+          // actions: [
+          //   GestureDetector(
+          //     child: Padding(
+          //       padding: const EdgeInsets.only(right: 10),
+          //       child: EditButton(),
+          //     ),
+          //     onTap: () async {
+          //       var result = await _navigationService.navigateTo(
+          //         Routes.createAnimalPageView,
+          //         arguments: CreateAnimalPageViewArguments(
+          //           petId: widget.animalModelResponse.Id!,
+          //           isEdit: true,
+          //         ),
+          //       );
+          //       if (result == 1) {
+          //         _navigationService.back(result: 1);
+          //       }
+          //     },
+          //   )
+          // ],
           bottom: TabBar(
             tabs: widget._tabsTitle,
           ),

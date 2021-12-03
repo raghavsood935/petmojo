@@ -22,77 +22,105 @@ class _ForYouTabSearchViewState extends State<ForYouTabSearchView> {
     return ViewModelBuilder<ForYouTabSearchViewModel>.reactive(
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            titleSpacing: 0,
-            automaticallyImplyLeading: false,
-            title: Container(
-                child: SearchTextField(
-              controller: model.searchTC,
-              hint: "Search for profiles,keywords etc.",
-              onChange: model.onSearchChange,
-            )),
-            leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color: colors.black,
+          // appBar: AppBar(
+          //   backgroundColor: Colors.transparent,
+          //   elevation: 0,
+          //   titleSpacing: 0,
+          //   automaticallyImplyLeading: false,
+          //   title: Container(
+          //       child: SearchTextField(
+          //     controller: model.searchTC,
+          //     hint: "Search for profiles,keywords etc.",
+          //     onChange: model.onSearchChange,
+          //   )),
+          //   leading: IconButton(
+          //     icon: Icon(
+          //       Icons.arrow_back,
+          //       color: colors.black,
+          //     ),
+          //     onPressed: model.goBack,
+          //   ),
+          //   actions: <Widget>[
+          //     TextButton(
+          //       onPressed: model.clearSearchText,
+          //       child: AppText.body1(
+          //         "Cancel",
+          //         color: colors.primary,
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: colors.black,
+                      ),
+                      onPressed: model.goBack,
+                    ),
+                  ),
+                  Expanded(
+                    flex: 10,
+                    child: SearchTextField(
+                      controller: model.searchTC,
+                      hint: "Search for profiles,keywords etc.",
+                      onChange: model.onSearchChange,
+                    ),
+                  ),
+                ],
               ),
-              onPressed: model.goBack,
-            ),
-            actions: <Widget>[
-              TextButton(
-                onPressed: model.clearSearchText,
-                child: AppText.body1(
-                  "Cancel",
+              model.listOfProfiles.isEmpty
+                  ? Visibility(
+                      visible: !model.isLoading,
+                      child: Center(
+                        child: AppText.body1Bold(
+                          "No result found",
+                          color: colors.primary,
+                        ),
+                      ),
+                    )
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      physics: ScrollPhysics(),
+                      itemCount: model.listOfProfiles.length,
+                      itemBuilder: (context, index) => GestureDetector(
+                        onTap: () => model.inspectProfile(
+                            context, model.listOfProfiles[index].Id ?? ""),
+                        child: listItem(model.listOfProfiles[index]),
+                      ),
+                    ),
+              verticalSpaceRegular,
+              Visibility(
+                visible: model.isLoading,
+                child: CircularProgressIndicator(
                   color: colors.primary,
                 ),
               ),
-            ],
-          ),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                model.listOfProfiles.isEmpty
-                    ? Center(
-                        child: AppText.body1Bold(
-                        model.searchTC.text.isEmpty
-                            ? "Type something on search bar"
-                            : "No result found",
-                        color: colors.primary,
-                      ))
-                    : ListView.builder(
-                        shrinkWrap: true,
-                        physics: ScrollPhysics(),
-                        itemCount: model.listOfProfiles.length,
-                        itemBuilder: (context, index) => GestureDetector(
-                          onTap: () => model.inspectProfile(
-                              context, model.listOfProfiles[index].Id ?? ""),
-                          child: listItem(model.listOfProfiles[index]),
-                        ),
-                      ),
-                verticalSpaceRegular,
-                Visibility(
-                  visible: model.isLoading,
-                  child: CircularProgressIndicator(
+              verticalSpaceRegular,
+              Visibility(
+                visible: !model.isLoading,
+                child: GestureDetector(
+                  onTap: () => model.onSearchChange(model.searchTC.text),
+                  child: AppText.body1Bold(
+                    "See more profiles",
                     color: colors.primary,
                   ),
                 ),
-                verticalSpaceRegular,
-                Visibility(
-                  visible: !model.isLoading,
-                  child: GestureDetector(
-                    onTap: () => model.onSearchChange(model.searchTC.text),
-                    child: AppText.body1Bold(
-                      "See more profiles",
-                      color: colors.primary,
-                    ),
-                  ),
-                ),
-                verticalSpaceRegular,
-              ],
-            ),
-          )),
+              ),
+              verticalSpaceRegular,
+            ],
+          ),
+        ),
+      )),
       // builder: (context, model, child) => DefaultTabController(
       //   length: model.tabs.length,
       //   child: Scaffold(

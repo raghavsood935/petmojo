@@ -19,6 +19,7 @@ class HelpViewModel extends BaseModel {
   final _tamelyApi = locator<TamelyApi>();
   final _snackBarService = locator<SnackbarService>();
   final _dialogService = locator<DialogService>();
+  final _navigationService = locator<NavigationService>();
 
   final TextEditingController _phone = TextEditingController();
   final TextEditingController _email = TextEditingController();
@@ -112,6 +113,8 @@ class HelpViewModel extends BaseModel {
         () => _dialogService.completeDialog(DialogResponse(confirmed: true)));
     if (result.data != null) {
       if (result.data!.message != null) {
+        _navigationService.back();
+        _navigationService.back();
         _snackBarService.showSnackbar(message: result.data!.message!);
       }
     }

@@ -5,7 +5,6 @@ import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
-import 'package:tamely/widgets/custom_rate_widget.dart';
 import 'package:tamely/widgets/edit_button.dart';
 
 class PreferencesView extends StatefulWidget {
@@ -22,45 +21,72 @@ class _PreferencesViewState extends State<PreferencesView> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<PreferencesViewModel>.reactive(
       viewModelBuilder: () => PreferencesViewModel(),
-      onModelReady: (model) => model.onInit(widget.petId).whenComplete(()=>setState((){})),
+      onModelReady: (model) =>
+          model.onInit(widget.petId).whenComplete(() => setState(() {})),
       builder: (context, model, child) => ListView(
         children: [
           ListTile(
             contentPadding: EdgeInsets.symmetric(horizontal: 20),
             title: AppText.body1(friendlinessHumanRating),
-            subtitle: CustomRateView(
-              initialRate: model.friendlinessWithHumans,
-              onRateChange: model.friendlinessWithHumanChange,
-            ),
-            trailing: saveWithLoading(
-              GestureDetector(
-                child: AppText.body1(
-                  "Save",
-                  color: colors.primary,
-                ),
-                onTap: () => model.friendlinessWithHumansChangeSave(),
+            subtitle: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Row(
+                children: model.totalRate
+                    .map(
+                      (i) => item(
+                        i,
+                        model.humanRateSelected[i - 1],
+                        model,
+                        0,
+                      ),
+                    )
+                    .toList(),
               ),
-              model.withHumanChanged,
-              model.withHumanLoading,
             ),
+            // trailing: saveWithLoading(
+            //   GestureDetector(
+            //     child: AppText.body1(
+            //       "Save",
+            //       color: colors.primary,
+            //     ),
+            //     onTap: () => model.friendlinessWithHumansChangeSave(),
+            //   ),
+            //   model.withHumanChanged,
+            //   model.withHumanLoading,
+            // ),
           ),
           ListTile(
             contentPadding: EdgeInsets.symmetric(horizontal: 20),
             title: AppText.body1(friendlinessAnimalRating),
-            subtitle: CustomRateView(
-                initialRate: model.friendlinessWithAnimals,
-                onRateChange: model.friendlinessWithAnimalChange),
-            trailing: saveWithLoading(
-              GestureDetector(
-                child: AppText.body1(
-                  "Save",
-                  color: colors.primary,
-                ),
-                onTap: () => model.friendlinessWithAnimalChangeSave(),
+            subtitle: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Row(
+                children: model.totalRate
+                    .map(
+                      (i) => item(
+                        i,
+                        model.animalRateSelected[i - 1],
+                        model,
+                        1,
+                      ),
+                    )
+                    .toList(),
               ),
-              model.withAnimalsChanged,
-              model.withAnimalsLoading,
             ),
+            // CustomRateView(
+            //     initialRate: model.friendlinessWithAnimals,
+            //     onRateChange: model.friendlinessWithAnimalChange),
+            // trailing: saveWithLoading(
+            //   GestureDetector(
+            //     child: AppText.body1(
+            //       "Save",
+            //       color: colors.primary,
+            //     ),
+            //     onTap: () => model.friendlinessWithAnimalChangeSave(),
+            //   ),
+            //   model.withAnimalsChanged,
+            //   model.withAnimalsLoading,
+            // ),
           ),
           spacedDividerBigTiny,
           detailsWidget(
@@ -176,4 +202,53 @@ Widget detailsWidget(String title, String description, Widget trailing) {
       spacedDividerTiny,
     ],
   );
+}
+
+Widget item(int position, bool selected, PreferencesViewModel model, int type) {
+  //0 means humans
+  //1 means animals
+  return GestureDetector(
+      child: Padding(
+        padding: const EdgeInsets.only(right: 10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              height: 35,
+              width: 35,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: selected ? colors.primary : colors.kcLightGreyColor,
+              ),
+              child: Center(
+                child: AppText.body1(
+                  position.toString(),
+                  color: selected ? colors.white : colors.black,
+                ),
+              ),
+            ),
+            Visibility(
+              visible: position == 1,
+              child: AppText.caption("Least"),
+            ),
+            Visibility(
+              visible: position == 5,
+              child: AppText.caption("Most"),
+            ),
+            Visibility(
+              visible: position != 5 && position != 1,
+              child: AppText.caption("  "),
+            ),
+          ],
+        ),
+      ),
+      onTap: () {
+        if (type == 0) {
+          model.onHumanRankSelected(position - 1, true);
+        } else if (type == 1) {
+          model.onAnimalRankSelected(position - 1, true);
+        }
+      });
 }
