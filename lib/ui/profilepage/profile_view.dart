@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/ui/profilepage/post_tabs/post_tabs.dart';
 import 'package:tamely/ui/profilepage/profile_viewmodel.dart';
@@ -10,31 +11,44 @@ import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/custom_circle_avatar.dart';
 import 'package:tamely/widgets/edit_button.dart';
+import 'package:tamely/widgets/follow_static_btn.dart';
 
-class ProfileView extends StatelessWidget {
+class ProfileView extends StatefulWidget {
   final BuildContext menuScreenContext;
   final Function onScreenHideButtonPressed;
   final bool hideStatus;
   final bool isInspectView;
   final String? inspectProfileId;
+  final String? inspecterProfileId;
   const ProfileView(
       {Key? key,
       required this.menuScreenContext,
       required this.onScreenHideButtonPressed,
       this.hideStatus = false,
       required this.isInspectView,
-      this.inspectProfileId})
+      this.inspectProfileId,
+      this.inspecterProfileId})
       : super(key: key);
+
+  @override
+  State<ProfileView> createState() => _ProfileViewState();
+}
+
+class _ProfileViewState extends State<ProfileView> {
+  bool isFollowing = false;
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileViewModel>.reactive(
       viewModelBuilder: () => ProfileViewModel(),
-      onModelReady: (model) => model.init(),
+      onModelReady: (model) =>
+          model.init(widget.isInspectView, widget.inspectProfileId ?? ""),
       builder: (context, model, child) => Scaffold(
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(bottom: 20),
+            padding: widget.isInspectView
+                ? EdgeInsets.only(bottom: 20, top: 20)
+                : EdgeInsets.only(bottom: 20),
             child: Column(
               children: [
                 //top about widget
@@ -63,13 +77,25 @@ class ProfileView extends StatelessWidget {
                       ),
 
                       Visibility(
-                        visible: !isInspectView,
+                        visible: !widget.isInspectView,
                         child: Positioned(
                           top: 30,
                           right: 20,
                           child: GestureDetector(
                             child: EditButton(),
                             onTap: model.goToProfileEditView,
+                          ),
+                        ),
+                      ),
+
+                      Visibility(
+                        visible: widget.isInspectView,
+                        child: Positioned(
+                          top: 30,
+                          left: 20,
+                          child: GestureDetector(
+                            child: Icon(Icons.arrow_back),
+                            onTap: model.goBack,
                           ),
                         ),
                       ),
@@ -80,8 +106,15 @@ class ProfileView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           verticalSpaceRegular,
-                          CustomCircularAvatar(
-                              radius: 50, imgPath: model.profileImgUrl),
+                          GestureDetector(
+                              onTap: () {
+                                model.onImageButtonPressed(
+                                    ImageSource.gallery, context);
+                              },
+                              child: CustomCircularAvatar(
+                                imgPath: model.profileImgUrl,
+                                radius: 40,
+                              )),
                           verticalSpaceTiny,
                           // profile name
                           AppText.body(model.profilename),
@@ -100,7 +133,7 @@ class ProfileView extends StatelessWidget {
                                 backgroundColor: colors.primary,
                               ),
                               horizontalSpaceTiny,
-                              AppText.body1("${model.noOfAnimals}"),
+                              AppText.body1("${model.listOfMyAnimals.length}"),
                               horizontalSpaceTiny,
                               AppText.body1("animal",
                                   color: colors.kcMediumGreyColor),
@@ -125,13 +158,37 @@ class ProfileView extends StatelessWidget {
                           // action text
                           Visibility(
                             visible: model.completedProfileStepCount <
-                                model.completedProfileTotalCount,
+                                    model.completedProfileTotalCount &&
+                                !widget.isInspectView,
                             child: GestureDetector(
                               child: AppText.caption(
                                 model.actionText,
                                 color: colors.primary,
                               ),
                               onTap: model.goToCompleteProfile,
+                            ),
+                          ),
+
+                          Visibility(
+                            visible: widget.isInspectView,
+                            child: GestureDetector(
+                              onTap: () {
+                                if (!isFollowing) {
+                                  model.followThisProfile(
+                                      widget.inspecterProfileId!,
+                                      widget.inspectProfileId!);
+                                  setState(() {
+                                    isFollowing = true;
+                                  });
+                                }
+                              },
+                              child: Expanded(
+                                child: FollowingStaticBtn(
+                                  trueValue: "Following",
+                                  falseValue: "Follow",
+                                  state: isFollowing,
+                                ),
+                              ),
                             ),
                           ),
                           spacedDividerSmall,
@@ -170,7 +227,8 @@ class ProfileView extends StatelessWidget {
 
                 Visibility(
                   visible: model.completedProfileStepCount <
-                      model.completedProfileTotalCount,
+                          model.completedProfileTotalCount &&
+                      !widget.isInspectView,
                   child: Column(
                     children: [
                       Padding(
@@ -220,23 +278,20 @@ class ProfileView extends StatelessWidget {
 
                 //my animals
 
-                Visibility(
-                  visible: !isInspectView,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        AppText.body("My Animals"),
-                        IconButton(
-                          icon: Icon(model.isMyAnimalsVisibile
-                              ? Icons.arrow_drop_up
-                              : Icons.arrow_drop_down),
-                          onPressed: model.myAnimalVisible,
-                        )
-                      ],
-                    ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      AppText.body("My Animals"),
+                      IconButton(
+                        icon: Icon(model.isMyAnimalsVisibile
+                            ? Icons.arrow_drop_up
+                            : Icons.arrow_drop_down),
+                        onPressed: model.myAnimalVisible,
+                      )
+                    ],
                   ),
                 ),
 
@@ -245,7 +300,7 @@ class ProfileView extends StatelessWidget {
                 Visibility(
                   visible: model.isMyAnimalsVisibile,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: SingleChildScrollView(
@@ -264,7 +319,9 @@ class ProfileView extends StatelessWidget {
                                     size: 25,
                                     color: colors.primary,
                                   ),
-                                  onPressed: model.goToCreateAnimalProfileView,
+                                  onPressed: () => widget.isInspectView
+                                      ? {}
+                                      : model.goToCreateAnimalProfileView(),
                                 ),
                               ),
                             ),
@@ -291,9 +348,12 @@ class ProfileView extends StatelessWidget {
                                             emptyProfileImgUrl,
                                       ),
                                     ),
-                                    onTap: () => model.goToAnimalProfileView(
-                                        model.listOfMyAnimals[index]
-                                            .detailsResponse!.Id!),
+                                    onTap: () => widget.isInspectView
+                                        ? {}
+                                        : model.goToAnimalProfileView(model
+                                            .listOfMyAnimals[index]
+                                            .detailsResponse!
+                                            .Id!),
                                   ),
                                 ),
                                 separatorBuilder:
@@ -316,11 +376,17 @@ class ProfileView extends StatelessWidget {
                 spacedDividerSmall,
                 //my post section
                 // PostTab(),
-
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20.0, bottom: 10),
+                    child: AppText.body("My Posts"),
+                  ),
+                ),
                 if (model.listOfPosts.length == 0)
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: isInspectView
+                    child: widget.isInspectView
                         ? AppText.body1Bold("Nothing to show")
                         : Align(
                             alignment: Alignment.centerLeft,

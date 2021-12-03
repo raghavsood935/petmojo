@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
+import 'package:tamely/models/list_of_profiles_foy_you.dart';
 import 'package:tamely/models/profile_account_model.dart';
 import 'package:tamely/ui/for_you/for_you_search/search_tabs/account_search_tab_view_model.dart';
 import 'package:tamely/util/Color.dart';
@@ -7,7 +9,10 @@ import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/widgets/app_text.dart';
 
 class AccountSearchTabView extends StatefulWidget {
-  const AccountSearchTabView({Key? key}) : super(key: key);
+  List<ProfileForYouResponse> listOfProfile = [];
+
+  AccountSearchTabView({Key? key, required this.listOfProfile})
+      : super(key: key);
 
   @override
   _AccountSearchTabViewState createState() => _AccountSearchTabViewState();
@@ -25,10 +30,10 @@ class _AccountSearchTabViewState extends State<AccountSearchTabView> {
           ListView.builder(
             shrinkWrap: true,
             physics: ScrollPhysics(),
-            itemCount: model.listOfAccounts.length,
+            itemCount: widget.listOfProfile.length,
             itemBuilder: (context, index) => listItem(
               index,
-              model,
+              widget.listOfProfile[index],
             ),
           )
         ],
@@ -37,8 +42,7 @@ class _AccountSearchTabViewState extends State<AccountSearchTabView> {
   }
 }
 
-Widget listItem(int index, AccountSearchTabViewModel viewModel) {
-  AccountProfileModel model = viewModel.listOfAccounts[index];
+Widget listItem(int index, ProfileForYouResponse profile) {
   return ListTile(
     contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
     leading: CircleAvatar(
@@ -50,19 +54,16 @@ Widget listItem(int index, AccountSearchTabViewModel viewModel) {
         child: CircleAvatar(
           backgroundColor: colors.lightBackgroundColor,
           radius: 26,
-          backgroundImage: NetworkImage(model.profileImgUrl),
+          backgroundImage: NetworkImage(profile.avatar ?? emptyProfileImgUrl),
         ),
       ),
     ),
-    title: AppText.body1(model.profilename),
-    subtitle: AppText.caption(model.username),
-    trailing: GestureDetector(
-      child: Image.asset(
-        crossImgPath,
-        height: 12,
-        width: 12,
-      ),
-      onTap: () => viewModel.removeAccountFromList(index),
+    title: AppText.body1(profile.username ?? ""),
+    subtitle: AppText.caption(profile.fullName ?? ""),
+    trailing: Image.asset(
+      crossImgPath,
+      height: 12,
+      width: 12,
     ),
   );
 }

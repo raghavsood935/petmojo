@@ -25,17 +25,25 @@ import 'profile_create_view.form.dart';
 class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
   final LocalUser user;
   final isEdit;
+  final isAnimal;
+  final petID;
   final lastAvatarUrl;
-  ProfileCreateView(
-      {Key? key, required this.user, this.isEdit, this.lastAvatarUrl})
-      : super(key: key);
+  ProfileCreateView({
+    Key? key,
+    required this.user,
+    this.isEdit,
+    this.lastAvatarUrl,
+    this.isAnimal,
+    this.petID,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileCreateViewModel>.reactive(
       onModelReady: (model) {
         listenToFormUpdated(model);
-        model.init(lastAvatarUrl, isEdit ?? false);
+        model.init(lastAvatarUrl, isEdit ?? false, isAnimal ?? false,
+            petID.toString());
         usernameController.text = user.username ?? "";
         nameController.text = user.fullName ?? "";
         shortBioController.text = user.bio ?? "";

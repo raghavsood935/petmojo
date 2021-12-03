@@ -18,6 +18,7 @@ class _ForYouTabState extends State<ForYouTab> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ForYouTabViewModel>.reactive(
       viewModelBuilder: () => ForYouTabViewModel(),
+      onModelReady: (model) => model.getPosts(),
       builder: (context, model, child) => ListView(
         children: [
           Padding(
@@ -40,33 +41,59 @@ class _ForYouTabState extends State<ForYouTab> {
               onTap: model.goToSearchView,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              height: 125,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                itemCount: model.vidoes.length,
-                itemBuilder: (context, index) => rowPost(model.vidoes[index]),
-                separatorBuilder: (BuildContext context, int index) =>
-                    horizontalSpaceSmall,
-              ),
-            ),
-          ),
-          spacedDividerSmall,
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: SizedBox(
+          //     height: 125,
+          //     child: ListView.separated(
+          //       scrollDirection: Axis.horizontal,
+          //       shrinkWrap: true,
+          //       itemCount: model.vidoes.length,
+          //       itemBuilder: (context, index) => rowPost(model.vidoes[index]),
+          //       separatorBuilder: (BuildContext context, int index) =>
+          //           horizontalSpaceSmall,
+          //     ),
+          //   ),
+          // ),
+          // spacedDividerSmall,
           Container(
             padding: EdgeInsets.all(10),
-            child: StaggeredGridView.countBuilder(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: model.dummyListOfPosts.length,
-              crossAxisSpacing: 6,
-              mainAxisSpacing: 6,
-              crossAxisCount: 3,
-              itemBuilder: (context, index) => postItem(
-                  context, index, model.dummyListOfPosts[index], () {}),
-              staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+            child: Column(
+              children: [
+                StaggeredGridView.countBuilder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: model.dummyListOfPosts.length,
+                  crossAxisSpacing: 6,
+                  mainAxisSpacing: 6,
+                  crossAxisCount: 3,
+                  itemBuilder: (context, index) => postItem(context, index,
+                      model.dummyListOfPosts[index].thumbnail ?? ""),
+                  staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+                ),
+                verticalSpaceRegular,
+                Visibility(
+                  visible: model.isLoading,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: CircularProgressIndicator(
+                      color: colors.primary,
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: !model.isLoading,
+                  child: GestureDetector(
+                    onTap: model.getPosts,
+                    child: AppText.body1Bold(
+                      "See more Posts",
+                      textAlign: TextAlign.center,
+                      color: colors.primary,
+                    ),
+                  ),
+                ),
+                verticalSpaceRegular,
+              ],
             ),
           ),
         ],
@@ -86,20 +113,21 @@ Widget rowPost(String vido) {
   );
 }
 
-Widget postItem(BuildContext context, int index, String url, void onTapFun()) =>
-    GestureDetector(
-      child: Container(
-        height: getPostItemHeight(context, index),
-        margin: EdgeInsets.all(3),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Image.network(
-            url,
-            fit: BoxFit.cover,
-          ),
+Widget postItem(
+  BuildContext context,
+  int index,
+  String url,
+) =>
+    Container(
+      height: getPostItemHeight(context, index),
+      margin: EdgeInsets.all(3),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Image.network(
+          url,
+          fit: BoxFit.cover,
         ),
       ),
-      onTap: onTapFun,
     );
 
 double getPostItemHeight(BuildContext context, int index) {

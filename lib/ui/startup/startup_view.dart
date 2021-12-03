@@ -113,11 +113,15 @@ class _StartupViewState extends State<StartupView>
                           visualDensity:
                               VisualDensity(horizontal: 0, vertical: -4),
                           contentPadding: EdgeInsets.all(0),
-                          leading: Checkbox(
-                            value: model.title1Value,
-                            onChanged: model.title1Change,
-                            activeColor: colors.primary,
+                          leading: Icon(
+                            Icons.check_box,
+                            color: colors.primary,
                           ),
+                          // leading: Checkbox(
+                          //   value: model.title1Value,
+                          //   onChanged: model.title1Change,
+                          //   activeColor: colors.primary,
+                          // ),
                           title: AppText.body1(wireFrameTitle1),
                           selected: true,
                         ),
@@ -128,10 +132,14 @@ class _StartupViewState extends State<StartupView>
                           visualDensity:
                               VisualDensity(horizontal: 0, vertical: -4),
                           contentPadding: EdgeInsets.all(0),
-                          leading: Checkbox(
-                            value: model.title2Value,
-                            onChanged: model.title2Change,
-                            activeColor: colors.primary,
+                          // leading: Checkbox(
+                          //   value: model.title2Value,
+                          //   onChanged: model.title2Change,
+                          //   activeColor: colors.primary,
+                          // ),
+                          leading: Icon(
+                            Icons.check_box,
+                            color: colors.primary,
                           ),
                           title: AppText.body1(wireFrameTitle2),
                           selected: true,
@@ -143,10 +151,14 @@ class _StartupViewState extends State<StartupView>
                           visualDensity:
                               VisualDensity(horizontal: 0, vertical: -4),
                           contentPadding: EdgeInsets.all(0),
-                          leading: Checkbox(
-                            value: model.title3Value,
-                            onChanged: model.title3Change,
-                            activeColor: colors.primary,
+                          // leading: Checkbox(
+                          //   value: model.title3Value,
+                          //   onChanged: model.title3Change,
+                          //   activeColor: colors.primary,
+                          // ),
+                          leading: Icon(
+                            Icons.check_box,
+                            color: colors.primary,
                           ),
                           title: AppText.body1(wireFrameTitle3),
                           selected: true,
@@ -158,10 +170,14 @@ class _StartupViewState extends State<StartupView>
                           visualDensity:
                               VisualDensity(horizontal: 0, vertical: -4),
                           contentPadding: EdgeInsets.all(0),
-                          leading: Checkbox(
-                            value: model.title4Value,
-                            onChanged: model.title4Change,
-                            activeColor: colors.primary,
+                          // leading: Checkbox(
+                          //   value: model.title4Value,
+                          //   onChanged: model.title4Change,
+                          //   activeColor: colors.primary,
+                          // ),
+                          leading: Icon(
+                            Icons.check_box,
+                            color: colors.primary,
                           ),
                           title: AppText.body1(wireFrameTitle4),
                           selected: true,

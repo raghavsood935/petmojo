@@ -16,29 +16,35 @@ class MyPostsTabView extends StatelessWidget {
       viewModelBuilder: () => MyPostsTabViewModel(),
       builder: (context, model, child) => Container(
         padding: EdgeInsets.all(10),
-        child:  model.dummyListOfPosts.length==0?  CircleAvatar(
-          backgroundColor: colors.black,
-          radius: 30,
-          child: CircleAvatar(
-            radius: 29,
-            backgroundColor: Colors.white,
-            child: CircleAvatar(
-              backgroundColor: colors.lightBackgroundColor,
-              radius: 26,
-              child: Icon(Icons.add),
-            ),
+        child: Center(
+          child: AppText.body1Bold(
+            "Under development",
+            color: colors.primary,
           ),
-        )  :StaggeredGridView.countBuilder(
-          physics: ScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: model.dummyListOfPosts.length,
-          crossAxisSpacing: 6,
-          mainAxisSpacing: 6,
-          crossAxisCount: 3,
-          itemBuilder: (context, index) =>
-              postItem(context, index, model.dummyListOfPosts[index], () {}),
-          staggeredTileBuilder: (index) => StaggeredTile.fit(1),
         ),
+        // child:  model.dummyListOfPosts.length==0?  CircleAvatar(
+        //   backgroundColor: colors.black,
+        //   radius: 30,
+        //   child: CircleAvatar(
+        //     radius: 29,
+        //     backgroundColor: Colors.white,
+        //     child: CircleAvatar(
+        //       backgroundColor: colors.lightBackgroundColor,
+        //       radius: 26,
+        //       child: Icon(Icons.add),
+        //     ),
+        //   ),
+        // )  :StaggeredGridView.countBuilder(
+        //   physics: ScrollPhysics(),
+        //   shrinkWrap: true,
+        //   itemCount: model.dummyListOfPosts.length,
+        //   crossAxisSpacing: 6,
+        //   mainAxisSpacing: 6,
+        //   crossAxisCount: 3,
+        //   itemBuilder: (context, index) =>
+        //       postItem(context, index, model.dummyListOfPosts[index], () {}),
+        //   staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+        // ),
       ),
     );
   }

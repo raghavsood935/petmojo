@@ -13,6 +13,8 @@ import 'package:tamely/models/profile_model_response.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
 
 class FollowPeopleProfileActionViewModel extends BaseModel {
+  bool isSomethingChanged = false;
+
   final log = getLogger("FollowPeopleProfileActionView");
   final _navigationService = locator<NavigationService>();
   final _tamelyApi = locator<TamelyApi>();
@@ -59,7 +61,7 @@ class FollowPeopleProfileActionViewModel extends BaseModel {
   }
 
   void goBack() async {
-    _navigationService.back();
+    _navigationService.back(result: isSomethingChanged ? 1 : 0);
   }
 
   Future goToProfileDetailsPage(String profileId) async {
@@ -75,10 +77,6 @@ class FollowPeopleProfileActionViewModel extends BaseModel {
       ),
     );
     var result = await _tamelyApi.sendFollowRequest(body);
-
-    if (result.data != null) {
-      if (result.data!.success ?? false) {}
-    }
   }
 }
 

@@ -7,24 +7,39 @@ import 'package:tamely/models/animal_profile_detail_model.dart';
 import 'package:tamely/models/book_a_run_response.dart';
 import 'package:tamely/models/common_response.dart';
 import 'package:tamely/models/edit_response.dart';
+import 'package:tamely/models/generate_pet_username_response.dart';
 import 'package:tamely/models/get_payment_details_response.dart';
 import 'package:tamely/models/list_of_feed_post_response.dart';
+import 'package:tamely/models/list_of_for_you_post_response.dart';
 import 'package:tamely/models/list_of_post_response.dart';
 import 'package:tamely/models/list_of_profile_response.dart';
+import 'package:tamely/models/list_of_profiles_foy_you.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/models/params/change_bio_avatar_body.dart';
+import 'package:tamely/models/params/comments/comment/delete_comment_body.dart';
+import 'package:tamely/models/params/comments/comment/store_comment_body.dart';
+import 'package:tamely/models/params/comments/comment/update_comment_body.dart';
+import 'package:tamely/models/params/comments/sub_comment/delete_sub_comment_body.dart';
+import 'package:tamely/models/params/comments/sub_comment/store_sub_comment_body.dart';
+import 'package:tamely/models/params/comments/sub_comment/update_sub_comment_body.dart';
+import 'package:tamely/models/params/counter_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_details_body.dart';
+import 'package:tamely/models/params/edit_animal_profile_main_details_body.dart';
 import 'package:tamely/models/params/feedback_body.dart';
 import 'package:tamely/models/params/get_payment_details_body.dart';
+import 'package:tamely/models/params/get_profile_details_by_id_body.dart';
+import 'package:tamely/models/params/like_dislike_post_body.dart';
 import 'package:tamely/models/params/login_body.dart';
 import 'package:tamely/models/params/need_help_body.dart';
 import 'package:tamely/models/params/profile_create_body.dart';
 import 'package:tamely/models/params/register_body.dart';
 import 'package:tamely/models/params/reset_password_body.dart';
+import 'package:tamely/models/params/search_profile_body.dart';
 import 'package:tamely/models/params/send_follow_request_body/send_follow_request_body.dart';
 import 'package:tamely/models/params/set_payment_details_body.dart';
 import 'package:tamely/models/params/show_people_to_follow_body.dart';
 import 'package:tamely/models/params/social_login_body.dart';
+import 'package:tamely/models/profile_details_by_id_response.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
 import 'package:tamely/models/user_response_models.dart';
 import 'package:tamely/models/get_appointment_details_response.dart';
@@ -66,22 +81,42 @@ class Apis {
   static const String userPosts = '/post/myPosts';
   static const String addBioAvatar = '/user/bioAndAvatar';
 
+  static const String getProfileDetailsById = '/user/getUserDetailsById';
+
   //animal profile
+  static const String generatePetUsername = '/animal/getUniquePetName';
   static const String animalProfileCreate = '/animal/register';
   static const String animalProfileDetails = '/animal/getPetDetails';
   static const String animalProfileEdit = '/animal/editPet';
   static const String animalProfileEditDetails = '/animal/editPetHabits';
+  static const String animalProfileEditMainDetails =
+      '/animal/editPetMainDetails';
+
+  //guardian and relations
+  static const String getPendingGuardianRequest = '/animal/register';
+  // static const String getPendingGuardianRequest = '/animal/register';
 
   //complete profile
   static const String showPeopleToFollow = '/user/showPeopleToFollow';
-  static const String sendFollowRequest = '/post/sendfollowrequest';
+  static const String sendFollowRequest = '/post/follow';
 
   //hamburger
   static const String submitFeedback = '/hamburger/submitFeedback';
   static const String getHelp = '/hamburger/getHelp';
 
   //feed page
-  static const String feedPosts = '/post/feed/0';
+  static const String feedPosts = '/post/feed';
+
+  //for you page
+  static const String searchProfiles = '/user/search';
+  static const String forYouPost = '/post/foryoufeed';
+
+  //like dislike the post
+  static const String likeDislikePost = '/post/vote';
+
+  //comments
+  static const String storeComment = '/post/comment';
+  static const String storeSubComment = '/post/subcomment';
 
   // Booking Appointments
   static const String getPetDetails = '/serviceBooking/getPetDetails';
@@ -160,11 +195,18 @@ abstract class ApiClient {
   @GET(Apis.userProfileDetails)
   Future<UserProfileDetailsResponse> getUserProfileDetails();
 
-  @GET(Apis.userPosts)
+  @POST(Apis.userPosts)
   Future<ListOfPostResponse> getUserPosts();
 
-  @GET(Apis.feedPosts)
-  Future<ListOfFeedPostResponse> getFeedPosts();
+  @POST(Apis.getProfileDetailsById)
+  Future<ProfileDetailsByIdResponse> getProfileDetailsById(
+      @Body() GetProfileDetailsByIdBody getProfileDetailsByIdBody);
+
+  @POST(Apis.feedPosts)
+  Future<ListOfFeedPostResponse> getFeedPosts(@Body() CounterBody counterBody);
+
+  @GET(Apis.generatePetUsername)
+  Future<GeneratePetUsernameResponse> generatePetUsername();
 
   @PUT(Apis.addBioAvatar)
   Future<CommonResponse> changeBioAndAvatar(
@@ -174,7 +216,7 @@ abstract class ApiClient {
   Future<AnimalProfileCreateResopnse> animalProfileCreate(
     @Part(name: "name") String name,
     @Part(name: "username") String username,
-    @Part(name: "avatar") File avatar,
+    @Part(name: "avatar") String avatar,
     @Part(name: "category") String category,
     @Part(name: "bio") String bio,
     @Part(name: "animalType") String animalType,
@@ -192,24 +234,25 @@ abstract class ApiClient {
 
   @PUT(Apis.animalProfileEdit)
   Future<EditResponse> editAnimalProfile(
-    @Part(name: "name") String name,
-    @Part(name: "username") String username,
-    @Part(name: "avatar") String avatar,
-    @Part(name: "category") String category,
-    @Part(name: "bio") String bio,
-    @Part(name: "animalType") String animalType,
-    @Part(name: "gender") String gender,
-    @Part(name: "breed") String breed,
-    @Part(name: "age") String age,
-    @Part(name: "mating") bool mating,
-    @Part(name: "adoption") bool adoption,
-    @Part(name: "playBuddies") bool playBuddies,
-    @Part(name: "playFrom") String playFrom,
-    @Part(name: "playTo") String playTo,
-    @Part(name: "location") String location,
-    @Part(name: "servicePet") bool servicePet,
-    @Part(name: "spayed") bool spayed,
-    @Part(name: "animalId") String animalId,
+    @Part(name: "name") String? name,
+    @Part(name: "username") String? username,
+    @Part(name: "avatar") String? avatar,
+    @Part(name: "category") String? category,
+    @Part(name: "bio") String? bio,
+    @Part(name: "animalType") String? animalType,
+    @Part(name: "gender") String? gender,
+    @Part(name: "breed") String? breed,
+    @Part(name: "age") String? age,
+    @Part(name: "mating") bool? mating,
+    @Part(name: "adoption") bool? adoption,
+    @Part(name: "playBuddies") bool? playBuddies,
+    @Part(name: "registeredWithKennelClub") bool? registeredWithKennelClub,
+    @Part(name: "playFrom") String? playFrom,
+    @Part(name: "playTo") String? playTo,
+    @Part(name: "location") String? location,
+    @Part(name: "servicePet") bool? servicePet,
+    @Part(name: "spayed") bool? spayed,
+    @Part(name: "animalId") String? animalId,
   );
 
   @POST(Apis.animalProfileDetails)
@@ -220,13 +263,35 @@ abstract class ApiClient {
   Future<AnimalProfileDetailModelResponse> editAnimalProfileDetails(
       @Body() EditAnimalProfileDetailsBody editAnimalProfileDetailsBody);
 
+  @PATCH(Apis.animalProfileEditMainDetails)
+  Future<EditResponse> editAnimalProfileMainDetails(
+      @Body()
+          EditAnimalProfileMainDetailsBody editAnimalProfileMainDetailsBody);
+
   @GET(Apis.showPeopleToFollow)
   Future<ListOfProfilesResponse> showPeoplesToFollow(
       @Body() ShowPeopleToFollowBody showPeopleToFollowBody);
 
   @POST(Apis.sendFollowRequest)
-  Future<EditResponse> sendFollowRequest(
+  Future<CommonResponse> sendFollowRequest(
       @Body() SendFollowRequestBody sendFollowRequestBody);
+
+  @POST(Apis.likeDislikePost)
+  Future<EditResponse> likeDislikePost(
+      @Body() LikeDislikePostBody likeDislikePostBody);
+
+  //Guardian And Relation
+
+  // For you page
+  // --search profiles
+  @POST(Apis.searchProfiles)
+  Future<ListOfProfilesForYouResponse> searchProfiles(
+      @Body() SearchProfilesBody searchProfilesBody);
+
+  // for you posts
+  @POST(Apis.forYouPost)
+  Future<ListOfForYouPostResponse> listOfForYouPost(
+      @Body() CounterBody counterBody);
 
   // Hamburger
   // -- submit our feedback
@@ -237,6 +302,37 @@ abstract class ApiClient {
   // -- need help
   @POST(Apis.getHelp)
   Future<CommonResponse> getHelp(@Body() NeedHelpBody needHelpBody);
+
+  // Comments
+  // --store comment
+  @POST(Apis.storeComment)
+  Future<EditResponse> storeComment(@Body() StoreCommentBody storeCommentBody);
+
+  // --update comment
+  @PUT(Apis.storeComment)
+  Future<EditResponse> updateComment(
+      @Body() UpdateCommentBody updateCommentBody);
+
+  // --delete comment
+  @DELETE(Apis.storeComment)
+  Future<EditResponse> deleteComment(
+      @Body() DeleteCommentBody deleteCommentBody);
+
+  // Sub Comments
+  // --store sub comment
+  @POST(Apis.storeSubComment)
+  Future<EditResponse> storeSubComment(
+      @Body() StoreSubCommentBody storeSubCommentBody);
+
+  // --update sub comment
+  @PUT(Apis.storeSubComment)
+  Future<EditResponse> updateSubComment(
+      @Body() UpdateSubCommentBody updateSubCommentBody);
+
+  // --delete sub comment
+  @DELETE(Apis.storeSubComment)
+  Future<EditResponse> deleteSubComment(
+      @Body() DeleteSubCommentBody deleteSubCommentBody);
 
   // Booking Appointments
 

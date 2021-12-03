@@ -6,43 +6,66 @@ import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/BottomSheetType.dart';
 import 'package:tamely/models/feed_post_response.dart';
 import 'package:tamely/models/my_tales_model.dart';
+import 'package:tamely/models/params/counter_body.dart';
+import 'package:tamely/models/params/like_dislike_post_body.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
+import 'package:tamely/util/ImageConstant.dart';
 
 class FeedViewModel extends BaseModel {
   final _bottomsheetService = locator<BottomSheetService>();
   final navigationService = locator<NavigationService>();
   final _tamelyApi = locator<TamelyApi>();
 
-  List<MyTalesModel> _dummyListOfTales = [
-    MyTalesModel(),
-    MyTalesModel(),
-    MyTalesModel(),
-    MyTalesModel(),
-    MyTalesModel(),
-    MyTalesModel(),
-    MyTalesModel(),
-    MyTalesModel(),
-    MyTalesModel(),
-    MyTalesModel(),
-    MyTalesModel(),
-    MyTalesModel(),
-  ];
+  List<MyTalesModel> _dummyListOfTales = [];
 
   List<FeedPostResponse> _dummyFeedPostModel = [];
 
+  int _counter = 0;
+  bool _isLoading = true;
+
   String _myProfileImg =
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREXRvslazqeJ0hLFvkgCxmYefVVKceG3U7Gg&usqp=CAU";
+  String _userId = "";
   String get myProfileImg => _myProfileImg;
+  String get userId => _userId;
+  bool get isLoading => _isLoading;
+  int get counter => _counter;
+
   List<MyTalesModel> get dummyListOfTales => _dummyListOfTales;
   List<FeedPostResponse> get dummyListOfFeedPost => _dummyFeedPostModel;
 
   void init() async {
-    var result = await _tamelyApi.getFeedPosts();
+    var userDetialResult = await _tamelyApi.getUserProfileDetail();
 
-    if (result.data != null) {
-      _dummyFeedPostModel.addAll(result.data!.listOfPosts ?? []);
+    if (userDetialResult.data != null) {
+      _myProfileImg =
+          userDetialResult.data!.userDetailsModel!.avatar ?? emptyProfileImgUrl;
+      _userId = userDetialResult.data!.userDetailsModel!.Id ?? "";
       notifyListeners();
     }
+
+    seeMorePost();
+  }
+
+  Future seeMorePost() async {
+    print("COUNTER VALUE $_counter");
+    _isLoading = true;
+    notifyListeners();
+    var result = await _tamelyApi.getFeedPosts(CounterBody(_counter));
+    if (result.data != null) {
+      _dummyFeedPostModel.addAll(result.data!.listOfPosts ?? []);
+      _counter++;
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future likeOrDislikePost(String postID, bool vote) async {
+    print("INSIDE LIKE");
+    LikeDislikePostBody body =
+        LikeDislikePostBody(postID, vote, VoterDetails("Human", _userId));
+
+    await _tamelyApi.likeOrDislikeThePost(body);
   }
 
   void createPost() async {
