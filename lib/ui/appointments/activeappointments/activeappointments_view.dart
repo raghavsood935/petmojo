@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/enum/activeAppointmentStatus.dart';
+import 'package:tamely/gen_assets/assets.gen.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
@@ -127,9 +128,10 @@ class ActiveAppointmentItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomCircularAvatar(
+            CircleAvatar(
               radius: 45.0 / 2,
-              imgPath: userPicture!,
+              backgroundColor: colors.primaryLight,
+              child: Image.asset("assets/images/service_selected.png"),
             ),
             horizontalSpaceRegular,
             Column(
