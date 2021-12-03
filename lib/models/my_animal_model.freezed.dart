@@ -40,6 +40,7 @@ class _$MyAnimalModelResponseTearOff {
       @JsonKey(name: "playTo") String? playTo,
       @JsonKey(name: "servicePet") bool? servicePet,
       @JsonKey(name: "spayed") bool? spayed,
+      @JsonKey(name: "registeredWithKennelClub") bool? registeredWithKennelClub,
       @JsonKey(name: "friendlinessWithHumans") int? friendlinessWithHumans,
       @JsonKey(name: "friendlinessWithAnimals") int? friendlinessWithAnimals,
       @JsonKey(name: "favouriteThings") String? favouriteThings,
@@ -67,6 +68,7 @@ class _$MyAnimalModelResponseTearOff {
       playTo: playTo,
       servicePet: servicePet,
       spayed: spayed,
+      registeredWithKennelClub: registeredWithKennelClub,
       friendlinessWithHumans: friendlinessWithHumans,
       friendlinessWithAnimals: friendlinessWithAnimals,
       favouriteThings: favouriteThings,
@@ -123,6 +125,8 @@ mixin _$MyAnimalModelResponse {
   bool? get servicePet => throw _privateConstructorUsedError;
   @JsonKey(name: "spayed")
   bool? get spayed => throw _privateConstructorUsedError;
+  @JsonKey(name: "registeredWithKennelClub")
+  bool? get registeredWithKennelClub => throw _privateConstructorUsedError;
   @JsonKey(name: "friendlinessWithHumans")
   int? get friendlinessWithHumans => throw _privateConstructorUsedError;
   @JsonKey(name: "friendlinessWithAnimals")
@@ -172,6 +176,7 @@ abstract class $MyAnimalModelResponseCopyWith<$Res> {
       @JsonKey(name: "playTo") String? playTo,
       @JsonKey(name: "servicePet") bool? servicePet,
       @JsonKey(name: "spayed") bool? spayed,
+      @JsonKey(name: "registeredWithKennelClub") bool? registeredWithKennelClub,
       @JsonKey(name: "friendlinessWithHumans") int? friendlinessWithHumans,
       @JsonKey(name: "friendlinessWithAnimals") int? friendlinessWithAnimals,
       @JsonKey(name: "favouriteThings") String? favouriteThings,
@@ -211,6 +216,7 @@ class _$MyAnimalModelResponseCopyWithImpl<$Res>
     Object? playTo = freezed,
     Object? servicePet = freezed,
     Object? spayed = freezed,
+    Object? registeredWithKennelClub = freezed,
     Object? friendlinessWithHumans = freezed,
     Object? friendlinessWithAnimals = freezed,
     Object? favouriteThings = freezed,
@@ -290,6 +296,10 @@ class _$MyAnimalModelResponseCopyWithImpl<$Res>
           ? _value.spayed
           : spayed // ignore: cast_nullable_to_non_nullable
               as bool?,
+      registeredWithKennelClub: registeredWithKennelClub == freezed
+          ? _value.registeredWithKennelClub
+          : registeredWithKennelClub // ignore: cast_nullable_to_non_nullable
+              as bool?,
       friendlinessWithHumans: friendlinessWithHumans == freezed
           ? _value.friendlinessWithHumans
           : friendlinessWithHumans // ignore: cast_nullable_to_non_nullable
@@ -355,6 +365,7 @@ abstract class _$MyAnimalModelResponseCopyWith<$Res>
       @JsonKey(name: "playTo") String? playTo,
       @JsonKey(name: "servicePet") bool? servicePet,
       @JsonKey(name: "spayed") bool? spayed,
+      @JsonKey(name: "registeredWithKennelClub") bool? registeredWithKennelClub,
       @JsonKey(name: "friendlinessWithHumans") int? friendlinessWithHumans,
       @JsonKey(name: "friendlinessWithAnimals") int? friendlinessWithAnimals,
       @JsonKey(name: "favouriteThings") String? favouriteThings,
@@ -396,6 +407,7 @@ class __$MyAnimalModelResponseCopyWithImpl<$Res>
     Object? playTo = freezed,
     Object? servicePet = freezed,
     Object? spayed = freezed,
+    Object? registeredWithKennelClub = freezed,
     Object? friendlinessWithHumans = freezed,
     Object? friendlinessWithAnimals = freezed,
     Object? favouriteThings = freezed,
@@ -475,6 +487,10 @@ class __$MyAnimalModelResponseCopyWithImpl<$Res>
           ? _value.spayed
           : spayed // ignore: cast_nullable_to_non_nullable
               as bool?,
+      registeredWithKennelClub: registeredWithKennelClub == freezed
+          ? _value.registeredWithKennelClub
+          : registeredWithKennelClub // ignore: cast_nullable_to_non_nullable
+              as bool?,
       friendlinessWithHumans: friendlinessWithHumans == freezed
           ? _value.friendlinessWithHumans
           : friendlinessWithHumans // ignore: cast_nullable_to_non_nullable
@@ -536,6 +552,7 @@ class _$_MyAnimalModelResponse extends _MyAnimalModelResponse {
       @JsonKey(name: "playTo") this.playTo,
       @JsonKey(name: "servicePet") this.servicePet,
       @JsonKey(name: "spayed") this.spayed,
+      @JsonKey(name: "registeredWithKennelClub") this.registeredWithKennelClub,
       @JsonKey(name: "friendlinessWithHumans") this.friendlinessWithHumans,
       @JsonKey(name: "friendlinessWithAnimals") this.friendlinessWithAnimals,
       @JsonKey(name: "favouriteThings") this.favouriteThings,
@@ -602,6 +619,9 @@ class _$_MyAnimalModelResponse extends _MyAnimalModelResponse {
   @JsonKey(name: "spayed")
   final bool? spayed;
   @override
+  @JsonKey(name: "registeredWithKennelClub")
+  final bool? registeredWithKennelClub;
+  @override
   @JsonKey(name: "friendlinessWithHumans")
   final int? friendlinessWithHumans;
   @override
@@ -631,7 +651,7 @@ class _$_MyAnimalModelResponse extends _MyAnimalModelResponse {
 
   @override
   String toString() {
-    return 'MyAnimalModelResponse(mating: $mating, adoption: $adoption, playBuddies: $playBuddies, Id: $Id, name: $name, username: $username, avatar: $avatar, category: $category, bio: $bio, animalType: $animalType, gender: $gender, breed: $breed, age: $age, playFrom: $playFrom, playTo: $playTo, servicePet: $servicePet, spayed: $spayed, friendlinessWithHumans: $friendlinessWithHumans, friendlinessWithAnimals: $friendlinessWithAnimals, favouriteThings: $favouriteThings, thingsDislikes: $thingsDislikes, uniqueHabits: $uniqueHabits, eatingHabits: $eatingHabits, location: $location, guardians: $guardians, v: $v)';
+    return 'MyAnimalModelResponse(mating: $mating, adoption: $adoption, playBuddies: $playBuddies, Id: $Id, name: $name, username: $username, avatar: $avatar, category: $category, bio: $bio, animalType: $animalType, gender: $gender, breed: $breed, age: $age, playFrom: $playFrom, playTo: $playTo, servicePet: $servicePet, spayed: $spayed, registeredWithKennelClub: $registeredWithKennelClub, friendlinessWithHumans: $friendlinessWithHumans, friendlinessWithAnimals: $friendlinessWithAnimals, favouriteThings: $favouriteThings, thingsDislikes: $thingsDislikes, uniqueHabits: $uniqueHabits, eatingHabits: $eatingHabits, location: $location, guardians: $guardians, v: $v)';
   }
 
   @override
@@ -663,6 +683,9 @@ class _$_MyAnimalModelResponse extends _MyAnimalModelResponse {
             (identical(other.servicePet, servicePet) ||
                 other.servicePet == servicePet) &&
             (identical(other.spayed, spayed) || other.spayed == spayed) &&
+            (identical(
+                    other.registeredWithKennelClub, registeredWithKennelClub) ||
+                other.registeredWithKennelClub == registeredWithKennelClub) &&
             (identical(other.friendlinessWithHumans, friendlinessWithHumans) ||
                 other.friendlinessWithHumans == friendlinessWithHumans) &&
             (identical(
@@ -702,6 +725,7 @@ class _$_MyAnimalModelResponse extends _MyAnimalModelResponse {
         playTo,
         servicePet,
         spayed,
+        registeredWithKennelClub,
         friendlinessWithHumans,
         friendlinessWithAnimals,
         favouriteThings,
@@ -744,6 +768,7 @@ abstract class _MyAnimalModelResponse extends MyAnimalModelResponse {
       @JsonKey(name: "playTo") String? playTo,
       @JsonKey(name: "servicePet") bool? servicePet,
       @JsonKey(name: "spayed") bool? spayed,
+      @JsonKey(name: "registeredWithKennelClub") bool? registeredWithKennelClub,
       @JsonKey(name: "friendlinessWithHumans") int? friendlinessWithHumans,
       @JsonKey(name: "friendlinessWithAnimals") int? friendlinessWithAnimals,
       @JsonKey(name: "favouriteThings") String? favouriteThings,
@@ -809,6 +834,9 @@ abstract class _MyAnimalModelResponse extends MyAnimalModelResponse {
   @override
   @JsonKey(name: "spayed")
   bool? get spayed;
+  @override
+  @JsonKey(name: "registeredWithKennelClub")
+  bool? get registeredWithKennelClub;
   @override
   @JsonKey(name: "friendlinessWithHumans")
   int? get friendlinessWithHumans;

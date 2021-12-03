@@ -90,8 +90,8 @@ class DashboardViewModel extends FutureViewModel<void>
           await _tamelyApi.getUserProfileDetail();
       if (response.getException != null) {
         ServerError error = response.getException as ServerError;
+        _dialogService.completeDialog(DialogResponse(confirmed: true));
         _snackBarService.showSnackbar(message: error.getErrorMessage());
-        _navigationService.back();
       } else if (response.data != null) {
         _userName = response.data!.userDetailsModel!.fullName ?? "";
         _profileName = response.data!.userDetailsModel!.username ?? "";

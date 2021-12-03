@@ -135,48 +135,63 @@ class CreateAnimalViewModel extends FormViewModel {
       if (await Util.checkInternetConnectivity()) {
         WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
           _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
-          var result = await runBusyFuture(_tamelyApi
+          var response = await runBusyFuture(_tamelyApi
               .getAnimalProfileDetail(AnimalProfileDetailsBody(petId)));
-          if (result != null) {
-            if (result.data != null) {
-              MyAnimalModelResponse model = result.data!.animalprofileModel!;
 
-              name.text = model.name ?? "";
-              username.text = model.username ?? "";
-              bio.text = model.bio ?? "";
-              animalType.text = model.animalType ?? "";
-              selectedAnimalGender = model.gender ?? select;
-              breed.text = model.breed ?? "";
+          if (response.getException != null) {
+            ServerError error = response.getException as ServerError;
+            _dialogService.completeDialog(DialogResponse(confirmed: true));
+            _snackBarService.showSnackbar(message: error.getErrorMessage());
+          } else if (response.data != null) {
+            MyAnimalModelResponse model = response.data!.animalprofileModel!;
 
+            isBreedAvailable = true;
+
+            name.text = model.name ?? "";
+            username.text = model.username ?? "";
+            bio.text = model.bio ?? "";
+            animalType.text = model.animalType ?? "";
+            selectedAnimalGender = model.gender ?? select;
+            breed.text = model.breed ?? "";
+
+            if (model.age != null) {
               if (model.age!.contains("-")) {
+                _snackBarService.showSnackbar(message: "INSIDE THE DOB");
                 dobTc.text = model.age ?? "";
                 dob = model.age ?? "";
                 selectedAnimalAgeChooseType = "DOB";
+              } else if (model.age == "") {
+                //do nothing set it as default
+                _snackBarService.showSnackbar(message: "INSIDE THE DEFAULT");
               } else {
-                ageType = model.age ?? "";
+                _snackBarService.showSnackbar(message: "INSIDE THE AGE");
+                ageType = model.age ?? select;
                 selectedAnimalAgeChooseType = "AGE";
               }
-              fromTime.text = model.playFrom ?? "";
-              toTime.text = model.playTo ?? "";
-              avatarUrl = model.avatar ?? "";
-
-              selectedValue = model.category ?? "Pet";
-              selectedAnimalType = model.animalType ?? "";
-              selectedAnimalGender = model.gender ?? "Pet";
-
-              adoptionValue = model.adoption ?? false;
-              matingValue = model.mating ?? false;
-              resigteredWithKCValue = false;
-              playBuddiesValue = model.playBuddies ?? false;
-
-              notifyListeners();
-              _dialogService.completeDialog(DialogResponse(confirmed: true));
             }
-          } else {
+            fromTime.text = model.playFrom ?? "";
+            toTime.text = model.playTo ?? "";
+            avatarUrl = model.avatar ?? "";
+
+            selectedValue = model.category ?? "Pet";
+            selectedAnimalType = model.animalType ?? "";
+            selectedAnimalGender = model.gender ?? "Pet";
+
+            adoptionValue = model.adoption ?? false;
+            matingValue = model.mating ?? false;
+            resigteredWithKCValue = model.registeredWithKennelClub ?? false;
+            playBuddiesValue = model.playBuddies ?? false;
+            servicePetValue = model.servicePet ?? false;
+            spayedPetValue = model.spayed ?? false;
+            checkBreedAvailable(model.animalType ?? "");
+            notifyListeners();
+
             _dialogService.completeDialog(DialogResponse(confirmed: true));
           }
         });
       } else {}
+    } else {
+      generatePetName(username);
     }
   }
 
@@ -299,11 +314,23 @@ class CreateAnimalViewModel extends FormViewModel {
   }
 
   Future<void> createAnimalProfile() async {
-    if (selectedValue.isNotEmpty && selectedValue == "Stray") {
-      getCurrentLocation();
+    if (_imageFile != null) {
+      uploadImage().whenComplete(() => {
+            if (selectedValue.isNotEmpty && selectedValue == "Stray")
+              {
+                getCurrentLocation()
+                    .whenComplete(() => createAnimalProfileAccount())
+              }
+            else
+              {createAnimalProfileAccount()}
+          });
+    } else {
+      if (selectedValue.isNotEmpty && selectedValue == "Stray") {
+        getCurrentLocation().whenComplete(() => createAnimalProfileAccount());
+      } else {
+        createAnimalProfileAccount();
+      }
     }
-    createAnimalProfileAccount();
-    // uploadImage().whenComplete(() => createAnimalProfileAccount());
   }
 
   Future createAnimalProfileAccount() async {
@@ -334,10 +361,10 @@ class CreateAnimalViewModel extends FormViewModel {
           "${_currentPosition!.latitude},${_currentPosition!.longitude}";
     }
 
-    var result = await runBusyFuture(_tamelyApi.createAnimalProfile(
+    var response = await runBusyFuture(_tamelyApi.createAnimalProfile(
         name,
         username,
-        File(_imageFile!.path),
+        avatarUrl,
         selectedValue,
         bio,
         selectedAnimalType,
@@ -352,12 +379,13 @@ class CreateAnimalViewModel extends FormViewModel {
         playTo,
         currentLocationString));
 
-    if (result.data != null) {
-      log.d(result.data!.token!);
+    if (response.getException != null) {
+      ServerError error = response.getException as ServerError;
+      _dialogService.completeDialog(DialogResponse(confirmed: true));
+      _snackBarService.showSnackbar(message: error.getErrorMessage());
+    } else if (response.data != null) {
       _dialogService.completeDialog(DialogResponse(confirmed: true));
       _navigationService.back(result: 1);
-    } else {
-      _dialogService.completeDialog(DialogResponse(confirmed: true));
     }
   }
 
@@ -391,31 +419,7 @@ class CreateAnimalViewModel extends FormViewModel {
       }
     }
 
-    // EditAnimalProfileBody body = EditAnimalProfileBody(
-    //     name,
-    //     username,
-    //     avatarUrl,
-    //     selectedValue,
-    //     bio,
-    //     selectedAnimalType,
-    //     breed,
-    //     selectedAnimalGender,
-    //     animalAge,
-    //     matingValue,
-    //     adoptionValue,
-    //     playBuddiesValue,
-    //     playFrom,
-    //     playTo,
-    //     servicePetValue,
-    //     spayedPetValue,
-    //     petId);
-
-    //developer.pranav19@gmail.com
-    //Pranav@123
-
-    // var result = await _tamelyApi.editAnimalProfile(body);
-
-    var result = await runBusyFuture(_tamelyApi.editAnimalProfile(
+    var response = await runBusyFuture(_tamelyApi.editAnimalProfile(
         name,
         username,
         avatarUrl,
@@ -428,6 +432,7 @@ class CreateAnimalViewModel extends FormViewModel {
         matingValue,
         adoptionValue,
         playBuddiesValue,
+        resigteredWithKCValue,
         playFrom,
         playTo,
         "",
@@ -435,13 +440,13 @@ class CreateAnimalViewModel extends FormViewModel {
         spayedPetValue,
         petId));
 
-    if (result.data != null) {
-      if (result.data!.success ?? false) {
-        _dialogService.completeDialog(DialogResponse(confirmed: true));
-        _navigationService.back(result: 1);
-      }
-    } else {
+    if (response.getException != null) {
+      ServerError error = response.getException as ServerError;
       _dialogService.completeDialog(DialogResponse(confirmed: true));
+      _snackBarService.showSnackbar(message: error.getErrorMessage());
+    } else if (response.data != null) {
+      _dialogService.completeDialog(DialogResponse(confirmed: true));
+      _navigationService.back(result: 1);
     }
   }
 
@@ -501,7 +506,50 @@ class CreateAnimalViewModel extends FormViewModel {
     }
   }
 
-  Future selectAnimalBreed(TextEditingController tc) async {
+  Future<void> generatePetName(TextEditingController usernameTC) async {
+    var response = await runBusyFuture(_tamelyApi.generatePetUsername());
+
+    if (response.getException != null) {
+      ServerError error = response.getException as ServerError;
+      _snackBarService.showSnackbar(message: error.getErrorMessage());
+    } else if (response.data != null) {
+      print("GENREATEDUSERNAME   ${response.data!.username ?? ""}");
+      usernameTC.text = response.data!.username ?? "";
+      notifyListeners();
+    }
+  }
+
+  //
+  // Future selectAnimalBreed(BuildContext ct, TextEditingController tc) async {
+  //   closeKeyboard(ct);
+  //   var result = await _bottomSheetService.showCustomSheet(
+  //     isScrollControlled: true,
+  //     variant: BottomSheetType.SelectBreedBottomSheet,
+  //     title: "Select breed",
+  //     customData: listOfAnimalBreed,
+  //   );
+  //   if (result != null) {
+  //     if (result.confirmed) {
+  //       tc.text = result.data.toString();
+  //       notifyListeners();
+  //     }
+  //   }
+  // }
+
+  // Future selectAnimalType(BuildContext ct, TextEditingController tc) async {
+  //   closeKeyboard(ct);
+  //   if (tc.text != "" && tc.text != null) {
+  //     selectedAnimalType = tc.text;
+  //     notifyListeners();
+  //     // closeKeyboard(context);
+  //     checkBreedAvailable(tc.text.toLowerCase());
+  //   } else {
+  //     _snackBarService.showSnackbar(message: noAnimalTypeSelected);
+  //   }
+  // }
+
+  Future selectAnimalBreed(BuildContext ct, TextEditingController tc) async {
+    closeKeyboard(ct);
     var result = await _bottomSheetService.showCustomSheet(
       isScrollControlled: true,
       variant: BottomSheetType.SelectBreedBottomSheet,
@@ -510,13 +558,16 @@ class CreateAnimalViewModel extends FormViewModel {
     );
     if (result != null) {
       if (result.confirmed) {
-        tc.text = result.data.toString();
+        tc.text = result.data
+            .toString()
+            .substring(0, result.data.toString().length - 1);
         notifyListeners();
       }
     }
   }
 
-  Future selectAnimalType(TextEditingController tc) async {
+  Future selectAnimalType(BuildContext ct, TextEditingController tc) async {
+    closeKeyboard(ct);
     var result = await _bottomSheetService.showCustomSheet(
       variant: BottomSheetType.SelectAnimalTypeBottomSheet,
       isScrollControlled: true,
@@ -538,20 +589,6 @@ class CreateAnimalViewModel extends FormViewModel {
           checkBreedAvailable(tc.text.toLowerCase());
         }
       }
-    }
-  }
-
-  selectAnimalTypeDDMFunction(
-      BuildContext context, TextEditingController tc) async {
-    SystemChannels.textInput.invokeMethod('TextInput.hide');
-    if (tc.text != "" && tc.text != null) {
-      selectedAnimalType = tc.text;
-      notifyListeners();
-      Navigator.pop(context);
-      // closeKeyboard(context);
-      checkBreedAvailable(tc.text.toLowerCase());
-    } else {
-      _snackBarService.showSnackbar(message: noAnimalTypeSelected);
     }
   }
 

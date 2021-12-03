@@ -20,25 +20,25 @@ class ForYouView extends StatelessWidget {
     return ViewModelBuilder<ForYouViewModel>.reactive(
       viewModelBuilder: () => ForYouViewModel(),
 
-      builder: (context, model, child) => Scaffold(
-        body: Center(
-          child: AppText.body1Bold(
-            "This page is under development",
-            color: colors.primary,
-          ),
-        ),
-      ),
-      // builder: (context, model, child) => DefaultTabController(
-      //   length: 2,
-      //   child: Scaffold(
-      //     appBar: TabBar(
-      //       tabs: model.tabsTitle,
-      //     ),
-      //     body: TabBarView(
-      //       children: model.tabs,
+      // builder: (context, model, child) => Scaffold(
+      //   body: Center(
+      //     child: AppText.body1Bold(
+      //       "This page is under development",
+      //       color: colors.primary,
       //     ),
       //   ),
       // ),
+      builder: (context, model, child) => DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: TabBar(
+            tabs: model.tabsTitle,
+          ),
+          body: TabBarView(
+            children: model.tabs,
+          ),
+        ),
+      ),
     );
   }
 }

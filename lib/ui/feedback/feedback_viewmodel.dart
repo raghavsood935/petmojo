@@ -19,6 +19,7 @@ class FeedBackViewModel extends BaseModel {
   final _tamelyApi = locator<TamelyApi>();
   final _snackBarService = locator<SnackbarService>();
   final _dialogService = locator<DialogService>();
+  final _navigationService = locator<NavigationService>();
 
   final TextEditingController _feedback = TextEditingController();
   final String hintText =
@@ -69,15 +70,22 @@ class FeedBackViewModel extends BaseModel {
       _snackBarService.showSnackbar(message: "Image is empty");
     }
     if (await Util.checkInternetConnectivity()) {
-      _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
+      // _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
       BaseResponse<CommonResponse> response =
           await runBusyFuture(_tamelyApi.uploadImage(File(_imageFile!.path)));
       if (response.getException != null) {
         ServerError error = response.getException as ServerError;
+        // _dialogService.completeDialog(DialogResponse(confirmed: true));
+        print("*****Dialog closed******");
         _snackBarService.showSnackbar(message: error.getErrorMessage());
       } else if (response.data != null) {
         avatarUrl = response.data!.avatar ?? "";
-        _dialogService.completeDialog(DialogResponse(confirmed: true));
+        // _dialogService.completeDialog(DialogResponse(confirmed: true));
+        print("*****Dialog closed******");
+        notifyListeners();
+      } else {
+        // _dialogService.completeDialog(DialogResponse(confirmed: true));
+        print("FASDAF ASFSD  ASDF");
       }
     } else {
       _snackBarService.showSnackbar(message: "No Internet connection");
@@ -133,8 +141,11 @@ class FeedBackViewModel extends BaseModel {
     SubmitFeedbackBody body =
         SubmitFeedbackBody(_rate, _tags, avatarUrl, _feedback.text);
 
-    var result = await _tamelyApi.sendFeedback(body).whenComplete(
-        () => _dialogService.completeDialog(DialogResponse(confirmed: true)));
+    var result = await _tamelyApi.sendFeedback(body).whenComplete(() {
+      _dialogService.completeDialog(DialogResponse(confirmed: true));
+      _navigationService.back();
+      _navigationService.back();
+    });
     if (result.data != null) {
       if (result.data!.message != null) {
         print(result.data!.message!);

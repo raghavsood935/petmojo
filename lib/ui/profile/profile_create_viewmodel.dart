@@ -14,6 +14,7 @@ import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/redirect_state.dart';
 import 'package:tamely/models/application_models.dart';
 import 'package:tamely/models/common_response.dart';
+import 'package:tamely/models/params/edit_animal_profile_main_details_body.dart';
 import 'package:tamely/models/params/profile_create_body.dart';
 import 'package:tamely/models/user_response_models.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
@@ -36,7 +37,10 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
   String _fullName = "";
   String _shortBio = "";
 
+  String petID = "";
+
   bool isEdit = false;
+  bool isAnimal = false;
 
   ProfileCreateViewModel(this.user);
 
@@ -102,14 +106,38 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
       _snackBarService.showSnackbar(message: "Please enter all field");
     }
     if (await Util.checkInternetConnectivity()) {
-      ProfileCreateBody profileCreateBody = ProfileCreateBody(
-          nameValue!, usernameValue!, shortBioValue ?? "", "", avatarUrl);
-      try {
-        await runBusyFuture(updateProfile(profileCreateBody, isEdit: isEdit),
-            throwException: true);
-      } catch (e) {
-        log.e(e);
-        _snackBarService.showSnackbar(message: "$e");
+      if (isAnimal) {
+        try {
+          EditAnimalProfileMainDetailsBody body =
+              EditAnimalProfileMainDetailsBody(
+            petID,
+            usernameValue ?? "",
+            nameValue ?? "",
+            shortBioValue ?? "",
+            avatarUrl,
+          );
+          var result = await runBusyFuture(
+              _tamelyApi.editAnimalProfileMainDetails(body),
+              throwException: true);
+          if (result.data != null) {
+            if (result.data!.success ?? false) {
+              navigationService.back(result: 1);
+            }
+          }
+        } catch (e) {
+          log.e(e);
+          _snackBarService.showSnackbar(message: "$e");
+        }
+      } else {
+        ProfileCreateBody profileCreateBody = ProfileCreateBody(
+            nameValue!, usernameValue!, shortBioValue ?? "", "", avatarUrl);
+        try {
+          await runBusyFuture(updateProfile(profileCreateBody, isEdit: isEdit),
+              throwException: true);
+        } catch (e) {
+          log.e(e);
+          _snackBarService.showSnackbar(message: "$e");
+        }
       }
     } else {
       _snackBarService.showSnackbar(message: "No Internet connection");
@@ -155,10 +183,12 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
     }
   }
 
-  init(dynamic lastAvatarUrl, bool isEdit) {
+  init(dynamic lastAvatarUrl, bool isEdit, bool isAnimal, String petID) {
     // sharedPreferencesService.currentState =
     //     getRedirectStateName(RedirectState.ProfileCreate);
     this.isEdit = isEdit;
+    this.isAnimal = isAnimal;
+    this.petID = petID;
     if (isEdit) {
       avatarUrl = lastAvatarUrl;
     }
@@ -168,7 +198,7 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
   bool checkValidateField() {
     _isValid = true;
     formValueMap.keys.forEach((element) {
-      if (element != "shortBio") {
+      if (element == UsernameValueKey) {
         String elementValue = formValueMap[element];
         if (elementValue.isEmpty) {
           _isValid = false;
@@ -177,9 +207,9 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
       }
     });
 
-    if (avatarUrl.isEmpty) {
-      _isValid = false;
-    }
+    // if (avatarUrl.isEmpty) {
+    //   _isValid = false;
+    // }
 
     if (!_isValidUser) {
       _isValid = false;

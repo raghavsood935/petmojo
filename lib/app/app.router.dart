@@ -325,6 +325,7 @@ class StackedRouter extends RouterBase {
           hideStatus: args.hideStatus,
           isInspectView: args.isInspectView,
           inspectProfileId: args.inspectProfileId,
+          inspecterProfileId: args.inspecterProfileId,
         ),
         settings: data,
       );
@@ -337,6 +338,8 @@ class StackedRouter extends RouterBase {
           user: args.user,
           isEdit: args.isEdit,
           lastAvatarUrl: args.lastAvatarUrl,
+          isAnimal: args.isAnimal,
+          petID: args.petID,
         ),
         settings: data,
       );
@@ -703,13 +706,15 @@ class ProfileViewArguments {
   final bool hideStatus;
   final bool isInspectView;
   final String? inspectProfileId;
+  final String? inspecterProfileId;
   ProfileViewArguments(
       {this.key,
       required this.menuScreenContext,
       required this.onScreenHideButtonPressed,
       this.hideStatus = false,
       required this.isInspectView,
-      this.inspectProfileId});
+      this.inspectProfileId,
+      this.inspecterProfileId});
 }
 
 /// ProfileCreateView arguments holder class
@@ -718,8 +723,15 @@ class ProfileCreateViewArguments {
   final LocalUser user;
   final dynamic isEdit;
   final dynamic lastAvatarUrl;
+  final dynamic isAnimal;
+  final dynamic petID;
   ProfileCreateViewArguments(
-      {this.key, required this.user, this.isEdit, this.lastAvatarUrl});
+      {this.key,
+      required this.user,
+      this.isEdit,
+      this.lastAvatarUrl,
+      this.isAnimal,
+      this.petID});
 }
 
 /// AddDetailsProfileView arguments holder class

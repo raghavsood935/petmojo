@@ -35,26 +35,18 @@ class _FollowPeopleProfileActionViewState
             padding: const EdgeInsets.only(bottom: 40),
             child: Column(
               children: [
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: IconButton(
-                        onPressed: model.goBack,
-                        icon: Icon(
-                          Icons.arrow_back,
-                          color: colors.black,
-                        ),
-                      ),
+                AppBar(
+                  leading: IconButton(
+                    onPressed: model.goBack,
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: colors.black,
                     ),
-                    Expanded(
-                      flex: 4,
-                      child: AppText.subheading(
-                        model.title,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
+                  ),
+                  centerTitle: true,
+                  title: AppText.subheading(model.title),
+                  backgroundColor: Colors.transparent,
+                  elevation: 0.0,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),

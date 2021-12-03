@@ -209,8 +209,8 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                                         ),
                                       ),
                                     ),
-                                    onTap: () => model
-                                        .selectAnimalType(animalTypeController),
+                                    onTap: () => model.selectAnimalType(
+                                        context, animalTypeController),
                                   ),
                                   "Animal Type",
                                   true,
@@ -220,9 +220,10 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                               Expanded(
                                 child: item(
                                   dropDownButton(
+                                      context,
                                       model.selectedAnimalGender,
                                       model.animalGenderList,
-                                      "Choose age",
+                                      "Choose gender",
                                       model.onChangeGender),
                                   "Gender",
                                   false,
@@ -246,103 +247,97 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                                     ),
                                   ),
                                 ),
-                                onTap: () =>
-                                    model.selectAnimalBreed(breedController),
+                                onTap: () => model.selectAnimalBreed(
+                                    context, breedController),
                               ),
                               "Breed",
                               false,
                             ),
                           ),
                           verticalSpaceTiny,
-                          Visibility(
-                            visible: !(isEdit ?? false),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                horizontalSpaceSmall,
-                                AppText.caption(
-                                  "Age of Animal",
-                                  color: colors.black,
-                                ),
-                                horizontalSpaceTiny,
-                                AppText.caption(
-                                  "(Choose DOB or baby/adult/young)",
-                                  color: colors.kcMediumGreyColor,
-                                ),
-                              ],
-                            ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              horizontalSpaceSmall,
+                              AppText.caption(
+                                "Age of Animal",
+                                color: colors.black,
+                              ),
+                              horizontalSpaceTiny,
+                              AppText.caption(
+                                "(Choose DOB or baby/adult/young)",
+                                color: colors.kcMediumGreyColor,
+                              ),
+                            ],
                           ),
                           verticalSpaceTiny,
-                          Visibility(
-                            visible: !(isEdit ?? false),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Radio<String>(
-                                  value: "DOB",
-                                  splashRadius: 0,
-                                  groupValue: model.selectedAnimalAgeChooseType,
-                                  onChanged: model.onAnimalAgeTypeChangeRadio,
-                                  activeColor: colors.primary,
-                                ),
-                                Expanded(
-                                  child: GestureDetector(
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            AppText.caption(
-                                                model.selectedDateValue),
-                                            Align(
-                                              alignment: Alignment.centerRight,
-                                              child: Icon(
-                                                Icons.calendar_today,
-                                                size: 20,
-                                                color: colors.kcLightGreyColor,
-                                              ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Radio<String>(
+                                value: "DOB",
+                                splashRadius: 0,
+                                groupValue: model.selectedAnimalAgeChooseType,
+                                onChanged: model.onAnimalAgeTypeChangeRadio,
+                                activeColor: colors.primary,
+                              ),
+                              Expanded(
+                                child: GestureDetector(
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          AppText.caption(
+                                              model.selectedDateValue),
+                                          Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Icon(
+                                              Icons.calendar_today,
+                                              size: 20,
+                                              color: colors.kcLightGreyColor,
                                             ),
-                                          ],
-                                        ),
-                                        Divider(
-                                          color: colors.kcLightGreyColor,
-                                          thickness: 1,
-                                        )
-                                      ],
-                                    ),
-                                    onTap: () =>
-                                        model.selectedAnimalAgeChooseType ==
-                                                "DOB"
-                                            ? model.selectDate(
-                                                context, dobController)
-                                            : {},
+                                          ),
+                                        ],
+                                      ),
+                                      Divider(
+                                        color: colors.kcLightGreyColor,
+                                        thickness: 1,
+                                      )
+                                    ],
                                   ),
+                                  onTap: () =>
+                                      model.selectedAnimalAgeChooseType == "DOB"
+                                          ? model.selectDate(
+                                              context, dobController)
+                                          : {},
                                 ),
-                                Radio<String>(
-                                  value: "AGE",
-                                  splashRadius: 0,
-                                  groupValue: model.selectedAnimalAgeChooseType,
-                                  onChanged: model.onAnimalAgeTypeChangeRadio,
-                                  activeColor: colors.primary,
+                              ),
+                              Radio<String>(
+                                value: "AGE",
+                                splashRadius: 0,
+                                groupValue: model.selectedAnimalAgeChooseType,
+                                onChanged: model.onAnimalAgeTypeChangeRadio,
+                                activeColor: colors.primary,
+                              ),
+                              Expanded(
+                                child: dropDownButton(
+                                  context,
+                                  model.ageType,
+                                  model.ageTypeValues,
+                                  "Choose age",
+                                  model.onChangeAge,
+                                  isEnabled:
+                                      model.selectedAnimalAgeChooseType ==
+                                          "AGE",
                                 ),
-                                Expanded(
-                                  child: dropDownButton(
-                                    model.ageType,
-                                    model.ageTypeValues,
-                                    "Choose age",
-                                    model.onChangeAge,
-                                    isEnabled:
-                                        model.selectedAnimalAgeChooseType ==
-                                            "AGE",
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           )
                         ],
                       ),
@@ -477,7 +472,7 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                     }
                   },
                   child: AppText.body2(
-                      isEdit ?? false ? "EDIT PROFILE" : "CREATE PROFILE",
+                      isEdit ?? false ? "SAVE PROFILE" : "CREATE PROFILE",
                       color: colors.white),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(model.isValid
@@ -517,8 +512,8 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
   }
 }
 
-Widget dropDownButton(String value, List<String> listOfItems, String hint,
-    void onChange(String? value),
+Widget dropDownButton(BuildContext context, String value,
+    List<String> listOfItems, String hint, void onChange(String? value),
     {bool isEnabled = true}) {
   return Padding(
     padding: const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 20.0),
@@ -538,6 +533,9 @@ Widget dropDownButton(String value, List<String> listOfItems, String hint,
               ))
           .toList(),
       onChanged: isEnabled ? onChange : null,
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
     ),
   );
 }

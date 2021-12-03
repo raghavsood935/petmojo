@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/ui/profilepage/post_tabs/mentions_post_tab_view_model.dart';
+import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/widgets/app_text.dart';
 
 class MentionsPostTabView extends StatelessWidget {
   MentionsPostTabView({
@@ -15,17 +17,23 @@ class MentionsPostTabView extends StatelessWidget {
       viewModelBuilder: () => MentionsPostTabViewModel(),
       builder: (context, model, child) => Container(
         padding: EdgeInsets.all(10),
-        child: StaggeredGridView.countBuilder(
-          physics: ScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: model.dummyListOfPosts.length,
-          crossAxisSpacing: 6,
-          mainAxisSpacing: 6,
-          crossAxisCount: 3,
-          itemBuilder: (context, index) =>
-              postItem(context, index, model.dummyListOfPosts[index], () {}),
-          staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+        child: Center(
+          child: AppText.body1Bold(
+            "Under development",
+            color: colors.primary,
+          ),
         ),
+        // child: StaggeredGridView.countBuilder(
+        //   physics: ScrollPhysics(),
+        //   shrinkWrap: true,
+        //   itemCount: model.dummyListOfPosts.length,
+        //   crossAxisSpacing: 6,
+        //   mainAxisSpacing: 6,
+        //   crossAxisCount: 3,
+        //   itemBuilder: (context, index) =>
+        //       postItem(context, index, model.dummyListOfPosts[index], () {}),
+        //   staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+        // ),
       ),
     );
   }
