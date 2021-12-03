@@ -495,13 +495,10 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
             _dogsSize.add(one.size!);
           }
 
-          String? oneAddress = "";
-          String? twoAddress = "";
-
-          oneAddress =
+          String oneAddress =
               result.data!.bookingDetails!.petRunningLocation!.addressLine1!;
 
-          twoAddress =
+          String twoAddress =
               result.data!.bookingDetails!.petRunningLocation!.addressLine2!;
 
           _address = "$oneAddress , $twoAddress";

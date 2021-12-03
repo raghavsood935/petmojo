@@ -103,7 +103,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             }
 
             newAppointment.userPicture =
-                "https://drive.google.com/file/d/16IaPIGrT8gkAx-UGzVD9GsWXZ2Slvq2X/view?usp=sharing";
+                "https://dogexpress.in/wp-content/uploads/2021/10/What-Dog-Walking-Services-Should-You-Choose-In-The-US.jpg";
 
             newAppointment.serviceName =
                 each.serviceType == 0 ? dogWalkingTitle : dogWalkingTitle;
@@ -144,7 +144,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             }
 
             newAppointment.userPicture =
-                "https://drive.google.com/file/d/16IaPIGrT8gkAx-UGzVD9GsWXZ2Slvq2X/view?usp=sharing";
+                "https://drive.google.com/file/d/1d0Et-uR0iNQoXWdBk5N5IhOAZ2RMdW_H/view?usp=sharing";
 
             newAppointment.serviceName =
                 each.serviceType == 0 ? dogWalkingTitle : dogWalkingTitle;

@@ -119,9 +119,10 @@ class PastAppointmentItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomCircularAvatar(
+          CircleAvatar(
             radius: 45.0 / 2,
-            imgPath: userPicture!,
+            backgroundColor: colors.primaryLight,
+            child: Image.asset("assets/images/service_selected.png"),
           ),
           horizontalSpaceRegular,
           Column(
