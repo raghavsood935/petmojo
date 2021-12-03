@@ -294,13 +294,18 @@ class AppointmentDetailsView extends StatelessWidget {
                                 color: colors.primary,
                                 borderRadius: BorderRadius.circular(50),
                               ),
-                              child: Text(
-                                submitButton,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14),
-                              ),
+                              child: model.loadingTestimony
+                                  ? CircularProgressIndicator(
+                                      valueColor:
+                                          AlwaysStoppedAnimation(Colors.white),
+                                    )
+                                  : Text(
+                                      submitButton,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14),
+                                    ),
                             ),
                           ),
                           verticalSpaceRegular,

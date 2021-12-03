@@ -159,11 +159,8 @@ class DogRunningBookingViewModel extends FormViewModel {
 
   selectDogOne(String? newValue) {
     selectedDogOne = newValue!;
-    dogsOwned.mapIndexed((index, value) {
-      if (selectedDogOne == value) {
-        selectedDogOneId = dogsId[index];
-      }
-    });
+    int index = dogsOwned.indexWhere((element) => element == selectedDogOne);
+    selectedDogTwoId = dogsId[index];
     notifyListeners();
   }
 
@@ -172,11 +169,8 @@ class DogRunningBookingViewModel extends FormViewModel {
 
   selectDogTwo(String? newValue) {
     selectedDogTwo = newValue!;
-    dogsOwned.mapIndexed((index, value) {
-      if (selectedDogTwo == value) {
-        selectedDogTwoId = dogsId[index];
-      }
-    });
+    int index = dogsOwned.indexWhere((element) => element == selectedDogTwo);
+    selectedDogTwoId = dogsId[index];
     notifyListeners();
   }
 
@@ -809,6 +803,8 @@ class DogRunningBookingViewModel extends FormViewModel {
           }
           _dogsOwned.add("Dog");
           _dogsId.add("111111111111111111111111");
+          print(dogsOwned);
+          print(dogsId);
         } else if (petsList.length == 0) {
           _hasPets = false;
         }
@@ -844,7 +840,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     PetDetailsBody one = PetDetailsBody(selectedDogOneId, selectedSizeOne);
     petDetailsBody.add(one);
     if (noOfDogs == 2) {
-      PetDetailsBody two = PetDetailsBody(selectedDogTwoId, selectedDogTwo);
+      PetDetailsBody two = PetDetailsBody(selectedDogTwoId, selectedSizeTwo);
       petDetailsBody.add(two);
     }
 

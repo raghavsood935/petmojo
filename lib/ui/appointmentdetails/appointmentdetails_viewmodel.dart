@@ -228,7 +228,12 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
 
   TextEditingController testimony = TextEditingController();
 
+  bool _loadingTestimony = false;
+
+  bool get loadingTestimony => _loadingTestimony;
+
   void setTestimony() async {
+    _loadingTestimony = true;
     try {
       if (await Util.checkInternetConnectivity()) {
         SetTestimonyBody setTestimonyBody =
@@ -243,6 +248,7 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
       log.e(e.toString());
     }
     _showGetTestimony = false;
+    _loadingTestimony = false;
   }
 
   void toLiveMapOne() async {
@@ -489,8 +495,16 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
             _dogsSize.add(one.size!);
           }
 
-          _address =
+          String? oneAddress = "";
+          String? twoAddress = "";
+
+          oneAddress =
               result.data!.bookingDetails!.petRunningLocation!.addressLine1!;
+
+          twoAddress =
+              result.data!.bookingDetails!.petRunningLocation!.addressLine2!;
+
+          _address = "$oneAddress , $twoAddress";
 
           _amount = result.data!.bookingDetails!.package!.amount!;
 

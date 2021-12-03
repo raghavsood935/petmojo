@@ -68,10 +68,11 @@ class PastAppointmentsViewModel extends FutureViewModel<void>
     print("4");
     try {
       if (await Util.checkInternetConnectivity()) {
+        _pastAppointments.clear();
+
         BaseResponse<MyAppointmentsResponse> result = await runBusyFuture(
             _tamelyApi.getPastAppointments(),
             throwException: true);
-        _pastAppointments.clear();
         if (result.data != null) {
           List<AppointmentListResponse>? appointments =
               result.data!.appointmentsList;
