@@ -103,12 +103,9 @@ class PaymentViewModel extends FutureViewModel<void> implements Initialisable {
     _razorpay.clear();
   }
 
-  void toDashboard() {
+  void toMyBookings() {
     _navigationService.pushNamedAndRemoveUntil(Routes.dashboard);
-  }
-
-  void navigateBack() {
-    _navigationService.back();
+    _navigationService.navigateTo(Routes.appointmentsView);
   }
 
   void openCheckout() async {

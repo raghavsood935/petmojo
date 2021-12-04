@@ -44,20 +44,35 @@ class AppointmentsViewModel extends FutureViewModel<void>
             _tamelyApi.getActiveAppointments(),
             throwException: true);
 
-        if (resultOne.data != null && resultTwo.data != null) {
-          List<AppointmentListResponse>? appointmentsOne =
-              resultOne.data!.appointmentsList;
+        BaseResponse<MyAppointmentsResponse> resultThree = await runBusyFuture(
+            _tamelyApi.getPastAppointments(),
+            throwException: true);
 
-          List<AppointmentListResponse>? appointmentsTwo =
-              resultTwo.data!.appointmentsList;
-
-          if (appointmentsOne!.length != 0 || appointmentsTwo!.length != 0) {
-            _hasAppointments = true;
-          } else {
-            _hasAppointments = false;
-          }
-          notifyListeners();
+        List<AppointmentListResponse>? appointmentsOne = [];
+        List<AppointmentListResponse>? appointmentsTwo = [];
+        List<AppointmentListResponse>? appointmentsThree = [];
+        if (resultOne.data != null) {
+          appointmentsOne = resultOne.data!.appointmentsList;
         }
+
+        if (resultTwo.data != null) {
+          appointmentsTwo = resultTwo.data!.appointmentsList;
+        }
+
+        if (resultThree.data != null) {
+          appointmentsThree = resultThree.data!.appointmentsList;
+        }
+
+        if (appointmentsOne!.length != 0 ||
+            appointmentsTwo!.length != 0 ||
+            appointmentsThree!.length != 0) {
+          _hasAppointments = true;
+        } else {
+          _hasAppointments = false;
+        }
+
+        notifyListeners();
+
         _dialogService.completeDialog(DialogResponse(confirmed: true));
       } else {
         snackBarService.showSnackbar(message: "No Internet connection");

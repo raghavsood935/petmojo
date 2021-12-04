@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/ui/payment/payment_viewmodel.dart';
 import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_input_field.dart';
 import 'package:tamely/widgets/app_text.dart';
@@ -96,7 +97,7 @@ class PaymentView extends StatelessWidget {
                   child: Column(
                     children: [
                       GestureDetector(
-                        onTap: model.toDashboard,
+                        onTap: model.toMyBookings,
                         child: Container(
                           width: double.infinity,
                           height: 50,
@@ -106,7 +107,7 @@ class PaymentView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(50),
                           ),
                           child: Text(
-                            "Back to home",
+                            myAppointmentsTitle,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -148,7 +149,7 @@ class PaymentView extends StatelessWidget {
                       ),
                       verticalSpaceSmall,
                       GestureDetector(
-                        onTap: model.toDashboard,
+                        onTap: model.toMyBookings,
                         child: Container(
                           width: double.infinity,
                           height: 50,
@@ -158,7 +159,7 @@ class PaymentView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(50),
                           ),
                           child: Text(
-                            "Back to home",
+                            myAppointmentsTitle,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
