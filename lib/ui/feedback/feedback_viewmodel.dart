@@ -143,12 +143,12 @@ class FeedBackViewModel extends BaseModel {
 
     var result = await _tamelyApi.sendFeedback(body).whenComplete(() {
       _dialogService.completeDialog(DialogResponse(confirmed: true));
-      _navigationService.back();
-      _navigationService.back();
     });
     if (result.data != null) {
       if (result.data!.message != null) {
         print(result.data!.message!);
+        _navigationService.back();
+        _navigationService.back();
         _snackBarService.showSnackbar(message: result.data!.message!);
       }
     }

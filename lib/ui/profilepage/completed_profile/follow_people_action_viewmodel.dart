@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
 import 'package:tamely/app/app.locator.dart';
@@ -21,7 +22,9 @@ class FollowPeopleProfileActionViewModel extends BaseModel {
 
   String _id = "";
 
-  String title = "Follow 5 Profiles";
+  bool _isOurFollowersShowPage = false;
+
+  String title = "";
 
   int _counter = 0;
   bool _isLoading = true;
@@ -32,8 +35,10 @@ class FollowPeopleProfileActionViewModel extends BaseModel {
 
   bool get isLoading => _isLoading;
 
-  Future init(String id) async {
+  Future init(String id, bool isShowOurFollowersPage) async {
     _id = id;
+    _isOurFollowersShowPage = isShowOurFollowersPage;
+    title = isShowOurFollowersPage ? "Followers" : "Follow 5 Profiles";
     notifyListeners();
     await getProfilesList();
   }
@@ -43,11 +48,17 @@ class FollowPeopleProfileActionViewModel extends BaseModel {
     _isLoading = true;
     _listOfProfileModel.clear();
     notifyListeners();
-    ShowPeopleToFollowBody body = ShowPeopleToFollowBody(_counter);
 
-    print("AFASDFASDFASDF A FDASD ${body.counter}");
+    var result;
 
-    var result = await _tamelyApi.showPeoplesToFollow(body);
+    if (_isOurFollowersShowPage) {
+      ShowPeopleToFollowBody body = ShowPeopleToFollowBody(_counter);
+      result = await _tamelyApi.showPeoplesToFollow(body);
+    } else {
+      ShowPeopleToFollowBody body = ShowPeopleToFollowBody(_counter);
+      result = await _tamelyApi.showPeoplesToFollow(body);
+    }
+
     if (result.data != null) {
       if (result.data!.listOfProfiles != null) {
         for (ProfileResponse response in result.data!.listOfProfiles ?? []) {
@@ -64,8 +75,16 @@ class FollowPeopleProfileActionViewModel extends BaseModel {
     _navigationService.back(result: isSomethingChanged ? 1 : 0);
   }
 
-  Future goToProfileDetailsPage(String profileId) async {
-    // await _navigationService.navigateTo(Routes.pro)
+  Future goToProfileDetailsPage(BuildContext context, String profileId) async {
+    await _navigationService.navigateTo(
+      Routes.profileView,
+      arguments: ProfileViewArguments(
+          menuScreenContext: context,
+          onScreenHideButtonPressed: () {},
+          isInspectView: true,
+          inspectProfileId: profileId,
+          inspecterProfileId: _id),
+    );
   }
 
   Future sendFollowRequest(ProfileResponse profileResponse) async {

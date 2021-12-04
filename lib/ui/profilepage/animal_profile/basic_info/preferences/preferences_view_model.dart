@@ -52,10 +52,51 @@ class PreferencesViewModel extends FutureViewModel {
 
   bool get withAnimalsLoading => _withAnimalsLoading;
 
-  Future onInit(String _id) async{
+  int rate = 0;
+  List<bool> humanRateSelected = [false, false, false, false, false];
+  List<bool> animalRateSelected = [false, false, false, false, false];
+  List<int> totalRate = [1, 2, 3, 4, 5];
+
+  Future onInit(String _id) async {
     _petId = _id;
     notifyListeners();
     await getValues();
+  }
+
+  onHumanRankSelected(int position, bool changingValue) {
+    humanRateSelected.clear();
+    if (!changingValue) {
+      position--;
+    }
+    for (int i = 0; i < 5; i++) {
+      if (i <= position) {
+        humanRateSelected.add(true);
+      } else {
+        humanRateSelected.add(false);
+      }
+    }
+    notifyListeners();
+    if (changingValue) {
+      friendlinessWithHumanChange(position);
+    }
+  }
+
+  onAnimalRankSelected(int position, bool changingValue) {
+    animalRateSelected.clear();
+    if (!changingValue) {
+      position--;
+    }
+    for (int i = 0; i < 5; i++) {
+      if (i <= position) {
+        animalRateSelected.add(true);
+      } else {
+        animalRateSelected.add(false);
+      }
+    }
+    notifyListeners();
+    if (changingValue) {
+      friendlinessWithAnimalChange(position);
+    }
   }
 
   Future<void> getValues() async {
@@ -76,11 +117,16 @@ class PreferencesViewModel extends FutureViewModel {
   }
 
   Future setValues(AnimalProfileDetailModelResponse response) async {
-
     _friendlinessWithHumans =
         response.animalprofileModel!.friendlinessWithHumans ?? 0;
     _friendlinessWithAnimals =
         response.animalprofileModel!.friendlinessWithAnimals ?? 0;
+
+    onHumanRankSelected(
+        response.animalprofileModel!.friendlinessWithHumans ?? 0, false);
+    onAnimalRankSelected(
+        response.animalprofileModel!.friendlinessWithAnimals ?? 0, false);
+
     _favourite = response.animalprofileModel!.favouriteThings ?? "";
     _thingsDislike = response.animalprofileModel!.thingsDislikes ?? "";
     _uniqueHabits = response.animalprofileModel!.uniqueHabits ?? "";
@@ -92,16 +138,18 @@ class PreferencesViewModel extends FutureViewModel {
   friendlinessWithHumanChange(int i) {
     if (_friendlinessWithHumans != i + 1) {
       _friendlinessWithHumans = i + 1;
-      _withHumanChanged = true;
+      // _withHumanChanged = true;
       notifyListeners();
+      friendlinessWithHumansChangeSave();
     }
   }
 
   friendlinessWithAnimalChange(int i) {
     if (_friendlinessWithAnimals != i + 1) {
       _friendlinessWithAnimals = i + 1;
-      _withAnimalsChanged = true;
+      // _withAnimalsChanged = true;
       notifyListeners();
+      friendlinessWithAnimalChangeSave();
     }
   }
 

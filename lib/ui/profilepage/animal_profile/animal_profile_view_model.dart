@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
+import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/models/animal_profile_detail_model.dart';
+import 'package:tamely/models/application_models.dart';
 import 'package:tamely/models/my_animal_model.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/util/utils.dart';
@@ -16,6 +18,7 @@ class AnimalProfileViewModel extends FutureViewModel {
   final _navigationService = locator<NavigationService>();
   final _tamelyApi = locator<TamelyApi>();
   final _dialogService = locator<DialogService>();
+  final _snackBarService = locator<SnackbarService>();
 
   MyAnimalModelResponse? myAnimalModelResponse;
 
@@ -81,6 +84,24 @@ class AnimalProfileViewModel extends FutureViewModel {
     );
   }
 
+  void goToAnimalEdit() async {
+    var result = await _navigationService.navigateTo(Routes.profileCreateView,
+        arguments: ProfileCreateViewArguments(
+            user: LocalUser(
+              username: _profilename,
+              fullName: _username,
+              bio: _shortBio,
+            ),
+            isEdit: true,
+            isAnimal: true,
+            lastAvatarUrl: _avatar,
+            petID: _Id));
+
+    if (result == 1) {
+      getAnimalDetails();
+    }
+  }
+
   void goBack() async {
     _navigationService.back();
   }
@@ -95,14 +116,16 @@ class AnimalProfileViewModel extends FutureViewModel {
     if (await Util.checkInternetConnectivity()) {
       WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
         _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
-        var result = await runBusyFuture(
+        var response = await runBusyFuture(
             _tamelyApi.getAnimalProfileDetail(AnimalProfileDetailsBody(_Id)));
-        if (result != null) {
-          if (result.data != null) {
-            setValues(result.data!);
-          }
-        } else {
+
+        if (response.getException != null) {
+          ServerError error = response.getException as ServerError;
           _dialogService.completeDialog(DialogResponse(confirmed: true));
+          _snackBarService.showSnackbar(message: error.getErrorMessage());
+        } else if (response.data != null) {
+          _dialogService.completeDialog(DialogResponse(confirmed: true));
+          setValues(response.data!);
         }
       });
     } else {}
@@ -122,7 +145,6 @@ class AnimalProfileViewModel extends FutureViewModel {
     _isUpForPlayBuddies = response.animalprofileModel!.playBuddies ?? false;
 
     notifyListeners();
-    _dialogService.completeDialog(DialogResponse(confirmed: true));
   }
 
   @override

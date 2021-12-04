@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:tamely/models/profile_model_response.dart';
 import 'package:tamely/ui/profilepage/completed_profile/follow_people_action_viewmodel.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/custom_circle_avatar.dart';
-import 'package:tamely/widgets/follow_btn.dart';
 import 'package:tamely/widgets/follow_static_btn.dart';
 
 class FollowPeopleProfileActionView extends StatefulWidget {
-  FollowPeopleProfileActionView({Key? key, required this.id}) : super(key: key);
+  FollowPeopleProfileActionView(
+      {Key? key, required this.id, required this.isShowOurFollowersPage})
+      : super(key: key);
 
   String id;
+  bool isShowOurFollowersPage;
 
   @override
   _FollowPeopleProfileActionViewState createState() =>
@@ -26,7 +27,8 @@ class _FollowPeopleProfileActionViewState
   Widget build(BuildContext context) {
     return ViewModelBuilder<FollowPeopleProfileActionViewModel>.reactive(
       viewModelBuilder: () => FollowPeopleProfileActionViewModel(),
-      onModelReady: (model) => model.init(widget.id),
+      onModelReady: (model) =>
+          model.init(widget.id, widget.isShowOurFollowersPage),
       builder: (context, model, child) => Scaffold(
         body: SafeArea(
             child: SingleChildScrollView(
@@ -85,7 +87,7 @@ class _FollowPeopleProfileActionViewState
                                 (model.listOfProfileModel[index].isFollowing)),
                       ),
                       onTap: () => model.goToProfileDetailsPage(
-                          model.listOfProfileModel[index].profile.Id!),
+                          context, model.listOfProfileModel[index].profile.Id!),
                     ),
                   ),
                 ),

@@ -21,6 +21,14 @@ import 'package:tamely/models/list_of_profiles_foy_you.dart';
 import 'package:tamely/models/params/animal_profile_create_body.dart';
 import 'package:tamely/models/common_response.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
+import 'package:tamely/models/params/comments/comment/delete_comment_body.dart';
+import 'package:tamely/models/params/comments/comment/store_comment_body.dart';
+import 'package:tamely/models/params/comments/comment/update_comment_body.dart';
+import 'package:tamely/models/params/comments/comment/vote_comment_body.dart';
+import 'package:tamely/models/params/comments/sub_comment/delete_sub_comment_body.dart';
+import 'package:tamely/models/params/comments/sub_comment/store_sub_comment_body.dart';
+import 'package:tamely/models/params/comments/sub_comment/update_sub_comment_body.dart';
+import 'package:tamely/models/params/comments/sub_comment/vote_sub_comment_body.dart';
 import 'package:tamely/models/params/counter_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_details_body.dart';
@@ -523,6 +531,121 @@ class TamelyApi {
     EditResponse response;
     try {
       response = await getApiClient(true).likeDislikePost(likeDislikePostBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  //comments for post
+  Future<BaseResponse<EditResponse>> addCommentToPost(
+      StoreCommentBody storeCommentBody) async {
+    EditResponse response;
+    try {
+      response = await getApiClient(true).storeComment(storeCommentBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  //update comment
+  Future<BaseResponse<EditResponse>> updateCommentToPost(
+      UpdateCommentBody updateCommentBody) async {
+    EditResponse response;
+    try {
+      response = await getApiClient(true).updateComment(updateCommentBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  //delete comment
+  Future<BaseResponse<EditResponse>> deleteCommentToPost(
+      DeleteCommentBody deleteCommentBody) async {
+    EditResponse response;
+    try {
+      response = await getApiClient(true).deleteComment(deleteCommentBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  //vote comment
+  Future<BaseResponse<EditResponse>> voteCommentToPost(
+      VoteCommentBody voteCommentBody) async {
+    EditResponse response;
+    try {
+      response = await getApiClient(true).storeVoteComment(voteCommentBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  //sub comments for post
+  Future<BaseResponse<EditResponse>> addSubCommentToPost(
+      StoreSubCommentBody storeSubCommentBody) async {
+    EditResponse response;
+    try {
+      response = await getApiClient(true).storeSubComment(storeSubCommentBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  //update sub comment
+  Future<BaseResponse<EditResponse>> updateSubCommentToPost(
+      UpdateSubCommentBody updateSubCommentBody) async {
+    EditResponse response;
+    try {
+      response =
+          await getApiClient(true).updateSubComment(updateSubCommentBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  //delete sub comment
+  Future<BaseResponse<EditResponse>> deleteSubCommentToPost(
+      DeleteSubCommentBody deleteSubCommentBody) async {
+    EditResponse response;
+    try {
+      response =
+          await getApiClient(true).deleteSubComment(deleteSubCommentBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  //vote sub comment
+  Future<BaseResponse<EditResponse>> voteSubCommentToPost(
+      VoteSubCommentBody voteSubCommentBody) async {
+    EditResponse response;
+    try {
+      response =
+          await getApiClient(true).storeVoteSubComment(voteSubCommentBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()

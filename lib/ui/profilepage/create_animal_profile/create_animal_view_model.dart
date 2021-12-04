@@ -134,7 +134,7 @@ class CreateAnimalViewModel extends FormViewModel {
     if (isEdit) {
       if (await Util.checkInternetConnectivity()) {
         WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
-          _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
+          // _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
           var response = await runBusyFuture(_tamelyApi
               .getAnimalProfileDetail(AnimalProfileDetailsBody(petId)));
 
@@ -160,6 +160,7 @@ class CreateAnimalViewModel extends FormViewModel {
                 dobTc.text = model.age ?? "";
                 dob = model.age ?? "";
                 selectedAnimalAgeChooseType = "DOB";
+                notifyListeners();
               } else if (model.age == "") {
                 //do nothing set it as default
                 _snackBarService.showSnackbar(message: "INSIDE THE DEFAULT");
@@ -167,6 +168,7 @@ class CreateAnimalViewModel extends FormViewModel {
                 _snackBarService.showSnackbar(message: "INSIDE THE AGE");
                 ageType = model.age ?? select;
                 selectedAnimalAgeChooseType = "AGE";
+                notifyListeners();
               }
             }
             fromTime.text = model.playFrom ?? "";
@@ -183,10 +185,9 @@ class CreateAnimalViewModel extends FormViewModel {
             playBuddiesValue = model.playBuddies ?? false;
             servicePetValue = model.servicePet ?? false;
             spayedPetValue = model.spayed ?? false;
-            checkBreedAvailable(model.animalType ?? "");
+            // _dialogService.completeDialog(DialogResponse(confirmed: true));
+            // checkBreedAvailable(model.animalType ?? "");
             notifyListeners();
-
-            _dialogService.completeDialog(DialogResponse(confirmed: true));
           }
         });
       } else {}

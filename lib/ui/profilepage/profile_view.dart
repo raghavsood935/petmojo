@@ -35,8 +35,6 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
-  bool isFollowing = false;
-
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileViewModel>.reactive(
@@ -108,8 +106,9 @@ class _ProfileViewState extends State<ProfileView> {
                           verticalSpaceRegular,
                           GestureDetector(
                               onTap: () {
-                                model.onImageButtonPressed(
-                                    ImageSource.gallery, context);
+                                if (!widget.isInspectView)
+                                  model.onImageButtonPressed(
+                                      ImageSource.gallery, context);
                               },
                               child: CustomCircularAvatar(
                                 imgPath: model.profileImgUrl,
@@ -173,21 +172,16 @@ class _ProfileViewState extends State<ProfileView> {
                             visible: widget.isInspectView,
                             child: GestureDetector(
                               onTap: () {
-                                if (!isFollowing) {
+                                if (!model.isFollowing) {
                                   model.followThisProfile(
                                       widget.inspecterProfileId!,
                                       widget.inspectProfileId!);
-                                  setState(() {
-                                    isFollowing = true;
-                                  });
                                 }
                               },
-                              child: Expanded(
-                                child: FollowingStaticBtn(
-                                  trueValue: "Following",
-                                  falseValue: "Follow",
-                                  state: isFollowing,
-                                ),
+                              child: FollowingStaticBtn(
+                                trueValue: "Following",
+                                falseValue: "Follow",
+                                state: model.isFollowing,
                               ),
                             ),
                           ),

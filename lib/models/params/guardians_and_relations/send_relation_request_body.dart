@@ -6,9 +6,9 @@ part 'send_relation_request_body.g.dart';
 class SendRelationRequestBody {
   final String idRelatedAnimal;
   final String animalId;
-  final String realtion;
+  final String relation;
 
-  SendRelationRequestBody(this.idRelatedAnimal, this.animalId, this.realtion);
+  SendRelationRequestBody(this.idRelatedAnimal, this.animalId, this.relation);
 
   factory SendRelationRequestBody.fromJson(Map<String, dynamic> json) =>
       _$SendRelationRequestBodyFromJson(json);

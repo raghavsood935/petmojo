@@ -45,8 +45,23 @@ class _AddDetailsBottomSheetState extends State<AddDetailsBottomSheet> {
           children: [
             AppText.body2(widget.sheetRequest.title!),
             verticalSpaceTiny,
-            AppInputField(controller: tc),
-            verticalSpaceRegular,
+            TextField(
+              controller: tc,
+              autofocus: true,
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.zero,
+                border: UnderlineInputBorder(
+                  borderSide: BorderSide(color: colors.kcLightGreyColor),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: colors.kcLightGreyColor),
+                ),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: colors.kcLightGreyColor),
+                ),
+              ),
+            ),
+            Spacer(),
             GestureDetector(
               child: Container(
                 width: double.maxFinite,

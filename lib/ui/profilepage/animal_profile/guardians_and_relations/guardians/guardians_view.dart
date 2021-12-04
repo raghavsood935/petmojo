@@ -26,44 +26,46 @@ class _GuardiansViewState extends State<GuardiansView> {
     return ViewModelBuilder<GuardiansViewModel>.reactive(
       viewModelBuilder: () => GuardiansViewModel(),
       onModelReady: (model) => model.dummyStart(),
-      builder: (context, model, child) => ListView(
-        physics: ScrollPhysics(),
-        children: [
-          SearchTextField(
-            controller: model.searchTC,
-            hint: "Search for guardians",
-            onChange: model.searchOnChange,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: AppText.body1(
-              inviteGuardians,
-              color: colors.primary,
-            ),
-          ),
-          verticalSpaceSmall,
-          Visibility(
-            visible: model.searchTC.text.isEmpty,
-            child: ListView.builder(
-              physics: ScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: model.listOfGuardians.length,
-              itemBuilder: (context, index) =>
-                  guardiansListTile(model.listOfGuardians[index]),
-            ),
-          ),
-          Visibility(
-            visible: model.searchTC.text.isNotEmpty,
-            child: ListView.builder(
-              physics: ScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: model.listOfResult.length,
-              itemBuilder: (context, index) =>
-                  resultGuardiansListTile(model.listOfResult[index]),
-            ),
-          ),
-        ],
-      ),
+      builder: (context, model, child) =>
+          AppText.body1Bold("Under development", color: colors.primary),
+      // builder: (context, model, child) => ListView(
+      //   physics: ScrollPhysics(),
+      //   children: [
+      //     SearchTextField(
+      //       controller: model.searchTC,
+      //       hint: "Search for guardians",
+      //       onChange: model.searchOnChange,
+      //     ),
+      //     Padding(
+      //       padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      //       child: AppText.body1(
+      //         inviteGuardians,
+      //         color: colors.primary,
+      //       ),
+      //     ),
+      //     verticalSpaceSmall,
+      //     Visibility(
+      //       visible: model.searchTC.text.isEmpty,
+      //       child: ListView.builder(
+      //         physics: ScrollPhysics(),
+      //         shrinkWrap: true,
+      //         itemCount: model.listOfGuardians.length,
+      //         itemBuilder: (context, index) =>
+      //             guardiansListTile(model.listOfGuardians[index]),
+      //       ),
+      //     ),
+      //     Visibility(
+      //       visible: model.searchTC.text.isNotEmpty,
+      //       child: ListView.builder(
+      //         physics: ScrollPhysics(),
+      //         shrinkWrap: true,
+      //         itemCount: model.listOfResult.length,
+      //         itemBuilder: (context, index) =>
+      //             resultGuardiansListTile(model.listOfResult[index]),
+      //       ),
+      //     ),
+      //   ],
+      // ),
     );
   }
 }

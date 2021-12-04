@@ -54,6 +54,7 @@ import '../ui/profilepage/animal_profile/basic_info/basic_info_view.dart';
 import '../ui/profilepage/animal_profile/guardians_and_relations/guardians_and_relations.dart';
 import '../ui/profilepage/completed_profile/add_details_profile_view.dart';
 import '../ui/profilepage/completed_profile/follow_people_action_view.dart';
+import '../ui/profilepage/count_info/list_of_followings_view.dart';
 import '../ui/profilepage/create_animal_profile/create_animal_page_viewe.dart';
 import '../ui/profilepage/profile_view.dart';
 import '../ui/reportcard/reportcard_view.dart';
@@ -82,6 +83,7 @@ class Routes {
   static const String addDetailsProfileView = '/add-details-profile-view';
   static const String followPeopleProfileActionView =
       '/follow-people-profile-action-view';
+  static const String listOfFollowings = '/list-of-followings';
   static const String createAnimalPageView = '/create-animal-page-view';
   static const String forYouTabSearchView = '/for-you-tab-search-view';
   static const String communityChooseInterestView =
@@ -135,6 +137,7 @@ class Routes {
     profileCreateView,
     addDetailsProfileView,
     followPeopleProfileActionView,
+    listOfFollowings,
     createAnimalPageView,
     forYouTabSearchView,
     communityChooseInterestView,
@@ -193,6 +196,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.addDetailsProfileView, page: AddDetailsProfileView),
     RouteDef(Routes.followPeopleProfileActionView,
         page: FollowPeopleProfileActionView),
+    RouteDef(Routes.listOfFollowings, page: ListOfFollowings),
     RouteDef(Routes.createAnimalPageView, page: CreateAnimalPageView),
     RouteDef(Routes.forYouTabSearchView, page: ForYouTabSearchView),
     RouteDef(Routes.communityChooseInterestView,
@@ -360,6 +364,17 @@ class StackedRouter extends RouterBase {
           data.getArgs<FollowPeopleProfileActionViewArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
         builder: (context) => FollowPeopleProfileActionView(
+          key: args.key,
+          id: args.id,
+          isShowOurFollowersPage: args.isShowOurFollowersPage,
+        ),
+        settings: data,
+      );
+    },
+    ListOfFollowings: (data) {
+      var args = data.getArgs<ListOfFollowingsArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => ListOfFollowings(
           key: args.key,
           id: args.id,
         ),
@@ -747,7 +762,16 @@ class AddDetailsProfileViewArguments {
 class FollowPeopleProfileActionViewArguments {
   final Key? key;
   final String id;
-  FollowPeopleProfileActionViewArguments({this.key, required this.id});
+  final bool isShowOurFollowersPage;
+  FollowPeopleProfileActionViewArguments(
+      {this.key, required this.id, required this.isShowOurFollowersPage});
+}
+
+/// ListOfFollowings arguments holder class
+class ListOfFollowingsArguments {
+  final Key? key;
+  final dynamic id;
+  ListOfFollowingsArguments({this.key, required this.id});
 }
 
 /// CreateAnimalPageView arguments holder class

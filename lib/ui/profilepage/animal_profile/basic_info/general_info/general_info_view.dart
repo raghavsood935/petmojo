@@ -7,6 +7,7 @@ import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/edit_button.dart';
 
 class GeneralInfoView extends StatelessWidget {
   GeneralInfoView({Key? key, required this.animalModelResponse})
@@ -18,10 +19,20 @@ class GeneralInfoView extends StatelessWidget {
       viewModelBuilder: () => GeneralInfoViewModel(),
       onModelReady: (model) {
         model.setSomeDetails(animalModelResponse);
-        model.getLocation(animalModelResponse.location!);
+        model.getLocation(animalModelResponse.location ?? "");
       },
       builder: (context, model, child) => ListView(
         children: [
+          Align(
+            alignment: Alignment.centerRight,
+            child: GestureDetector(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: EditButton(),
+              ),
+              onTap: () => model.goToEdit(animalModelResponse.Id!),
+            ),
+          ),
           detailsRowItem("Name", animalModelResponse.name ?? ""),
           detailsRowItem("Animal Type", animalModelResponse.animalType ?? ""),
           detailsRowItem("Gender", animalModelResponse.gender ?? ""),
@@ -49,7 +60,7 @@ class GeneralInfoView extends StatelessWidget {
               Visibility(
                 visible: animalModelResponse.playBuddies ?? false,
                 child: roundedText(
-                    "upForPlayBuddies (${animalModelResponse.playFrom} - ${animalModelResponse.playTo})"),
+                    "up for PlayBuddies (${animalModelResponse.playFrom} - ${animalModelResponse.playTo})"),
               ),
             ],
           )

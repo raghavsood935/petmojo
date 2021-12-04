@@ -20,7 +20,7 @@ class ForYouTabSearchViewModel extends BaseModel {
   final _snackBarService = locator<SnackbarService>();
 
   int _counter = 0;
-  bool _isLoading = true;
+  bool _isLoading = false;
 
   String _id = "";
 
@@ -83,25 +83,28 @@ class ForYouTabSearchViewModel extends BaseModel {
     } else if (response.data != null) {
       _id = response.data!.userDetailsModel!.Id ?? "";
       notifyListeners();
-      onSearchChange("");
     }
   }
 
   Future<void> onSearchChange(String value) async {
-    _isLoading = true;
-    listOfProfiles.clear();
-    notifyListeners();
-    SearchProfilesBody body = SearchProfilesBody(_counter, value, "Human");
-    var response = await _tamelyApi.showListOfProfileForYou(body);
-
-    if (response.getException != null) {
-      ServerError error = response.getException as ServerError;
-      _snackBarService.showSnackbar(message: error.getErrorMessage());
-    } else if (response.data != null) {
-      listOfProfiles.addAll(response.data!.listOfProfiles ?? []);
-      _isLoading = false;
-      _counter++;
+    if (value.isNotEmpty) {
+      _isLoading = true;
+      listOfProfiles.clear();
       notifyListeners();
+      SearchProfilesBody body = SearchProfilesBody(_counter, value, "Human");
+      var response = await _tamelyApi.showListOfProfileForYou(body);
+
+      if (response.getException != null) {
+        ServerError error = response.getException as ServerError;
+        // _snackBarService.showSnackbar(message: error.getErrorMessage());
+        _isLoading = false;
+        notifyListeners();
+      } else if (response.data != null) {
+        listOfProfiles.addAll(response.data!.listOfProfiles ?? []);
+        _isLoading = false;
+        _counter++;
+        notifyListeners();
+      }
     }
   }
 }

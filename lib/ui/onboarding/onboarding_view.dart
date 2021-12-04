@@ -45,29 +45,29 @@ class OnBoardingView extends StatelessWidget {
                     verticalSpaceMedium,
                     AppText.subheading("Join the team animals"),
                     verticalSpaceMedium,
-                    // Container(
-                    //   width: double.maxFinite,
-                    //   margin: const EdgeInsets.all(16),
-                    //   child: ElevatedButton.icon(
-                    //     onPressed: () {
-                    //       model.useFacebookAuthentication();
-                    //     },
-                    //     icon: Image.asset("assets/images/facebook.png"),
-                    //     label:
-                    //         AppText.body1(continueWithFB, color: Colors.white),
-                    //     style: ButtonStyle(
-                    //       backgroundColor:
-                    //           MaterialStateProperty.all(colors.fbBlue),
-                    //       padding: MaterialStateProperty.all(
-                    //           const EdgeInsets.all(12)),
-                    //       shape: MaterialStateProperty.all(
-                    //         RoundedRectangleBorder(
-                    //           borderRadius: BorderRadius.circular(30.0),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
+                    Container(
+                      width: double.maxFinite,
+                      margin: const EdgeInsets.all(16),
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          model.useFacebookAuthentication();
+                        },
+                        icon: Image.asset("assets/images/facebook.png"),
+                        label:
+                            AppText.body1(continueWithFB, color: Colors.white),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(colors.fbBlue),
+                          padding: MaterialStateProperty.all(
+                              const EdgeInsets.all(12)),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                     Container(
                       width: double.maxFinite,
                       margin: const EdgeInsets.all(16),
