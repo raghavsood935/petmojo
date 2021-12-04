@@ -11,7 +11,7 @@ SendRelationRequestBody _$SendRelationRequestBodyFromJson(
     SendRelationRequestBody(
       json['idRelatedAnimal'] as String,
       json['animalId'] as String,
-      json['realtion'] as String,
+      json['relation'] as String,
     );
 
 Map<String, dynamic> _$SendRelationRequestBodyToJson(
@@ -19,5 +19,5 @@ Map<String, dynamic> _$SendRelationRequestBodyToJson(
     <String, dynamic>{
       'idRelatedAnimal': instance.idRelatedAnimal,
       'animalId': instance.animalId,
-      'realtion': instance.realtion,
+      'relation': instance.relation,
     };

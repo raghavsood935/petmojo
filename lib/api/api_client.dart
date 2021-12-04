@@ -19,9 +19,11 @@ import 'package:tamely/models/params/change_bio_avatar_body.dart';
 import 'package:tamely/models/params/comments/comment/delete_comment_body.dart';
 import 'package:tamely/models/params/comments/comment/store_comment_body.dart';
 import 'package:tamely/models/params/comments/comment/update_comment_body.dart';
+import 'package:tamely/models/params/comments/comment/vote_comment_body.dart';
 import 'package:tamely/models/params/comments/sub_comment/delete_sub_comment_body.dart';
 import 'package:tamely/models/params/comments/sub_comment/store_sub_comment_body.dart';
 import 'package:tamely/models/params/comments/sub_comment/update_sub_comment_body.dart';
+import 'package:tamely/models/params/comments/sub_comment/vote_sub_comment_body.dart';
 import 'package:tamely/models/params/counter_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_details_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_main_details_body.dart';
@@ -114,9 +116,14 @@ class Apis {
   //like dislike the post
   static const String likeDislikePost = '/post/vote';
 
-  //comments
-  static const String storeComment = '/post/comment';
-  static const String storeSubComment = '/post/subcomment';
+  // //comments
+  // static const String storeComment = '/post/comment';
+  // static const String storeVoteComment = '/post/commentVote';
+  // static const String storeSubComment = '/post/subcomment';
+  // static const String storeVoteSubComment = '/post/subcommentVote';
+
+  //comment
+  static const String addComment = '/comment';
 
   // Booking Appointments
   static const String getPetDetails = '/serviceBooking/getPetDetails';
@@ -143,7 +150,8 @@ class Apis {
   static const String setTestimony = '/serviceBooking/giveRatingstoeachWalk';
 }
 
-@RestApi(baseUrl: "https://tamely.herokuapp.com/api/")
+// @RestApi(baseUrl: "https://tamely.herokuapp.com/api/")
+@RestApi(baseUrl: "3.14.68.70:9000/api/")
 abstract class ApiClient {
   factory ApiClient(Dio dio, {String baseUrl}) = _ApiClient;
 
@@ -303,36 +311,52 @@ abstract class ApiClient {
   @POST(Apis.getHelp)
   Future<CommonResponse> getHelp(@Body() NeedHelpBody needHelpBody);
 
-  // Comments
-  // --store comment
-  @POST(Apis.storeComment)
-  Future<EditResponse> storeComment(@Body() StoreCommentBody storeCommentBody);
+  //Comment
+  //-- add comment
+  // @POST(Apis.addComment)
+  // Future<UserNameAvailableResponse> addComment(
+  //     @Path("username") String postId);
 
-  // --update comment
-  @PUT(Apis.storeComment)
-  Future<EditResponse> updateComment(
-      @Body() UpdateCommentBody updateCommentBody);
-
-  // --delete comment
-  @DELETE(Apis.storeComment)
-  Future<EditResponse> deleteComment(
-      @Body() DeleteCommentBody deleteCommentBody);
-
-  // Sub Comments
-  // --store sub comment
-  @POST(Apis.storeSubComment)
-  Future<EditResponse> storeSubComment(
-      @Body() StoreSubCommentBody storeSubCommentBody);
-
-  // --update sub comment
-  @PUT(Apis.storeSubComment)
-  Future<EditResponse> updateSubComment(
-      @Body() UpdateSubCommentBody updateSubCommentBody);
-
-  // --delete sub comment
-  @DELETE(Apis.storeSubComment)
-  Future<EditResponse> deleteSubComment(
-      @Body() DeleteSubCommentBody deleteSubCommentBody);
+  // // Comments
+  // // --store comment
+  // @POST(Apis.storeComment)
+  // Future<EditResponse> storeComment(@Body() StoreCommentBody storeCommentBody);
+  //
+  // // --update comment
+  // @PUT(Apis.storeComment)
+  // Future<EditResponse> updateComment(
+  //     @Body() UpdateCommentBody updateCommentBody);
+  //
+  // // --delete comment
+  // @DELETE(Apis.storeComment)
+  // Future<EditResponse> deleteComment(
+  //     @Body() DeleteCommentBody deleteCommentBody);
+  //
+  // // --store vote comment
+  // @POST(Apis.storeVoteComment)
+  // Future<EditResponse> storeVoteComment(
+  //     @Body() VoteCommentBody voteCommentBody);
+  //
+  // // Sub Comments
+  // // --store sub comment
+  // @POST(Apis.storeSubComment)
+  // Future<EditResponse> storeSubComment(
+  //     @Body() StoreSubCommentBody storeSubCommentBody);
+  //
+  // // --update sub comment
+  // @PUT(Apis.storeSubComment)
+  // Future<EditResponse> updateSubComment(
+  //     @Body() UpdateSubCommentBody updateSubCommentBody);
+  //
+  // // --delete sub comment
+  // @DELETE(Apis.storeSubComment)
+  // Future<EditResponse> deleteSubComment(
+  //     @Body() DeleteSubCommentBody deleteSubCommentBody);
+  //
+  // // --store vote sub comment
+  // @POST(Apis.storeVoteSubComment)
+  // Future<EditResponse> storeVoteSubComment(
+  //     @Body() VoteSubCommentBody voteSubCommentBody);
 
   // Booking Appointments
 

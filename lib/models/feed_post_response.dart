@@ -17,11 +17,8 @@ class FeedPostResponse with _$FeedPostResponse {
     @JsonKey(name: "filter") String? filter,
     @JsonKey(name: "caption") String? caption,
     @JsonKey(name: "author") List<ProfileResponse>? author,
-    @JsonKey(name: "postOwnerDetails")
-        PostOwnerDetailsResponse? postOwnerDetails,
     @JsonKey(name: "date") String? date,
-    // @JsonKey(name: "postVotes") List<String>? postVotes,
-    // @JsonKey(name: "votesCount") List<String>? votesCounts,
+    @JsonKey(name: "votesCount") List<VotesCountResponse>? votesCounts,
     @JsonKey(name: "commentData") FeedPostCommentResponse? commentResponse,
   }) = _FeedPostResponse;
 
@@ -30,11 +27,24 @@ class FeedPostResponse with _$FeedPostResponse {
 }
 
 @freezed
+class VotesCountResponse with _$VotesCountResponse {
+  VotesCountResponse._();
+
+  factory VotesCountResponse({
+    @JsonKey(name: "count") int? count,
+  }) = _VotesCountResponse;
+
+  factory VotesCountResponse.fromJson(Map<String, dynamic> json) =>
+      _$VotesCountResponseFromJson(json);
+}
+
+@freezed
 class FeedPostCommentResponse with _$FeedPostCommentResponse {
   FeedPostCommentResponse._();
 
   factory FeedPostCommentResponse({
     @JsonKey(name: "comments") List<FeedPostInnerCommentResponse>? comments,
+    @JsonKey(name: "commentCount") int? commentCount,
   }) = _FeedPostCommentResponse;
 
   factory FeedPostCommentResponse.fromJson(Map<String, dynamic> json) =>
@@ -47,12 +57,41 @@ class FeedPostInnerCommentResponse with _$FeedPostInnerCommentResponse {
 
   factory FeedPostInnerCommentResponse({
     @JsonKey(name: "_id") String? Id,
-    @JsonKey(name: "message") String? message,
     @JsonKey(name: "post") String? postId,
+    @JsonKey(name: "message") String? message,
+    @JsonKey(name: "authorDetails") AuthorDetailsResponse? authorDetails,
+    @JsonKey(name: "date") String? date,
     @JsonKey(name: "author") List<ProfileResponse>? author,
-    @JsonKey(name: "Animalauthor") List<String>? comments,
+    @JsonKey(name: "Animalauthor") List<AnimalAuthorResponse>? animalAuthor,
   }) = _FeedPostInnerCommentResponse;
 
   factory FeedPostInnerCommentResponse.fromJson(Map<String, dynamic> json) =>
       _$FeedPostInnerCommentResponseFromJson(json);
+}
+
+@freezed
+class AuthorDetailsResponse with _$AuthorDetailsResponse {
+  AuthorDetailsResponse._();
+
+  factory AuthorDetailsResponse({
+    @JsonKey(name: "authorDetails") String? authorDetails,
+    @JsonKey(name: "authorId") String? authorId,
+  }) = _AuthorDetailsResponse;
+
+  factory AuthorDetailsResponse.fromJson(Map<String, dynamic> json) =>
+      _$AuthorDetailsResponseFromJson(json);
+}
+
+@freezed
+class AnimalAuthorResponse with _$AnimalAuthorResponse {
+  AnimalAuthorResponse._();
+
+  factory AnimalAuthorResponse({
+    @JsonKey(name: "_id") String? Id,
+    @JsonKey(name: "name") String? name,
+    @JsonKey(name: "avatar") String? avatar,
+  }) = _AnimalAuthorResponse;
+
+  factory AnimalAuthorResponse.fromJson(Map<String, dynamic> json) =>
+      _$AnimalAuthorResponseFromJson(json);
 }

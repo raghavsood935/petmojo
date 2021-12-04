@@ -19,11 +19,10 @@ _$_FeedPostResponse _$$_FeedPostResponseFromJson(Map<String, dynamic> json) =>
       author: (json['author'] as List<dynamic>?)
           ?.map((e) => ProfileResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
-      postOwnerDetails: json['postOwnerDetails'] == null
-          ? null
-          : PostOwnerDetailsResponse.fromJson(
-              json['postOwnerDetails'] as Map<String, dynamic>),
       date: json['date'] as String?,
+      votesCounts: (json['votesCount'] as List<dynamic>?)
+          ?.map((e) => VotesCountResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
       commentResponse: json['commentData'] == null
           ? null
           : FeedPostCommentResponse.fromJson(
@@ -39,9 +38,21 @@ Map<String, dynamic> _$$_FeedPostResponseToJson(_$_FeedPostResponse instance) =>
       'filter': instance.filter,
       'caption': instance.caption,
       'author': instance.author,
-      'postOwnerDetails': instance.postOwnerDetails,
       'date': instance.date,
+      'votesCount': instance.votesCounts,
       'commentData': instance.commentResponse,
+    };
+
+_$_VotesCountResponse _$$_VotesCountResponseFromJson(
+        Map<String, dynamic> json) =>
+    _$_VotesCountResponse(
+      count: json['count'] as int?,
+    );
+
+Map<String, dynamic> _$$_VotesCountResponseToJson(
+        _$_VotesCountResponse instance) =>
+    <String, dynamic>{
+      'count': instance.count,
     };
 
 _$_FeedPostCommentResponse _$$_FeedPostCommentResponseFromJson(
@@ -51,25 +62,32 @@ _$_FeedPostCommentResponse _$$_FeedPostCommentResponseFromJson(
           ?.map((e) =>
               FeedPostInnerCommentResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
+      commentCount: json['commentCount'] as int?,
     );
 
 Map<String, dynamic> _$$_FeedPostCommentResponseToJson(
         _$_FeedPostCommentResponse instance) =>
     <String, dynamic>{
       'comments': instance.comments,
+      'commentCount': instance.commentCount,
     };
 
 _$_FeedPostInnerCommentResponse _$$_FeedPostInnerCommentResponseFromJson(
         Map<String, dynamic> json) =>
     _$_FeedPostInnerCommentResponse(
       Id: json['_id'] as String?,
-      message: json['message'] as String?,
       postId: json['post'] as String?,
+      message: json['message'] as String?,
+      authorDetails: json['authorDetails'] == null
+          ? null
+          : AuthorDetailsResponse.fromJson(
+              json['authorDetails'] as Map<String, dynamic>),
+      date: json['date'] as String?,
       author: (json['author'] as List<dynamic>?)
           ?.map((e) => ProfileResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
-      comments: (json['Animalauthor'] as List<dynamic>?)
-          ?.map((e) => e as String)
+      animalAuthor: (json['Animalauthor'] as List<dynamic>?)
+          ?.map((e) => AnimalAuthorResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -77,8 +95,40 @@ Map<String, dynamic> _$$_FeedPostInnerCommentResponseToJson(
         _$_FeedPostInnerCommentResponse instance) =>
     <String, dynamic>{
       '_id': instance.Id,
-      'message': instance.message,
       'post': instance.postId,
+      'message': instance.message,
+      'authorDetails': instance.authorDetails,
+      'date': instance.date,
       'author': instance.author,
-      'Animalauthor': instance.comments,
+      'Animalauthor': instance.animalAuthor,
+    };
+
+_$_AuthorDetailsResponse _$$_AuthorDetailsResponseFromJson(
+        Map<String, dynamic> json) =>
+    _$_AuthorDetailsResponse(
+      authorDetails: json['authorDetails'] as String?,
+      authorId: json['authorId'] as String?,
+    );
+
+Map<String, dynamic> _$$_AuthorDetailsResponseToJson(
+        _$_AuthorDetailsResponse instance) =>
+    <String, dynamic>{
+      'authorDetails': instance.authorDetails,
+      'authorId': instance.authorId,
+    };
+
+_$_AnimalAuthorResponse _$$_AnimalAuthorResponseFromJson(
+        Map<String, dynamic> json) =>
+    _$_AnimalAuthorResponse(
+      Id: json['_id'] as String?,
+      name: json['name'] as String?,
+      avatar: json['avatar'] as String?,
+    );
+
+Map<String, dynamic> _$$_AnimalAuthorResponseToJson(
+        _$_AnimalAuthorResponse instance) =>
+    <String, dynamic>{
+      '_id': instance.Id,
+      'name': instance.name,
+      'avatar': instance.avatar,
     };

@@ -214,6 +214,8 @@ class ProfileViewModel extends BaseViewModel {
   bool isMyAnimalsVisibile = false;
   bool _profileCompleted = false;
 
+  bool isFollowing = false;
+
   List<PetBasicDetailsResponse> _listOfMyAnimals = [];
   List<PostResponse> _listOfPosts = [];
 
@@ -257,7 +259,8 @@ class ProfileViewModel extends BaseViewModel {
   void goToFollowPeopleProfileAction() async {
     var result = await _navigationService.navigateTo(
         Routes.followPeopleProfileActionView,
-        arguments: FollowPeopleProfileActionViewArguments(id: _Id));
+        arguments: FollowPeopleProfileActionViewArguments(
+            id: _Id, isShowOurFollowersPage: false));
 
     if (result != null) {
       if (result == 1) {
@@ -293,6 +296,8 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   Future followThisProfile(String fromID, String toID) async {
+    isFollowing = !isFollowing;
+    notifyListeners();
     SendFollowRequestBody body = SendFollowRequestBody(
       FromRequestBody(fromID, "Human"),
       ToRequestBody(

@@ -59,30 +59,30 @@ class _CommentsBottomSheetState extends State<CommentsBottomSheet> {
                 ],
               ),
             ),
-            Positioned(
-              top: 50,
-              right: 0,
-              left: 0,
-              child: SizedBox(
-                height: screenHeightPercentage(context, percentage: 0.70),
-                child: ListView.builder(
-                  itemCount: model.listOfComments.length,
-                  shrinkWrap: true,
-                  physics: ScrollPhysics(),
-                  itemBuilder: (BuildContext context, int index) => ListTile(
-                    tileColor: colors.white,
-                    leading: CustomCircularAvatar(
-                      radius: 20.0,
-                      imgPath: model.listOfComments[index].profileImgUrl,
-                    ),
-                    title: AppText.body(model.listOfComments[index].username),
-                    subtitle: AppText.caption(
-                        model.listOfComments[index].description),
-                    trailing: Icon(Icons.favorite_border),
-                  ),
-                ),
-              ),
-            ),
+            // Positioned(
+            //   top: 50,
+            //   right: 0,
+            //   left: 0,
+            //   child: SizedBox(
+            //     height: screenHeightPercentage(context, percentage: 0.70),
+            //     child: ListView.builder(
+            //       itemCount: model.listOfComments.length,
+            //       shrinkWrap: true,
+            //       physics: ScrollPhysics(),
+            //       itemBuilder: (BuildContext context, int index) => ListTile(
+            //         tileColor: colors.white,
+            //         leading: CustomCircularAvatar(
+            //           radius: 20.0,
+            //           imgPath: model.listOfComments[index].profileImgUrl,
+            //         ),
+            //         title: AppText.body(model.listOfComments[index].username),
+            //         subtitle: AppText.caption(
+            //             model.listOfComments[index].description),
+            //         trailing: Icon(Icons.favorite_border),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             Positioned(
               bottom: 0,
               right: 0,

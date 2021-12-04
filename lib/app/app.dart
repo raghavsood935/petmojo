@@ -37,6 +37,7 @@ import 'package:tamely/ui/profilepage/animal_profile/basic_info/basic_info_view.
 import 'package:tamely/ui/profilepage/animal_profile/guardians_and_relations/guardians_and_relations.dart';
 import 'package:tamely/ui/profilepage/completed_profile/add_details_profile_view.dart';
 import 'package:tamely/ui/profilepage/completed_profile/follow_people_action_view.dart';
+import 'package:tamely/ui/profilepage/count_info/list_of_followings_view.dart';
 import 'package:tamely/ui/profilepage/create_animal_profile/create_animal_page_viewe.dart';
 import 'package:tamely/ui/profilepage/profile_view.dart';
 import 'package:tamely/ui/reportcard/reportcard_view.dart';
@@ -71,6 +72,7 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: ProfileCreateView),
     CupertinoRoute(page: AddDetailsProfileView),
     CupertinoRoute(page: FollowPeopleProfileActionView),
+    CupertinoRoute(page: ListOfFollowings),
     CupertinoRoute(page: CreateAnimalPageView),
     CupertinoRoute(page: ForYouTabSearchView),
     CupertinoRoute(page: CommunityChooseInterestView),
