@@ -145,7 +145,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
 
       if (userService.hasLoggedInUser)
         _handleLoggedInUser(userService.currentUser, result!,
-            isGoogleSignIn: true);
+            isSocialSignIn: true);
 
       log.d("GoogleLogin ${googleSignInAuthentication.accessToken}");
     } catch (e) {
@@ -155,14 +155,15 @@ abstract class AuthenticationViewModel extends FormViewModel {
 
   Future<void> useFacebookAuthentication() async {
     final LoginResult result = await FacebookAuth.instance.login();
-
     switch (result.status) {
       case LoginStatus.success:
         log.d("Fb token: ${result.accessToken}");
-        await runBusyFuture(handleSocialLogin(result.accessToken!.token, true),
+        bool? resultBool = await runBusyFuture(
+            handleSocialLogin(result.accessToken!.token, true),
             throwException: true);
         if (userService.hasLoggedInUser)
-          _handleLoggedInUser(userService.currentUser, true);
+          _handleLoggedInUser(userService.currentUser, resultBool!,
+              isSocialSignIn: true);
         break;
       case LoginStatus.cancelled:
         snackBarService.showSnackbar(message: "Cancelled by User");
@@ -197,12 +198,12 @@ abstract class AuthenticationViewModel extends FormViewModel {
   }
 
   void _handleLoggedInUser(LocalUser currentUser, bool isNewUser,
-      {bool isGoogleSignIn = false}) {
+      {bool isSocialSignIn = false}) {
     if (currentUser.confirmed && !isNewUser) {
       sharedPreferencesService.currentState =
           getRedirectStateName(RedirectState.Home);
       navigationService.pushNamedAndRemoveUntil(Routes.dashboard);
-    } else if (!currentUser.confirmed && !isGoogleSignIn) {
+    } else if (!currentUser.confirmed && !isSocialSignIn) {
       sharedPreferencesService.currentState =
           getRedirectStateName(RedirectState.Start);
       navigationService.pushNamedAndRemoveUntil(
