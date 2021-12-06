@@ -28,7 +28,8 @@ class _$FeedPostResponseTearOff {
       @JsonKey(name: "thumbnail") String? thumbnail,
       @JsonKey(name: "filter") String? filter,
       @JsonKey(name: "caption") String? caption,
-      @JsonKey(name: "author") List<ProfileResponse>? author,
+      @JsonKey(name: "Userauthor") List<ProfileResponse>? userAuthor,
+      @JsonKey(name: "authorType") String? authorType,
       @JsonKey(name: "date") String? date,
       @JsonKey(name: "votesCount") List<VotesCountResponse>? votesCounts,
       @JsonKey(name: "commentData") FeedPostCommentResponse? commentResponse}) {
@@ -39,7 +40,8 @@ class _$FeedPostResponseTearOff {
       thumbnail: thumbnail,
       filter: filter,
       caption: caption,
-      author: author,
+      userAuthor: userAuthor,
+      authorType: authorType,
       date: date,
       votesCounts: votesCounts,
       commentResponse: commentResponse,
@@ -68,8 +70,10 @@ mixin _$FeedPostResponse {
   String? get filter => throw _privateConstructorUsedError;
   @JsonKey(name: "caption")
   String? get caption => throw _privateConstructorUsedError;
-  @JsonKey(name: "author")
-  List<ProfileResponse>? get author => throw _privateConstructorUsedError;
+  @JsonKey(name: "Userauthor")
+  List<ProfileResponse>? get userAuthor => throw _privateConstructorUsedError;
+  @JsonKey(name: "authorType")
+  String? get authorType => throw _privateConstructorUsedError;
   @JsonKey(name: "date")
   String? get date => throw _privateConstructorUsedError;
   @JsonKey(name: "votesCount")
@@ -97,7 +101,8 @@ abstract class $FeedPostResponseCopyWith<$Res> {
       @JsonKey(name: "thumbnail") String? thumbnail,
       @JsonKey(name: "filter") String? filter,
       @JsonKey(name: "caption") String? caption,
-      @JsonKey(name: "author") List<ProfileResponse>? author,
+      @JsonKey(name: "Userauthor") List<ProfileResponse>? userAuthor,
+      @JsonKey(name: "authorType") String? authorType,
       @JsonKey(name: "date") String? date,
       @JsonKey(name: "votesCount") List<VotesCountResponse>? votesCounts,
       @JsonKey(name: "commentData") FeedPostCommentResponse? commentResponse});
@@ -122,7 +127,8 @@ class _$FeedPostResponseCopyWithImpl<$Res>
     Object? thumbnail = freezed,
     Object? filter = freezed,
     Object? caption = freezed,
-    Object? author = freezed,
+    Object? userAuthor = freezed,
+    Object? authorType = freezed,
     Object? date = freezed,
     Object? votesCounts = freezed,
     Object? commentResponse = freezed,
@@ -152,10 +158,14 @@ class _$FeedPostResponseCopyWithImpl<$Res>
           ? _value.caption
           : caption // ignore: cast_nullable_to_non_nullable
               as String?,
-      author: author == freezed
-          ? _value.author
-          : author // ignore: cast_nullable_to_non_nullable
+      userAuthor: userAuthor == freezed
+          ? _value.userAuthor
+          : userAuthor // ignore: cast_nullable_to_non_nullable
               as List<ProfileResponse>?,
+      authorType: authorType == freezed
+          ? _value.authorType
+          : authorType // ignore: cast_nullable_to_non_nullable
+              as String?,
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -198,7 +208,8 @@ abstract class _$FeedPostResponseCopyWith<$Res>
       @JsonKey(name: "thumbnail") String? thumbnail,
       @JsonKey(name: "filter") String? filter,
       @JsonKey(name: "caption") String? caption,
-      @JsonKey(name: "author") List<ProfileResponse>? author,
+      @JsonKey(name: "Userauthor") List<ProfileResponse>? userAuthor,
+      @JsonKey(name: "authorType") String? authorType,
       @JsonKey(name: "date") String? date,
       @JsonKey(name: "votesCount") List<VotesCountResponse>? votesCounts,
       @JsonKey(name: "commentData") FeedPostCommentResponse? commentResponse});
@@ -226,7 +237,8 @@ class __$FeedPostResponseCopyWithImpl<$Res>
     Object? thumbnail = freezed,
     Object? filter = freezed,
     Object? caption = freezed,
-    Object? author = freezed,
+    Object? userAuthor = freezed,
+    Object? authorType = freezed,
     Object? date = freezed,
     Object? votesCounts = freezed,
     Object? commentResponse = freezed,
@@ -256,10 +268,14 @@ class __$FeedPostResponseCopyWithImpl<$Res>
           ? _value.caption
           : caption // ignore: cast_nullable_to_non_nullable
               as String?,
-      author: author == freezed
-          ? _value.author
-          : author // ignore: cast_nullable_to_non_nullable
+      userAuthor: userAuthor == freezed
+          ? _value.userAuthor
+          : userAuthor // ignore: cast_nullable_to_non_nullable
               as List<ProfileResponse>?,
+      authorType: authorType == freezed
+          ? _value.authorType
+          : authorType // ignore: cast_nullable_to_non_nullable
+              as String?,
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -286,7 +302,8 @@ class _$_FeedPostResponse extends _FeedPostResponse {
       @JsonKey(name: "thumbnail") this.thumbnail,
       @JsonKey(name: "filter") this.filter,
       @JsonKey(name: "caption") this.caption,
-      @JsonKey(name: "author") this.author,
+      @JsonKey(name: "Userauthor") this.userAuthor,
+      @JsonKey(name: "authorType") this.authorType,
       @JsonKey(name: "date") this.date,
       @JsonKey(name: "votesCount") this.votesCounts,
       @JsonKey(name: "commentData") this.commentResponse})
@@ -314,8 +331,11 @@ class _$_FeedPostResponse extends _FeedPostResponse {
   @JsonKey(name: "caption")
   final String? caption;
   @override
-  @JsonKey(name: "author")
-  final List<ProfileResponse>? author;
+  @JsonKey(name: "Userauthor")
+  final List<ProfileResponse>? userAuthor;
+  @override
+  @JsonKey(name: "authorType")
+  final String? authorType;
   @override
   @JsonKey(name: "date")
   final String? date;
@@ -328,7 +348,7 @@ class _$_FeedPostResponse extends _FeedPostResponse {
 
   @override
   String toString() {
-    return 'FeedPostResponse(Id: $Id, hashtags: $hashtags, image: $image, thumbnail: $thumbnail, filter: $filter, caption: $caption, author: $author, date: $date, votesCounts: $votesCounts, commentResponse: $commentResponse)';
+    return 'FeedPostResponse(Id: $Id, hashtags: $hashtags, image: $image, thumbnail: $thumbnail, filter: $filter, caption: $caption, userAuthor: $userAuthor, authorType: $authorType, date: $date, votesCounts: $votesCounts, commentResponse: $commentResponse)';
   }
 
   @override
@@ -343,7 +363,10 @@ class _$_FeedPostResponse extends _FeedPostResponse {
                 other.thumbnail == thumbnail) &&
             (identical(other.filter, filter) || other.filter == filter) &&
             (identical(other.caption, caption) || other.caption == caption) &&
-            const DeepCollectionEquality().equals(other.author, author) &&
+            const DeepCollectionEquality()
+                .equals(other.userAuthor, userAuthor) &&
+            (identical(other.authorType, authorType) ||
+                other.authorType == authorType) &&
             (identical(other.date, date) || other.date == date) &&
             const DeepCollectionEquality()
                 .equals(other.votesCounts, votesCounts) &&
@@ -360,7 +383,8 @@ class _$_FeedPostResponse extends _FeedPostResponse {
       thumbnail,
       filter,
       caption,
-      const DeepCollectionEquality().hash(author),
+      const DeepCollectionEquality().hash(userAuthor),
+      authorType,
       date,
       const DeepCollectionEquality().hash(votesCounts),
       commentResponse);
@@ -390,8 +414,10 @@ abstract class _FeedPostResponse extends FeedPostResponse {
           String? filter,
       @JsonKey(name: "caption")
           String? caption,
-      @JsonKey(name: "author")
-          List<ProfileResponse>? author,
+      @JsonKey(name: "Userauthor")
+          List<ProfileResponse>? userAuthor,
+      @JsonKey(name: "authorType")
+          String? authorType,
       @JsonKey(name: "date")
           String? date,
       @JsonKey(name: "votesCount")
@@ -422,8 +448,11 @@ abstract class _FeedPostResponse extends FeedPostResponse {
   @JsonKey(name: "caption")
   String? get caption;
   @override
-  @JsonKey(name: "author")
-  List<ProfileResponse>? get author;
+  @JsonKey(name: "Userauthor")
+  List<ProfileResponse>? get userAuthor;
+  @override
+  @JsonKey(name: "authorType")
+  String? get authorType;
   @override
   @JsonKey(name: "date")
   String? get date;
@@ -793,27 +822,24 @@ class _$FeedPostInnerCommentResponseTearOff {
   const _$FeedPostInnerCommentResponseTearOff();
 
   _FeedPostInnerCommentResponse call(
-      {@JsonKey(name: "_id")
-          String? Id,
-      @JsonKey(name: "post")
+      {@JsonKey(name: "post")
           String? postId,
       @JsonKey(name: "message")
           String? message,
-      @JsonKey(name: "authorDetails")
-          AuthorDetailsResponse? authorDetails,
       @JsonKey(name: "date")
           String? date,
-      @JsonKey(name: "author")
-          List<ProfileResponse>? author,
+      @JsonKey(name: "UserAuthor")
+          List<ProfileResponse>? userAuthor,
+      @JsonKey(name: "authorType")
+          String? authorType,
       @JsonKey(name: "Animalauthor")
           List<AnimalAuthorResponse>? animalAuthor}) {
     return _FeedPostInnerCommentResponse(
-      Id: Id,
       postId: postId,
       message: message,
-      authorDetails: authorDetails,
       date: date,
-      author: author,
+      userAuthor: userAuthor,
+      authorType: authorType,
       animalAuthor: animalAuthor,
     );
   }
@@ -828,19 +854,16 @@ const $FeedPostInnerCommentResponse = _$FeedPostInnerCommentResponseTearOff();
 
 /// @nodoc
 mixin _$FeedPostInnerCommentResponse {
-  @JsonKey(name: "_id")
-  String? get Id => throw _privateConstructorUsedError;
   @JsonKey(name: "post")
   String? get postId => throw _privateConstructorUsedError;
   @JsonKey(name: "message")
   String? get message => throw _privateConstructorUsedError;
-  @JsonKey(name: "authorDetails")
-  AuthorDetailsResponse? get authorDetails =>
-      throw _privateConstructorUsedError;
   @JsonKey(name: "date")
   String? get date => throw _privateConstructorUsedError;
-  @JsonKey(name: "author")
-  List<ProfileResponse>? get author => throw _privateConstructorUsedError;
+  @JsonKey(name: "UserAuthor")
+  List<ProfileResponse>? get userAuthor => throw _privateConstructorUsedError;
+  @JsonKey(name: "authorType")
+  String? get authorType => throw _privateConstructorUsedError;
   @JsonKey(name: "Animalauthor")
   List<AnimalAuthorResponse>? get animalAuthor =>
       throw _privateConstructorUsedError;
@@ -858,15 +881,12 @@ abstract class $FeedPostInnerCommentResponseCopyWith<$Res> {
           $Res Function(FeedPostInnerCommentResponse) then) =
       _$FeedPostInnerCommentResponseCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: "_id") String? Id,
-      @JsonKey(name: "post") String? postId,
+      {@JsonKey(name: "post") String? postId,
       @JsonKey(name: "message") String? message,
-      @JsonKey(name: "authorDetails") AuthorDetailsResponse? authorDetails,
       @JsonKey(name: "date") String? date,
-      @JsonKey(name: "author") List<ProfileResponse>? author,
+      @JsonKey(name: "UserAuthor") List<ProfileResponse>? userAuthor,
+      @JsonKey(name: "authorType") String? authorType,
       @JsonKey(name: "Animalauthor") List<AnimalAuthorResponse>? animalAuthor});
-
-  $AuthorDetailsResponseCopyWith<$Res>? get authorDetails;
 }
 
 /// @nodoc
@@ -880,19 +900,14 @@ class _$FeedPostInnerCommentResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? Id = freezed,
     Object? postId = freezed,
     Object? message = freezed,
-    Object? authorDetails = freezed,
     Object? date = freezed,
-    Object? author = freezed,
+    Object? userAuthor = freezed,
+    Object? authorType = freezed,
     Object? animalAuthor = freezed,
   }) {
     return _then(_value.copyWith(
-      Id: Id == freezed
-          ? _value.Id
-          : Id // ignore: cast_nullable_to_non_nullable
-              as String?,
       postId: postId == freezed
           ? _value.postId
           : postId // ignore: cast_nullable_to_non_nullable
@@ -901,34 +916,23 @@ class _$FeedPostInnerCommentResponseCopyWithImpl<$Res>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
-      authorDetails: authorDetails == freezed
-          ? _value.authorDetails
-          : authorDetails // ignore: cast_nullable_to_non_nullable
-              as AuthorDetailsResponse?,
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as String?,
-      author: author == freezed
-          ? _value.author
-          : author // ignore: cast_nullable_to_non_nullable
+      userAuthor: userAuthor == freezed
+          ? _value.userAuthor
+          : userAuthor // ignore: cast_nullable_to_non_nullable
               as List<ProfileResponse>?,
+      authorType: authorType == freezed
+          ? _value.authorType
+          : authorType // ignore: cast_nullable_to_non_nullable
+              as String?,
       animalAuthor: animalAuthor == freezed
           ? _value.animalAuthor
           : animalAuthor // ignore: cast_nullable_to_non_nullable
               as List<AnimalAuthorResponse>?,
     ));
-  }
-
-  @override
-  $AuthorDetailsResponseCopyWith<$Res>? get authorDetails {
-    if (_value.authorDetails == null) {
-      return null;
-    }
-
-    return $AuthorDetailsResponseCopyWith<$Res>(_value.authorDetails!, (value) {
-      return _then(_value.copyWith(authorDetails: value));
-    });
   }
 }
 
@@ -941,16 +945,12 @@ abstract class _$FeedPostInnerCommentResponseCopyWith<$Res>
       __$FeedPostInnerCommentResponseCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: "_id") String? Id,
-      @JsonKey(name: "post") String? postId,
+      {@JsonKey(name: "post") String? postId,
       @JsonKey(name: "message") String? message,
-      @JsonKey(name: "authorDetails") AuthorDetailsResponse? authorDetails,
       @JsonKey(name: "date") String? date,
-      @JsonKey(name: "author") List<ProfileResponse>? author,
+      @JsonKey(name: "UserAuthor") List<ProfileResponse>? userAuthor,
+      @JsonKey(name: "authorType") String? authorType,
       @JsonKey(name: "Animalauthor") List<AnimalAuthorResponse>? animalAuthor});
-
-  @override
-  $AuthorDetailsResponseCopyWith<$Res>? get authorDetails;
 }
 
 /// @nodoc
@@ -968,19 +968,14 @@ class __$FeedPostInnerCommentResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? Id = freezed,
     Object? postId = freezed,
     Object? message = freezed,
-    Object? authorDetails = freezed,
     Object? date = freezed,
-    Object? author = freezed,
+    Object? userAuthor = freezed,
+    Object? authorType = freezed,
     Object? animalAuthor = freezed,
   }) {
     return _then(_FeedPostInnerCommentResponse(
-      Id: Id == freezed
-          ? _value.Id
-          : Id // ignore: cast_nullable_to_non_nullable
-              as String?,
       postId: postId == freezed
           ? _value.postId
           : postId // ignore: cast_nullable_to_non_nullable
@@ -989,18 +984,18 @@ class __$FeedPostInnerCommentResponseCopyWithImpl<$Res>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
-      authorDetails: authorDetails == freezed
-          ? _value.authorDetails
-          : authorDetails // ignore: cast_nullable_to_non_nullable
-              as AuthorDetailsResponse?,
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as String?,
-      author: author == freezed
-          ? _value.author
-          : author // ignore: cast_nullable_to_non_nullable
+      userAuthor: userAuthor == freezed
+          ? _value.userAuthor
+          : userAuthor // ignore: cast_nullable_to_non_nullable
               as List<ProfileResponse>?,
+      authorType: authorType == freezed
+          ? _value.authorType
+          : authorType // ignore: cast_nullable_to_non_nullable
+              as String?,
       animalAuthor: animalAuthor == freezed
           ? _value.animalAuthor
           : animalAuthor // ignore: cast_nullable_to_non_nullable
@@ -1013,12 +1008,11 @@ class __$FeedPostInnerCommentResponseCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_FeedPostInnerCommentResponse extends _FeedPostInnerCommentResponse {
   _$_FeedPostInnerCommentResponse(
-      {@JsonKey(name: "_id") this.Id,
-      @JsonKey(name: "post") this.postId,
+      {@JsonKey(name: "post") this.postId,
       @JsonKey(name: "message") this.message,
-      @JsonKey(name: "authorDetails") this.authorDetails,
       @JsonKey(name: "date") this.date,
-      @JsonKey(name: "author") this.author,
+      @JsonKey(name: "UserAuthor") this.userAuthor,
+      @JsonKey(name: "authorType") this.authorType,
       @JsonKey(name: "Animalauthor") this.animalAuthor})
       : super._();
 
@@ -1026,30 +1020,27 @@ class _$_FeedPostInnerCommentResponse extends _FeedPostInnerCommentResponse {
       _$$_FeedPostInnerCommentResponseFromJson(json);
 
   @override
-  @JsonKey(name: "_id")
-  final String? Id;
-  @override
   @JsonKey(name: "post")
   final String? postId;
   @override
   @JsonKey(name: "message")
   final String? message;
   @override
-  @JsonKey(name: "authorDetails")
-  final AuthorDetailsResponse? authorDetails;
-  @override
   @JsonKey(name: "date")
   final String? date;
   @override
-  @JsonKey(name: "author")
-  final List<ProfileResponse>? author;
+  @JsonKey(name: "UserAuthor")
+  final List<ProfileResponse>? userAuthor;
+  @override
+  @JsonKey(name: "authorType")
+  final String? authorType;
   @override
   @JsonKey(name: "Animalauthor")
   final List<AnimalAuthorResponse>? animalAuthor;
 
   @override
   String toString() {
-    return 'FeedPostInnerCommentResponse(Id: $Id, postId: $postId, message: $message, authorDetails: $authorDetails, date: $date, author: $author, animalAuthor: $animalAuthor)';
+    return 'FeedPostInnerCommentResponse(postId: $postId, message: $message, date: $date, userAuthor: $userAuthor, authorType: $authorType, animalAuthor: $animalAuthor)';
   }
 
   @override
@@ -1057,13 +1048,13 @@ class _$_FeedPostInnerCommentResponse extends _FeedPostInnerCommentResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _FeedPostInnerCommentResponse &&
-            (identical(other.Id, Id) || other.Id == Id) &&
             (identical(other.postId, postId) || other.postId == postId) &&
             (identical(other.message, message) || other.message == message) &&
-            (identical(other.authorDetails, authorDetails) ||
-                other.authorDetails == authorDetails) &&
             (identical(other.date, date) || other.date == date) &&
-            const DeepCollectionEquality().equals(other.author, author) &&
+            const DeepCollectionEquality()
+                .equals(other.userAuthor, userAuthor) &&
+            (identical(other.authorType, authorType) ||
+                other.authorType == authorType) &&
             const DeepCollectionEquality()
                 .equals(other.animalAuthor, animalAuthor));
   }
@@ -1071,12 +1062,11 @@ class _$_FeedPostInnerCommentResponse extends _FeedPostInnerCommentResponse {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      Id,
       postId,
       message,
-      authorDetails,
       date,
-      const DeepCollectionEquality().hash(author),
+      const DeepCollectionEquality().hash(userAuthor),
+      authorType,
       const DeepCollectionEquality().hash(animalAuthor));
 
   @JsonKey(ignore: true)
@@ -1094,18 +1084,16 @@ class _$_FeedPostInnerCommentResponse extends _FeedPostInnerCommentResponse {
 abstract class _FeedPostInnerCommentResponse
     extends FeedPostInnerCommentResponse {
   factory _FeedPostInnerCommentResponse(
-          {@JsonKey(name: "_id")
-              String? Id,
-          @JsonKey(name: "post")
+          {@JsonKey(name: "post")
               String? postId,
           @JsonKey(name: "message")
               String? message,
-          @JsonKey(name: "authorDetails")
-              AuthorDetailsResponse? authorDetails,
           @JsonKey(name: "date")
               String? date,
-          @JsonKey(name: "author")
-              List<ProfileResponse>? author,
+          @JsonKey(name: "UserAuthor")
+              List<ProfileResponse>? userAuthor,
+          @JsonKey(name: "authorType")
+              String? authorType,
           @JsonKey(name: "Animalauthor")
               List<AnimalAuthorResponse>? animalAuthor}) =
       _$_FeedPostInnerCommentResponse;
@@ -1115,23 +1103,20 @@ abstract class _FeedPostInnerCommentResponse
       _$_FeedPostInnerCommentResponse.fromJson;
 
   @override
-  @JsonKey(name: "_id")
-  String? get Id;
-  @override
   @JsonKey(name: "post")
   String? get postId;
   @override
   @JsonKey(name: "message")
   String? get message;
   @override
-  @JsonKey(name: "authorDetails")
-  AuthorDetailsResponse? get authorDetails;
-  @override
   @JsonKey(name: "date")
   String? get date;
   @override
-  @JsonKey(name: "author")
-  List<ProfileResponse>? get author;
+  @JsonKey(name: "UserAuthor")
+  List<ProfileResponse>? get userAuthor;
+  @override
+  @JsonKey(name: "authorType")
+  String? get authorType;
   @override
   @JsonKey(name: "Animalauthor")
   List<AnimalAuthorResponse>? get animalAuthor;

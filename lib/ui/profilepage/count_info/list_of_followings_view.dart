@@ -8,9 +8,14 @@ import 'package:tamely/widgets/custom_circle_avatar.dart';
 import 'package:tamely/widgets/follow_static_btn.dart';
 
 class ListOfFollowings extends StatefulWidget {
-  const ListOfFollowings({Key? key, required this.id}) : super(key: key);
+  const ListOfFollowings({
+    Key? key,
+    required this.id,
+    required this.isFollowers,
+  }) : super(key: key);
 
-  final id;
+  final String id;
+  final bool isFollowers;
 
   @override
   _ListOfFollowingsState createState() => _ListOfFollowingsState();
@@ -21,7 +26,7 @@ class _ListOfFollowingsState extends State<ListOfFollowings> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ListOfFollowingsViewModel>.reactive(
       viewModelBuilder: () => ListOfFollowingsViewModel(),
-      onModelReady: (model) => model.init(widget.id),
+      onModelReady: (model) => model.init(widget.id, widget.isFollowers),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -44,25 +49,68 @@ class _ListOfFollowingsState extends State<ListOfFollowings> {
               child: ListView.builder(
                 physics: ScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: model.listOfProfileModel.length,
+                itemCount: widget.isFollowers
+                    ? model.listOfFollowersProfileModel.length
+                    : model.listOfFollowingsProfileModel.length,
                 itemBuilder: (context, index) => ListTile(
                   contentPadding: EdgeInsets.zero,
                   title: AppText.body(
-                    model.listOfProfileModel[index].profile.username ?? "-",
+                    widget.isFollowers
+                        ? model.listOfFollowersProfileModel[index].profile!
+                                .followersDetailsResponse!.username ??
+                            "-"
+                        : model.listOfFollowingsProfileModel[index]
+                                .followersDetailsResponse!.username ??
+                            "-",
                     color: colors.black,
                   ),
-                  subtitle: AppText.body1(
-                      model.listOfProfileModel[index].profile.fullname ?? "-"),
+                  subtitle: AppText.body1(widget.isFollowers
+                      ? model.listOfFollowersProfileModel[index].profile!
+                              .followersDetailsResponse!.fullName ??
+                          "-"
+                      : model.listOfFollowingsProfileModel[index]
+                              .followersDetailsResponse!.fullName ??
+                          "-"),
                   leading: CustomCircularAvatar(
                       radius: 24,
-                      imgPath: model.listOfProfileModel[index].profile.avatar ??
-                          emptyProfileImgUrl),
-                  trailing: Icon(
-                    Icons.arrow_forward_ios_rounded,
-                    size: 18,
-                  ),
+                      imgPath: widget.isFollowers
+                          ? model.listOfFollowersProfileModel[index].profile!
+                                  .followersDetailsResponse!.avatar ??
+                              emptyProfileImgUrl
+                          : model.listOfFollowingsProfileModel[index]
+                                  .followersDetailsResponse!.avatar ??
+                              emptyProfileImgUrl),
+                  trailing: widget.isFollowers
+                      ? GestureDetector(
+                          onTap: () {
+                            if (!(model.listOfFollowersProfileModel[index]
+                                .isFollowing)) {
+                              model.sendFollowRequest(model
+                                  .listOfFollowersProfileModel[index].profile);
+                              setState(() {
+                                model.listOfFollowersProfileModel[index]
+                                    .changeFollowing();
+                              });
+                            }
+                          },
+                          child: FollowingStaticBtn(
+                              trueValue: "Following",
+                              falseValue: "Follow",
+                              state: (model.listOfFollowersProfileModel[index]
+                                  .isFollowing)),
+                        )
+                      : Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: 18,
+                        ),
                   onTap: () => model.goToProfileDetailsPage(
-                      context, model.listOfProfileModel[index].profile.Id!),
+                      context,
+                      widget.isFollowers
+                          ? model.listOfFollowersProfileModel[index].profile!
+                          .followersDetailsResponse!.Id ??"":
+                      model.listOfFollowingsProfileModel[index]
+                              .followersDetailsResponse!.Id ??
+                          ""),
                 ),
               ),
             ),

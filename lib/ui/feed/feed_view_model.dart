@@ -44,14 +44,14 @@ class FeedViewModel extends BaseModel {
       notifyListeners();
     }
 
-    seeMorePost();
+    // seeMorePost();
   }
 
   Future seeMorePost() async {
     print("COUNTER VALUE $_counter");
     _isLoading = true;
     notifyListeners();
-    var result = await _tamelyApi.getFeedPosts(CounterBody(_counter));
+    var result = await _tamelyApi.getFeedPosts(CounterBody(_counter), true);
     if (result.data != null) {
       _dummyFeedPostModel.addAll(result.data!.listOfPosts ?? []);
       _counter++;
@@ -63,9 +63,9 @@ class FeedViewModel extends BaseModel {
   Future likeOrDislikePost(String postID, bool vote) async {
     print("INSIDE LIKE");
     LikeDislikePostBody body =
-        LikeDislikePostBody(postID, vote, VoterDetails("Human", _userId));
+        LikeDislikePostBody(postID, vote, VoterDetails("User", _userId));
 
-    await _tamelyApi.likeOrDislikeThePost(body);
+    await _tamelyApi.likeOrDislikeThePost(body, true);
   }
 
   void createPost() async {

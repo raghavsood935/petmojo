@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:stacked/stacked.dart';
-import 'package:tamely/ui/profilepage/post_tabs/post_tabs.dart';
 import 'package:tamely/ui/profilepage/profile_viewmodel.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ImageConstant.dart';
@@ -193,8 +192,16 @@ class _ProfileViewState extends State<ProfileView> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 countRowItem(model.noOfPosts, "Posts"),
-                                countRowItem(model.noOfFollowers, "Followers"),
-                                countRowItem(model.noOfFollowing, "Following"),
+                                GestureDetector(
+                                  child: countRowItem(
+                                      model.noOfFollowers, "Followers"),
+                                  onTap: model.goToListOfFollowers,
+                                ),
+                                GestureDetector(
+                                  child: countRowItem(
+                                      model.noOfFollowing, "Following"),
+                                  onTap: model.goToListOfFollowings,
+                                ),
                                 // countRowItem(model.noOfHearts, "Hearts"),
                                 Column(
                                   children: [
@@ -220,9 +227,10 @@ class _ProfileViewState extends State<ProfileView> {
                 //complete your profile info
 
                 Visibility(
-                  visible: model.completedProfileStepCount <
-                          model.completedProfileTotalCount &&
-                      !widget.isInspectView,
+                  // visible: model.completedProfileStepCount <
+                  //         model.completedProfileTotalCount &&
+                  //     !widget.isInspectView,
+                  visible: true,
                   child: Column(
                     children: [
                       Padding(
@@ -254,7 +262,8 @@ class _ProfileViewState extends State<ProfileView> {
                               ),
                             ),
                             Visibility(
-                              visible: model.noOfFollowing < 1,
+                              // visible: model.noOfFollowing < 1,
+                              visible: true,
                               child: completeProfileItem(
                                   Icons.people_outline_rounded,
                                   "Follow at least 5 people to improve feed suggestions",

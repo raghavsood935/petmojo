@@ -73,7 +73,7 @@ class _ForYouTabSearchViewState extends State<ForYouTabSearchView> {
                     child: SearchTextField(
                       controller: model.searchTC,
                       hint: "Search for profiles,keywords etc.",
-                      onChange: model.onSearchChange,
+                      onChange: (value) => model.onSearchChange(value, false),
                     ),
                   ),
                 ],
@@ -109,7 +109,7 @@ class _ForYouTabSearchViewState extends State<ForYouTabSearchView> {
               Visibility(
                 visible: !model.isLoading,
                 child: GestureDetector(
-                  onTap: () => model.onSearchChange(model.searchTC.text),
+                  onTap: () => model.onSearchChange(model.searchTC.text, true),
                   child: AppText.body1Bold(
                     "See more profiles",
                     color: colors.primary,

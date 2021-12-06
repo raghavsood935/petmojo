@@ -196,6 +196,10 @@ class $AssetsImagesGen {
   $AssetsImagesServicePageImagesGen get servicePageImages =>
       const $AssetsImagesServicePageImagesGen();
 
+  /// File path: assets/images/service_selected.png
+  AssetGenImage get serviceSelected =>
+      const AssetGenImage('assets/images/service_selected.png');
+
   /// File path: assets/images/services.svg
   SvgGenImage get services => const SvgGenImage('assets/images/services.svg');
 
