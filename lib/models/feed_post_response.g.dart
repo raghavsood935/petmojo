@@ -16,9 +16,10 @@ _$_FeedPostResponse _$$_FeedPostResponseFromJson(Map<String, dynamic> json) =>
       thumbnail: json['thumbnail'] as String?,
       filter: json['filter'] as String?,
       caption: json['caption'] as String?,
-      author: (json['author'] as List<dynamic>?)
+      userAuthor: (json['Userauthor'] as List<dynamic>?)
           ?.map((e) => ProfileResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
+      authorType: json['authorType'] as String?,
       date: json['date'] as String?,
       votesCounts: (json['votesCount'] as List<dynamic>?)
           ?.map((e) => VotesCountResponse.fromJson(e as Map<String, dynamic>))
@@ -37,7 +38,8 @@ Map<String, dynamic> _$$_FeedPostResponseToJson(_$_FeedPostResponse instance) =>
       'thumbnail': instance.thumbnail,
       'filter': instance.filter,
       'caption': instance.caption,
-      'author': instance.author,
+      'Userauthor': instance.userAuthor,
+      'authorType': instance.authorType,
       'date': instance.date,
       'votesCount': instance.votesCounts,
       'commentData': instance.commentResponse,
@@ -75,17 +77,13 @@ Map<String, dynamic> _$$_FeedPostCommentResponseToJson(
 _$_FeedPostInnerCommentResponse _$$_FeedPostInnerCommentResponseFromJson(
         Map<String, dynamic> json) =>
     _$_FeedPostInnerCommentResponse(
-      Id: json['_id'] as String?,
       postId: json['post'] as String?,
       message: json['message'] as String?,
-      authorDetails: json['authorDetails'] == null
-          ? null
-          : AuthorDetailsResponse.fromJson(
-              json['authorDetails'] as Map<String, dynamic>),
       date: json['date'] as String?,
-      author: (json['author'] as List<dynamic>?)
+      userAuthor: (json['UserAuthor'] as List<dynamic>?)
           ?.map((e) => ProfileResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
+      authorType: json['authorType'] as String?,
       animalAuthor: (json['Animalauthor'] as List<dynamic>?)
           ?.map((e) => AnimalAuthorResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -94,12 +92,11 @@ _$_FeedPostInnerCommentResponse _$$_FeedPostInnerCommentResponseFromJson(
 Map<String, dynamic> _$$_FeedPostInnerCommentResponseToJson(
         _$_FeedPostInnerCommentResponse instance) =>
     <String, dynamic>{
-      '_id': instance.Id,
       'post': instance.postId,
       'message': instance.message,
-      'authorDetails': instance.authorDetails,
       'date': instance.date,
-      'author': instance.author,
+      'UserAuthor': instance.userAuthor,
+      'authorType': instance.authorType,
       'Animalauthor': instance.animalAuthor,
     };
 

@@ -86,12 +86,15 @@ class ForYouTabSearchViewModel extends BaseModel {
     }
   }
 
-  Future<void> onSearchChange(String value) async {
+  Future<void> onSearchChange(String value, bool isFromSeeMore) async {
     if (value.isNotEmpty) {
       _isLoading = true;
+      if (!isFromSeeMore) {
+        _counter = 0;
+      }
       listOfProfiles.clear();
       notifyListeners();
-      SearchProfilesBody body = SearchProfilesBody(_counter, value, "Human");
+      SearchProfilesBody body = SearchProfilesBody(_counter, value, "User");
       var response = await _tamelyApi.showListOfProfileForYou(body);
 
       if (response.getException != null) {
@@ -102,7 +105,9 @@ class ForYouTabSearchViewModel extends BaseModel {
       } else if (response.data != null) {
         listOfProfiles.addAll(response.data!.listOfProfiles ?? []);
         _isLoading = false;
-        _counter++;
+        if (isFromSeeMore) {
+          _counter++;
+        }
         notifyListeners();
       }
     }

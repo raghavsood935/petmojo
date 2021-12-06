@@ -366,7 +366,6 @@ class StackedRouter extends RouterBase {
         builder: (context) => FollowPeopleProfileActionView(
           key: args.key,
           id: args.id,
-          isShowOurFollowersPage: args.isShowOurFollowersPage,
         ),
         settings: data,
       );
@@ -377,6 +376,7 @@ class StackedRouter extends RouterBase {
         builder: (context) => ListOfFollowings(
           key: args.key,
           id: args.id,
+          isFollowers: args.isFollowers,
         ),
         settings: data,
       );
@@ -762,16 +762,16 @@ class AddDetailsProfileViewArguments {
 class FollowPeopleProfileActionViewArguments {
   final Key? key;
   final String id;
-  final bool isShowOurFollowersPage;
-  FollowPeopleProfileActionViewArguments(
-      {this.key, required this.id, required this.isShowOurFollowersPage});
+  FollowPeopleProfileActionViewArguments({this.key, required this.id});
 }
 
 /// ListOfFollowings arguments holder class
 class ListOfFollowingsArguments {
   final Key? key;
-  final dynamic id;
-  ListOfFollowingsArguments({this.key, required this.id});
+  final String id;
+  final bool isFollowers;
+  ListOfFollowingsArguments(
+      {this.key, required this.id, required this.isFollowers});
 }
 
 /// CreateAnimalPageView arguments holder class

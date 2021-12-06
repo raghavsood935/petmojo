@@ -10,12 +10,15 @@ import 'package:tamely/models/edit_response.dart';
 import 'package:tamely/models/generate_pet_username_response.dart';
 import 'package:tamely/models/get_payment_details_response.dart';
 import 'package:tamely/models/list_of_feed_post_response.dart';
+import 'package:tamely/models/list_of_followers_resopnse.dart';
+import 'package:tamely/models/list_of_followings_resopnse.dart';
 import 'package:tamely/models/list_of_for_you_post_response.dart';
 import 'package:tamely/models/list_of_post_response.dart';
 import 'package:tamely/models/list_of_profile_response.dart';
 import 'package:tamely/models/list_of_profiles_foy_you.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/models/params/change_bio_avatar_body.dart';
+import 'package:tamely/models/params/comment_new/add_comment_body.dart';
 import 'package:tamely/models/params/comments/comment/delete_comment_body.dart';
 import 'package:tamely/models/params/comments/comment/store_comment_body.dart';
 import 'package:tamely/models/params/comments/comment/update_comment_body.dart';
@@ -28,6 +31,7 @@ import 'package:tamely/models/params/counter_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_details_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_main_details_body.dart';
 import 'package:tamely/models/params/feedback_body.dart';
+import 'package:tamely/models/params/fetch_list_of_following_body.dart';
 import 'package:tamely/models/params/get_payment_details_body.dart';
 import 'package:tamely/models/params/get_profile_details_by_id_body.dart';
 import 'package:tamely/models/params/like_dislike_post_body.dart';
@@ -66,6 +70,8 @@ class Apis {
   static const MAX_SIZE = 10;
   static const TIMEOUT = 12000;
 
+  static const String imageToLink = '/user/getAvatarLink';
+
   static const String login = '/auth/login';
   static const String register = '/auth/register';
   static const String checkUserName = '/user/isusernameavailable/{username}';
@@ -84,6 +90,8 @@ class Apis {
   static const String addBioAvatar = '/user/bioAndAvatar';
 
   static const String getProfileDetailsById = '/user/getUserDetailsById';
+  static const String getListOfFollowers = '/user/followers';
+  static const String getListOfFollowings = '/user/followings';
 
   //animal profile
   static const String generatePetUsername = '/animal/getUniquePetName';
@@ -151,7 +159,7 @@ class Apis {
 }
 
 // @RestApi(baseUrl: "https://tamely.herokuapp.com/api/")
-@RestApi(baseUrl: "3.14.68.70:9000/api/")
+@RestApi(baseUrl: "http://3.14.68.70:9000/api/")
 abstract class ApiClient {
   factory ApiClient(Dio dio, {String baseUrl}) = _ApiClient;
 
@@ -203,12 +211,23 @@ abstract class ApiClient {
   @GET(Apis.userProfileDetails)
   Future<UserProfileDetailsResponse> getUserProfileDetails();
 
+  @POST(Apis.imageToLink)
+  Future<ListOfPostResponse> imageToLink();
+
   @POST(Apis.userPosts)
   Future<ListOfPostResponse> getUserPosts();
 
   @POST(Apis.getProfileDetailsById)
   Future<ProfileDetailsByIdResponse> getProfileDetailsById(
       @Body() GetProfileDetailsByIdBody getProfileDetailsByIdBody);
+
+  @POST(Apis.getListOfFollowers)
+  Future<ListOfFollowersResponse> getListOfFollowers(
+      @Body() FetchListOfFollowingBody fetchListOfFollowingBody);
+
+  @POST(Apis.getListOfFollowings)
+  Future<ListOfFollowingsResponse> getListOfFollowings(
+      @Body() FetchListOfFollowingBody fetchListOfFollowingBody);
 
   @POST(Apis.feedPosts)
   Future<ListOfFeedPostResponse> getFeedPosts(@Body() CounterBody counterBody);
@@ -276,7 +295,7 @@ abstract class ApiClient {
       @Body()
           EditAnimalProfileMainDetailsBody editAnimalProfileMainDetailsBody);
 
-  @GET(Apis.showPeopleToFollow)
+  @POST(Apis.showPeopleToFollow)
   Future<ListOfProfilesResponse> showPeoplesToFollow(
       @Body() ShowPeopleToFollowBody showPeopleToFollowBody);
 
@@ -310,6 +329,10 @@ abstract class ApiClient {
   // -- need help
   @POST(Apis.getHelp)
   Future<CommonResponse> getHelp(@Body() NeedHelpBody needHelpBody);
+
+  //comments
+  @POST(Apis.addComment)
+  Future<CommonResponse> addComment(@Body() AddCommentBody addCommentBody);
 
   //Comment
   //-- add comment

@@ -34,7 +34,7 @@ class ForYouTabViewModel extends BaseModel {
     print("COUNTER VALUE $_counter");
     _isLoading = true;
     notifyListeners();
-    var result = await _tamelyApi.getForYouPost(CounterBody(_counter));
+    var result = await _tamelyApi.getForYouPost(CounterBody(_counter), true);
     if (result.data != null) {
       _dummyListOfPosts.addAll(result.data!.listOfPosts ?? []);
       _counter++;

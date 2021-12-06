@@ -9,12 +9,9 @@ import 'package:tamely/widgets/custom_circle_avatar.dart';
 import 'package:tamely/widgets/follow_static_btn.dart';
 
 class FollowPeopleProfileActionView extends StatefulWidget {
-  FollowPeopleProfileActionView(
-      {Key? key, required this.id, required this.isShowOurFollowersPage})
-      : super(key: key);
+  FollowPeopleProfileActionView({Key? key, required this.id}) : super(key: key);
 
   String id;
-  bool isShowOurFollowersPage;
 
   @override
   _FollowPeopleProfileActionViewState createState() =>
@@ -27,8 +24,7 @@ class _FollowPeopleProfileActionViewState
   Widget build(BuildContext context) {
     return ViewModelBuilder<FollowPeopleProfileActionViewModel>.reactive(
       viewModelBuilder: () => FollowPeopleProfileActionViewModel(),
-      onModelReady: (model) =>
-          model.init(widget.id, widget.isShowOurFollowersPage),
+      onModelReady: (model) => model.init(widget.id),
       builder: (context, model, child) => Scaffold(
         body: SafeArea(
             child: SingleChildScrollView(

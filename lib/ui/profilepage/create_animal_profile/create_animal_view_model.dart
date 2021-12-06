@@ -18,7 +18,6 @@ import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/models/common_response.dart';
 import 'package:tamely/models/my_animal_model.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
-import 'package:tamely/models/params/edit_animal_profile_body.dart';
 import 'package:tamely/models/user_response_models.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/animal_type_constant.dart';
@@ -611,7 +610,7 @@ class CreateAnimalViewModel extends FormViewModel {
         if (await Util.checkInternetConnectivity()) {
           try {
             BaseResponse<UserNameAvailableResponse> availableResponse =
-                await runBusyFuture(_tamelyApi.checkUserName(query),
+                await runBusyFuture(_tamelyApi.checkUserName(false, query),
                     throwException: true);
             if (availableResponse.getException != null) {
               ServerError error = availableResponse.getException as ServerError;

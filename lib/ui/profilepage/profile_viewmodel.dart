@@ -150,9 +150,9 @@ class ProfileViewModel extends BaseViewModel {
   Future getUserProfileDetailsById(String id) async {
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
       _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
-      GetProfileDetailsByIdBody body = GetProfileDetailsByIdBody("Human", id);
+      GetProfileDetailsByIdBody body = GetProfileDetailsByIdBody("User", id);
       BaseResponse<ProfileDetailsByIdResponse> response =
-          await _tamelyApi.getProfileDetailsById(body);
+          await _tamelyApi.getProfileDetailsById(body, true);
       if (response.getException != null) {
         ServerError error = response.getException as ServerError;
         _dialogService.completeDialog(DialogResponse(confirmed: true));
@@ -259,8 +259,29 @@ class ProfileViewModel extends BaseViewModel {
   void goToFollowPeopleProfileAction() async {
     var result = await _navigationService.navigateTo(
         Routes.followPeopleProfileActionView,
-        arguments: FollowPeopleProfileActionViewArguments(
-            id: _Id, isShowOurFollowersPage: false));
+        arguments: FollowPeopleProfileActionViewArguments(id: _Id));
+
+    if (result != null) {
+      if (result == 1) {
+        getUserProfileDetails();
+      }
+    }
+  }
+
+  void goToListOfFollowers() async {
+    var result = await _navigationService.navigateTo(Routes.listOfFollowings,
+        arguments: ListOfFollowingsArguments(id: _Id, isFollowers: true));
+
+    if (result != null) {
+      if (result == 1) {
+        getUserProfileDetails();
+      }
+    }
+  }
+
+  void goToListOfFollowings() async {
+    var result = await _navigationService.navigateTo(Routes.listOfFollowings,
+        arguments: ListOfFollowingsArguments(id: _Id, isFollowers: false));
 
     if (result != null) {
       if (result == 1) {
@@ -299,13 +320,13 @@ class ProfileViewModel extends BaseViewModel {
     isFollowing = !isFollowing;
     notifyListeners();
     SendFollowRequestBody body = SendFollowRequestBody(
-      FromRequestBody(fromID, "Human"),
+      FromRequestBody(fromID, "User"),
       ToRequestBody(
         toID,
-        "Human",
+        "User",
       ),
     );
-    var result = await _tamelyApi.sendFollowRequest(body);
+    var result = await _tamelyApi.sendFollowRequest(body, true);
     if (result.data != null) {
       _noOfFollowers++;
       notifyListeners();

@@ -4,8 +4,6 @@ import 'package:tamely/api/api_service.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
-import 'package:tamely/enum/profile_types.dart';
-import 'package:tamely/models/follow_profile_model.dart';
 import 'package:tamely/models/params/send_follow_request_body/from_request_body.dart';
 import 'package:tamely/models/params/send_follow_request_body/send_follow_request_body.dart';
 import 'package:tamely/models/params/send_follow_request_body/to_request_body.dart';
@@ -22,9 +20,7 @@ class FollowPeopleProfileActionViewModel extends BaseModel {
 
   String _id = "";
 
-  bool _isOurFollowersShowPage = false;
-
-  String title = "";
+  String title = "Follow 5 Profiles";
 
   int _counter = 0;
   bool _isLoading = true;
@@ -35,10 +31,8 @@ class FollowPeopleProfileActionViewModel extends BaseModel {
 
   bool get isLoading => _isLoading;
 
-  Future init(String id, bool isShowOurFollowersPage) async {
+  Future init(String id) async {
     _id = id;
-    _isOurFollowersShowPage = isShowOurFollowersPage;
-    title = isShowOurFollowersPage ? "Followers" : "Follow 5 Profiles";
     notifyListeners();
     await getProfilesList();
   }
@@ -51,13 +45,8 @@ class FollowPeopleProfileActionViewModel extends BaseModel {
 
     var result;
 
-    if (_isOurFollowersShowPage) {
-      ShowPeopleToFollowBody body = ShowPeopleToFollowBody(_counter);
-      result = await _tamelyApi.showPeoplesToFollow(body);
-    } else {
-      ShowPeopleToFollowBody body = ShowPeopleToFollowBody(_counter);
-      result = await _tamelyApi.showPeoplesToFollow(body);
-    }
+    ShowPeopleToFollowBody body = ShowPeopleToFollowBody(_counter);
+    result = await _tamelyApi.showPeoplesToFollow(body);
 
     if (result.data != null) {
       if (result.data!.listOfProfiles != null) {
@@ -89,13 +78,13 @@ class FollowPeopleProfileActionViewModel extends BaseModel {
 
   Future sendFollowRequest(ProfileResponse profileResponse) async {
     SendFollowRequestBody body = SendFollowRequestBody(
-      FromRequestBody(_id, "Human"),
+      FromRequestBody(_id, "User"),
       ToRequestBody(
         profileResponse.Id!,
-        "Human",
+        "User",
       ),
     );
-    var result = await _tamelyApi.sendFollowRequest(body);
+    var result = await _tamelyApi.sendFollowRequest(body, true);
   }
 }
 

@@ -103,41 +103,41 @@ class FeedView extends StatelessWidget {
                 ],
               ),
             ),
-            spacedDividerTiny,
-            ListView.separated(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: model.dummyListOfFeedPost.length,
-              itemBuilder: (context, index) => FeedPostItem(
-                  model: model.dummyListOfFeedPost[index], viewModel: model),
-              separatorBuilder: (BuildContext context, int index) => Divider(
-                indent: 0,
-                thickness: 5,
-                color: colors.kcLightGreyBackground,
-              ),
-            ),
-            verticalSpaceRegular,
-            Visibility(
-              visible: model.isLoading,
-              child: Align(
-                alignment: Alignment.center,
-                child: CircularProgressIndicator(
-                  color: colors.primary,
-                ),
-              ),
-            ),
-            Visibility(
-              visible: !model.isLoading,
-              child: GestureDetector(
-                onTap: model.seeMorePost,
-                child: AppText.body1Bold(
-                  "See more Posts",
-                  textAlign: TextAlign.center,
-                  color: colors.primary,
-                ),
-              ),
-            ),
-            verticalSpaceRegular,
+            // spacedDividerTiny,
+            // ListView.separated(
+            //   shrinkWrap: true,
+            //   physics: NeverScrollableScrollPhysics(),
+            //   itemCount: model.dummyListOfFeedPost.length,
+            //   itemBuilder: (context, index) => FeedPostItem(
+            //       model: model.dummyListOfFeedPost[index], viewModel: model),
+            //   separatorBuilder: (BuildContext context, int index) => Divider(
+            //     indent: 0,
+            //     thickness: 5,
+            //     color: colors.kcLightGreyBackground,
+            //   ),
+            // ),
+            // verticalSpaceRegular,
+            // Visibility(
+            //   visible: model.isLoading,
+            //   child: Align(
+            //     alignment: Alignment.center,
+            //     child: CircularProgressIndicator(
+            //       color: colors.primary,
+            //     ),
+            //   ),
+            // ),
+            // Visibility(
+            //   visible: !model.isLoading,
+            //   child: GestureDetector(
+            //     onTap: model.seeMorePost,
+            //     child: AppText.body1Bold(
+            //       "See more Posts",
+            //       textAlign: TextAlign.center,
+            //       color: colors.primary,
+            //     ),
+            //   ),
+            // ),
+            // verticalSpaceRegular,
           ],
         ),
       ),
@@ -247,10 +247,12 @@ class _FeedPostItemState extends State<FeedPostItem> {
           Row(
             children: [
               CustomCircularAvatar(
-                radius: 20.0,
-                imgPath:
-                    widget.model.author!.first.avatar ?? emptyProfileImgUrl,
-              ),
+                  radius: 20.0,
+                  imgPath: widget.model.authorType == "human" ||
+                          widget.model.authorType == "User"
+                      ? widget.model.userAuthor!.first.avatar ??
+                          emptyProfileImgUrl
+                      : emptyProfileImgUrl),
               horizontalSpaceSmall,
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -264,7 +266,10 @@ class _FeedPostItemState extends State<FeedPostItem> {
                   //           // AppText.caption(model.),
                   //         ],
                   //       )
-                  AppText.body1Bold(widget.model.author!.first.username!),
+                  AppText.body1Bold(widget.model.authorType == "human" ||
+                          widget.model.authorType == "User"
+                      ? widget.model.userAuthor!.first.username!
+                      : ""),
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.end,

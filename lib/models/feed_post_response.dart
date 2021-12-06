@@ -16,7 +16,8 @@ class FeedPostResponse with _$FeedPostResponse {
     @JsonKey(name: "thumbnail") String? thumbnail,
     @JsonKey(name: "filter") String? filter,
     @JsonKey(name: "caption") String? caption,
-    @JsonKey(name: "author") List<ProfileResponse>? author,
+    @JsonKey(name: "Userauthor") List<ProfileResponse>? userAuthor,
+    @JsonKey(name: "authorType") String? authorType,
     @JsonKey(name: "date") String? date,
     @JsonKey(name: "votesCount") List<VotesCountResponse>? votesCounts,
     @JsonKey(name: "commentData") FeedPostCommentResponse? commentResponse,
@@ -56,12 +57,11 @@ class FeedPostInnerCommentResponse with _$FeedPostInnerCommentResponse {
   FeedPostInnerCommentResponse._();
 
   factory FeedPostInnerCommentResponse({
-    @JsonKey(name: "_id") String? Id,
     @JsonKey(name: "post") String? postId,
     @JsonKey(name: "message") String? message,
-    @JsonKey(name: "authorDetails") AuthorDetailsResponse? authorDetails,
     @JsonKey(name: "date") String? date,
-    @JsonKey(name: "author") List<ProfileResponse>? author,
+    @JsonKey(name: "UserAuthor") List<ProfileResponse>? userAuthor,
+    @JsonKey(name: "authorType") String? authorType,
     @JsonKey(name: "Animalauthor") List<AnimalAuthorResponse>? animalAuthor,
   }) = _FeedPostInnerCommentResponse;
 

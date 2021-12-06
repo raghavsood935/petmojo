@@ -163,7 +163,7 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
         if (await Util.checkInternetConnectivity()) {
           try {
             BaseResponse<UserNameAvailableResponse> availableResponse =
-                await runBusyFuture(_tamelyApi.checkUserName(query),
+                await runBusyFuture(_tamelyApi.checkUserName(true, query),
                     throwException: true);
             if (availableResponse.getException != null) {
               ServerError error = availableResponse.getException as ServerError;
