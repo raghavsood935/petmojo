@@ -122,7 +122,7 @@ class PastAppointmentItem extends StatelessWidget {
           CircleAvatar(
             radius: 45.0 / 2,
             backgroundColor: colors.primaryLight,
-            child: Image.asset("assets/images/service_selected.png"),
+            child: Image.asset("assets/images/dog_running.png"),
           ),
           horizontalSpaceRegular,
           Column(

@@ -573,12 +573,15 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
 
           notifyListeners();
 
+          var formatter = new DateFormat('dd-MM-yyyy');
+
           _startDateString = result.data!.bookingDetails!.startDate!;
           _startDate = DateTime.parse(startDateString);
+          _startDateString = formatter.format(_startDate);
           notifyListeners();
 
           _endDate = _startDate.add(Duration(days: _numberOfDays));
-          var formatter = new DateFormat('yyyy-MM-dd');
+          _endDate = _endDate.subtract(Duration(days: 1));
           _endDateString = formatter.format(_endDate);
 
           if (_todayDate.isBefore(_startDate) || _todayDate.isAfter(_endDate)) {

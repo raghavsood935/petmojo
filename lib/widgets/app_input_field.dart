@@ -15,6 +15,7 @@ class AppInputField extends StatelessWidget {
   final TextCapitalization? textCapitalization;
   final void Function()? trailingTapped;
   final void Function(String?)? onChanged;
+  final int? maxLength;
 
   final circularBorder = UnderlineInputBorder(
     borderRadius: BorderRadius.circular(8),
@@ -34,7 +35,8 @@ class AppInputField extends StatelessWidget {
       this.readOnly = false,
       this.isDDM = false,
       this.textCapitalization = TextCapitalization.sentences,
-      this.onChanged})
+      this.onChanged,
+      this.maxLength})
       : super(key: key);
 
   @override
@@ -45,6 +47,7 @@ class AppInputField extends StatelessWidget {
       /// We can also avoid this by changing the [primarySwatch] in MaterialApp
       data: ThemeData(primaryColor: colors.primary),
       child: TextField(
+        maxLength: maxLength,
         textCapitalization: textCapitalization!,
         onChanged: onChanged,
         controller: controller ?? TextEditingController(),

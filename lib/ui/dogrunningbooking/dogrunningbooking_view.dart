@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ui_helpers.dart';
@@ -118,7 +119,12 @@ class _DogRunningBookingViewState extends State<DogRunningBookingView> {
             color: colors.white,
             padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10.0),
             child: GestureDetector(
-              onTap: model.isValid ? model.onMainButtonPressed : null,
+              onTap: model.isValid
+                  ? () {
+                model.onMainButtonPressed();
+                SystemChannels.textInput.invokeMethod('TextInput.hide');
+              }
+                  : null,
               child: Container(
                 width: double.infinity,
                 height: 50,

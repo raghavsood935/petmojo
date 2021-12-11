@@ -15,6 +15,7 @@ import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/activeAppointmentStatus.dart';
 import 'package:tamely/enum/selectService.dart';
 import 'package:tamely/util/String.dart';
+import 'package:intl/intl.dart';
 
 class ActiveAppointmentsViewModel extends FutureViewModel<void>
     implements Initialisable {
@@ -110,7 +111,14 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
                 each.serviceType == 0 ? dogWalkingTitle : dogWalkingTitle;
             newAppointment.subscriptionType =
                 "(${each.bookingDetails!.package!.subscriptionType} , ${each.bookingDetails!.package!.numberOfTimes}/day )";
-            newAppointment.dateAndTime = each.bookingDetails!.startDate;
+
+            var formatter = new DateFormat('dd-MMM-yyyy');
+
+            String? dateDummyString = each.bookingDetails!.startDate;
+            DateTime dummyDate = DateTime.parse(dateDummyString!);
+            dateDummyString = formatter.format(dummyDate);
+            newAppointment.dateAndTime = dateDummyString;
+
             List<PetDetailsResponse>? petDetails = each.petDetails;
             for (var one in petDetails!) {
               newAppointment.dogs.add(one.petName!);
@@ -151,7 +159,14 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
                 each.serviceType == 0 ? dogWalkingTitle : dogWalkingTitle;
             newAppointment.subscriptionType =
                 "(${each.bookingDetails!.package!.subscriptionType} , ${each.bookingDetails!.package!.numberOfTimes}/day )";
-            newAppointment.dateAndTime = each.bookingDetails!.startDate;
+
+            var formatter = new DateFormat('dd-MMM-yyyy');
+
+            String? dateDummyString = each.bookingDetails!.startDate;
+            DateTime dummyDate = DateTime.parse(dateDummyString!);
+            dateDummyString = formatter.format(dummyDate);
+            newAppointment.dateAndTime = dateDummyString;
+
             List<PetDetailsResponse>? petDetails = each.petDetails;
             for (var one in petDetails!) {
               newAppointment.dogs.add(one.petName!);

@@ -124,6 +124,7 @@ class BookingDetailsView extends ViewModelWidget<DogRunningBookingViewModel> {
                     //errorText: model.validUser(emailController),
                     textInputType: TextInputType.phone,
                     textCapitalization: TextCapitalization.none,
+                    maxLength: 10,
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 10),
@@ -198,6 +199,7 @@ class BookingDetailsView extends ViewModelWidget<DogRunningBookingViewModel> {
                     //errorText: model.validUser(phoneController),
                     textInputType: TextInputType.phone,
                     textCapitalization: TextCapitalization.none,
+                    maxLength: 10,
                   ),
                 ],
               ),

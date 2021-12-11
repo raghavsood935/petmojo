@@ -1,4 +1,3 @@
-import 'package:collection/src/iterable_extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -33,10 +32,6 @@ class DogRunningBookingViewModel extends FormViewModel {
   final snackBarService = locator<SnackbarService>();
   final _tamelyApi = locator<TamelyApi>();
 
-  void navigateBack() {
-    _navigationService.back();
-  }
-
   List<bool> _currentStep = [true, false, false];
   List<Widget> _pages = [
     BookARunView(),
@@ -59,6 +54,21 @@ class DogRunningBookingViewModel extends FormViewModel {
   PageController get controller => _controller;
   int get currentIndex => _currentIndex;
 
+  void navigateBack() {
+    if (currentIndex == 0) {
+      _navigationService.back();
+    } else if (currentIndex == 1) {
+      _isValid = true;
+      controller.animateToPage(currentIndex - 1,
+          duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+    } else if (currentIndex == 2) {
+      _isValid = true;
+      controller.animateToPage(currentIndex - 1,
+          duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+    }
+    notifyListeners();
+  }
+
   void onPageChanged(i) {
     _currentIndex = i;
     currentStep.clear();
@@ -76,7 +86,12 @@ class DogRunningBookingViewModel extends FormViewModel {
   String get bookingId => _bookingId;
 
   Future onMainButtonPressed() async {
-    if (currentIndex < 2) {
+    if (currentIndex == 0) {
+      print("nknbf $currentIndex");
+      controller.animateToPage(currentIndex + 1,
+          duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+    }
+    if (currentIndex == 1) {
       print("nknbf $currentIndex");
       controller.animateToPage(currentIndex + 1,
           duration: Duration(milliseconds: 500), curve: Curves.easeIn);
@@ -93,8 +108,10 @@ class DogRunningBookingViewModel extends FormViewModel {
     notifyListeners();
     if (currentIndex == 0) {
       _isValid = false;
+      secondPageValidation("s");
     } else if (currentIndex == 1) {
       _isValid = false;
+      thirdPageValidation();
     }
     notifyListeners();
   }
@@ -118,13 +135,14 @@ class DogRunningBookingViewModel extends FormViewModel {
     // if (addressLineThreeController.text == "") {
     //   _isValid = false;
     // }
-    if (phoneController.text == "") {
+    if (phoneController.text == "" || phoneController.text.length < 10) {
       _isValid = false;
     }
     if (alternateNameController.text == "") {
       _isValid = false;
     }
-    if (alternatePhoneController.text == "") {
+    if (alternatePhoneController.text == "" ||
+        alternatePhoneController.text.length < 10) {
       _isValid = false;
     }
     notifyListeners();

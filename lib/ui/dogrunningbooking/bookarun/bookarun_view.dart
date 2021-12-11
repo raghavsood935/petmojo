@@ -264,6 +264,7 @@ class BookARunView extends ViewModelWidget<DogRunningBookingViewModel> {
                     controller: model.specialInstructionsController,
                     textInputType: TextInputType.name,
                     textCapitalization: TextCapitalization.none,
+                    maxLength: 150,
                   ),
                 ],
               ),
