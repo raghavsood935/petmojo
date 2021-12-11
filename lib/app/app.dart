@@ -15,6 +15,7 @@ import 'package:tamely/ui/community/community_main_view/strays_near_you/strays_n
 import 'package:tamely/ui/community/first_time_views/community_choose_interests/community_choose_interests_view.dart';
 import 'package:tamely/ui/dashboard/dashboard.dart';
 import 'package:tamely/ui/dogrunners/dogrunners_view.dart';
+import 'package:tamely/ui/dogrunners/location_picker_map.dart';
 import 'package:tamely/ui/dogrunningbooking/dogrunningbooking_view.dart';
 import 'package:tamely/ui/dummy_development_screen.dart';
 import 'package:tamely/ui/for_you/for_you_search/for_you_tab_search_view.dart';
@@ -111,6 +112,8 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: TamelyDogRunnersView),
     CupertinoRoute(page: DogRunningBookingView),
     CupertinoRoute(page: PaymentView),
+    CupertinoRoute(page: LocationPicker),
+
 
     // My Appointments
     CupertinoRoute(page: AppointmentsView),
