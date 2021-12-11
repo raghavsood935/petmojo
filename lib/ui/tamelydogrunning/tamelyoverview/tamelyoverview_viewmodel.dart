@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:stacked/stacked.dart';
@@ -11,6 +12,9 @@ class TamelyOverviewViewModel extends FutureViewModel<void>
 
   final _navigationService = locator<NavigationService>();
 
+  LatLng currentLocation;
+  TamelyOverviewViewModel(this.currentLocation);
+
   String _topReviewerName = "Namita Sakore";
   String _topReview =
       "I am able to relax knowing that Bella is in very good hands; she enjoyed her walks with you--- she told me so! I can work guilt free now!";
@@ -20,7 +24,11 @@ class TamelyOverviewViewModel extends FutureViewModel<void>
   int get starts => _starts;
 
   toBookRunning() {
-    _navigationService.navigateTo(Routes.dogRunningBookingView);
+    _navigationService.navigateTo(
+      Routes.dogRunningBookingView,
+      arguments:
+          DogRunningBookingViewArguments(currentLocation: currentLocation),
+    );
   }
 
   @override

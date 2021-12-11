@@ -39,8 +39,8 @@ class ServicesViewModel extends BaseModel {
     switch (index) {
       case 0:
         {
-          _navigationService.navigateTo(Routes.dogRunnersView,
-          arguments: DogRunnersArguments(currentLocation: LatLng(0,0))
+          _navigationService.navigateTo(
+            Routes.dogRunnersView,
           );
           break;
         }
@@ -92,8 +92,6 @@ class ServicesViewModel extends BaseModel {
   }
 
   void toDogWalking() {
-    _navigationService.navigateTo(Routes.dogRunnersView,
-        arguments: DogRunnersArguments(currentLocation: LatLng(0,0))
-    );
+    _navigationService.navigateTo(Routes.dogRunnersView);
   }
 }

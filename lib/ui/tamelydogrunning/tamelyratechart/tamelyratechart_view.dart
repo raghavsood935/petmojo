@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tamely/ui/tamelydogrunning/tamelyratechart/tamelyratechart_viewmodel.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
@@ -7,7 +8,9 @@ import 'package:stacked/stacked.dart';
 import 'package:tamely/util/Color.dart';
 
 class TamelyRateChartView extends StatelessWidget {
-  const TamelyRateChartView({Key? key}) : super(key: key);
+  const TamelyRateChartView({Key? key, required this.currentLocation})
+      : super(key: key);
+  final LatLng currentLocation;
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +102,7 @@ class TamelyRateChartView extends StatelessWidget {
           ),
         ),
       ),
-      viewModelBuilder: () => TamelyRateChartViewModel(),
+      viewModelBuilder: () => TamelyRateChartViewModel(currentLocation),
     );
   }
 }

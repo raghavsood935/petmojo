@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tamely/ui/tamelydogrunning/tamelyoverview/tamelyoverview_viewmodel.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
@@ -8,7 +9,9 @@ import 'package:stacked/stacked.dart';
 import 'package:tamely/util/Color.dart';
 
 class TamelyOverviewView extends StatelessWidget {
-  const TamelyOverviewView({Key? key}) : super(key: key);
+  const TamelyOverviewView({Key? key, required this.currentLocation})
+      : super(key: key);
+  final LatLng currentLocation;
 
   @override
   Widget build(BuildContext context) {
@@ -186,7 +189,7 @@ class TamelyOverviewView extends StatelessWidget {
           ),
         ),
       ),
-      viewModelBuilder: () => TamelyOverviewViewModel(),
+      viewModelBuilder: () => TamelyOverviewViewModel(currentLocation),
     );
   }
 }
