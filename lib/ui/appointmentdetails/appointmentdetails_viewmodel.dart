@@ -38,14 +38,16 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
   final _tamelyApi = locator<TamelyApi>();
   final _dialogService = locator<DialogService>();
 
-  final String appointmentId;
-  AppointmentDetailsViewModel(this.appointmentId);
+  final String bookingId;
+  AppointmentDetailsViewModel(this.bookingId);
 
   String _userId = "";
   String _serviceProviderId = "";
+  String _appointmentId = "";
 
   String get userId => _userId;
   String get serviceProviderId => _serviceProviderId;
+  String get appointmentId => _appointmentId;
 
   // Dummy values
 
@@ -237,7 +239,7 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
     try {
       if (await Util.checkInternetConnectivity()) {
         SetTestimonyBody setTestimonyBody =
-            SetTestimonyBody(appointmentId, testimony.text, rating);
+            SetTestimonyBody(bookingId, testimony.text, rating);
         BaseResponse<SendDataResponse> result = await runBusyFuture(
             _tamelyApi.setTestimony(setTestimonyBody),
             throwException: true);
@@ -280,7 +282,7 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
           dogs: dogs,
           date: selectedDate,
           walkNumber: WalkNumber.One,
-          appointmentId: appointmentId,
+          appointmentId: bookingId,
         ));
   }
 
@@ -291,7 +293,7 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
           dogs: dogs,
           date: selectedDate,
           walkNumber: WalkNumber.Two,
-          appointmentId: appointmentId,
+          appointmentId: bookingId,
         ));
   }
 
@@ -311,7 +313,7 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
     try {
       if (await Util.checkInternetConnectivity()) {
         ChangeAppointmentStatusBody registerBody =
-            ChangeAppointmentStatusBody(appointmentId, 4);
+            ChangeAppointmentStatusBody(bookingId, 4);
         BaseResponse<SendDataResponse> result = await runBusyFuture(
             _tamelyApi.changeAppointmentStatus(registerBody),
             throwException: true);
@@ -339,7 +341,7 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
     try {
       if (await Util.checkInternetConnectivity()) {
         GetScrollStatusBody getScrollStatusBody =
-            GetScrollStatusBody(appointmentId, toTimeStamp);
+            GetScrollStatusBody(bookingId, toTimeStamp);
         BaseResponse<GetScrollStatusResponse> result = await runBusyFuture(
             _tamelyApi.getScrollStatus(getScrollStatusBody),
             throwException: true);
@@ -413,7 +415,7 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
       if (await Util.checkInternetConnectivity()) {
         _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
         GetAppointmentDetailsBody registerBody =
-            GetAppointmentDetailsBody(appointmentId);
+            GetAppointmentDetailsBody(bookingId);
         BaseResponse<GetAppointmentDetailsResponse> result =
             await runBusyFuture(_tamelyApi.getAppointmentDetails(registerBody),
                 throwException: true);
@@ -464,6 +466,8 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
             _serviceCompleted = true;
             _serviceRejected = false;
           }
+
+          _appointmentId = result.data!.appointmentId!;
 
           bool hasTestimony = result.data!.hasTestimony!;
           if (_serviceRejected || _serviceCompleted) {

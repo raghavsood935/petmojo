@@ -56,7 +56,7 @@ class _ListOfFollowingsState extends State<ListOfFollowings> {
                   contentPadding: EdgeInsets.zero,
                   title: AppText.body(
                     widget.isFollowers
-                        ? model.listOfFollowersProfileModel[index].profile!
+                        ? model.listOfFollowersProfileModel[index].profile
                                 .followersDetailsResponse!.username ??
                             "-"
                         : model.listOfFollowingsProfileModel[index]
@@ -65,7 +65,7 @@ class _ListOfFollowingsState extends State<ListOfFollowings> {
                     color: colors.black,
                   ),
                   subtitle: AppText.body1(widget.isFollowers
-                      ? model.listOfFollowersProfileModel[index].profile!
+                      ? model.listOfFollowersProfileModel[index].profile
                               .followersDetailsResponse!.fullName ??
                           "-"
                       : model.listOfFollowingsProfileModel[index]
@@ -74,7 +74,7 @@ class _ListOfFollowingsState extends State<ListOfFollowings> {
                   leading: CustomCircularAvatar(
                       radius: 24,
                       imgPath: widget.isFollowers
-                          ? model.listOfFollowersProfileModel[index].profile!
+                          ? model.listOfFollowersProfileModel[index].profile
                                   .followersDetailsResponse!.avatar ??
                               emptyProfileImgUrl
                           : model.listOfFollowingsProfileModel[index]
@@ -106,11 +106,12 @@ class _ListOfFollowingsState extends State<ListOfFollowings> {
                   onTap: () => model.goToProfileDetailsPage(
                       context,
                       widget.isFollowers
-                          ? model.listOfFollowersProfileModel[index].profile!
-                          .followersDetailsResponse!.Id ??"":
-                      model.listOfFollowingsProfileModel[index]
-                              .followersDetailsResponse!.Id ??
-                          ""),
+                          ? model.listOfFollowersProfileModel[index].profile
+                                  .followersDetailsResponse!.Id ??
+                              ""
+                          : model.listOfFollowingsProfileModel[index]
+                                  .followersDetailsResponse!.Id ??
+                              ""),
                 ),
               ),
             ),

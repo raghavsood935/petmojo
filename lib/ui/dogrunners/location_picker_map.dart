@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -9,23 +8,20 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
 
-class LocationPicker extends StatefulWidget{
-
+class LocationPicker extends StatefulWidget {
   @override
   State<LocationPicker> createState() => _LocationPickerState();
 }
 
 class _LocationPickerState extends State<LocationPicker> {
-
   final Permission _permission = Permission.location;
   PermissionStatus _permissionStatus = PermissionStatus.denied;
   final Completer<GoogleMapController> _controller = Completer();
-  LatLng currentLocation = const LatLng(0.0, 0.0) ;
-  final MarkerId markerId =  MarkerId('markerId');
+  LatLng currentLocation = const LatLng(0.0, 0.0);
+  final MarkerId markerId = MarkerId('markerId');
   final Set<Marker> _markers = {};
   late Marker marker;
   final _navigationService = locator<NavigationService>();
-
 
   @override
   void initState() {
@@ -35,8 +31,8 @@ class _LocationPickerState extends State<LocationPicker> {
       position: currentLocation,
     );
     _listenForPermissionStatus();
-
   }
+
   void _listenForPermissionStatus() async {
     final status = await _permission.status;
     setState(() => _permissionStatus = status);
@@ -80,28 +76,28 @@ class _LocationPickerState extends State<LocationPicker> {
     // When we reach here, permissions are g anted and we can
     // continue accessing the position of the device.
     print('location');
-    Position location = await Geolocator.getCurrentPosition().whenComplete(() => print('1sdfg'));
-    currentLocation = LatLng(location.latitude,location.longitude);
+    Position location = await Geolocator.getCurrentPosition()
+        .whenComplete(() => print('1sdfg'));
+    currentLocation = LatLng(location.latitude, location.longitude);
     //coordinatesList.add(currentLatLong);
-    CameraUpdate update =CameraUpdate.newCameraPosition(CameraPosition(target: currentLocation,zoom: 12));
+    CameraUpdate update = CameraUpdate.newCameraPosition(
+        CameraPosition(target: currentLocation, zoom: 12));
     updateMarker();
 
     GoogleMapController controller = await _controller.future;
     controller.animateCamera(update);
-
   }
-
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height-AppBar().preferredSize.height;
+    double height =
+        MediaQuery.of(context).size.height - AppBar().preferredSize.height;
 
     return Scaffold(
-      appBar:
-        AppBar(
-          title: Text('Pick Location'),
-        ),
+      appBar: AppBar(
+        title: Text('Pick Location'),
+      ),
       body: SizedBox(
         width: width,
         height: height,
@@ -109,18 +105,20 @@ class _LocationPickerState extends State<LocationPicker> {
           mapType: MapType.normal,
           markers: _markers,
           zoomControlsEnabled: false,
-          onTap: (latLat){
+          onTap: (latLat) {
             currentLocation = latLat;
             updateMarker();
           },
-          initialCameraPosition:  const CameraPosition(target: LatLng(0,0)),
+          initialCameraPosition: const CameraPosition(target: LatLng(0, 0)),
           onMapCreated: (GoogleMapController controller) {
             _controller.complete(controller);
           },
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){getLatLang();},
+        onPressed: () {
+          getLatLang();
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.check),
       ),
@@ -128,7 +126,8 @@ class _LocationPickerState extends State<LocationPicker> {
   }
 
   void getLatLang() {
-    _navigationService.navigateTo(Routes.dogRunnersView,
+    _navigationService.replaceWith(
+      Routes.dogRunnersView,
       arguments: DogRunnersArguments(
         currentLocation: currentLocation,
       ),

@@ -13,9 +13,9 @@ class DogRunnersViewModel extends FutureViewModel<void>
 
   var currentLocation;
   Coordinates coordinates = Coordinates(0, 0);
-  String address ='Gurugram, Haryana';
+  String address = 'Gurugram, Haryana';
   bool isAvailable = false;
-  List<String> availableArea=['Delhi'];
+  List<String> availableArea = ['Delhi'];
 
   DogRunnersViewModel(this.currentLocation);
 
@@ -24,8 +24,14 @@ class DogRunnersViewModel extends FutureViewModel<void>
   }
 
   Future<void> init() async {
-    if(currentLocation.latitude!=0)
-    await getAddress(Coordinates(currentLocation.latitude, currentLocation.longitude)).then((value) {address=value;notifyListeners();});
+    if (currentLocation.latitude != 0)
+      await getAddress(
+              Coordinates(currentLocation.latitude, currentLocation.longitude))
+          .then((value) {
+        address = value;
+        //
+        notifyListeners();
+      });
   }
 
   String _companyAddress = "Gurugram, Haryana";
@@ -43,19 +49,26 @@ class DogRunnersViewModel extends FutureViewModel<void>
   }
 
   Future<String> getAddress(Coordinates coordinates) async {
-    var address = await Geocoder.local.findAddressesFromCoordinates(coordinates);
-    availableArea.forEach((element) { if(element==address.first.adminArea){ isAvailable=true;}});
-    if(isAvailable) print('Available'); else print('Not Available');
+    var address =
+        await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    availableArea.forEach((element) {
+      if (element == address.first.subAdminArea) {
+        isAvailable = true;
+      }
+    });
+    if (isAvailable)
+      print('Available');
+    else
+      print('Not Available');
     return '${address.first.adminArea}, ${address.first.countryName}';
   }
-
 
   bool _companyAvailable = true;
   bool get companyAvailable => _companyAvailable;
 
   String _address = "Gurugram, Haryana";
 
-  void changeAddress() async{
+  void changeAddress() async {
     _navigationService.navigateTo(Routes.locationPicker);
     notifyListeners();
   }

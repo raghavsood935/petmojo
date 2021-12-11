@@ -36,10 +36,10 @@ class LiveMapViewModel extends FutureViewModel<void> implements Initialisable {
   WalkNumber walkNumber;
   String serviceProviderId;
   String userId;
-  String bookingDetailsId;
+  String appointmentId;
 
-  LiveMapViewModel(this.walkNumber, this.serviceProviderId, this.userId,
-      this.bookingDetailsId);
+  LiveMapViewModel(
+      this.walkNumber, this.serviceProviderId, this.userId, this.appointmentId);
 
   void navigateBack() {
     _navigationService.back();
@@ -53,15 +53,15 @@ class LiveMapViewModel extends FutureViewModel<void> implements Initialisable {
   final DatabaseReference ref = FirebaseDatabase.instance.reference();
   final Completer<GoogleMapController> controller = Completer();
   late StreamSubscription<Event> _locationEvent;
-  List<LatLng> coordinatesList =[];
-  LatLng currentLatLong = LatLng(28.6214965,77.2279098);
+  List<LatLng> coordinatesList = [];
+  LatLng currentLatLong = LatLng(28.6214965, 77.2279098);
   final Set<Marker> markers = {};
   Set<Polyline> mapPolylines = {};
-  CameraPosition myLocation = const CameraPosition(target: LatLng(28.6214965,77.2279098),zoom: 10);
-  late GoogleMapController mapController ;
+  CameraPosition myLocation =
+      const CameraPosition(target: LatLng(28.6214965, 77.2279098), zoom: 10);
+  late GoogleMapController mapController;
   late Marker marker;
-  late  Polyline polyline;
-
+  late Polyline polyline;
 
   Future<void> init() async {
     polyline = Polyline(
@@ -70,7 +70,7 @@ class LiveMapViewModel extends FutureViewModel<void> implements Initialisable {
       width: 5,
       visible: true,
       geodesic: false,
-      points:   [LatLng(28.6214965,77.2279098)],
+      points: [LatLng(28.6214965, 77.2279098)],
     );
     marker = Marker(
       markerId: MarkerId('markerId'),
@@ -84,9 +84,6 @@ class LiveMapViewModel extends FutureViewModel<void> implements Initialisable {
     getLocationFromFirebase();
   }
 
-
-
-
   double get distance => _distance;
   int get timeTook => _timeTook;
 
@@ -95,48 +92,51 @@ class LiveMapViewModel extends FutureViewModel<void> implements Initialisable {
     log.d("futureToRun");
   }
 
-
-
   void getLocationFromFirebase() {
     late double lat;
     late double long;
-    double dist =0;
-    _locationEvent = FirebaseDatabase.instance.reference().child('dogRunner/$serviceProviderId').onValue.listen((event) {
-       lat = 0.0;
-       long = 0.0;
+    double dist = 0;
+    _locationEvent = FirebaseDatabase.instance
+        .reference()
+        .child('dogRunner/$appointmentId')
+        .onValue
+        .listen((event) {
+      lat = 0.0;
+      long = 0.0;
       Map<dynamic, dynamic> values = event.snapshot.value;
-      print( event.snapshot.key);
-      lat =  values['lat'];
+      print(event.snapshot.key);
+      lat = values['lat'];
       long = values['long'];
 
-
       currentLatLong = LatLng(lat, long);
-       print('latLong $currentLatLong');
+      print('latLong $currentLatLong');
 
-       if(coordinatesList.length==0&&currentLatLong.longitude!=0)
+      if (coordinatesList.length == 0 && currentLatLong.longitude != 0)
         coordinatesList.add(currentLatLong);
       else
-      dist = Geolocator.distanceBetween(
+        dist = Geolocator.distanceBetween(
           coordinatesList.last.longitude,
           coordinatesList.last.latitude,
           long,
           lat,
-      );
+        );
       print('distance $dist');
-      if(!(coordinatesList.last.longitude==long && coordinatesList.last.latitude==lat) && dist>5) {
+      if (!(coordinatesList.last.longitude == long &&
+              coordinatesList.last.latitude == lat) &&
+          dist > 5) {
         coordinatesList.add(currentLatLong);
         _distance += dist;
 
         markers.remove(marker);
-        marker = marker.copyWith(
-            positionParam: currentLatLong
-        );
+        marker = marker.copyWith(positionParam: currentLatLong);
         print(coordinatesList.length);
         CameraUpdate update = CameraUpdate.newCameraPosition(
             CameraPosition(target: currentLatLong, zoom: 13));
         mapController.animateCamera(update);
-        polyline.copyWith(pointsParam : coordinatesList);
-        coordinatesList.forEach((element) {print(element);});
+        polyline.copyWith(pointsParam: coordinatesList);
+        coordinatesList.forEach((element) {
+          print(element);
+        });
         mapPolylines.add(Polyline(
           polylineId: const PolylineId('polylineid'),
           color: Colors.red,
@@ -144,7 +144,7 @@ class LiveMapViewModel extends FutureViewModel<void> implements Initialisable {
           visible: true,
           geodesic: false,
           // jointType: JointType.mitered,
-          points:  coordinatesList,
+          points: coordinatesList,
         ));
         notifyListeners();
 
@@ -157,7 +157,5 @@ class LiveMapViewModel extends FutureViewModel<void> implements Initialisable {
   void onDispose() {
     _locationEvent.cancel();
     mapController.dispose();
-
   }
-
 }

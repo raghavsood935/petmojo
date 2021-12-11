@@ -72,6 +72,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
       Routes.appointmentDetailsView,
       arguments: AppointmentDetailsViewArguments(appointmentId: bookingId!),
     );
+    print("this isd $bookingId");
     getActiveAppointments();
   }
 
