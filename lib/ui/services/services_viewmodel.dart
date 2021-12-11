@@ -1,3 +1,4 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/models/services_model.dart';
@@ -38,7 +39,9 @@ class ServicesViewModel extends BaseModel {
     switch (index) {
       case 0:
         {
-          _navigationService.navigateTo(Routes.dogRunnersView);
+          _navigationService.navigateTo(Routes.dogRunnersView,
+          arguments: DogRunnersArguments(currentLocation: LatLng(0,0))
+          );
           break;
         }
       case 1:
@@ -89,6 +92,8 @@ class ServicesViewModel extends BaseModel {
   }
 
   void toDogWalking() {
-    _navigationService.navigateTo(Routes.dogRunnersView);
+    _navigationService.navigateTo(Routes.dogRunnersView,
+        arguments: DogRunnersArguments(currentLocation: LatLng(0,0))
+    );
   }
 }

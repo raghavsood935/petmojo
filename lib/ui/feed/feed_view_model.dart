@@ -69,10 +69,12 @@ class FeedViewModel extends BaseModel {
   }
 
   void createPost() async {
-    List<CameraDescription> cameras = [];
-    cameras = await availableCameras();
-    navigationService.navigateTo(Routes.cameraScreen,
-        arguments: CameraScreenArguments(cameras: cameras));
+    //List<CameraDescription> cameras = [];
+    //cameras = await availableCameras();
+    // navigationService.navigateTo(Routes.cameraScreen,
+    //     arguments: CameraScreenArguments(cameras: cameras));
+    navigationService.navigateTo(Routes.postCreation,
+        arguments: PostCreationArguments());
   }
 
   Future showComments() async {

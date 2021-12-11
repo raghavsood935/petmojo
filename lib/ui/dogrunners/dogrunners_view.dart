@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
@@ -7,11 +8,14 @@ import 'package:tamely/util/Color.dart';
 import 'dogrunners_viewmodel.dart';
 
 class DogRunnersView extends StatelessWidget {
-  const DogRunnersView({Key? key}) : super(key: key);
+  const DogRunnersView({Key? key, this.currentLocation }) : super(key: key);
+
+  final LatLng? currentLocation;
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<DogRunnersViewModel>.reactive(
+      onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
         body: SafeArea(
@@ -86,7 +90,7 @@ class DogRunnersView extends StatelessWidget {
                       ),
                       horizontalSpaceSmall,
                       AppText.body1(
-                        model.address,
+                         model.address,
                         color: colors.black,
                       ),
                       Spacer(),
@@ -273,7 +277,7 @@ class DogRunnersView extends StatelessWidget {
           ),
         ),
       ),
-      viewModelBuilder: () => DogRunnersViewModel(),
+      viewModelBuilder: () => DogRunnersViewModel(currentLocation),
     );
   }
 }

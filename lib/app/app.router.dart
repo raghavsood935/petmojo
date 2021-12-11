@@ -9,8 +9,11 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
+import 'package:tamely/ui/dogrunners/location_picker_map.dart';
+import 'package:tamely/ui/post/post_creation.dart';
 
 import '../enum/walkNumber.dart';
 import '../models/application_models.dart';
@@ -93,6 +96,7 @@ class Routes {
   static const String animalBasicInfo = '/animal-basic-info';
   static const String groupsView = '/groups-view';
   static const String cameraScreen = '/camera-screen';
+  static const String postCreation = '/post-creation';
   static const String createGroupView = '/create-group-view';
   static const String groupInfoView = '/group-info-view';
   static const String guardiansAndRelatedAnimalsView =
@@ -118,6 +122,7 @@ class Routes {
   static const String tamelyDogRunnersView = '/tamely-dog-runners-view';
   static const String dogRunningBookingView = '/dog-running-booking-view';
   static const String paymentView = '/payment-view';
+  static const String locationPicker = '/location-picker';
   static const String appointmentsView = '/appointments-view';
   static const String appointmentDetailsView = '/appointment-details-view';
   static const String chatView = '/chat-view';
@@ -169,6 +174,7 @@ class Routes {
     tamelyReviewsView,
     tamelyDogRunnersView,
     dogRunningBookingView,
+    locationPicker,
     paymentView,
     appointmentsView,
     appointmentDetailsView,
@@ -206,6 +212,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.animalBasicInfo, page: AnimalBasicInfo),
     RouteDef(Routes.groupsView, page: GroupsView),
     RouteDef(Routes.cameraScreen, page: CameraScreen),
+    RouteDef(Routes.postCreation, page: PostCreation),
     RouteDef(Routes.createGroupView, page: CreateGroupView),
     RouteDef(Routes.groupInfoView, page: GroupInfoView),
     RouteDef(Routes.guardiansAndRelatedAnimalsView,
@@ -230,6 +237,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.tamelyReviewsView, page: TamelyReviewsView),
     RouteDef(Routes.tamelyDogRunnersView, page: TamelyDogRunnersView),
     RouteDef(Routes.dogRunningBookingView, page: DogRunningBookingView),
+    RouteDef(Routes.locationPicker, page: LocationPicker),
     RouteDef(Routes.paymentView, page: PaymentView),
     RouteDef(Routes.appointmentsView, page: AppointmentsView),
     RouteDef(Routes.appointmentDetailsView, page: AppointmentDetailsView),
@@ -445,6 +453,13 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    PostCreation: (data) {
+      var args = data.getArgs<PostCreationArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => PostCreation(),
+        settings: data,
+      );
+    },
     CreateGroupView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const CreateGroupView(),
@@ -558,8 +573,11 @@ class StackedRouter extends RouterBase {
       );
     },
     DogRunnersView: (data) {
+      var args = data.getArgs<DogRunnersArguments>(
+        orElse: () => DogRunnersArguments(),
+      );
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => const DogRunnersView(),
+        builder: (context) =>  DogRunnersView(currentLocation: args.currentLocation,),
         settings: data,
       );
     },
@@ -593,6 +611,12 @@ class StackedRouter extends RouterBase {
       );
       return CupertinoPageRoute<dynamic>(
         builder: (context) => DogRunningBookingView(key: args.key),
+        settings: data,
+      );
+    },
+    LocationPicker: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) =>  LocationPicker(),
         settings: data,
       );
     },
@@ -802,6 +826,13 @@ class CameraScreenArguments {
   CameraScreenArguments({required this.cameras});
 }
 
+
+/// PostCreation arguments holder class
+class PostCreationArguments {
+  final Key? key;
+  PostCreationArguments({this.key});
+}
+
 /// GuardiansAndRelatedAnimalsView arguments holder class
 class GuardiansAndRelatedAnimalsViewArguments {
   final Key? key;
@@ -819,6 +850,12 @@ class PostDetialsPageViewArguments {
 class NotificationsArguments {
   final Key? key;
   NotificationsArguments({this.key});
+}
+
+/// DogRunners argument holder class
+class DogRunnersArguments {
+  final LatLng? currentLocation;
+  DogRunnersArguments({this.currentLocation});
 }
 
 /// DogRunningBookingView arguments holder class

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tamely/enum/walkNumber.dart';
 import 'package:stacked/stacked.dart';
@@ -27,6 +28,12 @@ class LiveMapView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<LiveMapViewModel>.reactive(
+      onModelReady: (model){
+        model.init();
+      },
+      onDispose: (model) {
+        model.onDispose();
+        },
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
         body: SafeArea(
@@ -64,6 +71,16 @@ class LiveMapView extends StatelessWidget {
                 flex: 3,
                 child: Container(
                   color: colors.kcCaptionGreyColor,
+                  child:GoogleMap(
+                    mapType: MapType.normal,
+                    markers: model.markers,
+                    myLocationEnabled: false,
+                    polylines: model.mapPolylines,
+                    initialCameraPosition: model.myLocation,
+                    onMapCreated: (GoogleMapController controller) {
+                      model.controller.complete(controller);
+                    },
+                  )
                 ),
               ),
 
@@ -78,7 +95,7 @@ class LiveMapView extends StatelessWidget {
                         walkName: model.walkNumber == WalkNumber.One
                             ? walkOneLabel
                             : walkTwoLabel,
-                        distance: model.distance,
+                        distance: model.distance.toInt(),
                         time: model.timeTook,
                       ),
                     )),

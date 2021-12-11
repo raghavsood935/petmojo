@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
@@ -42,6 +43,13 @@ class CreateAnimalViewModel extends FormViewModel {
 
   List<AnimalTypeModel> listOfAnimalTypes = [];
   List<String> listOfAnimalBreed = [];
+
+
+  PermissionStatus _permissionStatus = PermissionStatus.denied;
+  final Permission _permission = Permission.location;
+  Position? location;
+
+
 
   final List<String> animalGenderList = [
     select,
@@ -254,11 +262,17 @@ class CreateAnimalViewModel extends FormViewModel {
   }
 
   onChangeMating(bool value) {
+    if(selectedValue=='Stray' && value  &&  location==null){
+      _determinePosition();
+    }
     matingValue = value;
     notifyListeners();
   }
 
   onChangeAdoption(bool value) {
+    if(selectedValue=='Stray' && value  &&  location==null){
+      _determinePosition();
+    }
     adoptionValue = value;
     notifyListeners();
   }
@@ -279,6 +293,9 @@ class CreateAnimalViewModel extends FormViewModel {
   }
 
   onChangePlayBuddies(bool value) {
+    if(selectedValue=='Stray' && value  &&  location==null){
+      _determinePosition();
+    }
     playBuddiesValue = value;
     notifyListeners();
   }
@@ -318,8 +335,13 @@ class CreateAnimalViewModel extends FormViewModel {
       uploadImage().whenComplete(() => {
             if (selectedValue.isNotEmpty && selectedValue == "Stray")
               {
-                getCurrentLocation()
-                    .whenComplete(() => createAnimalProfileAccount())
+                //Location is already accessed. Check if location is available or not if not call _determineLocation
+                if(location==null){
+                  _determinePosition().then((value) {
+                    print(location);
+                    createAnimalProfileAccount();
+                  })
+                } else print(location)
               }
             else
               {createAnimalProfileAccount()}
@@ -826,6 +848,49 @@ class CreateAnimalViewModel extends FormViewModel {
 
     notifyListeners();
   }
+
+
+  void _listenForPermissionStatus() async {
+    final status = await _permission.status;
+    _permissionStatus = status;
+  }
+
+  Future<void> requestPermission(Permission permission) async {
+    final status = await permission.request();
+    _permissionStatus = status;
+  }
+
+
+  Future<void> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    _listenForPermissionStatus();
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      requestPermission(_permission);
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        requestPermission(_permission);
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    location = await Geolocator.getCurrentPosition();
+    print('location : $location');
+  }
+
 }
 
 class AnimalTypeModel {
