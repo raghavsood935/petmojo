@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tamely/ui/tamelydogrunning/tamelydogrunning_viewmodel.dart';
 import 'package:tamely/ui/tamelydogrunning/tamelyoverview/tamelyoverview_view.dart';
 import 'package:tamely/ui/tamelydogrunning/tamelyratechart/tamelyratechart_view.dart';
@@ -10,8 +11,9 @@ import 'package:stacked/stacked.dart';
 import 'package:tamely/util/Color.dart';
 
 class TamelyDogRunnersView extends StatelessWidget {
-  const TamelyDogRunnersView({Key? key}) : super(key: key);
-
+  const TamelyDogRunnersView({Key? key, required this.currentLocation})
+      : super(key: key);
+  final LatLng currentLocation;
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<TamelyDogRunnersViewModel>.reactive(
@@ -192,9 +194,15 @@ class TamelyDogRunnersView extends StatelessWidget {
                     ),
                     body: TabBarView(
                       children: [
-                        TamelyOverviewView(),
-                        TamelyReviewsView(),
-                        TamelyRateChartView(),
+                        TamelyOverviewView(
+                          currentLocation: currentLocation,
+                        ),
+                        TamelyReviewsView(
+                          currentLocation: currentLocation,
+                        ),
+                        TamelyRateChartView(
+                          currentLocation: currentLocation,
+                        ),
                       ],
                     ),
                   ),
@@ -204,7 +212,7 @@ class TamelyDogRunnersView extends StatelessWidget {
           ),
         ),
       ),
-      viewModelBuilder: () => TamelyDogRunnersViewModel(),
+      viewModelBuilder: () => TamelyDogRunnersViewModel(currentLocation),
     );
   }
 }

@@ -31,16 +31,31 @@ class BookingDetailsView extends ViewModelWidget<DogRunningBookingViewModel> {
               child: Column(
                 children: [
                   // Address 1
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: AppText.body1(
-                        addressLineOneLabel,
-                        textAlign: TextAlign.start,
-                        color: colors.black,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: AppText.body1(
+                            addressLineOneLabel,
+                            textAlign: TextAlign.start,
+                            color: colors.black,
+                          ),
+                        ),
                       ),
-                    ),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: GestureDetector(
+                          onTap: model.changeAddress,
+                          child: AppText.body2(
+                            "Change",
+                            color: colors.primary,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   AppInputField(
                     hint: addressLineOneHint,

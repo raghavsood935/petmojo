@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ui_helpers.dart';
@@ -7,7 +8,9 @@ import 'package:tamely/widgets/app_text.dart';
 import 'dogrunningbooking_viewmodel.dart';
 
 class DogRunningBookingView extends StatefulWidget {
-  DogRunningBookingView({Key? key}) : super(key: key);
+  const DogRunningBookingView({Key? key, required this.currentLocation})
+      : super(key: key);
+  final LatLng currentLocation;
 
   @override
   State<DogRunningBookingView> createState() => _DogRunningBookingViewState();
@@ -19,7 +22,10 @@ class _DogRunningBookingViewState extends State<DogRunningBookingView> {
     return ViewModelBuilder<DogRunningBookingViewModel>.reactive(
       onModelReady: (model) {
         model.getPets();
+        model.setLocation(widget.currentLocation);
       },
+      viewModelBuilder: () =>
+          DogRunningBookingViewModel(widget.currentLocation),
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
         body: SafeArea(
@@ -121,9 +127,9 @@ class _DogRunningBookingViewState extends State<DogRunningBookingView> {
             child: GestureDetector(
               onTap: model.isValid
                   ? () {
-                model.onMainButtonPressed();
-                SystemChannels.textInput.invokeMethod('TextInput.hide');
-              }
+                      model.onMainButtonPressed();
+                      SystemChannels.textInput.invokeMethod('TextInput.hide');
+                    }
                   : null,
               child: Container(
                 width: double.infinity,
@@ -150,7 +156,6 @@ class _DogRunningBookingViewState extends State<DogRunningBookingView> {
           ),
         ),
       ),
-      viewModelBuilder: () => DogRunningBookingViewModel(),
     );
   }
 }

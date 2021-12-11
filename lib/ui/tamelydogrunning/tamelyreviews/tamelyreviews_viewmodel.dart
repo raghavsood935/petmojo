@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:stacked/stacked.dart';
@@ -9,6 +10,9 @@ class TamelyReviewsViewModel extends FutureViewModel<void>
     implements Initialisable {
   final log = getLogger('TamelyReviewsViewModel');
   final _navigationService = locator<NavigationService>();
+
+  LatLng currentLocation;
+  TamelyReviewsViewModel(this.currentLocation);
 
   List<ReviewItemClass> _myReviews = [
     ReviewItemClass(
@@ -63,7 +67,11 @@ class TamelyReviewsViewModel extends FutureViewModel<void>
   List<ReviewItemClass> get myReviews => _myReviews;
 
   toBookRunning() {
-    _navigationService.navigateTo(Routes.dogRunningBookingView);
+    _navigationService.navigateTo(
+      Routes.dogRunningBookingView,
+      arguments:
+          DogRunningBookingViewArguments(currentLocation: currentLocation),
+    );
   }
 
   @override

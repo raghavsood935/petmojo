@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoder/geocoder.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -26,7 +28,8 @@ class DogRunningBookingViewModel extends FormViewModel {
   final log = getLogger('DogRunningBookingView');
   final _navigationService = locator<NavigationService>();
 
-  DogRunningBookingViewModel();
+  LatLng currentLocation;
+  DogRunningBookingViewModel(this.currentLocation);
 
   final userService = locator<UserService>();
   final snackBarService = locator<SnackbarService>();
@@ -128,7 +131,14 @@ class DogRunningBookingViewModel extends FormViewModel {
     _isValid = true;
     if (addressLineOneController.text == "") {
       _isValid = false;
+    } else {
+      if (!companyAvailable) {
+        _isValid = false;
+      } else {
+        _isValid = true;
+      }
     }
+
     if (addressLineTwoController.text == "") {
       _isValid = false;
     }
@@ -146,6 +156,62 @@ class DogRunningBookingViewModel extends FormViewModel {
       _isValid = false;
     }
     notifyListeners();
+  }
+
+  // Pick location
+
+  String _address = "Gurugram, Haryana";
+  List<String> availableArea = [
+    'Delhi',
+    'Gurgaon',
+    'New Delhi',
+    'Faridabad',
+    'Noida',
+    'Ghaziabad',
+    'Gurugram'
+  ];
+  String get address => _address;
+  bool _companyAvailable = true;
+  bool get companyAvailable => _companyAvailable;
+
+  void changeAddress() async {
+    List result = await _navigationService.navigateTo(Routes.locationPicker);
+    if (result[1]) {
+      setLocation(result[0]);
+    }
+    notifyListeners();
+  }
+
+  Future<void> setLocation(LatLng location) async {
+    if (location.latitude != 0)
+      await getAddress(Coordinates(location.latitude, location.longitude))
+          .then((value) {
+        _address = value;
+        addressLineOneController.text = address;
+        notifyListeners();
+      });
+  }
+
+  Future<String> getAddress(Coordinates coordinates) async {
+    var address =
+        await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    print("this is subAdminArea ${address.first.subAdminArea}");
+    print("this is locality ${address.first.locality}");
+    if (availableArea.contains(address.first.subAdminArea) ||
+        availableArea.contains(address.first.locality)) {
+      _companyAvailable = true;
+    } else {
+      _companyAvailable = false;
+    }
+    notifyListeners();
+    if (companyAvailable) {
+      print('Available');
+    } else {
+      print('Not Available');
+      snackBarService.showSnackbar(message: "Select a different location");
+    }
+    secondPageValidation("v");
+    return '${address.first.adminArea}, ${address.first.countryName}';
   }
 
   NoOfRuns? selectedRun = NoOfRuns.One;

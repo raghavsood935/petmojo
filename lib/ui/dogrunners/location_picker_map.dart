@@ -7,6 +7,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
+import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/widgets/app_text.dart';
 
 class LocationPicker extends StatefulWidget {
   @override
@@ -93,45 +95,72 @@ class _LocationPickerState extends State<LocationPicker> {
     double width = MediaQuery.of(context).size.width;
     double height =
         MediaQuery.of(context).size.height - AppBar().preferredSize.height;
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Pick Location'),
-      ),
-      body: SizedBox(
-        width: width,
-        height: height,
-        child: GoogleMap(
-          mapType: MapType.normal,
-          markers: _markers,
-          zoomControlsEnabled: false,
-          onTap: (latLat) {
-            currentLocation = latLat;
-            updateMarker();
-          },
-          initialCameraPosition: const CameraPosition(target: LatLng(0, 0)),
-          onMapCreated: (GoogleMapController controller) {
-            _controller.complete(controller);
-          },
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          children: [
+            verticalSpaceRegular,
+            Stack(
+              alignment: AlignmentDirectional.center,
+              children: [
+                Positioned(
+                  left: 25,
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    alignment: Alignment.centerLeft,
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                    ),
+                    onPressed: toBack,
+                  ),
+                ),
+                Center(
+                  child: AppText.headingThree(
+                    "Pick your Locality",
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
+            verticalSpaceRegular,
+            SizedBox(
+              width: screenWidth(context),
+              height: screenHeight(context) - 100,
+              child: GoogleMap(
+                mapType: MapType.normal,
+                markers: _markers,
+                zoomControlsEnabled: false,
+                onTap: (latLat) {
+                  currentLocation = latLat;
+                  updateMarker();
+                },
+                initialCameraPosition:
+                    const CameraPosition(target: LatLng(0, 0)),
+                onMapCreated: (GoogleMapController controller) {
+                  _controller.complete(controller);
+                },
+              ),
+            ),
+          ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          getLatLang();
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.check),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            getLatLang();
+          },
+          tooltip: 'Increment',
+          child: const Icon(Icons.check),
+        ),
       ),
     );
   }
 
+  void toBack() {
+    _navigationService.back(result: [currentLocation, false]);
+  }
+
   void getLatLang() {
-    _navigationService.replaceWith(
-      Routes.dogRunnersView,
-      arguments: DogRunnersArguments(
-        currentLocation: currentLocation,
-      ),
-    );
+    _navigationService.back(result: [currentLocation, true]);
   }
 
   void updateMarker() {

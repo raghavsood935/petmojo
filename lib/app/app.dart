@@ -31,6 +31,7 @@ import 'package:tamely/ui/onboarding/onboarding_view.dart';
 import 'package:tamely/ui/otp/confirm_otp_view.dart';
 import 'package:tamely/ui/payment/payment_view.dart';
 import 'package:tamely/ui/post/camera_screen.dart';
+import 'package:tamely/ui/post/post_creation.dart';
 import 'package:tamely/ui/post_detail/post_detial_page_view.dart';
 import 'package:tamely/ui/profile/profile_create_view.dart';
 import 'package:tamely/ui/profilepage/animal_profile/animal_profile_view.dart';
@@ -86,6 +87,7 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: GroupInfoView),
     CupertinoRoute(page: GuardiansAndRelatedAnimalsView),
     CupertinoRoute(page: PostDetialsPageView),
+    CupertinoRoute(page: PostCreation),
 
     //community routes
     CupertinoRoute(page: StraysNearYouView),
@@ -106,14 +108,10 @@ import '../ui/wallet/wallet_view.dart';
 
     // Dog running
     CupertinoRoute(page: DogRunnersView),
-    CupertinoRoute(page: TamelyOverviewView),
-    CupertinoRoute(page: TamelyRateChartView),
-    CupertinoRoute(page: TamelyReviewsView),
     CupertinoRoute(page: TamelyDogRunnersView),
     CupertinoRoute(page: DogRunningBookingView),
     CupertinoRoute(page: PaymentView),
     CupertinoRoute(page: LocationPicker),
-
 
     // My Appointments
     CupertinoRoute(page: AppointmentsView),

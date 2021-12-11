@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -9,6 +10,9 @@ class TamelyDogRunnersViewModel extends FutureViewModel<void>
     implements Initialisable {
   final log = getLogger('TamelyDogRunnersViewModel');
   final _navigationService = locator<NavigationService>();
+
+  LatLng currentLocation;
+  TamelyDogRunnersViewModel(this.currentLocation);
 
   void navigateBack() {
     _navigationService.back();
