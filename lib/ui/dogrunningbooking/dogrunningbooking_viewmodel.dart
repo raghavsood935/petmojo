@@ -125,6 +125,13 @@ class DogRunningBookingViewModel extends FormViewModel {
   bool _loading = false;
   bool get loading => _loading;
 
+  void setFirstPageValid() {
+    if (currentIndex == 0) {
+      _isValid = true;
+    }
+    notifyListeners();
+  }
+
   // Book a run
 
   void secondPageValidation(String? value) {
@@ -155,6 +162,7 @@ class DogRunningBookingViewModel extends FormViewModel {
         alternatePhoneController.text.length < 10) {
       _isValid = false;
     }
+    setFirstPageValid();
     notifyListeners();
   }
 

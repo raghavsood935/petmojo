@@ -787,7 +787,7 @@ class TamelyApi {
     log.d("googleLogin called");
     GetPetDetailsResponse response;
     try {
-      response = await getApiClient(true, false).getPetDetails();
+      response = await getApiClient(true, true).getPetDetails();
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()
