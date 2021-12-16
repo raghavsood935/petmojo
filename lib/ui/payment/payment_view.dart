@@ -20,6 +20,7 @@ class PaymentView extends StatelessWidget {
         //model.setPaymentStatus(false);
         model.startState();
         model.getPaymentDetails();
+        //model.init();
         //model.setPaymentStatus(true);
       },
       onDispose: (model) {

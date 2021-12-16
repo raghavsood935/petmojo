@@ -12,6 +12,7 @@ import 'package:tamely/models/get_payment_details_response.dart';
 import 'package:tamely/models/params/get_payment_details_body.dart';
 import 'package:tamely/models/params/set_payment_details_body.dart';
 import 'package:tamely/models/send_data_response.dart';
+import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/util/utils.dart';
 
 class PaymentViewModel extends FutureViewModel<void> implements Initialisable {
@@ -19,6 +20,7 @@ class PaymentViewModel extends FutureViewModel<void> implements Initialisable {
   final _navigationService = locator<NavigationService>();
   final _tamelyApi = locator<TamelyApi>();
   final snackBarService = locator<SnackbarService>();
+  final _sharedPreferenceService = locator<SharedPreferencesService>();
 
   int amount = 0;
   String bookingId = "";
@@ -103,8 +105,34 @@ class PaymentViewModel extends FutureViewModel<void> implements Initialisable {
     _razorpay.clear();
   }
 
-  void toMyBookings() {
-    _navigationService.pushNamedAndRemoveUntil(Routes.dashboard);
+  bool isHuman = true;
+  String petID = "";
+  String petToken = "";
+  int currentIndex = 0;
+
+  Future init() async {
+    CurrentProfile profile = _sharedPreferenceService.getCurrentProfile();
+
+    isHuman = profile.isHuman;
+    petToken = profile.petToken;
+    petID = profile.petId;
+    currentIndex = profile.currentIndex;
+    notifyListeners();
+  }
+
+  void toMyBookings() async {
+    // _navigationService.pushNamedAndRemoveUntil(Routes.dashboard,
+    //     arguments: DashboardArguments(
+    //         initialPageState: 0,
+    //         isNeedToUpdateProfile: false,
+    //         isHuman: isHuman,
+    //         petID: petID,
+    //         petToken: petToken,
+    //         initialState: currentIndex));
+    _navigationService.back();
+    _navigationService.back();
+    _navigationService.back();
+    _navigationService.back();
     _navigationService.navigateTo(Routes.appointmentsView);
   }
 

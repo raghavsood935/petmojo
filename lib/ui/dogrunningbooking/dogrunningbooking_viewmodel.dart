@@ -127,6 +127,7 @@ class DogRunningBookingViewModel extends FormViewModel {
 
   void setFirstPageValid() {
     if (currentIndex == 0) {
+      print("8");
       _isValid = true;
     }
     notifyListeners();
@@ -137,32 +138,37 @@ class DogRunningBookingViewModel extends FormViewModel {
   void secondPageValidation(String? value) {
     _isValid = true;
     if (addressLineOneController.text == "") {
+      print("1");
       _isValid = false;
     } else {
       if (!companyAvailable) {
+        print("2");
         _isValid = false;
       } else {
+        print("3");
         _isValid = true;
       }
     }
 
     if (addressLineTwoController.text == "") {
+      print("4");
       _isValid = false;
     }
     // if (addressLineThreeController.text == "") {
     //   _isValid = false;
     // }
-    if (phoneController.text == "" || phoneController.text.length < 10) {
+    if (phoneController.text.length < 10) {
+      print("5");
       _isValid = false;
     }
     if (alternateNameController.text == "") {
+      print("6");
       _isValid = false;
     }
-    if (alternatePhoneController.text == "" ||
-        alternatePhoneController.text.length < 10) {
+    if (alternatePhoneController.text.length < 10) {
+      print("7");
       _isValid = false;
     }
-    setFirstPageValid();
     notifyListeners();
   }
 
@@ -219,6 +225,7 @@ class DogRunningBookingViewModel extends FormViewModel {
       snackBarService.showSnackbar(message: "Select a different location");
     }
     secondPageValidation("v");
+    setFirstPageValid();
     return '${address.first.adminArea}, ${address.first.countryName}';
   }
 
