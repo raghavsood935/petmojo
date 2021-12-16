@@ -68,11 +68,12 @@ class FollowPeopleProfileActionViewModel extends BaseModel {
     await _navigationService.navigateTo(
       Routes.profileView,
       arguments: ProfileViewArguments(
-          menuScreenContext: context,
-          onScreenHideButtonPressed: () {},
-          isInspectView: true,
-          inspectProfileId: profileId,
-          inspecterProfileId: _id),
+        menuScreenContext: context,
+        onScreenHideButtonPressed: () {},
+        isInspectView: true,
+        inspectProfileId: profileId,
+        inspecterProfileId: _id,
+      ),
     );
   }
 

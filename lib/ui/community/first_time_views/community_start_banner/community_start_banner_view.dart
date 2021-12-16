@@ -48,9 +48,6 @@ class CommunityStartBannerView extends StatelessWidget {
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: model.goToCommunityMainView,
-        ),
       ),
     );
   }

@@ -22,6 +22,7 @@ class _CommunityChooseInterestViewState
   Widget build(BuildContext context) {
     return ViewModelBuilder<CommunityChooseInterestViewModel>.reactive(
       viewModelBuilder: () => CommunityChooseInterestViewModel(),
+      onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           title: AppText.body("Choose your interests"),
@@ -29,7 +30,7 @@ class _CommunityChooseInterestViewState
           backgroundColor: colors.white,
         ),
         bottomSheet: MainButtonWidget(
-          onMainButtonTapped: () {},
+          onMainButtonTapped: model.goToCommunityMainPage,
           mainButtonTitle: "DONE",
         ),
         body: Padding(

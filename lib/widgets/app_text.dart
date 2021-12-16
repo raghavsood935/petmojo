@@ -82,6 +82,12 @@ class AppText extends StatelessWidget {
       Color color = colors.kcPrimaryTextColor})
       : style = body2Style.copyWith(color: color);
 
+  AppText.titleBold(this.text,
+      {this.textAlign,
+      this.isSingleLined,
+      Color color = colors.kcPrimaryTextColor})
+      : style = titleBoldStyle.copyWith(color: color);
+
   AppText.body(this.text,
       {this.textAlign,
       this.isSingleLined,

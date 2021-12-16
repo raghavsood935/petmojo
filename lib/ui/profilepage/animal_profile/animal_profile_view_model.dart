@@ -11,6 +11,10 @@ import 'package:tamely/models/animal_profile_detail_model.dart';
 import 'package:tamely/models/application_models.dart';
 import 'package:tamely/models/my_animal_model.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
+import 'package:tamely/models/params/send_follow_request_body/from_request_body.dart';
+import 'package:tamely/models/params/send_follow_request_body/send_follow_request_body.dart';
+import 'package:tamely/models/params/send_follow_request_body/to_request_body.dart';
+import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/util/utils.dart';
 
 class AnimalProfileViewModel extends FutureViewModel {
@@ -19,10 +23,12 @@ class AnimalProfileViewModel extends FutureViewModel {
   final _tamelyApi = locator<TamelyApi>();
   final _dialogService = locator<DialogService>();
   final _snackBarService = locator<SnackbarService>();
+  final _sharedPreferenceService = locator<SharedPreferencesService>();
 
   MyAnimalModelResponse? myAnimalModelResponse;
 
   String _Id = "";
+  String _token = "";
 
   String _profilename = "";
   String _username = "";
@@ -39,6 +45,8 @@ class AnimalProfileViewModel extends FutureViewModel {
   bool _isUpForAdoption = true;
   bool _isUpForMating = true;
   bool _isUpForPlayBuddies = true;
+
+  bool isFollowing = false;
 
   String get profilename => _profilename;
 
@@ -71,7 +79,7 @@ class AnimalProfileViewModel extends FutureViewModel {
   void goToAnimalBasicInfo() async {
     var result = await _navigationService.navigateTo(Routes.animalBasicInfo,
         arguments: AnimalBasicInfoArguments(
-            animalModelResponse: myAnimalModelResponse!));
+            animalModelResponse: myAnimalModelResponse!, petToken: _token));
 
     if (result == 1) {
       getAnimalDetails();
@@ -106,9 +114,17 @@ class AnimalProfileViewModel extends FutureViewModel {
     _navigationService.back();
   }
 
-  void init(String Id) {
-    _Id = Id;
-    notifyListeners();
+  void init(bool isFromDashboard, String id, String token) {
+    if (isFromDashboard) {
+      CurrentProfile profile = _sharedPreferenceService.getCurrentProfile();
+      _Id = profile.petId;
+      _token = profile.petToken;
+      notifyListeners();
+    } else {
+      _Id = id;
+      _token = token;
+      notifyListeners();
+    }
     getAnimalDetails();
   }
 
@@ -116,8 +132,9 @@ class AnimalProfileViewModel extends FutureViewModel {
     if (await Util.checkInternetConnectivity()) {
       WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
         _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
-        var response = await runBusyFuture(
-            _tamelyApi.getAnimalProfileDetail(AnimalProfileDetailsBody(_Id)));
+        var response = await runBusyFuture(_tamelyApi.getAnimalProfileDetail(
+            AnimalProfileDetailsBody(_Id),
+            animalToken: _token));
 
         if (response.getException != null) {
           ServerError error = response.getException as ServerError;
@@ -145,6 +162,23 @@ class AnimalProfileViewModel extends FutureViewModel {
     _isUpForPlayBuddies = response.animalprofileModel!.playBuddies ?? false;
 
     notifyListeners();
+  }
+
+  Future followThisProfile(String fromID, String toID, String fromType) async {
+    isFollowing = !isFollowing;
+    notifyListeners();
+    SendFollowRequestBody body = SendFollowRequestBody(
+      FromRequestBody(fromID, fromType),
+      ToRequestBody(
+        toID,
+        "Animal",
+      ),
+    );
+    var result = await _tamelyApi.sendFollowRequest(body, true);
+    if (result.data != null) {
+      _noOfFollowers++;
+      notifyListeners();
+    }
   }
 
   @override

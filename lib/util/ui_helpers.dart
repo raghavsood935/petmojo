@@ -16,6 +16,10 @@ const Widget verticalSpaceRegular = SizedBox(height: 18.0);
 const Widget verticalSpaceMedium = SizedBox(height: 25.0);
 const Widget verticalSpaceLarge = SizedBox(height: 50.0);
 
+//common paddning
+
+const EdgeInsets commonPaddding = EdgeInsets.symmetric(horizontal: 20);
+
 //box decorations
 BoxDecoration borderBoxOutline = BoxDecoration(
   color: colors.white,

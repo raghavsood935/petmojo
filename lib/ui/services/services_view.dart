@@ -32,17 +32,17 @@ class ServicesView extends StatelessWidget {
               physics: ScrollPhysics(),
               shrinkWrap: true,
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Row(
-                    children: [
-                      Icon(Icons.location_on_outlined),
-                      AppText.caption(
-                        model.location,
-                      ),
-                    ],
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                //   child: Row(
+                //     children: [
+                //       Icon(Icons.location_on_outlined),
+                //       AppText.caption(
+                //         model.location,
+                //       ),
+                //     ],
+                //   ),
+                // ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: SingleChildScrollView(

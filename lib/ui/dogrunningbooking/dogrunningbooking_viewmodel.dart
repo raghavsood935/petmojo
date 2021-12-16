@@ -125,6 +125,13 @@ class DogRunningBookingViewModel extends FormViewModel {
   bool _loading = false;
   bool get loading => _loading;
 
+  void setFirstPageValid() {
+    if (currentIndex == 0) {
+      _isValid = true;
+    }
+    notifyListeners();
+  }
+
   // Book a run
 
   void secondPageValidation(String? value) {
@@ -155,6 +162,7 @@ class DogRunningBookingViewModel extends FormViewModel {
         alternatePhoneController.text.length < 10) {
       _isValid = false;
     }
+    setFirstPageValid();
     notifyListeners();
   }
 
@@ -462,6 +470,11 @@ class DogRunningBookingViewModel extends FormViewModel {
       _promoCode = "Discount35%";
       _savedAmount = (amount * 0.35);
       _amount = amount - (amount * 0.35);
+    } else if (promoCodeController.text == "Freetesting0") {
+      _isOfferValid = true;
+      _promoCode = "Freetesting0";
+      _savedAmount = amount - 1.0;
+      _amount = 1.0;
     }
     notifyListeners();
   }

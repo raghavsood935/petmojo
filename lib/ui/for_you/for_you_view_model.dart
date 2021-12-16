@@ -5,7 +5,7 @@ import 'package:tamely/ui/for_you/tabs/for_you_tab.dart';
 import 'package:tamely/ui/for_you/tabs/hall_of_fame_tab.dart';
 
 class ForYouViewModel extends BaseModel {
-  List<Widget> _tabs = [ForYouTab(), HallOfFameTab()];
+  // List<Widget> _tabs = [ForYouTab(), HallOfFameTab()];
   List<Tab> _tabsTitle = [
     Tab(
       text: "For you",
@@ -15,7 +15,7 @@ class ForYouViewModel extends BaseModel {
     )
   ];
 
-  List<Widget> get tabs => _tabs;
+  // List<Widget> get tabs => _tabs;
 
   List<Tab> get tabsTitle => _tabsTitle;
 }

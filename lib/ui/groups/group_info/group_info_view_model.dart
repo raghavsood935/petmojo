@@ -1,6 +1,10 @@
+import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
 
 class GroupInfoViewModel extends BaseModel {
+  final _navigationService = locator<NavigationService>();
+
   String _myProfileImg =
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREXRvslazqeJ0hLFvkgCxmYefVVKceG3U7Gg&usqp=CAU";
 
@@ -23,4 +27,12 @@ class GroupInfoViewModel extends BaseModel {
   String get groupDescription => _groupDescription;
 
   bool get isPrivate => _isPrivate;
+
+  void back() {
+    _navigationService.back();
+  }
+
+  Future onManageTapped() async {
+    // await _navigationService.navigateTo(Routes);
+  }
 }

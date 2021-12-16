@@ -17,7 +17,6 @@ import 'package:tamely/models/user_response_models.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/services/user_service.dart';
 import 'package:tamely/ui/otp/confirm_otp_viewmodel.dart';
-import 'package:tamely/util/string_extension.dart';
 import 'package:tamely/util/utils.dart';
 
 abstract class AuthenticationViewModel extends FormViewModel {
@@ -87,7 +86,15 @@ abstract class AuthenticationViewModel extends FormViewModel {
           if (isEdit) {
             navigationService.back(result: 1);
           } else {
-            navigationService.pushNamedAndRemoveUntil(Routes.dashboard);
+            navigationService.pushNamedAndRemoveUntil(Routes.dashboard,
+                arguments: DashboardArguments(
+                  isNeedToUpdateProfile: true,
+                  initialPageState: 0,
+                  isHuman: true,
+                  petID: "",
+                  petToken: "",
+                  initialState: 0,
+                ));
           }
         }
       } else {
@@ -202,7 +209,15 @@ abstract class AuthenticationViewModel extends FormViewModel {
     if (currentUser.confirmed && !isNewUser) {
       sharedPreferencesService.currentState =
           getRedirectStateName(RedirectState.Home);
-      navigationService.pushNamedAndRemoveUntil(Routes.dashboard);
+      navigationService.pushNamedAndRemoveUntil(Routes.dashboard,
+          arguments: DashboardArguments(
+            isNeedToUpdateProfile: true,
+            initialPageState: 0,
+            isHuman: true,
+            petID: "",
+            petToken: "",
+            initialState: 0,
+          ));
     } else if (!currentUser.confirmed && !isSocialSignIn) {
       sharedPreferencesService.currentState =
           getRedirectStateName(RedirectState.Start);

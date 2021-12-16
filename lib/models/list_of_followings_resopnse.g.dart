@@ -22,31 +22,46 @@ Map<String, dynamic> _$$_ListOfFollowingsResponseToJson(
 
 _$_FollowingResponse _$$_FollowingResponseFromJson(Map<String, dynamic> json) =>
     _$_FollowingResponse(
-      followersDetailsResponse: json['followerDetails'] == null
+      followingDetailsResponse: json['followingDetails'] == null
           ? null
           : FollowingDetailsResponse.fromJson(
-              json['followerDetails'] as Map<String, dynamic>),
-      isFollowing: json['followingType'] as int?,
+              json['followingDetails'] as Map<String, dynamic>),
+      followingType: json['followingType'] as String?,
     );
 
 Map<String, dynamic> _$$_FollowingResponseToJson(
         _$_FollowingResponse instance) =>
     <String, dynamic>{
-      'followerDetails': instance.followersDetailsResponse,
-      'followingType': instance.isFollowing,
+      'followingDetails': instance.followingDetailsResponse,
+      'followingType': instance.followingType,
     };
 
 _$_FollowingDetailsResponse _$$_FollowingDetailsResponseFromJson(
         Map<String, dynamic> json) =>
     _$_FollowingDetailsResponse(
+      followingInnerDetailsResponse: json['followingId'] == null
+          ? null
+          : FollowingInnerDetailsResponse.fromJson(
+              json['followingId'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$_FollowingDetailsResponseToJson(
+        _$_FollowingDetailsResponse instance) =>
+    <String, dynamic>{
+      'followingId': instance.followingInnerDetailsResponse,
+    };
+
+_$_FollowingInnerDetailsResponse _$$_FollowingInnerDetailsResponseFromJson(
+        Map<String, dynamic> json) =>
+    _$_FollowingInnerDetailsResponse(
       Id: json['_id'] as String?,
       username: json['username'] as String?,
       avatar: json['avatar'] as String?,
       fullName: json['fullName'] as String?,
     );
 
-Map<String, dynamic> _$$_FollowingDetailsResponseToJson(
-        _$_FollowingDetailsResponse instance) =>
+Map<String, dynamic> _$$_FollowingInnerDetailsResponseToJson(
+        _$_FollowingInnerDetailsResponse instance) =>
     <String, dynamic>{
       '_id': instance.Id,
       'username': instance.username,

@@ -64,6 +64,14 @@ class StartUpViewModel extends FutureViewModel<void> implements Initialisable {
 
       case RedirectState.Home:
         _destinationRoute = Routes.dashboard;
+        _destinationArguments = DashboardArguments(
+          isNeedToUpdateProfile: true,
+          initialPageState: 0,
+          isHuman: true,
+          petID: "",
+          petToken: "",
+          initialState: 0,
+        );
         break;
     }
     // _destinationRoute = Routes.confirmOTPView;

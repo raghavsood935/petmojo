@@ -31,8 +31,10 @@ class _CreateGroupThirdViewState extends State<CreateGroupThirdView> {
                 controller: model.seachTC,
                 hint: "Search for people",
                 onChange: model.onSearchChange,
+                isPaddingNeeded: false,
               ),
               ListView.builder(
+                padding: EdgeInsets.zero,
                 shrinkWrap: true,
                 physics: ScrollPhysics(),
                 itemCount: model.result.length,

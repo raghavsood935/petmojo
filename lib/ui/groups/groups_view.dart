@@ -26,6 +26,13 @@ class _GroupsViewState extends State<GroupsView> {
             elevation: 0,
             centerTitle: true,
             title: AppText.body2("Groups"),
+            leading: IconButton(
+              onPressed: model.back,
+              icon: Icon(
+                Icons.arrow_back_rounded,
+                color: colors.black,
+              ),
+            ),
             actions: <Widget>[
               GestureDetector(
                 onTap: () => model.createGroup(),

@@ -167,7 +167,7 @@ String locationPermissionDisabled =
 String select = "Select";
 
 //feed page
-String myTales = "My tales";
+String myTales = "My tails";
 String createPost = "Create a pawsome post";
 String photoVideo = "Photo/Video";
 

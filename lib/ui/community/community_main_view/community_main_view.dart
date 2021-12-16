@@ -21,16 +21,17 @@ class CommunityMainView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         body: ListView(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Row(
-                children: [
-                  Icon(Icons.location_on_outlined),
-                  AppText.caption(model.location),
-                ],
-              ),
-            ),
-            spacedDividerTiny,
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            //   child: Row(
+            //     children: [
+            //       Icon(Icons.location_on_outlined),
+            //       AppText.caption(model.location),
+            //     ],
+            //   ),
+            // ),
+            // spacedDividerTiny,
+            verticalSpaceSmall,
             GestureDetector(
               child: joinTamelyGroupWidget(),
               onTap: model.goToGroupsView,
@@ -106,7 +107,7 @@ class CommunityMainView extends StatelessWidget {
             spacedDividerBigTiny,
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-              child: AppText.body1("newly Published Blogs"),
+              child: AppText.body1("Newly Published Blogs"),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 15.0),

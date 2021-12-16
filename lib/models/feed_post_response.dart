@@ -21,6 +21,8 @@ class FeedPostResponse with _$FeedPostResponse {
     @JsonKey(name: "date") String? date,
     @JsonKey(name: "votesCount") List<VotesCountResponse>? votesCounts,
     @JsonKey(name: "commentData") FeedPostCommentResponse? commentResponse,
+    @JsonKey(name: "Animalauthor")
+        List<AnimalAuthorResponse>? animalAuthorResponse,
   }) = _FeedPostResponse;
 
   factory FeedPostResponse.fromJson(Map<String, dynamic> json) =>
@@ -90,6 +92,7 @@ class AnimalAuthorResponse with _$AnimalAuthorResponse {
     @JsonKey(name: "_id") String? Id,
     @JsonKey(name: "name") String? name,
     @JsonKey(name: "avatar") String? avatar,
+    @JsonKey(name: "category") String? token,
   }) = _AnimalAuthorResponse;
 
   factory AnimalAuthorResponse.fromJson(Map<String, dynamic> json) =>

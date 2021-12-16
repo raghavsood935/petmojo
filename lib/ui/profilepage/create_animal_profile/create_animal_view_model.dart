@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
@@ -22,6 +21,7 @@ import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/models/user_response_models.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/animal_type_constant.dart';
+import 'package:tamely/util/global_methods.dart';
 import 'package:tamely/util/utils.dart';
 
 class CreateAnimalViewModel extends FormViewModel {
@@ -44,13 +44,6 @@ class CreateAnimalViewModel extends FormViewModel {
   List<AnimalTypeModel> listOfAnimalTypes = [];
   List<String> listOfAnimalBreed = [];
 
-
-  PermissionStatus _permissionStatus = PermissionStatus.denied;
-  final Permission _permission = Permission.location;
-  Position? location;
-
-
-
   final List<String> animalGenderList = [
     select,
     "Male",
@@ -58,6 +51,8 @@ class CreateAnimalViewModel extends FormViewModel {
   ];
 
   String selectedValue = "Pet";
+
+  String petToken = "";
 
   String selectedAnimalAgeChooseType = "DOB";
 
@@ -128,6 +123,7 @@ class CreateAnimalViewModel extends FormViewModel {
 
   Future init(
     String petId,
+    String petToken,
     bool isEdit,
     TextEditingController name,
     TextEditingController username,
@@ -138,12 +134,15 @@ class CreateAnimalViewModel extends FormViewModel {
     TextEditingController fromTime,
     TextEditingController toTime,
   ) async {
+    this.petToken = petToken;
+    notifyListeners();
     if (isEdit) {
       if (await Util.checkInternetConnectivity()) {
         WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
           // _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
-          var response = await runBusyFuture(_tamelyApi
-              .getAnimalProfileDetail(AnimalProfileDetailsBody(petId)));
+          var response = await runBusyFuture(_tamelyApi.getAnimalProfileDetail(
+              AnimalProfileDetailsBody(petId),
+              animalToken: petToken));
 
           if (response.getException != null) {
             ServerError error = response.getException as ServerError;
@@ -163,16 +162,16 @@ class CreateAnimalViewModel extends FormViewModel {
 
             if (model.age != null) {
               if (model.age!.contains("-")) {
-                _snackBarService.showSnackbar(message: "INSIDE THE DOB");
+                // _snackBarService.showSnackbar(message: "INSIDE THE DOB");
                 dobTc.text = model.age ?? "";
                 dob = model.age ?? "";
                 selectedAnimalAgeChooseType = "DOB";
                 notifyListeners();
               } else if (model.age == "") {
                 //do nothing set it as default
-                _snackBarService.showSnackbar(message: "INSIDE THE DEFAULT");
+                // _snackBarService.showSnackbar(message: "INSIDE THE DEFAULT");
               } else {
-                _snackBarService.showSnackbar(message: "INSIDE THE AGE");
+                // _snackBarService.showSnackbar(message: "INSIDE THE AGE");
                 ageType = model.age ?? select;
                 selectedAnimalAgeChooseType = "AGE";
                 notifyListeners();
@@ -262,17 +261,11 @@ class CreateAnimalViewModel extends FormViewModel {
   }
 
   onChangeMating(bool value) {
-    if(selectedValue=='Stray' && value  &&  location==null){
-      _determinePosition();
-    }
     matingValue = value;
     notifyListeners();
   }
 
   onChangeAdoption(bool value) {
-    if(selectedValue=='Stray' && value  &&  location==null){
-      _determinePosition();
-    }
     adoptionValue = value;
     notifyListeners();
   }
@@ -293,9 +286,6 @@ class CreateAnimalViewModel extends FormViewModel {
   }
 
   onChangePlayBuddies(bool value) {
-    if(selectedValue=='Stray' && value  &&  location==null){
-      _determinePosition();
-    }
     playBuddiesValue = value;
     notifyListeners();
   }
@@ -316,15 +306,8 @@ class CreateAnimalViewModel extends FormViewModel {
       _snackBarService.showSnackbar(message: "Image is empty");
     }
     if (await Util.checkInternetConnectivity()) {
-      BaseResponse<CommonResponse> response =
-          await _tamelyApi.uploadImage(File(_imageFile!.path));
-      if (response.getException != null) {
-        ServerError error = response.getException as ServerError;
-        _snackBarService.showSnackbar(message: error.getErrorMessage());
-      } else if (response.data != null) {
-        avatarUrl = response.data!.avatar ?? "";
-        createAnimalProfileAccount();
-      }
+      avatarUrl = await GlobalMethods.imageToLink(File(_imageFile!.path));
+      notifyListeners();
     } else {
       _snackBarService.showSnackbar(message: "No Internet connection");
     }
@@ -335,13 +318,8 @@ class CreateAnimalViewModel extends FormViewModel {
       uploadImage().whenComplete(() => {
             if (selectedValue.isNotEmpty && selectedValue == "Stray")
               {
-                //Location is already accessed. Check if location is available or not if not call _determineLocation
-                if(location==null){
-                  _determinePosition().then((value) {
-                    print(location);
-                    createAnimalProfileAccount();
-                  })
-                } else print(location)
+                getCurrentLocation()
+                    .whenComplete(() => createAnimalProfileAccount())
               }
             else
               {createAnimalProfileAccount()}
@@ -442,25 +420,27 @@ class CreateAnimalViewModel extends FormViewModel {
     }
 
     var response = await runBusyFuture(_tamelyApi.editAnimalProfile(
-        name,
-        username,
-        avatarUrl,
-        selectedValue,
-        bio,
-        selectedAnimalType,
-        selectedAnimalGender,
-        breed,
-        animalAge,
-        matingValue,
-        adoptionValue,
-        playBuddiesValue,
-        resigteredWithKCValue,
-        playFrom,
-        playTo,
-        "",
-        servicePetValue,
-        spayedPetValue,
-        petId));
+      name,
+      username,
+      avatarUrl,
+      selectedValue,
+      bio,
+      selectedAnimalType,
+      selectedAnimalGender,
+      breed,
+      animalAge,
+      matingValue,
+      adoptionValue,
+      playBuddiesValue,
+      resigteredWithKCValue,
+      playFrom,
+      playTo,
+      "",
+      servicePetValue,
+      spayedPetValue,
+      petId,
+      petToken,
+    ));
 
     if (response.getException != null) {
       ServerError error = response.getException as ServerError;
@@ -622,34 +602,6 @@ class CreateAnimalViewModel extends FormViewModel {
       isBreedAvailable = false;
     }
     notifyListeners();
-  }
-
-  _userNameChanged(String query) async {
-    if (_username != query && query.isNotEmpty) {
-      if (_debounce?.isActive ?? false) _debounce?.cancel();
-      _debounce = Timer(const Duration(milliseconds: 500), () async {
-        _username = query;
-        if (await Util.checkInternetConnectivity()) {
-          try {
-            BaseResponse<UserNameAvailableResponse> availableResponse =
-                await runBusyFuture(_tamelyApi.checkUserName(false, query),
-                    throwException: true);
-            if (availableResponse.getException != null) {
-              ServerError error = availableResponse.getException as ServerError;
-              _snackBarService.showSnackbar(message: error.getErrorMessage());
-            } else if (availableResponse.data != null) {
-              _isValidUsername = availableResponse.data!.isAvailable;
-              notifyListeners();
-            }
-          } catch (e) {
-            log.e(e);
-            _snackBarService.showSnackbar(message: "$e");
-          }
-        } else {
-          _snackBarService.showSnackbar(message: "No Internet connection");
-        }
-      });
-    }
   }
 
   setBreedList(String value) {
@@ -835,9 +787,6 @@ class CreateAnimalViewModel extends FormViewModel {
     _isValid = true;
     formValueMap.keys.forEach((element) {
       if (manitoryFeilds.contains(element)) {
-        if (element == "username") {
-          _userNameChanged(element);
-        }
         String elementValue = formValueMap[element];
         if (elementValue.isEmpty) {
           _isValid = false;
@@ -848,49 +797,6 @@ class CreateAnimalViewModel extends FormViewModel {
 
     notifyListeners();
   }
-
-
-  void _listenForPermissionStatus() async {
-    final status = await _permission.status;
-    _permissionStatus = status;
-  }
-
-  Future<void> requestPermission(Permission permission) async {
-    final status = await permission.request();
-    _permissionStatus = status;
-  }
-
-
-  Future<void> _determinePosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-    _listenForPermissionStatus();
-    // Test if location services are enabled.
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      requestPermission(_permission);
-      return Future.error('Location services are disabled.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        requestPermission(_permission);
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately.
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-
-    location = await Geolocator.getCurrentPosition();
-    print('location : $location');
-  }
-
 }
 
 class AnimalTypeModel {

@@ -64,6 +64,11 @@ const TextStyle body1BoldStyle = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
+const TextStyle titleBoldStyle = TextStyle(
+  fontSize: 18,
+  fontWeight: FontWeight.bold,
+);
+
 const TextStyle body2Style = TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.bold,

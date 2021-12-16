@@ -29,6 +29,8 @@ class $AssetsImagesGen {
   $AssetsImagesAnimalTypeImagesGen get animalTypeImages =>
       const $AssetsImagesAnimalTypeImagesGen();
   $AssetsImagesAnimalsGen get animals => const $AssetsImagesAnimalsGen();
+  $AssetsImagesBackgroundsGen get backgrounds =>
+      const $AssetsImagesBackgroundsGen();
 
   /// File path: assets/images/bookings.svg
   SvgGenImage get bookings => const SvgGenImage('assets/images/bookings.svg');
@@ -59,8 +61,14 @@ class $AssetsImagesGen {
   AssetGenImage get dogPicOne =>
       const AssetGenImage('assets/images/dog_pic_one.png');
 
+  /// File path: assets/images/dog_running.png
+  AssetGenImage get dogRunning =>
+      const AssetGenImage('assets/images/dog_running.png');
+
   /// File path: assets/images/drawer.svg
   SvgGenImage get drawer => const SvgGenImage('assets/images/drawer.svg');
+
+  $AssetsImagesEmojiGen get emoji => const $AssetsImagesEmojiGen();
 
   /// File path: assets/images/explore.svg
   SvgGenImage get explore => const SvgGenImage('assets/images/explore.svg');
@@ -376,6 +384,66 @@ class $AssetsImagesAnimalsGen {
       const AssetGenImage('assets/images/animals/reptiles.png');
 }
 
+class $AssetsImagesBackgroundsGen {
+  const $AssetsImagesBackgroundsGen();
+
+  /// File path: assets/images/backgrounds/five.jpg
+  AssetGenImage get five =>
+      const AssetGenImage('assets/images/backgrounds/five.jpg');
+
+  /// File path: assets/images/backgrounds/fivecrop.jpg
+  AssetGenImage get fivecrop =>
+      const AssetGenImage('assets/images/backgrounds/fivecrop.jpg');
+
+  /// File path: assets/images/backgrounds/four.jpg
+  AssetGenImage get four =>
+      const AssetGenImage('assets/images/backgrounds/four.jpg');
+
+  /// File path: assets/images/backgrounds/fourcrop.jpg
+  AssetGenImage get fourcrop =>
+      const AssetGenImage('assets/images/backgrounds/fourcrop.jpg');
+
+  /// File path: assets/images/backgrounds/one.jpg
+  AssetGenImage get one =>
+      const AssetGenImage('assets/images/backgrounds/one.jpg');
+
+  /// File path: assets/images/backgrounds/onecrop.jpg
+  AssetGenImage get onecrop =>
+      const AssetGenImage('assets/images/backgrounds/onecrop.jpg');
+
+  /// File path: assets/images/backgrounds/seven.jpg
+  AssetGenImage get seven =>
+      const AssetGenImage('assets/images/backgrounds/seven.jpg');
+
+  /// File path: assets/images/backgrounds/sevencrop.jpg
+  AssetGenImage get sevencrop =>
+      const AssetGenImage('assets/images/backgrounds/sevencrop.jpg');
+
+  /// File path: assets/images/backgrounds/six.jpg
+  AssetGenImage get six =>
+      const AssetGenImage('assets/images/backgrounds/six.jpg');
+
+  /// File path: assets/images/backgrounds/sixcrop.jpg
+  AssetGenImage get sixcrop =>
+      const AssetGenImage('assets/images/backgrounds/sixcrop.jpg');
+
+  /// File path: assets/images/backgrounds/three.jpg
+  AssetGenImage get three =>
+      const AssetGenImage('assets/images/backgrounds/three.jpg');
+
+  /// File path: assets/images/backgrounds/threecrop.jpg
+  AssetGenImage get threecrop =>
+      const AssetGenImage('assets/images/backgrounds/threecrop.jpg');
+
+  /// File path: assets/images/backgrounds/two.jpg
+  AssetGenImage get two =>
+      const AssetGenImage('assets/images/backgrounds/two.jpg');
+
+  /// File path: assets/images/backgrounds/twocrop.jpg
+  AssetGenImage get twocrop =>
+      const AssetGenImage('assets/images/backgrounds/twocrop.jpg');
+}
+
 class $AssetsImagesCommunityPageImagesGen {
   const $AssetsImagesCommunityPageImagesGen();
 
@@ -406,6 +474,103 @@ class $AssetsImagesCommunityPageImagesGen {
   /// File path: assets/images/community_page_images/strays_nearby.png
   AssetGenImage get straysNearby => const AssetGenImage(
       'assets/images/community_page_images/strays_nearby.png');
+}
+
+class $AssetsImagesEmojiGen {
+  const $AssetsImagesEmojiGen();
+
+  /// File path: assets/images/emoji/eight.png
+  AssetGenImage get eight =>
+      const AssetGenImage('assets/images/emoji/eight.png');
+
+  /// File path: assets/images/emoji/eighteen.png
+  AssetGenImage get eighteen =>
+      const AssetGenImage('assets/images/emoji/eighteen.png');
+
+  /// File path: assets/images/emoji/eleven.png
+  AssetGenImage get eleven =>
+      const AssetGenImage('assets/images/emoji/eleven.png');
+
+  /// File path: assets/images/emoji/fifteen.png
+  AssetGenImage get fifteen =>
+      const AssetGenImage('assets/images/emoji/fifteen.png');
+
+  /// File path: assets/images/emoji/five.png
+  AssetGenImage get five => const AssetGenImage('assets/images/emoji/five.png');
+
+  /// File path: assets/images/emoji/four.png
+  AssetGenImage get four => const AssetGenImage('assets/images/emoji/four.png');
+
+  /// File path: assets/images/emoji/fourteen.png
+  AssetGenImage get fourteen =>
+      const AssetGenImage('assets/images/emoji/fourteen.png');
+
+  /// File path: assets/images/emoji/nine.png
+  AssetGenImage get nine => const AssetGenImage('assets/images/emoji/nine.png');
+
+  /// File path: assets/images/emoji/nineteen.png
+  AssetGenImage get nineteen =>
+      const AssetGenImage('assets/images/emoji/nineteen.png');
+
+  /// File path: assets/images/emoji/one.png
+  AssetGenImage get one => const AssetGenImage('assets/images/emoji/one.png');
+
+  /// File path: assets/images/emoji/seven.png
+  AssetGenImage get seven =>
+      const AssetGenImage('assets/images/emoji/seven.png');
+
+  /// File path: assets/images/emoji/seventeen.png
+  AssetGenImage get seventeen =>
+      const AssetGenImage('assets/images/emoji/seventeen.png');
+
+  /// File path: assets/images/emoji/six.png
+  AssetGenImage get six => const AssetGenImage('assets/images/emoji/six.png');
+
+  /// File path: assets/images/emoji/sixteen.png
+  AssetGenImage get sixteen =>
+      const AssetGenImage('assets/images/emoji/sixteen.png');
+
+  /// File path: assets/images/emoji/ten.png
+  AssetGenImage get ten => const AssetGenImage('assets/images/emoji/ten.png');
+
+  /// File path: assets/images/emoji/thirteen.png
+  AssetGenImage get thirteen =>
+      const AssetGenImage('assets/images/emoji/thirteen.png');
+
+  /// File path: assets/images/emoji/three.png
+  AssetGenImage get three =>
+      const AssetGenImage('assets/images/emoji/three.png');
+
+  /// File path: assets/images/emoji/twelve.png
+  AssetGenImage get twelve =>
+      const AssetGenImage('assets/images/emoji/twelve.png');
+
+  /// File path: assets/images/emoji/twenty.png
+  AssetGenImage get twenty =>
+      const AssetGenImage('assets/images/emoji/twenty.png');
+
+  /// File path: assets/images/emoji/twentyfive.png
+  AssetGenImage get twentyfive =>
+      const AssetGenImage('assets/images/emoji/twentyfive.png');
+
+  /// File path: assets/images/emoji/twentyfour.png
+  AssetGenImage get twentyfour =>
+      const AssetGenImage('assets/images/emoji/twentyfour.png');
+
+  /// File path: assets/images/emoji/twentyone.png
+  AssetGenImage get twentyone =>
+      const AssetGenImage('assets/images/emoji/twentyone.png');
+
+  /// File path: assets/images/emoji/twentythree.png
+  AssetGenImage get twentythree =>
+      const AssetGenImage('assets/images/emoji/twentythree.png');
+
+  /// File path: assets/images/emoji/twentytwo.png
+  AssetGenImage get twentytwo =>
+      const AssetGenImage('assets/images/emoji/twentytwo.png');
+
+  /// File path: assets/images/emoji/two.png
+  AssetGenImage get two => const AssetGenImage('assets/images/emoji/two.png');
 }
 
 class $AssetsImagesServicePageImagesGen {

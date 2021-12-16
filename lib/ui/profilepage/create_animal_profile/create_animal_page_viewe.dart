@@ -29,10 +29,12 @@ import 'package:tamely/widgets/app_text.dart';
   FormTextField(name: 'toTime'),
 ])
 class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
-  CreateAnimalPageView({Key? key, this.petId, this.isEdit}) : super(key: key);
+  CreateAnimalPageView({Key? key, this.petId, this.petToken, this.isEdit})
+      : super(key: key);
 
   final bool? isEdit;
   final String? petId;
+  final String? petToken;
 
   @override
   Widget build(BuildContext context) {
@@ -171,8 +173,6 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                                   AppInputField(
                                     controller: usernameController,
                                     hint: "Unique username",
-                                    errorText:
-                                        model.validUser(usernameController),
                                   ),
                                   "Username",
                                   true,
@@ -493,6 +493,7 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
         onModelReady: (model) {
           model.init(
               petId ?? "",
+              petToken ?? "",
               isEdit ?? false,
               nameController,
               usernameController,

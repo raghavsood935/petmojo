@@ -28,6 +28,10 @@ class GroupsViewModel extends BaseModel {
 
   List<Tab> get tabTitles => _tabTitles;
 
+  back() {
+    _navigationService.back();
+  }
+
   createGroup() {
     _navigationService.navigateTo(Routes.createGroupView);
   }

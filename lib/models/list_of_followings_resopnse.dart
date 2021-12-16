@@ -21,9 +21,9 @@ class FollowingResponse with _$FollowingResponse {
   FollowingResponse._();
 
   factory FollowingResponse({
-    @JsonKey(name: "followerDetails")
-        FollowingDetailsResponse? followersDetailsResponse,
-    @JsonKey(name: "followingType") int? isFollowing,
+    @JsonKey(name: "followingDetails")
+        FollowingDetailsResponse? followingDetailsResponse,
+    @JsonKey(name: "followingType") String? followingType,
   }) = _FollowingResponse;
 
   factory FollowingResponse.fromJson(Map<String, dynamic> json) =>
@@ -34,13 +34,26 @@ class FollowingResponse with _$FollowingResponse {
 class FollowingDetailsResponse with _$FollowingDetailsResponse {
   FollowingDetailsResponse._();
 
-  factory FollowingDetailsResponse({
+  factory FollowingDetailsResponse(
+          {@JsonKey(name: "followingId")
+              FollowingInnerDetailsResponse? followingInnerDetailsResponse}) =
+      _FollowingDetailsResponse;
+
+  factory FollowingDetailsResponse.fromJson(Map<String, dynamic> json) =>
+      _$FollowingDetailsResponseFromJson(json);
+}
+
+@freezed
+class FollowingInnerDetailsResponse with _$FollowingInnerDetailsResponse {
+  FollowingInnerDetailsResponse._();
+
+  factory FollowingInnerDetailsResponse({
     @JsonKey(name: "_id") String? Id,
     @JsonKey(name: "username") String? username,
     @JsonKey(name: "avatar") String? avatar,
     @JsonKey(name: "fullName") String? fullName,
-  }) = _FollowingDetailsResponse;
+  }) = _FollowingInnerDetailsResponse;
 
-  factory FollowingDetailsResponse.fromJson(Map<String, dynamic> json) =>
-      _$FollowingDetailsResponseFromJson(json);
+  factory FollowingInnerDetailsResponse.fromJson(Map<String, dynamic> json) =>
+      _$FollowingInnerDetailsResponseFromJson(json);
 }

@@ -28,6 +28,21 @@ class SharedPreferencesService {
   static const String PHONE_NUMBER = 'phonenumber';
   static const String CURRENT_STATE = 'currentState';
 
+  //community values
+  static const String COMMUNITY_FIRST_TIME = 'communityFirstTime';
+
+  //current selected profile details
+  static const String CURRENT_PROFILE_USERNAME = 'currentProfileUsername';
+  static const String CURRENT_PROFILE_PROFILENAME = 'currentProfileProfilename';
+  static const String CURRENT_PROFILE_PROFILE_IMG_URL =
+      'currentProfileProfileImgUrl';
+  static const String CURRENT_PROFILE_IS_HUMAN = 'currentProfileIsHuman';
+  static const String CURRENT_PROFILE_PET_ID = 'currentProfilePetId';
+  static const String CURRENT_PROFILE_PET_TOKEN = 'currentProfilePetToken';
+  static const String CURRENT_PROFILE_USER_ID = 'currentProfileUserId';
+  static const String CURRENT_PROFILE_CURRENT_INDEX =
+      'currentProfileCurrentIndex';
+
   //current address
   double locationRadius = 500;
 
@@ -82,6 +97,31 @@ class SharedPreferencesService {
         website: website);
   }
 
+  Future<void> saveCurrentProfile(CurrentProfile profile) async {
+    _saveToDisk(CURRENT_PROFILE_USERNAME, profile.username);
+    _saveToDisk(CURRENT_PROFILE_PROFILENAME, profile.profilename);
+    _saveToDisk(CURRENT_PROFILE_PROFILE_IMG_URL, profile.profileImgUrl);
+    _saveToDisk(CURRENT_PROFILE_IS_HUMAN, profile.isHuman);
+    _saveToDisk(CURRENT_PROFILE_PET_ID, profile.petId);
+    _saveToDisk(CURRENT_PROFILE_PET_TOKEN, profile.petToken);
+    _saveToDisk(CURRENT_PROFILE_USER_ID, profile.userId);
+    _saveToDisk(CURRENT_PROFILE_CURRENT_INDEX, profile.currentIndex);
+    print("SAVED : ${profile.toString()}");
+  }
+
+  CurrentProfile getCurrentProfile() {
+    return CurrentProfile(
+      _getFromDisk(CURRENT_PROFILE_USERNAME),
+      _getFromDisk(CURRENT_PROFILE_PROFILENAME),
+      _getFromDisk(CURRENT_PROFILE_PROFILE_IMG_URL),
+      _getFromDisk(CURRENT_PROFILE_IS_HUMAN),
+      _getFromDisk(CURRENT_PROFILE_PET_ID),
+      _getFromDisk(CURRENT_PROFILE_PET_TOKEN),
+      _getFromDisk(CURRENT_PROFILE_USER_ID),
+      _getFromDisk(CURRENT_PROFILE_CURRENT_INDEX),
+    );
+  }
+
   String get uid => _getFromDisk(UID) ?? null;
 
   set uid(String value) => _saveToDisk(UID, value);
@@ -134,4 +174,22 @@ class SharedPreferencesService {
       _getFromDisk(CURRENT_STATE) ?? getRedirectStateName(RedirectState.Start);
 
   set currentState(String value) => _saveToDisk(CURRENT_STATE, value);
+
+  bool get communityFirstTime => _getFromDisk(COMMUNITY_FIRST_TIME) ?? true;
+
+  setCommunityFirstTime(bool value) => _saveToDisk(COMMUNITY_FIRST_TIME, value);
+}
+
+class CurrentProfile {
+  String username;
+  String profilename;
+  String profileImgUrl;
+  int currentIndex;
+  bool isHuman;
+  String petId;
+  String petToken;
+  String userId;
+
+  CurrentProfile(this.username, this.profilename, this.profileImgUrl,
+      this.isHuman, this.petId, this.petToken, this.userId, this.currentIndex);
 }

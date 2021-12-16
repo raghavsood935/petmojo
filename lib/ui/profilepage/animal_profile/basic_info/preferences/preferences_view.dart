@@ -8,9 +8,11 @@ import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/edit_button.dart';
 
 class PreferencesView extends StatefulWidget {
-  PreferencesView({Key? key, required this.petId}) : super(key: key);
+  PreferencesView({Key? key, required this.petId, required this.petToken})
+      : super(key: key);
 
   String petId;
+  String petToken;
 
   @override
   _PreferencesViewState createState() => _PreferencesViewState();
@@ -21,8 +23,9 @@ class _PreferencesViewState extends State<PreferencesView> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<PreferencesViewModel>.reactive(
       viewModelBuilder: () => PreferencesViewModel(),
-      onModelReady: (model) =>
-          model.onInit(widget.petId).whenComplete(() => setState(() {})),
+      onModelReady: (model) => model
+          .onInit(widget.petId, widget.petToken)
+          .whenComplete(() => setState(() {})),
       builder: (context, model, child) => ListView(
         children: [
           ListTile(

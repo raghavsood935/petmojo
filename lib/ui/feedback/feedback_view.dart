@@ -118,20 +118,20 @@ class _FeedbackViewState extends State<FeedbackView> {
                   hintText: model.hintText,
                 ),
                 verticalSpaceRegular,
-                // ScreenShotInput(
-                //     bgColor: colors.inputFieldColor,
-                //     onClick: () => model.onImageButtonPressed(
-                //         ImageSource.gallery, context)),
-                // verticalSpaceTiny,
-                // Visibility(
-                //   visible: model.avatarUrl.isNotEmpty,
-                //   child: Image.network(
-                //     model.avatarUrl,
-                //     width: screenWidthPercentage(context, percentage: 0.85),
-                //     height: screenWidthPercentage(context, percentage: 0.85),
-                //   ),
-                // ),
-                // verticalSpaceRegular,
+                ScreenShotInput(
+                    bgColor: colors.inputFieldColor,
+                    onClick: () => model.onImageButtonPressed(
+                        ImageSource.gallery, context)),
+                verticalSpaceSmall,
+                Visibility(
+                  visible: model.avatarUrl.isNotEmpty,
+                  child: Image.network(
+                    model.avatarUrl,
+                    width: screenWidthPercentage(context, percentage: 0.85),
+                    height: screenWidthPercentage(context, percentage: 0.85),
+                  ),
+                ),
+                verticalSpaceRegular,
                 MainButtonWidget(
                   onMainButtonTapped: model.onSubmit,
                   mainButtonTitle: "SUBMIT FEEDBACK",

@@ -4,11 +4,17 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:tamely/models/animal_profile_create_resopnse.dart';
 import 'package:tamely/models/animal_profile_detail_model.dart';
+import 'package:tamely/models/avatar_link_response.dart';
 import 'package:tamely/models/book_a_run_response.dart';
+import 'package:tamely/models/bookmark_response.dart';
+import 'package:tamely/models/comment_added_response.dart';
 import 'package:tamely/models/common_response.dart';
+import 'package:tamely/models/create_post_response.dart';
 import 'package:tamely/models/edit_response.dart';
 import 'package:tamely/models/generate_pet_username_response.dart';
+import 'package:tamely/models/get_bookmarks_model.dart';
 import 'package:tamely/models/get_payment_details_response.dart';
+import 'package:tamely/models/list_of_comments_response.dart';
 import 'package:tamely/models/list_of_feed_post_response.dart';
 import 'package:tamely/models/list_of_followers_resopnse.dart';
 import 'package:tamely/models/list_of_followings_resopnse.dart';
@@ -16,6 +22,7 @@ import 'package:tamely/models/list_of_for_you_post_response.dart';
 import 'package:tamely/models/list_of_post_response.dart';
 import 'package:tamely/models/list_of_profile_response.dart';
 import 'package:tamely/models/list_of_profiles_foy_you.dart';
+import 'package:tamely/models/notification_response.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/models/params/change_bio_avatar_body.dart';
 import 'package:tamely/models/params/comment_new/add_comment_body.dart';
@@ -91,7 +98,7 @@ class Apis {
 
   static const String getProfileDetailsById = '/user/getUserDetailsById';
   static const String getListOfFollowers = '/user/followers';
-  static const String getListOfFollowings = '/user/followings';
+  static const String getListOfFollowings = '/user/following';
 
   //animal profile
   static const String generatePetUsername = '/animal/getUniquePetName';
@@ -101,6 +108,9 @@ class Apis {
   static const String animalProfileEditDetails = '/animal/editPetHabits';
   static const String animalProfileEditMainDetails =
       '/animal/editPetMainDetails';
+
+  //Bookmarks
+  static const String getBookmarks = '/hamburger/getBookmarks';
 
   //guardian and relations
   static const String getPendingGuardianRequest = '/animal/register';
@@ -121,8 +131,13 @@ class Apis {
   static const String searchProfiles = '/user/search';
   static const String forYouPost = '/post/foryoufeed';
 
-  //like dislike the post
+  //post actions
+  static const String createPost = '/post';
   static const String likeDislikePost = '/post/vote';
+  static const String bookmarkPost = '/user/{postID}/bookmark';
+
+  //notification
+  static const String notification = '/notification';
 
   // //comments
   // static const String storeComment = '/post/comment';
@@ -131,7 +146,8 @@ class Apis {
   // static const String storeVoteSubComment = '/post/subcommentVote';
 
   //comment
-  static const String addComment = '/comment';
+  static const String addComment = '/comment/{commentID}';
+  static const String fetchComment = '/comment/{commentID}/{counter}';
 
   // Booking Appointments
   static const String getPetDetails = '/serviceBooking/getPetDetails';
@@ -201,6 +217,9 @@ abstract class ApiClient {
   Future<UserNameAvailableResponse> checkUserName(
       @Path("username") String username);
 
+  @GET(Apis.notification)
+  Future<ListOfNotificationResponse> getListOfNotification();
+
   @PUT(Apis.user)
   Future<UserResponse> updateProfile(@Body() ProfileCreateBody createBody);
 
@@ -212,7 +231,7 @@ abstract class ApiClient {
   Future<UserProfileDetailsResponse> getUserProfileDetails();
 
   @POST(Apis.imageToLink)
-  Future<ListOfPostResponse> imageToLink();
+  Future<AvatarLinkResponse> imageToLink(@Part(name: 'image') File image);
 
   @POST(Apis.userPosts)
   Future<ListOfPostResponse> getUserPosts();
@@ -295,6 +314,10 @@ abstract class ApiClient {
       @Body()
           EditAnimalProfileMainDetailsBody editAnimalProfileMainDetailsBody);
 
+  // Bookmarks
+  @POST(Apis.getBookmarks)
+  Future<getBookmarks> getBookmarksDetails();
+
   @POST(Apis.showPeopleToFollow)
   Future<ListOfProfilesResponse> showPeoplesToFollow(
       @Body() ShowPeopleToFollowBody showPeopleToFollowBody);
@@ -307,6 +330,19 @@ abstract class ApiClient {
   Future<EditResponse> likeDislikePost(
       @Body() LikeDislikePostBody likeDislikePostBody);
 
+  @POST(Apis.bookmarkPost)
+  Future<BookmarkResponse> bookmarkPost(@Path("postID") String postID);
+
+  @POST(Apis.createPost)
+  Future<CreatePostResponse> createPost(
+    @Part(name: "type") String type,
+    @Part(name: "image") File image,
+    @Part(name: "caption") String caption,
+    @Part(name: "filter") String filter,
+    @Part(name: "Userauthor") String Userauthor,
+    @Part(name: "authorType") String authorType,
+  );
+
   //Guardian And Relation
 
   // For you page
@@ -317,7 +353,7 @@ abstract class ApiClient {
 
   // for you posts
   @POST(Apis.forYouPost)
-  Future<ListOfForYouPostResponse> listOfForYouPost(
+  Future<ListOfFeedPostResponse> listOfForYouPost(
       @Body() CounterBody counterBody);
 
   // Hamburger
@@ -332,7 +368,12 @@ abstract class ApiClient {
 
   //comments
   @POST(Apis.addComment)
-  Future<CommonResponse> addComment(@Body() AddCommentBody addCommentBody);
+  Future<CommentAddedResponse> addComment(
+      @Path("commentID") String postId, @Body() AddCommentBody addCommentBody);
+
+  @POST(Apis.fetchComment)
+  Future<ListOfCommentsResponse> fetchComments(
+      @Path("commentID") String postId, @Path("counter") int counter);
 
   //Comment
   //-- add comment

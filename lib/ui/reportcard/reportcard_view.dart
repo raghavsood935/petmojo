@@ -379,6 +379,8 @@ class ReportItem extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 30 / 2,
+                          child:
+                              Image.asset("assets/images/report_distance.png"),
                         ),
                         horizontalSpaceSmall,
                         Container(
@@ -402,6 +404,7 @@ class ReportItem extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 30 / 2,
+                          child: Image.asset("assets/images/report_time.png"),
                         ),
                         horizontalSpaceSmall,
                         Container(
@@ -425,6 +428,7 @@ class ReportItem extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 30 / 2,
+                          child: Image.asset("assets/images/report_poo.png"),
                         ),
                         horizontalSpaceSmall,
                         Container(
@@ -464,6 +468,7 @@ class ReportItem extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 30 / 2,
+                          child: Image.asset("assets/images/report_pee.png"),
                         ),
                         horizontalSpaceSmall,
                         Container(

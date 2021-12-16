@@ -62,6 +62,7 @@ class _CreateGroupFirstViewState extends State<CreateGroupFirstView> {
               WithTitleItem(
                   title: "Group name",
                   child: AppInputField(
+                      isPaddingNeeded: false,
                       controller: model.groupNameTC,
                       hint: "Type name of your group"),
                   isManitory: true),

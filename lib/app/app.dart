@@ -24,8 +24,13 @@ import 'package:tamely/ui/forgotpassword/new_password_view.dart';
 import 'package:tamely/ui/groups/create_group/create_group_view.dart';
 import 'package:tamely/ui/groups/group_info/group_info_view.dart';
 import 'package:tamely/ui/groups/groups_view.dart';
+import 'package:tamely/ui/groups/manage_group/edit_group_info/edit_group_info_view.dart';
+import 'package:tamely/ui/groups/manage_group/manage_group_view.dart';
+import 'package:tamely/ui/groups/manage_group/members/member_view.dart';
 import 'package:tamely/ui/livemap/livemap_view.dart';
 import 'package:tamely/ui/login/login_view.dart';
+import 'package:tamely/ui/newpost/newpostLocation/newpostLocation_view.dart';
+import 'package:tamely/ui/newpost/newpost_view.dart';
 import 'package:tamely/ui/notification/notifications.dart';
 import 'package:tamely/ui/onboarding/onboarding_view.dart';
 import 'package:tamely/ui/otp/confirm_otp_view.dart';
@@ -81,13 +86,22 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: CommunityMainView),
     CupertinoRoute(page: AnimalProfileView),
     CupertinoRoute(page: AnimalBasicInfo),
-    CupertinoRoute(page: GroupsView),
     CupertinoRoute(page: CameraScreen),
-    CupertinoRoute(page: CreateGroupView),
-    CupertinoRoute(page: GroupInfoView),
     CupertinoRoute(page: GuardiansAndRelatedAnimalsView),
     CupertinoRoute(page: PostDetialsPageView),
+
+    // Group routes
+    CupertinoRoute(page: GroupsView),
+    CupertinoRoute(page: CreateGroupView),
+    CupertinoRoute(page: GroupInfoView),
+    CupertinoRoute(page: ManageGroupView),
+    CupertinoRoute(page: EditGroupBasicInfo),
+    CupertinoRoute(page: MembersView),
+
+    //create post
     CupertinoRoute(page: PostCreation),
+    CupertinoRoute(page: NewPostLocation),
+    CupertinoRoute(page: NewPost),
 
     //community routes
     CupertinoRoute(page: StraysNearYouView),

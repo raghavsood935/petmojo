@@ -26,7 +26,9 @@ import 'package:tamely/models/post_response.dart';
 import 'package:tamely/models/profile_details_by_id_response.dart';
 import 'package:tamely/models/user_details_model.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
+import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/services/user_service.dart';
+import 'package:tamely/ui/profilepage/animal_profile/animal_profile_view.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/utils.dart';
 
@@ -37,9 +39,17 @@ class ProfileViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _snackBarService = locator<SnackbarService>();
   final _dialogService = locator<DialogService>();
+  final _sharedPreferenceService = locator<SharedPreferencesService>();
   final _tamelyApi = locator<TamelyApi>();
 
+  void showMde(String mes) {
+    _snackBarService.showSnackbar(message: mes);
+  }
+
   String avatarUrl = "";
+  bool isHuman = true;
+  String petID = "";
+  String petToken = "";
   dynamic _pickImageError;
   XFile? _imageFile;
   File? _editedImage;
@@ -116,11 +126,11 @@ class ProfileViewModel extends BaseViewModel {
     if (_animalProfileCreateView != null) {
       var result = await _navigationService.navigateTo(
         _animalProfileCreateView!,
-        arguments: _destinationArguments,
+        arguments: CreateAnimalPageViewArguments(isEdit: false),
       );
 
       if (result == 1) {
-        getUserProfileDetails();
+        getUserProfileDetails(true);
       }
     }
   }
@@ -133,53 +143,75 @@ class ProfileViewModel extends BaseViewModel {
     );
 
     if (result == 1) {
-      getUserProfileDetails();
+      getUserProfileDetails(true);
     }
   }
 
-  Future init(bool isInspect, String inspectProfileId) async {
+  Future init(bool isInspect, String inspectProfileId,
+      {bool needToShowLoading = true}) async {
+    CurrentProfile profile = _sharedPreferenceService.getCurrentProfile();
+
+    isHuman = profile.isHuman;
+    petToken = profile.petToken;
+    petID = profile.petId;
+    notifyListeners();
+
     if (isInspect) {
-      getUserProfileDetailsById(inspectProfileId);
+      getUserProfileDetailsById(inspectProfileId, needToShowLoading);
       getUserPosts();
     } else {
-      getUserProfileDetails();
+      getUserProfileDetails(needToShowLoading);
       getUserPosts();
     }
   }
 
-  Future getUserProfileDetailsById(String id) async {
+  Future getUserProfileDetailsById(String id, bool isNeedShowToLoading) async {
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
-      _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
+      if (isNeedShowToLoading) {
+        _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
+      }
       GetProfileDetailsByIdBody body = GetProfileDetailsByIdBody("User", id);
       BaseResponse<ProfileDetailsByIdResponse> response =
           await _tamelyApi.getProfileDetailsById(body, true);
       if (response.getException != null) {
         ServerError error = response.getException as ServerError;
-        _dialogService.completeDialog(DialogResponse(confirmed: true));
-        _navigationService.back();
+        if (isNeedShowToLoading) {
+          _dialogService.completeDialog(DialogResponse(confirmed: true));
+          _navigationService.back();
+        }
+
         _snackBarService.showSnackbar(message: error.getErrorMessage());
       } else if (response.data != null) {
         setProfileDetailsByIValues(response.data!).then((value) =>
-            _dialogService.completeDialog(DialogResponse(confirmed: true)));
+            isNeedShowToLoading
+                ? _dialogService.completeDialog(DialogResponse(confirmed: true))
+                : {});
       } else {
-        _dialogService.completeDialog(DialogResponse(confirmed: true));
+        if (isNeedShowToLoading) {
+          _dialogService.completeDialog(DialogResponse(confirmed: true));
+        }
       }
     });
   }
 
-  Future getUserProfileDetails() async {
+  Future getUserProfileDetails(bool isNeedShowToLoading) async {
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
-      _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
+      if (isNeedShowToLoading) {
+        _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
+      }
       BaseResponse<UserProfileDetailsResponse> response =
           await _tamelyApi.getUserProfileDetail();
       if (response.getException != null) {
         ServerError error = response.getException as ServerError;
-        _dialogService.completeDialog(DialogResponse(confirmed: true));
-        _navigationService.back();
+        if (isNeedShowToLoading) {
+          _dialogService.completeDialog(DialogResponse(confirmed: true));
+          _navigationService.back();
+        }
         _snackBarService.showSnackbar(message: error.getErrorMessage());
       } else if (response.data != null) {
-        setValues(response.data!).then((value) =>
-            _dialogService.completeDialog(DialogResponse(confirmed: true)));
+        setValues(response.data!).then((value) => isNeedShowToLoading
+            ? _dialogService.completeDialog(DialogResponse(confirmed: true))
+            : {});
       } else {
         _dialogService.completeDialog(DialogResponse(confirmed: true));
       }
@@ -193,6 +225,7 @@ class ProfileViewModel extends BaseViewModel {
       _snackBarService.showSnackbar(message: error.getErrorMessage());
     } else if (response.data != null) {
       log.d(response.data!.toString());
+      _listOfPosts.clear();
       _listOfPosts.addAll(response.data!.listOfPosts ?? []);
       notifyListeners();
     }
@@ -263,7 +296,7 @@ class ProfileViewModel extends BaseViewModel {
 
     if (result != null) {
       if (result == 1) {
-        getUserProfileDetails();
+        getUserProfileDetails(true);
       }
     }
   }
@@ -274,7 +307,7 @@ class ProfileViewModel extends BaseViewModel {
 
     if (result != null) {
       if (result == 1) {
-        getUserProfileDetails();
+        getUserProfileDetails(true);
       }
     }
   }
@@ -285,7 +318,7 @@ class ProfileViewModel extends BaseViewModel {
 
     if (result != null) {
       if (result == 1) {
-        getUserProfileDetails();
+        getUserProfileDetails(true);
       }
     }
   }
@@ -294,9 +327,22 @@ class ProfileViewModel extends BaseViewModel {
     await _createAnimalProfileView();
   }
 
-  void goToAnimalProfileView(String petId) async {
-    await _navigationService.navigateTo(Routes.animalProfileView,
-        arguments: AnimalProfileViewArguments(petId: petId));
+  void goToAnimalProfileView(String _petId, String _petToken) async {
+    await _navigationService.navigateToView(
+      AnimalProfileView(
+        isFromDashboard: false,
+        isInspectView: false,
+        id: _petId,
+        token: _petToken,
+      ),
+      // Routes.animalProfileView,
+      // arguments: AnimalProfileViewArguments(
+      //   isFromDashboard: false,
+      //   isInspectView: false,
+      //   id: _petId,
+      //   token: _petToken,
+      // ),
+    );
   }
 
   void goToPostDetailsView(PostResponse postResponse) async {
@@ -316,17 +362,18 @@ class ProfileViewModel extends BaseViewModel {
     _navigationService.back();
   }
 
-  Future followThisProfile(String fromID, String toID) async {
-    isFollowing = !isFollowing;
+  Future followThisProfile(String fromID, String toID, String fromType) async {
+    isFollowing = true;
     notifyListeners();
     SendFollowRequestBody body = SendFollowRequestBody(
-      FromRequestBody(fromID, "User"),
+      FromRequestBody(fromID, fromType),
       ToRequestBody(
         toID,
         "User",
       ),
     );
-    var result = await _tamelyApi.sendFollowRequest(body, true);
+    var result = await _tamelyApi.sendFollowRequest(body, isHuman,
+        animalToken: petToken);
     if (result.data != null) {
       _noOfFollowers++;
       notifyListeners();
@@ -338,13 +385,13 @@ class ProfileViewModel extends BaseViewModel {
       Routes.profileCreateView,
       arguments: ProfileCreateViewArguments(
         user: LocalUser(
-            username: _profilename, fullName: _username, bio: _shortBio),
+            username: _username, fullName: _profilename, bio: _shortBio),
         isEdit: true,
         lastAvatarUrl: _profileImgUrl,
       ),
     );
     if (result == 1) {
-      getUserProfileDetails();
+      getUserProfileDetails(true);
     }
   }
 
@@ -406,5 +453,9 @@ class ProfileViewModel extends BaseViewModel {
     }
 
     notifyListeners();
+  }
+
+  Future createPost() async {
+    _navigationService.navigateTo(Routes.postCreation);
   }
 }

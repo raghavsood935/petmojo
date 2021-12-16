@@ -260,11 +260,13 @@ class _$PetBasicInnerDetailsResponseTearOff {
   _PetBasicInnerDetailsResponse call(
       {@JsonKey(name: "name") String? name,
       @JsonKey(name: "_id") String? Id,
-      @JsonKey(name: "avatar") String? avatar}) {
+      @JsonKey(name: "avatar") String? avatar,
+      @JsonKey(name: "category") String? token}) {
     return _PetBasicInnerDetailsResponse(
       name: name,
       Id: Id,
       avatar: avatar,
+      token: token,
     );
   }
 
@@ -284,6 +286,8 @@ mixin _$PetBasicInnerDetailsResponse {
   String? get Id => throw _privateConstructorUsedError;
   @JsonKey(name: "avatar")
   String? get avatar => throw _privateConstructorUsedError;
+  @JsonKey(name: "category")
+  String? get token => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -300,7 +304,8 @@ abstract class $PetBasicInnerDetailsResponseCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "name") String? name,
       @JsonKey(name: "_id") String? Id,
-      @JsonKey(name: "avatar") String? avatar});
+      @JsonKey(name: "avatar") String? avatar,
+      @JsonKey(name: "category") String? token});
 }
 
 /// @nodoc
@@ -317,6 +322,7 @@ class _$PetBasicInnerDetailsResponseCopyWithImpl<$Res>
     Object? name = freezed,
     Object? Id = freezed,
     Object? avatar = freezed,
+    Object? token = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
@@ -330,6 +336,10 @@ class _$PetBasicInnerDetailsResponseCopyWithImpl<$Res>
       avatar: avatar == freezed
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
+              as String?,
+      token: token == freezed
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -346,7 +356,8 @@ abstract class _$PetBasicInnerDetailsResponseCopyWith<$Res>
   $Res call(
       {@JsonKey(name: "name") String? name,
       @JsonKey(name: "_id") String? Id,
-      @JsonKey(name: "avatar") String? avatar});
+      @JsonKey(name: "avatar") String? avatar,
+      @JsonKey(name: "category") String? token});
 }
 
 /// @nodoc
@@ -367,6 +378,7 @@ class __$PetBasicInnerDetailsResponseCopyWithImpl<$Res>
     Object? name = freezed,
     Object? Id = freezed,
     Object? avatar = freezed,
+    Object? token = freezed,
   }) {
     return _then(_PetBasicInnerDetailsResponse(
       name: name == freezed
@@ -381,6 +393,10 @@ class __$PetBasicInnerDetailsResponseCopyWithImpl<$Res>
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
               as String?,
+      token: token == freezed
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -391,7 +407,8 @@ class _$_PetBasicInnerDetailsResponse extends _PetBasicInnerDetailsResponse {
   _$_PetBasicInnerDetailsResponse(
       {@JsonKey(name: "name") this.name,
       @JsonKey(name: "_id") this.Id,
-      @JsonKey(name: "avatar") this.avatar})
+      @JsonKey(name: "avatar") this.avatar,
+      @JsonKey(name: "category") this.token})
       : super._();
 
   factory _$_PetBasicInnerDetailsResponse.fromJson(Map<String, dynamic> json) =>
@@ -406,10 +423,13 @@ class _$_PetBasicInnerDetailsResponse extends _PetBasicInnerDetailsResponse {
   @override
   @JsonKey(name: "avatar")
   final String? avatar;
+  @override
+  @JsonKey(name: "category")
+  final String? token;
 
   @override
   String toString() {
-    return 'PetBasicInnerDetailsResponse(name: $name, Id: $Id, avatar: $avatar)';
+    return 'PetBasicInnerDetailsResponse(name: $name, Id: $Id, avatar: $avatar, token: $token)';
   }
 
   @override
@@ -419,11 +439,12 @@ class _$_PetBasicInnerDetailsResponse extends _PetBasicInnerDetailsResponse {
             other is _PetBasicInnerDetailsResponse &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.Id, Id) || other.Id == Id) &&
-            (identical(other.avatar, avatar) || other.avatar == avatar));
+            (identical(other.avatar, avatar) || other.avatar == avatar) &&
+            (identical(other.token, token) || other.token == token));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, Id, avatar);
+  int get hashCode => Object.hash(runtimeType, name, Id, avatar, token);
 
   @JsonKey(ignore: true)
   @override
@@ -442,7 +463,8 @@ abstract class _PetBasicInnerDetailsResponse
   factory _PetBasicInnerDetailsResponse(
           {@JsonKey(name: "name") String? name,
           @JsonKey(name: "_id") String? Id,
-          @JsonKey(name: "avatar") String? avatar}) =
+          @JsonKey(name: "avatar") String? avatar,
+          @JsonKey(name: "category") String? token}) =
       _$_PetBasicInnerDetailsResponse;
   _PetBasicInnerDetailsResponse._() : super._();
 
@@ -458,6 +480,9 @@ abstract class _PetBasicInnerDetailsResponse
   @override
   @JsonKey(name: "avatar")
   String? get avatar;
+  @override
+  @JsonKey(name: "category")
+  String? get token;
   @override
   @JsonKey(ignore: true)
   _$PetBasicInnerDetailsResponseCopyWith<_PetBasicInnerDetailsResponse>

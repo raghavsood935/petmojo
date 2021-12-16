@@ -28,6 +28,9 @@ String prettyPrint(Map json) {
 Future initApp() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(statusBarColor: Colors.white),
+  );
   await Firebase.initializeApp();
   setupLocator();
   setupDialogUi();
