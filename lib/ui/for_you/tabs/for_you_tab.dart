@@ -14,11 +14,20 @@ class ForYouTab extends StatefulWidget {
 }
 
 class _ForYouTabState extends State<ForYouTab> {
+  ScrollController controller = ScrollController();
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ForYouTabViewModel>.reactive(
       viewModelBuilder: () => ForYouTabViewModel(),
-      onModelReady: (model) => model.getPosts(),
+      onModelReady: (model) {
+        model.getPosts();
+        controller.addListener(() {
+          if (controller.position.pixels ==
+              controller.position.maxScrollExtent) {
+            model.getPosts();
+          }
+        });
+      },
       builder: (context, model, child) => ListView(
         children: [
           Padding(
@@ -67,8 +76,13 @@ class _ForYouTabState extends State<ForYouTab> {
                   crossAxisSpacing: 6,
                   mainAxisSpacing: 6,
                   crossAxisCount: 3,
-                  itemBuilder: (context, index) => postItem(context, index,
-                      model.dummyListOfPosts[index].thumbnail ?? ""),
+                  controller: controller,
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () =>
+                        model.postDetailsPage(model.dummyListOfPosts[index]),
+                    child: postItem(context, index,
+                        model.dummyListOfPosts[index].thumbnail ?? ""),
+                  ),
                   staggeredTileBuilder: (index) => StaggeredTile.fit(1),
                 ),
                 verticalSpaceRegular,
@@ -99,6 +113,16 @@ class _ForYouTabState extends State<ForYouTab> {
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // controller.addListener(() {
+    //   if (controller.position.pixels == controller.position.maxScrollExtent) {
+    //     getPosts();
+    //   }
+    // });
   }
 }
 

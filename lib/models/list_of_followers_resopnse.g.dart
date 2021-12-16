@@ -39,14 +39,29 @@ Map<String, dynamic> _$$_FollowersResponseToJson(
 _$_FollowersDetailsResponse _$$_FollowersDetailsResponseFromJson(
         Map<String, dynamic> json) =>
     _$_FollowersDetailsResponse(
+      followersInnerDetailsResponse: json['followerId'] == null
+          ? null
+          : FollowersInnerDetailsResponse.fromJson(
+              json['followerId'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$_FollowersDetailsResponseToJson(
+        _$_FollowersDetailsResponse instance) =>
+    <String, dynamic>{
+      'followerId': instance.followersInnerDetailsResponse,
+    };
+
+_$_FollowersInnerDetailsResponse _$$_FollowersInnerDetailsResponseFromJson(
+        Map<String, dynamic> json) =>
+    _$_FollowersInnerDetailsResponse(
       Id: json['_id'] as String?,
       username: json['username'] as String?,
       avatar: json['avatar'] as String?,
       fullName: json['fullName'] as String?,
     );
 
-Map<String, dynamic> _$$_FollowersDetailsResponseToJson(
-        _$_FollowersDetailsResponse instance) =>
+Map<String, dynamic> _$$_FollowersInnerDetailsResponseToJson(
+        _$_FollowersInnerDetailsResponse instance) =>
     <String, dynamic>{
       '_id': instance.Id,
       'username': instance.username,

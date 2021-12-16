@@ -54,7 +54,7 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
           busy: model.isBusy,
           isValid: model.isValid,
           onMainButtonTapped: model.saveProfileData,
-          onBackPressed: null,
+          onBackPressed: model.onBack,
           onForgotPassword: null,
           validationMessage: model.validationMessage,
           title: isEdit ?? false ? editProfileTitle : completeProfileTitle,

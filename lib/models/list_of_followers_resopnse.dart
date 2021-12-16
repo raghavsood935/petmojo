@@ -35,12 +35,25 @@ class FollowersDetailsResponse with _$FollowersDetailsResponse {
   FollowersDetailsResponse._();
 
   factory FollowersDetailsResponse({
-    @JsonKey(name: "_id") String? Id,
-    @JsonKey(name: "username") String? username,
-    @JsonKey(name: "avatar") String? avatar,
-    @JsonKey(name: "fullName") String? fullName,
+    @JsonKey(name: "followerId")
+        FollowersInnerDetailsResponse? followersInnerDetailsResponse,
   }) = _FollowersDetailsResponse;
 
   factory FollowersDetailsResponse.fromJson(Map<String, dynamic> json) =>
       _$FollowersDetailsResponseFromJson(json);
+}
+
+@freezed
+class FollowersInnerDetailsResponse with _$FollowersInnerDetailsResponse {
+  FollowersInnerDetailsResponse._();
+
+  factory FollowersInnerDetailsResponse({
+    @JsonKey(name: "_id") String? Id,
+    @JsonKey(name: "username") String? username,
+    @JsonKey(name: "avatar") String? avatar,
+    @JsonKey(name: "fullName") String? fullName,
+  }) = _FollowersInnerDetailsResponse;
+
+  factory FollowersInnerDetailsResponse.fromJson(Map<String, dynamic> json) =>
+      _$FollowersInnerDetailsResponseFromJson(json);
 }

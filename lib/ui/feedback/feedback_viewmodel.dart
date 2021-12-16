@@ -13,6 +13,7 @@ import 'package:tamely/models/common_response.dart';
 import 'package:tamely/models/params/feedback_body.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
 import 'package:tamely/util/String.dart';
+import 'package:tamely/util/global_methods.dart';
 import 'package:tamely/util/utils.dart';
 
 class FeedBackViewModel extends BaseModel {
@@ -44,7 +45,7 @@ class FeedBackViewModel extends BaseModel {
   TextEditingController get feedback => _feedback;
 
   void onImageButtonPressed(ImageSource source, BuildContext? context) async {
-    SystemChannels.textInput.invokeMethod('TextInput.hide');
+    // Focus.of(context!).unfocus();
     try {
       final pickedFile = await _picker.pickImage(
         source: source,
@@ -55,40 +56,15 @@ class FeedBackViewModel extends BaseModel {
 
       if (pickedFile != null) {
         _imageFile = pickedFile;
-        await uploadImage();
+        avatarUrl = await GlobalMethods.imageToLink(
+          File(pickedFile.path),
+        );
+        notifyListeners();
       }
 
       notifyListeners();
     } catch (e) {
       _pickImageError = e;
-    }
-  }
-
-  Future<void> uploadImage() async {
-    SystemChannels.textInput.invokeMethod('TextInput.hide');
-    if (_imageFile == null) {
-      _snackBarService.showSnackbar(message: "Image is empty");
-    }
-    if (await Util.checkInternetConnectivity()) {
-      // _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
-      BaseResponse<CommonResponse> response =
-          await runBusyFuture(_tamelyApi.uploadImage(File(_imageFile!.path)));
-      if (response.getException != null) {
-        ServerError error = response.getException as ServerError;
-        // _dialogService.completeDialog(DialogResponse(confirmed: true));
-        print("*****Dialog closed******");
-        _snackBarService.showSnackbar(message: error.getErrorMessage());
-      } else if (response.data != null) {
-        avatarUrl = response.data!.avatar ?? "";
-        // _dialogService.completeDialog(DialogResponse(confirmed: true));
-        print("*****Dialog closed******");
-        notifyListeners();
-      } else {
-        // _dialogService.completeDialog(DialogResponse(confirmed: true));
-        print("FASDAF ASFSD  ASDF");
-      }
-    } else {
-      _snackBarService.showSnackbar(message: "No Internet connection");
     }
   }
 

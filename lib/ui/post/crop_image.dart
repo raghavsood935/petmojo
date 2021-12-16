@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 
 import 'edit_image.dart';
 
-
-
 class CropImage extends StatefulWidget {
-  const CropImage(this.imageFile,);
+  const CropImage(
+    this.imageFile,
+  );
 
   final File imageFile;
 
@@ -17,9 +17,7 @@ class CropImage extends StatefulWidget {
   _CropImage createState() => _CropImage();
 }
 
-
 class _CropImage extends State<CropImage> {
-
   final _cropController = CropController();
   late Uint8List _imageData;
   var _loadingImage = false;
@@ -38,7 +36,7 @@ class _CropImage extends State<CropImage> {
     setState(() {
       _loadingImage = true;
     });
-    _imageData =  widget.imageFile.readAsBytesSync();
+    _imageData = widget.imageFile.readAsBytesSync();
     //_cropController.image = _imageData;
     resultImage = File(widget.imageFile.path);
     setState(() {
@@ -46,31 +44,35 @@ class _CropImage extends State<CropImage> {
     });
   }
 
-  saveImage(){
-    if(_croppedData!=null)
-    resultImage.writeAsBytesSync(_croppedData!);
+  saveImage() {
+    if (_croppedData != null)
+      resultImage.writeAsBytesSync(_croppedData!);
     else
       resultImage = widget.imageFile;
 
-    Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) =>
-              EditImage(imageFile: resultImage),
-        ));
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => EditImage(imageFile: resultImage),
+    ));
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text('Crop',style: TextStyle(color: Colors.black),),
+        title: Text(
+          'Crop',
+          style: TextStyle(color: Colors.black),
+        ),
         automaticallyImplyLeading: false,
         actions: [
           Padding(
             padding: const EdgeInsets.all(12.0),
-            child: ElevatedButton(onPressed: (){saveImage();}, child: Text('Next')),
+            child: ElevatedButton(
+                onPressed: () {
+                  saveImage();
+                },
+                child: Text('Next')),
           )
         ],
       ),
@@ -78,14 +80,13 @@ class _CropImage extends State<CropImage> {
         width: double.infinity,
         height: double.infinity,
         child: Container(
-          child:
-            Visibility(
+          child: Visibility(
             visible: !_loadingImage && !_isCropping,
             child: Column(
               children: [
                 Expanded(
                   child: Visibility(
-                    visible: _croppedData ==  null,
+                    visible: _croppedData == null,
                     child: Stack(
                       children: [
                         if (_imageData.isNotEmpty)
@@ -99,7 +100,7 @@ class _CropImage extends State<CropImage> {
                               });
                             },
                             withCircleUi: _isCircleUi,
-                            initialSize: 0.5,
+                            initialSize: 1,
                           ),
                       ],
                     ),
@@ -114,7 +115,6 @@ class _CropImage extends State<CropImage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-
                       IconButton(
                         icon: Icon(Icons.crop_7_5),
                         onPressed: () {
@@ -155,7 +155,7 @@ class _CropImage extends State<CropImage> {
                       //       _cropController.withCircleUi = true;
                       //     }),
                       ElevatedButton(
-                        onPressed: (){
+                        onPressed: () {
                           setState(() {
                             _isCropping = true;
                           });
@@ -163,7 +163,10 @@ class _CropImage extends State<CropImage> {
                               ? _cropController.cropCircle()
                               : _cropController.crop();
                         },
-                        child: Text('Crop',style: TextStyle(color: Colors.black),),
+                        child: Text(
+                          'Crop',
+                          style: TextStyle(color: Colors.black),
+                        ),
                       )
                     ],
                   ),
@@ -171,12 +174,11 @@ class _CropImage extends State<CropImage> {
             ),
             replacement: Center(
               child: SizedBox(
-                height: 100,
+                  height: 100,
                   width: 100,
                   child: const CircularProgressIndicator()),
             ),
           ),
-          
         ),
       ),
     );

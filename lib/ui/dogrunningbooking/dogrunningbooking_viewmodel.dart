@@ -470,6 +470,11 @@ class DogRunningBookingViewModel extends FormViewModel {
       _promoCode = "Discount35%";
       _savedAmount = (amount * 0.35);
       _amount = amount - (amount * 0.35);
+    } else if (promoCodeController.text == "Freetesting0") {
+      _isOfferValid = true;
+      _promoCode = "Freetesting0";
+      _savedAmount = amount - 1.0;
+      _amount = 1.0;
     }
     notifyListeners();
   }

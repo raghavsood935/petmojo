@@ -11,10 +11,12 @@ import 'package:tamely/widgets/edit_button.dart';
 import 'preferences/preferences_view.dart';
 
 class AnimalBasicInfo extends StatefulWidget {
-  AnimalBasicInfo({Key? key, required this.animalModelResponse})
+  AnimalBasicInfo(
+      {Key? key, required this.animalModelResponse, required this.petToken})
       : super(key: key);
 
   MyAnimalModelResponse animalModelResponse;
+  String petToken;
 
   List<Tab> _tabsTitle = [
     Tab(
@@ -77,9 +79,11 @@ class _AnimalBasicInfoState extends State<AnimalBasicInfo> {
           children: [
             GeneralInfoView(
               animalModelResponse: widget.animalModelResponse,
+              petToken: widget.petToken,
             ),
             PreferencesView(
               petId: widget.animalModelResponse.Id!,
+              petToken: widget.petToken,
             )
           ],
         ),

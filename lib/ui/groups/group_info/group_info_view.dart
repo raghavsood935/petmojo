@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/ui/groups/group_info/group_info_view_model.dart';
 import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/util/utils.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/custom_circle_avatar.dart';
 import 'package:tamely/widgets/edit_button.dart';
+import 'package:tamely/widgets/follow_static_btn.dart';
 
 class GroupInfoView extends StatelessWidget {
   const GroupInfoView({Key? key}) : super(key: key);
@@ -16,17 +20,34 @@ class GroupInfoView extends StatelessWidget {
       viewModelBuilder: () => GroupInfoViewModel(),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
+          backgroundColor: colors.white,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_rounded,
+              color: colors.black,
+            ),
+            onPressed: model.back,
+          ),
           actions: [
             GestureDetector(
               child: Container(
-                margin: EdgeInsets.only(right: 20),
-                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                height: 50,
+                margin: EdgeInsets.only(
+                  right: 20,
+                  top: 10,
+                  bottom: 10,
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 decoration: BoxDecoration(
                   color: colors.primary,
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                child: AppText.caption("Manage"),
+                child: AppText.body1(
+                  "Manage",
+                  color: colors.white,
+                ),
               ),
+              onTap: model.onManageTapped,
             ),
           ],
         ),
@@ -37,17 +58,26 @@ class GroupInfoView extends StatelessWidget {
               height: 180,
               child: Stack(
                 children: [
-                  Image.network(
-                    model.coverImgurl,
-                    fit: BoxFit.cover,
+                  Positioned(
+                    top: 0,
+                    bottom: 0,
+                    right: 0,
+                    left: 0,
+                    child: Image.network(
+                      model.coverImgurl,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   Positioned(
-                    top: 20,
-                    right: 20,
+                    top: 10,
+                    right: 10,
                     child: Container(
-                      color: colors.kcMediumGreyColor,
+                      decoration: BoxDecoration(
+                        color: colors.black.withOpacity(0.5),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
                       padding: EdgeInsets.all(5),
-                      child: EditButton(),
+                      child: EditButton.small(),
                     ),
                   )
                 ],
@@ -94,21 +124,27 @@ class GroupInfoView extends StatelessWidget {
               child: Row(
                 children: [
                   CustomCircularAvatar(
-                    radius: 25.0,
+                    radius: 20.0,
                     imgPath: model.myProfileImg,
                   ),
-                  Expanded(
-                    child: AppText.caption(
-                      "Create a pawsome post",
-                      textAlign: TextAlign.center,
-                      color: colors.kcCaptionGreyColor,
-                    ),
+                  horizontalSpaceRegular,
+                  AppText.caption(
+                    createPost,
+                    textAlign: TextAlign.center,
+                    color: colors.kcCaptionGreyColor,
                   ),
-                  Icon(Icons.photo, color: colors.primary),
+                  Spacer(),
                   GestureDetector(
-                    child: AppText.caption(
-                      "Photo/Video",
-                      color: colors.primary,
+                    onTap: () {},
+                    child: Row(
+                      children: [
+                        Util.getImageChild(imageIcon, 16, 16),
+                        horizontalSpaceTiny,
+                        AppText.caption(
+                          photoVideo,
+                          color: colors.primary,
+                        ),
+                      ],
                     ),
                   ),
                 ],

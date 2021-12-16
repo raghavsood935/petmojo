@@ -11,6 +11,7 @@ _$_ProfileResponse _$$_ProfileResponseFromJson(Map<String, dynamic> json) =>
       Id: json['_id'] as String?,
       username: json['username'] as String?,
       avatar: json['avatar'] as String?,
+      type: json['type'] as String?,
       fullname: json['fullName'] as String?,
       following: json['following'] as int?,
     );
@@ -20,6 +21,7 @@ Map<String, dynamic> _$$_ProfileResponseToJson(_$_ProfileResponse instance) =>
       '_id': instance.Id,
       'username': instance.username,
       'avatar': instance.avatar,
+      'type': instance.type,
       'fullName': instance.fullname,
       'following': instance.following,
     };

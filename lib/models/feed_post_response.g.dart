@@ -28,6 +28,9 @@ _$_FeedPostResponse _$$_FeedPostResponseFromJson(Map<String, dynamic> json) =>
           ? null
           : FeedPostCommentResponse.fromJson(
               json['commentData'] as Map<String, dynamic>),
+      animalAuthorResponse: (json['Animalauthor'] as List<dynamic>?)
+          ?.map((e) => AnimalAuthorResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$_FeedPostResponseToJson(_$_FeedPostResponse instance) =>
@@ -43,6 +46,7 @@ Map<String, dynamic> _$$_FeedPostResponseToJson(_$_FeedPostResponse instance) =>
       'date': instance.date,
       'votesCount': instance.votesCounts,
       'commentData': instance.commentResponse,
+      'Animalauthor': instance.animalAuthorResponse,
     };
 
 _$_VotesCountResponse _$$_VotesCountResponseFromJson(
@@ -120,6 +124,7 @@ _$_AnimalAuthorResponse _$$_AnimalAuthorResponseFromJson(
       Id: json['_id'] as String?,
       name: json['name'] as String?,
       avatar: json['avatar'] as String?,
+      token: json['category'] as String?,
     );
 
 Map<String, dynamic> _$$_AnimalAuthorResponseToJson(
@@ -128,4 +133,5 @@ Map<String, dynamic> _$$_AnimalAuthorResponseToJson(
       '_id': instance.Id,
       'name': instance.name,
       'avatar': instance.avatar,
+      'category': instance.token,
     };

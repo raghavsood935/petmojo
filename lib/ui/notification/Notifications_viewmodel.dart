@@ -1,5 +1,8 @@
+import 'package:tamely/api/api_service.dart';
+import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/enum/redirect_state.dart';
+import 'package:tamely/models/notification_response.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -7,8 +10,42 @@ import 'package:stacked_services/stacked_services.dart';
 class NotificationViewModel extends FutureViewModel<void>
     implements Initialisable {
   final _sharedPrefService = locator<SharedPreferencesService>();
-
   final _snackbarService = locator<SnackbarService>();
+  final _tamelyApi = locator<TamelyApi>();
+
+  List<NotificationResponse> listOfNotification = [];
+
+  bool isHuman = true;
+  String petToken = "";
+
+  bool isLoading = false;
+
+  Future init() async {
+    CurrentProfile profile = _sharedPrefService.getCurrentProfile();
+    isHuman = profile.isHuman;
+    petToken = profile.petToken;
+    notifyListeners();
+
+    getNotification();
+  }
+
+  Future getNotification() async {
+    isLoading = true;
+    notifyListeners();
+    var result =
+        await _tamelyApi.getListOfNotification(isHuman, petToken: petToken);
+
+    if (result.getException != null) {
+      ServerError error = result.getException as ServerError;
+      isLoading = false;
+      notifyListeners();
+      _snackbarService.showSnackbar(message: error.getErrorMessage());
+    } else if (result.data != null) {
+      listOfNotification.addAll(result.data!.listOfNotification ?? []);
+      isLoading = false;
+      notifyListeners();
+    }
+  }
 
   @override
   Future initialise() {
@@ -42,69 +79,4 @@ class NotificationViewModel extends FutureViewModel<void>
   void onNotificationPressed() {}
 
   void onChatPressed() {}
-}
-
-class UserNotification {
-  static List<Map> notifications = [
-    {
-      'username': 'Sam Haris',
-      'content': ' has liked your photo',
-      'comment': '',
-      'follow': ' has requested to follow you.',
-      'userimg':
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREXRvslazqeJ0hLFvkgCxmYefVVKceG3U7Gg&usqp=CAU",
-      'postimg':
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREXRvslazqeJ0hLFvkgCxmYefVVKceG3U7Gg&usqp=CAU",
-    },
-    {
-      'username': 'Sam Haris',
-      'content': ' has liked your photo',
-      'comment': '',
-      'follow': ' has requested to follow you.',
-      'userimg':
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREXRvslazqeJ0hLFvkgCxmYefVVKceG3U7Gg&usqp=CAU",
-      'postimg':
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREXRvslazqeJ0hLFvkgCxmYefVVKceG3U7Gg&usqp=CAU",
-    },
-    {
-      'username': 'Sam Haris',
-      'content': ' has liked your photo',
-      'comment': '',
-      'follow': ' has requested to follow you.',
-      'userimg':
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREXRvslazqeJ0hLFvkgCxmYefVVKceG3U7Gg&usqp=CAU",
-      'postimg':
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREXRvslazqeJ0hLFvkgCxmYefVVKceG3U7Gg&usqp=CAU",
-    },
-    {
-      'username': 'Sam Haris',
-      'content': ' has commented on your photo:',
-      'comment': ' "lets meet up!"',
-      'follow': ' has requested to follow you.',
-      'userimg':
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREXRvslazqeJ0hLFvkgCxmYefVVKceG3U7Gg&usqp=CAU",
-      'postimg':
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREXRvslazqeJ0hLFvkgCxmYefVVKceG3U7Gg&usqp=CAU",
-    },
-    {
-      'username': 'Sam Haris',
-      'content': ' has commented on your photo:',
-      'comment': ' "lets meet up!"',
-      'follow': ' has requested to follow you.',
-      'userimg':
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREXRvslazqeJ0hLFvkgCxmYefVVKceG3U7Gg&usqp=CAU",
-      'postimg':
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREXRvslazqeJ0hLFvkgCxmYefVVKceG3U7Gg&usqp=CAU",
-    },
-    {
-      'username': 'Sam Haris',
-      'content': ' has commented on your photo:',
-      'comment': ' "lets meet up!"',
-      'follow': ' has requested to follow you.',
-      'userimg':
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREXRvslazqeJ0hLFvkgCxmYefVVKceG3U7Gg&usqp=CAU",
-      'postimg':
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREXRvslazqeJ0hLFvkgCxmYefVVKceG3U7Gg&usqp=CAU",
-    },
-  ];
 }

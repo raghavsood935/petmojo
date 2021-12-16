@@ -8,19 +8,41 @@ import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/custom_circle_avatar.dart';
 import 'package:tamely/widgets/edit_button.dart';
+import 'package:tamely/widgets/follow_static_btn.dart';
 
 import 'animal_profile_view_model.dart';
 
-class AnimalProfileView extends StatelessWidget {
-  AnimalProfileView({Key? key, required this.petId}) : super(key: key);
+class AnimalProfileView extends StatefulWidget {
+  bool isFromDashboard;
+  final id;
+  final token;
+  final bool isInspectView;
+  final String? inspecterProfileId;
+  final String? inspecterProfileType;
 
-  String petId;
+  AnimalProfileView(
+      {Key? key,
+      required this.isFromDashboard,
+      this.id,
+      this.token,
+      required this.isInspectView,
+      this.inspecterProfileId,
+      this.inspecterProfileType})
+      : super(key: key);
+
+  @override
+  State<AnimalProfileView> createState() => _AnimalProfileViewState();
+}
+
+class _AnimalProfileViewState extends State<AnimalProfileView> {
+  bool isFollowing = false;
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<AnimalProfileViewModel>.reactive(
       viewModelBuilder: () => AnimalProfileViewModel(),
-      onModelReady: (model) => model.init(petId),
+      onModelReady: (model) => model.init(
+          widget.isFromDashboard, widget.id ?? "", widget.token ?? ""),
       builder: (context, model, child) => Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
@@ -69,12 +91,15 @@ class AnimalProfileView extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Positioned(
-                        top: 30,
-                        right: 20,
-                        child: GestureDetector(
-                          child: EditButton(),
-                          onTap: model.goToAnimalEdit,
+                      Visibility(
+                        visible: !widget.isInspectView,
+                        child: Positioned(
+                          top: 30,
+                          right: 20,
+                          child: GestureDetector(
+                            child: EditButton(),
+                            onTap: model.goToAnimalEdit,
+                          ),
                         ),
                       ),
 
@@ -188,6 +213,28 @@ class AnimalProfileView extends StatelessWidget {
                             ),
                           ),
                           verticalSpaceSmall,
+                          Visibility(
+                            visible: widget.isInspectView,
+                            child: GestureDetector(
+                              onTap: () {
+                                if (!model.isFollowing) {
+                                  model.followThisProfile(
+                                    widget.inspecterProfileId!,
+                                    widget.id!,
+                                    widget.inspecterProfileType!,
+                                  );
+                                  setState(() {
+                                    isFollowing = !isFollowing;
+                                  });
+                                }
+                              },
+                              child: FollowingStaticBtn(
+                                trueValue: "Following",
+                                falseValue: "Follow",
+                                state: isFollowing,
+                              ),
+                            ),
+                          ),
                           // action text
                           GestureDetector(
                             child: AppText.caption(

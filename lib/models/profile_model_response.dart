@@ -12,6 +12,7 @@ class ProfileResponse with _$ProfileResponse {
     @JsonKey(name: "_id") String? Id,
     @JsonKey(name: "username") String? username,
     @JsonKey(name: "avatar") String? avatar,
+    @JsonKey(name: "type") String? type,
     @JsonKey(name: "fullName") String? fullname,
     @JsonKey(name: "following") int? following,
   }) = _ProfileResponse;

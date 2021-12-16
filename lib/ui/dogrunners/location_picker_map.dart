@@ -77,11 +77,9 @@ class _LocationPickerState extends State<LocationPicker> {
 
     // When we reach here, permissions are g anted and we can
     // continue accessing the position of the device.
-    print('location');
     Position location = await Geolocator.getCurrentPosition()
         .whenComplete(() => print('1sdfg'));
     currentLocation = LatLng(location.latitude, location.longitude);
-    //coordinatesList.add(currentLatLong);
     CameraUpdate update = CameraUpdate.newCameraPosition(
         CameraPosition(target: currentLocation, zoom: 12));
     updateMarker();

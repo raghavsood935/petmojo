@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:tamely/main.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
@@ -11,6 +12,9 @@ class DogRunnersView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<DogRunnersViewModel>.reactive(
+      onModelReady: (model) {
+        model.init();
+      },
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
         body: SafeArea(

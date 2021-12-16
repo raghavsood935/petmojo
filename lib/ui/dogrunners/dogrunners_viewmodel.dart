@@ -1,5 +1,7 @@
 import 'package:geocoder/geocoder.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
@@ -11,6 +13,11 @@ class DogRunnersViewModel extends FutureViewModel<void>
     implements Initialisable {
   final log = getLogger('DogRunnersViewModel');
   final _navigationService = locator<NavigationService>();
+
+  Future<void> init() async {
+    print('init');
+    await _listenForPermissionStatus();
+  }
 
   String _companyAddress = "Gurugram, Haryana";
   int _noOfJobs = 24;
@@ -36,6 +43,9 @@ class DogRunnersViewModel extends FutureViewModel<void>
   String get address => _address;
   bool _companyAvailable = true;
   bool get companyAvailable => _companyAvailable;
+
+  final Permission _permission = Permission.location;
+  PermissionStatus _permissionStatus = PermissionStatus.denied;
 
   void navigateBack() {
     _navigationService.back();
@@ -90,5 +100,56 @@ class DogRunnersViewModel extends FutureViewModel<void>
   @override
   Future<void> futureToRun() async {
     log.d("futureToRun");
+  }
+
+  //openAppSettings();  For opening App Settings
+  //    Geolocator.openLocationSettings(); forLocation setting
+
+  Future<void> _listenForPermissionStatus() async {
+    final status = await _permission.status;
+    _permissionStatus = status;
+    notifyListeners();
+    _determinePosition();
+  }
+
+  Future<void> requestPermission(Permission permission) async {
+    final status = await permission.request();
+    _permissionStatus = status;
+    notifyListeners();
+  }
+
+  Future<void> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      await requestPermission(_permission);
+      await Geolocator.openLocationSettings();
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        requestPermission(_permission);
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    // When we reach here, permissions are g anted and we can
+    // continue accessing the position of the device.
+    Position location = await Geolocator.getCurrentPosition();
+    currentLocation = LatLng(location.latitude, location.longitude);
+    _address = await getAddress(
+        Coordinates(currentLocation.latitude, currentLocation.longitude));
+    notifyListeners();
   }
 }

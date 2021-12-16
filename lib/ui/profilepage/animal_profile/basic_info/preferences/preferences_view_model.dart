@@ -18,6 +18,7 @@ class PreferencesViewModel extends FutureViewModel {
   final _tamelyApi = locator<TamelyApi>();
 
   String _petId = "";
+  String _petToken = "";
 
   int _friendlinessWithHumans = 0;
   int _friendlinessWithAnimals = 0;
@@ -57,8 +58,9 @@ class PreferencesViewModel extends FutureViewModel {
   List<bool> animalRateSelected = [false, false, false, false, false];
   List<int> totalRate = [1, 2, 3, 4, 5];
 
-  Future onInit(String _id) async {
+  Future onInit(String _id, String _token) async {
     _petId = _id;
+    _petToken = _token;
     notifyListeners();
     await getValues();
   }
@@ -103,8 +105,9 @@ class PreferencesViewModel extends FutureViewModel {
     if (await Util.checkInternetConnectivity()) {
       WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
         _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
-        var result = await runBusyFuture(_tamelyApi
-            .getAnimalProfileDetail(AnimalProfileDetailsBody(_petId)));
+        var result = await runBusyFuture(_tamelyApi.getAnimalProfileDetail(
+            AnimalProfileDetailsBody(_petId),
+            animalToken: _petToken));
         if (result != null) {
           if (result.data != null) {
             await setValues(result.data!);
@@ -166,8 +169,9 @@ class PreferencesViewModel extends FutureViewModel {
       "0",
     );
 
-    var result =
-        await _tamelyApi.editAnimalProfileDetails(body).whenComplete(() {
+    var result = await _tamelyApi
+        .editAnimalProfileDetails(body, _petToken)
+        .whenComplete(() {
       _withAnimalsLoading = false;
       _withAnimalsChanged = false;
       notifyListeners();
@@ -187,8 +191,9 @@ class PreferencesViewModel extends FutureViewModel {
       "0",
     );
 
-    var result =
-        await _tamelyApi.editAnimalProfileDetails(body).whenComplete(() {
+    var result = await _tamelyApi
+        .editAnimalProfileDetails(body, _petToken)
+        .whenComplete(() {
       _withHumanLoading = false;
       _withHumanChanged = false;
       notifyListeners();
@@ -202,7 +207,7 @@ class PreferencesViewModel extends FutureViewModel {
       title: _favourite.isEmpty ? "Add favourite" : "Edit favourite",
       mainButtonTitle: "Save",
       customData: _favourite,
-      data: [_petId, 1],
+      data: [_petId, 1, _petToken],
       takesInput: true,
     );
 
@@ -219,7 +224,7 @@ class PreferencesViewModel extends FutureViewModel {
           _thingsDislike.isEmpty ? "Add things dislike" : "Edit things dislike",
       mainButtonTitle: "Save",
       customData: _thingsDislike,
-      data: [_petId, 2],
+      data: [_petId, 2, _petToken],
       takesInput: true,
     );
 
@@ -235,7 +240,7 @@ class PreferencesViewModel extends FutureViewModel {
       title: _uniqueHabits.isEmpty ? "Add unique habits" : "Edit unique habits",
       mainButtonTitle: "Save",
       customData: _uniqueHabits,
-      data: [_petId, 3],
+      data: [_petId, 3, _petToken],
       takesInput: true,
     );
 
@@ -251,7 +256,7 @@ class PreferencesViewModel extends FutureViewModel {
       title: _eatingHabit.isEmpty ? "Add eating habits" : "Edit eating habits",
       mainButtonTitle: "Save",
       customData: _eatingHabit,
-      data: [_petId, 4],
+      data: [_petId, 4, _petToken],
       takesInput: true,
     );
 

@@ -184,6 +184,22 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<ListOfNotificationResponse> getListOfNotification() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ListOfNotificationResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/notification',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ListOfNotificationResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<UserResponse> updateProfile(createBody) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -237,18 +253,22 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<ListOfPostResponse> imageToLink() async {
+  Future<AvatarLinkResponse> imageToLink(image) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final _data = FormData();
+    _data.files.add(MapEntry(
+        'image',
+        MultipartFile.fromFileSync(image.path,
+            filename: image.path.split(Platform.pathSeparator).last)));
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ListOfPostResponse>(
+        _setStreamType<AvatarLinkResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/user/getAvatarLink',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ListOfPostResponse.fromJson(_result.data!);
+    final value = AvatarLinkResponse.fromJson(_result.data!);
     return value;
   }
 
@@ -315,7 +335,7 @@ class _ApiClient implements ApiClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ListOfFollowingsResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/user/followings',
+                .compose(_dio.options, '/user/following',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ListOfFollowingsResponse.fromJson(_result.data!);
@@ -570,6 +590,22 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<getBookmarks> getBookmarksDetails() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<getBookmarks>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/hamburger/getBookmarks',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = getBookmarks.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<ListOfProfilesResponse> showPeoplesToFollow(
       showPeopleToFollowBody) async {
     const _extra = <String, dynamic>{};
@@ -622,6 +658,48 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<BookmarkResponse> bookmarkPost(postID) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BookmarkResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/user/$postID/bookmark',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BookmarkResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<CreatePostResponse> createPost(
+      type, image, caption, filter, Userauthor, authorType) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = FormData();
+    _data.fields.add(MapEntry('type', type));
+    _data.files.add(MapEntry(
+        'image',
+        MultipartFile.fromFileSync(image.path,
+            filename: image.path.split(Platform.pathSeparator).last)));
+    _data.fields.add(MapEntry('caption', caption));
+    _data.fields.add(MapEntry('filter', filter));
+    _data.fields.add(MapEntry('Userauthor', Userauthor));
+    _data.fields.add(MapEntry('authorType', authorType));
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CreatePostResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/post',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = CreatePostResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<ListOfProfilesForYouResponse> searchProfiles(
       searchProfilesBody) async {
     const _extra = <String, dynamic>{};
@@ -640,19 +718,19 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<ListOfForYouPostResponse> listOfForYouPost(counterBody) async {
+  Future<ListOfFeedPostResponse> listOfForYouPost(counterBody) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(counterBody.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ListOfForYouPostResponse>(
+        _setStreamType<ListOfFeedPostResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/post/foryoufeed',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ListOfForYouPostResponse.fromJson(_result.data!);
+    final value = ListOfFeedPostResponse.fromJson(_result.data!);
     return value;
   }
 
@@ -691,19 +769,35 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<CommonResponse> addComment(addCommentBody) async {
+  Future<CommentAddedResponse> addComment(postId, addCommentBody) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(addCommentBody.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<CommonResponse>(
+        _setStreamType<CommentAddedResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/comment',
+                .compose(_dio.options, '/comment/$postId',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = CommonResponse.fromJson(_result.data!);
+    final value = CommentAddedResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ListOfCommentsResponse> fetchComments(postId, counter) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ListOfCommentsResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/comment/$postId/$counter',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ListOfCommentsResponse.fromJson(_result.data!);
     return value;
   }
 

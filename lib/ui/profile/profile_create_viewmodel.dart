@@ -117,7 +117,7 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
             avatarUrl,
           );
           var result = await runBusyFuture(
-              _tamelyApi.editAnimalProfileMainDetails(body),
+              _tamelyApi.editAnimalProfileMainDetails(body, ""),
               throwException: true);
           if (result.data != null) {
             if (result.data!.success ?? false) {
@@ -130,7 +130,7 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
         }
       } else {
         ProfileCreateBody profileCreateBody = ProfileCreateBody(
-            nameValue!, usernameValue!, shortBioValue ?? "", "", avatarUrl);
+            isEdit?usernameValue!:nameValue!, isEdit?nameValue!:usernameValue!, shortBioValue ?? "", "", avatarUrl);
         try {
           await runBusyFuture(updateProfile(profileCreateBody, isEdit: isEdit),
               throwException: true);
@@ -141,6 +141,14 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
       }
     } else {
       _snackBarService.showSnackbar(message: "No Internet connection");
+    }
+  }
+
+  void onBack() {
+    if (isEdit) {
+      navigationService.back();
+    } else {
+      navigationService.pushNamedAndRemoveUntil(Routes.onBoardingView);
     }
   }
 

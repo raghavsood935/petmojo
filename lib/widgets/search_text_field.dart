@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:tamely/util/Color.dart';
 
 class SearchTextField extends StatefulWidget {
-  SearchTextField(
-      {Key? key,
-      required this.controller,
-      required this.onChange,
-      required this.hint})
-      : super(key: key);
+  SearchTextField({
+    Key? key,
+    required this.controller,
+    required this.onChange,
+    required this.hint,
+    this.isPaddingNeeded = true,
+  }) : super(key: key);
 
   TextEditingController controller;
   String hint;
+  bool isPaddingNeeded;
   Function(String value) onChange;
 
   @override
@@ -25,11 +27,13 @@ class _SearchTextFieldState extends State<SearchTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+      padding: widget.isPaddingNeeded
+          ? EdgeInsets.symmetric(horizontal: 10.0, vertical: 10)
+          : EdgeInsets.symmetric(horizontal: 10.0, vertical: 0),
       child: TextField(
         controller: widget.controller,
         decoration: InputDecoration(
-          hintText: "Search for guardians",
+          hintText: widget.hint,
           floatingLabelBehavior: FloatingLabelBehavior.always,
           contentPadding: EdgeInsets.only(
             top: 0,

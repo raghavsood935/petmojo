@@ -42,12 +42,13 @@ class GeneralInfoViewModel extends BaseModel {
     }
   }
 
-  Future goToEdit(String petId) async {
+  Future goToEdit(String petId, String petToken) async {
     var result = await _navigationService.navigateTo(
       Routes.createAnimalPageView,
       arguments: CreateAnimalPageViewArguments(
         petId: petId,
         isEdit: true,
+        petToken: petToken,
       ),
     );
     if (result == 1) {

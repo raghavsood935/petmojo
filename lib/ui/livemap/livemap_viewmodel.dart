@@ -62,26 +62,48 @@ class LiveMapViewModel extends FutureViewModel<void> implements Initialisable {
   late GoogleMapController mapController;
   late Marker marker;
   late Polyline polyline;
+  late Timer timer;
+  int startTime = 0;
+  final MarkerId markerId = MarkerId('markerId');
+  final PolylineId polylineId = PolylineId('polylineId');
 
   Future<void> init() async {
-    polyline = Polyline(
-      polylineId: PolylineId('polylineId'),
-      color: Colors.red,
-      width: 5,
-      visible: true,
-      geodesic: false,
-      points: [LatLng(28.6214965, 77.2279098)],
-    );
-    marker = Marker(
-      markerId: MarkerId('markerId'),
-      position: currentLatLong,
-    );
+    mapController = await controller.future;
+
+    await getCurrentLocation();
 
     markers.add(marker);
     mapPolylines.add(polyline);
     mapController = await controller.future;
 
     getLocationFromFirebase();
+  }
+
+  Future<void> getCurrentLocation() async {
+    Position currentPosition = await Geolocator.getCurrentPosition();
+    currentLatLong =
+        LatLng(currentPosition.latitude, currentPosition.longitude);
+    print('current : $currentLatLong');
+
+    marker = Marker(
+      markerId: markerId,
+      position: currentLatLong,
+    );
+    markers.add(marker);
+    CameraUpdate update = CameraUpdate.newCameraPosition(
+        CameraPosition(target: currentLatLong, zoom: 19));
+    mapController.animateCamera(update);
+
+    polyline = Polyline(
+      polylineId: polylineId,
+      color: Colors.red,
+      width: 5,
+      visible: true,
+      geodesic: false,
+      points: [LatLng(currentLatLong.latitude, currentLatLong.longitude)],
+    );
+
+    notifyListeners();
   }
 
   double get distance => _distance;
@@ -93,62 +115,86 @@ class LiveMapViewModel extends FutureViewModel<void> implements Initialisable {
   }
 
   void getLocationFromFirebase() {
-    late double lat;
-    late double long;
     double dist = 0;
+    List<LatLng> dataList = [];
+    FirebaseDatabase.instance
+        .reference()
+        .child('dogRunnerTime/$serviceProviderId/time')
+        .once()
+        .then((snapshot) {
+      startTime = snapshot.value;
+      print('START TIME $startTime');
+      startTimer();
+      notifyListeners();
+    });
     _locationEvent = FirebaseDatabase.instance
         .reference()
-        .child('dogRunner/$appointmentId')
+        .child('dogRunner/$serviceProviderId')
         .onValue
         .listen((event) {
-      lat = 0.0;
-      long = 0.0;
-      Map<dynamic, dynamic> values = event.snapshot.value;
-      print(event.snapshot.key);
-      lat = values['lat'];
-      long = values['long'];
+      Map<String, dynamic> result = Map<String, dynamic>.from(
+          event.snapshot.value as Map<dynamic, dynamic>);
+      result.forEach((key, value) {
+        dataList.add(LatLng(value['lat'], value['long']));
+      });
 
-      currentLatLong = LatLng(lat, long);
-      print('latLong $currentLatLong');
+      if (dataList.isNotEmpty) {
+        currentLatLong = dataList.last;
 
-      if (coordinatesList.length == 0 && currentLatLong.longitude != 0)
-        coordinatesList.add(currentLatLong);
-      else
-        dist = Geolocator.distanceBetween(
-          coordinatesList.last.longitude,
-          coordinatesList.last.latitude,
-          long,
-          lat,
-        );
-      print('distance $dist');
-      if (!(coordinatesList.last.longitude == long &&
-              coordinatesList.last.latitude == lat) &&
-          dist > 5) {
-        coordinatesList.add(currentLatLong);
-        _distance += dist;
+        dataList.forEach((element) {
+          if (coordinatesList.length == 0)
+            coordinatesList.add(currentLatLong);
+          else {
+            dist = Geolocator.distanceBetween(
+              coordinatesList.last.latitude,
+              coordinatesList.last.longitude,
+              element.latitude,
+              element.longitude,
+            );
 
-        markers.remove(marker);
-        marker = marker.copyWith(positionParam: currentLatLong);
-        print(coordinatesList.length);
-        CameraUpdate update = CameraUpdate.newCameraPosition(
-            CameraPosition(target: currentLatLong, zoom: 13));
-        mapController.animateCamera(update);
-        polyline.copyWith(pointsParam: coordinatesList);
-        coordinatesList.forEach((element) {
-          print(element);
+            if (!(coordinatesList.last.longitude == element.longitude &&
+                    coordinatesList.last.latitude == element.longitude) &&
+                dist > 2) {
+              coordinatesList.add(element);
+              _distance += dist;
+
+              markers.remove(marker);
+              marker = marker.copyWith(positionParam: currentLatLong);
+              print(coordinatesList.length);
+              CameraUpdate update = CameraUpdate.newCameraPosition(
+                  CameraPosition(target: currentLatLong, zoom: 19));
+              mapController.animateCamera(update);
+              polyline.copyWith(pointsParam: coordinatesList);
+              coordinatesList.forEach((element) {
+                print(element);
+              });
+              mapPolylines.add(Polyline(
+                polylineId: const PolylineId('polylineid'),
+                color: Colors.red,
+                width: 5,
+                visible: true,
+                geodesic: false,
+                // jointType: JointType.mitered,
+                points: coordinatesList,
+              ));
+              notifyListeners();
+
+              markers.add(marker);
+              notifyListeners();
+            }
+          }
         });
-        mapPolylines.add(Polyline(
-          polylineId: const PolylineId('polylineid'),
-          color: Colors.red,
-          width: 5,
-          visible: true,
-          geodesic: false,
-          // jointType: JointType.mitered,
-          points: coordinatesList,
-        ));
-        notifyListeners();
+      }
+    });
+  }
 
-        markers.add(marker);
+  void startTimer() {
+    const oneSec = Duration(seconds: 60);
+    int currentTime = DateTime.now().millisecondsSinceEpoch;
+    timer = Timer.periodic(oneSec, (Timer t) {
+      currentTime = DateTime.now().millisecondsSinceEpoch;
+      if (currentTime > startTime) {
+        _timeTook = (currentTime - startTime) ~/ 6000;
         notifyListeners();
       }
     });

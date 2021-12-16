@@ -25,6 +25,7 @@ class PetBasicInnerDetailsResponse with _$PetBasicInnerDetailsResponse {
     @JsonKey(name: "name") String? name,
     @JsonKey(name: "_id") String? Id,
     @JsonKey(name: "avatar") String? avatar,
+    @JsonKey(name: "category") String? token,
   }) = _PetBasicInnerDetailsResponse;
 
   factory PetBasicInnerDetailsResponse.fromJson(Map<String, dynamic> json) =>

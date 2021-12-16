@@ -13,6 +13,7 @@ import 'package:tamely/shared/base_viewmodel.dart';
 
 import 'package:tamely/enum/DialogType.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tamely/util/global_methods.dart';
 import 'package:tamely/util/utils.dart';
 
 class HelpViewModel extends BaseModel {
@@ -42,7 +43,7 @@ class HelpViewModel extends BaseModel {
   TextEditingController get content => _content;
 
   void onImageButtonPressed(ImageSource source, BuildContext? context) async {
-    SystemChannels.textInput.invokeMethod('TextInput.hide');
+    // Focus.of(context!).unfocus();
     try {
       final pickedFile = await _picker.pickImage(
         source: source,
@@ -53,33 +54,15 @@ class HelpViewModel extends BaseModel {
 
       if (pickedFile != null) {
         _imageFile = pickedFile;
-        await uploadImage();
+        avatarUrl = await GlobalMethods.imageToLink(
+          File(pickedFile.path),
+        );
+        notifyListeners();
       }
 
       notifyListeners();
     } catch (e) {
       _pickImageError = e;
-    }
-  }
-
-  Future<void> uploadImage() async {
-    SystemChannels.textInput.invokeMethod('TextInput.hide');
-    if (_imageFile == null) {
-      _snackBarService.showSnackbar(message: "Image is empty");
-    }
-    if (await Util.checkInternetConnectivity()) {
-      _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
-      BaseResponse<CommonResponse> response =
-          await runBusyFuture(_tamelyApi.uploadImage(File(_imageFile!.path)));
-      if (response.getException != null) {
-        ServerError error = response.getException as ServerError;
-        _snackBarService.showSnackbar(message: error.getErrorMessage());
-      } else if (response.data != null) {
-        avatarUrl = response.data!.avatar ?? "";
-        _dialogService.completeDialog(DialogResponse(confirmed: true));
-      }
-    } else {
-      _snackBarService.showSnackbar(message: "No Internet connection");
     }
   }
 

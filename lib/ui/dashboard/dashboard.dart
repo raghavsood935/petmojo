@@ -15,10 +15,33 @@ import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/feed_app_bar.dart';
+import 'package:tamely/widgets/follow_static_btn.dart';
+import 'package:tamely/widgets/main_btn.dart';
 
-class Dashboard extends StatelessWidget {
-  Dashboard({Key? key}) : super(key: key);
+class Dashboard extends StatefulWidget {
+  Dashboard({
+    Key? key,
+    required this.initialPageState,
+    required this.isNeedToUpdateProfile,
+    required this.isHuman,
+    required this.petID,
+    required this.petToken,
+    required this.initialState,
+  }) : super(key: key);
 
+  final int initialState;
+
+  final bool isHuman;
+  final bool isNeedToUpdateProfile;
+  final String petID;
+  final String petToken;
+  final int initialPageState;
+
+  @override
+  State<Dashboard> createState() => _DashboardState();
+}
+
+class _DashboardState extends State<Dashboard> {
   List<Widget> _buildScreens(BuildContext context, DashboardViewModel model) {
     return [
       FeedView(
@@ -117,16 +140,16 @@ class Dashboard extends StatelessWidget {
                 subTitle: bookingSubTitle,
                 iconUrl: bookingIcon,
                 onTap: model.onMyBookingsPressed),
-            DrawerWidget(
-                title: settingsTitle,
-                subTitle: settingsSubTitle,
-                iconUrl: settingsIcon,
-                onTap: model.onSettingsPressed),
             // DrawerWidget(
-            //     title: bookmarksTitle,
-            //     subTitle: bookmarksSubTitle,
-            //     iconUrl: bookmarksIcon,
-            //     onTap: model.onBookmarksPressed),
+            //     title: settingsTitle,
+            //     subTitle: settingsSubTitle,
+            //     iconUrl: settingsIcon,
+            //     onTap: model.onSettingsPressed),
+            DrawerWidget(
+                title: bookmarksTitle,
+                subTitle: bookmarksSubTitle,
+                iconUrl: bookmarksIcon,
+                onTap: model.onBookmarksPressed),
           ],
         ),
       ),
@@ -221,43 +244,79 @@ class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<DashboardViewModel>.reactive(
       viewModelBuilder: () => DashboardViewModel(),
-      onModelReady: (model) => model.init(),
-      builder: (context, model, child) => Scaffold(
-        appBar: FeedAppBar(),
-        drawer: Drawer(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: _buildDrawerScreens(context, model)),
-          ),
-        ),
-        body: PersistentTabView.custom(
-          context,
-          controller: model.controller,
-          screens: _buildScreens(context, model),
-          confineInSafeArea: true,
-          itemCount: 5,
-          handleAndroidBackButtonPress: true,
-          stateManagement: true,
-          hideNavigationBar: model.hideNavBar,
-          screenTransitionAnimation: ScreenTransitionAnimation(
-            animateTabTransition: true,
-            curve: Curves.easeIn,
-            duration: Duration(milliseconds: 100),
-          ),
-          customWidget: CustomNavBarWidget(
-            items: _navBarsItems(),
-            onItemSelected: (index) {
-              model.controllerIndex(index);
-            },
-            selectedIndex: model.controller.index,
-          ),
-        ),
-        backgroundColor: colors.white,
-      ),
+      onModelReady: (model) => model
+          .init(
+            widget.initialState,
+            widget.isNeedToUpdateProfile,
+            widget.isHuman,
+            widget.petID,
+            widget.petToken,
+            widget.initialPageState,
+          )
+          .whenComplete(() => setState(() {})),
+      builder: (context, model, child) => model.isLoading
+          ? Scaffold(
+              body: Visibility(
+                visible: model.isErrorInLoading,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      AppText.body1Bold("Something went wrong!"),
+                      verticalSpaceSmall,
+                      MainButtonWidget(
+                          onMainButtonTapped: () => model.init(
+                                widget.initialState,
+                                widget.isNeedToUpdateProfile,
+                                widget.isHuman,
+                                widget.petID,
+                                widget.petToken,
+                                widget.initialPageState,
+                              ),
+                          mainButtonTitle: "RETRY"),
+                    ],
+                  ),
+                ),
+              ),
+            )
+          : Scaffold(
+              appBar: FeedAppBar(),
+              drawer: Drawer(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: _buildDrawerScreens(context, model)),
+                ),
+              ),
+              body: PersistentTabView.custom(
+                context,
+                controller: model.controller,
+                screens: _buildScreens(context, model),
+                confineInSafeArea: true,
+                itemCount: 5,
+                handleAndroidBackButtonPress: true,
+                stateManagement: true,
+                hideNavigationBar: model.hideNavBar,
+                screenTransitionAnimation: ScreenTransitionAnimation(
+                  animateTabTransition: true,
+                  curve: Curves.easeIn,
+                  duration: Duration(milliseconds: 100),
+                ),
+                customWidget: CustomNavBarWidget(
+                  items: _navBarsItems(),
+                  onItemSelected: (index) {
+                    model.controllerIndex(index);
+                  },
+                  selectedIndex: model.controller.index,
+                ),
+              ),
+              backgroundColor: colors.white,
+            ),
     );
   }
 }

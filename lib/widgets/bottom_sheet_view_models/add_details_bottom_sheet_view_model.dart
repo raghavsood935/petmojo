@@ -17,6 +17,7 @@ class AddDetailsBottomSheetViewModel extends BaseModel {
 
     String petId = widget.sheetRequest.data[0];
     int type = widget.sheetRequest.data[1];
+    String petToken = widget.sheetRequest.data[2];
 
     print("type ::::::: $type");
 
@@ -33,8 +34,9 @@ class AddDetailsBottomSheetViewModel extends BaseModel {
       type == 4 ? value : "0",
     );
 
-    var result =
-        await _tamelyApi.editAnimalProfileDetails(body).whenComplete(() {
+    var result = await _tamelyApi
+        .editAnimalProfileDetails(body, petToken)
+        .whenComplete(() {
       _isLoading = false;
       notifyListeners();
       widget.onDialogTap(

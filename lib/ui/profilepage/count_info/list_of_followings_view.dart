@@ -37,7 +37,7 @@ class _ListOfFollowingsState extends State<ListOfFollowings> {
             ),
           ),
           centerTitle: true,
-          title: AppText.subheading("Followings"),
+          title: AppText.subheading(model.title),
           backgroundColor: Colors.transparent,
           elevation: 0.0,
         ),
@@ -56,29 +56,50 @@ class _ListOfFollowingsState extends State<ListOfFollowings> {
                   contentPadding: EdgeInsets.zero,
                   title: AppText.body(
                     widget.isFollowers
-                        ? model.listOfFollowersProfileModel[index].profile
-                                .followersDetailsResponse!.username ??
+                        ? model
+                                .listOfFollowersProfileModel[index]
+                                .profile
+                                .followersDetailsResponse!
+                                .followersInnerDetailsResponse!
+                                .username ??
                             "-"
-                        : model.listOfFollowingsProfileModel[index]
-                                .followersDetailsResponse!.username ??
+                        : model
+                                .listOfFollowingsProfileModel[index]
+                                .followingDetailsResponse!
+                                .followingInnerDetailsResponse!
+                                .username ??
                             "-",
                     color: colors.black,
                   ),
                   subtitle: AppText.body1(widget.isFollowers
-                      ? model.listOfFollowersProfileModel[index].profile
-                              .followersDetailsResponse!.fullName ??
+                      ? model
+                              .listOfFollowersProfileModel[index]
+                              .profile
+                              .followersDetailsResponse!
+                              .followersInnerDetailsResponse!
+                              .fullName ??
                           "-"
-                      : model.listOfFollowingsProfileModel[index]
-                              .followersDetailsResponse!.fullName ??
+                      : model
+                              .listOfFollowingsProfileModel[index]
+                              .followingDetailsResponse!
+                              .followingInnerDetailsResponse!
+                              .fullName ??
                           "-"),
                   leading: CustomCircularAvatar(
                       radius: 24,
                       imgPath: widget.isFollowers
-                          ? model.listOfFollowersProfileModel[index].profile
-                                  .followersDetailsResponse!.avatar ??
+                          ? model
+                                  .listOfFollowersProfileModel[index]
+                                  .profile
+                                  .followersDetailsResponse!
+                                  .followersInnerDetailsResponse!
+                                  .avatar ??
                               emptyProfileImgUrl
-                          : model.listOfFollowingsProfileModel[index]
-                                  .followersDetailsResponse!.avatar ??
+                          : model
+                                  .listOfFollowingsProfileModel[index]
+                                  .followingDetailsResponse!
+                                  .followingInnerDetailsResponse!
+                                  .avatar ??
                               emptyProfileImgUrl),
                   trailing: widget.isFollowers
                       ? GestureDetector(
@@ -106,11 +127,18 @@ class _ListOfFollowingsState extends State<ListOfFollowings> {
                   onTap: () => model.goToProfileDetailsPage(
                       context,
                       widget.isFollowers
-                          ? model.listOfFollowersProfileModel[index].profile
-                                  .followersDetailsResponse!.Id ??
+                          ? model
+                                  .listOfFollowersProfileModel[index]
+                                  .profile
+                                  .followersDetailsResponse!
+                                  .followersInnerDetailsResponse!
+                                  .Id ??
                               ""
-                          : model.listOfFollowingsProfileModel[index]
-                                  .followersDetailsResponse!.Id ??
+                          : model
+                                  .listOfFollowingsProfileModel[index]
+                                  .followingDetailsResponse!
+                                  .followingInnerDetailsResponse!
+                                  .Id ??
                               ""),
                 ),
               ),

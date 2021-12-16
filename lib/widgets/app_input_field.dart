@@ -9,7 +9,9 @@ class AppInputField extends StatelessWidget {
   final Widget? leading;
   final Widget? trailing;
   final bool password;
+  final bool isPaddingNeeded;
   final bool readOnly;
+  final bool autoFocus;
   final bool isDDM;
   final TextInputType? textInputType;
   final TextCapitalization? textCapitalization;
@@ -34,6 +36,8 @@ class AppInputField extends StatelessWidget {
       this.textInputType = TextInputType.name,
       this.readOnly = false,
       this.isDDM = false,
+      this.isPaddingNeeded = true,
+      this.autoFocus = false,
       this.textCapitalization = TextCapitalization.sentences,
       this.onChanged,
       this.maxLength})
@@ -56,6 +60,7 @@ class AppInputField extends StatelessWidget {
         obscureText: password,
         readOnly: readOnly,
         maxLines: null,
+        autofocus: autoFocus,
         decoration: InputDecoration(
           hintText: hint,
           labelText: label,
@@ -63,7 +68,9 @@ class AppInputField extends StatelessWidget {
           floatingLabelBehavior: FloatingLabelBehavior.always,
           contentPadding: isDDM
               ? EdgeInsets.zero
-              : const EdgeInsets.symmetric(horizontal: 10),
+              : isPaddingNeeded
+                  ? const EdgeInsets.symmetric(horizontal: 10)
+                  : EdgeInsets.zero,
           prefixIcon: leading,
           suffixIcon: trailing != null
               ? GestureDetector(

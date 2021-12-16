@@ -15,8 +15,8 @@ import 'package:stacked/stacked_annotations.dart';
 
 import '../enum/walkNumber.dart';
 import '../models/application_models.dart';
+import '../models/feed_post_response.dart';
 import '../models/my_animal_model.dart';
-import '../models/post_response.dart';
 import '../ui/appointmentdetails/appointmentdetails_view.dart';
 import '../ui/appointments/appointments_view.dart';
 import '../ui/bookings/bookings_view.dart';
@@ -41,9 +41,14 @@ import '../ui/forgotpassword/new_password_view.dart';
 import '../ui/groups/create_group/create_group_view.dart';
 import '../ui/groups/group_info/group_info_view.dart';
 import '../ui/groups/groups_view.dart';
+import '../ui/groups/manage_group/edit_group_info/edit_group_info_view.dart';
+import '../ui/groups/manage_group/manage_group_view.dart';
+import '../ui/groups/manage_group/members/member_view.dart';
 import '../ui/help/help_view.dart';
 import '../ui/livemap/livemap_view.dart';
 import '../ui/login/login_view.dart';
+import '../ui/newpost/newpostLocation/newpostLocation_view.dart';
+import '../ui/newpost/newpost_view.dart';
 import '../ui/notification/notifications.dart';
 import '../ui/onboarding/onboarding_view.dart';
 import '../ui/otp/confirm_otp_view.dart';
@@ -91,14 +96,19 @@ class Routes {
   static const String communityMainView = '/community-main-view';
   static const String animalProfileView = '/animal-profile-view';
   static const String animalBasicInfo = '/animal-basic-info';
-  static const String groupsView = '/groups-view';
   static const String cameraScreen = '/camera-screen';
-  static const String createGroupView = '/create-group-view';
-  static const String groupInfoView = '/group-info-view';
   static const String guardiansAndRelatedAnimalsView =
       '/guardians-and-related-animals-view';
   static const String postDetialsPageView = '/post-detials-page-view';
+  static const String groupsView = '/groups-view';
+  static const String createGroupView = '/create-group-view';
+  static const String groupInfoView = '/group-info-view';
+  static const String manageGroupView = '/manage-group-view';
+  static const String editGroupBasicInfo = '/edit-group-basic-info';
+  static const String membersView = '/members-view';
   static const String postCreation = '/post-creation';
+  static const String newPostLocation = '/new-post-location';
+  static const String newPost = '/new-post';
   static const String straysNearYouView = '/strays-near-you-view';
   static const String strayNearYouMapView = '/stray-near-you-map-view';
   static const String playBuddiesView = '/play-buddies-view';
@@ -143,13 +153,18 @@ class Routes {
     communityMainView,
     animalProfileView,
     animalBasicInfo,
-    groupsView,
     cameraScreen,
-    createGroupView,
-    groupInfoView,
     guardiansAndRelatedAnimalsView,
     postDetialsPageView,
+    groupsView,
+    createGroupView,
+    groupInfoView,
+    manageGroupView,
+    editGroupBasicInfo,
+    membersView,
     postCreation,
+    newPostLocation,
+    newPost,
     straysNearYouView,
     strayNearYouMapView,
     playBuddiesView,
@@ -202,14 +217,19 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.communityMainView, page: CommunityMainView),
     RouteDef(Routes.animalProfileView, page: AnimalProfileView),
     RouteDef(Routes.animalBasicInfo, page: AnimalBasicInfo),
-    RouteDef(Routes.groupsView, page: GroupsView),
     RouteDef(Routes.cameraScreen, page: CameraScreen),
-    RouteDef(Routes.createGroupView, page: CreateGroupView),
-    RouteDef(Routes.groupInfoView, page: GroupInfoView),
     RouteDef(Routes.guardiansAndRelatedAnimalsView,
         page: GuardiansAndRelatedAnimalsView),
     RouteDef(Routes.postDetialsPageView, page: PostDetialsPageView),
+    RouteDef(Routes.groupsView, page: GroupsView),
+    RouteDef(Routes.createGroupView, page: CreateGroupView),
+    RouteDef(Routes.groupInfoView, page: GroupInfoView),
+    RouteDef(Routes.manageGroupView, page: ManageGroupView),
+    RouteDef(Routes.editGroupBasicInfo, page: EditGroupBasicInfo),
+    RouteDef(Routes.membersView, page: MembersView),
     RouteDef(Routes.postCreation, page: PostCreation),
+    RouteDef(Routes.newPostLocation, page: NewPostLocation),
+    RouteDef(Routes.newPost, page: NewPost),
     RouteDef(Routes.straysNearYouView, page: StraysNearYouView),
     RouteDef(Routes.strayNearYouMapView, page: StrayNearYouMapView),
     RouteDef(Routes.playBuddiesView, page: PlayBuddiesView),
@@ -269,11 +289,17 @@ class StackedRouter extends RouterBase {
       );
     },
     Dashboard: (data) {
-      var args = data.getArgs<DashboardArguments>(
-        orElse: () => DashboardArguments(),
-      );
+      var args = data.getArgs<DashboardArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => Dashboard(key: args.key),
+        builder: (context) => Dashboard(
+          key: args.key,
+          initialPageState: args.initialPageState,
+          isNeedToUpdateProfile: args.isNeedToUpdateProfile,
+          isHuman: args.isHuman,
+          petID: args.petID,
+          petToken: args.petToken,
+          initialState: args.initialState,
+        ),
         settings: data,
       );
     },
@@ -327,6 +353,7 @@ class StackedRouter extends RouterBase {
           isInspectView: args.isInspectView,
           inspectProfileId: args.inspectProfileId,
           inspecterProfileId: args.inspecterProfileId,
+          inspecterProfileType: args.inspecterProfileType,
         ),
         settings: data,
       );
@@ -386,6 +413,7 @@ class StackedRouter extends RouterBase {
         builder: (context) => CreateAnimalPageView(
           key: args.key,
           petId: args.petId,
+          petToken: args.petToken,
           isEdit: args.isEdit,
         ),
         settings: data,
@@ -414,7 +442,12 @@ class StackedRouter extends RouterBase {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => AnimalProfileView(
           key: args.key,
-          petId: args.petId,
+          isFromDashboard: args.isFromDashboard,
+          id: args.id,
+          token: args.token,
+          isInspectView: args.isInspectView,
+          inspecterProfileId: args.inspecterProfileId,
+          inspecterProfileType: args.inspecterProfileType,
         ),
         settings: data,
       );
@@ -425,13 +458,8 @@ class StackedRouter extends RouterBase {
         builder: (context) => AnimalBasicInfo(
           key: args.key,
           animalModelResponse: args.animalModelResponse,
+          petToken: args.petToken,
         ),
-        settings: data,
-      );
-    },
-    GroupsView: (data) {
-      return CupertinoPageRoute<dynamic>(
-        builder: (context) => const GroupsView(),
         settings: data,
       );
     },
@@ -439,18 +467,6 @@ class StackedRouter extends RouterBase {
       var args = data.getArgs<CameraScreenArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
         builder: (context) => CameraScreen(args.cameras),
-        settings: data,
-      );
-    },
-    CreateGroupView: (data) {
-      return CupertinoPageRoute<dynamic>(
-        builder: (context) => const CreateGroupView(),
-        settings: data,
-      );
-    },
-    GroupInfoView: (data) {
-      return CupertinoPageRoute<dynamic>(
-        builder: (context) => const GroupInfoView(),
         settings: data,
       );
     },
@@ -473,9 +489,61 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    GroupsView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const GroupsView(),
+        settings: data,
+      );
+    },
+    CreateGroupView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const CreateGroupView(),
+        settings: data,
+      );
+    },
+    GroupInfoView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const GroupInfoView(),
+        settings: data,
+      );
+    },
+    ManageGroupView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const ManageGroupView(),
+        settings: data,
+      );
+    },
+    EditGroupBasicInfo: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const EditGroupBasicInfo(),
+        settings: data,
+      );
+    },
+    MembersView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const MembersView(),
+        settings: data,
+      );
+    },
     PostCreation: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const PostCreation(),
+        settings: data,
+      );
+    },
+    NewPostLocation: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const NewPostLocation(),
+        settings: data,
+      );
+    },
+    NewPost: (data) {
+      var args = data.getArgs<NewPostArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => NewPost(
+          key: args.key,
+          path: args.path,
+        ),
         settings: data,
       );
     },
@@ -534,8 +602,11 @@ class StackedRouter extends RouterBase {
       );
     },
     BookmarksView: (data) {
+      var args = data.getArgs<BookmarksViewArguments>(
+        orElse: () => BookmarksViewArguments(),
+      );
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => const BookmarksView(),
+        builder: (context) => BookmarksView(key: args.key),
         settings: data,
       );
     },
@@ -675,7 +746,20 @@ class LoginViewArguments {
 /// Dashboard arguments holder class
 class DashboardArguments {
   final Key? key;
-  DashboardArguments({this.key});
+  final int initialPageState;
+  final bool isNeedToUpdateProfile;
+  final bool isHuman;
+  final String petID;
+  final String petToken;
+  final int initialState;
+  DashboardArguments(
+      {this.key,
+      required this.initialPageState,
+      required this.isNeedToUpdateProfile,
+      required this.isHuman,
+      required this.petID,
+      required this.petToken,
+      required this.initialState});
 }
 
 /// SignUpView arguments holder class
@@ -718,6 +802,7 @@ class ProfileViewArguments {
   final bool isInspectView;
   final String? inspectProfileId;
   final String? inspecterProfileId;
+  final String? inspecterProfileType;
   ProfileViewArguments(
       {this.key,
       required this.menuScreenContext,
@@ -725,7 +810,8 @@ class ProfileViewArguments {
       this.hideStatus = false,
       required this.isInspectView,
       this.inspectProfileId,
-      this.inspecterProfileId});
+      this.inspecterProfileId,
+      this.inspecterProfileType});
 }
 
 /// ProfileCreateView arguments holder class
@@ -774,22 +860,38 @@ class ListOfFollowingsArguments {
 class CreateAnimalPageViewArguments {
   final Key? key;
   final String? petId;
+  final String? petToken;
   final bool? isEdit;
-  CreateAnimalPageViewArguments({this.key, this.petId, this.isEdit});
+  CreateAnimalPageViewArguments(
+      {this.key, this.petId, this.petToken, this.isEdit});
 }
 
 /// AnimalProfileView arguments holder class
 class AnimalProfileViewArguments {
   final Key? key;
-  final String petId;
-  AnimalProfileViewArguments({this.key, required this.petId});
+  final bool isFromDashboard;
+  final dynamic id;
+  final dynamic token;
+  final bool isInspectView;
+  final String? inspecterProfileId;
+  final String? inspecterProfileType;
+  AnimalProfileViewArguments(
+      {this.key,
+      required this.isFromDashboard,
+      this.id,
+      this.token,
+      required this.isInspectView,
+      this.inspecterProfileId,
+      this.inspecterProfileType});
 }
 
 /// AnimalBasicInfo arguments holder class
 class AnimalBasicInfoArguments {
   final Key? key;
   final MyAnimalModelResponse animalModelResponse;
-  AnimalBasicInfoArguments({this.key, required this.animalModelResponse});
+  final String petToken;
+  AnimalBasicInfoArguments(
+      {this.key, required this.animalModelResponse, required this.petToken});
 }
 
 /// CameraScreen arguments holder class
@@ -807,8 +909,21 @@ class GuardiansAndRelatedAnimalsViewArguments {
 /// PostDetialsPageView arguments holder class
 class PostDetialsPageViewArguments {
   final Key? key;
-  final PostResponse postResponse;
+  final FeedPostResponse postResponse;
   PostDetialsPageViewArguments({this.key, required this.postResponse});
+}
+
+/// NewPost arguments holder class
+class NewPostArguments {
+  final Key? key;
+  final String path;
+  NewPostArguments({this.key, required this.path});
+}
+
+/// BookmarksView arguments holder class
+class BookmarksViewArguments {
+  final Key? key;
+  BookmarksViewArguments({this.key});
 }
 
 /// Notifications arguments holder class

@@ -10,9 +10,11 @@ import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/edit_button.dart';
 
 class GeneralInfoView extends StatelessWidget {
-  GeneralInfoView({Key? key, required this.animalModelResponse})
+  GeneralInfoView(
+      {Key? key, required this.animalModelResponse, required this.petToken})
       : super(key: key);
   MyAnimalModelResponse animalModelResponse;
+  String petToken;
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<GeneralInfoViewModel>.reactive(
@@ -30,7 +32,7 @@ class GeneralInfoView extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 child: EditButton(),
               ),
-              onTap: () => model.goToEdit(animalModelResponse.Id!),
+              onTap: () => model.goToEdit(animalModelResponse.Id!, petToken),
             ),
           ),
           detailsRowItem("Name", animalModelResponse.name ?? ""),

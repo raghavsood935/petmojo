@@ -67,7 +67,14 @@ class _TamelyAppState extends State<TamelyApp> {
       // } else if (_sharedPreferencesService.authToken.isEmpty) {
       //   return LoginView();
     } else {
-      return Dashboard();
+      return Dashboard(
+        initialPageState: 0,
+        isNeedToUpdateProfile: true,
+        isHuman: true,
+        petToken: "",
+        petID: "",
+        initialState: 0,
+      );
     }
   }
 }

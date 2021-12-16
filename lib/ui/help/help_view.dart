@@ -93,10 +93,12 @@ class _HelpViewState extends State<HelpView> {
                           ? AppInputField(
                               controller: model.phone,
                               label: 'Phone Number',
+                              autoFocus: true,
                               textInputType: TextInputType.phone,
                             )
                           : AppInputField(
                               controller: model.email,
+                              autoFocus: true,
                               label: "E-mail ID",
                               textInputType: TextInputType.emailAddress,
                             ),
@@ -108,22 +110,22 @@ class _HelpViewState extends State<HelpView> {
                         hintText: model.hintText,
                       ),
                       verticalSpaceRegular,
-                      // ScreenShotInput(
-                      //     bgColor: colors.inputFieldColor,
-                      //     onClick: () => model.onImageButtonPressed(
-                      //         ImageSource.gallery, context)),
-                      // verticalSpaceTiny,
-                      // Visibility(
-                      //   visible: model.avatarUrl.isNotEmpty,
-                      //   child: Image.network(
-                      //     model.avatarUrl,
-                      //     width:
-                      //         screenWidthPercentage(context, percentage: 0.85),
-                      //     height:
-                      //         screenWidthPercentage(context, percentage: 0.85),
-                      //   ),
-                      // ),
-                      // verticalSpaceRegular,
+                      ScreenShotInput(
+                          bgColor: colors.inputFieldColor,
+                          onClick: () => model.onImageButtonPressed(
+                              ImageSource.gallery, context)),
+                      verticalSpaceSmall,
+                      Visibility(
+                        visible: model.avatarUrl.isNotEmpty,
+                        child: Image.network(
+                          model.avatarUrl,
+                          width:
+                              screenWidthPercentage(context, percentage: 0.85),
+                          height:
+                              screenWidthPercentage(context, percentage: 0.85),
+                        ),
+                      ),
+                      verticalSpaceRegular,
                       MainButtonWidget(
                           onMainButtonTapped: model.onSubmit,
                           mainButtonTitle: "SUBMIT HELP")
@@ -160,7 +162,10 @@ class ButtonActions extends StatelessWidget {
         borderRadius: BorderRadius.circular(30),
       ),
       child: TextButton(
-        onPressed: onMainButtonTapped,
+        onPressed: () {
+          FocusScope.of(context).unfocus();
+          onMainButtonTapped();
+        },
         child: AppText.body(mainButtonTitle, color: textColor),
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(bgColor),

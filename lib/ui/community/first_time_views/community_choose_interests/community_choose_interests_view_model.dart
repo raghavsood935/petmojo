@@ -1,28 +1,19 @@
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
+import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/community_animal_interest.dart';
 
 class CommunityChooseInterestViewModel extends BaseModel {
   final _navigationService = locator<NavigationService>();
+  final _sharedPreference = locator<SharedPreferencesService>();
 
-  String? _communityMainView = Routes.communityMainView;
-  dynamic _destinationArguments;
-
-  Future _communityMainViewGo() async {
-    if (_communityMainView != null) {
-      await _navigationService.navigateTo(
-        _communityMainView!,
-        arguments: _destinationArguments,
-      );
-    }
-  }
-
-  void goToCommunityMainView() async {
-    await _communityMainViewGo();
-  }
+  bool isHuman = true;
+  String petId = "";
+  String petToken = "";
+  int profileCurrentIndex = 0;
 
   List<Animal> _listOfAnimals = [
     Animal("Dogs", dogFullImgPath, dogInterests),
@@ -36,6 +27,30 @@ class CommunityChooseInterestViewModel extends BaseModel {
   ];
 
   List<Animal> get listOfAnimals => _listOfAnimals;
+
+  void init() {
+    CurrentProfile profile = _sharedPreference.getCurrentProfile();
+    isHuman = profile.isHuman;
+    petId = profile.petId;
+    petToken = profile.petToken;
+    profileCurrentIndex = profile.currentIndex;
+    notifyListeners();
+  }
+
+  Future goToCommunityMainPage() async {
+    _sharedPreference.setCommunityFirstTime(false);
+    _navigationService.pushNamedAndRemoveUntil(
+      Routes.dashboard,
+      arguments: DashboardArguments(
+        isNeedToUpdateProfile: false,
+        initialPageState: 1,
+        isHuman: isHuman,
+        petID: petId,
+        petToken: petToken,
+        initialState: profileCurrentIndex,
+      ),
+    );
+  }
 }
 
 class Animal {

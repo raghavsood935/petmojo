@@ -188,13 +188,13 @@ class _$FollowingResponseTearOff {
   const _$FollowingResponseTearOff();
 
   _FollowingResponse call(
-      {@JsonKey(name: "followerDetails")
-          FollowingDetailsResponse? followersDetailsResponse,
+      {@JsonKey(name: "followingDetails")
+          FollowingDetailsResponse? followingDetailsResponse,
       @JsonKey(name: "followingType")
-          int? isFollowing}) {
+          String? followingType}) {
     return _FollowingResponse(
-      followersDetailsResponse: followersDetailsResponse,
-      isFollowing: isFollowing,
+      followingDetailsResponse: followingDetailsResponse,
+      followingType: followingType,
     );
   }
 
@@ -208,11 +208,11 @@ const $FollowingResponse = _$FollowingResponseTearOff();
 
 /// @nodoc
 mixin _$FollowingResponse {
-  @JsonKey(name: "followerDetails")
-  FollowingDetailsResponse? get followersDetailsResponse =>
+  @JsonKey(name: "followingDetails")
+  FollowingDetailsResponse? get followingDetailsResponse =>
       throw _privateConstructorUsedError;
   @JsonKey(name: "followingType")
-  int? get isFollowing => throw _privateConstructorUsedError;
+  String? get followingType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -226,12 +226,12 @@ abstract class $FollowingResponseCopyWith<$Res> {
           FollowingResponse value, $Res Function(FollowingResponse) then) =
       _$FollowingResponseCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: "followerDetails")
-          FollowingDetailsResponse? followersDetailsResponse,
+      {@JsonKey(name: "followingDetails")
+          FollowingDetailsResponse? followingDetailsResponse,
       @JsonKey(name: "followingType")
-          int? isFollowing});
+          String? followingType});
 
-  $FollowingDetailsResponseCopyWith<$Res>? get followersDetailsResponse;
+  $FollowingDetailsResponseCopyWith<$Res>? get followingDetailsResponse;
 }
 
 /// @nodoc
@@ -245,30 +245,30 @@ class _$FollowingResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? followersDetailsResponse = freezed,
-    Object? isFollowing = freezed,
+    Object? followingDetailsResponse = freezed,
+    Object? followingType = freezed,
   }) {
     return _then(_value.copyWith(
-      followersDetailsResponse: followersDetailsResponse == freezed
-          ? _value.followersDetailsResponse
-          : followersDetailsResponse // ignore: cast_nullable_to_non_nullable
+      followingDetailsResponse: followingDetailsResponse == freezed
+          ? _value.followingDetailsResponse
+          : followingDetailsResponse // ignore: cast_nullable_to_non_nullable
               as FollowingDetailsResponse?,
-      isFollowing: isFollowing == freezed
-          ? _value.isFollowing
-          : isFollowing // ignore: cast_nullable_to_non_nullable
-              as int?,
+      followingType: followingType == freezed
+          ? _value.followingType
+          : followingType // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 
   @override
-  $FollowingDetailsResponseCopyWith<$Res>? get followersDetailsResponse {
-    if (_value.followersDetailsResponse == null) {
+  $FollowingDetailsResponseCopyWith<$Res>? get followingDetailsResponse {
+    if (_value.followingDetailsResponse == null) {
       return null;
     }
 
     return $FollowingDetailsResponseCopyWith<$Res>(
-        _value.followersDetailsResponse!, (value) {
-      return _then(_value.copyWith(followersDetailsResponse: value));
+        _value.followingDetailsResponse!, (value) {
+      return _then(_value.copyWith(followingDetailsResponse: value));
     });
   }
 }
@@ -281,13 +281,13 @@ abstract class _$FollowingResponseCopyWith<$Res>
       __$FollowingResponseCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: "followerDetails")
-          FollowingDetailsResponse? followersDetailsResponse,
+      {@JsonKey(name: "followingDetails")
+          FollowingDetailsResponse? followingDetailsResponse,
       @JsonKey(name: "followingType")
-          int? isFollowing});
+          String? followingType});
 
   @override
-  $FollowingDetailsResponseCopyWith<$Res>? get followersDetailsResponse;
+  $FollowingDetailsResponseCopyWith<$Res>? get followingDetailsResponse;
 }
 
 /// @nodoc
@@ -303,18 +303,18 @@ class __$FollowingResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? followersDetailsResponse = freezed,
-    Object? isFollowing = freezed,
+    Object? followingDetailsResponse = freezed,
+    Object? followingType = freezed,
   }) {
     return _then(_FollowingResponse(
-      followersDetailsResponse: followersDetailsResponse == freezed
-          ? _value.followersDetailsResponse
-          : followersDetailsResponse // ignore: cast_nullable_to_non_nullable
+      followingDetailsResponse: followingDetailsResponse == freezed
+          ? _value.followingDetailsResponse
+          : followingDetailsResponse // ignore: cast_nullable_to_non_nullable
               as FollowingDetailsResponse?,
-      isFollowing: isFollowing == freezed
-          ? _value.isFollowing
-          : isFollowing // ignore: cast_nullable_to_non_nullable
-              as int?,
+      followingType: followingType == freezed
+          ? _value.followingType
+          : followingType // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -323,23 +323,23 @@ class __$FollowingResponseCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_FollowingResponse extends _FollowingResponse {
   _$_FollowingResponse(
-      {@JsonKey(name: "followerDetails") this.followersDetailsResponse,
-      @JsonKey(name: "followingType") this.isFollowing})
+      {@JsonKey(name: "followingDetails") this.followingDetailsResponse,
+      @JsonKey(name: "followingType") this.followingType})
       : super._();
 
   factory _$_FollowingResponse.fromJson(Map<String, dynamic> json) =>
       _$$_FollowingResponseFromJson(json);
 
   @override
-  @JsonKey(name: "followerDetails")
-  final FollowingDetailsResponse? followersDetailsResponse;
+  @JsonKey(name: "followingDetails")
+  final FollowingDetailsResponse? followingDetailsResponse;
   @override
   @JsonKey(name: "followingType")
-  final int? isFollowing;
+  final String? followingType;
 
   @override
   String toString() {
-    return 'FollowingResponse(followersDetailsResponse: $followersDetailsResponse, isFollowing: $isFollowing)';
+    return 'FollowingResponse(followingDetailsResponse: $followingDetailsResponse, followingType: $followingType)';
   }
 
   @override
@@ -348,15 +348,15 @@ class _$_FollowingResponse extends _FollowingResponse {
         (other.runtimeType == runtimeType &&
             other is _FollowingResponse &&
             (identical(
-                    other.followersDetailsResponse, followersDetailsResponse) ||
-                other.followersDetailsResponse == followersDetailsResponse) &&
-            (identical(other.isFollowing, isFollowing) ||
-                other.isFollowing == isFollowing));
+                    other.followingDetailsResponse, followingDetailsResponse) ||
+                other.followingDetailsResponse == followingDetailsResponse) &&
+            (identical(other.followingType, followingType) ||
+                other.followingType == followingType));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, followersDetailsResponse, isFollowing);
+      Object.hash(runtimeType, followingDetailsResponse, followingType);
 
   @JsonKey(ignore: true)
   @override
@@ -371,21 +371,21 @@ class _$_FollowingResponse extends _FollowingResponse {
 
 abstract class _FollowingResponse extends FollowingResponse {
   factory _FollowingResponse(
-      {@JsonKey(name: "followerDetails")
-          FollowingDetailsResponse? followersDetailsResponse,
+      {@JsonKey(name: "followingDetails")
+          FollowingDetailsResponse? followingDetailsResponse,
       @JsonKey(name: "followingType")
-          int? isFollowing}) = _$_FollowingResponse;
+          String? followingType}) = _$_FollowingResponse;
   _FollowingResponse._() : super._();
 
   factory _FollowingResponse.fromJson(Map<String, dynamic> json) =
       _$_FollowingResponse.fromJson;
 
   @override
-  @JsonKey(name: "followerDetails")
-  FollowingDetailsResponse? get followersDetailsResponse;
+  @JsonKey(name: "followingDetails")
+  FollowingDetailsResponse? get followingDetailsResponse;
   @override
   @JsonKey(name: "followingType")
-  int? get isFollowing;
+  String? get followingType;
   @override
   @JsonKey(ignore: true)
   _$FollowingResponseCopyWith<_FollowingResponse> get copyWith =>
@@ -402,15 +402,10 @@ class _$FollowingDetailsResponseTearOff {
   const _$FollowingDetailsResponseTearOff();
 
   _FollowingDetailsResponse call(
-      {@JsonKey(name: "_id") String? Id,
-      @JsonKey(name: "username") String? username,
-      @JsonKey(name: "avatar") String? avatar,
-      @JsonKey(name: "fullName") String? fullName}) {
+      {@JsonKey(name: "followingId")
+          FollowingInnerDetailsResponse? followingInnerDetailsResponse}) {
     return _FollowingDetailsResponse(
-      Id: Id,
-      username: username,
-      avatar: avatar,
-      fullName: fullName,
+      followingInnerDetailsResponse: followingInnerDetailsResponse,
     );
   }
 
@@ -424,14 +419,9 @@ const $FollowingDetailsResponse = _$FollowingDetailsResponseTearOff();
 
 /// @nodoc
 mixin _$FollowingDetailsResponse {
-  @JsonKey(name: "_id")
-  String? get Id => throw _privateConstructorUsedError;
-  @JsonKey(name: "username")
-  String? get username => throw _privateConstructorUsedError;
-  @JsonKey(name: "avatar")
-  String? get avatar => throw _privateConstructorUsedError;
-  @JsonKey(name: "fullName")
-  String? get fullName => throw _privateConstructorUsedError;
+  @JsonKey(name: "followingId")
+  FollowingInnerDetailsResponse? get followingInnerDetailsResponse =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -445,10 +435,11 @@ abstract class $FollowingDetailsResponseCopyWith<$Res> {
           $Res Function(FollowingDetailsResponse) then) =
       _$FollowingDetailsResponseCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: "_id") String? Id,
-      @JsonKey(name: "username") String? username,
-      @JsonKey(name: "avatar") String? avatar,
-      @JsonKey(name: "fullName") String? fullName});
+      {@JsonKey(name: "followingId")
+          FollowingInnerDetailsResponse? followingInnerDetailsResponse});
+
+  $FollowingInnerDetailsResponseCopyWith<$Res>?
+      get followingInnerDetailsResponse;
 }
 
 /// @nodoc
@@ -459,6 +450,206 @@ class _$FollowingDetailsResponseCopyWithImpl<$Res>
   final FollowingDetailsResponse _value;
   // ignore: unused_field
   final $Res Function(FollowingDetailsResponse) _then;
+
+  @override
+  $Res call({
+    Object? followingInnerDetailsResponse = freezed,
+  }) {
+    return _then(_value.copyWith(
+      followingInnerDetailsResponse: followingInnerDetailsResponse == freezed
+          ? _value.followingInnerDetailsResponse
+          : followingInnerDetailsResponse // ignore: cast_nullable_to_non_nullable
+              as FollowingInnerDetailsResponse?,
+    ));
+  }
+
+  @override
+  $FollowingInnerDetailsResponseCopyWith<$Res>?
+      get followingInnerDetailsResponse {
+    if (_value.followingInnerDetailsResponse == null) {
+      return null;
+    }
+
+    return $FollowingInnerDetailsResponseCopyWith<$Res>(
+        _value.followingInnerDetailsResponse!, (value) {
+      return _then(_value.copyWith(followingInnerDetailsResponse: value));
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$FollowingDetailsResponseCopyWith<$Res>
+    implements $FollowingDetailsResponseCopyWith<$Res> {
+  factory _$FollowingDetailsResponseCopyWith(_FollowingDetailsResponse value,
+          $Res Function(_FollowingDetailsResponse) then) =
+      __$FollowingDetailsResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {@JsonKey(name: "followingId")
+          FollowingInnerDetailsResponse? followingInnerDetailsResponse});
+
+  @override
+  $FollowingInnerDetailsResponseCopyWith<$Res>?
+      get followingInnerDetailsResponse;
+}
+
+/// @nodoc
+class __$FollowingDetailsResponseCopyWithImpl<$Res>
+    extends _$FollowingDetailsResponseCopyWithImpl<$Res>
+    implements _$FollowingDetailsResponseCopyWith<$Res> {
+  __$FollowingDetailsResponseCopyWithImpl(_FollowingDetailsResponse _value,
+      $Res Function(_FollowingDetailsResponse) _then)
+      : super(_value, (v) => _then(v as _FollowingDetailsResponse));
+
+  @override
+  _FollowingDetailsResponse get _value =>
+      super._value as _FollowingDetailsResponse;
+
+  @override
+  $Res call({
+    Object? followingInnerDetailsResponse = freezed,
+  }) {
+    return _then(_FollowingDetailsResponse(
+      followingInnerDetailsResponse: followingInnerDetailsResponse == freezed
+          ? _value.followingInnerDetailsResponse
+          : followingInnerDetailsResponse // ignore: cast_nullable_to_non_nullable
+              as FollowingInnerDetailsResponse?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_FollowingDetailsResponse extends _FollowingDetailsResponse {
+  _$_FollowingDetailsResponse(
+      {@JsonKey(name: "followingId") this.followingInnerDetailsResponse})
+      : super._();
+
+  factory _$_FollowingDetailsResponse.fromJson(Map<String, dynamic> json) =>
+      _$$_FollowingDetailsResponseFromJson(json);
+
+  @override
+  @JsonKey(name: "followingId")
+  final FollowingInnerDetailsResponse? followingInnerDetailsResponse;
+
+  @override
+  String toString() {
+    return 'FollowingDetailsResponse(followingInnerDetailsResponse: $followingInnerDetailsResponse)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _FollowingDetailsResponse &&
+            (identical(other.followingInnerDetailsResponse,
+                    followingInnerDetailsResponse) ||
+                other.followingInnerDetailsResponse ==
+                    followingInnerDetailsResponse));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, followingInnerDetailsResponse);
+
+  @JsonKey(ignore: true)
+  @override
+  _$FollowingDetailsResponseCopyWith<_FollowingDetailsResponse> get copyWith =>
+      __$FollowingDetailsResponseCopyWithImpl<_FollowingDetailsResponse>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_FollowingDetailsResponseToJson(this);
+  }
+}
+
+abstract class _FollowingDetailsResponse extends FollowingDetailsResponse {
+  factory _FollowingDetailsResponse(
+          {@JsonKey(name: "followingId")
+              FollowingInnerDetailsResponse? followingInnerDetailsResponse}) =
+      _$_FollowingDetailsResponse;
+  _FollowingDetailsResponse._() : super._();
+
+  factory _FollowingDetailsResponse.fromJson(Map<String, dynamic> json) =
+      _$_FollowingDetailsResponse.fromJson;
+
+  @override
+  @JsonKey(name: "followingId")
+  FollowingInnerDetailsResponse? get followingInnerDetailsResponse;
+  @override
+  @JsonKey(ignore: true)
+  _$FollowingDetailsResponseCopyWith<_FollowingDetailsResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+FollowingInnerDetailsResponse _$FollowingInnerDetailsResponseFromJson(
+    Map<String, dynamic> json) {
+  return _FollowingInnerDetailsResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$FollowingInnerDetailsResponseTearOff {
+  const _$FollowingInnerDetailsResponseTearOff();
+
+  _FollowingInnerDetailsResponse call(
+      {@JsonKey(name: "_id") String? Id,
+      @JsonKey(name: "username") String? username,
+      @JsonKey(name: "avatar") String? avatar,
+      @JsonKey(name: "fullName") String? fullName}) {
+    return _FollowingInnerDetailsResponse(
+      Id: Id,
+      username: username,
+      avatar: avatar,
+      fullName: fullName,
+    );
+  }
+
+  FollowingInnerDetailsResponse fromJson(Map<String, Object?> json) {
+    return FollowingInnerDetailsResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $FollowingInnerDetailsResponse = _$FollowingInnerDetailsResponseTearOff();
+
+/// @nodoc
+mixin _$FollowingInnerDetailsResponse {
+  @JsonKey(name: "_id")
+  String? get Id => throw _privateConstructorUsedError;
+  @JsonKey(name: "username")
+  String? get username => throw _privateConstructorUsedError;
+  @JsonKey(name: "avatar")
+  String? get avatar => throw _privateConstructorUsedError;
+  @JsonKey(name: "fullName")
+  String? get fullName => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $FollowingInnerDetailsResponseCopyWith<FollowingInnerDetailsResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $FollowingInnerDetailsResponseCopyWith<$Res> {
+  factory $FollowingInnerDetailsResponseCopyWith(
+          FollowingInnerDetailsResponse value,
+          $Res Function(FollowingInnerDetailsResponse) then) =
+      _$FollowingInnerDetailsResponseCopyWithImpl<$Res>;
+  $Res call(
+      {@JsonKey(name: "_id") String? Id,
+      @JsonKey(name: "username") String? username,
+      @JsonKey(name: "avatar") String? avatar,
+      @JsonKey(name: "fullName") String? fullName});
+}
+
+/// @nodoc
+class _$FollowingInnerDetailsResponseCopyWithImpl<$Res>
+    implements $FollowingInnerDetailsResponseCopyWith<$Res> {
+  _$FollowingInnerDetailsResponseCopyWithImpl(this._value, this._then);
+
+  final FollowingInnerDetailsResponse _value;
+  // ignore: unused_field
+  final $Res Function(FollowingInnerDetailsResponse) _then;
 
   @override
   $Res call({
@@ -489,11 +680,12 @@ class _$FollowingDetailsResponseCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$FollowingDetailsResponseCopyWith<$Res>
-    implements $FollowingDetailsResponseCopyWith<$Res> {
-  factory _$FollowingDetailsResponseCopyWith(_FollowingDetailsResponse value,
-          $Res Function(_FollowingDetailsResponse) then) =
-      __$FollowingDetailsResponseCopyWithImpl<$Res>;
+abstract class _$FollowingInnerDetailsResponseCopyWith<$Res>
+    implements $FollowingInnerDetailsResponseCopyWith<$Res> {
+  factory _$FollowingInnerDetailsResponseCopyWith(
+          _FollowingInnerDetailsResponse value,
+          $Res Function(_FollowingInnerDetailsResponse) then) =
+      __$FollowingInnerDetailsResponseCopyWithImpl<$Res>;
   @override
   $Res call(
       {@JsonKey(name: "_id") String? Id,
@@ -503,16 +695,17 @@ abstract class _$FollowingDetailsResponseCopyWith<$Res>
 }
 
 /// @nodoc
-class __$FollowingDetailsResponseCopyWithImpl<$Res>
-    extends _$FollowingDetailsResponseCopyWithImpl<$Res>
-    implements _$FollowingDetailsResponseCopyWith<$Res> {
-  __$FollowingDetailsResponseCopyWithImpl(_FollowingDetailsResponse _value,
-      $Res Function(_FollowingDetailsResponse) _then)
-      : super(_value, (v) => _then(v as _FollowingDetailsResponse));
+class __$FollowingInnerDetailsResponseCopyWithImpl<$Res>
+    extends _$FollowingInnerDetailsResponseCopyWithImpl<$Res>
+    implements _$FollowingInnerDetailsResponseCopyWith<$Res> {
+  __$FollowingInnerDetailsResponseCopyWithImpl(
+      _FollowingInnerDetailsResponse _value,
+      $Res Function(_FollowingInnerDetailsResponse) _then)
+      : super(_value, (v) => _then(v as _FollowingInnerDetailsResponse));
 
   @override
-  _FollowingDetailsResponse get _value =>
-      super._value as _FollowingDetailsResponse;
+  _FollowingInnerDetailsResponse get _value =>
+      super._value as _FollowingInnerDetailsResponse;
 
   @override
   $Res call({
@@ -521,7 +714,7 @@ class __$FollowingDetailsResponseCopyWithImpl<$Res>
     Object? avatar = freezed,
     Object? fullName = freezed,
   }) {
-    return _then(_FollowingDetailsResponse(
+    return _then(_FollowingInnerDetailsResponse(
       Id: Id == freezed
           ? _value.Id
           : Id // ignore: cast_nullable_to_non_nullable
@@ -544,16 +737,17 @@ class __$FollowingDetailsResponseCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_FollowingDetailsResponse extends _FollowingDetailsResponse {
-  _$_FollowingDetailsResponse(
+class _$_FollowingInnerDetailsResponse extends _FollowingInnerDetailsResponse {
+  _$_FollowingInnerDetailsResponse(
       {@JsonKey(name: "_id") this.Id,
       @JsonKey(name: "username") this.username,
       @JsonKey(name: "avatar") this.avatar,
       @JsonKey(name: "fullName") this.fullName})
       : super._();
 
-  factory _$_FollowingDetailsResponse.fromJson(Map<String, dynamic> json) =>
-      _$$_FollowingDetailsResponseFromJson(json);
+  factory _$_FollowingInnerDetailsResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$$_FollowingInnerDetailsResponseFromJson(json);
 
   @override
   @JsonKey(name: "_id")
@@ -570,14 +764,14 @@ class _$_FollowingDetailsResponse extends _FollowingDetailsResponse {
 
   @override
   String toString() {
-    return 'FollowingDetailsResponse(Id: $Id, username: $username, avatar: $avatar, fullName: $fullName)';
+    return 'FollowingInnerDetailsResponse(Id: $Id, username: $username, avatar: $avatar, fullName: $fullName)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _FollowingDetailsResponse &&
+            other is _FollowingInnerDetailsResponse &&
             (identical(other.Id, Id) || other.Id == Id) &&
             (identical(other.username, username) ||
                 other.username == username) &&
@@ -591,27 +785,28 @@ class _$_FollowingDetailsResponse extends _FollowingDetailsResponse {
 
   @JsonKey(ignore: true)
   @override
-  _$FollowingDetailsResponseCopyWith<_FollowingDetailsResponse> get copyWith =>
-      __$FollowingDetailsResponseCopyWithImpl<_FollowingDetailsResponse>(
-          this, _$identity);
+  _$FollowingInnerDetailsResponseCopyWith<_FollowingInnerDetailsResponse>
+      get copyWith => __$FollowingInnerDetailsResponseCopyWithImpl<
+          _FollowingInnerDetailsResponse>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_FollowingDetailsResponseToJson(this);
+    return _$$_FollowingInnerDetailsResponseToJson(this);
   }
 }
 
-abstract class _FollowingDetailsResponse extends FollowingDetailsResponse {
-  factory _FollowingDetailsResponse(
+abstract class _FollowingInnerDetailsResponse
+    extends FollowingInnerDetailsResponse {
+  factory _FollowingInnerDetailsResponse(
           {@JsonKey(name: "_id") String? Id,
           @JsonKey(name: "username") String? username,
           @JsonKey(name: "avatar") String? avatar,
           @JsonKey(name: "fullName") String? fullName}) =
-      _$_FollowingDetailsResponse;
-  _FollowingDetailsResponse._() : super._();
+      _$_FollowingInnerDetailsResponse;
+  _FollowingInnerDetailsResponse._() : super._();
 
-  factory _FollowingDetailsResponse.fromJson(Map<String, dynamic> json) =
-      _$_FollowingDetailsResponse.fromJson;
+  factory _FollowingInnerDetailsResponse.fromJson(Map<String, dynamic> json) =
+      _$_FollowingInnerDetailsResponse.fromJson;
 
   @override
   @JsonKey(name: "_id")
@@ -627,6 +822,6 @@ abstract class _FollowingDetailsResponse extends FollowingDetailsResponse {
   String? get fullName;
   @override
   @JsonKey(ignore: true)
-  _$FollowingDetailsResponseCopyWith<_FollowingDetailsResponse> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$FollowingInnerDetailsResponseCopyWith<_FollowingInnerDetailsResponse>
+      get copyWith => throw _privateConstructorUsedError;
 }

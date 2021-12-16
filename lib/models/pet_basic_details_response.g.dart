@@ -31,6 +31,7 @@ _$_PetBasicInnerDetailsResponse _$$_PetBasicInnerDetailsResponseFromJson(
       name: json['name'] as String?,
       Id: json['_id'] as String?,
       avatar: json['avatar'] as String?,
+      token: json['category'] as String?,
     );
 
 Map<String, dynamic> _$$_PetBasicInnerDetailsResponseToJson(
@@ -39,4 +40,5 @@ Map<String, dynamic> _$$_PetBasicInnerDetailsResponseToJson(
       'name': instance.name,
       '_id': instance.Id,
       'avatar': instance.avatar,
+      'category': instance.token,
     };

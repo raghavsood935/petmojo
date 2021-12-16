@@ -29,6 +29,7 @@ class _CreateGroupSecondViewState extends State<CreateGroupSecondView> {
               title: 'Add description',
               isManitory: false,
               child: AppInputField(
+                isPaddingNeeded: false,
                 controller: model.descriptioinTC,
                 hint: "Type name of your group",
               ),
@@ -37,8 +38,9 @@ class _CreateGroupSecondViewState extends State<CreateGroupSecondView> {
               title: 'Add hashtags',
               isManitory: false,
               child: AppInputField(
+                isPaddingNeeded: false,
                 controller: model.hashtagTC,
-                hint: "Add atleast 3 hashtags here",
+                hint: "Add 3 or more hashtags to get more reach",
               ),
             ),
           ]),

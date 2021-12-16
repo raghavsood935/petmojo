@@ -21,6 +21,7 @@ class CommunityView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<CommunityViewModel>.reactive(
       viewModelBuilder: () => CommunityViewModel(),
+      onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
         // body: model.isFirstTime
         //     ? CommunityStartBannerView()
