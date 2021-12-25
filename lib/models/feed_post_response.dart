@@ -16,6 +16,8 @@ class FeedPostResponse with _$FeedPostResponse {
     @JsonKey(name: "thumbnail") String? thumbnail,
     @JsonKey(name: "filter") String? filter,
     @JsonKey(name: "caption") String? caption,
+    @JsonKey(name: "isLiked") bool? isLiked,
+    @JsonKey(name: "isBookmarked") bool? isBookmarked,
     @JsonKey(name: "Userauthor") List<ProfileResponse>? userAuthor,
     @JsonKey(name: "authorType") String? authorType,
     @JsonKey(name: "date") String? date,

@@ -194,6 +194,22 @@ class $AssetsImagesGen {
   AssetGenImage get petFootPrint =>
       const AssetGenImage('assets/images/pet_foot_print.png');
 
+  /// File path: assets/images/report_distance.png
+  AssetGenImage get reportDistance =>
+      const AssetGenImage('assets/images/report_distance.png');
+
+  /// File path: assets/images/report_pee.png
+  AssetGenImage get reportPee =>
+      const AssetGenImage('assets/images/report_pee.png');
+
+  /// File path: assets/images/report_poo.png
+  AssetGenImage get reportPoo =>
+      const AssetGenImage('assets/images/report_poo.png');
+
+  /// File path: assets/images/report_time.png
+  AssetGenImage get reportTime =>
+      const AssetGenImage('assets/images/report_time.png');
+
   /// File path: assets/images/send.png
   AssetGenImage get send => const AssetGenImage('assets/images/send.png');
 
@@ -213,6 +229,10 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/setting.svg
   SvgGenImage get setting => const SvgGenImage('assets/images/setting.svg');
+
+  /// File path: assets/images/tamely_logo.png
+  AssetGenImage get tamelyLogo =>
+      const AssetGenImage('assets/images/tamely_logo.png');
 
   /// File path: assets/images/wallet.svg
   SvgGenImage get wallet => const SvgGenImage('assets/images/wallet.svg');

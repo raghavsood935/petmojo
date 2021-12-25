@@ -6,6 +6,7 @@ import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/models/my_animal_model.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
+import 'package:tamely/util/String.dart';
 
 class GeneralInfoViewModel extends BaseModel {
   final _navigationService = locator<NavigationService>();
@@ -14,6 +15,9 @@ class GeneralInfoViewModel extends BaseModel {
 
   String _serviecPet = "";
   String _spayed = "";
+  String _age = "";
+  String _breed = "";
+  String _gender = "";
 
   Future getLocation(String latLog) async {
     List<String> position = latLog.split(",");
@@ -68,6 +72,40 @@ class GeneralInfoViewModel extends BaseModel {
     } else {
       _spayed = animalModelResponse.spayed! ? "Yes" : "No";
     }
+
+    if (animalModelResponse.age != null) {
+      if (animalModelResponse.age == select) {
+        _age = "-";
+      } else {
+        _age = animalModelResponse.age ?? "-";
+      }
+    } else {
+      _age = "-";
+    }
+
+    if (animalModelResponse.gender != null) {
+      if (animalModelResponse.gender == select) {
+        _gender = "-";
+      } else {
+        _gender = animalModelResponse.gender ?? "-";
+      }
+    } else {
+      _gender = "-";
+    }
+
+    if (animalModelResponse.breed != null) {
+      if (animalModelResponse.breed!
+              .substring(animalModelResponse.breed!.length - 1) ==
+          ",") {
+        _breed = animalModelResponse.breed!
+            .substring(0, animalModelResponse.breed!.length - 1);
+      } else {
+        _breed = animalModelResponse.breed ?? "";
+      }
+    } else {
+      _breed = "-";
+    }
+
     notifyListeners();
   }
 
@@ -76,4 +114,10 @@ class GeneralInfoViewModel extends BaseModel {
   String get serviecPet => _serviecPet;
 
   String get spayed => _spayed;
+
+  String get age => _age;
+
+  String get breed => _breed;
+
+  String get gender => _gender;
 }

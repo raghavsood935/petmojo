@@ -7,12 +7,12 @@ import 'package:tamely/api/base_response.dart';
 import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
-import 'package:tamely/enum/redirect_state.dart';
 import 'package:tamely/models/pet_basic_details_response.dart';
 import 'package:tamely/models/user_details_model.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/global_methods.dart';
 
 class NewPostViewModel extends FutureViewModel<void> implements Initialisable {
   final _sharedPrefService = locator<SharedPreferencesService>();
@@ -54,7 +54,7 @@ class NewPostViewModel extends FutureViewModel<void> implements Initialisable {
           in response.data!.userDetailsModel!.listOfPets ?? []) {
         postOn.add(
           PostOnProfile(
-            id: petResponse.Id ?? "",
+            id: petResponse.detailsResponse!.Id ?? "",
             profileimg:
                 petResponse.detailsResponse!.avatar ?? emptyProfileImgUrl,
             name: petResponse.detailsResponse!.name ?? "-",
@@ -79,7 +79,7 @@ class NewPostViewModel extends FutureViewModel<void> implements Initialisable {
         _tamelyApi.createPost(
             File(path),
             caption,
-            profile.isHuman ? "User" : "Animal",
+            GlobalMethods.getProfileType(profile.isHuman),
             profile.id,
             profile.isHuman,
             profile.token);

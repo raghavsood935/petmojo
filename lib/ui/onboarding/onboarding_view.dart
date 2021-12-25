@@ -91,6 +91,30 @@ class OnBoardingView extends StatelessWidget {
                         ),
                       ),
                     ),
+                    Container(
+                      width: double.maxFinite,
+                      margin: const EdgeInsets.all(16),
+                      child: ElevatedButton.icon(
+                        onPressed: model.moveToContinueWithPhone,
+                        icon: Icon(
+                          Icons.call,
+                          color: colors.white,
+                        ),
+                        label: AppText.body1(continueWithPhone,
+                            color: Colors.white),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(colors.primary),
+                          padding: MaterialStateProperty.all(
+                              const EdgeInsets.all(12)),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                     verticalSpaceRegular,
                     AppText.body(orSignUpWith),
                     verticalSpaceRegular,

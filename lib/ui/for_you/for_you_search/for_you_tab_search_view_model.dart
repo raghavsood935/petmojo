@@ -24,6 +24,7 @@ class ForYouTabSearchViewModel extends BaseModel {
 
   int _counter = 0;
   bool _isLoading = false;
+  bool _isEndOfList = false;
 
   bool isHuman = true;
   String petToken = "";
@@ -60,12 +61,14 @@ class ForYouTabSearchViewModel extends BaseModel {
 
   List<Tab> get tabTitles => _tabTitles;
 
+  bool get isEndOfList => _isEndOfList;
+
   void clearSearchText() {
     _searchTC.clear();
   }
 
   Future goBack() async {
-    await _navigationService.back();
+    _navigationService.back();
   }
 
   Future inspectProfile(BuildContext ct, String profileID) async {
@@ -105,11 +108,14 @@ class ForYouTabSearchViewModel extends BaseModel {
   Future<void> onSearchChange(String value, bool isFromSeeMore) async {
     if (value.isNotEmpty) {
       _isLoading = true;
+      notifyListeners();
       if (!isFromSeeMore) {
         _counter = 0;
+        _isEndOfList = false;
+        listOfProfiles.clear();
+        notifyListeners();
       }
-      listOfProfiles.clear();
-      notifyListeners();
+
       SearchProfilesBody body = SearchProfilesBody(_counter, value, "Both");
       var response = await _tamelyApi.showListOfProfileForYou(body, isHuman,
           petToken: petToken);
@@ -120,6 +126,13 @@ class ForYouTabSearchViewModel extends BaseModel {
         _isLoading = false;
         notifyListeners();
       } else if (response.data != null) {
+        if (!isFromSeeMore) {
+          listOfProfiles.clear();
+          notifyListeners();
+        }
+        if ((response.data!.listOfProfiles ?? []).length < 20) {
+          _isEndOfList = true;
+        }
         listOfProfiles.addAll(response.data!.listOfProfiles ?? []);
         _isLoading = false;
         if (isFromSeeMore) {

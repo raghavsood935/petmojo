@@ -16,20 +16,21 @@ import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/models/application_models.dart';
 import 'package:tamely/models/common_response.dart';
-import 'package:tamely/models/list_of_post_response.dart';
+import 'package:tamely/models/feed_post_response.dart';
+import 'package:tamely/models/list_of_feed_post_response.dart';
+import 'package:tamely/models/params/get_post_by_id.dart';
 import 'package:tamely/models/params/get_profile_details_by_id_body.dart';
 import 'package:tamely/models/params/send_follow_request_body/from_request_body.dart';
 import 'package:tamely/models/params/send_follow_request_body/send_follow_request_body.dart';
 import 'package:tamely/models/params/send_follow_request_body/to_request_body.dart';
 import 'package:tamely/models/pet_basic_details_response.dart';
-import 'package:tamely/models/post_response.dart';
 import 'package:tamely/models/profile_details_by_id_response.dart';
 import 'package:tamely/models/user_details_model.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
-import 'package:tamely/services/user_service.dart';
 import 'package:tamely/ui/profilepage/animal_profile/animal_profile_view.dart';
 import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/global_methods.dart';
 import 'package:tamely/util/utils.dart';
 
 class ProfileViewModel extends BaseViewModel {
@@ -42,14 +43,17 @@ class ProfileViewModel extends BaseViewModel {
   final _sharedPreferenceService = locator<SharedPreferencesService>();
   final _tamelyApi = locator<TamelyApi>();
 
-  void showMde(String mes) {
-    _snackBarService.showSnackbar(message: mes);
-  }
+  int _counter = 0;
+  bool _isLoading = true;
+  bool _isEndOfList = false;
 
   String avatarUrl = "";
   bool isHuman = true;
   String petID = "";
   String petToken = "";
+
+  String inspectID = "";
+
   dynamic _pickImageError;
   XFile? _imageFile;
   File? _editedImage;
@@ -148,17 +152,19 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   Future init(bool isInspect, String inspectProfileId,
-      {bool needToShowLoading = true}) async {
+      {bool needToShowLoading = true, bool isFollowing = false}) async {
     CurrentProfile profile = _sharedPreferenceService.getCurrentProfile();
 
     isHuman = profile.isHuman;
     petToken = profile.petToken;
     petID = profile.petId;
+    this.isFollowing = isFollowing;
+    inspectID = inspectProfileId;
     notifyListeners();
 
     if (isInspect) {
       getUserProfileDetailsById(inspectProfileId, needToShowLoading);
-      getUserPosts();
+      getUserPostsById();
     } else {
       getUserProfileDetails(needToShowLoading);
       getUserPosts();
@@ -182,7 +188,7 @@ class ProfileViewModel extends BaseViewModel {
 
         _snackBarService.showSnackbar(message: error.getErrorMessage());
       } else if (response.data != null) {
-        setProfileDetailsByIValues(response.data!).then((value) =>
+        setProfileDetailsByIdValues(response.data!).then((value) =>
             isNeedShowToLoading
                 ? _dialogService.completeDialog(DialogResponse(confirmed: true))
                 : {});
@@ -219,7 +225,8 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   Future getUserPosts() async {
-    BaseResponse<ListOfPostResponse> response = await _tamelyApi.getUserPosts();
+    BaseResponse<ListOfFeedPostResponse> response =
+    await _tamelyApi.getUserPosts(true);
     if (response.getException != null) {
       ServerError error = response.getException as ServerError;
       _snackBarService.showSnackbar(message: error.getErrorMessage());
@@ -231,8 +238,39 @@ class ProfileViewModel extends BaseViewModel {
     }
   }
 
+  Future getUserPostsById({bool fromRefresh = false}) async {
+    if (fromRefresh) {
+      _counter = 0;
+      _listOfPosts.clear();
+      _isEndOfList = false;
+      notifyListeners();
+    }
+    _isLoading = true;
+    notifyListeners();
+    BaseResponse<ListOfFeedPostResponse> response =
+        await _tamelyApi.getUserPostsById(
+            GetPostByIdBody(
+                inspectID, GlobalMethods.getProfileType(true), _counter),
+            true);
+    if (response.getException != null) {
+      ServerError error = response.getException as ServerError;
+      _isLoading = false;
+      notifyListeners();
+      _snackBarService.showSnackbar(message: error.getErrorMessage());
+    } else if (response.data != null) {
+      _listOfPosts.addAll(response.data!.listOfPosts ?? []);
+      if ((response.data!.listOfPosts ?? []).length < 20) {
+        _isEndOfList = true;
+        notifyListeners();
+      }
+      _counter++;
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
   String _Id = "";
-  String _profilename = "";
+  String _fullname = "";
   String _username = "";
   String _profileImgUrl = "";
   String _shortBio = "";
@@ -250,13 +288,13 @@ class ProfileViewModel extends BaseViewModel {
   bool isFollowing = false;
 
   List<PetBasicDetailsResponse> _listOfMyAnimals = [];
-  List<PostResponse> _listOfPosts = [];
+  List<FeedPostResponse> _listOfPosts = [];
 
   List<PetBasicDetailsResponse> get listOfMyAnimals => _listOfMyAnimals;
 
-  List<PostResponse> get listOfPosts => _listOfPosts;
+  List<FeedPostResponse> get listOfPosts => _listOfPosts;
 
-  String get profilename => _profilename;
+  String get fullname => _fullname;
 
   String get username => _username;
 
@@ -279,6 +317,10 @@ class ProfileViewModel extends BaseViewModel {
   int get completedProfileTotalCount => _completedProfileTotalCount;
 
   bool get profileCompleted => _profileCompleted;
+
+  bool get isLoading => _isLoading;
+
+  bool get isEndOfList => _isEndOfList;
 
   void myAnimalVisible() {
     isMyAnimalsVisibile = !isMyAnimalsVisibile;
@@ -345,9 +387,15 @@ class ProfileViewModel extends BaseViewModel {
     );
   }
 
-  void goToPostDetailsView(PostResponse postResponse) async {
-    // await _navigationService.navigateTo(Routes.postDetialsPageView,
-    //     arguments: PostDetialsPageViewArguments(postResponse: postResponse));
+  void goToPostDetailsView(FeedPostResponse postResponse, int index) async {
+    var result = await _navigationService.navigateTo(
+        Routes.singlePostDetailsView,
+        arguments: SinglePostDetailsViewArguments(postResponse: postResponse));
+
+    if (result == 1) {
+      _listOfPosts.removeAt(index);
+      notifyListeners();
+    }
   }
 
   void goToCompleteProfile() async {
@@ -363,20 +411,26 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   Future followThisProfile(String fromID, String toID, String fromType) async {
-    isFollowing = true;
-    notifyListeners();
-    SendFollowRequestBody body = SendFollowRequestBody(
-      FromRequestBody(fromID, fromType),
-      ToRequestBody(
-        toID,
-        "User",
-      ),
-    );
-    var result = await _tamelyApi.sendFollowRequest(body, isHuman,
-        animalToken: petToken);
-    if (result.data != null) {
-      _noOfFollowers++;
-      notifyListeners();
+    if (fromID != toID) {
+      if (!isFollowing) {
+        isFollowing = true;
+        notifyListeners();
+        SendFollowRequestBody body = SendFollowRequestBody(
+          FromRequestBody(fromID, fromType),
+          ToRequestBody(
+            toID,
+            "User",
+          ),
+        );
+        var result = await _tamelyApi.sendFollowRequest(body, isHuman,
+            animalToken: petToken);
+        if (result.data != null) {
+          _noOfFollowers++;
+          notifyListeners();
+        }
+      }
+    } else {
+      _snackBarService.showSnackbar(message: "You can't follow yourself!");
     }
   }
 
@@ -384,8 +438,8 @@ class ProfileViewModel extends BaseViewModel {
     var result = await _navigationService.navigateTo(
       Routes.profileCreateView,
       arguments: ProfileCreateViewArguments(
-        user: LocalUser(
-            username: _username, fullName: _profilename, bio: _shortBio),
+        user:
+            LocalUser(username: _username, fullName: _fullname, bio: _shortBio),
         isEdit: true,
         lastAvatarUrl: _profileImgUrl,
       ),
@@ -402,7 +456,7 @@ class ProfileViewModel extends BaseViewModel {
     UserDetailsModelResponse userDetailsModelResponse =
         response.userDetailsModel!;
     _Id = userDetailsModelResponse.Id ?? "";
-    _profilename = userDetailsModelResponse.fullName ?? "";
+    _fullname = userDetailsModelResponse.fullName ?? "";
     _username = userDetailsModelResponse.username ?? "";
     _profileImgUrl = userDetailsModelResponse.avatar ?? "";
     _shortBio = userDetailsModelResponse.bio ?? "";
@@ -428,10 +482,14 @@ class ProfileViewModel extends BaseViewModel {
     _dialogService.completeDialog(DialogResponse(confirmed: true));
   }
 
-  Future setProfileDetailsByIValues(ProfileDetailsByIdResponse response) async {
+  Future setProfileDetailsByIdValues(
+      ProfileDetailsByIdResponse response) async {
+    _completedProfileStepCount = 0;
+    _listOfMyAnimals.clear();
+    notifyListeners();
     UserDetailsModelResponse userDetailsModelResponse = response.user!;
-    _profilename = userDetailsModelResponse.username ?? "";
-    _username = userDetailsModelResponse.fullName ?? "";
+    _fullname = userDetailsModelResponse.fullName ?? "";
+    _username = userDetailsModelResponse.username ?? "";
     _profileImgUrl = userDetailsModelResponse.avatar ?? "";
     _shortBio = userDetailsModelResponse.bio ?? "";
     _noOfFollowers = response.totalFollowers!;

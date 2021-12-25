@@ -115,11 +115,11 @@ class FeedView extends StatelessWidget {
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: model.dummyListOfFeedPost.length,
                 itemBuilder: (context, index) => PostItemView(
-                    postResponse: model.dummyListOfFeedPost[index]),
-                separatorBuilder: (BuildContext context, int index) => Divider(
-                  indent: 0,
-                  thickness: 5,
-                  color: colors.kcLightGreyBackground,
+                  postResponse: model.dummyListOfFeedPost[index],
+                  needToShowComments: true,
+                ),
+                separatorBuilder: (context, index) => Divider(
+                  color: Colors.transparent,
                 ),
               ),
               verticalSpaceRegular,
@@ -133,13 +133,16 @@ class FeedView extends StatelessWidget {
                 ),
               ),
               Visibility(
-                visible: !model.isLoading,
-                child: GestureDetector(
-                  onTap: model.seeMorePost,
-                  child: AppText.body1Bold(
-                    "See more Posts",
-                    textAlign: TextAlign.center,
-                    color: colors.primary,
+                visible: !model.isEndOfList,
+                child: Visibility(
+                  visible: !model.isLoading,
+                  child: GestureDetector(
+                    onTap: model.seeMorePost,
+                    child: AppText.body1Bold(
+                      "See more Posts",
+                      textAlign: TextAlign.center,
+                      color: colors.primary,
+                    ),
                   ),
                 ),
               ),

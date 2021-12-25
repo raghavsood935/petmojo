@@ -49,13 +49,16 @@ import '../ui/livemap/livemap_view.dart';
 import '../ui/login/login_view.dart';
 import '../ui/newpost/newpostLocation/newpostLocation_view.dart';
 import '../ui/newpost/newpost_view.dart';
-import '../ui/notification/notifications.dart';
+import '../ui/notification/notification_main_page.dart';
 import '../ui/onboarding/onboarding_view.dart';
 import '../ui/otp/confirm_otp_view.dart';
 import '../ui/payment/payment_view.dart';
+import '../ui/phone_authentication/confirm_otp_phone/confirm_otp_phone_view.dart';
+import '../ui/phone_authentication/phone_authentication_view.dart';
 import '../ui/post/camera_screen.dart';
 import '../ui/post/post_creation.dart';
 import '../ui/post_detail/post_detial_page_view.dart';
+import '../ui/post_detail/single_post_details_page/single_post_details_view.dart';
 import '../ui/profile/profile_create_view.dart';
 import '../ui/profilepage/animal_profile/animal_profile_view.dart';
 import '../ui/profilepage/animal_profile/basic_info/basic_info_view.dart';
@@ -81,6 +84,8 @@ class Routes {
   static const String dashboard = '/Dashboard';
   static const String signUpView = '/sign-up-view';
   static const String confirmOTPView = '/confirm-ot-pView';
+  static const String phoneAuthenticationView = '/phone-authentication-view';
+  static const String confirmOtpPhoneView = '/confirm-otp-phone-view';
   static const String forgotPasswordView = '/forgot-password-view';
   static const String newPasswordView = '/new-password-view';
   static const String profileView = '/profile-view';
@@ -100,6 +105,7 @@ class Routes {
   static const String guardiansAndRelatedAnimalsView =
       '/guardians-and-related-animals-view';
   static const String postDetialsPageView = '/post-detials-page-view';
+  static const String singlePostDetailsView = '/single-post-details-view';
   static const String groupsView = '/groups-view';
   static const String createGroupView = '/create-group-view';
   static const String groupInfoView = '/group-info-view';
@@ -121,7 +127,7 @@ class Routes {
   static const String bookmarksView = '/bookmarks-view';
   static const String helpView = '/help-view';
   static const String walletView = '/wallet-view';
-  static const String notifications = '/Notifications';
+  static const String notificationMainView = '/notification-main-view';
   static const String dogRunnersView = '/dog-runners-view';
   static const String tamelyDogRunnersView = '/tamely-dog-runners-view';
   static const String dogRunningBookingView = '/dog-running-booking-view';
@@ -140,6 +146,8 @@ class Routes {
     dashboard,
     signUpView,
     confirmOTPView,
+    phoneAuthenticationView,
+    confirmOtpPhoneView,
     forgotPasswordView,
     newPasswordView,
     profileView,
@@ -156,6 +164,7 @@ class Routes {
     cameraScreen,
     guardiansAndRelatedAnimalsView,
     postDetialsPageView,
+    singlePostDetailsView,
     groupsView,
     createGroupView,
     groupInfoView,
@@ -177,7 +186,7 @@ class Routes {
     bookmarksView,
     helpView,
     walletView,
-    notifications,
+    notificationMainView,
     dogRunnersView,
     tamelyDogRunnersView,
     dogRunningBookingView,
@@ -202,6 +211,8 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.dashboard, page: Dashboard),
     RouteDef(Routes.signUpView, page: SignUpView),
     RouteDef(Routes.confirmOTPView, page: ConfirmOTPView),
+    RouteDef(Routes.phoneAuthenticationView, page: PhoneAuthenticationView),
+    RouteDef(Routes.confirmOtpPhoneView, page: ConfirmOtpPhoneView),
     RouteDef(Routes.forgotPasswordView, page: ForgotPasswordView),
     RouteDef(Routes.newPasswordView, page: NewPasswordView),
     RouteDef(Routes.profileView, page: ProfileView),
@@ -221,6 +232,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.guardiansAndRelatedAnimalsView,
         page: GuardiansAndRelatedAnimalsView),
     RouteDef(Routes.postDetialsPageView, page: PostDetialsPageView),
+    RouteDef(Routes.singlePostDetailsView, page: SinglePostDetailsView),
     RouteDef(Routes.groupsView, page: GroupsView),
     RouteDef(Routes.createGroupView, page: CreateGroupView),
     RouteDef(Routes.groupInfoView, page: GroupInfoView),
@@ -242,7 +254,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.bookmarksView, page: BookmarksView),
     RouteDef(Routes.helpView, page: HelpView),
     RouteDef(Routes.walletView, page: WalletView),
-    RouteDef(Routes.notifications, page: Notifications),
+    RouteDef(Routes.notificationMainView, page: NotificationMainView),
     RouteDef(Routes.dogRunnersView, page: DogRunnersView),
     RouteDef(Routes.tamelyDogRunnersView, page: TamelyDogRunnersView),
     RouteDef(Routes.dogRunningBookingView, page: DogRunningBookingView),
@@ -324,6 +336,25 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    PhoneAuthenticationView: (data) {
+      var args = data.getArgs<PhoneAuthenticationViewArguments>(
+        orElse: () => PhoneAuthenticationViewArguments(),
+      );
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => PhoneAuthenticationView(key: args.key),
+        settings: data,
+      );
+    },
+    ConfirmOtpPhoneView: (data) {
+      var args = data.getArgs<ConfirmOtpPhoneViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => ConfirmOtpPhoneView(
+          key: args.key,
+          phoneNumber: args.phoneNumber,
+        ),
+        settings: data,
+      );
+    },
     ForgotPasswordView: (data) {
       var args = data.getArgs<ForgotPasswordViewArguments>(
         orElse: () => ForgotPasswordViewArguments(),
@@ -354,6 +385,7 @@ class StackedRouter extends RouterBase {
           inspectProfileId: args.inspectProfileId,
           inspecterProfileId: args.inspecterProfileId,
           inspecterProfileType: args.inspecterProfileType,
+          isFollowing: args.isFollowing,
         ),
         settings: data,
       );
@@ -368,6 +400,7 @@ class StackedRouter extends RouterBase {
           lastAvatarUrl: args.lastAvatarUrl,
           isAnimal: args.isAnimal,
           petID: args.petID,
+          petToken: args.petToken,
         ),
         settings: data,
       );
@@ -471,11 +504,14 @@ class StackedRouter extends RouterBase {
       );
     },
     GuardiansAndRelatedAnimalsView: (data) {
-      var args = data.getArgs<GuardiansAndRelatedAnimalsViewArguments>(
-        orElse: () => GuardiansAndRelatedAnimalsViewArguments(),
-      );
+      var args =
+          data.getArgs<GuardiansAndRelatedAnimalsViewArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => GuardiansAndRelatedAnimalsView(key: args.key),
+        builder: (context) => GuardiansAndRelatedAnimalsView(
+          key: args.key,
+          petID: args.petID,
+          petToken: args.petToken,
+        ),
         settings: data,
       );
     },
@@ -483,6 +519,16 @@ class StackedRouter extends RouterBase {
       var args = data.getArgs<PostDetialsPageViewArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
         builder: (context) => PostDetialsPageView(
+          key: args.key,
+          postResponse: args.postResponse,
+        ),
+        settings: data,
+      );
+    },
+    SinglePostDetailsView: (data) {
+      var args = data.getArgs<SinglePostDetailsViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => SinglePostDetailsView(
           key: args.key,
           postResponse: args.postResponse,
         ),
@@ -622,12 +668,12 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
-    Notifications: (data) {
-      var args = data.getArgs<NotificationsArguments>(
-        orElse: () => NotificationsArguments(),
+    NotificationMainView: (data) {
+      var args = data.getArgs<NotificationMainViewArguments>(
+        orElse: () => NotificationMainViewArguments(),
       );
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => Notifications(key: args.key),
+        builder: (context) => NotificationMainView(key: args.key),
         settings: data,
       );
     },
@@ -781,6 +827,19 @@ class ConfirmOTPViewArguments {
       required this.verificationType});
 }
 
+/// PhoneAuthenticationView arguments holder class
+class PhoneAuthenticationViewArguments {
+  final Key? key;
+  PhoneAuthenticationViewArguments({this.key});
+}
+
+/// ConfirmOtpPhoneView arguments holder class
+class ConfirmOtpPhoneViewArguments {
+  final Key? key;
+  final String phoneNumber;
+  ConfirmOtpPhoneViewArguments({this.key, required this.phoneNumber});
+}
+
 /// ForgotPasswordView arguments holder class
 class ForgotPasswordViewArguments {
   final Key? key;
@@ -803,6 +862,7 @@ class ProfileViewArguments {
   final String? inspectProfileId;
   final String? inspecterProfileId;
   final String? inspecterProfileType;
+  final dynamic isFollowing;
   ProfileViewArguments(
       {this.key,
       required this.menuScreenContext,
@@ -811,7 +871,8 @@ class ProfileViewArguments {
       required this.isInspectView,
       this.inspectProfileId,
       this.inspecterProfileId,
-      this.inspecterProfileType});
+      this.inspecterProfileType,
+      this.isFollowing});
 }
 
 /// ProfileCreateView arguments holder class
@@ -822,13 +883,15 @@ class ProfileCreateViewArguments {
   final dynamic lastAvatarUrl;
   final dynamic isAnimal;
   final dynamic petID;
+  final dynamic petToken;
   ProfileCreateViewArguments(
       {this.key,
       required this.user,
       this.isEdit,
       this.lastAvatarUrl,
       this.isAnimal,
-      this.petID});
+      this.petID,
+      this.petToken});
 }
 
 /// AddDetailsProfileView arguments holder class
@@ -903,7 +966,10 @@ class CameraScreenArguments {
 /// GuardiansAndRelatedAnimalsView arguments holder class
 class GuardiansAndRelatedAnimalsViewArguments {
   final Key? key;
-  GuardiansAndRelatedAnimalsViewArguments({this.key});
+  final String petID;
+  final String petToken;
+  GuardiansAndRelatedAnimalsViewArguments(
+      {this.key, required this.petID, required this.petToken});
 }
 
 /// PostDetialsPageView arguments holder class
@@ -911,6 +977,13 @@ class PostDetialsPageViewArguments {
   final Key? key;
   final FeedPostResponse postResponse;
   PostDetialsPageViewArguments({this.key, required this.postResponse});
+}
+
+/// SinglePostDetailsView arguments holder class
+class SinglePostDetailsViewArguments {
+  final Key? key;
+  final FeedPostResponse postResponse;
+  SinglePostDetailsViewArguments({this.key, required this.postResponse});
 }
 
 /// NewPost arguments holder class
@@ -926,10 +999,10 @@ class BookmarksViewArguments {
   BookmarksViewArguments({this.key});
 }
 
-/// Notifications arguments holder class
-class NotificationsArguments {
+/// NotificationMainView arguments holder class
+class NotificationMainViewArguments {
   final Key? key;
-  NotificationsArguments({this.key});
+  NotificationMainViewArguments({this.key});
 }
 
 /// TamelyDogRunnersView arguments holder class

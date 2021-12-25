@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
+import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/BottomSheetType.dart';
 import 'package:tamely/models/feed_post_response.dart';
+import 'package:tamely/models/params/delete_post_body.dart';
 import 'package:tamely/models/params/like_dislike_post_body.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
@@ -15,6 +17,7 @@ class PostItemViewModel extends BaseModel {
   final _bottomsheetService = locator<BottomSheetService>();
   final _sharedPrefernceService = locator<SharedPreferencesService>();
   final navigationService = locator<NavigationService>();
+  final _snackBarService = locator<SnackbarService>();
   final _tamelyApi = locator<TamelyApi>();
 
   String myProfileImg = emptyProfileImgUrl;
@@ -28,6 +31,8 @@ class PostItemViewModel extends BaseModel {
 
   int commentsCounts = 0;
 
+  bool isOurPost = true;
+
   void init(FeedPostResponse postResponse) async {
     CurrentProfile profile = _sharedPrefernceService.getCurrentProfile();
     this.isHuman = profile.isHuman;
@@ -39,7 +44,33 @@ class PostItemViewModel extends BaseModel {
 
     this.postResponse = postResponse;
     this.postId = postResponse.Id ?? "";
-    this.commentsCounts = postResponse.commentResponse!.commentCount ?? 0;
+
+    if (postResponse.authorType == 'human' ||
+        postResponse.authorType == 'User') {
+      if ((postResponse.userAuthor ?? []).isNotEmpty) {
+        if ((postResponse.userAuthor ?? [])[0].Id!.isNotEmpty) {
+          isOurPost = (profile.isHuman ? profile.userId : profile.petId) ==
+              ((postResponse.userAuthor ?? [])[0].Id);
+          notifyListeners();
+        }
+      }
+    } else {
+      if ((postResponse.animalAuthorResponse ?? []).isNotEmpty) {
+        if ((postResponse.animalAuthorResponse ?? [])[0].Id!.isNotEmpty) {
+          isOurPost = (profile.isHuman ? profile.userId : profile.petId) ==
+              ((postResponse.animalAuthorResponse ?? [])[0].Id);
+          notifyListeners();
+        }
+      }
+    }
+
+    if (postResponse.commentResponse != null) {
+      this.commentsCounts = postResponse.commentResponse!.commentCount ?? 0;
+      notifyListeners();
+    } else {
+      this.commentsCounts = 10;
+      notifyListeners();
+    }
 
     notifyListeners();
   }
@@ -109,7 +140,58 @@ class PostItemViewModel extends BaseModel {
 
     if (sheetResponse != null) {
       print("Confirmed : ${sheetResponse.confirmed}");
+      if (sheetResponse.confirmed) {
+        var response = int.parse(sheetResponse.data.toString());
+        print("VALUE : $response");
+        switch (response) {
+          case 0:
+            {
+              var result = await deletePost();
+              print("DELETE VALUE : $result");
+              if (result == 1) {
+                navigationService.back(result: 1);
+                _snackBarService.showSnackbar(message: "Post is deleted");
+              }
+              break;
+            }
+        }
+      }
       notifyListeners();
+    }
+  }
+
+  Future<int> deletePost() async {
+    var sheetResponse = await _bottomsheetService.showCustomSheet(
+      variant: BottomSheetType.DeletePostBottomSheet,
+      isScrollControlled: true,
+      barrierDismissible: true,
+    );
+
+    if (sheetResponse!.confirmed) {
+      if (int.parse(sheetResponse.data.toString()) == 1) {
+        var response = await _tamelyApi.deletePost(
+          DeletePostBody(postId),
+          isHuman,
+          petToken,
+        );
+        if (response.getException != null) {
+          ServerError error = response.getException as ServerError;
+          _snackBarService.showSnackbar(message: error.getErrorMessage());
+          return 0;
+        } else if (response.data != null) {
+          if (response.data!.success ?? false) {
+            return 1;
+          } else {
+            return 0;
+          }
+        } else {
+          return 0;
+        }
+      } else {
+        return 0;
+      }
+    } else {
+      return 0;
     }
   }
 }

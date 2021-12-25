@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:tamely/models/feed_post_response.dart';
 
 part 'get_bookmarks_model.freezed.dart';
 part 'get_bookmarks_model.g.dart';
@@ -8,7 +9,7 @@ class getBookmarks with _$getBookmarks {
   getBookmarks._();
 
   factory getBookmarks({
-    @JsonKey(name: "bookmarks") List<BookmarkDetailResponse>? listOfBookmarks,
+    @JsonKey(name: "bookmarks") List<FeedPostResponse>? listOfBookmarks,
   }) = _getBookmarks;
 
   factory getBookmarks.fromJson(Map<String, dynamic> json) =>

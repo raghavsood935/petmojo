@@ -27,6 +27,7 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
   final isEdit;
   final isAnimal;
   final petID;
+  final petToken;
   final lastAvatarUrl;
   ProfileCreateView({
     Key? key,
@@ -35,6 +36,7 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
     this.lastAvatarUrl,
     this.isAnimal,
     this.petID,
+    this.petToken,
   }) : super(key: key);
 
   @override
@@ -43,7 +45,7 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
       onModelReady: (model) {
         listenToFormUpdated(model);
         model.init(lastAvatarUrl, isEdit ?? false, isAnimal ?? false,
-            petID.toString());
+            petID.toString(), petToken.toString());
         usernameController.text = user.username ?? "";
         nameController.text = user.fullName ?? "";
         shortBioController.text = user.bio ?? "";

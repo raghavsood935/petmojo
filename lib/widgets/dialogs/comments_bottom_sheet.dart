@@ -26,6 +26,8 @@ class CommentsBottomSheet extends StatefulWidget {
 }
 
 class _CommentsBottomSheetState extends State<CommentsBottomSheet> {
+  bool isCommentEmpty = true;
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<CommentViewModel>.reactive(
@@ -40,7 +42,7 @@ class _CommentsBottomSheetState extends State<CommentsBottomSheet> {
           child: Stack(
             children: [
               Positioned(
-                top: 10,
+                top: 0,
                 right: 0,
                 left: 0,
                 child: ListTile(
@@ -66,14 +68,21 @@ class _CommentsBottomSheetState extends State<CommentsBottomSheet> {
                 top: 50,
                 right: 0,
                 left: 0,
-                child: SizedBox(
-                    height: screenHeightPercentage(context, percentage: 0.70),
-                    child: SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 50),
-                        child: Column(
-                          children: [
-                            ListView.separated(
+                bottom: 75,
+                child: SingleChildScrollView(
+                  physics: ScrollPhysics(),
+                  child: Column(
+                    children: [
+                      model.listOfComments.length == 0
+                          ? Visibility(
+                              visible: !model.isLoading,
+                              child: AppText.body1Bold(
+                                "No one commented yet",
+                                textAlign: TextAlign.center,
+                                color: colors.primary,
+                              ),
+                            )
+                          : ListView.separated(
                               shrinkWrap: true,
                               physics: NeverScrollableScrollPhysics(),
                               itemCount: model.listOfComments.length,
@@ -82,31 +91,33 @@ class _CommentsBottomSheetState extends State<CommentsBottomSheet> {
                               separatorBuilder: (context, index) =>
                                   spacedDividerTiny,
                             ),
-                            verticalSpaceRegular,
-                            Visibility(
-                              visible: model.isLoading,
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: CircularProgressIndicator(
-                                  color: colors.primary,
-                                ),
-                              ),
-                            ),
-                            Visibility(
-                              visible: !model.isLoading,
-                              child: GestureDetector(
-                                onTap: () => model.fetchComment(true),
-                                child: AppText.body1Bold(
-                                  "See more Comments",
-                                  textAlign: TextAlign.center,
-                                  color: colors.primary,
-                                ),
-                              ),
-                            ),
-                          ],
+                      verticalSpaceRegular,
+                      Visibility(
+                        visible: model.isLoading,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: CircularProgressIndicator(
+                            color: colors.primary,
+                          ),
                         ),
                       ),
-                    )),
+                      Visibility(
+                        visible: !model.isEndOfList,
+                        child: Visibility(
+                          visible: !model.isLoading,
+                          child: GestureDetector(
+                            onTap: () => model.fetchComment(true),
+                            child: AppText.body1Bold(
+                              "See more Comments",
+                              textAlign: TextAlign.center,
+                              color: colors.primary,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
               Positioned(
                 bottom: 0,
@@ -142,6 +153,17 @@ class _CommentsBottomSheetState extends State<CommentsBottomSheet> {
                         ),
                         controller: model.commentTC,
                         maxLines: null,
+                        onChanged: (value) {
+                          if (value.isEmpty) {
+                            setState(() {
+                              isCommentEmpty = true;
+                            });
+                          } else {
+                            setState(() {
+                              isCommentEmpty = false;
+                            });
+                          }
+                        },
                       ),
                     ),
                     trailing: GestureDetector(
@@ -149,88 +171,24 @@ class _CommentsBottomSheetState extends State<CommentsBottomSheet> {
                           ? CircularProgressIndicator(
                               color: colors.primary,
                             )
-                          : Image.asset(sendImgPath),
-                      onTap: () => model.postComment(context),
+                          : Icon(
+                              Icons.send_rounded,
+                              color: isCommentEmpty
+                                  ? colors.kcMediumGreyColor
+                                  : colors.primary,
+                              size: 30,
+                            ),
+                      onTap: () => model.postComment(context).whenComplete(() {
+                        setState(() {
+                          isCommentEmpty = true;
+                        });
+                      }),
                     ),
                   ),
                 ),
               ),
             ],
           ),
-          // child: Scaffold(
-          //   appBar: AppBar(
-          //     backgroundColor: colors.white,
-          //     elevation: 0.0,
-          //     automaticallyImplyLeading: false,
-          //     title: AppText.subheading("Comments"),
-          //     centerTitle: true,
-          //     actions: <Widget>[
-          //       Padding(
-          //         padding: const EdgeInsets.only(right: 15.0),
-          //         child: GestureDetector(
-          //           onTap: () => model.onClose(context),
-          //           child: Image.asset(
-          //             crossImgPath,
-          //             height: 12,
-          //             width: 12,
-          //           ),
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          //   body: ListView.builder(
-          //     itemCount: model.listOfComments.length,
-          //     // shrinkWrap: true,
-          //     physics: ScrollPhysics(),
-          //     itemBuilder: (BuildContext context, int index) => ListTile(
-          //       tileColor: colors.white,
-          //       leading: CustomCircularAvatar(
-          //         radius: 20.0,
-          //         imgPath: model.listOfComments[index].profileImgUrl,
-          //       ),
-          //       title: AppText.body(model.listOfComments[index].username),
-          //       subtitle:
-          //           AppText.caption(model.listOfComments[index].description),
-          //       trailing: Icon(Icons.favorite_border),
-          //     ),
-          //   ),
-          //   bottomSheet: ListTile(
-          //     tileColor: colors.white,
-          //     contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-          //     leading: CustomCircularAvatar(
-          //       radius: 20.0,
-          //       imgPath: widget.sheetRequest.customData.toString(),
-          //     ),
-          //     title: Expanded(
-          //       child: Container(
-          //         decoration: BoxDecoration(
-          //           color: colors.kcVeryLightGreyColor,
-          //           borderRadius: BorderRadius.circular(30.0),
-          //         ),
-          //         child: TextField(
-          //           decoration: InputDecoration(
-          //             hintText: "Comment here",
-          //             border: InputBorder.none,
-          //             focusedBorder: InputBorder.none,
-          //             enabledBorder: InputBorder.none,
-          //             errorBorder: InputBorder.none,
-          //             disabledBorder: InputBorder.none,
-          //             contentPadding: EdgeInsets.symmetric(
-          //               vertical: 10,
-          //               horizontal: 15,
-          //             ),
-          //           ),
-          //           controller: model.commentTC,
-          //           maxLines: null,
-          //         ),
-          //       ),
-          //     ),
-          //     trailing: GestureDetector(
-          //       child: Image.asset(sendImgPath),
-          //       onTap: () {},
-          //     ),
-          //   ),
-          // ),
         ),
       ),
     );
@@ -239,6 +197,7 @@ class _CommentsBottomSheetState extends State<CommentsBottomSheet> {
 
 Widget commentTile(CommentResponse comment) {
   return ListTile(
+    contentPadding: commonPaddding,
     title: GlobalMethods.checkProfileType(comment.authorType ?? "")
         ? AppText.body1Bold(
             comment.authorDetailsResponse!.first.username ?? "-",

@@ -31,13 +31,17 @@ import 'package:tamely/ui/livemap/livemap_view.dart';
 import 'package:tamely/ui/login/login_view.dart';
 import 'package:tamely/ui/newpost/newpostLocation/newpostLocation_view.dart';
 import 'package:tamely/ui/newpost/newpost_view.dart';
-import 'package:tamely/ui/notification/notifications.dart';
+import 'package:tamely/ui/notification/notification/notifications.dart';
+import 'package:tamely/ui/notification/notification_main_page.dart';
 import 'package:tamely/ui/onboarding/onboarding_view.dart';
 import 'package:tamely/ui/otp/confirm_otp_view.dart';
 import 'package:tamely/ui/payment/payment_view.dart';
+import 'package:tamely/ui/phone_authentication/confirm_otp_phone/confirm_otp_phone_view.dart';
+import 'package:tamely/ui/phone_authentication/phone_authentication_view.dart';
 import 'package:tamely/ui/post/camera_screen.dart';
 import 'package:tamely/ui/post/post_creation.dart';
 import 'package:tamely/ui/post_detail/post_detial_page_view.dart';
+import 'package:tamely/ui/post_detail/single_post_details_page/single_post_details_view.dart';
 import 'package:tamely/ui/profile/profile_create_view.dart';
 import 'package:tamely/ui/profilepage/animal_profile/animal_profile_view.dart';
 import 'package:tamely/ui/profilepage/animal_profile/basic_info/basic_info_view.dart';
@@ -51,9 +55,6 @@ import 'package:tamely/ui/reportcard/reportcard_view.dart';
 import 'package:tamely/ui/signup/signup_view.dart';
 import 'package:tamely/ui/startup/startup_view.dart';
 import 'package:tamely/ui/tamelydogrunning/tamelydogrunning_view.dart';
-import 'package:tamely/ui/tamelydogrunning/tamelyoverview/tamelyoverview_view.dart';
-import 'package:tamely/ui/tamelydogrunning/tamelyratechart/tamelyratechart_view.dart';
-import 'package:tamely/ui/tamelydogrunning/tamelyreviews/tamelyreviews_view.dart';
 import '../ui/settings/settings_human_view.dart';
 import '../ui/settings/settings_animal_view.dart';
 import '../ui/bookings/bookings_view.dart';
@@ -73,6 +74,8 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: Dashboard),
     CupertinoRoute(page: SignUpView),
     CupertinoRoute(page: ConfirmOTPView),
+    CupertinoRoute(page: PhoneAuthenticationView),
+    CupertinoRoute(page: ConfirmOtpPhoneView),
     CupertinoRoute(page: ForgotPasswordView),
     CupertinoRoute(page: NewPasswordView),
     CupertinoRoute(page: ProfileView),
@@ -89,6 +92,7 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: CameraScreen),
     CupertinoRoute(page: GuardiansAndRelatedAnimalsView),
     CupertinoRoute(page: PostDetialsPageView),
+    CupertinoRoute(page: SinglePostDetailsView),
 
     // Group routes
     CupertinoRoute(page: GroupsView),
@@ -118,7 +122,7 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: BookmarksView),
     CupertinoRoute(page: HelpView),
     CupertinoRoute(page: WalletView),
-    CupertinoRoute(page: Notifications),
+    CupertinoRoute(page: NotificationMainView),
 
     // Dog running
     CupertinoRoute(page: DogRunnersView),

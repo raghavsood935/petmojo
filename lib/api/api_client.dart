@@ -18,40 +18,45 @@ import 'package:tamely/models/list_of_comments_response.dart';
 import 'package:tamely/models/list_of_feed_post_response.dart';
 import 'package:tamely/models/list_of_followers_resopnse.dart';
 import 'package:tamely/models/list_of_followings_resopnse.dart';
-import 'package:tamely/models/list_of_for_you_post_response.dart';
-import 'package:tamely/models/list_of_post_response.dart';
+import 'package:tamely/models/list_of_guardians.dart';
+import 'package:tamely/models/list_of_pending_relation_requests.dart';
+import 'package:tamely/models/list_of_pending_requests.dart';
 import 'package:tamely/models/list_of_profile_response.dart';
 import 'package:tamely/models/list_of_profiles_foy_you.dart';
+import 'package:tamely/models/list_of_relations.dart';
 import 'package:tamely/models/notification_response.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/models/params/change_bio_avatar_body.dart';
 import 'package:tamely/models/params/comment_new/add_comment_body.dart';
-import 'package:tamely/models/params/comments/comment/delete_comment_body.dart';
-import 'package:tamely/models/params/comments/comment/store_comment_body.dart';
-import 'package:tamely/models/params/comments/comment/update_comment_body.dart';
-import 'package:tamely/models/params/comments/comment/vote_comment_body.dart';
-import 'package:tamely/models/params/comments/sub_comment/delete_sub_comment_body.dart';
-import 'package:tamely/models/params/comments/sub_comment/store_sub_comment_body.dart';
-import 'package:tamely/models/params/comments/sub_comment/update_sub_comment_body.dart';
-import 'package:tamely/models/params/comments/sub_comment/vote_sub_comment_body.dart';
+import 'package:tamely/models/params/confirm_relation_request_body.dart';
 import 'package:tamely/models/params/counter_body.dart';
+import 'package:tamely/models/params/delete_post_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_details_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_main_details_body.dart';
 import 'package:tamely/models/params/feedback_body.dart';
 import 'package:tamely/models/params/fetch_list_of_following_body.dart';
+import 'package:tamely/models/params/get_guardians_body.dart';
 import 'package:tamely/models/params/get_payment_details_body.dart';
+import 'package:tamely/models/params/get_post_by_id.dart';
 import 'package:tamely/models/params/get_profile_details_by_id_body.dart';
+import 'package:tamely/models/params/get_relation_requests_body.dart';
+import 'package:tamely/models/params/guardians_and_relations/send_guardian_request_body.dart';
+import 'package:tamely/models/params/guardians_and_relations/send_relation_request_body.dart';
 import 'package:tamely/models/params/like_dislike_post_body.dart';
 import 'package:tamely/models/params/login_body.dart';
 import 'package:tamely/models/params/need_help_body.dart';
 import 'package:tamely/models/params/profile_create_body.dart';
 import 'package:tamely/models/params/register_body.dart';
+import 'package:tamely/models/params/reject_relation_request_body.dart';
+import 'package:tamely/models/params/resend_mobile_otp_body.dart';
 import 'package:tamely/models/params/reset_password_body.dart';
 import 'package:tamely/models/params/search_profile_body.dart';
 import 'package:tamely/models/params/send_follow_request_body/send_follow_request_body.dart';
+import 'package:tamely/models/params/send_mobile_otp_body.dart';
 import 'package:tamely/models/params/set_payment_details_body.dart';
 import 'package:tamely/models/params/show_people_to_follow_body.dart';
 import 'package:tamely/models/params/social_login_body.dart';
+import 'package:tamely/models/params/verify_mobile_otp_body.dart';
 import 'package:tamely/models/profile_details_by_id_response.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
 import 'package:tamely/models/user_response_models.dart';
@@ -94,11 +99,31 @@ class Apis {
   static const String changeAvatar = '/user/avatar';
   static const String userProfileDetails = '/user/userDetails';
   static const String userPosts = '/post/myPosts';
+  static const String userPostsById = '/post/getPostsById';
   static const String addBioAvatar = '/user/bioAndAvatar';
 
   static const String getProfileDetailsById = '/user/getUserDetailsById';
   static const String getListOfFollowers = '/user/followers';
   static const String getListOfFollowings = '/user/following';
+
+  //animal guardians
+  static const String getGuardians = '/animal/getGuardians';
+  static const String getPendingGuardianRequest =
+      '/user/getPendingGuardianRequests';
+  static const String sendGuardianRequest = '/animal/addGuardian';
+  static const String confirmGuardianRequest = '/animal/confirmGuardian';
+
+  //animal relations
+  static const String getRelations = '/animal/getRelations';
+  static const String getRelationsRequests = '/animal/getRelationRequests';
+  static const String sendRelationsRequest = '/animal/sendRelationRequest';
+  static const String confirmRelationsRequest = '/animal/confirmRelation';
+  static const String rejectRelationRequest = '/animal/rejectRelation';
+
+  //phone number verification
+  static const String sendMobileOTP = '/auth/sendMobileOTP';
+  static const String verifyMobileOTP = '/auth/verifyMobileOTP';
+  static const String resendMobileOTP = '/auth/resendMobileOTP';
 
   //animal profile
   static const String generatePetUsername = '/animal/getUniquePetName';
@@ -111,10 +136,6 @@ class Apis {
 
   //Bookmarks
   static const String getBookmarks = '/hamburger/getBookmarks';
-
-  //guardian and relations
-  static const String getPendingGuardianRequest = '/animal/register';
-  // static const String getPendingGuardianRequest = '/animal/register';
 
   //complete profile
   static const String showPeopleToFollow = '/user/showPeopleToFollow';
@@ -133,17 +154,12 @@ class Apis {
 
   //post actions
   static const String createPost = '/post';
+  static const String deletePost = '/post/deletePost';
   static const String likeDislikePost = '/post/vote';
   static const String bookmarkPost = '/user/{postID}/bookmark';
 
   //notification
   static const String notification = '/notification';
-
-  // //comments
-  // static const String storeComment = '/post/comment';
-  // static const String storeVoteComment = '/post/commentVote';
-  // static const String storeSubComment = '/post/subcomment';
-  // static const String storeVoteSubComment = '/post/subcommentVote';
 
   //comment
   static const String addComment = '/comment/{commentID}';
@@ -200,6 +216,18 @@ abstract class ApiClient {
   @PUT(Apis.confirmAccount)
   Future<CommonResponse> confirmAccount(@Body() ConfirmOTPBody confirmOTPBody);
 
+  @POST(Apis.sendMobileOTP)
+  Future<EditResponse> sendMobileOTP(
+      @Body() SendMobileOTPBody sendMobileOTPBody);
+
+  @POST(Apis.resendMobileOTP)
+  Future<EditResponse> resendMobileOTP(
+      @Body() ResendMobileOTPBody resendMobileOTPBody);
+
+  @POST(Apis.verifyMobileOTP)
+  Future<UserResponse> verifyMobileOTP(
+      @Body() VerifyMobileOTPBody verifyMobileOTPBody);
+
   @PUT(Apis.verifyResetPassword)
   Future<CommonResponse> verifyResetPassword(
       @Body() ConfirmOTPBody confirmOTPBody);
@@ -220,6 +248,9 @@ abstract class ApiClient {
   @GET(Apis.notification)
   Future<ListOfNotificationResponse> getListOfNotification();
 
+  @PUT(Apis.notification)
+  Future<EditResponse> markAsReadNotification();
+
   @PUT(Apis.user)
   Future<UserResponse> updateProfile(@Body() ProfileCreateBody createBody);
 
@@ -230,11 +261,52 @@ abstract class ApiClient {
   @GET(Apis.userProfileDetails)
   Future<UserProfileDetailsResponse> getUserProfileDetails();
 
+  //animal guardians
+  @POST(Apis.getGuardians)
+  Future<ListOfGuardiansResponse> getGuardians(
+      @Body() GetGuardianBody getGuardianBody);
+
+  @POST(Apis.getPendingGuardianRequest)
+  Future<ListOfPendingRequestsResponse> getPendingGuardianRequest();
+
+  @POST(Apis.sendGuardianRequest)
+  Future<CommonResponse> sendGuardianRequest(
+      @Body() SendGuardianRequestBody sendGuardianRequestBody);
+
+  @POST(Apis.confirmGuardianRequest)
+  Future<CommonResponse> confirmGuardianRequest(
+      @Body() GetGuardianBody getGuardianBody);
+
+  //animal relations
+  @POST(Apis.getRelations)
+  Future<ListOfRelationsResponse> getRelations(
+      @Body() GetGuardianBody getGuardianBody);
+
+  @POST(Apis.getRelationsRequests)
+  Future<ListOfRelationsRequestResponse> getPendingRelationRequest(
+      @Body() GetRelationRequestsBody getRelationRequestsBody);
+
+  @POST(Apis.sendRelationsRequest)
+  Future<CommonResponse> sendRelationRequest(
+      @Body() SendRelationRequestBody sendRelationRequestBody);
+
+  @POST(Apis.confirmRelationsRequest)
+  Future<CommonResponse> confirmRelationRequest(
+      @Body() ConfirmRelationRequestBody confirmRelationRequestBody);
+
+  @POST(Apis.confirmRelationsRequest)
+  Future<CommonResponse> rejectRelationRequest(
+      @Body() RejectRelationRequestBody rejectRelationRequestBody);
+
   @POST(Apis.imageToLink)
   Future<AvatarLinkResponse> imageToLink(@Part(name: 'image') File image);
 
   @POST(Apis.userPosts)
-  Future<ListOfPostResponse> getUserPosts();
+  Future<ListOfFeedPostResponse> getUserPosts();
+
+  @POST(Apis.userPostsById)
+  Future<ListOfFeedPostResponse> getUserPostsById(
+      @Body() GetPostByIdBody getPostByIdBody);
 
   @POST(Apis.getProfileDetailsById)
   Future<ProfileDetailsByIdResponse> getProfileDetailsById(
@@ -340,8 +412,12 @@ abstract class ApiClient {
     @Part(name: "caption") String caption,
     @Part(name: "filter") String filter,
     @Part(name: "Userauthor") String Userauthor,
+    @Part(name: "Animalauthor") String Animalauthor,
     @Part(name: "authorType") String authorType,
   );
+
+  @DELETE(Apis.deletePost)
+  Future<EditResponse> deletePost(@Body() DeletePostBody deletePostBody);
 
   //Guardian And Relation
 

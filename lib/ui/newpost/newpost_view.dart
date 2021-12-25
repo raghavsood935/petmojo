@@ -2,9 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked.dart';
-import 'package:tamely/ui/newpost/newpostLocation/newpostLocation_view.dart';
 
 import 'package:tamely/util/styles.dart';
 import 'package:tamely/util/Color.dart';

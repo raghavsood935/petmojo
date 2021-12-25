@@ -11,7 +11,7 @@ EditAnimalProfileMainDetailsBody _$EditAnimalProfileMainDetailsBodyFromJson(
     EditAnimalProfileMainDetailsBody(
       json['petId'] as String,
       json['username'] as String,
-      json['fullName'] as String,
+      json['name'] as String,
       json['bio'] as String,
       json['avatar'] as String,
     );
@@ -21,7 +21,7 @@ Map<String, dynamic> _$EditAnimalProfileMainDetailsBodyToJson(
     <String, dynamic>{
       'petId': instance.petId,
       'username': instance.username,
-      'fullName': instance.fullName,
+      'name': instance.name,
       'bio': instance.bio,
       'avatar': instance.avatar,
     };

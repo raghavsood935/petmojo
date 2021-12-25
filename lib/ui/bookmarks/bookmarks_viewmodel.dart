@@ -4,7 +4,9 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/base_response.dart';
 import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/DialogType.dart';
+import 'package:tamely/models/feed_post_response.dart';
 
 import 'package:tamely/models/get_bookmarks_model.dart';
 
@@ -23,7 +25,7 @@ class BookmarksViewModel extends FutureViewModel {
   String petID = "";
   String petToken = "";
 
-  List<BookmarkDetailResponse> listOfBookmark = [];
+  List<FeedPostResponse> listOfBookmark = [];
 
   // String _sId = "";
   // List _hashtags = [];
@@ -82,6 +84,12 @@ class BookmarksViewModel extends FutureViewModel {
         _navigationService.back();
       }
     });
+  }
+
+  void goToPostDetailsView(FeedPostResponse postResponse) async {
+    var result = await _navigationService.navigateTo(
+        Routes.singlePostDetailsView,
+        arguments: SinglePostDetailsViewArguments(postResponse: postResponse));
   }
 
   Future setValues(getBookmarks response) async {

@@ -3,8 +3,6 @@ import 'package:stacked/stacked.dart';
 import 'package:tamely/ui/for_you/for_you_view_model.dart';
 import 'package:tamely/ui/for_you/tabs/for_you_tab.dart';
 import 'package:tamely/ui/for_you/tabs/hall_of_fame_tab.dart';
-import 'package:tamely/util/Color.dart';
-import 'package:tamely/widgets/app_text.dart';
 
 class ForYouView extends StatelessWidget {
   final BuildContext menuScreenContext;

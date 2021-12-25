@@ -139,7 +139,10 @@ class _ListOfFollowingsState extends State<ListOfFollowings> {
                                   .followingDetailsResponse!
                                   .followingInnerDetailsResponse!
                                   .Id ??
-                              ""),
+                              "",
+                      widget.isFollowers
+                          ? model.listOfFollowersProfileModel[index].isFollowing
+                          : true),
                 ),
               ),
             ),
@@ -150,15 +153,18 @@ class _ListOfFollowingsState extends State<ListOfFollowings> {
               ),
             ),
             Visibility(
-              visible: !model.isLoading,
-              child: GestureDetector(
-                onTap: model.getProfilesList,
-                child: AppText.body1Bold(
-                  "See more profiles",
-                  color: colors.primary,
+              visible: !model.isEndOfList,
+              child: Visibility(
+                visible: !model.isLoading,
+                child: GestureDetector(
+                  onTap: model.getProfilesList,
+                  child: AppText.body1Bold(
+                    "See more profiles",
+                    color: colors.primary,
+                  ),
                 ),
               ),
-            ),
+            )
           ],
         )),
       ),

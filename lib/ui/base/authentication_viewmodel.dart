@@ -2,6 +2,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/api/api_service.dart';
 import 'package:tamely/api/base_response.dart';
 import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
@@ -13,6 +14,7 @@ import 'package:tamely/models/params/login_body.dart';
 import 'package:tamely/models/params/profile_create_body.dart';
 import 'package:tamely/models/params/register_body.dart';
 import 'package:tamely/models/params/social_login_body.dart';
+import 'package:tamely/models/params/verify_mobile_otp_body.dart';
 import 'package:tamely/models/user_response_models.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/services/user_service.dart';
@@ -22,6 +24,8 @@ import 'package:tamely/util/utils.dart';
 abstract class AuthenticationViewModel extends FormViewModel {
   final log = getLogger('AuthenticationViewModel');
 
+  final _tamelyApi = locator<TamelyApi>();
+  final _snackBarService = locator<SnackbarService>();
   final userService = locator<UserService>();
   final navigationService = locator<NavigationService>();
   final snackBarService = locator<SnackbarService>();
@@ -29,6 +33,8 @@ abstract class AuthenticationViewModel extends FormViewModel {
   final _googleSignIn = GoogleSignIn();
 
   AuthenticationViewModel();
+
+  bool isLoading = false;
 
   @override
   void setFormStatus() {}
@@ -69,6 +75,32 @@ abstract class AuthenticationViewModel extends FormViewModel {
     } on ServerError catch (e) {
       log.e(e.toString());
       setValidationMessage(e.toString());
+    }
+  }
+
+  Future verifyOTP(String phoneNumber, String otp) async {
+    isLoading = true;
+    notifyListeners();
+    var response =
+        await _tamelyApi.verifyMobileOTP(VerifyMobileOTPBody(phoneNumber, otp));
+    if (response.getException != null) {
+      ServerError error = response.getException as ServerError;
+      isLoading = false;
+      notifyListeners();
+      if (error.getErrorMessage() == "Received invalid status code: 400") {
+        _snackBarService.showSnackbar(message: "Enter a valid OTP");
+      } else {
+        _snackBarService.showSnackbar(message: error.getErrorMessage());
+      }
+    } else if (response.data != null) {
+      isLoading = false;
+      notifyListeners();
+      _handleLoggedInUser(
+          response.data!.localUser!, response.data!.isNewUser ?? true);
+      sharedPreferencesService.authToken = response.data!.token ?? "";
+    } else {
+      isLoading = false;
+      notifyListeners();
     }
   }
 

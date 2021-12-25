@@ -18,14 +18,19 @@ class CommentViewModel extends BaseModel {
 
   String _postId = "";
 
+  //only for  single post details page
+  int commentsCount = 0;
+
   bool isHuman = true;
   String petID = "";
   String petToken = "";
+  String profileImgUrl = "";
 
   int newlyAddedCommentsCount = 0;
 
   int _counter = 0;
   bool _isLoading = true;
+  bool _isEndOfList = false;
   bool _isCommentPostingLoading = false;
 
   TextEditingController _commentTC = TextEditingController();
@@ -36,11 +41,13 @@ class CommentViewModel extends BaseModel {
 
   bool get isLoading => _isLoading;
 
+  bool get isEndOfList => _isEndOfList;
+
   bool get isCommentPostingLoading => _isCommentPostingLoading;
 
   List<CommentResponse> get listOfComments => _listOfComments;
 
-  void init(String postID) {
+  void init(String postID, {int previousCC = 0}) {
     _postId = postID;
 
     CurrentProfile profile = _sharedPrefernceService.getCurrentProfile();
@@ -48,6 +55,9 @@ class CommentViewModel extends BaseModel {
     isHuman = profile.isHuman;
     petID = profile.petId;
     petToken = profile.petToken;
+    profileImgUrl = profile.profileImgUrl;
+
+    commentsCount = previousCC;
 
     notifyListeners();
     fetchComment(false);
@@ -57,6 +67,7 @@ class CommentViewModel extends BaseModel {
     _isLoading = true;
     if (!isSeemore) {
       _counter = 0;
+      _isEndOfList = false;
     }
     notifyListeners();
     var result = await _tamelyApi.fetchComment(_postId, _counter);
@@ -67,14 +78,25 @@ class CommentViewModel extends BaseModel {
       if (!(error.getErrorMessage() ==
           "Connection failed due to internet connection")) {
         _snackbarService.showSnackbar(message: error.getErrorMessage());
+      } else {
+        _isEndOfList = true;
+        notifyListeners();
       }
     } else if (result.data != null) {
-      List<CommentResponse> listOfRawComments = [];
-      listOfRawComments.addAll(result.data!.listOfComments ?? []);
-      _listOfComments.clear();
-      _listOfComments.addAll(listOfRawComments.reversed);
+      if (_counter == 0) {
+        _listOfComments.clear();
+        _isEndOfList = false;
+        notifyListeners();
+      }
 
-      // _listOfComments.first.authorType = "Fasdf";
+      for (CommentResponse response in result.data!.listOfComments ?? []) {
+        _listOfComments.add(response);
+      }
+
+      if ((result.data!.listOfComments ?? []).length < 10) {
+        _isEndOfList = true;
+        notifyListeners();
+      }
 
       _counter++;
       _isLoading = false;
@@ -83,28 +105,31 @@ class CommentViewModel extends BaseModel {
   }
 
   Future<void> postComment(BuildContext ct) async {
-    if (!_isCommentPostingLoading) {
-      FocusScope.of(ct).unfocus();
-      _isCommentPostingLoading = true;
-      notifyListeners();
-      var result = await _tamelyApi.addComment(
-        AddCommentBody(_commentTC.text),
-        isHuman,
-        _postId,
-        animalToken: petToken,
-      );
-      if (result.getException != null) {
-        ServerError error = result.getException as ServerError;
-        _isCommentPostingLoading = false;
+    if (commentTC.text.isNotEmpty) {
+      if (!_isCommentPostingLoading) {
+        FocusScope.of(ct).unfocus();
+        _isCommentPostingLoading = true;
         notifyListeners();
-        _snackbarService.showSnackbar(message: error.getErrorMessage());
-      }
-      if (result != null) {
-        _commentTC.clear();
-        _isCommentPostingLoading = false;
-        newlyAddedCommentsCount++;
-        notifyListeners();
-        fetchComment(false);
+        var result = await _tamelyApi.addComment(
+          AddCommentBody(_commentTC.text),
+          isHuman,
+          _postId,
+          animalToken: petToken,
+        );
+        if (result.getException != null) {
+          ServerError error = result.getException as ServerError;
+          _isCommentPostingLoading = false;
+          notifyListeners();
+          _snackbarService.showSnackbar(message: error.getErrorMessage());
+        }
+        if (result != null) {
+          _commentTC.clear();
+          _isCommentPostingLoading = false;
+          newlyAddedCommentsCount++;
+          commentsCount++;
+          notifyListeners();
+          fetchComment(false);
+        }
       }
     }
   }
