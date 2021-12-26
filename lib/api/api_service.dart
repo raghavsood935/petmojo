@@ -730,6 +730,20 @@ class TamelyApi {
     return BaseResponse()..data = response;
   }
 
+  Future<BaseResponse<CommonResponse>> rejectGuardianRequest(
+      GetGuardianBody getGuardianBody) async {
+    CommonResponse response;
+    try {
+      response =
+          await getApiClient(true, true).rejectGuardianRequest(getGuardianBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
   Future<BaseResponse<ListOfRelationsResponse>> getRelations(
       GetGuardianBody getGuardianBody, String petToken) async {
     ListOfRelationsResponse response;
@@ -806,7 +820,7 @@ class TamelyApi {
     try {
       response = await getApiClient(
         true,
-        false,
+        true,
         animalToken: petToken,
       ).rejectRelationRequest(rejectRelationRequestBody);
     } catch (error, stacktrace) {

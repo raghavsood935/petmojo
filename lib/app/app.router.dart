@@ -492,6 +492,7 @@ class StackedRouter extends RouterBase {
           key: args.key,
           animalModelResponse: args.animalModelResponse,
           petToken: args.petToken,
+          isEditable: args.isEditable,
         ),
         settings: data,
       );
@@ -669,11 +670,12 @@ class StackedRouter extends RouterBase {
       );
     },
     NotificationMainView: (data) {
-      var args = data.getArgs<NotificationMainViewArguments>(
-        orElse: () => NotificationMainViewArguments(),
-      );
+      var args = data.getArgs<NotificationMainViewArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => NotificationMainView(key: args.key),
+        builder: (context) => NotificationMainView(
+          key: args.key,
+          haveAnyRequests: args.haveAnyRequests,
+        ),
         settings: data,
       );
     },
@@ -953,8 +955,12 @@ class AnimalBasicInfoArguments {
   final Key? key;
   final MyAnimalModelResponse animalModelResponse;
   final String petToken;
+  final bool isEditable;
   AnimalBasicInfoArguments(
-      {this.key, required this.animalModelResponse, required this.petToken});
+      {this.key,
+      required this.animalModelResponse,
+      required this.petToken,
+      required this.isEditable});
 }
 
 /// CameraScreen arguments holder class
@@ -1002,7 +1008,8 @@ class BookmarksViewArguments {
 /// NotificationMainView arguments holder class
 class NotificationMainViewArguments {
   final Key? key;
-  NotificationMainViewArguments({this.key});
+  final bool haveAnyRequests;
+  NotificationMainViewArguments({this.key, required this.haveAnyRequests});
 }
 
 /// TamelyDogRunnersView arguments holder class

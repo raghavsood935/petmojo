@@ -24,6 +24,8 @@ class GuardiansViewModel extends BaseModel {
   bool _isLoading = false;
   bool _isEndOfList = false;
 
+  bool _isGuardianLoading = false;
+
   String _Id = "";
   String _token = "";
 
@@ -46,6 +48,8 @@ class GuardiansViewModel extends BaseModel {
   bool get isLoading => _isLoading;
 
   bool get isEndOfList => _isEndOfList;
+
+  bool get isGuardianLoading => _isGuardianLoading;
 
   Future init(String petId, String petToken) async {
     _Id = petId;
@@ -97,13 +101,18 @@ class GuardiansViewModel extends BaseModel {
   }
 
   Future getListOfGuardians() async {
+    _isGuardianLoading = true;
+    notifyListeners();
     var response = await _tamelyApi.getGuardians(GetGuardianBody(_Id), _token);
     if (response.getException != null) {
       ServerError error = response.getException as ServerError;
       _snackBarService.showSnackbar(message: error.getErrorMessage());
+      _isGuardianLoading = false;
+      notifyListeners();
     } else if (response.data != null) {
       _listOfGuardians.clear();
       _listOfGuardians.addAll(response.data!.listOfGuardians ?? []);
+      _isGuardianLoading = false;
       notifyListeners();
     }
   }

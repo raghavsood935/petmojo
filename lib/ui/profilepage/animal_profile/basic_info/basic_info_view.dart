@@ -11,12 +11,16 @@ import 'package:tamely/widgets/edit_button.dart';
 import 'preferences/preferences_view.dart';
 
 class AnimalBasicInfo extends StatefulWidget {
-  AnimalBasicInfo(
-      {Key? key, required this.animalModelResponse, required this.petToken})
-      : super(key: key);
+  AnimalBasicInfo({
+    Key? key,
+    required this.animalModelResponse,
+    required this.petToken,
+    required this.isEditable,
+  }) : super(key: key);
 
   MyAnimalModelResponse animalModelResponse;
   String petToken;
+  bool isEditable;
 
   List<Tab> _tabsTitle = [
     Tab(
@@ -80,10 +84,12 @@ class _AnimalBasicInfoState extends State<AnimalBasicInfo> {
             GeneralInfoView(
               animalModelResponse: widget.animalModelResponse,
               petToken: widget.petToken,
+              isEditable: widget.isEditable,
             ),
             PreferencesView(
               petId: widget.animalModelResponse.Id!,
               petToken: widget.petToken,
+              isEditable: widget.isEditable,
             )
           ],
         ),

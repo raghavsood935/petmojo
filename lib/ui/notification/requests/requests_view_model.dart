@@ -75,6 +75,18 @@ class RequestsViewModel extends BaseModel {
     }
   }
 
+  Future declineGuardianRequest(String animalId) async {
+    var result =
+        await _tamelyApi.rejectGuardianRequest(GetGuardianBody(animalId));
+
+    if (result.getException != null) {
+      ServerError error = result.getException as ServerError;
+      _snackbarService.showSnackbar(message: error.getErrorMessage());
+    } else if (result.data != null) {
+      _snackbarService.showSnackbar(message: result.data!.message!);
+    }
+  }
+
   Future acceptRelationRequest(String animalId) async {
     var result = await _tamelyApi.confirmRelationsRequest(
         ConfirmRelationRequestBody(petId, animalId), petToken);
@@ -87,15 +99,15 @@ class RequestsViewModel extends BaseModel {
     }
   }
 
-  // Future declineRelationRequest(String animalId) async {
-  //   var result = await _tamelyApi.rejectRelationRequest(
-  //       RejectRelationRequestBody(id, animalId), petToken);
-  //
-  //   if (result.getException != null) {
-  //     ServerError error = result.getException as ServerError;
-  //     _snackbarService.showSnackbar(message: error.getErrorMessage());
-  //   } else if (result.data != null) {
-  //     _snackbarService.showSnackbar(message: result.data!.message!);
-  //   }
-  // }
+  Future declineRelationRequest(String id, String animalId) async {
+    var result = await _tamelyApi.rejectRelationRequest(
+        RejectRelationRequestBody(id, animalId), petToken);
+
+    if (result.getException != null) {
+      ServerError error = result.getException as ServerError;
+      _snackbarService.showSnackbar(message: error.getErrorMessage());
+    } else if (result.data != null) {
+      _snackbarService.showSnackbar(message: result.data!.message!);
+    }
+  }
 }

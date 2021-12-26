@@ -144,18 +144,34 @@ class _GuardiansViewState extends State<GuardiansView> {
                   child: AppText.body1Bold("Guardians"))),
           Visibility(
             visible: model.searchTC.text.isEmpty,
-            child: ListView.builder(
-              physics: ScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: model.listOfGuardians.length,
-              itemBuilder: (context, index) => GestureDetector(
-                onTap: () => model.inspectProfile(
-                    context,
-                    model.listOfGuardians[index].guardianDetailsResponse!.Id ??
-                        ""),
-                child: guardiansListTile(model.listOfGuardians[index]),
-              ),
-            ),
+            child: model.isGuardianLoading
+                ? Center(
+                    child: CircularProgressIndicator(
+                      color: colors.primary,
+                    ),
+                  )
+                : model.listOfGuardians.isEmpty
+                    ? Padding(
+                        padding: EdgeInsets.only(top: 75),
+                        child: AppText.body1Bold(
+                          "No Guardians!",
+                          textAlign: TextAlign.center,
+                        ),
+                      )
+                    : ListView.builder(
+                        physics: ScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: model.listOfGuardians.length,
+                        itemBuilder: (context, index) => GestureDetector(
+                          onTap: () => model.inspectProfile(
+                              context,
+                              model.listOfGuardians[index]
+                                      .guardianDetailsResponse!.Id ??
+                                  ""),
+                          child:
+                              guardiansListTile(model.listOfGuardians[index]),
+                        ),
+                      ),
           ),
         ],
       ),
@@ -177,12 +193,12 @@ Widget guardiansListTile(GuardianResponse model) {
     trailing: (model.confirmed ?? false)
         ? FollowingStaticBtn(
             state: true,
-            trueValue: "ADDED",
+            trueValue: "Added",
             falseValue: "",
           )
         : FollowingStaticBtn(
             state: true,
-            trueValue: "REQUESTED",
+            trueValue: "Requested",
             falseValue: "",
           ),
   );

@@ -15,6 +15,7 @@ import 'package:tamely/models/pet_basic_details_response.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:flutter/material.dart';
+import 'package:tamely/models/params/get_relation_requests_body.dart';
 import 'package:tamely/services/user_service.dart';
 import 'package:tamely/util/ImageConstant.dart';
 
@@ -52,6 +53,9 @@ class DashboardViewModel extends FutureViewModel<void>
 
   int _notificationCount = 0;
   int get notificationCount => _notificationCount;
+
+  int _requestNotificationCount = 0;
+  int get requestNotificationCount => _requestNotificationCount;
 
   bool isHuman = true;
   String petId = "";
@@ -199,11 +203,41 @@ class DashboardViewModel extends FutureViewModel<void>
   }
 
   Future getNotificationCount() async {
+    getRequests();
     var result =
         await _tamelyApi.getListOfNotification(isHuman, petToken: petToken);
 
     if (result.data != null) {
       _notificationCount = result.data!.listOfNotification!.length;
+      notifyListeners();
+    }
+  }
+
+  Future getRequests() async {
+    isLoading = true;
+    notifyListeners();
+    var result;
+    if (isHuman) {
+      result = await _tamelyApi.getPendingGuardianRequest();
+    } else {
+      result = await _tamelyApi.getRelationsRequests(
+          GetRelationRequestsBody(petId, "incoming"), petToken);
+    }
+
+    if (result.getException != null) {
+      ServerError error = result.getException as ServerError;
+      isLoading = false;
+      notifyListeners();
+      _snackBarService.showSnackbar(message: error.getErrorMessage());
+    } else if (result.data != null) {
+      if (isHuman) {
+        _requestNotificationCount =
+            (result.data!.listOfPendingRequests ?? []).length;
+      } else {
+        _requestNotificationCount =
+            (result.data!.listOfRelationRequests ?? []).length;
+      }
+      isLoading = false;
       notifyListeners();
     }
   }
@@ -226,7 +260,9 @@ class DashboardViewModel extends FutureViewModel<void>
 
   void onNotificationPressed() async {
     await _navigationService
-        .navigateTo(Routes.notificationMainView)!
+        .navigateTo(Routes.notificationMainView,
+            arguments: NotificationMainViewArguments(
+                haveAnyRequests: _requestNotificationCount > 0))!
         .whenComplete(() {
       _notificationCount = 0;
       notifyListeners();
