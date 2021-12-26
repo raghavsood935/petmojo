@@ -9,9 +9,11 @@ part of 'edit_response.dart';
 _$_EditResponse _$$_EditResponseFromJson(Map<String, dynamic> json) =>
     _$_EditResponse(
       success: json['success'] as bool?,
+      message: json['message'] as String?,
     );
 
 Map<String, dynamic> _$$_EditResponseToJson(_$_EditResponse instance) =>
     <String, dynamic>{
       'success': instance.success,
+      'message': instance.message,
     };

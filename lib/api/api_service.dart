@@ -22,31 +22,19 @@ import 'package:tamely/models/list_of_comments_response.dart';
 import 'package:tamely/models/list_of_feed_post_response.dart';
 import 'package:tamely/models/list_of_followers_resopnse.dart';
 import 'package:tamely/models/list_of_followings_resopnse.dart';
-import 'package:tamely/models/list_of_for_you_post_response.dart';
 import 'package:tamely/models/list_of_guardians.dart';
 import 'package:tamely/models/list_of_pending_relation_requests.dart';
 import 'package:tamely/models/list_of_pending_requests.dart';
-import 'package:tamely/models/list_of_post_response.dart';
 import 'package:tamely/models/list_of_profile_response.dart';
 import 'package:tamely/models/list_of_profiles_foy_you.dart';
 import 'package:tamely/models/list_of_relations.dart';
 import 'package:tamely/models/notification_response.dart';
-import 'package:tamely/models/params/animal_profile_create_body.dart';
 import 'package:tamely/models/common_response.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/models/params/comment_new/add_comment_body.dart';
-import 'package:tamely/models/params/comments/comment/delete_comment_body.dart';
-import 'package:tamely/models/params/comments/comment/store_comment_body.dart';
-import 'package:tamely/models/params/comments/comment/update_comment_body.dart';
-import 'package:tamely/models/params/comments/comment/vote_comment_body.dart';
-import 'package:tamely/models/params/comments/sub_comment/delete_sub_comment_body.dart';
-import 'package:tamely/models/params/comments/sub_comment/store_sub_comment_body.dart';
-import 'package:tamely/models/params/comments/sub_comment/update_sub_comment_body.dart';
-import 'package:tamely/models/params/comments/sub_comment/vote_sub_comment_body.dart';
 import 'package:tamely/models/params/confirm_relation_request_body.dart';
 import 'package:tamely/models/params/counter_body.dart';
 import 'package:tamely/models/params/delete_post_body.dart';
-import 'package:tamely/models/params/edit_animal_profile_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_details_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_main_details_body.dart';
 import 'package:tamely/models/params/feedback_body.dart';
@@ -71,6 +59,11 @@ import 'package:tamely/models/params/send_follow_request_body/send_follow_reques
 import 'package:tamely/models/params/send_mobile_otp_body.dart';
 import 'package:tamely/models/params/set_payment_details_body.dart';
 import 'package:tamely/models/params/show_people_to_follow_body.dart';
+import 'package:tamely/models/params/groups/change_group_description_body.dart';
+import 'package:tamely/models/params/groups/create_group_body.dart';
+import 'package:tamely/models/params/groups/update_group_hashtags_body.dart';
+import 'package:tamely/models/params/groups/invite_people_group_body.dart';
+import 'package:tamely/models/group_response/group_create_resopnse.dart';
 import 'package:tamely/models/params/social_login_body.dart';
 import 'package:tamely/models/params/change_bio_avatar_body.dart';
 import 'package:tamely/models/params/verify_mobile_otp_body.dart';
@@ -804,7 +797,7 @@ class TamelyApi {
         true,
         false,
         animalToken: petToken,
-      ).confirmRelationsRequest(confirmRelationRequestBody);
+      ).confirmRelationRequest(confirmRelationRequestBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()
@@ -820,7 +813,7 @@ class TamelyApi {
     try {
       response = await getApiClient(
         true,
-        true,
+        false,
         animalToken: petToken,
       ).rejectRelationRequest(rejectRelationRequestBody);
     } catch (error, stacktrace) {
@@ -1049,6 +1042,68 @@ class TamelyApi {
     CommonResponse response;
     try {
       response = await getApiClient(true, true).getHelp(needHelpBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+
+  //Community
+
+  //---> create group
+  Future<BaseResponse<GroupCreateResponse>> createGroup(
+      CreateGroupBody createGroupBody) async {
+    GroupCreateResponse response;
+    try {
+      response = await getApiClient(true, true).createGroup(createGroupBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  //--->  Change description group
+  Future<BaseResponse<EditResponse>> changeDescription(
+      ChangeGroupDescriptionBody changeGroupDescriptionBody) async {
+    EditResponse response;
+    try {
+      response = await getApiClient(true, true)
+          .changeDescription(changeGroupDescriptionBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  //--->   Update hashtags group
+  Future<BaseResponse<EditResponse>> updateHashtags(
+      UpdateGroupHashtagsBody updateGroupHashtagsBody) async {
+    EditResponse response;
+    try {
+      response = await getApiClient(true, true)
+          .updateHashtags(updateGroupHashtagsBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  //--->  Invite peoples Group
+  Future<BaseResponse<EditResponse>> invitePeople(
+      InvitePeopleGroupBody invitePeopleGroupBody) async {
+    EditResponse response;
+    try {
+      response =
+      await getApiClient(true, true).invitePeople(invitePeopleGroupBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()

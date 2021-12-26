@@ -58,6 +58,11 @@ import 'package:tamely/models/params/show_people_to_follow_body.dart';
 import 'package:tamely/models/params/social_login_body.dart';
 import 'package:tamely/models/params/verify_mobile_otp_body.dart';
 import 'package:tamely/models/profile_details_by_id_response.dart';
+import 'package:tamely/models/params/groups/change_group_description_body.dart';
+import 'package:tamely/models/params/groups/create_group_body.dart';
+import 'package:tamely/models/params/groups/update_group_hashtags_body.dart';
+import 'package:tamely/models/params/groups/invite_people_group_body.dart';
+import 'package:tamely/models/group_response/group_create_resopnse.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
 import 'package:tamely/models/user_response_models.dart';
 import 'package:tamely/models/get_appointment_details_response.dart';
@@ -171,6 +176,13 @@ class Apis {
   static const String bookARun = '/serviceBooking/serviceBooking';
   static const String getPaymentDetails = '/serviceBooking/generateOrderId';
   static const String setPaymentDetails = '/service/postPayment';
+
+  //community
+  // ---> Groups
+  static const String createGroup = '/community/createGroup';
+  static const String changeDescription = '/community/changeDescription';
+  static const String updateHashtags = '/community/updateHashtags';
+  static const String invitePeople = '/community/invitePeople';
 
   // My Bookings Flow
   static const String getActiveAppointments =
@@ -456,58 +468,29 @@ abstract class ApiClient {
   Future<ListOfCommentsResponse> fetchComments(
       @Path("commentID") String postId, @Path("counter") int counter);
 
-  //Comment
-  //-- add comment
-  // @POST(Apis.addComment)
-  // Future<UserNameAvailableResponse> addComment(
-  //     @Path("username") String postId);
-
-  // // Comments
-  // // --store comment
-  // @POST(Apis.storeComment)
-  // Future<EditResponse> storeComment(@Body() StoreCommentBody storeCommentBody);
-  //
-  // // --update comment
-  // @PUT(Apis.storeComment)
-  // Future<EditResponse> updateComment(
-  //     @Body() UpdateCommentBody updateCommentBody);
-  //
-  // // --delete comment
-  // @DELETE(Apis.storeComment)
-  // Future<EditResponse> deleteComment(
-  //     @Body() DeleteCommentBody deleteCommentBody);
-  //
-  // // --store vote comment
-  // @POST(Apis.storeVoteComment)
-  // Future<EditResponse> storeVoteComment(
-  //     @Body() VoteCommentBody voteCommentBody);
-  //
-  // // Sub Comments
-  // // --store sub comment
-  // @POST(Apis.storeSubComment)
-  // Future<EditResponse> storeSubComment(
-  //     @Body() StoreSubCommentBody storeSubCommentBody);
-  //
-  // // --update sub comment
-  // @PUT(Apis.storeSubComment)
-  // Future<EditResponse> updateSubComment(
-  //     @Body() UpdateSubCommentBody updateSubCommentBody);
-  //
-  // // --delete sub comment
-  // @DELETE(Apis.storeSubComment)
-  // Future<EditResponse> deleteSubComment(
-  //     @Body() DeleteSubCommentBody deleteSubCommentBody);
-  //
-  // // --store vote sub comment
-  // @POST(Apis.storeVoteSubComment)
-  // Future<EditResponse> storeVoteSubComment(
-  //     @Body() VoteSubCommentBody voteSubCommentBody);
-
-  // Booking Appointments
-
-  // -- Get Pet Details
   @POST(Apis.getPetDetails)
   Future<GetPetDetailsResponse> getPetDetails();
+
+  //Community
+  // ---> Create Group
+  @POST(Apis.createGroup)
+  Future<GroupCreateResponse> createGroup(
+      @Body() CreateGroupBody createGroupBody);
+
+  // ---> Change description Group
+  @POST(Apis.changeDescription)
+  Future<EditResponse> changeDescription(
+      @Body() ChangeGroupDescriptionBody changeGroupDescriptionBody);
+
+  // ---> Update hashtags Group
+  @POST(Apis.updateHashtags)
+  Future<EditResponse> updateHashtags(
+      @Body() UpdateGroupHashtagsBody updateGroupHashtagsBody);
+
+  // ---> Invite peoples Group
+  @POST(Apis.invitePeople)
+  Future<EditResponse> invitePeople(
+      @Body() InvitePeopleGroupBody invitePeopleGroupBody);
 
   // -- Booking A Run
   @POST(Apis.bookARun)

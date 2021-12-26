@@ -52,7 +52,13 @@ class PostItemViewModel extends BaseModel {
           isOurPost = (profile.isHuman ? profile.userId : profile.petId) ==
               ((postResponse.userAuthor ?? [])[0].Id);
           notifyListeners();
+        } else {
+          isOurPost = false;
+          notifyListeners();
         }
+      } else {
+        isOurPost = false;
+        notifyListeners();
       }
     } else {
       if ((postResponse.animalAuthorResponse ?? []).isNotEmpty) {
@@ -60,15 +66,18 @@ class PostItemViewModel extends BaseModel {
           isOurPost = (profile.isHuman ? profile.userId : profile.petId) ==
               ((postResponse.animalAuthorResponse ?? [])[0].Id);
           notifyListeners();
+        } else {
+          isOurPost = false;
+          notifyListeners();
         }
+      } else {
+        isOurPost = false;
+        notifyListeners();
       }
     }
 
     if (postResponse.commentResponse != null) {
       this.commentsCounts = postResponse.commentResponse!.commentCount ?? 0;
-      notifyListeners();
-    } else {
-      this.commentsCounts = 10;
       notifyListeners();
     }
 

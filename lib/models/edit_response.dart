@@ -9,6 +9,7 @@ class EditResponse with _$EditResponse {
 
   factory EditResponse({
     @JsonKey(name: "success") bool? success,
+    @JsonKey(name: "message") String? message,
   }) = _EditResponse;
 
   factory EditResponse.fromJson(Map<String, dynamic> json) =>
