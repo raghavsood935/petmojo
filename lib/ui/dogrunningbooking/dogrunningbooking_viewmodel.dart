@@ -196,14 +196,23 @@ class DogRunningBookingViewModel extends FormViewModel {
     notifyListeners();
   }
 
+  double _lat = 0.0;
+  double _long = 0.0;
+
+  double get lat => _lat;
+  double get long => _long;
+
   Future<void> setLocation(LatLng location) async {
-    if (location.latitude != 0)
+    if (location.latitude != 0) {
       await getAddress(Coordinates(location.latitude, location.longitude))
           .then((value) {
         _address = value;
         addressLineOneController.text = address;
+        _lat = location.latitude;
+        _long = location.longitude;
         notifyListeners();
       });
+    }
   }
 
   Future<String> getAddress(Coordinates coordinates) async {
@@ -964,6 +973,8 @@ class DogRunningBookingViewModel extends FormViewModel {
       addressLineThreeController.text,
       addressLineOneController.text,
       addressLineOneController.text,
+      lat,
+      long,
     );
 
     //

@@ -80,6 +80,8 @@ class PetRunningLocationBody {
   final String state;
   final String city;
   final String pinCode;
+  final double lat;
+  final double long;
 
   PetRunningLocationBody(
     this.addressLine1,
@@ -87,6 +89,8 @@ class PetRunningLocationBody {
     this.state,
     this.city,
     this.pinCode,
+    this.lat,
+    this.long,
   );
 
   factory PetRunningLocationBody.fromJson(Map<String, dynamic> json) =>

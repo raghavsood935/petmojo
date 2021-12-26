@@ -81,6 +81,8 @@ PetRunningLocationBody _$PetRunningLocationBodyFromJson(
       json['state'] as String,
       json['city'] as String,
       json['pinCode'] as String,
+      (json['lat'] as num).toDouble(),
+      (json['long'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$PetRunningLocationBodyToJson(
@@ -91,6 +93,8 @@ Map<String, dynamic> _$PetRunningLocationBodyToJson(
       'state': instance.state,
       'city': instance.city,
       'pinCode': instance.pinCode,
+      'lat': instance.lat,
+      'long': instance.long,
     };
 
 PackageBody _$PackageBodyFromJson(Map<String, dynamic> json) => PackageBody(
