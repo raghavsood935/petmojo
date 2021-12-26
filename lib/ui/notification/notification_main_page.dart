@@ -5,20 +5,17 @@ import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/ui/notification/notification/notifications.dart';
 import 'package:tamely/ui/notification/requests/requests_view.dart';
 import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 
 class NotificationMainView extends StatelessWidget {
-  NotificationMainView({Key? key}) : super(key: key);
+  NotificationMainView({Key? key, required this.haveAnyRequests})
+      : super(key: key);
+
+  bool haveAnyRequests = false;
 
   List<Widget> _tabs = [Notifications(), RequestsView()];
-  List<Tab> _tabsTitle = [
-    Tab(
-      text: "Notifications",
-    ),
-    Tab(
-      text: "Requests",
-    )
-  ];
 
   final _tamelyApi = locator<TamelyApi>();
   final _sharedPrefService = locator<SharedPreferencesService>();
@@ -49,7 +46,27 @@ class NotificationMainView extends StatelessWidget {
               ),
               onPressed: () => back(context),
             ),
-            bottom: TabBar(tabs: _tabsTitle),
+            bottom: TabBar(tabs: [
+              Tab(
+                child: AppText.body1("Notifications"),
+              ),
+              Tab(
+                child: haveAnyRequests
+                    ? Row(
+                  mainAxisAlignment:MainAxisAlignment.center,
+                        children: [
+                          AppText.body1("Requests"),
+                          horizontalSpaceSmall,
+                          Image.asset(
+                            animalFootPrintImgPath,
+                            height: 15,
+                            width: 15,
+                          ),
+                        ],
+                      )
+                    : AppText.body1("Requests"),
+              )
+            ]),
           ),
           body: TabBarView(children: _tabs),
         ),

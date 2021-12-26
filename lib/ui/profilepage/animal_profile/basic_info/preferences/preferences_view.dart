@@ -8,11 +8,16 @@ import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/edit_button.dart';
 
 class PreferencesView extends StatefulWidget {
-  PreferencesView({Key? key, required this.petId, required this.petToken})
+  PreferencesView(
+      {Key? key,
+      required this.petId,
+      required this.petToken,
+      required this.isEditable})
       : super(key: key);
 
   String petId;
   String petToken;
+  bool isEditable;
 
   @override
   _PreferencesViewState createState() => _PreferencesViewState();
@@ -41,6 +46,7 @@ class _PreferencesViewState extends State<PreferencesView> {
                         model.humanRateSelected[i - 1],
                         model,
                         0,
+                        widget.isEditable,
                       ),
                     )
                     .toList(),
@@ -71,6 +77,7 @@ class _PreferencesViewState extends State<PreferencesView> {
                         model.animalRateSelected[i - 1],
                         model,
                         1,
+                        widget.isEditable,
                       ),
                     )
                     .toList(),
@@ -99,6 +106,7 @@ class _PreferencesViewState extends State<PreferencesView> {
               child: model.favourite.isEmpty ? add() : EditButton.small(),
               onTap: model.showEditFavourite,
             ),
+            widget.isEditable,
           ),
           detailsWidget(
             thingsDislike,
@@ -107,6 +115,7 @@ class _PreferencesViewState extends State<PreferencesView> {
               child: model.thingsDislike.isEmpty ? add() : EditButton.small(),
               onTap: model.showEditThingsDislike,
             ),
+            widget.isEditable,
           ),
           detailsWidget(
             unique,
@@ -115,6 +124,7 @@ class _PreferencesViewState extends State<PreferencesView> {
               child: model.uniqueHabits.isEmpty ? add() : EditButton.small(),
               onTap: model.showEditUniqueHabits,
             ),
+            widget.isEditable,
           ),
           detailsWidget(
             eating,
@@ -123,6 +133,7 @@ class _PreferencesViewState extends State<PreferencesView> {
               child: model.eatingHabit.isEmpty ? add() : EditButton.small(),
               onTap: model.showEditEatingHabits,
             ),
+            widget.isEditable,
           ),
         ],
       ),
@@ -154,7 +165,8 @@ Widget saveWithLoading(Widget widget, bool isChanged, bool isLoading) {
       : SizedBox();
 }
 
-Widget detailsWidget(String title, String description, Widget trailing) {
+Widget detailsWidget(
+    String title, String description, Widget trailing, bool isEditable) {
   return Column(
     children: [
       Row(
@@ -198,7 +210,7 @@ Widget detailsWidget(String title, String description, Widget trailing) {
           ),
           Expanded(
             flex: 1,
-            child: trailing,
+            child: Visibility(visible: isEditable, child: trailing),
           ),
         ],
       ),
@@ -207,7 +219,8 @@ Widget detailsWidget(String title, String description, Widget trailing) {
   );
 }
 
-Widget item(int position, bool selected, PreferencesViewModel model, int type) {
+Widget item(int position, bool selected, PreferencesViewModel model, int type,
+    bool isEditable) {
   //0 means humans
   //1 means animals
   return GestureDetector(
@@ -247,11 +260,12 @@ Widget item(int position, bool selected, PreferencesViewModel model, int type) {
           ],
         ),
       ),
-      onTap: () {
-        if (type == 0) {
-          model.onHumanRankSelected(position - 1, true);
-        } else if (type == 1) {
-          model.onAnimalRankSelected(position - 1, true);
-        }
-      });
+      onTap: () => isEditable
+          ? {
+              if (type == 0)
+                {model.onHumanRankSelected(position - 1, true)}
+              else if (type == 1)
+                {model.onAnimalRankSelected(position - 1, true)}
+            }
+          : {});
 }

@@ -51,12 +51,14 @@ class FeedAppBar extends ViewModelWidget<DashboardViewModel>
                 top: 10,
                 left: 10,
                 child: Visibility(
-                  visible: model.notificationCount > 0,
+                  visible: (model.notificationCount +
+                          model.requestNotificationCount) >
+                      0,
                   child: CircleAvatar(
                     radius: 8,
                     backgroundColor: colors.red,
                     child: AppText.tiny(
-                      "${model.notificationCount}",
+                      "${(model.notificationCount + model.requestNotificationCount)}",
                       color: colors.white,
                     ),
                   ),

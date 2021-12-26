@@ -23,6 +23,8 @@ class RelatedAnimalsViewModel extends BaseModel {
   bool _isLoading = false;
   bool _isEndOfList = false;
 
+  bool _isRelationsLoading = false;
+
   String _Id = "";
   String _token = "";
 
@@ -41,6 +43,8 @@ class RelatedAnimalsViewModel extends BaseModel {
   List<RelationsResponse> get listOfRelations => _listOfRelations;
 
   bool get isLoading => _isLoading;
+
+  bool get isRelationsLoading => _isRelationsLoading;
 
   bool get isEndOfList => _isEndOfList;
 
@@ -104,13 +108,18 @@ class RelatedAnimalsViewModel extends BaseModel {
   }
 
   Future getRelatedAnimals() async {
+    _isRelationsLoading = true;
+    notifyListeners();
     var response = await _tamelyApi.getRelations(GetGuardianBody(_Id), _token);
     if (response.getException != null) {
       ServerError error = response.getException as ServerError;
       _snackBarService.showSnackbar(message: error.getErrorMessage());
+      _isRelationsLoading = false;
+      notifyListeners();
     } else if (response.data != null) {
       _listOfRelations.clear();
       _listOfRelations.addAll(response.data!.listOfRelations ?? []);
+      _isRelationsLoading = false;
       notifyListeners();
     }
   }

@@ -98,7 +98,7 @@ class _GuardianRequestTileState extends State<GuardianRequestTile> {
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AppText.caption("Requested you to became it's guardian"),
+          AppText.caption("Requesting you to became it's guardian"),
           verticalSpaceTiny,
           isReacted
               ? Align(
@@ -113,17 +113,27 @@ class _GuardianRequestTileState extends State<GuardianRequestTile> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    FollowingStaticBtn(
-                        trueValue: "Decline", falseValue: "", state: true),
+                    GestureDetector(
+                      onTap: () {
+                        widget.viewModel
+                            .declineGuardianRequest(widget.model.Id ?? "-");
+                        setState(() {
+                          isReacted = true;
+                          reactedStatus = false;
+                        });
+                      },
+                      child: FollowingStaticBtn(
+                          trueValue: "Decline", falseValue: "", state: true),
+                    ),
                     horizontalSpaceTiny,
                     GestureDetector(
                       onTap: () {
+                        widget.viewModel
+                            .acceptGuardianRequest(widget.model.Id ?? "");
                         setState(() {
                           isReacted = true;
                           reactedStatus = true;
                         });
-                        widget.viewModel
-                            .acceptGuardianRequest(widget.model.Id ?? "");
                       },
                       child: FollowingStaticBtn(
                           trueValue: "", falseValue: "Accept", state: false),
@@ -162,8 +172,7 @@ class _RelationRequestTileState extends State<RelationRequestTile> {
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AppText.caption(
-              "Requested you to became it's ${widget.model.relation}"),
+          AppText.caption("Requesting to became your ${widget.model.relation}"),
           verticalSpaceTiny,
           isReacted
               ? Align(
@@ -178,17 +187,28 @@ class _RelationRequestTileState extends State<RelationRequestTile> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    FollowingStaticBtn(
-                        trueValue: "Decline", falseValue: "", state: true),
+                    GestureDetector(
+                      onTap: () {
+                        widget.viewModel.declineRelationRequest(
+                            widget.model.Id ?? "-",
+                            widget.model.animalProfile!.Id ?? "-");
+                        setState(() {
+                          isReacted = true;
+                          reactedStatus = false;
+                        });
+                      },
+                      child: FollowingStaticBtn(
+                          trueValue: "Decline", falseValue: "", state: true),
+                    ),
                     horizontalSpaceTiny,
                     GestureDetector(
                       onTap: () {
+                        widget.viewModel.acceptRelationRequest(
+                            widget.model.animalProfile!.Id ?? "-");
                         setState(() {
                           isReacted = true;
                           reactedStatus = true;
                         });
-                        widget.viewModel.acceptRelationRequest(
-                            widget.model.animalProfile!.Id ?? "-");
                       },
                       child: FollowingStaticBtn(
                           trueValue: "", falseValue: "Accept", state: false),

@@ -11,10 +11,14 @@ import 'package:tamely/widgets/edit_button.dart';
 
 class GeneralInfoView extends StatelessWidget {
   GeneralInfoView(
-      {Key? key, required this.animalModelResponse, required this.petToken})
+      {Key? key,
+      required this.animalModelResponse,
+      required this.petToken,
+      required this.isEditable})
       : super(key: key);
   MyAnimalModelResponse animalModelResponse;
   String petToken;
+  bool isEditable;
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<GeneralInfoViewModel>.reactive(
@@ -25,14 +29,17 @@ class GeneralInfoView extends StatelessWidget {
       },
       builder: (context, model, child) => ListView(
         children: [
-          Align(
-            alignment: Alignment.centerRight,
-            child: GestureDetector(
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: EditButton(),
+          Visibility(
+            visible: isEditable,
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: GestureDetector(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: EditButton(),
+                ),
+                onTap: () => model.goToEdit(animalModelResponse.Id!, petToken),
               ),
-              onTap: () => model.goToEdit(animalModelResponse.Id!, petToken),
             ),
           ),
           detailsRowItem("Name", animalModelResponse.name ?? "-"),
@@ -43,13 +50,13 @@ class GeneralInfoView extends StatelessWidget {
           detailsRowItem("Service Pet", model.serviecPet),
           detailsRowItem("Spayed", model.spayed),
           spacedDividerBigTiny,
-          Visibility(
-              // visible: animalModelResponse.category! == "Stray",
-              visible: false,
-              child: detailsRowItem("Location", model.location)),
-          Visibility(
-              visible: animalModelResponse.category! == "Stray",
-              child: spacedDividerBigTiny),
+          // Visibility(
+          //     // visible: animalModelResponse.category! == "Stray",
+          //     visible: false,
+          //     child: detailsRowItem("Location", model.location)),
+          // Visibility(
+          //     visible: animalModelResponse.category! == "Stray",
+          //     child: spacedDividerBigTiny),
           Wrap(
             children: [
               Visibility(

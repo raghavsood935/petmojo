@@ -16,7 +16,9 @@ import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/models/animal_profile_detail_model.dart';
 import 'package:tamely/models/application_models.dart';
 import 'package:tamely/models/feed_post_response.dart';
+import 'package:tamely/models/guardians_model.dart';
 import 'package:tamely/models/list_of_feed_post_response.dart';
+import 'package:tamely/models/list_of_guardians.dart';
 import 'package:tamely/models/my_animal_model.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_main_details_body.dart';
@@ -67,6 +69,8 @@ class AnimalProfileViewModel extends FutureViewModel {
   bool _isUpForPlayBuddies = true;
 
   bool isFollowing = false;
+
+  bool isGuardian = false;
 
   List<FeedPostResponse> _listOfPosts = [];
 
@@ -171,10 +175,14 @@ class AnimalProfileViewModel extends FutureViewModel {
     }
   }
 
-  void goToAnimalBasicInfo() async {
-    var result = await _navigationService.navigateTo(Routes.animalBasicInfo,
-        arguments: AnimalBasicInfoArguments(
-            animalModelResponse: myAnimalModelResponse!, petToken: _token));
+  void goToAnimalBasicInfo(bool isInspectView) async {
+    var result = await _navigationService.navigateTo(
+      Routes.animalBasicInfo,
+      arguments: AnimalBasicInfoArguments(
+          animalModelResponse: myAnimalModelResponse!,
+          petToken: _token,
+          isEditable: isInspectView ? isGuardian : true),
+    );
 
     if (result == 1) {
       getAnimalDetails();
@@ -297,6 +305,7 @@ class AnimalProfileViewModel extends FutureViewModel {
   }
 
   Future setValues(AnimalProfileDetailModelResponse response) async {
+    isGuardian = false;
     myAnimalModelResponse = response.animalprofileModel;
 
     _profilename = response.animalprofileModel!.username ?? "";
@@ -308,6 +317,14 @@ class AnimalProfileViewModel extends FutureViewModel {
     _isUpForAdoption = response.animalprofileModel!.adoption ?? false;
     _isUpForMating = response.animalprofileModel!.mating ?? false;
     _isUpForPlayBuddies = response.animalprofileModel!.playBuddies ?? false;
+
+    for (GuardiansModelResponse response
+        in response.animalprofileModel!.guardians ?? []) {
+      if (response.Id == _inspecterId) {
+        isGuardian = true;
+        notifyListeners();
+      }
+    }
 
     notifyListeners();
   }

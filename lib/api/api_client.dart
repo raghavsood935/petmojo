@@ -112,6 +112,7 @@ class Apis {
       '/user/getPendingGuardianRequests';
   static const String sendGuardianRequest = '/animal/addGuardian';
   static const String confirmGuardianRequest = '/animal/confirmGuardian';
+  static const String rejectGuardianRequest = '/animal/rejectGuardian';
 
   //animal relations
   static const String getRelations = '/animal/getRelations';
@@ -277,6 +278,10 @@ abstract class ApiClient {
   Future<CommonResponse> confirmGuardianRequest(
       @Body() GetGuardianBody getGuardianBody);
 
+  @POST(Apis.rejectGuardianRequest)
+  Future<CommonResponse> rejectGuardianRequest(
+      @Body() GetGuardianBody getGuardianBody);
+
   //animal relations
   @POST(Apis.getRelations)
   Future<ListOfRelationsResponse> getRelations(
@@ -294,7 +299,7 @@ abstract class ApiClient {
   Future<CommonResponse> confirmRelationRequest(
       @Body() ConfirmRelationRequestBody confirmRelationRequestBody);
 
-  @POST(Apis.confirmRelationsRequest)
+  @POST(Apis.rejectRelationRequest)
   Future<CommonResponse> rejectRelationRequest(
       @Body() RejectRelationRequestBody rejectRelationRequestBody);
 

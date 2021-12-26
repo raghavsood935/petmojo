@@ -9,6 +9,7 @@ import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/custom_circle_avatar.dart';
 import 'package:tamely/widgets/search_text_field.dart';
+import 'package:tamely/widgets/follow_static_btn.dart';
 
 class RelatedAnimalsView extends StatefulWidget {
   RelatedAnimalsView({Key? key, required this.petID, required this.petToken})
@@ -95,22 +96,39 @@ class _RelatedAnimalsViewState extends State<RelatedAnimalsView> {
                     model.listOfResult.isNotEmpty,
                 child: spacedDividerBigTiny),
             Visibility(
-                visible: model.searchTC.text.isEmpty,
-                child: Padding(
-                    padding: commonPaddding,
-                    child: AppText.body1Bold("Guardians"))),
-            Visibility(
               visible: model.searchTC.text.isEmpty,
-              child: ListView.builder(
-                physics: ScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: model.listOfRelations.length,
-                itemBuilder: (context, index) => GestureDetector(
-                  onTap: () => model.inspectProfile(
-                      context, model.listOfRelations[index].animal!.Id ?? ""),
-                  child: relationListTile(model.listOfRelations[index]),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: commonPaddding,
+                  child: AppText.body1Bold("Relations"),
                 ),
               ),
+            ),
+            Visibility(
+              visible: model.searchTC.text.isEmpty,
+              child: model.isRelationsLoading
+                  ? Center(
+                      child: CircularProgressIndicator(
+                        color: colors.primary,
+                      ),
+                    )
+                  : model.listOfRelations.isEmpty
+                      ? Padding(
+                          padding: EdgeInsets.only(top: 75),
+                          child: AppText.body1Bold("No Relations!"),
+                        )
+                      : ListView.builder(
+                          physics: ScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: model.listOfRelations.length,
+                          itemBuilder: (context, index) => GestureDetector(
+                            onTap: () => model.inspectProfile(context,
+                                model.listOfRelations[index].animal!.Id ?? ""),
+                            child:
+                                relationListTile(model.listOfRelations[index]),
+                          ),
+                        ),
             ),
           ],
         ),
@@ -121,15 +139,36 @@ class _RelatedAnimalsViewState extends State<RelatedAnimalsView> {
 
 Widget relationListTile(RelationsResponse model) {
   return ListTile(
-    title: AppText.body(
-      model.animal!.name ?? "-",
-      color: colors.black,
+    title: Row(
+      children: [
+        AppText.body(
+          model.animal!.name ?? "-",
+          color: colors.black,
+        ),
+        horizontalSpaceTiny,
+        CircleAvatar(
+          backgroundColor: colors.primary,
+          radius: 2,
+        ),
+        horizontalSpaceTiny,
+        AppText.body1Bold(
+          model.relation ?? "-",
+          color: colors.primary,
+        ),
+      ],
     ),
     subtitle: AppText.caption(model.animal!.username ?? "-"),
-    trailing: AppText.body1Bold(
-      model.relation ?? "-",
-      color: colors.primary,
-    ),
+    trailing: (model.confirmed ?? false)
+        ? FollowingStaticBtn(
+            state: true,
+            trueValue: "Added",
+            falseValue: "",
+          )
+        : FollowingStaticBtn(
+            state: true,
+            trueValue: "Requested",
+            falseValue: "",
+          ),
     leading: CustomCircularAvatar(
       radius: 24,
       imgPath: model.animal!.avatar ?? emptyProfileImgUrl,

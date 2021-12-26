@@ -288,12 +288,17 @@ class _AnimalProfileViewState extends State<AnimalProfileView> {
                               ),
                             ),
                             // action text
-                            GestureDetector(
-                              child: AppText.caption(
-                                addMyGuardian,
-                                color: colors.primary,
+                            Visibility(
+                              visible: widget.isInspectView
+                                  ? model.isGuardian
+                                  : true,
+                              child: GestureDetector(
+                                child: AppText.caption(
+                                  addMyGuardian,
+                                  color: colors.primary,
+                                ),
+                                onTap: model.goToAddGuardiansAndRelations,
                               ),
-                              onTap: model.goToAddGuardiansAndRelations,
                             ),
                             spacedDividerSmall,
                             // post ,follower,following,hearts counts
@@ -366,7 +371,8 @@ class _AnimalProfileViewState extends State<AnimalProfileView> {
                   ListTile(
                     title: AppText.body2("Basic Info"),
                     trailing: Icon(Icons.arrow_forward_ios_rounded),
-                    onTap: model.goToAnimalBasicInfo,
+                    onTap: () =>
+                        model.goToAnimalBasicInfo(widget.isInspectView),
                   ),
                   spacedDividerTiny,
                   //my post section
