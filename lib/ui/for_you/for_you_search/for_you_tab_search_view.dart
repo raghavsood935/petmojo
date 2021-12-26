@@ -80,11 +80,14 @@ class _ForYouTabSearchViewState extends State<ForYouTabSearchView> {
               ),
               model.listOfProfiles.isEmpty
                   ? Visibility(
-                      visible: !model.isLoading,
-                      child: Center(
-                        child: AppText.body1Bold(
-                          "No result found",
-                          color: colors.primary,
+                      visible: model.searchTC.text.isNotEmpty,
+                      child: Visibility(
+                        visible: !model.isLoading,
+                        child: Center(
+                          child: AppText.body1Bold(
+                            "No result found",
+                            color: colors.primary,
+                          ),
                         ),
                       ),
                     )
@@ -107,12 +110,22 @@ class _ForYouTabSearchViewState extends State<ForYouTabSearchView> {
               ),
               verticalSpaceRegular,
               Visibility(
-                visible: !model.isLoading,
-                child: GestureDetector(
-                  onTap: () => model.onSearchChange(model.searchTC.text, true),
-                  child: AppText.body1Bold(
-                    "See more profiles",
-                    color: colors.primary,
+                visible: model.searchTC.text.isNotEmpty,
+                child: Visibility(
+                  visible: model.listOfProfiles.isNotEmpty,
+                  child: Visibility(
+                    visible: !model.isEndOfList,
+                    child: Visibility(
+                      visible: !model.isLoading,
+                      child: GestureDetector(
+                        onTap: () =>
+                            model.onSearchChange(model.searchTC.text, true),
+                        child: AppText.body1Bold(
+                          "See more profiles",
+                          color: colors.primary,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),

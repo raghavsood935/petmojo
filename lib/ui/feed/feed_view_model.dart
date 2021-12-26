@@ -28,6 +28,7 @@ class FeedViewModel extends BaseModel {
 
   int _counter = 0;
   bool _isLoading = true;
+  bool _isEndOfList = false;
 
   String myProfileImg = emptyProfileImgUrl;
   String userId = "";
@@ -38,6 +39,7 @@ class FeedViewModel extends BaseModel {
 
   bool get isLoading => _isLoading;
   int get counter => _counter;
+  bool get isEndOfList => _isEndOfList;
 
   List<MyTalesModel> get dummyListOfTales => _dummyListOfTales;
   List<FeedPostResponse> get dummyListOfFeedPost => _dummyFeedPostModel;
@@ -60,6 +62,8 @@ class FeedViewModel extends BaseModel {
     print("COUNTER VALUE $_counter");
     if (fromRefresh) {
       _counter = 0;
+      _isEndOfList = false;
+      _dummyFeedPostModel.clear();
       notifyListeners();
     }
     _isLoading = true;
@@ -68,9 +72,16 @@ class FeedViewModel extends BaseModel {
         animalToken: petToken);
     if (result.getException != null) {
       ServerError error = result.getException as ServerError;
+      _isLoading = false;
+      notifyListeners();
       _snackBarService.showSnackbar(message: error.getErrorMessage());
     } else if (result.data != null) {
       _dummyFeedPostModel.addAll(result.data!.listOfPosts ?? []);
+      notifyListeners();
+      if ((result.data!.listOfPosts ?? []).length < 5) {
+        _isEndOfList = true;
+        notifyListeners();
+      }
       _counter++;
       _isLoading = false;
       notifyListeners();
@@ -79,14 +90,17 @@ class FeedViewModel extends BaseModel {
 
   Future likeOrDislikePost(String postID, bool vote) async {
     print("INSIDE LIKE");
-    LikeDislikePostBody body =
-        LikeDislikePostBody(postID, vote, VoterDetails("User", userId));
+    LikeDislikePostBody body = LikeDislikePostBody(
+        postID,
+        vote,
+        VoterDetails(
+            GlobalMethods.getProfileType(isHuman), isHuman ? userId : petId));
 
     await _tamelyApi.likeOrDislikeThePost(body, true);
   }
 
   Future bookmarkAction(String postID) async {
-    await _tamelyApi.bookmarkActionPost(postID, true);
+    await _tamelyApi.bookmarkActionPost(postID, isHuman, animalToken: petToken);
   }
 
   void createPost() async {

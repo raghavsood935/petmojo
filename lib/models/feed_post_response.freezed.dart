@@ -34,6 +34,10 @@ class _$FeedPostResponseTearOff {
           String? filter,
       @JsonKey(name: "caption")
           String? caption,
+      @JsonKey(name: "isLiked")
+          bool? isLiked,
+      @JsonKey(name: "isBookmarked")
+          bool? isBookmarked,
       @JsonKey(name: "Userauthor")
           List<ProfileResponse>? userAuthor,
       @JsonKey(name: "authorType")
@@ -53,6 +57,8 @@ class _$FeedPostResponseTearOff {
       thumbnail: thumbnail,
       filter: filter,
       caption: caption,
+      isLiked: isLiked,
+      isBookmarked: isBookmarked,
       userAuthor: userAuthor,
       authorType: authorType,
       date: date,
@@ -84,6 +90,10 @@ mixin _$FeedPostResponse {
   String? get filter => throw _privateConstructorUsedError;
   @JsonKey(name: "caption")
   String? get caption => throw _privateConstructorUsedError;
+  @JsonKey(name: "isLiked")
+  bool? get isLiked => throw _privateConstructorUsedError;
+  @JsonKey(name: "isBookmarked")
+  bool? get isBookmarked => throw _privateConstructorUsedError;
   @JsonKey(name: "Userauthor")
   List<ProfileResponse>? get userAuthor => throw _privateConstructorUsedError;
   @JsonKey(name: "authorType")
@@ -124,6 +134,10 @@ abstract class $FeedPostResponseCopyWith<$Res> {
           String? filter,
       @JsonKey(name: "caption")
           String? caption,
+      @JsonKey(name: "isLiked")
+          bool? isLiked,
+      @JsonKey(name: "isBookmarked")
+          bool? isBookmarked,
       @JsonKey(name: "Userauthor")
           List<ProfileResponse>? userAuthor,
       @JsonKey(name: "authorType")
@@ -157,6 +171,8 @@ class _$FeedPostResponseCopyWithImpl<$Res>
     Object? thumbnail = freezed,
     Object? filter = freezed,
     Object? caption = freezed,
+    Object? isLiked = freezed,
+    Object? isBookmarked = freezed,
     Object? userAuthor = freezed,
     Object? authorType = freezed,
     Object? date = freezed,
@@ -189,6 +205,14 @@ class _$FeedPostResponseCopyWithImpl<$Res>
           ? _value.caption
           : caption // ignore: cast_nullable_to_non_nullable
               as String?,
+      isLiked: isLiked == freezed
+          ? _value.isLiked
+          : isLiked // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isBookmarked: isBookmarked == freezed
+          ? _value.isBookmarked
+          : isBookmarked // ignore: cast_nullable_to_non_nullable
+              as bool?,
       userAuthor: userAuthor == freezed
           ? _value.userAuthor
           : userAuthor // ignore: cast_nullable_to_non_nullable
@@ -249,6 +273,10 @@ abstract class _$FeedPostResponseCopyWith<$Res>
           String? filter,
       @JsonKey(name: "caption")
           String? caption,
+      @JsonKey(name: "isLiked")
+          bool? isLiked,
+      @JsonKey(name: "isBookmarked")
+          bool? isBookmarked,
       @JsonKey(name: "Userauthor")
           List<ProfileResponse>? userAuthor,
       @JsonKey(name: "authorType")
@@ -285,6 +313,8 @@ class __$FeedPostResponseCopyWithImpl<$Res>
     Object? thumbnail = freezed,
     Object? filter = freezed,
     Object? caption = freezed,
+    Object? isLiked = freezed,
+    Object? isBookmarked = freezed,
     Object? userAuthor = freezed,
     Object? authorType = freezed,
     Object? date = freezed,
@@ -317,6 +347,14 @@ class __$FeedPostResponseCopyWithImpl<$Res>
           ? _value.caption
           : caption // ignore: cast_nullable_to_non_nullable
               as String?,
+      isLiked: isLiked == freezed
+          ? _value.isLiked
+          : isLiked // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isBookmarked: isBookmarked == freezed
+          ? _value.isBookmarked
+          : isBookmarked // ignore: cast_nullable_to_non_nullable
+              as bool?,
       userAuthor: userAuthor == freezed
           ? _value.userAuthor
           : userAuthor // ignore: cast_nullable_to_non_nullable
@@ -355,6 +393,8 @@ class _$_FeedPostResponse extends _FeedPostResponse {
       @JsonKey(name: "thumbnail") this.thumbnail,
       @JsonKey(name: "filter") this.filter,
       @JsonKey(name: "caption") this.caption,
+      @JsonKey(name: "isLiked") this.isLiked,
+      @JsonKey(name: "isBookmarked") this.isBookmarked,
       @JsonKey(name: "Userauthor") this.userAuthor,
       @JsonKey(name: "authorType") this.authorType,
       @JsonKey(name: "date") this.date,
@@ -385,6 +425,12 @@ class _$_FeedPostResponse extends _FeedPostResponse {
   @JsonKey(name: "caption")
   final String? caption;
   @override
+  @JsonKey(name: "isLiked")
+  final bool? isLiked;
+  @override
+  @JsonKey(name: "isBookmarked")
+  final bool? isBookmarked;
+  @override
   @JsonKey(name: "Userauthor")
   final List<ProfileResponse>? userAuthor;
   @override
@@ -405,7 +451,7 @@ class _$_FeedPostResponse extends _FeedPostResponse {
 
   @override
   String toString() {
-    return 'FeedPostResponse(Id: $Id, hashtags: $hashtags, image: $image, thumbnail: $thumbnail, filter: $filter, caption: $caption, userAuthor: $userAuthor, authorType: $authorType, date: $date, votesCounts: $votesCounts, commentResponse: $commentResponse, animalAuthorResponse: $animalAuthorResponse)';
+    return 'FeedPostResponse(Id: $Id, hashtags: $hashtags, image: $image, thumbnail: $thumbnail, filter: $filter, caption: $caption, isLiked: $isLiked, isBookmarked: $isBookmarked, userAuthor: $userAuthor, authorType: $authorType, date: $date, votesCounts: $votesCounts, commentResponse: $commentResponse, animalAuthorResponse: $animalAuthorResponse)';
   }
 
   @override
@@ -420,6 +466,9 @@ class _$_FeedPostResponse extends _FeedPostResponse {
                 other.thumbnail == thumbnail) &&
             (identical(other.filter, filter) || other.filter == filter) &&
             (identical(other.caption, caption) || other.caption == caption) &&
+            (identical(other.isLiked, isLiked) || other.isLiked == isLiked) &&
+            (identical(other.isBookmarked, isBookmarked) ||
+                other.isBookmarked == isBookmarked) &&
             const DeepCollectionEquality()
                 .equals(other.userAuthor, userAuthor) &&
             (identical(other.authorType, authorType) ||
@@ -442,6 +491,8 @@ class _$_FeedPostResponse extends _FeedPostResponse {
       thumbnail,
       filter,
       caption,
+      isLiked,
+      isBookmarked,
       const DeepCollectionEquality().hash(userAuthor),
       authorType,
       date,
@@ -474,6 +525,10 @@ abstract class _FeedPostResponse extends FeedPostResponse {
               String? filter,
           @JsonKey(name: "caption")
               String? caption,
+          @JsonKey(name: "isLiked")
+              bool? isLiked,
+          @JsonKey(name: "isBookmarked")
+              bool? isBookmarked,
           @JsonKey(name: "Userauthor")
               List<ProfileResponse>? userAuthor,
           @JsonKey(name: "authorType")
@@ -510,6 +565,12 @@ abstract class _FeedPostResponse extends FeedPostResponse {
   @override
   @JsonKey(name: "caption")
   String? get caption;
+  @override
+  @JsonKey(name: "isLiked")
+  bool? get isLiked;
+  @override
+  @JsonKey(name: "isBookmarked")
+  bool? get isBookmarked;
   @override
   @JsonKey(name: "Userauthor")
   List<ProfileResponse>? get userAuthor;

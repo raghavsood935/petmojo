@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:stacked/stacked.dart';
-import 'package:tamely/ui/notification/Notifications_viewmodel.dart';
+import 'package:tamely/ui/notification/notification/Notifications_viewmodel.dart';
 
 class NotificationAppBar extends ViewModelWidget<NotificationViewModel>
     implements PreferredSizeWidget {

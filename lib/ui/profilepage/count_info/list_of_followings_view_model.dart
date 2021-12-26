@@ -23,6 +23,7 @@ class ListOfFollowingsViewModel extends BaseModel {
 
   int _counter = 0;
   bool _isLoading = true;
+  bool _isEndOfList = false;
 
   List<CustomProfile> _listOfFollowersProfileModel = [];
   List<FollowingResponse> _listOfFollowingsProfileModel = [];
@@ -34,6 +35,7 @@ class ListOfFollowingsViewModel extends BaseModel {
       _listOfFollowingsProfileModel;
 
   bool get isLoading => _isLoading;
+  bool get isEndOfList => _isEndOfList;
 
   Future init(String id, bool isFollowers) async {
     _id = id;
@@ -43,11 +45,16 @@ class ListOfFollowingsViewModel extends BaseModel {
     await getProfilesList();
   }
 
-  Future getProfilesList() async {
+  Future getProfilesList({bool newLoad = false}) async {
     _isLoading = true;
-    _listOfFollowersProfileModel.clear();
     notifyListeners();
-
+    if (newLoad) {
+      _counter = 0;
+      _listOfFollowersProfileModel.clear();
+      _listOfFollowingsProfileModel.clear();
+      _isEndOfList = false;
+      notifyListeners();
+    }
     FetchListOfFollowingBody body = FetchListOfFollowingBody(_id, _counter);
     var result;
     if (_isFollowers) {
@@ -62,6 +69,10 @@ class ListOfFollowingsViewModel extends BaseModel {
           for (FollowersResponse? response
               in result.data!.listOfFollowers ?? []) {
             _listOfFollowersProfileModel.add(CustomProfile(response!));
+          }
+          notifyListeners();
+          if ((result.data!.listOfFollowers ?? []).length < 20) {
+            _isEndOfList = true;
             notifyListeners();
           }
         }
@@ -70,6 +81,10 @@ class ListOfFollowingsViewModel extends BaseModel {
           _listOfFollowingsProfileModel
               .addAll(result.data!.listOfFollowings ?? []);
           notifyListeners();
+          if ((result.data!.listOfFollowings ?? []).length < 20) {
+            _isEndOfList = true;
+            notifyListeners();
+          }
         }
       }
       _counter++;
@@ -82,17 +97,20 @@ class ListOfFollowingsViewModel extends BaseModel {
     _navigationService.back();
   }
 
-  Future goToProfileDetailsPage(BuildContext context, String profileId) async {
-    await _navigationService.navigateTo(
-      Routes.profileView,
-      arguments: ProfileViewArguments(
-        menuScreenContext: context,
-        onScreenHideButtonPressed: () {},
-        isInspectView: true,
-        inspectProfileId: profileId,
-        inspecterProfileId: _id,
-      ),
-    );
+  Future goToProfileDetailsPage(
+      BuildContext context, String profileId, bool isFollowing) async {
+    await _navigationService
+        .navigateTo(
+          Routes.profileView,
+          arguments: ProfileViewArguments(
+              menuScreenContext: context,
+              onScreenHideButtonPressed: () {},
+              isInspectView: true,
+              inspectProfileId: profileId,
+              inspecterProfileId: _id,
+              isFollowing: isFollowing),
+        )!
+        .whenComplete(() => getProfilesList(newLoad: true));
   }
 
   Future sendFollowRequest(FollowersResponse profileResponse) async {

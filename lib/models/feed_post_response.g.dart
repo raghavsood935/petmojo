@@ -16,6 +16,8 @@ _$_FeedPostResponse _$$_FeedPostResponseFromJson(Map<String, dynamic> json) =>
       thumbnail: json['thumbnail'] as String?,
       filter: json['filter'] as String?,
       caption: json['caption'] as String?,
+      isLiked: json['isLiked'] as bool?,
+      isBookmarked: json['isBookmarked'] as bool?,
       userAuthor: (json['Userauthor'] as List<dynamic>?)
           ?.map((e) => ProfileResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -41,6 +43,8 @@ Map<String, dynamic> _$$_FeedPostResponseToJson(_$_FeedPostResponse instance) =>
       'thumbnail': instance.thumbnail,
       'filter': instance.filter,
       'caption': instance.caption,
+      'isLiked': instance.isLiked,
+      'isBookmarked': instance.isBookmarked,
       'Userauthor': instance.userAuthor,
       'authorType': instance.authorType,
       'date': instance.date,

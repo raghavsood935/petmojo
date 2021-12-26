@@ -12,12 +12,15 @@ import 'app_text.dart';
 import 'custom_circle_avatar.dart';
 
 class PostItemView extends StatefulWidget {
-  PostItemView({Key? key, required this.postResponse}) : super(key: key);
+  PostItemView({
+    Key? key,
+    required this.postResponse,
+    required this.needToShowComments,
+  }) : super(key: key);
 
   FeedPostResponse postResponse;
 
-  bool isLiked = false;
-  bool isBookmarked = false;
+  bool needToShowComments;
 
   @override
   _PostItemViewState createState() => _PostItemViewState(postResponse);
@@ -25,9 +28,22 @@ class PostItemView extends StatefulWidget {
 
 class _PostItemViewState extends State<PostItemView> {
   int likesCount = 0;
+  bool isLiked = false;
+  bool isBookmarked = false;
 
   _PostItemViewState(FeedPostResponse model) {
-    likesCount = model.votesCounts!.first.count ?? 0;
+    if (model.votesCounts != null) {
+      if (model.votesCounts!.length >= 1) {
+        likesCount = model.votesCounts!.first.count ?? 0;
+      } else {
+        likesCount = 0;
+      }
+    } else {
+      likesCount = 0;
+    }
+
+    isLiked = model.isLiked ?? false;
+    isBookmarked = model.isBookmarked ?? false;
   }
 
   @override
@@ -251,26 +267,33 @@ class _PostItemViewState extends State<PostItemView> {
                 //   ),
                 // ),
                 verticalSpaceTiny,
-                AppText.caption(
-                  widget.postResponse.caption!.split("#").first,
-                  textAlign: TextAlign.start,
+                Visibility(
+                  visible: (widget.postResponse.caption ?? "").isNotEmpty,
+                  child: AppText.caption(
+                    widget.postResponse.caption!.split("#").first,
+                    textAlign: TextAlign.start,
+                  ),
                 ),
-                Wrap(
-                  children: widget.postResponse.hashtags!
-                      .map(
-                        (e) => AppText.caption(
-                          "#$e",
-                          color: colors.blue,
-                          textAlign: TextAlign.start,
-                        ),
-                      )
-                      .toList(),
+                Visibility(
+                  visible: (widget.postResponse.hashtags ?? []).isNotEmpty,
+                  child: Wrap(
+                    children: widget.postResponse.hashtags!
+                        .map(
+                          (e) => AppText.caption(
+                            "#$e",
+                            color: colors.blue,
+                            textAlign: TextAlign.start,
+                          ),
+                        )
+                        .toList(),
+                  ),
                 ),
                 verticalSpaceSmall,
               ],
             ),
           ),
           SwiperWidget(model: widget.postResponse),
+          verticalSpaceTiny,
           Padding(
             padding: commonPaddding,
             child: Column(
@@ -279,7 +302,7 @@ class _PostItemViewState extends State<PostItemView> {
                 Row(
                   children: [
                     GestureDetector(
-                        child: widget.isLiked
+                        child: isLiked
                             ? Image.asset(
                                 likesImgPath,
                                 height: 30,
@@ -292,14 +315,14 @@ class _PostItemViewState extends State<PostItemView> {
                               ),
                         onTap: () {
                           setState(() {
-                            if (widget.isLiked) {
+                            if (isLiked) {
                               likesCount--;
                             } else {
                               likesCount++;
                             }
-                            widget.isLiked = !widget.isLiked;
+                            isLiked = !isLiked;
                           });
-                          model.likeOrDislikePost(widget.isLiked);
+                          model.likeOrDislikePost(isLiked);
                         }),
                     // LikeBtn(
                     //     initialState: widget.isLiked,
@@ -316,11 +339,11 @@ class _PostItemViewState extends State<PostItemView> {
                     GestureDetector(
                         onTap: () {
                           setState(() {
-                            widget.isBookmarked = !widget.isBookmarked;
+                            isBookmarked = !isBookmarked;
                           });
                           model.bookmarkAction();
                         },
-                        child: widget.isBookmarked
+                        child: isBookmarked
                             ? Icon(
                                 Icons.bookmark,
                                 color: colors.primary,
@@ -329,15 +352,21 @@ class _PostItemViewState extends State<PostItemView> {
                                 Icons.bookmark_border_rounded,
                                 color: colors.black,
                               )),
-                    // Expanded(
-                    //   child: Align(
-                    //     alignment: Alignment.centerRight,
-                    //     child: IconButton(
-                    //       onPressed: () => model.showMoreOptions(),
-                    //       icon: Icon(Icons.more_horiz),
-                    //     ),
-                    //   ),
-                    // ),
+                    Expanded(
+                      child: Visibility(
+                        visible: model.isOurPost,
+                        child: Visibility(
+                          visible: !widget.needToShowComments,
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: IconButton(
+                              onPressed: () => model.showMoreOptions(),
+                              icon: Icon(Icons.more_vert),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 // AppText.caption(
@@ -350,36 +379,44 @@ class _PostItemViewState extends State<PostItemView> {
                       color: colors.primary,
                     ),
                     horizontalSpaceSmall,
-                    GestureDetector(
-                      onTap: () =>
-                          model.showComments(widget.postResponse.Id ?? ""),
-                      child: AppText.caption(
-                        "${model.commentsCounts} comments",
-                        color: colors.primary,
+                    Visibility(
+                      visible: widget.needToShowComments,
+                      child: GestureDetector(
+                        onTap: () =>
+                            model.showComments(widget.postResponse.Id ?? ""),
+                        child: AppText.caption(
+                          "${model.commentsCounts} comments",
+                          color: colors.primary,
+                        ),
                       ),
                     ),
                   ],
                 ),
                 verticalSpaceTiny,
-                GestureDetector(
-                  child: Row(
-                    children: [
-                      CustomCircularAvatar(
-                        radius: 17.0,
-                        imgPath: model.myProfileImg,
-                      ),
-                      horizontalSpaceSmall,
-                      AppText.caption(
-                        "Add a comment",
-                        color: colors.kcCaptionGreyColor,
-                      ),
-                    ],
+                Visibility(
+                  visible: widget.needToShowComments,
+                  child: GestureDetector(
+                    child: Row(
+                      children: [
+                        CustomCircularAvatar(
+                          radius: 17.0,
+                          imgPath: model.myProfileImg,
+                        ),
+                        horizontalSpaceSmall,
+                        AppText.caption(
+                          "Add a comment",
+                          color: colors.kcCaptionGreyColor,
+                        ),
+                      ],
+                    ),
+                    onTap: () =>
+                        model.showComments(widget.postResponse.Id ?? ""),
                   ),
-                  onTap: () => model.showComments(widget.postResponse.Id ?? ""),
                 ),
               ],
             ),
-          )
+          ),
+          // verticalSpaceSmall,
         ],
       ),
     );
@@ -423,15 +460,18 @@ class _SwiperWidgetState extends State<SwiperWidget> {
           Positioned(
             top: 20,
             right: 20,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Color(0xFF87000000),
-              ),
-              child: AppText.caption(
-                "$_currentIndex/${[widget.model.image].length}",
-                color: colors.white,
+            child: Visibility(
+              visible: [widget.model.image].length > 1,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Color(0xFF87000000),
+                ),
+                child: AppText.caption(
+                  "$_currentIndex/${[widget.model.image].length}",
+                  color: colors.white,
+                ),
               ),
             ),
           )

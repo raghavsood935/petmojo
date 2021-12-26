@@ -22,8 +22,7 @@ class _$getBookmarksTearOff {
   const _$getBookmarksTearOff();
 
   _getBookmarks call(
-      {@JsonKey(name: "bookmarks")
-          List<BookmarkDetailResponse>? listOfBookmarks}) {
+      {@JsonKey(name: "bookmarks") List<FeedPostResponse>? listOfBookmarks}) {
     return _getBookmarks(
       listOfBookmarks: listOfBookmarks,
     );
@@ -40,7 +39,7 @@ const $getBookmarks = _$getBookmarksTearOff();
 /// @nodoc
 mixin _$getBookmarks {
   @JsonKey(name: "bookmarks")
-  List<BookmarkDetailResponse>? get listOfBookmarks =>
+  List<FeedPostResponse>? get listOfBookmarks =>
       throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -55,8 +54,7 @@ abstract class $getBookmarksCopyWith<$Res> {
           getBookmarks value, $Res Function(getBookmarks) then) =
       _$getBookmarksCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: "bookmarks")
-          List<BookmarkDetailResponse>? listOfBookmarks});
+      {@JsonKey(name: "bookmarks") List<FeedPostResponse>? listOfBookmarks});
 }
 
 /// @nodoc
@@ -75,7 +73,7 @@ class _$getBookmarksCopyWithImpl<$Res> implements $getBookmarksCopyWith<$Res> {
       listOfBookmarks: listOfBookmarks == freezed
           ? _value.listOfBookmarks
           : listOfBookmarks // ignore: cast_nullable_to_non_nullable
-              as List<BookmarkDetailResponse>?,
+              as List<FeedPostResponse>?,
     ));
   }
 }
@@ -88,8 +86,7 @@ abstract class _$getBookmarksCopyWith<$Res>
       __$getBookmarksCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: "bookmarks")
-          List<BookmarkDetailResponse>? listOfBookmarks});
+      {@JsonKey(name: "bookmarks") List<FeedPostResponse>? listOfBookmarks});
 }
 
 /// @nodoc
@@ -110,7 +107,7 @@ class __$getBookmarksCopyWithImpl<$Res> extends _$getBookmarksCopyWithImpl<$Res>
       listOfBookmarks: listOfBookmarks == freezed
           ? _value.listOfBookmarks
           : listOfBookmarks // ignore: cast_nullable_to_non_nullable
-              as List<BookmarkDetailResponse>?,
+              as List<FeedPostResponse>?,
     ));
   }
 }
@@ -126,7 +123,7 @@ class _$_getBookmarks extends _getBookmarks {
 
   @override
   @JsonKey(name: "bookmarks")
-  final List<BookmarkDetailResponse>? listOfBookmarks;
+  final List<FeedPostResponse>? listOfBookmarks;
 
   @override
   String toString() {
@@ -160,7 +157,7 @@ class _$_getBookmarks extends _getBookmarks {
 abstract class _getBookmarks extends getBookmarks {
   factory _getBookmarks(
       {@JsonKey(name: "bookmarks")
-          List<BookmarkDetailResponse>? listOfBookmarks}) = _$_getBookmarks;
+          List<FeedPostResponse>? listOfBookmarks}) = _$_getBookmarks;
   _getBookmarks._() : super._();
 
   factory _getBookmarks.fromJson(Map<String, dynamic> json) =
@@ -168,7 +165,7 @@ abstract class _getBookmarks extends getBookmarks {
 
   @override
   @JsonKey(name: "bookmarks")
-  List<BookmarkDetailResponse>? get listOfBookmarks;
+  List<FeedPostResponse>? get listOfBookmarks;
   @override
   @JsonKey(ignore: true)
   _$getBookmarksCopyWith<_getBookmarks> get copyWith =>

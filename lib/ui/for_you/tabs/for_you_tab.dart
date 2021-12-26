@@ -96,13 +96,16 @@ class _ForYouTabState extends State<ForYouTab> {
                   ),
                 ),
                 Visibility(
-                  visible: !model.isLoading,
-                  child: GestureDetector(
-                    onTap: model.getPosts,
-                    child: AppText.body1Bold(
-                      "See more Posts",
-                      textAlign: TextAlign.center,
-                      color: colors.primary,
+                  visible: !model.isEndOfList,
+                  child: Visibility(
+                    visible: !model.isLoading,
+                    child: GestureDetector(
+                      onTap: model.getPosts,
+                      child: AppText.body1Bold(
+                        "See more Posts",
+                        textAlign: TextAlign.center,
+                        color: colors.primary,
+                      ),
                     ),
                   ),
                 ),

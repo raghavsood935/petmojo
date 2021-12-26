@@ -8,8 +8,9 @@ String wireFrameTitle2 = "Connect with other animal lovers";
 String wireFrameTitle3 = "Find high quality pet care services";
 String wireFrameTitle4 = "Save time and money";
 String signUpLoginTitle = "SIGN UP/LOGIN";
-String emailPhoneTitle = "EMAIL/PHONE";
+String emailPhoneTitle = "EMAIL";
 String continueWithFB = "CONTINUE WITH FACEBOOK";
+String continueWithPhone = "CONTINUE WITH PHONE";
 String continueWithGoogle = "CONTINUE WITH GOOGLE";
 String orSignUpWith = "OR SIGN UP WITH";
 String alreadyHaveAccount = "ALREADY HAVE AN ACCOUNT?";
@@ -170,6 +171,9 @@ String select = "Select";
 String myTales = "My tails";
 String createPost = "Create a pawsome post";
 String photoVideo = "Photo/Video";
+
+//post options
+String deletePostConfirmation = "Are you sure do you want to delete this post?";
 
 // Booking Service
 

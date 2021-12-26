@@ -25,18 +25,29 @@ class MoreOptionBottomSheet extends StatelessWidget {
       child: ListView(
         shrinkWrap: true,
         children: [
+          // ListTile(
+          //   title: AppText.body2("Share post to"),
+          // ),
+          // ListTile(
+          //   title: AppText.body2("Hide this post"),
+          // ),
+          // ListTile(
+          //   title: AppText.body2("Unfollow"),
+          // ),
+          // ListTile(
+          //   title: AppText.body2("Report abuse"),
+          // ),
           ListTile(
-            title: AppText.body2("Share post to"),
-          ),
-          ListTile(
-            title: AppText.body2("Hide this post"),
-          ),
-          ListTile(
-            title: AppText.body2("Unfollow"),
-          ),
-          ListTile(
-            title: AppText.body2("Report abuse"),
-          ),
+            leading: Icon(
+              Icons.delete,
+              color: colors.red,
+            ),
+            title: AppText.body1Bold(
+              "Delete this post",
+              color: colors.red,
+            ),
+            onTap: () => onDialogTap(SheetResponse(confirmed: true, data: 0)),
+          )
         ],
       ),
     );

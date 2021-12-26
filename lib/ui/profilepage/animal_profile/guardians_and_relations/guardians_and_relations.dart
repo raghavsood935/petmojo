@@ -5,9 +5,13 @@ import 'package:tamely/util/Color.dart';
 import 'package:tamely/widgets/app_text.dart';
 
 class GuardiansAndRelatedAnimalsView extends StatefulWidget {
-  GuardiansAndRelatedAnimalsView({Key? key}) : super(key: key);
+  GuardiansAndRelatedAnimalsView(
+      {Key? key, required this.petID, required this.petToken})
+      : super(key: key);
 
-  List<Widget> _tabs = [GuardiansView(), RelatedAnimalsView()];
+  String petID;
+  String petToken;
+
   List<Tab> _tabsTitle = [
     Tab(
       text: "Guardians",
@@ -37,9 +41,25 @@ class _GuardiansAndRelatedAnimalsViewState
           bottom: TabBar(
             tabs: widget._tabsTitle,
           ),
+          leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: Icon(
+              Icons.arrow_back,
+              color: colors.black,
+            ),
+          ),
         ),
         body: TabBarView(
-          children: widget._tabs,
+          children: [
+            GuardiansView(
+              petID: widget.petID,
+              petToken: widget.petToken,
+            ),
+            RelatedAnimalsView(
+              petID: widget.petID,
+              petToken: widget.petToken,
+            )
+          ],
         ),
       ),
     );

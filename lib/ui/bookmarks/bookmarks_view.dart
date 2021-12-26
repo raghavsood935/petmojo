@@ -23,108 +23,120 @@ class BookmarksView extends StatelessWidget {
       viewModelBuilder: () => BookmarksViewModel(),
       onModelReady: (model) => model.onInit(),
       builder: (context, model, child) => Scaffold(
-        appBar: AppBar(
-          elevation: 0.5,
-          backgroundColor: Colors.white,
-          centerTitle: true,
-          leading: IconButton(
-              padding: const EdgeInsets.all(0),
-              icon: SvgPicture.asset(
-                "assets/images/backbutton.svg",
-                height: 20,
-                width: 30,
-              ),
-              onPressed: () => Navigator.pop(context)),
-        ),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.bookmark,
-                        size: 30,
-                        color: colors.primary,
-                      ),
-                      Text(
-                        "Bookmarks",
-                        style: subheadingStyle.copyWith(color: colors.primary),
-                      )
-                    ],
-                  ),
-                ),
-                Divider(
-                  height: 20,
-                  thickness: 3,
-                  indent: 20,
-                  endIndent: 20,
-                  color: colors.primary,
-                ),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: model.listOfBookmark.length == 0
-                      ? Center(
-                          child: AppText.body1Bold(
-                            "No Bookmarks",
-                            color: colors.primary,
-                          ),
-                        )
-                      // ? CircleAvatar(
-                      //     backgroundColor: colors.black,
-                      //     radius: 30,
-                      //     child: CircleAvatar(
-                      //       radius: 29,
-                      //       backgroundColor: Colors.white,
-                      //       child: CircleAvatar(
-                      //         backgroundColor: colors.lightBackgroundColor,
-                      //         radius: 26,
-                      //         child: Icon(Icons.add),
-                      //       ),
-                      //     ),
-                      //   )
-                      : StaggeredGridView.countBuilder(
-                          physics: ScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: model.listOfBookmark.length,
-                          crossAxisSpacing: 6,
-                          mainAxisSpacing: 6,
-                          crossAxisCount: 3,
-                          itemBuilder: (context, index) => postItem(
-                              context,
-                              index,
-                              model.listOfBookmark[index].thumbnail ??
-                                  emptyProfileImgUrl,
-                              () {}),
-                          staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+        appBar: commonAppBar(context, "Bookmarks"),
+        // appBar: AppBar(
+        //   elevation: 0,
+        //   backgroundColor: Colors.transparent,
+        //   // centerTitle: true,
+        //   title: Row(
+        //     mainAxisAlignment: MainAxisAlignment.center,
+        //     children: [
+        //       Icon(
+        //         Icons.bookmark,
+        //         size: 30,
+        //         color: colors.primary,
+        //       ),
+        //       Text(
+        //         "Bookmarks",
+        //         style: subheadingStyle.copyWith(color: colors.primary),
+        //       )
+        //     ],
+        //   ),
+        //   leading: IconButton(
+        //     padding: const EdgeInsets.all(0),
+        //     icon: Icon(
+        //       Icons.arrow_back,
+        //       color: colors.black,
+        //     ),
+        //     onPressed: () => Navigator.pop(context),
+        //   ),
+        // ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              // Padding(
+              //   padding: const EdgeInsets.only(top: 10),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: [
+              //       Icon(
+              //         Icons.bookmark,
+              //         size: 30,
+              //         color: colors.primary,
+              //       ),
+              //       Text(
+              //         "Bookmarks",
+              //         style: subheadingStyle.copyWith(color: colors.primary),
+              //       )
+              //     ],
+              //   ),
+              // ),
+              // Divider(
+              //   height: 20,
+              //   thickness: 3,
+              //   indent: 20,
+              //   endIndent: 20,
+              //   color: colors.primary,
+              // ),
+              Container(
+                padding: EdgeInsets.all(10),
+                child: model.listOfBookmark.length == 0
+                    ? Center(
+                        child: AppText.body1Bold(
+                          "No Bookmarks",
+                          color: colors.primary,
                         ),
-                ),
-              ],
-            ),
+                      )
+                    // ? CircleAvatar(
+                    //     backgroundColor: colors.black,
+                    //     radius: 30,
+                    //     child: CircleAvatar(
+                    //       radius: 29,
+                    //       backgroundColor: Colors.white,
+                    //       child: CircleAvatar(
+                    //         backgroundColor: colors.lightBackgroundColor,
+                    //         radius: 26,
+                    //         child: Icon(Icons.add),
+                    //       ),
+                    //     ),
+                    //   )
+                    : StaggeredGridView.countBuilder(
+                        physics: ScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: model.listOfBookmark.length,
+                        crossAxisSpacing: 6,
+                        mainAxisSpacing: 6,
+                        crossAxisCount: 3,
+                        itemBuilder: (context, index) => GestureDetector(
+                          onTap: () => model
+                              .goToPostDetailsView(model.listOfBookmark[index]),
+                          child: postItem(
+                            context,
+                            index,
+                            model.listOfBookmark[index].thumbnail ??
+                                emptyProfileImgUrl,
+                          ),
+                        ),
+                        staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+                      ),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 
-  Widget postItem(
-          BuildContext context, int index, String url, void onTapFun()) =>
-      GestureDetector(
-        child: Container(
-          height: getPostItemHeight(context, index),
-          margin: EdgeInsets.all(3),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.network(
-              url,
-              fit: BoxFit.cover,
-            ),
+  Widget postItem(BuildContext context, int index, String url) => Container(
+        height: getPostItemHeight(context, index),
+        margin: EdgeInsets.all(3),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Image.network(
+            url,
+            fit: BoxFit.cover,
           ),
         ),
-        onTap: onTapFun,
       );
 }
 

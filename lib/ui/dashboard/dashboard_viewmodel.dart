@@ -225,7 +225,12 @@ class DashboardViewModel extends FutureViewModel<void>
   }
 
   void onNotificationPressed() async {
-    await _navigationService.navigateTo(Routes.notifications);
+    await _navigationService
+        .navigateTo(Routes.notificationMainView)!
+        .whenComplete(() {
+      _notificationCount = 0;
+      notifyListeners();
+    });
   }
 
   void onChatPressed() {}

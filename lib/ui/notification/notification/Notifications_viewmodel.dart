@@ -10,6 +10,7 @@ import 'package:stacked_services/stacked_services.dart';
 class NotificationViewModel extends FutureViewModel<void>
     implements Initialisable {
   final _sharedPrefService = locator<SharedPreferencesService>();
+  final _navigationService = locator<NavigationService>();
   final _snackbarService = locator<SnackbarService>();
   final _tamelyApi = locator<TamelyApi>();
 
@@ -28,6 +29,7 @@ class NotificationViewModel extends FutureViewModel<void>
 
     getNotification();
   }
+
 
   Future getNotification() async {
     isLoading = true;

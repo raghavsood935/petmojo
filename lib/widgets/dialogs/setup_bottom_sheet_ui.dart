@@ -3,6 +3,7 @@ import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/enum/BottomSheetType.dart';
 import 'package:tamely/widgets/dialogs/add_details_bottom_sheet.dart';
 import 'package:tamely/widgets/dialogs/comments_bottom_sheet.dart';
+import 'package:tamely/widgets/dialogs/delete_post_bottom_sheet.dart';
 import 'package:tamely/widgets/dialogs/more_option_bottom_sheet.dart';
 import 'package:tamely/widgets/dialogs/select_animal_breed_bottom_sheet.dart';
 import 'package:tamely/widgets/dialogs/select_animal_type_bottom_sheet.dart';
@@ -49,12 +50,16 @@ void setupBottomSheetUi() {
               sheetRequest: sheetRequest,
               onDialogTap: completer,
             ),
-
     BottomSheetType.CancelSubscriptionBottomSheet:
         (context, sheetRequest, completer) => CancelSubscriptionBottomSheet(
               sheetRequest: sheetRequest,
               onDialogTap: completer,
             ),
+    BottomSheetType.DeletePostBottomSheet: (context, sheetRequest, completer) =>
+        DeletePostBottomSheet(
+          sheetRequest: sheetRequest,
+          onDialogTap: completer,
+        ),
   };
   bottomSheetService.setCustomSheetBuilders(builders);
 }

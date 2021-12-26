@@ -32,7 +32,9 @@ class GlobalMethods {
   }
 
   static String utcToLocal(String utcTime) {
-    var strToDateTime = DateTime.parse(utcTime);
+    // var strToDateTime = DateTime.parse(utcTime,);
+    var strToDateTime =
+        DateFormat("yyyy-MM-ddTHH:mm:ss.sss").parse(utcTime, true);
     final convertLocal = strToDateTime.toLocal();
 
     var newFormat = DateFormat("dd-MM-yyyy hh:ss aaa");
@@ -42,7 +44,8 @@ class GlobalMethods {
   }
 
   static String utcToLocalTrailing(String utcTime) {
-    var strToDateTime = DateTime.parse(utcTime);
+    var strToDateTime =
+    DateFormat("yyyy-MM-ddTHH:mm:ss.sss").parse(utcTime, true);
     final convertLocal = strToDateTime.toLocal();
 
     var newFormat = DateFormat("dd-MM-yyyy-hh-ss-aaa");

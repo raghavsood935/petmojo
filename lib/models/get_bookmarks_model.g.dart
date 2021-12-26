@@ -9,8 +9,7 @@ part of 'get_bookmarks_model.dart';
 _$_getBookmarks _$$_getBookmarksFromJson(Map<String, dynamic> json) =>
     _$_getBookmarks(
       listOfBookmarks: (json['bookmarks'] as List<dynamic>?)
-          ?.map(
-              (e) => BookmarkDetailResponse.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => FeedPostResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

@@ -19,6 +19,7 @@ import 'package:tamely/models/params/profile_create_body.dart';
 import 'package:tamely/models/user_response_models.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/ui/base/authentication_viewmodel.dart';
+import 'package:tamely/util/global_methods.dart';
 import 'package:tamely/util/utils.dart';
 
 import 'profile_create_view.form.dart';
@@ -38,6 +39,7 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
   String _shortBio = "";
 
   String petID = "";
+  String petToken = "";
 
   bool isEdit = false;
   bool isAnimal = false;
@@ -71,7 +73,9 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
       if (pickedFile != null) {
         _imageFile = pickedFile;
         notifyListeners();
-        await uploadImage();
+        avatarUrl = await runBusyFuture(
+            GlobalMethods.imageToLink(File(_imageFile!.path)));
+        notifyListeners();
       }
       log.d("ImagePath: $imagePath");
       notifyListeners();
@@ -81,25 +85,25 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
     }
   }
 
-  Future<void> uploadImage() async {
-    SystemChannels.textInput.invokeMethod('TextInput.hide');
-    if (_imageFile == null) {
-      _snackBarService.showSnackbar(message: "Image is empty");
-    }
-    if (await Util.checkInternetConnectivity()) {
-      BaseResponse<CommonResponse> response =
-          await runBusyFuture(_tamelyApi.uploadImage(File(_imageFile!.path)));
-      if (response.getException != null) {
-        ServerError error = response.getException as ServerError;
-        _snackBarService.showSnackbar(message: error.getErrorMessage());
-      } else if (response.data != null) {
-        avatarUrl = response.data!.avatar ?? "";
-        checkValidateField();
-      }
-    } else {
-      _snackBarService.showSnackbar(message: "No Internet connection");
-    }
-  }
+  // Future<void> uploadImage() async {
+  //   SystemChannels.textInput.invokeMethod('TextInput.hide');
+  //   if (_imageFile == null) {
+  //     _snackBarService.showSnackbar(message: "Image is empty");
+  //   }
+  //   if (await Util.checkInternetConnectivity()) {
+  //     BaseResponse<CommonResponse> response =
+  //         await runBusyFuture(_tamelyApi.uploadImage(File(_imageFile!.path)));
+  //     if (response.getException != null) {
+  //       ServerError error = response.getException as ServerError;
+  //       _snackBarService.showSnackbar(message: error.getErrorMessage());
+  //     } else if (response.data != null) {
+  //       avatarUrl = response.data!.avatar ?? "";
+  //       checkValidateField();
+  //     }
+  //   } else {
+  //     _snackBarService.showSnackbar(message: "No Internet connection");
+  //   }
+  // }
 
   Future<void> saveProfileData() async {
     if (!checkValidateField()) {
@@ -117,7 +121,7 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
             avatarUrl,
           );
           var result = await runBusyFuture(
-              _tamelyApi.editAnimalProfileMainDetails(body, ""),
+              _tamelyApi.editAnimalProfileMainDetails(body),
               throwException: true);
           if (result.data != null) {
             if (result.data!.success ?? false) {
@@ -129,8 +133,8 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
           _snackBarService.showSnackbar(message: "$e");
         }
       } else {
-        ProfileCreateBody profileCreateBody = ProfileCreateBody(
-            isEdit?usernameValue!:nameValue!, isEdit?nameValue!:usernameValue!, shortBioValue ?? "", "", avatarUrl);
+        ProfileCreateBody profileCreateBody = ProfileCreateBody(nameValue ?? "",
+            usernameValue ?? "", shortBioValue ?? "", "", avatarUrl);
         try {
           await runBusyFuture(updateProfile(profileCreateBody, isEdit: isEdit),
               throwException: true);
@@ -191,12 +195,14 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
     }
   }
 
-  init(dynamic lastAvatarUrl, bool isEdit, bool isAnimal, String petID) {
+  init(dynamic lastAvatarUrl, bool isEdit, bool isAnimal, String petID,
+      String petToken) {
     // sharedPreferencesService.currentState =
     //     getRedirectStateName(RedirectState.ProfileCreate);
     this.isEdit = isEdit;
     this.isAnimal = isAnimal;
     this.petID = petID;
+    this.petToken = petToken;
     if (isEdit) {
       avatarUrl = lastAvatarUrl;
     }
