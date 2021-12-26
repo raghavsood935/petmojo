@@ -21,9 +21,12 @@ EditResponse _$EditResponseFromJson(Map<String, dynamic> json) {
 class _$EditResponseTearOff {
   const _$EditResponseTearOff();
 
-  _EditResponse call({@JsonKey(name: "success") bool? success}) {
+  _EditResponse call(
+      {@JsonKey(name: "success") bool? success,
+      @JsonKey(name: "message") String? message}) {
     return _EditResponse(
       success: success,
+      message: message,
     );
   }
 
@@ -39,6 +42,8 @@ const $EditResponse = _$EditResponseTearOff();
 mixin _$EditResponse {
   @JsonKey(name: "success")
   bool? get success => throw _privateConstructorUsedError;
+  @JsonKey(name: "message")
+  String? get message => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +56,9 @@ abstract class $EditResponseCopyWith<$Res> {
   factory $EditResponseCopyWith(
           EditResponse value, $Res Function(EditResponse) then) =
       _$EditResponseCopyWithImpl<$Res>;
-  $Res call({@JsonKey(name: "success") bool? success});
+  $Res call(
+      {@JsonKey(name: "success") bool? success,
+      @JsonKey(name: "message") String? message});
 }
 
 /// @nodoc
@@ -65,12 +72,17 @@ class _$EditResponseCopyWithImpl<$Res> implements $EditResponseCopyWith<$Res> {
   @override
   $Res call({
     Object? success = freezed,
+    Object? message = freezed,
   }) {
     return _then(_value.copyWith(
       success: success == freezed
           ? _value.success
           : success // ignore: cast_nullable_to_non_nullable
               as bool?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -82,7 +94,9 @@ abstract class _$EditResponseCopyWith<$Res>
           _EditResponse value, $Res Function(_EditResponse) then) =
       __$EditResponseCopyWithImpl<$Res>;
   @override
-  $Res call({@JsonKey(name: "success") bool? success});
+  $Res call(
+      {@JsonKey(name: "success") bool? success,
+      @JsonKey(name: "message") String? message});
 }
 
 /// @nodoc
@@ -98,12 +112,17 @@ class __$EditResponseCopyWithImpl<$Res> extends _$EditResponseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? success = freezed,
+    Object? message = freezed,
   }) {
     return _then(_EditResponse(
       success: success == freezed
           ? _value.success
           : success // ignore: cast_nullable_to_non_nullable
               as bool?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -111,7 +130,10 @@ class __$EditResponseCopyWithImpl<$Res> extends _$EditResponseCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_EditResponse extends _EditResponse {
-  _$_EditResponse({@JsonKey(name: "success") this.success}) : super._();
+  _$_EditResponse(
+      {@JsonKey(name: "success") this.success,
+      @JsonKey(name: "message") this.message})
+      : super._();
 
   factory _$_EditResponse.fromJson(Map<String, dynamic> json) =>
       _$$_EditResponseFromJson(json);
@@ -119,10 +141,13 @@ class _$_EditResponse extends _EditResponse {
   @override
   @JsonKey(name: "success")
   final bool? success;
+  @override
+  @JsonKey(name: "message")
+  final String? message;
 
   @override
   String toString() {
-    return 'EditResponse(success: $success)';
+    return 'EditResponse(success: $success, message: $message)';
   }
 
   @override
@@ -130,11 +155,12 @@ class _$_EditResponse extends _EditResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _EditResponse &&
-            (identical(other.success, success) || other.success == success));
+            (identical(other.success, success) || other.success == success) &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, success);
+  int get hashCode => Object.hash(runtimeType, success, message);
 
   @JsonKey(ignore: true)
   @override
@@ -148,8 +174,9 @@ class _$_EditResponse extends _EditResponse {
 }
 
 abstract class _EditResponse extends EditResponse {
-  factory _EditResponse({@JsonKey(name: "success") bool? success}) =
-      _$_EditResponse;
+  factory _EditResponse(
+      {@JsonKey(name: "success") bool? success,
+      @JsonKey(name: "message") String? message}) = _$_EditResponse;
   _EditResponse._() : super._();
 
   factory _EditResponse.fromJson(Map<String, dynamic> json) =
@@ -158,6 +185,9 @@ abstract class _EditResponse extends EditResponse {
   @override
   @JsonKey(name: "success")
   bool? get success;
+  @override
+  @JsonKey(name: "message")
+  String? get message;
   @override
   @JsonKey(ignore: true)
   _$EditResponseCopyWith<_EditResponse> get copyWith =>

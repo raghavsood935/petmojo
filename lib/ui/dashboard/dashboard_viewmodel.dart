@@ -214,8 +214,6 @@ class DashboardViewModel extends FutureViewModel<void>
   }
 
   Future getRequests() async {
-    isLoading = true;
-    notifyListeners();
     var result;
     if (isHuman) {
       result = await _tamelyApi.getPendingGuardianRequest();
@@ -226,8 +224,6 @@ class DashboardViewModel extends FutureViewModel<void>
 
     if (result.getException != null) {
       ServerError error = result.getException as ServerError;
-      isLoading = false;
-      notifyListeners();
       _snackBarService.showSnackbar(message: error.getErrorMessage());
     } else if (result.data != null) {
       if (isHuman) {
@@ -237,7 +233,6 @@ class DashboardViewModel extends FutureViewModel<void>
         _requestNotificationCount =
             (result.data!.listOfRelationRequests ?? []).length;
       }
-      isLoading = false;
       notifyListeners();
     }
   }
@@ -264,8 +259,7 @@ class DashboardViewModel extends FutureViewModel<void>
             arguments: NotificationMainViewArguments(
                 haveAnyRequests: _requestNotificationCount > 0))!
         .whenComplete(() {
-      _notificationCount = 0;
-      notifyListeners();
+      getNotificationCount();
     });
   }
 
