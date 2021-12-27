@@ -86,7 +86,6 @@ dependencies:
   #maps:
   google_maps_flutter: ^2.1.1
 
-
   #firebase
   firebase_crashlytics: ^2.2.1
   firebase_core: ^1.6.0
