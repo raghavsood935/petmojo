@@ -1050,7 +1050,6 @@ class TamelyApi {
     return BaseResponse()..data = response;
   }
 
-
   //Community
 
   //---> create group
@@ -1103,7 +1102,7 @@ class TamelyApi {
     EditResponse response;
     try {
       response =
-      await getApiClient(true, true).invitePeople(invitePeopleGroupBody);
+          await getApiClient(true, true).invitePeople(invitePeopleGroupBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()
@@ -1119,7 +1118,7 @@ class TamelyApi {
     log.d("googleLogin called");
     GetPetDetailsResponse response;
     try {
-      response = await getApiClient(true, false).getPetDetails();
+      response = await getApiClient(true, true).getPetDetails();
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()
