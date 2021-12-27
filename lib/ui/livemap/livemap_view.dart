@@ -75,8 +75,9 @@ class LiveMapView extends StatelessWidget {
                     mapType: MapType.normal,
                     markers: model.markers,
                     myLocationEnabled: false,
+                    zoomControlsEnabled: false,
                     polylines: model.mapPolylines,
-                    initialCameraPosition: model.myLocation,
+                    initialCameraPosition: model.initialLocation,
                     onMapCreated: (GoogleMapController controller) {
                       model.controller.complete(controller);
                     },
@@ -95,7 +96,7 @@ class LiveMapView extends StatelessWidget {
                         walkName: model.walkNumber == WalkNumber.One
                             ? walkOneLabel
                             : walkTwoLabel,
-                        distance: model.distance.toInt(),
+                        distance: model.showDistance,
                         time: model.timeTook,
                       ),
                     )),
@@ -147,7 +148,7 @@ class LiveItem extends StatelessWidget {
     this.time,
   }) : super(key: key);
   final String? walkName;
-  final int? distance;
+  final String? distance;
   final int? time;
 
   @override
