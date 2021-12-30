@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/util/Color.dart';
+import 'package:tamely/util/Color.dart';
 
 class AppInputField extends StatelessWidget {
   final TextEditingController? controller;
@@ -9,18 +9,18 @@ class AppInputField extends StatelessWidget {
   final Widget? leading;
   final Widget? trailing;
   final bool password;
+  final bool isPaddingNeeded;
   final bool readOnly;
+  final bool autoFocus;
+  final bool isDDM;
   final TextInputType? textInputType;
   final TextCapitalization? textCapitalization;
-  final bool isSearchField;
   final void Function()? trailingTapped;
+  final void Function(String?)? onChanged;
+  final int? maxLength;
 
   final circularBorder = UnderlineInputBorder(
     borderRadius: BorderRadius.circular(8),
-  );
-
-  final roundedBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(25),
   );
 
   AppInputField(
@@ -35,8 +35,12 @@ class AppInputField extends StatelessWidget {
       this.password = false,
       this.textInputType = TextInputType.name,
       this.readOnly = false,
-      this.isSearchField = false,
-      this.textCapitalization = TextCapitalization.sentences})
+      this.isDDM = false,
+      this.isPaddingNeeded = true,
+      this.autoFocus = false,
+      this.textCapitalization = TextCapitalization.sentences,
+      this.onChanged,
+      this.maxLength})
       : super(key: key);
 
   @override
@@ -47,59 +51,45 @@ class AppInputField extends StatelessWidget {
       /// We can also avoid this by changing the [primarySwatch] in MaterialApp
       data: ThemeData(primaryColor: colors.primary),
       child: TextField(
+        maxLength: maxLength,
         textCapitalization: textCapitalization!,
+        onChanged: onChanged,
         controller: controller ?? TextEditingController(),
         keyboardType: textInputType,
         style: TextStyle(height: 1),
         obscureText: password,
         readOnly: readOnly,
         maxLines: null,
+        autofocus: autoFocus,
         decoration: InputDecoration(
           hintText: hint,
           labelText: label,
           errorText: errorText,
           floatingLabelBehavior: FloatingLabelBehavior.always,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-          prefixIcon: isSearchField
-              ? Icon(
-                  Icons.search,
-                  color: colors.primary,
-                )
-              : leading,
+          contentPadding: isDDM
+              ? EdgeInsets.zero
+              : isPaddingNeeded
+                  ? const EdgeInsets.symmetric(horizontal: 10)
+                  : EdgeInsets.zero,
+          prefixIcon: leading,
           suffixIcon: trailing != null
               ? GestureDetector(
                   onTap: trailingTapped,
                   child: trailing,
                 )
               : null,
-          border: isSearchField
-              ? roundedBorder.copyWith(
-                  borderSide: BorderSide(color: colors.kcLightGreyColor),
-                )
-              : circularBorder.copyWith(
-                  borderSide: BorderSide(color: colors.kcLightGreyColor),
-                ),
-          errorBorder: isSearchField
-              ? roundedBorder.copyWith(
-                  borderSide: BorderSide(color: Colors.red),
-                )
-              : circularBorder.copyWith(
-                  borderSide: BorderSide(color: Colors.red),
-                ),
-          focusedBorder: isSearchField
-              ? roundedBorder.copyWith(
-                  borderSide: BorderSide(color: colors.primary),
-                )
-              : circularBorder.copyWith(
-                  borderSide: BorderSide(color: colors.primary),
-                ),
-          enabledBorder: isSearchField
-              ? roundedBorder.copyWith(
-                  borderSide: BorderSide(color: colors.kcLightGreyColor),
-                )
-              : circularBorder.copyWith(
-                  borderSide: BorderSide(color: colors.kcLightGreyColor),
-                ),
+          border: circularBorder.copyWith(
+            borderSide: BorderSide(color: colors.kcLightGreyColor),
+          ),
+          // errorBorder: circularBorder.copyWith(
+          //         borderSide: BorderSide(color: Colors.red),
+          //       ),
+          focusedBorder: circularBorder.copyWith(
+            borderSide: BorderSide(color: colors.primary),
+          ),
+          enabledBorder: circularBorder.copyWith(
+            borderSide: BorderSide(color: colors.kcLightGreyColor),
+          ),
           labelStyle: TextStyle(fontSize: 16, color: colors.kcPrimaryTextColor),
           hintStyle: TextStyle(fontSize: 14, color: colors.kcLightGreyColor),
         ),

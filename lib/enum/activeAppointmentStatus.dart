@@ -1,0 +1,1 @@
+enum ActiveAppointmentStatus { Accepted, Pending }

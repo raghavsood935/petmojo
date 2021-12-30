@@ -1,110 +1,154 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:kubelite/models/feed_post_model.dart';
-import 'package:kubelite/ui/feed/comment/feed_post_comment_view.dart';
-import 'package:kubelite/ui/feed/feed_view_model.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/ImageConstant.dart';
-import 'package:kubelite/util/ui_helpers.dart';
-import 'package:kubelite/widgets/app_text.dart';
-import 'package:kubelite/widgets/custom_circle_avatar.dart';
+import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/models/feed_post_response.dart';
+import 'package:tamely/ui/feed/feed_view_model.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/String.dart';
+import 'package:tamely/util/global_methods.dart';
+import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/util/utils.dart';
+import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/custom_circle_avatar.dart';
+import 'package:tamely/widgets/post_item_view.dart';
 
 class FeedView extends StatelessWidget {
   final BuildContext menuScreenContext;
   final Function onScreenHideButtonPressed;
   final bool hideStatus;
-  const FeedView(
-      {Key? key,
-      required this.menuScreenContext,
-      required this.onScreenHideButtonPressed,
-      this.hideStatus = false})
-      : super(key: key);
+  const FeedView({
+    Key? key,
+    required this.menuScreenContext,
+    required this.onScreenHideButtonPressed,
+    this.hideStatus = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<FeedViewModel>.reactive(
       viewModelBuilder: () => FeedViewModel(),
+      onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
-        body: ListView(
-          physics: ScrollPhysics(),
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 20, right: 10, top: 15),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    rowItem(
-                      true,
-                      "My tales",
-                      model.myProfileImg,
-                    ),
-                    horizontalSpaceRegular,
-                    SizedBox(
-                      height: 85,
-                      child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemCount: model.dummyListOfTales.length,
-                        itemBuilder: (context, index) => rowItem(
-                          false,
-                          model.dummyListOfTales[index].name,
-                          model.dummyListOfTales[index].url,
-                        ),
-                        separatorBuilder: (BuildContext context, int index) =>
-                            horizontalSpaceSmall,
+        body: RefreshIndicator(
+          onRefresh: () => model.seeMorePost(fromRefresh: true),
+          child: ListView(
+            physics: ScrollPhysics(),
+            children: [
+              // Padding(
+              //   padding: EdgeInsets.only(
+              //     left: 0,
+              //     right: 0,
+              //     top: 15,
+              //     bottom: 20,
+              //   ),
+              //   child: SingleChildScrollView(
+              //     scrollDirection: Axis.horizontal,
+              //     child: Row(
+              //       mainAxisSize: MainAxisSize.min,
+              //       crossAxisAlignment: CrossAxisAlignment.center,
+              //       children: [
+              //         horizontalSpaceRegular,
+              //         rowItem(
+              //           true,
+              //           myTales,
+              //           model.myProfileImg,
+              //         ),
+              //         horizontalSpaceRegular,
+              //         SizedBox(
+              //           height: 85,
+              //           child: ListView.separated(
+              //             scrollDirection: Axis.horizontal,
+              //             shrinkWrap: true,
+              //             itemCount: model.dummyListOfTales.length,
+              //             itemBuilder: (context, index) => rowItem(
+              //               false,
+              //               model.dummyListOfTales[index].name,
+              //               model.dummyListOfTales[index].url,
+              //             ),
+              //             separatorBuilder: (BuildContext context, int index) =>
+              //                 horizontalSpaceSmall,
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              // spacedDividerTiny,
+              verticalSpaceRegular,
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: GestureDetector(
+                  onTap: model.createPost,
+                  child: Row(
+                    children: [
+                      CustomCircularAvatar(
+                        radius: 20.0,
+                        imgPath: model.myProfileImg,
                       ),
-                    ),
-                  ],
+                      horizontalSpaceRegular,
+                      AppText.caption(
+                        createPost,
+                        textAlign: TextAlign.center,
+                        color: colors.kcCaptionGreyColor,
+                      ),
+                      Spacer(),
+                      Row(
+                        children: [
+                          Util.getImageChild(imageIcon, 16, 16),
+                          horizontalSpaceTiny,
+                          AppText.caption(
+                            photoVideo,
+                            color: colors.primary,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            spacedDividerTiny,
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-              child: Row(
-                children: [
-                  CustomCircularAvatar(
-                    radius: 25.0,
-                    imgPath: model.myProfileImg,
+              spacedDividerTiny,
+              ListView.separated(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: model.dummyListOfFeedPost.length,
+                itemBuilder: (context, index) => PostItemView(
+                  postResponse: model.dummyListOfFeedPost[index],
+                  needToShowComments: true,
+                ),
+                separatorBuilder: (context, index) => Divider(
+                  color: Colors.transparent,
+                ),
+              ),
+              verticalSpaceRegular,
+              Visibility(
+                visible: model.isLoading,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: CircularProgressIndicator(
+                    color: colors.primary,
                   ),
-                  Expanded(
-                      child: AppText.caption(
-                    "Create a pawsome post",
-                    textAlign: TextAlign.center,
-                    color: colors.kcCaptionGreyColor,
-                  )),
-                  Icon(Icons.photo, color: colors.primary),
-                  GestureDetector(
-                    child: AppText.caption(
-                      "Photo/Video",
+                ),
+              ),
+              Visibility(
+                visible: !model.isEndOfList,
+                child: Visibility(
+                  visible: !model.isLoading,
+                  child: GestureDetector(
+                    onTap: model.seeMorePost,
+                    child: AppText.body1Bold(
+                      "See more Posts",
+                      textAlign: TextAlign.center,
                       color: colors.primary,
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
-            spacedDividerTiny,
-            ListView.separated(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: model.dummyListOfFeedPost.length,
-              itemBuilder: (context, index) => postItem(
-                context,
-                model.dummyListOfFeedPost[index],
-                model.myProfileImg,
-              ),
-              separatorBuilder: (BuildContext context, int index) => Divider(
-                // height: 20,
-                indent: 0,
-                thickness: 5,
-                color: colors.kcGreyBackground,
-              ),
-            )
-          ],
+              verticalSpaceRegular,
+            ],
+          ),
         ),
       ),
     );
@@ -184,202 +228,363 @@ Widget rowItem(bool isCreateOne, String name, String url) {
   );
 }
 
-Widget postItem(
-    BuildContext context, FeedPostModel model, String myProfileImgUrl) {
-  return Padding(
-    padding: const EdgeInsets.only(
-      left: 20.0,
-      top: 10.0,
-      bottom: 10.0,
-      right: 10.0,
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ListTile(
-          contentPadding: EdgeInsets.zero,
-          leading: CustomCircularAvatar(
-            radius: 23.0,
-            imgPath: model.profileImgUrl,
+class FeedPostItem extends StatefulWidget {
+  FeedPostItem({Key? key, required this.model, required this.viewModel})
+      : super(key: key);
+
+  FeedPostResponse model;
+  FeedViewModel viewModel;
+
+  bool isLiked = false;
+  bool isBookmared = false;
+
+  @override
+  _FeedPostItemState createState() => _FeedPostItemState(model);
+}
+
+class _FeedPostItemState extends State<FeedPostItem> {
+  int likesCount = 0;
+
+  _FeedPostItemState(FeedPostResponse model) {
+    likesCount = model.votesCounts!.first.count ?? 0;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 20.0,
+        top: 5.0,
+        bottom: 5.0,
+        right: 20.0,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Visibility(
+            visible: (widget.model.authorType == 'human' ||
+                widget.model.authorType == 'User'),
+            child: GestureDetector(
+              onTap: () {
+                if ((widget.model.userAuthor ?? []).isNotEmpty) {
+                  if ((widget.model.userAuthor ?? [])[0].Id!.isNotEmpty) {
+                    widget.viewModel.inspectProfile(
+                        context, (widget.model.userAuthor ?? [])[0].Id!);
+                  }
+                }
+              },
+              child: Row(
+                children: [
+                  CustomCircularAvatar(
+                    radius: 20,
+                    imgPath: (widget.model.userAuthor ?? []).isEmpty
+                        ? emptyProfileImgUrl
+                        : widget.model.userAuthor![0].avatar ??
+                            emptyProfileImgUrl,
+                  ),
+                  horizontalSpaceSmall,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // model.postOwnerDetails!.postOwnerType == "Animal"
+                      //     ? Row(
+                      //         children: [
+                      //           AppText.body1Bold(
+                      //             "${model.author!.first.username} > ",
+                      //           ),
+                      //           // AppText.caption(model.),
+                      //         ],
+                      //       ),
+                      AppText.body1Bold(
+                        (widget.model.userAuthor ?? []).isEmpty
+                            ? "-"
+                            : widget.model.userAuthor![0].username ?? "-",
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          // AppText.caption(
+                          //   model.location,
+                          //   color: colors.kcCaptionGreyColor,
+                          // ),
+                          // horizontalSpaceTiny,
+                          // CircleAvatar(
+                          //   backgroundColor: colors.primary,
+                          //   radius: 2,
+                          // ),
+                          // horizontalSpaceTiny,
+                          AppText.caption(
+                            GlobalMethods.utcToLocal(widget.model.date!),
+                            color: colors.kcCaptionGreyColor,
+                          ),
+                          // horizontalSpaceTiny,
+                          // Visibility(
+                          //   visible: model.isAnimalPost,
+                          //   child: CircleAvatar(
+                          //     backgroundColor: colors.primary,
+                          //     radius: 2,
+                          //   ),
+                          // ),
+                          // horizontalSpaceTiny,
+                          // Visibility(
+                          //   visible: model.isAnimalPost,
+                          //   child: Icon(
+                          //     model.isPrivate ? Icons.lock : Icons.campaign_sharp,
+                          //     size: 10,
+                          //     color: colors.kcCaptionGreyColor,
+                          //   ),
+                          // ),
+                          // horizontalSpaceTiny,
+                          // Visibility(
+                          //   visible: model.isAnimalPost,
+                          //   child: AppText.caption(
+                          //     model.isPrivate ? "Private" : "Public",
+                          //     color: colors.kcCaptionGreyColor,
+                          //   ),
+                          // ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ),
-          title: model.isAnimalPost
-              ? Row(
-                  children: [
-                    AppText.body2(
-                      "${model.animalProfileName} > ",
-                    ),
-                    AppText.caption(model.username),
-                  ],
+          Visibility(
+            visible: widget.model.authorType == 'Animal' ||
+                widget.model.authorType == 'animal',
+            child: GestureDetector(
+              onTap: () {
+                if ((widget.model.animalAuthorResponse ?? []).isNotEmpty) {
+                  if ((widget.model.animalAuthorResponse ?? [])[0]
+                      .Id!
+                      .isNotEmpty) {
+                    widget.viewModel.inspectAnimalProfile(
+                      context,
+                      (widget.model.animalAuthorResponse ?? [])[0].Id!,
+                      (widget.model.animalAuthorResponse ?? [])[0].token!,
+                    );
+                  }
+                }
+              },
+              child: Row(
+                children: [
+                  CustomCircularAvatar(
+                    radius: 20,
+                    // imgPath: (widget.model. ?? []).isEmpty
+                    //     ? emptyProfileImgUrl
+                    //     : widget.model.userAuthor![0].avatar ??
+                    //     emptyProfileImgUrl,
+                    imgPath: emptyProfileImgUrl,
+                  ),
+                  horizontalSpaceSmall,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // model.postOwnerDetails!.postOwnerType == "Animal"
+                      //     ? Row(
+                      //         children: [
+                      //           AppText.body1Bold(
+                      //             "${model.author!.first.username} > ",
+                      //           ),
+                      //           // AppText.caption(model.),
+                      //         ],
+                      //       ),
+                      AppText.body1Bold(
+                        (widget.model.animalAuthorResponse ?? []).isEmpty
+                            ? "-"
+                            : widget.model.animalAuthorResponse![0].name ?? "-",
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          // AppText.caption(
+                          //   model.location,
+                          //   color: colors.kcCaptionGreyColor,
+                          // ),
+                          // horizontalSpaceTiny,
+                          // CircleAvatar(
+                          //   backgroundColor: colors.primary,
+                          //   radius: 2,
+                          // ),
+                          // horizontalSpaceTiny,
+                          AppText.caption(
+                            GlobalMethods.utcToLocal(widget.model.date!),
+                            color: colors.kcCaptionGreyColor,
+                          ),
+                          // horizontalSpaceTiny,
+                          // Visibility(
+                          //   visible: model.isAnimalPost,
+                          //   child: CircleAvatar(
+                          //     backgroundColor: colors.primary,
+                          //     radius: 2,
+                          //   ),
+                          // ),
+                          // horizontalSpaceTiny,
+                          // Visibility(
+                          //   visible: model.isAnimalPost,
+                          //   child: Icon(
+                          //     model.isPrivate ? Icons.lock : Icons.campaign_sharp,
+                          //     size: 10,
+                          //     color: colors.kcCaptionGreyColor,
+                          //   ),
+                          // ),
+                          // horizontalSpaceTiny,
+                          // Visibility(
+                          //   visible: model.isAnimalPost,
+                          //   child: AppText.caption(
+                          //     model.isPrivate ? "Private" : "Public",
+                          //     color: colors.kcCaptionGreyColor,
+                          //   ),
+                          // ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          // ListTile(
+          //   leading: CustomCircularAvatar(
+          //     radius: 20,
+          //     imgPath: (widget.model.userAuthor ?? []).isEmpty
+          //         ? emptyProfileImgUrl
+          //         : widget.model.userAuthor![0].avatar ?? emptyProfileImgUrl,
+          //   ),
+          // ),
+          verticalSpaceTiny,
+          AppText.caption(widget.model.caption!.split("#").first),
+          Wrap(
+            children: widget.model.hashtags!
+                .map(
+                  (e) => AppText.caption(
+                    "#$e",
+                    color: colors.blue,
+                  ),
                 )
-              : AppText.body2(model.username),
-          subtitle: Row(
+                .toList(),
+          ),
+          verticalSpaceSmall,
+          SwiperWidget(model: widget.model),
+          Row(
+            children: [
+              GestureDetector(
+                  child: widget.isLiked
+                      ? Image.asset(
+                          likesImgPath,
+                          height: 30,
+                          width: 30,
+                        )
+                      : Image.asset(
+                          likeOutlineImgPath,
+                          height: 30,
+                          width: 30,
+                        ),
+                  onTap: () {
+                    setState(() {
+                      if (widget.isLiked) {
+                        likesCount--;
+                      } else {
+                        likesCount++;
+                      }
+                      widget.isLiked = !widget.isLiked;
+                    });
+                    widget.viewModel
+                        .likeOrDislikePost(widget.model.Id!, widget.isLiked);
+                  }),
+              // LikeBtn(
+              //     initialState: widget.isLiked,
+              //     onTap: () {
+              //       setState(() {
+              //         widget.isLiked = !widget.isLiked;
+              //       });
+              //       widget.viewModel
+              //           .likeOrDislikePost(widget.model.Id!, widget.isLiked);
+              // //     }),
+              // horizontalSpaceSmall,
+              // imageButton(false, () {}, assetsPath: sendOutlineImgPath),
+              horizontalSpaceSmall,
+              GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      widget.isBookmared = !widget.isBookmared;
+                    });
+                    widget.viewModel.bookmarkAction(widget.model.Id!);
+                  },
+                  child: widget.isBookmared
+                      ? Icon(
+                          Icons.bookmark,
+                          color: colors.primary,
+                        )
+                      : Icon(
+                          Icons.bookmark_border_rounded,
+                          color: colors.black,
+                        )),
+              // Expanded(
+              //   child: Align(
+              //     alignment: Alignment.centerRight,
+              //     child: IconButton(
+              //       onPressed: () => widget.viewModel.showMoreOptions(),
+              //       icon: Icon(Icons.more_horiz),
+              //     ),
+              //   ),
+              // ),
+            ],
+          ),
+          // AppText.caption(
+          //     "Loved by ${model.postVotes.toString().replaceAll("[", "replace").replaceAll("]", "")}"),
+          verticalSpaceTiny,
+          Row(
             children: [
               AppText.caption(
-                model.location,
-                color: colors.kcCaptionGreyColor,
+                "$likesCount likes",
+                color: colors.primary,
               ),
-              horizontalSpaceTiny,
-              CircleAvatar(
-                backgroundColor: colors.primary,
-                radius: 2,
-              ),
-              horizontalSpaceTiny,
-              AppText.caption(
-                model.uploadTime,
-                color: colors.kcCaptionGreyColor,
-              ),
-              horizontalSpaceTiny,
-              Visibility(
-                visible: model.isAnimalPost,
-                child: CircleAvatar(
-                  backgroundColor: colors.primary,
-                  radius: 2,
-                ),
-              ),
-              horizontalSpaceTiny,
-              Visibility(
-                visible: model.isAnimalPost,
-                child: Icon(
-                  model.isPrivate ? Icons.lock : Icons.campaign_sharp,
-                  size: 10,
-                  color: colors.kcCaptionGreyColor,
-                ),
-              ),
-              horizontalSpaceTiny,
-              Visibility(
-                visible: model.isAnimalPost,
+              horizontalSpaceSmall,
+              GestureDetector(
+                onTap: () =>
+                    widget.viewModel.showComments(widget.model.Id ?? ""),
                 child: AppText.caption(
-                  model.isPrivate ? "Private" : "Public",
+                  "${widget.model.commentResponse!.comments!.length} comments",
+                  color: colors.primary,
+                ),
+              ),
+            ],
+          ),
+          verticalSpaceTiny,
+          GestureDetector(
+            child: Row(
+              children: [
+                CustomCircularAvatar(
+                  radius: 17.0,
+                  imgPath: widget.viewModel.myProfileImg,
+                ),
+                horizontalSpaceSmall,
+                AppText.caption(
+                  "Add a comment",
                   color: colors.kcCaptionGreyColor,
                 ),
-              ),
-            ],
-          ),
-        ),
-        verticalSpaceTiny,
-        AppText.caption(model.description),
-        verticalSpaceTiny,
-        SwiperWidget(model: model),
-        verticalSpaceTiny,
-        ListTile(
-          contentPadding: EdgeInsets.zero,
-          title: Row(
-            children: [
-              LikeBtn(initialState: model.isLiked, onTap: () {}),
-              horizontalSpaceSmall,
-              imageButton(false, () {}, assetsPath: sendImgPath),
-              horizontalSpaceSmall,
-              imageButton(false, () {}, assetsPath: bookmarkImgPath),
-            ],
-          ),
-          trailing: IconButton(
-            onPressed: () => showModalBottomSheet(
-              enableDrag: true,
-              isScrollControlled: true,
-              useRootNavigator: true,
-              backgroundColor: Colors.transparent,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(20),
-                ),
-              ),
-              context: context,
-              builder: (context) => buildSheet(isMore: true),
+              ],
             ),
-            icon: Icon(Icons.more_horiz),
-          ),
-        ),
-        AppText.body1(model.lastLikedPersonName),
-        verticalSpaceTiny,
-        AppText.body1("${model.noOfComments} comments", color: colors.primary),
-        GestureDetector(
-          child: ListTile(
-            contentPadding: EdgeInsets.zero,
-            leading: CustomCircularAvatar(
-              radius: 20.0,
-              imgPath: myProfileImgUrl,
-            ),
-            title: AppText.caption(
-              "Add a comment",
-              color: colors.kcCaptionGreyColor,
-            ),
-          ),
-          onTap: () => showModalBottomSheet(
-            // enableDrag: false,
-            isScrollControlled: true,
-            useRootNavigator: true,
-            backgroundColor: Colors.transparent,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(20),
-              ),
-            ),
-            context: context,
-            builder: (context) =>
-                buildSheet(profileImgUrl: myProfileImgUrl, isComment: true),
-          ),
-        )
-      ],
-    ),
-  );
+            onTap: () => widget.viewModel.showComments(widget.model.Id ?? ""),
+          )
+        ],
+      ),
+    );
+  }
 }
 
 Widget roundedImage(BuildContext context, String url) {
   return ClipRRect(
-    // height: screenWidth(context),
-    // width: screenWidth(context),
-
-    borderRadius: BorderRadius.circular(20),
-
+    borderRadius: BorderRadius.circular(10),
     child: Image.network(
       url,
       fit: BoxFit.cover,
     ),
   );
-}
-
-Widget buildSheet(
-    {bool isMore = false, bool isComment = false, String profileImgUrl = ""}) {
-  return DraggableScrollableSheet(
-      initialChildSize: isComment ? 0.90 : 0.50,
-      maxChildSize: 0.90,
-      // expand: true,
-      builder: (context, controller) {
-        if (isComment) {
-          return FeedPostCommentView(
-            myUserProfileImgUrl: profileImgUrl,
-          );
-        } else if (isMore) {
-          return Container(
-            padding: EdgeInsets.all(20.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(20),
-              ),
-              color: colors.white,
-            ),
-            child: ListView(
-              shrinkWrap: true,
-              children: [
-                ListTile(
-                  title: AppText.body2("Share post to"),
-                ),
-                ListTile(
-                  title: AppText.body2("Hide this post"),
-                ),
-                ListTile(
-                  title: AppText.body2("Unfollow"),
-                ),
-                ListTile(
-                  title: AppText.body2("Report abuse"),
-                ),
-              ],
-            ),
-          );
-        } else {
-          return SizedBox();
-        }
-      });
 }
 
 Widget imageButton(bool isNetworkImg, void onTap,
@@ -433,29 +638,30 @@ class _LikeBtnState extends State<LikeBtn> {
 class SwiperWidget extends StatefulWidget {
   SwiperWidget({Key? key, required this.model}) : super(key: key);
 
-  FeedPostModel model;
-  int _currentIndex = 1;
+  final FeedPostResponse model;
 
   @override
   _SwiperWidgetState createState() => _SwiperWidgetState();
 }
 
 class _SwiperWidgetState extends State<SwiperWidget> {
+  int _currentIndex = 1;
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: screenWidth(context),
-      width: screenWidth(context),
+      height: screenWidthPercentage(context, percentage: 0.90),
+      width: screenWidthPercentage(context, percentage: 0.90),
       child: Stack(
         children: [
           Positioned(
             child: Swiper(
-              autoplay: true,
-              itemCount: widget.model.postImgsList.length,
+              autoplay: false,
+              loop: false,
+              itemCount: [widget.model.image].length,
               itemBuilder: (context, index) =>
-                  roundedImage(context, widget.model.postImgsList[index]),
+                  roundedImage(context, widget.model.image!),
               onIndexChanged: (int i) {
-                setState(() => widget._currentIndex = i + 1);
+                setState(() => _currentIndex = i + 1);
               },
             ),
           ),
@@ -463,13 +669,13 @@ class _SwiperWidgetState extends State<SwiperWidget> {
             top: 20,
             right: 20,
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 5),
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: colors.kcMediumGreyColor,
+                color: Color(0xFF87000000),
               ),
               child: AppText.caption(
-                "${widget._currentIndex}/${widget.model.postImgsList.length}",
+                "$_currentIndex/${[widget.model.image].length}",
                 color: colors.white,
               ),
             ),

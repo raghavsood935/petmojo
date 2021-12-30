@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/String.dart';
-import 'package:kubelite/util/ui_helpers.dart';
-import 'package:kubelite/widgets/app_text.dart';
-import 'package:kubelite/widgets/main_btn.dart';
 import 'package:lottie/lottie.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/String.dart';
+import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/main_btn.dart';
 
 import 'startup_viewmodel.dart';
 
@@ -59,26 +60,33 @@ class _StartupViewState extends State<StartupView>
         backgroundColor: Colors.white,
         body: Stack(
           children: [
-            FadeTransition(
-              opacity: _fadeOut!,
-              child: Lottie.asset(
-                'assets/lottie/tamely_loading.json',
-                width: double.maxFinite,
-                height: double.maxFinite,
-                onLoaded: (composition) {
-                  animationController.addStatusListener((status) {
-                    if (status == AnimationStatus.completed) {
-                      model.moveToRedirectState();
-                      if (!model.isDestinationAvailable) animation2?.forward();
-                    }
-                  });
+            Positioned(
+              top: 0,
+              bottom: 0,
+              right: 0,
+              left: 0,
+              child: FadeTransition(
+                opacity: _fadeOut!,
+                child: Lottie.asset(
+                  'assets/lottie/new_animation.json',
+                  width: double.maxFinite,
+                  height: double.maxFinite,
+                  onLoaded: (composition) {
+                    animationController.addStatusListener((status) {
+                      if (status == AnimationStatus.completed) {
+                        model.moveToRedirectState();
+                        if (!model.isDestinationAvailable)
+                          animation2?.forward();
+                      }
+                    });
 
-                  // Configure the AnimationController with the duration of the
-                  // Lottie file and start the animation.
-                  animationController
-                    ..duration = composition.duration
-                    ..forward();
-                },
+                    // Configure the AnimationController with the duration of the
+                    // Lottie file and start the animation.
+                    animationController
+                      ..duration = composition.duration
+                      ..forward();
+                  },
+                ),
               ),
             ),
             FadeTransition(
@@ -100,7 +108,7 @@ class _StartupViewState extends State<StartupView>
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: ListTile(
                           visualDensity:
                               VisualDensity(horizontal: 0, vertical: -4),
@@ -109,16 +117,26 @@ class _StartupViewState extends State<StartupView>
                             Icons.check_box,
                             color: colors.primary,
                           ),
+                          // leading: Checkbox(
+                          //   value: model.title1Value,
+                          //   onChanged: model.title1Change,
+                          //   activeColor: colors.primary,
+                          // ),
                           title: AppText.body1(wireFrameTitle1),
                           selected: true,
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: ListTile(
                           visualDensity:
                               VisualDensity(horizontal: 0, vertical: -4),
                           contentPadding: EdgeInsets.all(0),
+                          // leading: Checkbox(
+                          //   value: model.title2Value,
+                          //   onChanged: model.title2Change,
+                          //   activeColor: colors.primary,
+                          // ),
                           leading: Icon(
                             Icons.check_box,
                             color: colors.primary,
@@ -128,11 +146,16 @@ class _StartupViewState extends State<StartupView>
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: ListTile(
                           visualDensity:
                               VisualDensity(horizontal: 0, vertical: -4),
                           contentPadding: EdgeInsets.all(0),
+                          // leading: Checkbox(
+                          //   value: model.title3Value,
+                          //   onChanged: model.title3Change,
+                          //   activeColor: colors.primary,
+                          // ),
                           leading: Icon(
                             Icons.check_box,
                             color: colors.primary,
@@ -142,11 +165,16 @@ class _StartupViewState extends State<StartupView>
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: ListTile(
                           visualDensity:
                               VisualDensity(horizontal: 0, vertical: -4),
                           contentPadding: EdgeInsets.all(0),
+                          // leading: Checkbox(
+                          //   value: model.title4Value,
+                          //   onChanged: model.title4Change,
+                          //   activeColor: colors.primary,
+                          // ),
                           leading: Icon(
                             Icons.check_box,
                             color: colors.primary,

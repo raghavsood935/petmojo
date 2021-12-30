@@ -1,10 +1,10 @@
-import 'package:kubelite/api/server_error.dart';
-import 'package:kubelite/app/app.router.dart';
-import 'package:kubelite/enum/redirect_state.dart';
-import 'package:kubelite/models/params/reset_password_body.dart';
-import 'package:kubelite/ui/base/authentication_viewmodel.dart';
-import 'package:kubelite/util/string_extension.dart';
-import 'package:kubelite/util/utils.dart';
+import 'package:tamely/api/server_error.dart';
+import 'package:tamely/app/app.router.dart';
+import 'package:tamely/enum/redirect_state.dart';
+import 'package:tamely/models/params/reset_password_body.dart';
+import 'package:tamely/ui/base/authentication_viewmodel.dart';
+import 'package:tamely/util/string_extension.dart';
+import 'package:tamely/util/utils.dart';
 
 class ConfirmOTPViewModel extends AuthenticationViewModel {
   bool _isValid = false;

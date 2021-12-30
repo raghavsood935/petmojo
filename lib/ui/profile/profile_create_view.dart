@@ -3,17 +3,17 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kubelite/models/application_models.dart';
-import 'package:kubelite/ui/profile/profile_create_viewmodel.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/ImageConstant.dart';
-import 'package:kubelite/util/String.dart';
-import 'package:kubelite/util/ui_helpers.dart';
-import 'package:kubelite/widgets/app_input_field.dart';
-import 'package:kubelite/widgets/app_text.dart';
-import 'package:kubelite/widgets/authentication_layout.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
+import 'package:tamely/models/application_models.dart';
+import 'package:tamely/ui/profile/profile_create_viewmodel.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/String.dart';
+import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/widgets/app_input_field.dart';
+import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/authentication_layout.dart';
 
 import 'profile_create_view.form.dart';
 
@@ -24,14 +24,28 @@ import 'profile_create_view.form.dart';
 ])
 class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
   final LocalUser user;
-  ProfileCreateView({Key? key, required this.user}) : super(key: key);
+  final isEdit;
+  final isAnimal;
+  final petID;
+  final petToken;
+  final lastAvatarUrl;
+  ProfileCreateView({
+    Key? key,
+    required this.user,
+    this.isEdit,
+    this.lastAvatarUrl,
+    this.isAnimal,
+    this.petID,
+    this.petToken,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileCreateViewModel>.reactive(
       onModelReady: (model) {
         listenToFormUpdated(model);
-        model.init();
+        model.init(lastAvatarUrl, isEdit ?? false, isAnimal ?? false,
+            petID.toString(), petToken.toString());
         usernameController.text = user.username ?? "";
         nameController.text = user.fullName ?? "";
         shortBioController.text = user.bio ?? "";
@@ -42,11 +56,11 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
           busy: model.isBusy,
           isValid: model.isValid,
           onMainButtonTapped: model.saveProfileData,
-          onBackPressed: null,
+          onBackPressed: model.onBack,
           onForgotPassword: null,
           validationMessage: model.validationMessage,
-          title: completeProfileTitle,
-          subtitle: completeProfileSubTitle,
+          title: isEdit ?? false ? editProfileTitle : completeProfileTitle,
+          subtitle: isEdit ?? false ? "" : completeProfileSubTitle,
           isSocialLoginEnabled: false,
           showTermsText: false,
           mainButtonTitle: continueButtonTitle,
@@ -66,13 +80,26 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
                     backgroundColor: colors.kcLightGreyBackground,
                     child: Stack(
                       children: [
-                        if (model.imagePath.isEmpty)
+                        if (model.imagePath.isEmpty || model.avatarUrl.isEmpty)
                           CircleAvatar(
-                            backgroundColor: colors.primaryLight,
+                            backgroundColor: colors.primary,
                             radius: 65,
                             child: SvgPicture.asset(
                               cameraIcon,
-                              color: colors.primary,
+                              color: colors.white,
+                            ),
+                          ),
+                        if (model.avatarUrl.isNotEmpty &&
+                            model.imagePath.isEmpty)
+                          CircleAvatar(
+                            backgroundColor: colors.primary,
+                            radius: 65,
+                            child: ClipOval(
+                              child: SizedBox(
+                                width: 130,
+                                height: 130,
+                                child: Image.network(model.avatarUrl),
+                              ),
                             ),
                           ),
                         if (model.imagePath.isNotEmpty)
@@ -81,12 +108,12 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
                             radius: 65,
                             child: ClipOval(
                               child: SizedBox(
-                                  width: 130,
-                                  height: 130,
-                                  child: Image.file(
-                                    File(model.imagePath),
-                                    fit: BoxFit.fill,
-                                  )),
+                                width: 130,
+                                height: 130,
+                                child: Image.file(
+                                  File(model.imagePath),
+                                ),
+                              ),
                             ),
                           )
                       ],

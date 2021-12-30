@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/enum/connectivity_status.dart';
-import 'package:kubelite/services/connectivity_service.dart';
-import 'package:kubelite/services/shared_preferences_service.dart';
-import 'package:kubelite/theme_setup.dart';
-import 'package:kubelite/ui/dashboard/dashboard.dart';
-import 'package:kubelite/ui/startup/startup_view.dart';
-import 'package:kubelite/util/Color.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:stacked_themes/stacked_themes.dart';
+import 'package:tamely/enum/connectivity_status.dart';
+import 'package:tamely/services/connectivity_service.dart';
+import 'package:tamely/services/shared_preferences_service.dart';
+import 'package:tamely/theme_setup.dart';
+import 'package:tamely/ui/dashboard/dashboard.dart';
+import 'package:tamely/ui/startup/startup_view.dart';
+import 'package:tamely/util/Color.dart';
 
 import 'app/app.locator.dart';
 import 'app/app.router.dart';
@@ -67,7 +67,14 @@ class _TamelyAppState extends State<TamelyApp> {
       // } else if (_sharedPreferencesService.authToken.isEmpty) {
       //   return LoginView();
     } else {
-      return Dashboard();
+      return Dashboard(
+        initialPageState: 0,
+        isNeedToUpdateProfile: true,
+        isHuman: true,
+        petToken: "",
+        petID: "",
+        initialState: 0,
+      );
     }
   }
 }

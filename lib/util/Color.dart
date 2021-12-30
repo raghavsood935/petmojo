@@ -35,6 +35,10 @@ class colors {
   static const Color backgroundColor = Color(0xffFAFAFA);
   static const Color mediumBackgroundColor = Color(0xFFFAC9D7);
   static const Color lightBackgroundColor = Color(0xFFFEF4F7);
+  static const Color inputFieldColor = Color(0xFFFBF0F4);
+
+  static const Color lightBlueBackgroundColor = Color(0xFFE0EBFF);
+  static const Color blueColor = Color(0xFF0066FF);
 
   static Color get fontColor =>
       ISDARK == "true" ? secondary : const Color(0xff4543C1);
@@ -46,6 +50,7 @@ class colors {
 
   static const Color pink = Color(0xffd4001d);
   static const Color red = Colors.red;
+  static const Color blue = Color(0xFF6070F9);
 
   static Color get lightBlack =>
       ISDARK == "true" ? whiteTemp : const Color(0xff52575C);

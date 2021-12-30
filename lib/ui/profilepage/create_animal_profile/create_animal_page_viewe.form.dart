@@ -84,16 +84,27 @@ mixin $CreateAnimalPageView on StatelessWidget {
     // The dispose function for a TextEditingController sets all listeners to null
 
     nameController.dispose();
+    nameFocusNode.dispose();
     usernameController.dispose();
+    usernameFocusNode.dispose();
     shortbioController.dispose();
+    shortbioFocusNode.dispose();
     animalTypeController.dispose();
+    animalTypeFocusNode.dispose();
     genderController.dispose();
+    genderFocusNode.dispose();
     breedController.dispose();
+    breedFocusNode.dispose();
     ageTypeController.dispose();
+    ageTypeFocusNode.dispose();
     dobController.dispose();
+    dobFocusNode.dispose();
     searchController.dispose();
+    searchFocusNode.dispose();
     fromTimeController.dispose();
+    fromTimeFocusNode.dispose();
     toTimeController.dispose();
+    toTimeFocusNode.dispose();
   }
 }
 

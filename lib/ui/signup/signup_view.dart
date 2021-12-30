@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/String.dart';
-import 'package:kubelite/util/ui_helpers.dart';
-import 'package:kubelite/widgets/app_input_field.dart';
-import 'package:kubelite/widgets/app_password_input_field.dart';
-import 'package:kubelite/widgets/app_text.dart';
-import 'package:kubelite/widgets/authentication_layout.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/String.dart';
+import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/widgets/app_input_field.dart';
+import 'package:tamely/widgets/app_password_input_field.dart';
+import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/authentication_layout.dart';
 
 import 'signup_view.form.dart';
 import 'signup_viewmodel.dart';

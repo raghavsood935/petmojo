@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/app/app.locator.dart';
-import 'package:kubelite/enum/DialogType.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/enum/DialogType.dart';
+import 'package:tamely/widgets/fullscreen_loading_indicator.dart';
 
 import 'basic_dialog.dart';
 
@@ -13,6 +14,9 @@ void setupDialogUi() {
             dialogRequest: dialogRequest,
             onDialogTap: completer,
           ),
+        ),
+    DialogType.LoadingDialog: (context, dialogRequest, completer) => Dialog(
+          child: FullScreenLoadingDialog(),
         ),
   };
   dialogService.registerCustomDialogBuilders(builders);

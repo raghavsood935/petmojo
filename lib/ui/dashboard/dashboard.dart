@@ -1,24 +1,47 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kubelite/ui/dashboard/dashboard_viewmodel.dart';
-import 'package:kubelite/ui/feed/feed_view.dart';
-import 'package:kubelite/ui/for_you/for_you_view.dart';
-import 'package:kubelite/ui/home/home_view.dart';
-import 'package:kubelite/ui/profilepage/profile_view.dart';
-import 'package:kubelite/ui/services/services_view.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/ImageConstant.dart';
-import 'package:kubelite/util/String.dart';
-import 'package:kubelite/util/ui_helpers.dart';
-import 'package:kubelite/widgets/app_text.dart';
-import 'package:kubelite/widgets/feed_app_bar.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/ui/community/community_view.dart';
+import 'package:tamely/ui/dashboard/dashboard_viewmodel.dart';
+import 'package:tamely/ui/feed/feed_view.dart';
+import 'package:tamely/ui/for_you/for_you_view.dart';
+import 'package:tamely/ui/profilepage/profile_view.dart';
+import 'package:tamely/ui/services/services_view.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/String.dart';
+import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/feed_app_bar.dart';
+import 'package:tamely/widgets/follow_static_btn.dart';
+import 'package:tamely/widgets/main_btn.dart';
 
-class Dashboard extends StatelessWidget {
-  Dashboard({Key? key}) : super(key: key);
+class Dashboard extends StatefulWidget {
+  Dashboard({
+    Key? key,
+    required this.initialPageState,
+    required this.isNeedToUpdateProfile,
+    required this.isHuman,
+    required this.petID,
+    required this.petToken,
+    required this.initialState,
+  }) : super(key: key);
 
+  final int initialState;
+
+  final bool isHuman;
+  final bool isNeedToUpdateProfile;
+  final String petID;
+  final String petToken;
+  final int initialPageState;
+
+  @override
+  State<Dashboard> createState() => _DashboardState();
+}
+
+class _DashboardState extends State<Dashboard> {
   List<Widget> _buildScreens(BuildContext context, DashboardViewModel model) {
     return [
       FeedView(
@@ -28,7 +51,7 @@ class Dashboard extends StatelessWidget {
           model.hideNavBar = !model.hideNavBar;
         },
       ),
-      HomeView(
+      CommunityView(
         menuScreenContext: context,
         hideStatus: model.hideNavBar,
         onScreenHideButtonPressed: () {
@@ -55,6 +78,7 @@ class Dashboard extends StatelessWidget {
         onScreenHideButtonPressed: () {
           model.hideNavBar = !model.hideNavBar;
         },
+        isInspectView: false,
       ),
     ];
   }
@@ -62,10 +86,16 @@ class Dashboard extends StatelessWidget {
   List<Widget> _buildDrawerScreens(
       BuildContext context, DashboardViewModel model) {
     return [
-      Icon(
-        Icons.clear,
-        color: colors.primary,
-        size: 30,
+      IconButton(
+        splashRadius: 5,
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        icon: Icon(
+          Icons.clear,
+          color: colors.primary,
+          size: 30,
+        ),
       ),
       verticalSpaceMedium,
       Row(
@@ -77,7 +107,7 @@ class Dashboard extends StatelessWidget {
               radius: 28,
               backgroundColor: colors.lightBackgroundColor,
               child: CircleAvatar(
-                backgroundImage: NetworkImage(model.productImage),
+                backgroundImage: NetworkImage(model.avatarUrl),
                 backgroundColor: Colors.transparent,
                 radius: 27,
               ),
@@ -109,17 +139,17 @@ class Dashboard extends StatelessWidget {
                 title: bookingTitle,
                 subTitle: bookingSubTitle,
                 iconUrl: bookingIcon,
-                onTap: model.onWalletPressed),
-            DrawerWidget(
-                title: settingsTitle,
-                subTitle: settingsSubTitle,
-                iconUrl: settingsIcon,
-                onTap: model.onWalletPressed),
+                onTap: model.onMyBookingsPressed),
+            // DrawerWidget(
+            //     title: settingsTitle,
+            //     subTitle: settingsSubTitle,
+            //     iconUrl: settingsIcon,
+            //     onTap: model.onSettingsPressed),
             DrawerWidget(
                 title: bookmarksTitle,
                 subTitle: bookmarksSubTitle,
                 iconUrl: bookmarksIcon,
-                onTap: model.onWalletPressed),
+                onTap: model.onBookmarksPressed),
           ],
         ),
       ),
@@ -131,12 +161,17 @@ class Dashboard extends StatelessWidget {
           title: feedbackTitle,
           subTitle: feedbackSubTitle,
           iconUrl: feedbackIcon,
-          onTap: model.onWalletPressed),
+          onTap: model.onFeedbackPressed),
       DrawerWidget(
           title: helpTitle,
           subTitle: helpSubTitle,
           iconUrl: helpIcon,
-          onTap: model.onWalletPressed),
+          onTap: model.onHelpPressed),
+      DrawerWidget(
+          title: logoutTitle,
+          subTitle: logoutSubTitle,
+          iconUrl: logoutIcon,
+          onTap: model.onLogOutPressed),
     ];
   }
 
@@ -208,19 +243,55 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<DashboardViewModel>.reactive(
-        viewModelBuilder: () => DashboardViewModel(),
-        builder: (context, model, child) => Scaffold(
+      viewModelBuilder: () => DashboardViewModel(),
+      onModelReady: (model) => model
+          .init(
+            widget.initialState,
+            widget.isNeedToUpdateProfile,
+            widget.isHuman,
+            widget.petID,
+            widget.petToken,
+            widget.initialPageState,
+          )
+          .whenComplete(() => setState(() {})),
+      builder: (context, model, child) => model.isLoading
+          ? Scaffold(
+              body: Visibility(
+                visible: model.isErrorInLoading,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      AppText.body1Bold("Something went wrong!"),
+                      verticalSpaceSmall,
+                      MainButtonWidget(
+                          onMainButtonTapped: () => model.init(
+                                widget.initialState,
+                                widget.isNeedToUpdateProfile,
+                                widget.isHuman,
+                                widget.petID,
+                                widget.petToken,
+                                widget.initialPageState,
+                              ),
+                          mainButtonTitle: "RETRY"),
+                    ],
+                  ),
+                ),
+              ),
+            )
+          : Scaffold(
               appBar: FeedAppBar(),
               drawer: Drawer(
-                child: SafeArea(
-                    child: Padding(
+                child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       mainAxisSize: MainAxisSize.max,
                       children: _buildDrawerScreens(context, model)),
-                )),
+                ),
               ),
               body: PersistentTabView.custom(
                 context,
@@ -244,7 +315,9 @@ class Dashboard extends StatelessWidget {
                   selectedIndex: model.controller.index,
                 ),
               ),
-            ));
+              backgroundColor: colors.white,
+            ),
+    );
   }
 }
 

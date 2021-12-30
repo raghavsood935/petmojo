@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kubelite/shared/base_viewmodel.dart';
-import 'package:kubelite/ui/for_you/tabs/for_you_tab.dart';
-import 'package:kubelite/ui/for_you/tabs/hall_of_fame_tab.dart';
+import 'package:tamely/shared/base_viewmodel.dart';
 
 class ForYouViewModel extends BaseModel {
-  List<Widget> _tabs = [ForYouTab(), HallOfFameTab()];
+  // List<Widget> _tabs = [ForYouTab(), HallOfFameTab()];
   List<Tab> _tabsTitle = [
     Tab(
       text: "For you",
@@ -15,7 +12,7 @@ class ForYouViewModel extends BaseModel {
     )
   ];
 
-  List<Widget> get tabs => _tabs;
+  // List<Widget> get tabs => _tabs;
 
   List<Tab> get tabsTitle => _tabsTitle;
 }

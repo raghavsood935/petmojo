@@ -1,41 +1,58 @@
 {
   "project_info": {
-    "project_number": "814559776122",
-    "project_id": "tamely-app",
-    "storage_bucket": "tamely-app.appspot.com"
+    "project_number": "183984006291",
+    "firebase_url": "https://tamely-2021-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "tamely-2021",
+    "storage_bucket": "tamely-2021.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:814559776122:android:7d0a0ae81aef079fc49ac3",
+        "mobilesdk_app_id": "1:183984006291:android:3521358edc4f4ada761966",
         "android_client_info": {
-          "package_name": "com.tamely.kubelite"
+          "package_name": "in.tamely.partner"
         }
       },
       "oauth_client": [
         {
-          "client_id": "814559776122-4h3m54nbp55k390ahlpes8m3akoohmj9.apps.googleusercontent.com",
+          "client_id": "183984006291-he5cmbapft00qol9agnmc52tmie1l49p.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.tamely.kubelite",
+            "package_name": "in.tamely.partner",
+            "certificate_hash": "a074ac92403eb7dc5a98f6df9f543c39efe95057"
+          }
+        },
+        {
+          "client_id": "183984006291-irikdtn725o4400su51og72cg43ohh8l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.tamely.partner",
+            "certificate_hash": "fd0c918c44fb660011823075e464f30e34f187ee"
+          }
+        },
+        {
+          "client_id": "183984006291-rq9kt07h4vjg2j8skk7qt1n446fksmiu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.tamely.partner",
             "certificate_hash": "aa9187bdcccee1e15b7286bc003a201d49b2cc5c"
           }
         },
         {
-          "client_id": "814559776122-fkn1eufb6uc6ou3uta0kqdh87ofu74mo.apps.googleusercontent.com",
+          "client_id": "183984006291-0daaahgu1c9spnuqemi7cgta5qni7nf6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCh1O1D-2xi2cQknFMOjNoVWolfrXrxGrU"
+          "current_key": "AIzaSyCT2qVXOE6ayc0Bp3LPPYuY2js3r5lat10"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "814559776122-fkn1eufb6uc6ou3uta0kqdh87ofu74mo.apps.googleusercontent.com",
+              "client_id": "183984006291-0daaahgu1c9spnuqemi7cgta5qni7nf6.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -44,27 +61,59 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:814559776122:android:43c1f25b6d6591dbc49ac3",
+        "mobilesdk_app_id": "1:183984006291:android:2f3e6df07fbaff91761966",
         "android_client_info": {
-          "package_name": "in.tamely.app"
+          "package_name": "in.tamely.user"
         }
       },
       "oauth_client": [
         {
-          "client_id": "814559776122-fkn1eufb6uc6ou3uta0kqdh87ofu74mo.apps.googleusercontent.com",
+          "client_id": "183984006291-6aa1uhaf55o7sdl5hnbkt4tr003mgrda.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.tamely.user",
+            "certificate_hash": "cbe75be2e5287ec61ac9a602e00a95d020ec708f"
+          }
+        },
+        {
+          "client_id": "183984006291-anopcueegh23er7c16vrchj67fha93pn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.tamely.user",
+            "certificate_hash": "8937c077ae5b13d1cbfbbb52decfca1d178b9c39"
+          }
+        },
+        {
+          "client_id": "183984006291-mmer9sc4v5q52825t8jck0fc1vcc46o4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.tamely.user",
+            "certificate_hash": "a074ac92403eb7dc5a98f6df9f543c39efe95057"
+          }
+        },
+        {
+          "client_id": "183984006291-r05ibioo0ehd464ar8ms0e543crb2ad1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.tamely.user",
+            "certificate_hash": "aa9187bdcccee1e15b7286bc003a201d49b2cc5c"
+          }
+        },
+        {
+          "client_id": "183984006291-0daaahgu1c9spnuqemi7cgta5qni7nf6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCh1O1D-2xi2cQknFMOjNoVWolfrXrxGrU"
+          "current_key": "AIzaSyCT2qVXOE6ayc0Bp3LPPYuY2js3r5lat10"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "814559776122-fkn1eufb6uc6ou3uta0kqdh87ofu74mo.apps.googleusercontent.com",
+              "client_id": "183984006291-0daaahgu1c9spnuqemi7cgta5qni7nf6.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

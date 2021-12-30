@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/widgets/app_text.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/widgets/app_text.dart';
 
 class FollowBtn extends StatefulWidget {
   bool initialState = false;
+  String trueValue;
+  String falseValue;
 
-  FollowBtn({Key? key, required this.initialState}) : super(key: key);
+  bool? isStatic;
+
+  FollowBtn(
+      {Key? key,
+      required this.initialState,
+      required this.trueValue,
+      required this.falseValue,
+      this.isStatic})
+      : super(key: key);
 
   @override
   _FollowBtnState createState() => _FollowBtnState();
@@ -14,23 +24,51 @@ class FollowBtn extends StatefulWidget {
 class _FollowBtnState extends State<FollowBtn> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Container(
-          height: 30,
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: colors.primary),
-            color: widget.initialState ? Colors.white : colors.primary,
-          ),
-          child: widget.initialState
-              ? AppText.body("Following", color: colors.primary)
-              : AppText.body("Follow", color: Colors.white)),
-      onTap: () {
-        setState(() {
-          widget.initialState = !widget.initialState;
-        });
-      },
-    );
+    return widget.isStatic ?? false
+        ? Container(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: colors.primary),
+              color: widget.initialState ? Colors.white : colors.primary,
+            ),
+            child: widget.initialState
+                ? AppText.caption(
+                    widget.trueValue,
+                    color: colors.primary,
+                    textAlign: TextAlign.center,
+                  )
+                : AppText.caption(
+                    widget.falseValue,
+                    color: Colors.white,
+                    textAlign: TextAlign.center,
+                  ))
+        : GestureDetector(
+            child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: colors.primary),
+                  color: widget.initialState ? Colors.white : colors.primary,
+                ),
+                child: widget.initialState
+                    ? AppText.caption(
+                        widget.trueValue,
+                        color: colors.primary,
+                        textAlign: TextAlign.center,
+                      )
+                    : AppText.caption(
+                        widget.falseValue,
+                        color: Colors.white,
+                        textAlign: TextAlign.center,
+                      )),
+            onTap: () {
+              if (!(widget.isStatic ?? false)) {
+                setState(() {
+                  widget.initialState = !widget.initialState;
+                });
+              }
+            },
+          );
   }
 }

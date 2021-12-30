@@ -1,0 +1,1 @@
+enum WalkNumber { One, Two }

@@ -1,6 +1,6 @@
-import 'package:kubelite/enum/redirect_state.dart';
-import 'package:kubelite/models/application_models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tamely/enum/redirect_state.dart';
+import 'package:tamely/models/application_models.dart';
 
 class SharedPreferencesService {
   late SharedPreferences _preferences;
@@ -27,6 +27,21 @@ class SharedPreferencesService {
   static const String CART_TOTAL_ITEMS = 'cartTotalItems';
   static const String PHONE_NUMBER = 'phonenumber';
   static const String CURRENT_STATE = 'currentState';
+
+  //community values
+  static const String COMMUNITY_FIRST_TIME = 'communityFirstTime';
+
+  //current selected profile details
+  static const String CURRENT_PROFILE_USERNAME = 'currentProfileUsername';
+  static const String CURRENT_PROFILE_PROFILENAME = 'currentProfileProfilename';
+  static const String CURRENT_PROFILE_PROFILE_IMG_URL =
+      'currentProfileProfileImgUrl';
+  static const String CURRENT_PROFILE_IS_HUMAN = 'currentProfileIsHuman';
+  static const String CURRENT_PROFILE_PET_ID = 'currentProfilePetId';
+  static const String CURRENT_PROFILE_PET_TOKEN = 'currentProfilePetToken';
+  static const String CURRENT_PROFILE_USER_ID = 'currentProfileUserId';
+  static const String CURRENT_PROFILE_CURRENT_INDEX =
+      'currentProfileCurrentIndex';
 
   //current address
   double locationRadius = 500;
@@ -59,6 +74,7 @@ class SharedPreferencesService {
     await _preferences.remove(UID);
     await _preferences.remove(HAS_USER);
     await _preferences.remove(CURRENT_STATE);
+    await _preferences.remove(AUTH_TOKEN);
     await _preferences.clear();
   }
 
@@ -79,6 +95,31 @@ class SharedPreferencesService {
         fullName: fullName,
         bio: bio,
         website: website);
+  }
+
+  Future<void> saveCurrentProfile(CurrentProfile profile) async {
+    _saveToDisk(CURRENT_PROFILE_USERNAME, profile.username);
+    _saveToDisk(CURRENT_PROFILE_PROFILENAME, profile.profilename);
+    _saveToDisk(CURRENT_PROFILE_PROFILE_IMG_URL, profile.profileImgUrl);
+    _saveToDisk(CURRENT_PROFILE_IS_HUMAN, profile.isHuman);
+    _saveToDisk(CURRENT_PROFILE_PET_ID, profile.petId);
+    _saveToDisk(CURRENT_PROFILE_PET_TOKEN, profile.petToken);
+    _saveToDisk(CURRENT_PROFILE_USER_ID, profile.userId);
+    _saveToDisk(CURRENT_PROFILE_CURRENT_INDEX, profile.currentIndex);
+    print("SAVED : ${profile.toString()}");
+  }
+
+  CurrentProfile getCurrentProfile() {
+    return CurrentProfile(
+      _getFromDisk(CURRENT_PROFILE_USERNAME),
+      _getFromDisk(CURRENT_PROFILE_PROFILENAME),
+      _getFromDisk(CURRENT_PROFILE_PROFILE_IMG_URL),
+      _getFromDisk(CURRENT_PROFILE_IS_HUMAN),
+      _getFromDisk(CURRENT_PROFILE_PET_ID),
+      _getFromDisk(CURRENT_PROFILE_PET_TOKEN),
+      _getFromDisk(CURRENT_PROFILE_USER_ID),
+      _getFromDisk(CURRENT_PROFILE_CURRENT_INDEX),
+    );
   }
 
   String get uid => _getFromDisk(UID) ?? null;
@@ -133,4 +174,22 @@ class SharedPreferencesService {
       _getFromDisk(CURRENT_STATE) ?? getRedirectStateName(RedirectState.Start);
 
   set currentState(String value) => _saveToDisk(CURRENT_STATE, value);
+
+  bool get communityFirstTime => _getFromDisk(COMMUNITY_FIRST_TIME) ?? true;
+
+  setCommunityFirstTime(bool value) => _saveToDisk(COMMUNITY_FIRST_TIME, value);
+}
+
+class CurrentProfile {
+  String username;
+  String profilename;
+  String profileImgUrl;
+  int currentIndex;
+  bool isHuman;
+  String petId;
+  String petToken;
+  String userId;
+
+  CurrentProfile(this.username, this.profilename, this.profileImgUrl,
+      this.isHuman, this.petId, this.petToken, this.userId, this.currentIndex);
 }

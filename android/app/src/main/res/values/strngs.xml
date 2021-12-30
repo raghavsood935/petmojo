@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
 
-    <string name="app_name">Kubelite</string>
-    <string name="facebook_app_id">263237822324560</string>
-    <string name="fb_login_protocol_scheme">fb263237822324560</string>
+    <string name="app_name">Tamely</string>
+    <string name="facebook_app_id">1022579671806775</string>
+    <string name="fb_login_protocol_scheme">fb1022579671806775</string>
 
 </resources>

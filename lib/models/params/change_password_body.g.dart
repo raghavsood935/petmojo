@@ -6,12 +6,11 @@ part of 'change_password_body.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ChangePasswordBody _$ChangePasswordBodyFromJson(Map<String, dynamic> json) {
-  return ChangePasswordBody(
-    json['oldPassword'] as String,
-    json['newPassword'] as String,
-  );
-}
+ChangePasswordBody _$ChangePasswordBodyFromJson(Map<String, dynamic> json) =>
+    ChangePasswordBody(
+      json['oldPassword'] as String,
+      json['newPassword'] as String,
+    );
 
 Map<String, dynamic> _$ChangePasswordBodyToJson(ChangePasswordBody instance) =>
     <String, dynamic>{

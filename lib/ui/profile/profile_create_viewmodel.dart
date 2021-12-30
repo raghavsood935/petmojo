@@ -4,21 +4,23 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kubelite/api/api_service.dart';
-import 'package:kubelite/api/base_response.dart';
-import 'package:kubelite/api/server_error.dart';
-import 'package:kubelite/app/app.locator.dart';
-import 'package:kubelite/app/app.logger.dart';
-import 'package:kubelite/app/app.router.dart';
-import 'package:kubelite/enum/redirect_state.dart';
-import 'package:kubelite/models/application_models.dart';
-import 'package:kubelite/models/common_response.dart';
-import 'package:kubelite/models/params/profile_create_body.dart';
-import 'package:kubelite/models/user_response_models.dart';
-import 'package:kubelite/services/shared_preferences_service.dart';
-import 'package:kubelite/ui/base/authentication_viewmodel.dart';
-import 'package:kubelite/util/utils.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/api/api_service.dart';
+import 'package:tamely/api/base_response.dart';
+import 'package:tamely/api/server_error.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/app/app.logger.dart';
+import 'package:tamely/app/app.router.dart';
+import 'package:tamely/enum/redirect_state.dart';
+import 'package:tamely/models/application_models.dart';
+import 'package:tamely/models/common_response.dart';
+import 'package:tamely/models/params/edit_animal_profile_main_details_body.dart';
+import 'package:tamely/models/params/profile_create_body.dart';
+import 'package:tamely/models/user_response_models.dart';
+import 'package:tamely/services/shared_preferences_service.dart';
+import 'package:tamely/ui/base/authentication_viewmodel.dart';
+import 'package:tamely/util/global_methods.dart';
+import 'package:tamely/util/utils.dart';
 
 import 'profile_create_view.form.dart';
 
@@ -32,6 +34,15 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
 
   bool _isValid = false;
   LocalUser user;
+
+  String _fullName = "";
+  String _shortBio = "";
+
+  String petID = "";
+  String petToken = "";
+
+  bool isEdit = false;
+  bool isAnimal = false;
 
   ProfileCreateViewModel(this.user);
 
@@ -62,7 +73,9 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
       if (pickedFile != null) {
         _imageFile = pickedFile;
         notifyListeners();
-        await uploadImage();
+        avatarUrl = await runBusyFuture(
+            GlobalMethods.imageToLink(File(_imageFile!.path)));
+        notifyListeners();
       }
       log.d("ImagePath: $imagePath");
       notifyListeners();
@@ -72,42 +85,74 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
     }
   }
 
-  Future<void> uploadImage() async {
-    SystemChannels.textInput.invokeMethod('TextInput.hide');
-    if (_imageFile == null) {
-      _snackBarService.showSnackbar(message: "Image is empty");
-    }
-    if (await Util.checkInternetConnectivity()) {
-      BaseResponse<CommonResponse> response =
-          await _tamelyApi.uploadImage(File(_imageFile!.path));
-      if (response.getException != null) {
-        ServerError error = response.getException as ServerError;
-        _snackBarService.showSnackbar(message: error.getErrorMessage());
-      } else if (response.data != null) {
-        avatarUrl = response.data!.avatar ?? "";
-        checkValidateField();
-      }
-    } else {
-      _snackBarService.showSnackbar(message: "No Internet connection");
-    }
-  }
+  // Future<void> uploadImage() async {
+  //   SystemChannels.textInput.invokeMethod('TextInput.hide');
+  //   if (_imageFile == null) {
+  //     _snackBarService.showSnackbar(message: "Image is empty");
+  //   }
+  //   if (await Util.checkInternetConnectivity()) {
+  //     BaseResponse<CommonResponse> response =
+  //         await runBusyFuture(_tamelyApi.uploadImage(File(_imageFile!.path)));
+  //     if (response.getException != null) {
+  //       ServerError error = response.getException as ServerError;
+  //       _snackBarService.showSnackbar(message: error.getErrorMessage());
+  //     } else if (response.data != null) {
+  //       avatarUrl = response.data!.avatar ?? "";
+  //       checkValidateField();
+  //     }
+  //   } else {
+  //     _snackBarService.showSnackbar(message: "No Internet connection");
+  //   }
+  // }
 
   Future<void> saveProfileData() async {
     if (!checkValidateField()) {
       _snackBarService.showSnackbar(message: "Please enter all field");
     }
     if (await Util.checkInternetConnectivity()) {
-      ProfileCreateBody profileCreateBody = ProfileCreateBody(
-          nameValue!, usernameValue!, shortBioValue!, "", avatarUrl);
-      try {
-        await runBusyFuture(updateProfile(profileCreateBody),
-            throwException: true);
-      } catch (e) {
-        log.e(e);
-        _snackBarService.showSnackbar(message: "$e");
+      if (isAnimal) {
+        try {
+          EditAnimalProfileMainDetailsBody body =
+              EditAnimalProfileMainDetailsBody(
+            petID,
+            usernameValue ?? "",
+            nameValue ?? "",
+            shortBioValue ?? "",
+            avatarUrl,
+          );
+          var result = await runBusyFuture(
+              _tamelyApi.editAnimalProfileMainDetails(body),
+              throwException: true);
+          if (result.data != null) {
+            if (result.data!.success ?? false) {
+              navigationService.back(result: 1);
+            }
+          }
+        } catch (e) {
+          log.e(e);
+          _snackBarService.showSnackbar(message: "$e");
+        }
+      } else {
+        ProfileCreateBody profileCreateBody = ProfileCreateBody(nameValue ?? "",
+            usernameValue ?? "", shortBioValue ?? "", "", avatarUrl);
+        try {
+          await runBusyFuture(updateProfile(profileCreateBody, isEdit: isEdit),
+              throwException: true);
+        } catch (e) {
+          log.e(e);
+          _snackBarService.showSnackbar(message: "$e");
+        }
       }
     } else {
       _snackBarService.showSnackbar(message: "No Internet connection");
+    }
+  }
+
+  void onBack() {
+    if (isEdit) {
+      navigationService.back();
+    } else {
+      navigationService.pushNamedAndRemoveUntil(Routes.onBoardingView);
     }
   }
 
@@ -130,7 +175,7 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
         if (await Util.checkInternetConnectivity()) {
           try {
             BaseResponse<UserNameAvailableResponse> availableResponse =
-                await runBusyFuture(_tamelyApi.checkUserName(query),
+                await runBusyFuture(_tamelyApi.checkUserName(true, query),
                     throwException: true);
             if (availableResponse.getException != null) {
               ServerError error = availableResponse.getException as ServerError;
@@ -150,25 +195,35 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
     }
   }
 
-  init() {
-    sharedPreferencesService.currentState =
-        getRedirectStateName(RedirectState.ProfileCreate);
+  init(dynamic lastAvatarUrl, bool isEdit, bool isAnimal, String petID,
+      String petToken) {
+    // sharedPreferencesService.currentState =
+    //     getRedirectStateName(RedirectState.ProfileCreate);
+    this.isEdit = isEdit;
+    this.isAnimal = isAnimal;
+    this.petID = petID;
+    this.petToken = petToken;
+    if (isEdit) {
+      avatarUrl = lastAvatarUrl;
+    }
+    notifyListeners();
   }
 
   bool checkValidateField() {
     _isValid = true;
     formValueMap.keys.forEach((element) {
-      String elementValue = formValueMap[element];
-      log.d("ElementValue $elementValue");
-      if (elementValue.isEmpty) {
-        _isValid = false;
-        return;
+      if (element == UsernameValueKey) {
+        String elementValue = formValueMap[element];
+        if (elementValue.isEmpty) {
+          _isValid = false;
+          return;
+        }
       }
     });
 
-    if (avatarUrl.isEmpty) {
-      _isValid = false;
-    }
+    // if (avatarUrl.isEmpty) {
+    //   _isValid = false;
+    // }
 
     if (!_isValidUser) {
       _isValid = false;
@@ -185,4 +240,10 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
       return "Username is not available";
     }
   }
+
+  String get fullName => _fullName;
+
+  String get shortBio => _shortBio;
+
+  String get userName => _userName;
 }

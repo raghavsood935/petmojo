@@ -6,12 +6,10 @@ part of 'register_body.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-RegisterBody _$RegisterBodyFromJson(Map<String, dynamic> json) {
-  return RegisterBody(
-    json['email'] as String,
-    json['password'] as String,
-  );
-}
+RegisterBody _$RegisterBodyFromJson(Map<String, dynamic> json) => RegisterBody(
+      json['email'] as String,
+      json['password'] as String,
+    );
 
 Map<String, dynamic> _$RegisterBodyToJson(RegisterBody instance) =>
     <String, dynamic>{

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/ui/otp/confirm_otp_view.form.dart';
-import 'package:kubelite/ui/otp/confirm_otp_viewmodel.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/String.dart';
-import 'package:kubelite/widgets/app_input_field.dart';
-import 'package:kubelite/widgets/app_text.dart';
-import 'package:kubelite/widgets/authentication_layout.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
+import 'package:tamely/ui/otp/confirm_otp_view.form.dart';
+import 'package:tamely/ui/otp/confirm_otp_viewmodel.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/String.dart';
+import 'package:tamely/widgets/app_input_field.dart';
+import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/authentication_layout.dart';
 
 @FormView(fields: [
   FormTextField(name: 'otp'),

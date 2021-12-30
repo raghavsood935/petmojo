@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/util/Color.dart';
+import 'package:tamely/util/Color.dart';
 
 class CustomCircularAvatar extends StatelessWidget {
   CustomCircularAvatar({
@@ -8,8 +8,8 @@ class CustomCircularAvatar extends StatelessWidget {
     required this.imgPath,
   }) : super(key: key);
 
-  double radius;
-  String imgPath;
+  final double radius;
+  final String imgPath;
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +19,16 @@ class CustomCircularAvatar extends StatelessWidget {
       child: CircleAvatar(
         backgroundColor: colors.white,
         radius: (radius - 2.0),
-        child: CircleAvatar(
-          backgroundColor: colors.lightBackgroundColor,
-          radius: (radius - 4.0),
-          backgroundImage: NetworkImage(imgPath),
-        ),
+        child: imgPath != ""
+            ? CircleAvatar(
+                backgroundColor: colors.lightBackgroundColor,
+                radius: (radius - 4.0),
+                backgroundImage: NetworkImage(imgPath),
+              )
+            : CircleAvatar(
+                backgroundColor: colors.lightBackgroundColor,
+                radius: (radius - 4.0),
+              ),
       ),
     );
   }

@@ -1,220 +1,99 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kubelite/app/app.locator.dart';
-import 'package:kubelite/app/app.logger.dart';
-import 'package:kubelite/models/breed_animal_model.dart';
-import 'package:kubelite/shared/base_viewmodel.dart';
-import 'package:kubelite/util/Constant.dart';
-import 'package:kubelite/util/ImageConstant.dart';
-import 'package:kubelite/util/String.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/api/api_service.dart';
+import 'package:tamely/api/base_response.dart';
+import 'package:tamely/api/server_error.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/app/app.logger.dart';
+import 'package:tamely/enum/BottomSheetType.dart';
+import 'package:tamely/enum/DialogType.dart';
+import 'package:tamely/models/common_response.dart';
+import 'package:tamely/models/my_animal_model.dart';
+import 'package:tamely/models/params/animal_details_body.dart';
+import 'package:tamely/models/user_response_models.dart';
+import 'package:tamely/util/String.dart';
+import 'package:tamely/util/animal_type_constant.dart';
+import 'package:tamely/util/global_methods.dart';
+import 'package:tamely/util/utils.dart';
 
-class CreateAnimalViewModel extends BaseModel {
+class CreateAnimalViewModel extends FormViewModel {
+  final log = getLogger('ProfileCreateViewModel');
+  final _bottomSheetService = locator<BottomSheetService>();
+  final _navigationService = locator<NavigationService>();
+  final _tamelyApi = locator<TamelyApi>();
+  final _dialogService = locator<DialogService>();
+  final _snackBarService = locator<SnackbarService>();
+
   final ImagePicker _picker = ImagePicker();
 
   Position? _currentPosition = null;
 
-  final log = getLogger('ProfileCreateViewModel');
-  final _snackBarService = locator<SnackbarService>();
-  final _navigationService = locator<NavigationService>();
-
   final List<String> animalTypeValues = ["Pet", "Stray", "Wild", "Farm"];
-  final List<String> ageTypeValues = ["Baby", "Adult", "Young"];
+  final List<String> ageTypeValues = [select, "Baby", "Adult", "Young"];
+  final List<String> manitoryFeilds = ["name", "username", "animalType"];
   List<String> animalBreedSelectedList = [];
 
   List<AnimalTypeModel> listOfAnimalTypes = [];
-  List<BreedTypeModel> listOfAnimalBreed = [];
-
-  final List<AnimalTypeModel> _petAnimalTypeListValues = [
-    AnimalTypeModel(
-      "Dog",
-      dogImgPath,
-    ),
-    AnimalTypeModel(
-      "Cat",
-      catImgPath,
-    ),
-    AnimalTypeModel(
-      "Horse",
-      horseImgPath,
-    ),
-    AnimalTypeModel(
-      "Birds",
-      birdImgPath,
-    ),
-    AnimalTypeModel(
-      "Rabbit",
-      rabbitImgPath,
-    ),
-    AnimalTypeModel(
-      "Pig",
-      pigImgPath,
-    ),
-    AnimalTypeModel(
-      "Fish",
-      fishImgPath,
-    ),
-    AnimalTypeModel(
-      "Guinea pigs",
-      guineaPigImgPath,
-    ),
-    AnimalTypeModel(
-      "Hamsters",
-      hamstersImgPath,
-    ),
-  ];
-
-  final List<AnimalTypeModel> _strayAnimalTypeListValues = [
-    AnimalTypeModel(
-      "Dog",
-      dogImgPath,
-    ),
-    AnimalTypeModel(
-      "Cat",
-      catImgPath,
-    ),
-    AnimalTypeModel(
-      "Horse",
-      horseImgPath,
-    ),
-    AnimalTypeModel(
-      "Goat",
-      goatImgPath,
-    ),
-    AnimalTypeModel(
-      "Rabbit",
-      rabbitImgPath,
-    ),
-    AnimalTypeModel(
-      "Pig",
-      pigImgPath,
-    ),
-    AnimalTypeModel(
-      "Camel",
-      camelImgPath,
-    ),
-    AnimalTypeModel(
-      "Guinea pigs",
-      guineaPigImgPath,
-    ),
-    AnimalTypeModel(
-      "Cow",
-      cowImgPath,
-    ),
-    AnimalTypeModel(
-      "Donkeys ",
-      donkeyImgPath,
-    ),
-  ];
-
-  final List<AnimalTypeModel> _wildAnimalTypeListValues = [
-    AnimalTypeModel(
-      "Elephant",
-      elephantImgPath,
-    ),
-    AnimalTypeModel(
-      "Monkey",
-      monkeyImgPath,
-    ),
-    AnimalTypeModel(
-      "Gorillas",
-      gorillaImgPath,
-    ),
-    AnimalTypeModel(
-      "Lion",
-      lionImgPath,
-    ),
-    AnimalTypeModel(
-      "Tiger ",
-      tigerImgPath,
-    ),
-    AnimalTypeModel(
-      "Deer",
-      deerImgPath,
-    ),
-    AnimalTypeModel(
-      "Polar bear",
-      polarBearImgPath,
-    ),
-    AnimalTypeModel(
-      "Cheetah",
-      cheetahImgPath,
-    ),
-    AnimalTypeModel(
-      "Panda",
-      pandaImgPath,
-    ),
-  ];
-
-  final List<AnimalTypeModel> _farmAnimalTypeListValues = [
-    AnimalTypeModel(
-      "Chicken",
-      chickenImgPath,
-    ),
-    AnimalTypeModel(
-      "Cattle",
-      cowImgPath,
-    ),
-    AnimalTypeModel(
-      "Sheep",
-      sheepImgPath,
-    ),
-    AnimalTypeModel(
-      "Ducks",
-      duckImgPath,
-    ),
-    AnimalTypeModel(
-      "Goats",
-      goatImgPath,
-    ),
-    AnimalTypeModel(
-      "Alpaca",
-      alpacaImgPath,
-    ),
-    AnimalTypeModel(
-      "Pigs",
-      pigImgPath,
-    ),
-    AnimalTypeModel(
-      "Horse",
-      horseImgPath,
-    ),
-    AnimalTypeModel(
-      "Rabbit",
-      rabbitImgPath,
-    ),
-    AnimalTypeModel(
-      "Llama",
-      llamaImgPath,
-    ),
-    AnimalTypeModel(
-      "Donkeys",
-      donkeyImgPath,
-    ),
-  ];
+  List<String> listOfAnimalBreed = [];
 
   final List<String> animalGenderList = [
+    select,
     "Male",
     "Female",
   ];
 
   String selectedValue = "Pet";
 
+  String petToken = "";
+
+  String selectedAnimalAgeChooseType = "DOB";
+
+  String selectedDateValue = "Select date";
+
   bool matingValue = false;
   bool adoptionValue = false;
   bool resigteredWithKCValue = false;
   bool playBuddiesValue = false;
+  bool servicePetValue = false;
+  bool spayedPetValue = false;
+  bool vaccinatedValue = false;
   bool isBreedAvailable = false;
-  String ageType = "Baby";
+  String ageType = select;
+  String dob = "";
   String selectedAnimalType = "";
-  String selectedAnimalGender = "Male";
+  String selectedAnimalGender = select;
+
+  bool _isValid = false;
 
   dynamic _pickImageError;
   XFile? _imageFile;
+  String avatarUrl = "";
 
   String get imagePath => _imageFile?.path ?? "";
+
+  bool get isValid => _isValid;
+
+  Timer? _debounce;
+  String _username = "";
+  bool _isValidUsername = false;
+
+  bool get isValidUsername => _isValidUsername;
+
+  String validUser(TextEditingController usernameController) {
+    if (_isValidUsername) {
+      return "";
+    } else {
+      return "Username is not available";
+    }
+  }
 
   void onImageButtonPressed(ImageSource source, BuildContext? context) async {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
@@ -242,19 +121,100 @@ class CreateAnimalViewModel extends BaseModel {
     _navigationService.back();
   }
 
+  Future init(
+    String petId,
+    String petToken,
+    bool isEdit,
+    TextEditingController name,
+    TextEditingController username,
+    TextEditingController bio,
+    TextEditingController animalType,
+    TextEditingController breed,
+    TextEditingController dobTc,
+    TextEditingController fromTime,
+    TextEditingController toTime,
+  ) async {
+    this.petToken = petToken;
+    notifyListeners();
+    if (isEdit) {
+      if (await Util.checkInternetConnectivity()) {
+        WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
+          // _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
+          var response = await runBusyFuture(_tamelyApi.getAnimalProfileDetail(
+              AnimalProfileDetailsBody(petId),
+              animalToken: petToken));
+
+          if (response.getException != null) {
+            ServerError error = response.getException as ServerError;
+            _dialogService.completeDialog(DialogResponse(confirmed: true));
+            _snackBarService.showSnackbar(message: error.getErrorMessage());
+          } else if (response.data != null) {
+            MyAnimalModelResponse model = response.data!.animalprofileModel!;
+
+            isBreedAvailable = true;
+
+            name.text = model.name ?? "";
+            username.text = model.username ?? "";
+            bio.text = model.bio ?? "";
+            animalType.text = model.animalType ?? "";
+            selectedAnimalGender = model.gender ?? select;
+            breed.text = model.breed ?? "";
+
+            if (model.age != null) {
+              if (model.age!.contains("-")) {
+                // _snackBarService.showSnackbar(message: "INSIDE THE DOB");
+                dobTc.text = model.age ?? "";
+                dob = model.age ?? "";
+                selectedAnimalAgeChooseType = "DOB";
+                notifyListeners();
+              } else if (model.age == "") {
+                //do nothing set it as default
+                // _snackBarService.showSnackbar(message: "INSIDE THE DEFAULT");
+              } else {
+                // _snackBarService.showSnackbar(message: "INSIDE THE AGE");
+                ageType = model.age ?? select;
+                selectedAnimalAgeChooseType = "AGE";
+                notifyListeners();
+              }
+            }
+            fromTime.text = model.playFrom ?? "";
+            toTime.text = model.playTo ?? "";
+            avatarUrl = model.avatar ?? "";
+
+            selectedValue = model.category ?? "Pet";
+            selectedAnimalType = model.animalType ?? "";
+            selectedAnimalGender = model.gender ?? "Pet";
+
+            adoptionValue = model.adoption ?? false;
+            matingValue = model.mating ?? false;
+            resigteredWithKCValue = model.registeredWithKennelClub ?? false;
+            playBuddiesValue = model.playBuddies ?? false;
+            servicePetValue = model.servicePet ?? false;
+            spayedPetValue = model.spayed ?? false;
+            // _dialogService.completeDialog(DialogResponse(confirmed: true));
+            // checkBreedAvailable(model.animalType ?? "");
+            notifyListeners();
+          }
+        });
+      } else {}
+    } else {
+      generatePetName(username);
+    }
+  }
+
   Future<void> setAnimalTypeList() async {
     switch (selectedValue) {
       case "Pet":
         {
           listOfAnimalTypes.clear();
-          listOfAnimalTypes.addAll(_petAnimalTypeListValues);
+          listOfAnimalTypes.addAll(petAnimalTypeListValues);
           notifyListeners();
           break;
         }
       case "Stray":
         {
           listOfAnimalTypes.clear();
-          listOfAnimalTypes.addAll(_strayAnimalTypeListValues);
+          listOfAnimalTypes.addAll(strayAnimalTypeListValues);
           notifyListeners();
           break;
         }
@@ -262,7 +222,7 @@ class CreateAnimalViewModel extends BaseModel {
       case "Wild":
         {
           listOfAnimalTypes.clear();
-          listOfAnimalTypes.addAll(_wildAnimalTypeListValues);
+          listOfAnimalTypes.addAll(wildAnimalTypeListValues);
           notifyListeners();
           break;
         }
@@ -270,7 +230,7 @@ class CreateAnimalViewModel extends BaseModel {
       case "Farm":
         {
           listOfAnimalTypes.clear();
-          listOfAnimalTypes.addAll(_farmAnimalTypeListValues);
+          listOfAnimalTypes.addAll(farmAnimalTypeListValues);
           notifyListeners();
           break;
         }
@@ -278,16 +238,25 @@ class CreateAnimalViewModel extends BaseModel {
       default:
         {
           listOfAnimalTypes.clear();
-          listOfAnimalTypes.addAll(_petAnimalTypeListValues);
+          listOfAnimalTypes.addAll(petAnimalTypeListValues);
           notifyListeners();
           break;
         }
     }
   }
 
+  void closeKeyboard(BuildContext context) {
+    FocusScope.of(context).unfocus();
+  }
+
   onChangeRadio(String? value) {
     selectedValue = value!;
     setAnimalTypeList();
+    notifyListeners();
+  }
+
+  onAnimalAgeTypeChangeRadio(String? value) {
+    selectedAnimalAgeChooseType = value!;
     notifyListeners();
   }
 
@@ -306,6 +275,16 @@ class CreateAnimalViewModel extends BaseModel {
     notifyListeners();
   }
 
+  onChangeSpayed(bool value) {
+    spayedPetValue = value;
+    notifyListeners();
+  }
+
+  onChangeServicePet(bool value) {
+    servicePetValue = value;
+    notifyListeners();
+  }
+
   onChangePlayBuddies(bool value) {
     playBuddiesValue = value;
     notifyListeners();
@@ -321,37 +300,297 @@ class CreateAnimalViewModel extends BaseModel {
     notifyListeners();
   }
 
-  Future<void> createAnimalProfile() async {
-    if (selectedValue.isNotEmpty && selectedValue == "Stray") {
-      getCurrentLocation();
-    } else {}
+  Future<void> uploadImage() async {
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
+    if (_imageFile == null) {
+      _snackBarService.showSnackbar(message: "Image is empty");
+    }
+    if (await Util.checkInternetConnectivity()) {
+      avatarUrl = await GlobalMethods.imageToLink(File(_imageFile!.path));
+      notifyListeners();
+    } else {
+      _snackBarService.showSnackbar(message: "No Internet connection");
+    }
   }
 
-  selectBreedDDMFunction(BuildContext context, TextEditingController tc) async {
-    animalBreedSelectedList.clear();
-    String breedDisplayString = "";
-    for (BreedTypeModel model in listOfAnimalBreed) {
-      if (model.isChecked) {
-        animalBreedSelectedList.add(model.breedName);
-        breedDisplayString = "${breedDisplayString} ${model.breedName} , ";
+  Future<void> createAnimalProfile() async {
+    if (_imageFile != null) {
+      uploadImage().whenComplete(() => {
+            if (selectedValue.isNotEmpty && selectedValue == "Stray")
+              {
+                getCurrentLocation()
+                    .whenComplete(() => createAnimalProfileAccount())
+              }
+            else
+              {createAnimalProfileAccount()}
+          });
+    } else {
+      if (selectedValue.isNotEmpty && selectedValue == "Stray") {
+        getCurrentLocation().whenComplete(() => createAnimalProfileAccount());
+      } else {
+        createAnimalProfileAccount();
       }
     }
-    if (animalBreedSelectedList != null && animalBreedSelectedList.length > 0) {
-      tc.text =
-          "${breedDisplayString.substring(0, breedDisplayString.length - 2)} . ";
-      Navigator.pop(context);
+  }
+
+  Future createAnimalProfileAccount() async {
+    _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
+
+    String name = formValueMap["name"];
+    String username = formValueMap["username"];
+    String bio = formValueMap["shortbio"];
+    String breed = formValueMap["breed"];
+    String playFrom = formValueMap["fromTime"];
+    String playTo = formValueMap["toTime"];
+
+    String animalAge = "";
+
+    if (selectedAnimalAgeChooseType == "DOB") {
+      animalAge = dob;
     } else {
-      _snackBarService.showSnackbar(message: noBreedSelected);
+      if (ageType == select) {
+        _snackBarService.showSnackbar(message: "Please select age");
+      } else {
+        animalAge = ageType;
+      }
+    }
+
+    String currentLocationString = "";
+    if (_currentPosition != null) {
+      currentLocationString =
+          "${_currentPosition!.latitude},${_currentPosition!.longitude}";
+    }
+
+    var response = await runBusyFuture(_tamelyApi.createAnimalProfile(
+        name,
+        username,
+        avatarUrl,
+        selectedValue,
+        bio,
+        selectedAnimalType,
+        selectedAnimalGender,
+        breed,
+        animalAge,
+        matingValue,
+        adoptionValue,
+        playBuddiesValue,
+        resigteredWithKCValue,
+        playFrom,
+        playTo,
+        currentLocationString));
+
+    if (response.getException != null) {
+      ServerError error = response.getException as ServerError;
+      _dialogService.completeDialog(DialogResponse(confirmed: true));
+      _snackBarService.showSnackbar(message: error.getErrorMessage());
+    } else if (response.data != null) {
+      _dialogService.completeDialog(DialogResponse(confirmed: true));
+      _navigationService.back(result: 1);
     }
   }
 
-  selectAnimalTypeDDMFunction(
-      BuildContext context, TextEditingController tc) async {
-    if (tc.text != "" && tc.text != null) {
-      Navigator.pop(context);
-      checkBreedAvailable(tc.text.toLowerCase());
+  Future editAnimalProfile(String petId) async {
+    if (_imageFile != null) {
+      uploadImage().whenComplete(() => editAnimalProfileAccount(petId));
     } else {
-      _snackBarService.showSnackbar(message: noAnimalTypeSelected);
+      editAnimalProfileAccount(petId);
+    }
+  }
+
+  Future editAnimalProfileAccount(String petId) async {
+    _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
+
+    String name = formValueMap["name"];
+    String username = formValueMap["username"];
+    String bio = formValueMap["shortbio"];
+    String breed = formValueMap["breed"];
+    String playFrom = formValueMap["fromTime"];
+    String playTo = formValueMap["toTime"];
+
+    String animalAge = "";
+
+    if (selectedAnimalAgeChooseType == "DOB") {
+      animalAge = dob;
+    } else {
+      if (ageType == select) {
+        _snackBarService.showSnackbar(message: "Please select age");
+      } else {
+        animalAge = ageType;
+      }
+    }
+
+    var response = await runBusyFuture(_tamelyApi.editAnimalProfile(
+      name,
+      username,
+      avatarUrl,
+      selectedValue,
+      bio,
+      selectedAnimalType,
+      selectedAnimalGender,
+      breed,
+      animalAge,
+      matingValue,
+      adoptionValue,
+      playBuddiesValue,
+      resigteredWithKCValue,
+      playFrom,
+      playTo,
+      "",
+      servicePetValue,
+      spayedPetValue,
+      petId,
+      petToken,
+    ));
+
+    if (response.getException != null) {
+      ServerError error = response.getException as ServerError;
+      _dialogService.completeDialog(DialogResponse(confirmed: true));
+      _snackBarService.showSnackbar(message: error.getErrorMessage());
+    } else if (response.data != null) {
+      _dialogService.completeDialog(DialogResponse(confirmed: true));
+      _navigationService.back(result: 1);
+    }
+  }
+
+  Future<void> selectTime(
+      BuildContext context, TextEditingController tc) async {
+    TimeOfDay selectedTime = TimeOfDay.now();
+
+    closeKeyboard(context);
+
+    final TimeOfDay? picked_s = await showTimePicker(
+        context: context,
+        initialTime: selectedTime,
+        builder: (context, child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+            child: child!,
+          );
+        });
+
+    if (picked_s != null && picked_s != selectedTime) {
+      tc.text = picked_s.format(context);
+    }
+  }
+
+  Future<void> selectDate(
+      BuildContext context, TextEditingController tc) async {
+    DateTime selectedDate = DateTime.now();
+
+    closeKeyboard(context);
+
+    final DateTime? picked_s = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(1900),
+      lastDate: selectedDate,
+    );
+    if (picked_s != null && picked_s != selectedDate) {
+      selectedDateValue = "${picked_s.day}-${picked_s.month}-${picked_s.year}";
+
+      dob = selectedDateValue;
+
+      // ageValue = selectedDate.year - picked_s.year;
+      // int month1 = selectedDate.month;
+      // int month2 = picked_s.month;
+      //
+      // if (month2 > month1) {
+      //   ageValue--;
+      // } else if (month1 == month2) {
+      //   int day1 = selectedDate.day;
+      //   int day2 = picked_s.day;
+      //   if (day2 > day1) {
+      //     ageValue--;
+      //   }
+      // }
+
+      notifyListeners();
+    }
+  }
+
+  Future<void> generatePetName(TextEditingController usernameTC) async {
+    var response = await runBusyFuture(_tamelyApi.generatePetUsername());
+
+    if (response.getException != null) {
+      ServerError error = response.getException as ServerError;
+      _snackBarService.showSnackbar(message: error.getErrorMessage());
+    } else if (response.data != null) {
+      print("GENREATEDUSERNAME   ${response.data!.username ?? ""}");
+      usernameTC.text = response.data!.username ?? "";
+      notifyListeners();
+    }
+  }
+
+  //
+  // Future selectAnimalBreed(BuildContext ct, TextEditingController tc) async {
+  //   closeKeyboard(ct);
+  //   var result = await _bottomSheetService.showCustomSheet(
+  //     isScrollControlled: true,
+  //     variant: BottomSheetType.SelectBreedBottomSheet,
+  //     title: "Select breed",
+  //     customData: listOfAnimalBreed,
+  //   );
+  //   if (result != null) {
+  //     if (result.confirmed) {
+  //       tc.text = result.data.toString();
+  //       notifyListeners();
+  //     }
+  //   }
+  // }
+
+  // Future selectAnimalType(BuildContext ct, TextEditingController tc) async {
+  //   closeKeyboard(ct);
+  //   if (tc.text != "" && tc.text != null) {
+  //     selectedAnimalType = tc.text;
+  //     notifyListeners();
+  //     // closeKeyboard(context);
+  //     checkBreedAvailable(tc.text.toLowerCase());
+  //   } else {
+  //     _snackBarService.showSnackbar(message: noAnimalTypeSelected);
+  //   }
+  // }
+
+  Future selectAnimalBreed(BuildContext ct, TextEditingController tc) async {
+    closeKeyboard(ct);
+    var result = await _bottomSheetService.showCustomSheet(
+      isScrollControlled: true,
+      variant: BottomSheetType.SelectBreedBottomSheet,
+      title: "Select breed",
+      customData: listOfAnimalBreed,
+    );
+    if (result != null) {
+      if (result.confirmed) {
+        tc.text = result.data
+            .toString()
+            .substring(0, result.data.toString().length - 1);
+        notifyListeners();
+      }
+    }
+  }
+
+  Future selectAnimalType(BuildContext ct, TextEditingController tc) async {
+    closeKeyboard(ct);
+    var result = await _bottomSheetService.showCustomSheet(
+      variant: BottomSheetType.SelectAnimalTypeBottomSheet,
+      isScrollControlled: true,
+      title: "Select the type of $selectedValue",
+      customData: listOfAnimalTypes,
+    );
+
+    if (result!.confirmed) {
+      tc.text = result.data;
+      selectedAnimalType = result.data;
+      notifyListeners();
+      checkBreedAvailable(tc.text.toLowerCase());
+
+      if (result != null) {
+        if (result.confirmed) {
+          tc.text = result.data;
+          selectedAnimalType = result.data;
+          notifyListeners();
+          checkBreedAvailable(tc.text.toLowerCase());
+        }
+      }
     }
   }
 
@@ -540,6 +779,23 @@ class CreateAnimalViewModel extends BaseModel {
 
     log.d(
         "Latitude : ${_currentPosition!.latitude} , Longitude : ${_currentPosition!.longitude}");
+  }
+
+  @override
+  void setFormStatus() {
+    // TODO: implement setFormStatus
+    _isValid = true;
+    formValueMap.keys.forEach((element) {
+      if (manitoryFeilds.contains(element)) {
+        String elementValue = formValueMap[element];
+        if (elementValue.isEmpty) {
+          _isValid = false;
+          return;
+        }
+      }
+    });
+
+    notifyListeners();
   }
 }
 

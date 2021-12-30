@@ -1,4 +1,4 @@
-import 'package:kubelite/shared/base_viewmodel.dart';
+import 'package:tamely/shared/base_viewmodel.dart';
 
 class MentionsPostTabViewModel extends BaseModel {
   List<String> _dummyListOfPosts = [

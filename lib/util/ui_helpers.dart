@@ -1,5 +1,9 @@
 // Horizontal Spacing
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/widgets/app_text.dart';
 
 const Widget horizontalSpaceTiny = SizedBox(width: 5.0);
 const Widget horizontalSpaceSmall = SizedBox(width: 10.0);
@@ -12,6 +16,42 @@ const Widget verticalSpaceSmall = SizedBox(height: 10.0);
 const Widget verticalSpaceRegular = SizedBox(height: 18.0);
 const Widget verticalSpaceMedium = SizedBox(height: 25.0);
 const Widget verticalSpaceLarge = SizedBox(height: 50.0);
+
+//common app bar
+PreferredSizeWidget commonAppBar(BuildContext context, String title) => AppBar(
+      backgroundColor: colors.white,
+      title: AppText.titleBold(title),
+      centerTitle: true,
+      leading: IconButton(
+        icon: Icon(
+          Icons.arrow_back,
+          color: colors.black,
+        ),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
+
+//common paddning
+const EdgeInsets commonPaddding = EdgeInsets.symmetric(horizontal: 20);
+
+//box decorations
+BoxDecoration borderBoxOutline = BoxDecoration(
+  color: colors.white,
+  border: Border.all(
+    color: colors.kcLightGreyColor,
+    width: 1,
+  ),
+  borderRadius: BorderRadius.circular(10),
+);
+
+BoxDecoration topRoundedDecoration = BoxDecoration(
+  color: colors.white,
+  borderRadius: BorderRadius.vertical(
+    top: Radius.circular(25),
+  ),
+);
 
 // Screen Size helpers
 
@@ -43,7 +83,18 @@ Widget spacedDividerSmall = Column(
 Widget spacedDividerTiny = Column(
   children: const <Widget>[
     verticalSpaceTiny,
-    const Divider(color: Colors.blueGrey, height: 5.0),
+    const Divider(color: colors.kcLightGreyColor, height: 1.0),
+    verticalSpaceTiny,
+  ],
+);
+
+Widget spacedDividerBigTiny = Column(
+  children: const <Widget>[
+    verticalSpaceTiny,
+    const Divider(
+      color: colors.kcGreyBackground,
+      thickness: 5,
+    ),
     verticalSpaceTiny,
   ],
 );

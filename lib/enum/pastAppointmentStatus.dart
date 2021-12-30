@@ -1,0 +1,1 @@
+enum PastAppointmentStatus { Completed, Canceled }

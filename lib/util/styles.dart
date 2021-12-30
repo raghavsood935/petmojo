@@ -29,6 +29,11 @@ const TextStyle bodyStyle = TextStyle(
   fontWeight: FontWeight.w400,
 );
 
+const TextStyle titleStyle = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.w600,
+);
+
 const TextStyle subheadingStyle = TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.w400,
@@ -44,9 +49,24 @@ const TextStyle overlineStyle = TextStyle(
   fontWeight: FontWeight.normal,
 );
 
+const TextStyle tinyStyle = TextStyle(
+  fontSize: 8,
+  fontWeight: FontWeight.normal,
+);
+
 const TextStyle body1Style = TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.normal,
+);
+
+const TextStyle body1BoldStyle = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.bold,
+);
+
+const TextStyle titleBoldStyle = TextStyle(
+  fontSize: 18,
+  fontWeight: FontWeight.bold,
 );
 
 const TextStyle body2Style = TextStyle(

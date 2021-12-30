@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kubelite/models/hashtag_model.dart';
-import 'package:kubelite/util/ImageConstant.dart';
-import 'package:kubelite/widgets/app_text.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/models/hashtag_model.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/widgets/app_text.dart';
 
 import 'hashtags_search_tab_view_model.dart';
 
@@ -17,26 +18,32 @@ class _HashtagsSearchTabViewState extends State<HashtagsSearchTabView> {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HashtagsSearchTabViewModel>.reactive(
-      viewModelBuilder: () => HashtagsSearchTabViewModel(),
-      builder: (context, model, child) => ListView(
-        padding: EdgeInsets.all(8),
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: AppText.body1("Result for Hashtag"),
-          ),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: ScrollPhysics(),
-            itemCount: model.listOfHashTag.length,
-            itemBuilder: (context, index) => listItem(
-              index,
-              model,
-            ),
-          )
-        ],
-      ),
-    );
+        viewModelBuilder: () => HashtagsSearchTabViewModel(),
+        builder: (context, model, child) => Center(
+              child: AppText.body1Bold(
+                "Under development",
+                color: colors.primary,
+              ),
+            )
+        // builder: (context, model, child) => ListView(
+        //   padding: EdgeInsets.all(8),
+        //   children: [
+        //     Padding(
+        //       padding: const EdgeInsets.all(8.0),
+        //       child: AppText.body1("Result for Hashtag"),
+        //     ),
+        //     ListView.builder(
+        //       shrinkWrap: true,
+        //       physics: ScrollPhysics(),
+        //       itemCount: model.listOfHashTag.length,
+        //       itemBuilder: (context, index) => listItem(
+        //         index,
+        //         model,
+        //       ),
+        //     )
+        //   ],
+        // ),
+        );
   }
 }
 

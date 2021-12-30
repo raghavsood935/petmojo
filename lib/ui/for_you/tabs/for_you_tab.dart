@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:kubelite/ui/for_you/tabs/for_you_tab_view_model.dart';
-import 'package:kubelite/util/Color.dart';
-import 'package:kubelite/util/ui_helpers.dart';
-import 'package:kubelite/widgets/app_input_field.dart';
-import 'package:kubelite/widgets/app_text.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/ui/for_you/tabs/for_you_tab_view_model.dart';
+import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/widgets/app_text.dart';
 
 class ForYouTab extends StatefulWidget {
   const ForYouTab({Key? key}) : super(key: key);
@@ -15,10 +14,20 @@ class ForYouTab extends StatefulWidget {
 }
 
 class _ForYouTabState extends State<ForYouTab> {
+  ScrollController controller = ScrollController();
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ForYouTabViewModel>.reactive(
       viewModelBuilder: () => ForYouTabViewModel(),
+      onModelReady: (model) {
+        model.getPosts();
+        controller.addListener(() {
+          if (controller.position.pixels ==
+              controller.position.maxScrollExtent) {
+            model.getPosts();
+          }
+        });
+      },
       builder: (context, model, child) => ListView(
         children: [
           Padding(
@@ -41,38 +50,82 @@ class _ForYouTabState extends State<ForYouTab> {
               onTap: model.goToSearchView,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              height: 125,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                itemCount: model.vidoes.length,
-                itemBuilder: (context, index) => rowPost(model.vidoes[index]),
-                separatorBuilder: (BuildContext context, int index) =>
-                    horizontalSpaceSmall,
-              ),
-            ),
-          ),
-          spacedDividerSmall,
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: SizedBox(
+          //     height: 125,
+          //     child: ListView.separated(
+          //       scrollDirection: Axis.horizontal,
+          //       shrinkWrap: true,
+          //       itemCount: model.vidoes.length,
+          //       itemBuilder: (context, index) => rowPost(model.vidoes[index]),
+          //       separatorBuilder: (BuildContext context, int index) =>
+          //           horizontalSpaceSmall,
+          //     ),
+          //   ),
+          // ),
+          // spacedDividerSmall,
           Container(
             padding: EdgeInsets.all(10),
-            child: StaggeredGridView.countBuilder(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: model.dummyListOfPosts.length,
-              crossAxisSpacing: 6,
-              mainAxisSpacing: 6,
-              crossAxisCount: 3,
-              itemBuilder: (context, index) => postItem(
-                  context, index, model.dummyListOfPosts[index], () {}),
-              staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+            child: Column(
+              children: [
+                StaggeredGridView.countBuilder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: model.dummyListOfPosts.length,
+                  crossAxisSpacing: 6,
+                  mainAxisSpacing: 6,
+                  crossAxisCount: 3,
+                  controller: controller,
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () =>
+                        model.postDetailsPage(model.dummyListOfPosts[index]),
+                    child: postItem(context, index,
+                        model.dummyListOfPosts[index].thumbnail ?? ""),
+                  ),
+                  staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+                ),
+                verticalSpaceRegular,
+                Visibility(
+                  visible: model.isLoading,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: CircularProgressIndicator(
+                      color: colors.primary,
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: !model.isEndOfList,
+                  child: Visibility(
+                    visible: !model.isLoading,
+                    child: GestureDetector(
+                      onTap: model.getPosts,
+                      child: AppText.body1Bold(
+                        "See more Posts",
+                        textAlign: TextAlign.center,
+                        color: colors.primary,
+                      ),
+                    ),
+                  ),
+                ),
+                verticalSpaceRegular,
+              ],
             ),
           ),
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // controller.addListener(() {
+    //   if (controller.position.pixels == controller.position.maxScrollExtent) {
+    //     getPosts();
+    //   }
+    // });
   }
 }
 
@@ -87,20 +140,21 @@ Widget rowPost(String vido) {
   );
 }
 
-Widget postItem(BuildContext context, int index, String url, void onTapFun()) =>
-    GestureDetector(
-      child: Container(
-        height: getPostItemHeight(context, index),
-        margin: EdgeInsets.all(3),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Image.network(
-            url,
-            fit: BoxFit.cover,
-          ),
+Widget postItem(
+  BuildContext context,
+  int index,
+  String url,
+) =>
+    Container(
+      height: getPostItemHeight(context, index),
+      margin: EdgeInsets.all(3),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Image.network(
+          url,
+          fit: BoxFit.cover,
         ),
       ),
-      onTap: onTapFun,
     );
 
 double getPostItemHeight(BuildContext context, int index) {
