@@ -110,6 +110,7 @@ class DogRunnersViewModel extends FutureViewModel<void>
   //    Geolocator.openLocationSettings(); forLocation setting
 
   Future<void> _listenForPermissionStatus() async {
+    print("function 1");
     final status = await _permission.status;
     _permissionStatus = status;
     notifyListeners();
@@ -117,6 +118,7 @@ class DogRunnersViewModel extends FutureViewModel<void>
   }
 
   Future<void> requestPermission(Permission permission) async {
+    print("function 2");
     var sheetResponse = await _dialogService.showCustomDialog(
         variant: DialogType.LocationDialog);
     if (sheetResponse!.confirmed) {
@@ -134,6 +136,7 @@ class DogRunnersViewModel extends FutureViewModel<void>
     // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
+      print("if 1");
       await requestPermission(_permission);
       await Geolocator.openLocationSettings();
       return Future.error('Location services are disabled.');
@@ -141,15 +144,25 @@ class DogRunnersViewModel extends FutureViewModel<void>
 
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
-      await requestPermission(_permission);
-      permission = await Geolocator.requestPermission();
+      print("if 2");
+      var sheetResponse = await _dialogService.showCustomDialog(
+          variant: DialogType.LocationDialog);
+      if (sheetResponse!.confirmed) {
+        if (sheetResponse.data) {
+          permission = await Geolocator.requestPermission();
+          notifyListeners();
+        }
+      }
+      //permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
+        print("if 2-1");
         requestPermission(_permission);
         return Future.error('Location permissions are denied');
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
+      print("if 3");
       // Permissions are denied forever, handle appropriately.
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
