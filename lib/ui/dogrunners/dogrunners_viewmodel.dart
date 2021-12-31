@@ -141,6 +141,7 @@ class DogRunnersViewModel extends FutureViewModel<void>
 
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
+      await requestPermission(_permission);
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         requestPermission(_permission);
