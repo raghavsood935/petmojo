@@ -5,6 +5,7 @@ import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/widgets/fullscreen_loading_indicator.dart';
 
 import 'basic_dialog.dart';
+import 'location_dialog.dart';
 
 void setupDialogUi() {
   var dialogService = locator<DialogService>();
@@ -17,6 +18,12 @@ void setupDialogUi() {
         ),
     DialogType.LoadingDialog: (context, dialogRequest, completer) => Dialog(
           child: FullScreenLoadingDialog(),
+        ),
+    DialogType.LocationDialog: (context, dialogRequest, completer) => Dialog(
+          child: LocationDialog(
+            dialogRequest: dialogRequest,
+            onDialogTap: completer,
+          ),
         ),
   };
   dialogService.registerCustomDialogBuilders(builders);

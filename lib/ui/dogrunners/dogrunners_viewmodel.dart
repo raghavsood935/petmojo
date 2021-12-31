@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -7,12 +9,14 @@ import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/ui/tamelydogrunning/tamelydogrunning_view.dart';
 
 class DogRunnersViewModel extends FutureViewModel<void>
     implements Initialisable {
   final log = getLogger('DogRunnersViewModel');
   final _navigationService = locator<NavigationService>();
+  final _dialogService = locator<DialogService>();
 
   Future<void> init() async {
     print('init');
@@ -113,9 +117,15 @@ class DogRunnersViewModel extends FutureViewModel<void>
   }
 
   Future<void> requestPermission(Permission permission) async {
-    final status = await permission.request();
-    _permissionStatus = status;
-    notifyListeners();
+    var sheetResponse = await _dialogService.showCustomDialog(
+        variant: DialogType.LocationDialog);
+    if (sheetResponse!.confirmed) {
+      if (sheetResponse.data) {
+        final status = await permission.request();
+        _permissionStatus = status;
+        notifyListeners();
+      }
+    }
   }
 
   Future<void> _determinePosition() async {
@@ -144,7 +154,7 @@ class DogRunnersViewModel extends FutureViewModel<void>
           'Location permissions are permanently denied, we cannot request permissions.');
     }
 
-    // When we reach here, permissions are g anted and we can
+    // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
     Position location = await Geolocator.getCurrentPosition();
     currentLocation = LatLng(location.latitude, location.longitude);

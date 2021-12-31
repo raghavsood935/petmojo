@@ -21,13 +21,14 @@ class OnBoardingView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.kcVeryLightGreyColor,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           centerTitle: true,
-          leading: IconButton(
-            onPressed: () {
-              model.goBack();
-            },
-            icon: Icon(Icons.arrow_back_sharp),
-          ),
+          // leading: IconButton(
+          //   onPressed: () {
+          //     model.goBack();
+          //   },
+          //   icon: Icon(Icons.arrow_back_sharp),
+          // ),
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),

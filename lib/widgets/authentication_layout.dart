@@ -137,17 +137,26 @@ class AuthenticationLayout extends StatelessWidget {
               ),
             ),
           if (showTermsText)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Column(
               children: [
-                Icon(
-                  Icons.check_box,
-                  size: 16,
-                  color: colors.primary,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.check_box,
+                      size: 16,
+                      color: colors.primary,
+                    ),
+                    horizontalSpaceTiny,
+                    AppText.caption(
+                      'I herby accept T&C and Privacy policy',
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
-                horizontalSpaceTiny,
+                verticalSpaceTiny,
                 AppText.caption(
-                  'I herby accept T&C and Privacy policy',
+                  'To view the complete policy visit\n www.tamely.in/privacypolicy-tamely',
                   textAlign: TextAlign.center,
                 ),
               ],
