@@ -1,26 +1,28 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'dart:async';
+
 import 'package:geocoder/geocoder.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:tamely/enum/DialogType.dart';
-import 'package:tamely/ui/tamelydogrunning/tamelydogrunning_view.dart';
+import 'package:tamely/util/location_helper.dart';
 
 class DogRunnersViewModel extends FutureViewModel<void>
     implements Initialisable {
   final log = getLogger('DogRunnersViewModel');
   final _navigationService = locator<NavigationService>();
-  final _dialogService = locator<DialogService>();
+  bool? _isLocationAvailable;
+  Timer? _timer;
 
   Future<void> init() async {
     print('init');
-    await _listenForPermissionStatus();
+    await requestLocation();
+  }
+
+  void dispose() {
+    if (_timer != null && _timer!.isActive) _timer!.cancel();
   }
 
   String _companyAddress = "Gurugram, Haryana";
@@ -48,11 +50,37 @@ class DogRunnersViewModel extends FutureViewModel<void>
   bool _companyAvailable = true;
   bool get companyAvailable => _companyAvailable;
 
-  final Permission _permission = Permission.location;
-  PermissionStatus _permissionStatus = PermissionStatus.denied;
-
   void navigateBack() {
     _navigationService.back();
+  }
+
+  Future<void> requestLocation() async {
+    _isLocationAvailable = await LocationHelper.checkLocationPermission();
+    if (_isLocationAvailable != null && _isLocationAvailable!)
+      LocationHelper.getCurrentLocation().then((position) =>
+          setLocation(LatLng(position.latitude, position.longitude)));
+    else if (_timer == null) {
+      _timer = Timer.periodic(Duration(seconds: 3), (Timer t) async {
+        _isLocationAvailable = await LocationHelper.checkPermissionInBg();
+        if (_isLocationAvailable != null && _isLocationAvailable!) {
+          t.cancel();
+          LocationHelper.getCurrentLocation().then((position) =>
+              setLocation(LatLng(position.latitude, position.longitude)));
+        }
+      });
+    }
+  }
+
+  void changeAddress() async {
+    List result = await _navigationService.navigateTo(Routes.locationPicker);
+    if (result[1]) {
+      currentLocation = result[0];
+      setLocation(result[0]);
+    } else {
+      _address = "Gurugram, Haryana";
+      _companyAvailable = true;
+    }
+    notifyListeners();
   }
 
   Future<void> setLocation(LatLng location) async {
@@ -62,12 +90,6 @@ class DogRunnersViewModel extends FutureViewModel<void>
         _address = value;
         notifyListeners();
       });
-  }
-
-  void toTamelyDogRunning() async {
-    await _navigationService.navigateTo(Routes.tamelyDogRunnersView,
-        arguments:
-            TamelyDogRunnersViewArguments(currentLocation: currentLocation));
   }
 
   Future<String> getAddress(Coordinates coordinates) async {
@@ -89,91 +111,14 @@ class DogRunnersViewModel extends FutureViewModel<void>
     return '${address.first.adminArea}, ${address.first.countryName}';
   }
 
-  void changeAddress() async {
-    List result = await _navigationService.navigateTo(Routes.locationPicker);
-    if (result[1]) {
-      currentLocation = result[0];
-      setLocation(result[0]);
-    } else {
-      _address = "Gurugram, Haryana";
-      _companyAvailable = true;
-    }
-    notifyListeners();
+  void toTamelyDogRunning() async {
+    await _navigationService.navigateTo(Routes.tamelyDogRunnersView,
+        arguments:
+            TamelyDogRunnersViewArguments(currentLocation: currentLocation));
   }
 
   @override
   Future<void> futureToRun() async {
     log.d("futureToRun");
-  }
-
-  //openAppSettings();  For opening App Settings
-  //    Geolocator.openLocationSettings(); forLocation setting
-
-  Future<void> _listenForPermissionStatus() async {
-    print("function 1");
-    final status = await _permission.status;
-    _permissionStatus = status;
-    notifyListeners();
-    _determinePosition();
-  }
-
-  Future<void> requestPermission(Permission permission) async {
-    print("function 2");
-    var sheetResponse = await _dialogService.showCustomDialog(
-        variant: DialogType.LocationDialog);
-    if (sheetResponse!.confirmed) {
-      if (sheetResponse.data) {
-        final status = await permission.request();
-        _permissionStatus = status;
-        notifyListeners();
-      }
-    }
-  }
-
-  Future<void> _determinePosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-    // Test if location services are enabled.
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      print("if 1");
-      await requestPermission(_permission);
-      await Geolocator.openLocationSettings();
-      return Future.error('Location services are disabled.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      print("if 2");
-      var sheetResponse = await _dialogService.showCustomDialog(
-          variant: DialogType.LocationDialog);
-      if (sheetResponse!.confirmed) {
-        if (sheetResponse.data) {
-          permission = await Geolocator.requestPermission();
-          notifyListeners();
-        }
-      }
-      //permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        print("if 2-1");
-        requestPermission(_permission);
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      print("if 3");
-      // Permissions are denied forever, handle appropriately.
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-
-    // When we reach here, permissions are granted and we can
-    // continue accessing the position of the device.
-    Position location = await Geolocator.getCurrentPosition();
-    currentLocation = LatLng(location.latitude, location.longitude);
-    _address = await getAddress(
-        Coordinates(currentLocation.latitude, currentLocation.longitude));
-    notifyListeners();
   }
 }

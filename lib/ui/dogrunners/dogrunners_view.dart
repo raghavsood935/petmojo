@@ -12,8 +12,11 @@ class DogRunnersView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<DogRunnersViewModel>.reactive(
-      onModelReady: (model) {
+      onModelReady: (model) async {
         model.init();
+      },
+      onDispose: (model) {
+        model.dispose();
       },
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
