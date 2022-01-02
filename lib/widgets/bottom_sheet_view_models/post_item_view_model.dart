@@ -11,6 +11,7 @@ import 'package:tamely/models/params/like_dislike_post_body.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
 import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/String.dart';
 import 'package:tamely/util/global_methods.dart';
 
 class PostItemViewModel extends BaseModel {
@@ -174,6 +175,9 @@ class PostItemViewModel extends BaseModel {
       variant: BottomSheetType.DeletePostBottomSheet,
       isScrollControlled: true,
       barrierDismissible: true,
+      title: deletePostConfirmation,
+      secondaryButtonTitle: "CANCEL",
+      mainButtonTitle: "DELETE",
     );
 
     if (sheetResponse!.confirmed) {

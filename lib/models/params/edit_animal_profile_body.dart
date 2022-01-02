@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tamely/models/params/location_body.dart';
 
 part 'edit_animal_profile_body.g.dart';
 
@@ -16,10 +17,12 @@ class EditAnimalProfileBody {
   final bool mating;
   final bool adoption;
   final bool playBuddies;
+  final bool registeredWithKennelClub;
   final String playFrom;
   final String playTo;
   final bool servicePet;
   final bool spayed;
+  final LocationBody location;
   final String animalId;
 
   EditAnimalProfileBody(
@@ -29,16 +32,18 @@ class EditAnimalProfileBody {
       this.category,
       this.bio,
       this.animalType,
-      this.breed,
       this.gender,
+      this.breed,
       this.age,
       this.mating,
       this.adoption,
       this.playBuddies,
+      this.registeredWithKennelClub,
       this.playFrom,
       this.playTo,
       this.servicePet,
       this.spayed,
+      this.location,
       this.animalId);
 
   factory EditAnimalProfileBody.fromJson(Map<String, dynamic> json) =>

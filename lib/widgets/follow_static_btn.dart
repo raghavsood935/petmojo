@@ -4,16 +4,19 @@ import 'package:tamely/util/Color.dart';
 import 'app_text.dart';
 
 class FollowingStaticBtn extends StatelessWidget {
-  const FollowingStaticBtn(
+  FollowingStaticBtn(
       {Key? key,
       required this.trueValue,
       required this.falseValue,
-      required this.state})
+      required this.state,
+      this.isMedium})
       : super(key: key);
 
   final String trueValue;
   final String falseValue;
   final bool state;
+
+  bool? isMedium = false;
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +27,29 @@ class FollowingStaticBtn extends StatelessWidget {
         border: Border.all(color: colors.primary),
         color: state ? Colors.white : colors.primary,
       ),
-      child: state
-          ? AppText.caption(
-              trueValue,
-              color: colors.primary,
-              textAlign: TextAlign.center,
-            )
-          : AppText.caption(
-              falseValue,
-              color: Colors.white,
-              textAlign: TextAlign.center,
-            ),
+      child: (isMedium ?? false)
+          ? state
+              ? AppText.body1(
+                  trueValue,
+                  color: colors.primary,
+                  textAlign: TextAlign.center,
+                )
+              : AppText.body1(
+                  falseValue,
+                  color: Colors.white,
+                  textAlign: TextAlign.center,
+                )
+          : state
+              ? AppText.caption(
+                  trueValue,
+                  color: colors.primary,
+                  textAlign: TextAlign.center,
+                )
+              : AppText.caption(
+                  falseValue,
+                  color: Colors.white,
+                  textAlign: TextAlign.center,
+                ),
     );
   }
 }

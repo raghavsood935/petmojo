@@ -2,6 +2,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/enum/BottomSheetType.dart';
 import 'package:tamely/widgets/dialogs/add_details_bottom_sheet.dart';
+import 'package:tamely/widgets/dialogs/basic_list_of_options_bottom_sheet.dart';
 import 'package:tamely/widgets/dialogs/comments_bottom_sheet.dart';
 import 'package:tamely/widgets/dialogs/delete_post_bottom_sheet.dart';
 import 'package:tamely/widgets/dialogs/more_option_bottom_sheet.dart';
@@ -60,6 +61,11 @@ void setupBottomSheetUi() {
           sheetRequest: sheetRequest,
           onDialogTap: completer,
         ),
+    BottomSheetType.BasicListOfOptionsBottomSheet:
+        (context, sheetRequest, completer) => BasicListOfOptionsBottomSheet(
+              sheetRequest: sheetRequest,
+              onDialogTap: completer,
+            ),
   };
   bottomSheetService.setCustomSheetBuilders(builders);
 }

@@ -27,6 +27,11 @@ class ProfileForYouResponse with _$ProfileForYouResponse {
     @JsonKey(name: "fullName") String? fullName,
     @JsonKey(name: "avatar") String? avatar,
     @JsonKey(name: "type") String? type,
+    @JsonKey(name: "description") String? description,
+    @JsonKey(name: "members") int? members,
+    @JsonKey(name: "name") String? name,
+    @JsonKey(name: "coverPhoto") String? coverPhoto,
+    @JsonKey(name: "isMember") bool? isMember,
   }) = _ProfileForYouResponse;
 
   factory ProfileForYouResponse.fromJson(Map<String, dynamic> json) =>

@@ -47,7 +47,7 @@ class _$MyAnimalModelResponseTearOff {
       @JsonKey(name: "thingsDislikes") String? thingsDislikes,
       @JsonKey(name: "uniqueHabits") String? uniqueHabits,
       @JsonKey(name: "eatingHabits") String? eatingHabits,
-      @JsonKey(name: "location") String? location,
+      @JsonKey(name: "location") LatLongResponse? location,
       @JsonKey(name: "guardians") List<GuardiansModelResponse>? guardians,
       @JsonKey(name: "__v") int? v}) {
     return _MyAnimalModelResponse(
@@ -140,7 +140,7 @@ mixin _$MyAnimalModelResponse {
   @JsonKey(name: "eatingHabits")
   String? get eatingHabits => throw _privateConstructorUsedError;
   @JsonKey(name: "location")
-  String? get location => throw _privateConstructorUsedError;
+  LatLongResponse? get location => throw _privateConstructorUsedError;
   @JsonKey(name: "guardians")
   List<GuardiansModelResponse>? get guardians =>
       throw _privateConstructorUsedError;
@@ -183,9 +183,11 @@ abstract class $MyAnimalModelResponseCopyWith<$Res> {
       @JsonKey(name: "thingsDislikes") String? thingsDislikes,
       @JsonKey(name: "uniqueHabits") String? uniqueHabits,
       @JsonKey(name: "eatingHabits") String? eatingHabits,
-      @JsonKey(name: "location") String? location,
+      @JsonKey(name: "location") LatLongResponse? location,
       @JsonKey(name: "guardians") List<GuardiansModelResponse>? guardians,
       @JsonKey(name: "__v") int? v});
+
+  $LatLongResponseCopyWith<$Res>? get location;
 }
 
 /// @nodoc
@@ -327,7 +329,7 @@ class _$MyAnimalModelResponseCopyWithImpl<$Res>
       location: location == freezed
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as LatLongResponse?,
       guardians: guardians == freezed
           ? _value.guardians
           : guardians // ignore: cast_nullable_to_non_nullable
@@ -337,6 +339,17 @@ class _$MyAnimalModelResponseCopyWithImpl<$Res>
           : v // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
+  }
+
+  @override
+  $LatLongResponseCopyWith<$Res>? get location {
+    if (_value.location == null) {
+      return null;
+    }
+
+    return $LatLongResponseCopyWith<$Res>(_value.location!, (value) {
+      return _then(_value.copyWith(location: value));
+    });
   }
 }
 
@@ -372,9 +385,12 @@ abstract class _$MyAnimalModelResponseCopyWith<$Res>
       @JsonKey(name: "thingsDislikes") String? thingsDislikes,
       @JsonKey(name: "uniqueHabits") String? uniqueHabits,
       @JsonKey(name: "eatingHabits") String? eatingHabits,
-      @JsonKey(name: "location") String? location,
+      @JsonKey(name: "location") LatLongResponse? location,
       @JsonKey(name: "guardians") List<GuardiansModelResponse>? guardians,
       @JsonKey(name: "__v") int? v});
+
+  @override
+  $LatLongResponseCopyWith<$Res>? get location;
 }
 
 /// @nodoc
@@ -518,7 +534,7 @@ class __$MyAnimalModelResponseCopyWithImpl<$Res>
       location: location == freezed
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as LatLongResponse?,
       guardians: guardians == freezed
           ? _value.guardians
           : guardians // ignore: cast_nullable_to_non_nullable
@@ -641,7 +657,7 @@ class _$_MyAnimalModelResponse extends _MyAnimalModelResponse {
   final String? eatingHabits;
   @override
   @JsonKey(name: "location")
-  final String? location;
+  final LatLongResponse? location;
   @override
   @JsonKey(name: "guardians")
   final List<GuardiansModelResponse>? guardians;
@@ -775,7 +791,7 @@ abstract class _MyAnimalModelResponse extends MyAnimalModelResponse {
       @JsonKey(name: "thingsDislikes") String? thingsDislikes,
       @JsonKey(name: "uniqueHabits") String? uniqueHabits,
       @JsonKey(name: "eatingHabits") String? eatingHabits,
-      @JsonKey(name: "location") String? location,
+      @JsonKey(name: "location") LatLongResponse? location,
       @JsonKey(name: "guardians") List<GuardiansModelResponse>? guardians,
       @JsonKey(name: "__v") int? v}) = _$_MyAnimalModelResponse;
   _MyAnimalModelResponse._() : super._();
@@ -857,7 +873,7 @@ abstract class _MyAnimalModelResponse extends MyAnimalModelResponse {
   String? get eatingHabits;
   @override
   @JsonKey(name: "location")
-  String? get location;
+  LatLongResponse? get location;
   @override
   @JsonKey(name: "guardians")
   List<GuardiansModelResponse>? get guardians;

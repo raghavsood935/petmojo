@@ -21,7 +21,11 @@ import 'package:tamely/ui/dummy_development_screen.dart';
 import 'package:tamely/ui/for_you/for_you_search/for_you_tab_search_view.dart';
 import 'package:tamely/ui/forgotpassword/forgotpassword_view.dart';
 import 'package:tamely/ui/forgotpassword/new_password_view.dart';
+import 'package:tamely/ui/groups/create_group/create_group_fisrt_page/create_group_fisrt_page_view.dart';
+import 'package:tamely/ui/groups/create_group/create_group_second_page/create_group_second_page_view.dart';
+import 'package:tamely/ui/groups/create_group/create_group_third_page/create_group_third_page_view.dart';
 import 'package:tamely/ui/groups/create_group/create_group_view.dart';
+import 'package:tamely/ui/groups/explore_groups/explore_groups_view.dart';
 import 'package:tamely/ui/groups/group_info/group_info_view.dart';
 import 'package:tamely/ui/groups/groups_view.dart';
 import 'package:tamely/ui/groups/manage_group/edit_group_info/edit_group_info_view.dart';
@@ -96,11 +100,14 @@ import '../ui/wallet/wallet_view.dart';
 
     // Group routes
     CupertinoRoute(page: GroupsView),
-    CupertinoRoute(page: CreateGroupView),
+    CupertinoRoute(page: CreateGroupFirstView),
+    CupertinoRoute(page: CreateGroupSecondView),
+    CupertinoRoute(page: CreateGroupThirdView),
     CupertinoRoute(page: GroupInfoView),
     CupertinoRoute(page: ManageGroupView),
     CupertinoRoute(page: EditGroupBasicInfo),
     CupertinoRoute(page: MembersView),
+    CupertinoRoute(page: ExploreGroupView),
 
     //create post
     CupertinoRoute(page: PostCreation),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/ui/community/community_main_view/mating/mating_profile_list_tile.dart';
 import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/list_constant.dart';
 import 'package:tamely/util/ui_helpers.dart';
@@ -54,7 +55,7 @@ class _MatingViewState extends State<MatingView> {
             padding: const EdgeInsets.symmetric(horizontal: 5),
             child: SearchTextField(
               controller: model.searchTC,
-              onChange: model.onSearchChange,
+              onChange: (value) {},
               hint: "Search for strays",
             ),
           ),
@@ -66,53 +67,55 @@ class _MatingViewState extends State<MatingView> {
               onChange: model.onFilterChange,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: AppText.body1Bold("Newest addition"),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: SizedBox(
-              height: 125,
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  physics: ScrollPhysics(),
-                  itemCount: model.listOfGuarduians.length,
-                  itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: Column(
-                          children: [
-                            CustomCircularAvatar(
-                              radius: 25,
-                              imgPath:
-                                  model.listOfStaryAnimals[index].profileImgUrl,
-                            ),
-                            verticalSpaceSmall,
-                            AppText.caption(
-                              model.listOfStaryAnimals[index].name,
-                              color: colors.black,
-                            ),
-                            verticalSpaceSmall,
-                            RoundedDecoratedText(value: "7 km"),
-                          ],
-                        ),
-                      )),
-            ),
-          ),
-          spacedDividerBigTiny,
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          //   child: AppText.body1Bold("Newest addition"),
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 20),
+          //   child: SizedBox(
+          //     height: 125,
+          //     child: ListView.builder(
+          //         scrollDirection: Axis.horizontal,
+          //         shrinkWrap: true,
+          //         physics: ScrollPhysics(),
+          //         itemCount: model.listOfGuarduians.length,
+          //         itemBuilder: (context, index) => Padding(
+          //               padding: const EdgeInsets.only(right: 10),
+          //               child: Column(
+          //                 children: [
+          //                   CustomCircularAvatar(
+          //                     radius: 25,
+          //                     imgPath: model.listOfStaryAnimals[index].avatar ??
+          //                         emptyProfileImgUrl,
+          //                   ),
+          //                   verticalSpaceSmall,
+          //                   AppText.caption(
+          //                     model.listOfStaryAnimals[index].name ?? "-",
+          //                     color: colors.black,
+          //                   ),
+          //                   verticalSpaceSmall,
+          //                   RoundedDecoratedText(value: "7 km"),
+          //                 ],
+          //               ),
+          //             )),
+          //   ),
+          // ),
+          // spacedDividerBigTiny,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: AppText.body1Bold("Discover animals up for mating"),
           ),
-          ListView.separated(
-            physics: ScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (context, index) =>
-                MatingProfileTile(profile: model.listOfStaryAnimals[index]),
-            separatorBuilder: (context, index) => spacedDividerTiny,
-            itemCount: model.listOfStaryAnimals.length,
-          ),
+          model.listOfAnimals.isEmpty
+              ? AppText.body1Bold("No profile found in that location")
+              : ListView.separated(
+                  physics: ScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) =>
+                      MatingProfileTile(profile: model.listOfAnimals[index]),
+                  separatorBuilder: (context, index) => spacedDividerTiny,
+                  itemCount: model.listOfAnimals.length,
+                ),
         ],
       ),
     );

@@ -161,8 +161,8 @@ class AnimalProfileViewModel extends FutureViewModel {
     try {
       EditAnimalProfileMainDetailsBody body = EditAnimalProfileMainDetailsBody(
         _Id,
-        _username,
         _profilename,
+        _username,
         _shortBio,
         _avatar,
       );
@@ -199,9 +199,15 @@ class AnimalProfileViewModel extends FutureViewModel {
     );
   }
 
-  void goToPostDetailsView(FeedPostResponse postResponse) async {
-    await _navigationService.navigateTo(Routes.singlePostDetailsView,
+  void goToPostDetailsView(FeedPostResponse postResponse, int index) async {
+    var result = await _navigationService.navigateTo(
+        Routes.singlePostDetailsView,
         arguments: SinglePostDetailsViewArguments(postResponse: postResponse));
+
+    if (result == 1) {
+      _listOfPosts.removeAt(index);
+      notifyListeners();
+    }
   }
 
   void goToAnimalEdit() async {
@@ -247,7 +253,7 @@ class AnimalProfileViewModel extends FutureViewModel {
       notifyListeners();
     }
     getAnimalDetails();
-    getAnimalPosts();
+    getAnimalPosts(fromRefresh: fromRefresh);
   }
 
   Future getAnimalPosts({bool fromRefresh = false}) async {

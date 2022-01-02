@@ -11,4 +11,5 @@ enum BottomSheetType {
   ConfirmEndWalkBottomSheet,
   CancelSubscriptionBottomSheet,
   DeletePostBottomSheet,
+  BasicListOfOptionsBottomSheet,
 }

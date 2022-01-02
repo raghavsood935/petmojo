@@ -42,6 +42,7 @@ _$_GuardianDetailsResponse _$$_GuardianDetailsResponseFromJson(
       Id: json['_id'] as String?,
       email: json['email'] as String?,
       username: json['username'] as String?,
+      fullName: json['fullName'] as String?,
       avatar: json['avatar'] as String?,
     );
 
@@ -52,5 +53,6 @@ Map<String, dynamic> _$$_GuardianDetailsResponseToJson(
       '_id': instance.Id,
       'email': instance.email,
       'username': instance.username,
+      'fullName': instance.fullName,
       'avatar': instance.avatar,
     };

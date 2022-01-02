@@ -623,12 +623,13 @@ Widget countRowItem(int count, String type) => Column(
     );
 
 Widget completeProfileItem(
-        IconData icon, String message, String actionText, void action()) =>
+        IconData icon, String message, String actionText, void action(),
+        {double? height}) =>
     Card(
       elevation: 5.0,
       child: SizedBox(
         width: 125,
-        height: 135,
+        height: height ?? 135,
         child: Stack(
           children: [
             Positioned(

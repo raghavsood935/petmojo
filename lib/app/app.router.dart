@@ -38,7 +38,10 @@ import '../ui/feedback/feedback_view.dart';
 import '../ui/for_you/for_you_search/for_you_tab_search_view.dart';
 import '../ui/forgotpassword/forgotpassword_view.dart';
 import '../ui/forgotpassword/new_password_view.dart';
-import '../ui/groups/create_group/create_group_view.dart';
+import '../ui/groups/create_group/create_group_fisrt_page/create_group_fisrt_page_view.dart';
+import '../ui/groups/create_group/create_group_second_page/create_group_second_page_view.dart';
+import '../ui/groups/create_group/create_group_third_page/create_group_third_page_view.dart';
+import '../ui/groups/explore_groups/explore_groups_view.dart';
 import '../ui/groups/group_info/group_info_view.dart';
 import '../ui/groups/groups_view.dart';
 import '../ui/groups/manage_group/edit_group_info/edit_group_info_view.dart';
@@ -107,11 +110,14 @@ class Routes {
   static const String postDetialsPageView = '/post-detials-page-view';
   static const String singlePostDetailsView = '/single-post-details-view';
   static const String groupsView = '/groups-view';
-  static const String createGroupView = '/create-group-view';
+  static const String createGroupFirstView = '/create-group-first-view';
+  static const String createGroupSecondView = '/create-group-second-view';
+  static const String createGroupThirdView = '/create-group-third-view';
   static const String groupInfoView = '/group-info-view';
   static const String manageGroupView = '/manage-group-view';
   static const String editGroupBasicInfo = '/edit-group-basic-info';
   static const String membersView = '/members-view';
+  static const String exploreGroupView = '/explore-group-view';
   static const String postCreation = '/post-creation';
   static const String newPostLocation = '/new-post-location';
   static const String newPost = '/new-post';
@@ -166,11 +172,14 @@ class Routes {
     postDetialsPageView,
     singlePostDetailsView,
     groupsView,
-    createGroupView,
+    createGroupFirstView,
+    createGroupSecondView,
+    createGroupThirdView,
     groupInfoView,
     manageGroupView,
     editGroupBasicInfo,
     membersView,
+    exploreGroupView,
     postCreation,
     newPostLocation,
     newPost,
@@ -234,11 +243,14 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.postDetialsPageView, page: PostDetialsPageView),
     RouteDef(Routes.singlePostDetailsView, page: SinglePostDetailsView),
     RouteDef(Routes.groupsView, page: GroupsView),
-    RouteDef(Routes.createGroupView, page: CreateGroupView),
+    RouteDef(Routes.createGroupFirstView, page: CreateGroupFirstView),
+    RouteDef(Routes.createGroupSecondView, page: CreateGroupSecondView),
+    RouteDef(Routes.createGroupThirdView, page: CreateGroupThirdView),
     RouteDef(Routes.groupInfoView, page: GroupInfoView),
     RouteDef(Routes.manageGroupView, page: ManageGroupView),
     RouteDef(Routes.editGroupBasicInfo, page: EditGroupBasicInfo),
     RouteDef(Routes.membersView, page: MembersView),
+    RouteDef(Routes.exploreGroupView, page: ExploreGroupView),
     RouteDef(Routes.postCreation, page: PostCreation),
     RouteDef(Routes.newPostLocation, page: NewPostLocation),
     RouteDef(Routes.newPost, page: NewPost),
@@ -542,33 +554,91 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
-    CreateGroupView: (data) {
+    CreateGroupFirstView: (data) {
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => const CreateGroupView(),
+        builder: (context) => const CreateGroupFirstView(),
+        settings: data,
+      );
+    },
+    CreateGroupSecondView: (data) {
+      var args = data.getArgs<CreateGroupSecondViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => CreateGroupSecondView(
+          key: args.key,
+          groupId: args.groupId,
+          isFromEditView: args.isFromEditView,
+          description: args.description,
+          hashtag: args.hashtag,
+        ),
+        settings: data,
+      );
+    },
+    CreateGroupThirdView: (data) {
+      var args = data.getArgs<CreateGroupThirdViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => CreateGroupThirdView(
+          key: args.key,
+          groupId: args.groupId,
+          isFromEditView: args.isFromEditView,
+        ),
         settings: data,
       );
     },
     GroupInfoView: (data) {
+      var args = data.getArgs<GroupInfoViewArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => const GroupInfoView(),
+        builder: (context) => GroupInfoView(
+          key: args.key,
+          groupId: args.groupId,
+        ),
         settings: data,
       );
     },
     ManageGroupView: (data) {
+      var args = data.getArgs<ManageGroupViewArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => const ManageGroupView(),
+        builder: (context) => ManageGroupView(
+          key: args.key,
+          groupId: args.groupId,
+          name: args.name,
+          avatar: args.avatar,
+          description: args.description,
+          hashTag: args.hashTag,
+          isMember: args.isMember,
+          isAdmin: args.isAdmin,
+        ),
         settings: data,
       );
     },
     EditGroupBasicInfo: (data) {
+      var args = data.getArgs<EditGroupBasicInfoArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => const EditGroupBasicInfo(),
+        builder: (context) => EditGroupBasicInfo(
+          key: args.key,
+          groupId: args.groupId,
+          name: args.name,
+          avatar: args.avatar,
+          description: args.description,
+          hashTag: args.hashTag,
+        ),
         settings: data,
       );
     },
     MembersView: (data) {
+      var args = data.getArgs<MembersViewArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => const MembersView(),
+        builder: (context) => MembersView(
+          key: args.key,
+          groupId: args.groupId,
+          isMember: args.isMember,
+          isAdmin: args.isAdmin,
+        ),
+        settings: data,
+      );
+    },
+    ExploreGroupView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const ExploreGroupView(),
         settings: data,
       );
     },
@@ -990,6 +1060,88 @@ class SinglePostDetailsViewArguments {
   final Key? key;
   final FeedPostResponse postResponse;
   SinglePostDetailsViewArguments({this.key, required this.postResponse});
+}
+
+/// CreateGroupSecondView arguments holder class
+class CreateGroupSecondViewArguments {
+  final Key? key;
+  final String groupId;
+  final bool isFromEditView;
+  final String description;
+  final List<String> hashtag;
+  CreateGroupSecondViewArguments(
+      {this.key,
+      required this.groupId,
+      required this.isFromEditView,
+      required this.description,
+      required this.hashtag});
+}
+
+/// CreateGroupThirdView arguments holder class
+class CreateGroupThirdViewArguments {
+  final Key? key;
+  final String groupId;
+  final bool isFromEditView;
+  CreateGroupThirdViewArguments(
+      {this.key, required this.groupId, required this.isFromEditView});
+}
+
+/// GroupInfoView arguments holder class
+class GroupInfoViewArguments {
+  final Key? key;
+  final String groupId;
+  GroupInfoViewArguments({this.key, required this.groupId});
+}
+
+/// ManageGroupView arguments holder class
+class ManageGroupViewArguments {
+  final Key? key;
+  final String groupId;
+  final String name;
+  final String avatar;
+  final String description;
+  final List<String> hashTag;
+  final bool isMember;
+  final bool isAdmin;
+  ManageGroupViewArguments(
+      {this.key,
+      required this.groupId,
+      required this.name,
+      required this.avatar,
+      required this.description,
+      required this.hashTag,
+      required this.isMember,
+      required this.isAdmin});
+}
+
+/// EditGroupBasicInfo arguments holder class
+class EditGroupBasicInfoArguments {
+  final Key? key;
+  final String groupId;
+  final String name;
+  final String avatar;
+  final String description;
+  final List<String> hashTag;
+  EditGroupBasicInfoArguments(
+      {this.key,
+      required this.groupId,
+      required this.name,
+      required this.avatar,
+      required this.description,
+      required this.hashTag});
+}
+
+/// MembersView arguments holder class
+class MembersViewArguments {
+  final Key? key;
+  final String groupId;
+  final bool isMember;
+  final bool isAdmin;
+  MembersViewArguments(
+      {this.key,
+      required this.groupId,
+      required this.isMember,
+      required this.isAdmin});
 }
 
 /// NewPost arguments holder class

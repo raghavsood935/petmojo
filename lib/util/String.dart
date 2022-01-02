@@ -170,10 +170,14 @@ String select = "Select";
 //feed page
 String myTales = "My tails";
 String createPost = "Create a pawsome post";
+String createFirstPost = "Start with you first post";
 String photoVideo = "Photo/Video";
 
-//post options
+//delete alert messages
 String deletePostConfirmation = "Are you sure do you want to delete this post?";
+String deleteGroupConfirmation =
+    "Are you sure do you want to delete this Group?";
+String leaveGroupConfirmation = "Are you sure do you want to leave this Group?";
 
 // Booking Service
 
