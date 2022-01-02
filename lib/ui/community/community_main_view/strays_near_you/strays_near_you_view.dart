@@ -63,7 +63,7 @@ class _StraysNearYouViewState extends State<StraysNearYouView> {
             padding: const EdgeInsets.symmetric(horizontal: 5),
             child: SearchTextField(
               controller: model.searchTC,
-              onChange: model.onSearchChange,
+              onChange: (value) {},
               hint: "Search for strays",
             ),
           ),
@@ -79,47 +79,49 @@ class _StraysNearYouViewState extends State<StraysNearYouView> {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: AppText.body1("Discover strays near you"),
           ),
-          ListView.separated(
-            physics: ScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (context, index) => StrayAnimalProfileTile(
-                profile: model.listOfStaryAnimals[index]),
-            separatorBuilder: (context, index) => (index + 1) % 3 != 0 ||
-                    index == 0
-                ? spacedDividerTiny
-                : Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      spacedDividerBigTiny,
-                      verticalSpaceTiny,
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: AppText.body1Bold(
-                            "Discover stray guardians near you"),
-                      ),
-                      verticalSpaceRegular,
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: SizedBox(
-                          height: 125,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            physics: ScrollPhysics(),
-                            itemCount: model.listOfGuarduians.length,
-                            itemBuilder: (context, index) => GuardiansListTile(
-                              guardiansProfile: model.listOfGuarduians[index],
-                            ),
-                          ),
-                        ),
-                      ),
-                      verticalSpaceTiny,
-                      spacedDividerBigTiny,
-                    ],
-                  ),
-            itemCount: model.listOfStaryAnimals.length,
-          ),
+          model.listOfAnimals.isEmpty
+              ? AppText.body1Bold("No profile found in that location")
+              : ListView.builder(
+                  physics: ScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) => StrayAnimalProfileTile(
+                      profile: model.listOfAnimals[index]),
+                  // separatorBuilder: (context, index) => (index + 1) % 3 != 0 ||
+                  //         index == 0
+                  //     ? spacedDividerTiny
+                  //     : Column(
+                  //         mainAxisSize: MainAxisSize.min,
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         children: [
+                  //           spacedDividerBigTiny,
+                  //           verticalSpaceTiny,
+                  //           Padding(
+                  //             padding: const EdgeInsets.symmetric(horizontal: 20),
+                  //             child: AppText.body1Bold(
+                  //                 "Discover stray guardians near you"),
+                  //           ),
+                  //           verticalSpaceRegular,
+                  //           Padding(
+                  //             padding: const EdgeInsets.symmetric(horizontal: 20),
+                  //             child: SizedBox(
+                  //               height: 125,
+                  //               child: ListView.builder(
+                  //                 scrollDirection: Axis.horizontal,
+                  //                 shrinkWrap: true,
+                  //                 physics: ScrollPhysics(),
+                  //                 itemCount: model.listOfGuarduians.length,
+                  //                 itemBuilder: (context, index) => GuardiansListTile(
+                  //                   guardiansProfile: model.listOfGuarduians[index],
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //           ),
+                  //           verticalSpaceTiny,
+                  //           spacedDividerBigTiny,
+                  //         ],
+                  //       ),
+                  itemCount: model.listOfAnimals.length,
+                ),
         ],
       ),
     );

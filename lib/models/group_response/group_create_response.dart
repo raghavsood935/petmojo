@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:tamely/models/my_animal_model.dart';
 
-part 'group_create_resopnse.freezed.dart';
-part 'group_create_resopnse.g.dart';
+part 'group_create_response.freezed.dart';
+part 'group_create_response.g.dart';
 
 @freezed
 class GroupCreateResponse with _$GroupCreateResponse {

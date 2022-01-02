@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/util/Color.dart';
 
@@ -18,6 +19,7 @@ class _GroupsViewState extends State<GroupsView> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<GroupsViewModel>.reactive(
       viewModelBuilder: () => GroupsViewModel(),
+      onModelReady: (model) => model.init(),
       builder: (context, model, child) => DefaultTabController(
         length: model.tabs.length,
         child: Scaffold(
@@ -44,7 +46,27 @@ class _GroupsViewState extends State<GroupsView> {
               ),
             ],
             bottom: TabBar(
-              tabs: model.tabTitles,
+              tabs: [
+                Tab(
+                  child: AppText.body1("My Groups"),
+                ),
+                Tab(
+                  child: model.noOdInvitations > 0
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AppText.body1("Invitations"),
+                            horizontalSpaceSmall,
+                            Image.asset(
+                              animalFootPrintImgPath,
+                              height: 15,
+                              width: 15,
+                            ),
+                          ],
+                        )
+                      : AppText.body1("Invitations"),
+                )
+              ],
             ),
           ),
           // bottomSheet: TabBar(

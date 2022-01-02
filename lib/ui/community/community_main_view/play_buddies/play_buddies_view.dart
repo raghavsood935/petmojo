@@ -3,6 +3,7 @@ import 'package:stacked/stacked.dart';
 import 'package:tamely/ui/community/community_main_view/play_buddies/play_buddies_profile_list_tile.dart';
 import 'package:tamely/ui/community/community_main_view/play_buddies/play_buddies_view_model.dart';
 import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/list_constant.dart';
 import 'package:tamely/util/ui_helpers.dart';
@@ -65,7 +66,7 @@ class _PlayBuddiesViewState extends State<PlayBuddiesView> {
             padding: const EdgeInsets.symmetric(horizontal: 5),
             child: SearchTextField(
               controller: model.searchTC,
-              onChange: model.onSearchChange,
+              onChange: (value) {},
               hint: "Search for strays",
             ),
           ),
@@ -77,87 +78,91 @@ class _PlayBuddiesViewState extends State<PlayBuddiesView> {
               onChange: model.onFilterChange,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: AppText.body1Bold("Pets playing right now near you"),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: SizedBox(
-              height: 125,
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  physics: ScrollPhysics(),
-                  itemCount: model.listOfGuarduians.length,
-                  itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: Column(
-                          children: [
-                            CustomCircularAvatar(
-                              radius: 25,
-                              imgPath:
-                                  model.listOfStaryAnimals[index].profileImgUrl,
-                            ),
-                            verticalSpaceSmall,
-                            AppText.caption(
-                              model.listOfStaryAnimals[index].name,
-                              color: colors.black,
-                            ),
-                            verticalSpaceSmall,
-                            RoundedDecoratedText(value: "7 km"),
-                          ],
-                        ),
-                      )),
-            ),
-          ),
-          spacedDividerBigTiny,
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          //   child: AppText.body1Bold("Pets playing right now near you"),
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 20),
+          //   child: SizedBox(
+          //     height: 125,
+          //     child: ListView.builder(
+          //         scrollDirection: Axis.horizontal,
+          //         shrinkWrap: true,
+          //         physics: ScrollPhysics(),
+          //         itemCount: model.listOfGuarduians.length,
+          //         itemBuilder: (context, index) => Padding(
+          //               padding: const EdgeInsets.only(right: 10),
+          //               child: Column(
+          //                 children: [
+          //                   CustomCircularAvatar(
+          //                     radius: 25,
+          //                     imgPath: model.listOfAnimals[index].avatar ??
+          //                         emptyProfileImgUrl,
+          //                   ),
+          //                   verticalSpaceSmall,
+          //                   AppText.caption(
+          //                     model.listOfAnimals[index].name ?? "-",
+          //                     color: colors.black,
+          //                   ),
+          //                   verticalSpaceSmall,
+          //                   RoundedDecoratedText(value: "7 km"),
+          //                 ],
+          //               ),
+          //             )),
+          //   ),
+          // ),
+          // spacedDividerBigTiny,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: AppText.body1Bold("Discover Play-buddies near you"),
           ),
-          ListView.separated(
-            physics: ScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (context, index) => PlayBuddiesProfileTile(
-                profile: model.listOfStaryAnimals[index]),
-            separatorBuilder: (context, index) =>
-                (index + 1) % 3 != 0 || index == 0
-                    ? spacedDividerTiny
-                    : Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          spacedDividerBigTiny,
-                          verticalSpaceTiny,
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: AppText.body1Bold(
-                                "Discover stray guardians near you"),
-                          ),
-                          verticalSpaceRegular,
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: SizedBox(
-                              height: 125,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                                physics: ScrollPhysics(),
-                                itemCount: model.listOfGuarduians.length,
-                                itemBuilder: (context, index) =>
-                                    GuardiansListTile(
-                                        guardiansProfile:
-                                            model.listOfGuarduians[index]),
+          model.listOfAnimals.isEmpty
+              ? AppText.body1Bold("No profile found in that location")
+              : ListView.separated(
+                  physics: ScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) => PlayBuddiesProfileTile(
+                      profile: model.listOfAnimals[index]),
+                  separatorBuilder: (context, index) => (index + 1) % 3 != 0 ||
+                          index == 0
+                      ? spacedDividerTiny
+                      : Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            spacedDividerBigTiny,
+                            verticalSpaceTiny,
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: AppText.body1Bold(
+                                  "Discover stray guardians near you"),
+                            ),
+                            verticalSpaceRegular,
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: SizedBox(
+                                height: 125,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  physics: ScrollPhysics(),
+                                  itemCount: model.listOfGuarduians.length,
+                                  itemBuilder: (context, index) =>
+                                      GuardiansListTile(
+                                          guardiansProfile:
+                                              model.listOfGuarduians[index]),
+                                ),
                               ),
                             ),
-                          ),
-                          verticalSpaceTiny,
-                          spacedDividerBigTiny,
-                        ],
-                      ),
-            itemCount: model.listOfStaryAnimals.length,
-          ),
+                            verticalSpaceTiny,
+                            spacedDividerBigTiny,
+                          ],
+                        ),
+                  itemCount: model.listOfAnimals.length,
+                ),
         ],
       ),
     );

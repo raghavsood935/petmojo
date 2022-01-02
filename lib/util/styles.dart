@@ -30,7 +30,7 @@ const TextStyle bodyStyle = TextStyle(
 );
 
 const TextStyle titleStyle = TextStyle(
-  fontSize: 16,
+  fontSize: 18,
   fontWeight: FontWeight.w600,
 );
 

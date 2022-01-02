@@ -650,43 +650,12 @@ class _ApiClient implements ApiClient {
 
   @override
   Future<AnimalProfileCreateResopnse> animalProfileCreate(
-      name,
-      username,
-      avatar,
-      category,
-      bio,
-      animalType,
-      gender,
-      breed,
-      age,
-      mating,
-      adoption,
-      playBuddies,
-      registeredWithKennelClub,
-      playFrom,
-      playTo,
-      location) async {
+      createAnimalProfileBody) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = FormData();
-    _data.fields.add(MapEntry('name', name));
-    _data.fields.add(MapEntry('username', username));
-    _data.fields.add(MapEntry('avatar', avatar));
-    _data.fields.add(MapEntry('category', category));
-    _data.fields.add(MapEntry('bio', bio));
-    _data.fields.add(MapEntry('animalType', animalType));
-    _data.fields.add(MapEntry('gender', gender));
-    _data.fields.add(MapEntry('breed', breed));
-    _data.fields.add(MapEntry('age', age));
-    _data.fields.add(MapEntry('mating', mating.toString()));
-    _data.fields.add(MapEntry('adoption', adoption.toString()));
-    _data.fields.add(MapEntry('playBuddies', playBuddies.toString()));
-    _data.fields.add(MapEntry(
-        'registeredWithKennelClub', registeredWithKennelClub.toString()));
-    _data.fields.add(MapEntry('playFrom', playFrom));
-    _data.fields.add(MapEntry('playTo', playTo));
-    _data.fields.add(MapEntry('location', location));
+    final _data = <String, dynamic>{};
+    _data.addAll(createAnimalProfileBody.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<AnimalProfileCreateResopnse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
@@ -698,92 +667,15 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<EditResponse> editAnimalProfile(
-      name,
-      username,
-      avatar,
-      category,
-      bio,
-      animalType,
-      gender,
-      breed,
-      age,
-      mating,
-      adoption,
-      playBuddies,
-      registeredWithKennelClub,
-      playFrom,
-      playTo,
-      location,
-      servicePet,
-      spayed,
-      animalId) async {
+  Future<EditResponse> editAnimalProfile(editAnimalProfileBody) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = FormData();
-    if (name != null) {
-      _data.fields.add(MapEntry('name', name));
-    }
-    if (username != null) {
-      _data.fields.add(MapEntry('username', username));
-    }
-    if (avatar != null) {
-      _data.fields.add(MapEntry('avatar', avatar));
-    }
-    if (category != null) {
-      _data.fields.add(MapEntry('category', category));
-    }
-    if (bio != null) {
-      _data.fields.add(MapEntry('bio', bio));
-    }
-    if (animalType != null) {
-      _data.fields.add(MapEntry('animalType', animalType));
-    }
-    if (gender != null) {
-      _data.fields.add(MapEntry('gender', gender));
-    }
-    if (breed != null) {
-      _data.fields.add(MapEntry('breed', breed));
-    }
-    if (age != null) {
-      _data.fields.add(MapEntry('age', age));
-    }
-    if (mating != null) {
-      _data.fields.add(MapEntry('mating', mating.toString()));
-    }
-    if (adoption != null) {
-      _data.fields.add(MapEntry('adoption', adoption.toString()));
-    }
-    if (playBuddies != null) {
-      _data.fields.add(MapEntry('playBuddies', playBuddies.toString()));
-    }
-    if (registeredWithKennelClub != null) {
-      _data.fields.add(MapEntry(
-          'registeredWithKennelClub', registeredWithKennelClub.toString()));
-    }
-    if (playFrom != null) {
-      _data.fields.add(MapEntry('playFrom', playFrom));
-    }
-    if (playTo != null) {
-      _data.fields.add(MapEntry('playTo', playTo));
-    }
-    if (location != null) {
-      _data.fields.add(MapEntry('location', location));
-    }
-    if (servicePet != null) {
-      _data.fields.add(MapEntry('servicePet', servicePet.toString()));
-    }
-    if (spayed != null) {
-      _data.fields.add(MapEntry('spayed', spayed.toString()));
-    }
-    if (animalId != null) {
-      _data.fields.add(MapEntry('animalId', animalId));
-    }
+    final _data = <String, dynamic>{};
+    _data.addAll(editAnimalProfileBody.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<EditResponse>(
-            Options(method: 'PUT', headers: _headers, extra: _extra)
+            Options(method: 'POST', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/animal/editPet',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
@@ -931,7 +823,7 @@ class _ApiClient implements ApiClient {
 
   @override
   Future<CreatePostResponse> createPost(type, image, caption, filter,
-      Userauthor, Animalauthor, authorType) async {
+      Userauthor, Animalauthor, authorType, group) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -946,6 +838,7 @@ class _ApiClient implements ApiClient {
     _data.fields.add(MapEntry('Userauthor', Userauthor));
     _data.fields.add(MapEntry('Animalauthor', Animalauthor));
     _data.fields.add(MapEntry('authorType', authorType));
+    _data.fields.add(MapEntry('group', group));
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CreatePostResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
@@ -1092,6 +985,41 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<GetGroupInfoResponse> getGroupDetails(groupBasicBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(groupBasicBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetGroupInfoResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/community/getGroupDetails',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GetGroupInfoResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ListOfFeedPostResponse> getGroupPosts(
+      groupBasicWithCounterBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(groupBasicWithCounterBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ListOfFeedPostResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/community/retrieveGroupFeed',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ListOfFeedPostResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<GroupCreateResponse> createGroup(createGroupBody) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -1143,6 +1071,40 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<EditResponse> editCoverPhoto(editGroupCoverBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(editGroupCoverBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<EditResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/community/editCoverPhoto',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = EditResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<EditResponse> editGroupDetails(editGroupDetailsBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(editGroupDetailsBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<EditResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/community/editGroupDetails',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = EditResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<EditResponse> invitePeople(invitePeopleGroupBody) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -1156,6 +1118,296 @@ class _ApiClient implements ApiClient {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = EditResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<GetAllGroupMembersResponse> getMembers(
+      groupBasicWithCounterBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(groupBasicWithCounterBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetAllGroupMembersResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/community/getMembers',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GetAllGroupMembersResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<PendingGroupInvitationResponse> showPendingInvitations() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<PendingGroupInvitationResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/community/showPendingInvitations',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = PendingGroupInvitationResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<GetJoinedGroupResponse> getJoinedGroups() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetJoinedGroupResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/community/getJoinedGroups',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GetJoinedGroupResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<EditResponse> joinGroup(groupBasicBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(groupBasicBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<EditResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/community/joinGroup',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = EditResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<EditResponse> leaveGroup(groupBasicBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(groupBasicBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<EditResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/community/leaveGroup',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = EditResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<EditResponse> makeAdmin(makeGroupAdminBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(makeGroupAdminBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<EditResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/community/makeAdmin',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = EditResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<EditResponse> removeAdmin(makeGroupAdminBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(makeGroupAdminBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<EditResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/community/removeAdmin',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = EditResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<EditResponse> removeMember(makeGroupAdminBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(makeGroupAdminBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<EditResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/community/removeMember',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = EditResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<GetAllGroupResponse> getAllGroups() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetAllGroupResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/community/getAllGroups',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GetAllGroupResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<EditResponse> deleteGroup(groupBasicBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(groupBasicBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<EditResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/community/deleteGroup',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = EditResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<EditResponse> declineInvitation(groupBasicBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(groupBasicBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<EditResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/community/declineInvitation',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = EditResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<getBlogs> GetBlogs() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<getBlogs>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/community/getBlogs',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = getBlogs.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<LikedBlogResponse> likedBlog(likedBlogBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(likedBlogBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<LikedBlogResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/community/likeblog',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = LikedBlogResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<GetAnimalsByLocationResponse> getStrays(
+      getAnimalByLocationBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(getAnimalByLocationBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetAnimalsByLocationResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/community/getStrays',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GetAnimalsByLocationResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<GetAnimalsByLocationResponse> getPlayBuddies(
+      getAnimalByLocationBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(getAnimalByLocationBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetAnimalsByLocationResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/community/getPlayBuddies',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GetAnimalsByLocationResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<GetAnimalsByLocationResponse> getAdoption(
+      getAnimalByLocationBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(getAnimalByLocationBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetAnimalsByLocationResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/community/getAdoption',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GetAnimalsByLocationResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<GetAnimalsByLocationResponse> getMating(
+      getAnimalByLocationBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(getAnimalByLocationBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetAnimalsByLocationResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/community/getMating',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GetAnimalsByLocationResponse.fromJson(_result.data!);
     return value;
   }
 

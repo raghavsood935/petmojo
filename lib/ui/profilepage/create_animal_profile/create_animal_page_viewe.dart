@@ -56,6 +56,7 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                 elevation: 0,
               ),
               body: SingleChildScrollView(
+                controller: model.scrollController,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -454,6 +455,39 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                           false),
                     ),
                     spacedDividerTiny,
+                    Visibility(
+                      visible: model.isLocationPicked,
+                      child: Container(
+                        width: screenWidth(context),
+                        color: colors.primaryLight,
+                        height: 45,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 25),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.location_on_outlined,
+                                size: 20,
+                                color: colors.black,
+                              ),
+                              horizontalSpaceSmall,
+                              AppText.body1(
+                                model.address,
+                                color: colors.black,
+                              ),
+                              Spacer(),
+                              GestureDetector(
+                                onTap: model.changeAddress,
+                                child: AppText.body2(
+                                  "Change",
+                                  color: colors.primary,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                     verticalSpace(100),
                   ],
                 ),

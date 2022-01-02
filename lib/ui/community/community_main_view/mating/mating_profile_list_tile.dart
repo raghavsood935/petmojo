@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:tamely/models/get_animals_by_location_response.dart';
 import 'package:tamely/ui/community/community_main_view/mating/mating_view_model.dart';
 import 'package:tamely/ui/community/community_main_view/play_buddies/play_buddies_view_model.dart';
 import 'package:tamely/ui/community/community_main_view/strays_near_you/strays_near_you_view_model.dart';
 import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/rounded_text.dart';
@@ -10,7 +12,7 @@ import 'package:tamely/widgets/rounded_text.dart';
 class MatingProfileTile extends StatelessWidget {
   const MatingProfileTile({Key? key, required this.profile}) : super(key: key);
 
-  final MatingAnimalProfile profile;
+  final GetAnimalsByLocationDetailsResponse profile;
 
   @override
   Widget build(BuildContext context) {
@@ -35,22 +37,23 @@ class MatingProfileTile extends StatelessWidget {
                       right: 0,
                       child: CircleAvatar(
                         radius: 30,
-                        backgroundImage: NetworkImage(profile.profileImgUrl),
+                        backgroundImage:
+                            NetworkImage(profile.avatar ?? emptyProfileImgUrl),
                       ),
                     ),
-                    Positioned(
-                      bottom: 5,
-                      right: 5,
-                      child: CircleAvatar(
-                        backgroundColor: colors.primary,
-                        child: Icon(
-                          profile.gender == "Male"
-                              ? Icons.male_outlined
-                              : Icons.female_outlined,
-                          color: colors.white,
-                        ),
-                      ),
-                    ),
+                    // Positioned(
+                    //   bottom: 5,
+                    //   right: 5,
+                    //   child: CircleAvatar(
+                    //     backgroundColor: colors.primary,
+                    //     child: Icon(
+                    //       profile.gender == "Male"
+                    //           ? Icons.male_outlined
+                    //           : Icons.female_outlined,
+                    //       color: colors.white,
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -63,28 +66,28 @@ class MatingProfileTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AppText.body2(
-                  profile.name,
+                  profile.name ?? "-",
                   color: colors.black,
                 ),
                 verticalSpaceTiny,
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    AppText.caption(
-                        "${profile.animalType}(${profile.animalBreed})"),
-                    CircleAvatar(
-                      radius: 2,
-                      backgroundColor: colors.primary,
-                    ),
-                    AppText.caption(
-                      "Age:",
-                    ),
-                    AppText.caption(
-                      "${profile.age}years",
-                      color: colors.black,
-                    )
-                  ],
-                ),
+                // Row(
+                //   mainAxisSize: MainAxisSize.max,
+                //   children: [
+                //     AppText.caption(
+                //         "${profile.animalType}(${profile.animalBreed})"),
+                //     CircleAvatar(
+                //       radius: 2,
+                //       backgroundColor: colors.primary,
+                //     ),
+                //     AppText.caption(
+                //       "Age:",
+                //     ),
+                //     AppText.caption(
+                //       "${profile.age}years",
+                //       color: colors.black,
+                //     )
+                //   ],
+                // ),
                 verticalSpaceTiny,
                 AppText.caption(
                   "Registered with Indian kennel club",

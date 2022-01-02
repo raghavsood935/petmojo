@@ -25,7 +25,6 @@ class GeneralInfoView extends StatelessWidget {
       viewModelBuilder: () => GeneralInfoViewModel(),
       onModelReady: (model) {
         model.setSomeDetails(animalModelResponse);
-        model.getLocation(animalModelResponse.location ?? "");
       },
       builder: (context, model, child) => ListView(
         children: [
@@ -50,13 +49,12 @@ class GeneralInfoView extends StatelessWidget {
           detailsRowItem("Service Pet", model.serviecPet),
           detailsRowItem("Spayed", model.spayed),
           spacedDividerBigTiny,
-          // Visibility(
-          //     // visible: animalModelResponse.category! == "Stray",
-          //     visible: false,
-          //     child: detailsRowItem("Location", model.location)),
-          // Visibility(
-          //     visible: animalModelResponse.category! == "Stray",
-          //     child: spacedDividerBigTiny),
+          Visibility(
+              visible: animalModelResponse.location != null,
+              child: detailsRowItem("Location", model.location)),
+          Visibility(
+              visible: animalModelResponse.location != null,
+              child: spacedDividerBigTiny),
           Wrap(
             children: [
               Visibility(

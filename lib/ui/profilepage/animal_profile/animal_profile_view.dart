@@ -426,8 +426,8 @@ class _AnimalProfileViewState extends State<AnimalProfileView> {
                         mainAxisSpacing: 6,
                         crossAxisCount: 3,
                         itemBuilder: (context, index) => GestureDetector(
-                          onTap: () => model
-                              .goToPostDetailsView(model.listOfPosts[index]),
+                          onTap: () => model.goToPostDetailsView(
+                              model.listOfPosts[index], index),
                           child: postItem(
                             context,
                             index,
@@ -448,7 +448,7 @@ class _AnimalProfileViewState extends State<AnimalProfileView> {
 }
 
 Widget postItem(BuildContext context, int index, String url) => Container(
-      // height: getPostItemHeight(context, index),
+      height: getPostItemHeight(context, index),
       margin: EdgeInsets.all(3),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),

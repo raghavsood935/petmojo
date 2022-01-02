@@ -33,7 +33,9 @@ _$_MyAnimalModelResponse _$$_MyAnimalModelResponseFromJson(
       thingsDislikes: json['thingsDislikes'] as String?,
       uniqueHabits: json['uniqueHabits'] as String?,
       eatingHabits: json['eatingHabits'] as String?,
-      location: json['location'] as String?,
+      location: json['location'] == null
+          ? null
+          : LatLongResponse.fromJson(json['location'] as Map<String, dynamic>),
       guardians: (json['guardians'] as List<dynamic>?)
           ?.map(
               (e) => GuardiansModelResponse.fromJson(e as Map<String, dynamic>))

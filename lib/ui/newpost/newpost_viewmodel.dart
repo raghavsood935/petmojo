@@ -7,6 +7,7 @@ import 'package:tamely/api/base_response.dart';
 import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
+import 'package:tamely/models/group_response/get_joined_groups_response.dart';
 import 'package:tamely/models/pet_basic_details_response.dart';
 import 'package:tamely/models/user_details_model.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
@@ -21,9 +22,26 @@ class NewPostViewModel extends FutureViewModel<void> implements Initialisable {
   final _snackBarService = locator<SnackbarService>();
   final _tamelyApi = locator<TamelyApi>();
 
+  bool isHuman = true;
+  String petId = "";
+  String petToken = "";
+
   bool isLoading = false;
+  bool isGroupLoading = false;
 
   List<PostOnProfile> postOn = [];
+  List<PostOnProfile> postOnGroup = [];
+
+  Future init() async {
+    CurrentProfile profile = _sharedPrefService.getCurrentProfile();
+    isHuman = profile.isHuman;
+    petId = profile.petId;
+    petToken = profile.petToken;
+    notifyListeners();
+
+    getUSerDetails();
+    getGroupDetail();
+  }
 
   Future getUSerDetails() async {
     isLoading = true;
@@ -33,6 +51,7 @@ class NewPostViewModel extends FutureViewModel<void> implements Initialisable {
         await _tamelyApi.getUserProfileDetail();
     if (response.getException != null) {
       ServerError error = response.getException as ServerError;
+      isLoading = false;
       notifyListeners();
       _snackBarService.showSnackbar(message: error.getErrorMessage());
     } else if (response.data != null) {
@@ -47,6 +66,7 @@ class NewPostViewModel extends FutureViewModel<void> implements Initialisable {
           isChecked: false,
           token: "",
           isHuman: true,
+          isGroup: false,
         ),
       );
 
@@ -61,6 +81,7 @@ class NewPostViewModel extends FutureViewModel<void> implements Initialisable {
             isChecked: false,
             token: petResponse.detailsResponse!.token ?? "",
             isHuman: false,
+            isGroup: false,
           ),
         );
       }
@@ -70,19 +91,55 @@ class NewPostViewModel extends FutureViewModel<void> implements Initialisable {
     }
   }
 
+  Future getGroupDetail() async {
+    isGroupLoading = true;
+    notifyListeners();
+
+    BaseResponse<GetJoinedGroupResponse> response =
+        await _tamelyApi.getJoinedGroups(isHuman, petToken: petToken);
+    if (response.getException != null) {
+      ServerError error = response.getException as ServerError;
+      isGroupLoading = false;
+      notifyListeners();
+      _snackBarService.showSnackbar(message: error.getErrorMessage());
+    } else if (response.data != null) {
+      for (GetJoinedGroupInfoResponse grpResponse
+          in response.data!.listOfJoinedGroup ?? []) {
+        postOnGroup.add(
+          PostOnProfile(
+            id: grpResponse.group!.Id ?? "",
+            profileimg: grpResponse.group!.avatar ?? emptyProfileImgUrl,
+            name: grpResponse.group!.name ?? "-",
+            isChecked: false,
+            isHuman: true,
+            token: "",
+            isGroup: true,
+          ),
+        );
+      }
+
+      isGroupLoading = false;
+      notifyListeners();
+    }
+  }
+
   Future post(String path, String caption) async {
     bool posting = false;
 
-    for (PostOnProfile profile in postOn) {
+    List<PostOnProfile> finalList = postOn + postOnGroup;
+
+    for (PostOnProfile profile in finalList) {
       if (profile.isChecked) {
         posting = true;
         _tamelyApi.createPost(
-            File(path),
-            caption,
-            GlobalMethods.getProfileType(profile.isHuman),
-            profile.id,
-            profile.isHuman,
-            profile.token);
+          File(path),
+          caption,
+          GlobalMethods.getProfileType(profile.isHuman),
+          profile.id,
+          profile.isHuman,
+          profile.token,
+          profile.isGroup ? profile.id : "",
+        );
       }
     }
 
@@ -145,6 +202,7 @@ class PostOnProfile {
   String id;
   String token;
   bool isHuman;
+  bool isGroup;
   String profileimg;
   String name;
   bool isChecked;
@@ -155,7 +213,8 @@ class PostOnProfile {
       required this.name,
       required this.isChecked,
       required this.token,
-      required this.isHuman});
+      required this.isHuman,
+      required this.isGroup});
 
   void onSelectedChange() {
     isChecked = !isChecked;

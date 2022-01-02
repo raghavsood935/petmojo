@@ -28,7 +28,7 @@ class DeletePostBottomSheet extends StatelessWidget {
         children: [
           verticalSpaceLarge,
           AppText.subheading(
-            deletePostConfirmation,
+            sheetRequest.title ?? "",
             textAlign: TextAlign.center,
           ),
           verticalSpaceMedium,
@@ -51,7 +51,7 @@ class DeletePostBottomSheet extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    "CANCEL",
+                    sheetRequest.secondaryButtonTitle ?? "CANCEL",
                     style: TextStyle(
                         color: colors.primary,
                         fontWeight: FontWeight.bold,
@@ -71,7 +71,7 @@ class DeletePostBottomSheet extends StatelessWidget {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: Text(
-                    "DELETE",
+                    sheetRequest.mainButtonTitle ?? "DELETE",
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

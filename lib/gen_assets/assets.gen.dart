@@ -180,6 +180,14 @@ class $AssetsImagesGen {
   /// File path: assets/images/main_bg.png
   AssetGenImage get mainBg => const AssetGenImage('assets/images/main_bg.png');
 
+  /// File path: assets/images/marker_icon_destination.png
+  AssetGenImage get markerIconDestination =>
+      const AssetGenImage('assets/images/marker_icon_destination.png');
+
+  /// File path: assets/images/marker_icon_start.png
+  AssetGenImage get markerIconStart =>
+      const AssetGenImage('assets/images/marker_icon_start.png');
+
   /// File path: assets/images/mini.png
   AssetGenImage get mini => const AssetGenImage('assets/images/mini.png');
 

@@ -23,6 +23,9 @@ class _ExploreBlogsState extends State<ExploreBlogs> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ExploreBlogsViewModel>.reactive(
       viewModelBuilder: () => ExploreBlogsViewModel(),
+      onModelReady: (model) {
+        model.onInit();
+      },
       builder: (context, model, child) => Scaffold(
           appBar: AppBar(
             elevation: 0.5,
@@ -95,14 +98,17 @@ class _ExploreBlogsState extends State<ExploreBlogs> {
                                 itemCount: 4,
                                 itemBuilder: (context, index) =>
                                     GestureDetector(
-                                  child: rowPost(model.vidoes[index]),
+                                  child: rowPost(
+                                      model.listOfBlogs[index],
+                                      model.likedBlog(
+                                          model.listOfBlogs[index].sId)),
                                   onTap: () {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => BlogScreen(),
                                         settings: RouteSettings(
-                                          arguments: model.vidoes[index],
+                                          arguments: model.listOfBlogs[index],
                                         ),
                                       ),
                                     );
@@ -140,14 +146,15 @@ class _ExploreBlogsState extends State<ExploreBlogs> {
                                   MaterialPageRoute(
                                     builder: (context) => BlogScreen(),
                                     settings: RouteSettings(
-                                      arguments: model.vidoes[index + 4],
+                                      arguments: model.listOfBlogs[index + 4],
                                     ),
                                   ),
                                 );
                               },
                               child: rowPost(
-                                model.vidoes[index + 4],
-                              ),
+                                  model.listOfBlogs[index + 4],
+                                  model.likedBlog(
+                                      model.listOfBlogs[index + 4].sId)),
                             ),
                             separatorBuilder:
                                 (BuildContext context, int index) =>
@@ -179,14 +186,15 @@ class _ExploreBlogsState extends State<ExploreBlogs> {
                                   MaterialPageRoute(
                                     builder: (context) => BlogScreen(),
                                     settings: RouteSettings(
-                                      arguments: model.vidoes[index + 8],
+                                      arguments: model.listOfBlogs[index + 8],
                                     ),
                                   ),
                                 );
                               },
                               child: rowPost(
-                                model.vidoes[index + 8],
-                              ),
+                                  model.listOfBlogs[index + 8],
+                                  model.likedBlog(
+                                      model.listOfBlogs[index + 8].sId)),
                             ),
                             separatorBuilder:
                                 (BuildContext context, int index) =>
@@ -204,7 +212,7 @@ class _ExploreBlogsState extends State<ExploreBlogs> {
   }
 }
 
-Widget rowPost(vido) {
+Widget rowPost(vido, likedBlog) {
   return Card(
     elevation: 0,
     shape: RoundedRectangleBorder(
@@ -239,9 +247,9 @@ Widget rowPost(vido) {
               children: [
                 LikeBtn(
                     initialState: ExploreBlogsViewModel().isLiked,
-                    onTap: () {}),
+                    onTap: likedBlog),
                 Text(
-                  '${vido['hearts']}',
+                  '${vido['likes']}',
                   style: body2Style,
                 ),
                 Spacer(),
