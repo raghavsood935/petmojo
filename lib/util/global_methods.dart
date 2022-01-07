@@ -33,19 +33,23 @@ class GlobalMethods {
 
   static String utcToLocal(String utcTime) {
     // var strToDateTime = DateTime.parse(utcTime,);
-    var strToDateTime =
-        DateFormat("yyyy-MM-ddTHH:mm:ss.sss").parse(utcTime, true);
-    final convertLocal = strToDateTime.toLocal();
+    if (utcTime.length >= 23) {
+      var strToDateTime =
+          DateFormat("yyyy-MM-ddTHH:mm:ss.sss").parse(utcTime, true);
+      final convertLocal = strToDateTime.toLocal();
 
-    var newFormat = DateFormat("dd-MM-yyyy hh:ss aaa");
-    String updateDate = newFormat.format(convertLocal);
+      var newFormat = DateFormat("dd-MM-yyyy hh:ss aaa");
+      String updateDate = newFormat.format(convertLocal);
 
-    return updateDate;
+      return updateDate;
+    } else {
+      return "-";
+    }
   }
 
   static String utcToLocalTrailing(String utcTime) {
     var strToDateTime =
-    DateFormat("yyyy-MM-ddTHH:mm:ss.sss").parse(utcTime, true);
+        DateFormat("yyyy-MM-ddTHH:mm:ss.sss").parse(utcTime, true);
     final convertLocal = strToDateTime.toLocal();
 
     var newFormat = DateFormat("dd-MM-yyyy-hh-ss-aaa");
@@ -74,6 +78,27 @@ class GlobalMethods {
     } else {
       _dialogService.completeDialog(DialogResponse(confirmed: true));
       return "";
+    }
+  }
+
+  static Future<List<String>> imageToTwoLinks(File file) async {
+    _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
+    var response = await _tamelyApi.imageToLink(file);
+
+    if (response.getException != null) {
+      ServerError error = response.getException as ServerError;
+      _dialogService.completeDialog(DialogResponse(confirmed: true));
+      _snackBarService.showSnackbar(message: error.getErrorMessage());
+      return [];
+    } else if (response.data != null) {
+      _dialogService.completeDialog(DialogResponse(confirmed: true));
+      return [
+        response.data!.avatarLinkInnerResponse!.image ?? "",
+        response.data!.avatarLinkInnerResponse!.thumbnail ?? ""
+      ];
+    } else {
+      _dialogService.completeDialog(DialogResponse(confirmed: true));
+      return [];
     }
   }
 }

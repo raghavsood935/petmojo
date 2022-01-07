@@ -364,6 +364,14 @@ class AnimalProfileViewModel extends FutureViewModel {
     _navigationService.navigateTo(Routes.postCreation);
   }
 
+  Future imageTapped(String url) async {
+    await _dialogService.showCustomDialog(
+      variant: DialogType.ImagePopUpDialog,
+      barrierDismissible: true,
+      data: url,
+    );
+  }
+
   @override
   Future futureToRun() {
     // TODO: implement futureToRun

@@ -26,9 +26,11 @@ class blogDetails with _$blogDetails {
     @JsonKey(name: "likes") int? likes,
     @JsonKey(name: "text") String? text,
     @JsonKey(name: "author") String? author,
+    @JsonKey(name: "authorType") String? authorType,
     @JsonKey(name: "title") String? title,
     @JsonKey(name: "peopleLiked") List? peopleLiked,
     @JsonKey(name: "date") String? date,
+    @JsonKey(name: "isLiked") bool? isLiked,
   }) = _blogDetails;
 
   factory blogDetails.fromJson(Map<String, dynamic> json) =>

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/enum/DialogType.dart';
+import 'package:tamely/widgets/dialogs/image_pop_dailog_view.dart';
 import 'package:tamely/widgets/fullscreen_loading_indicator.dart';
 
 import 'basic_dialog.dart';
@@ -21,6 +22,12 @@ void setupDialogUi() {
         ),
     DialogType.LocationDialog: (context, dialogRequest, completer) => Dialog(
           child: LocationDialog(
+            dialogRequest: dialogRequest,
+            onDialogTap: completer,
+          ),
+        ),
+    DialogType.ImagePopUpDialog: (context, dialogRequest, completer) => Dialog(
+          child: ImagePopUpDialogView(
             dialogRequest: dialogRequest,
             onDialogTap: completer,
           ),

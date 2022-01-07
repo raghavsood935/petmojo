@@ -4,8 +4,11 @@ import 'package:tamely/api/api_service.dart';
 import 'package:tamely/api/base_response.dart';
 import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/DialogType.dart';
+import 'package:tamely/models/get_blogs_details_model.dart';
 import 'package:tamely/models/get_blogs_model.dart';
+import 'package:tamely/models/params/counter_body.dart';
 import 'package:tamely/models/params/liked_blog_body.dart';
 
 import 'package:tamely/services/shared_preferences_service.dart';
@@ -21,35 +24,61 @@ class ExploreBlogsViewModel extends BaseModel {
   final _sharedPreferenceService = locator<SharedPreferencesService>();
   final _tamelyApi = locator<TamelyApi>();
   List<blogDetails> listOfBlogs = [];
+  blogDetails? singleBlogDetail;
   bool isLiked = false;
+
+  int _counter = 0;
+  bool _isLoading = false;
+  bool _isEndOfList = false;
+
+  bool isHuman = false;
+  String petId = "";
+  String petToken = "";
 
   void onInit() {
     print("oninit");
+
+    isHuman = _sharedPreferenceService.getCurrentProfile().isHuman;
+    petId = _sharedPreferenceService.getCurrentProfile().petId;
+    petToken = _sharedPreferenceService.getCurrentProfile().petToken;
+
     notifyListeners();
-    getBlogsDetails();
+    getListOfBlogs();
   }
 
-  Future getBlogsDetails() async {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
-      _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
-      BaseResponse<getBlogs> response = await _tamelyApi.GetBlogs();
-      print(response);
-      if (response.getException != null) {
-        ServerError error = response.getException as ServerError;
-        _snackBarService.showSnackbar(message: error.getErrorMessage());
-        print("error found");
-      } else if (response.data != null) {
-        listOfBlogs.addAll(response.data!.blogs ?? []);
-        print(listOfBlogs);
-        print("xyzzz");
+  Future getListOfBlogs() async {
+    _isLoading = true;
+    _isEndOfList = false;
+    notifyListeners();
+    BaseResponse<getBlogs> response =
+        await _tamelyApi.getListOfBlogs(CounterBody(_counter));
+    print(response);
+    if (response.getException != null) {
+      ServerError error = response.getException as ServerError;
+      _snackBarService.showSnackbar(message: error.getErrorMessage());
+      print("error found");
+      _isLoading = false;
+      notifyListeners();
+    } else if (response.data != null) {
+      listOfBlogs.addAll(response.data!.blogs ?? []);
+      if ((response.data!.blogs ?? []).length < 10) {
+        _isEndOfList = true;
         notifyListeners();
-      } else {
-        _navigationService.back();
       }
-    });
+      _counter++;
+      _isLoading = false;
+      notifyListeners();
+    } else {
+      _isLoading = false;
+      notifyListeners();
+    }
   }
 
-//   static List<Map> _vidoes = [
+  bool get isLoading => _isLoading;
+
+  bool get isEndOfList => _isEndOfList;
+
+  //   static List<Map> _vidoes = [
 //     {
 //       'username': 'Sam Haris',
 //       'content':
@@ -510,24 +539,7 @@ class ExploreBlogsViewModel extends BaseModel {
 //     },
 //   ];
 
-  Future likedBlog(blogId) async {
-    _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
-    LikedBlogBody body = LikedBlogBody(blogId);
-
-    var result = await _tamelyApi.likedBlog(body).whenComplete(() {
-      _dialogService.completeDialog(DialogResponse(confirmed: true));
-    });
-    if (result.data != null) {
-      if (result.data!.message != null) {
-        print(result.data!.message!);
-        _navigationService.back();
-        _navigationService.back();
-        _snackBarService.showSnackbar(message: result.data!.message!);
-      }
-    }
-  }
-
-  void goToSearchView() {
-    Get.to(BlogSerachView());
-  }
+// void goToSearchView() {
+  //   Get.to(BlogSerachView());
+  // }
 }

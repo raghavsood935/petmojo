@@ -3,14 +3,13 @@ import 'package:tamely/api/api_service.dart';
 import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
-import 'package:tamely/models/group_response/get_joined_groups_response.dart';
 import 'package:tamely/models/group_response/group_basic_info_response.dart';
 import 'package:tamely/models/params/counter_body.dart';
 import 'package:tamely/models/params/groups/group_basic_body.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
 
-class MyGroupsTabViewModel extends BaseModel {
+class TrendingGroupsViewModel extends BaseModel {
   final _navigationService = locator<NavigationService>();
   final _sharedPrefService = locator<SharedPreferencesService>();
   final _snackbarService = locator<SnackbarService>();
@@ -20,80 +19,54 @@ class MyGroupsTabViewModel extends BaseModel {
   String petId = "";
   String petToken = "";
 
-  bool isJoinedGroupLoading = false;
-  bool isAllGroupLoading = false;
+  int _counter = 0;
+  bool _isLoading = false;
+  bool _isEndOfList = false;
 
-  List<GetJoinedGroupInfoResponse> _listOfManagingGroups = [];
-  List<GetJoinedGroupInfoResponse> _listOfJoinedGroups = [];
-  List<GroupBasicInfoResponse> _listOfAllGroups = [];
+  List<GroupBasicInfoResponse> listOfProfiles = [];
 
-  List<GetJoinedGroupInfoResponse> get listOfManagingGroups =>
-      _listOfManagingGroups;
-
-  List<GetJoinedGroupInfoResponse> get listOfJoinedGroups =>
-      _listOfJoinedGroups;
-
-  List<GroupBasicInfoResponse> get listOfAllGroups => _listOfAllGroups;
-
-  Future createGroup() async {
-    _navigationService.navigateTo(Routes.createGroupFirstView);
+  back() {
+    _navigationService.back();
   }
 
   Future init() async {
     CurrentProfile profile = _sharedPrefService.getCurrentProfile();
+
     isHuman = profile.isHuman;
     petId = profile.petId;
     petToken = profile.petToken;
     notifyListeners();
 
     getAllGroups();
-    getJoinedGroups();
   }
 
-  Future getJoinedGroups() async {
-    isJoinedGroupLoading = true;
-    _listOfJoinedGroups.clear();
-    notifyListeners();
-    var result = await _tamelyApi.getJoinedGroups(isHuman, petToken: petToken);
+  createGroup() {
+    _navigationService.navigateTo(Routes.createGroupFirstView);
+  }
 
-    if (result.getException != null) {
-      ServerError error = result.getException as ServerError;
-      _snackbarService.showSnackbar(message: error.getErrorMessage());
-      isJoinedGroupLoading = false;
-      notifyListeners();
-    } else if (result.data != null) {
-      if (result.data!.success ?? false) {
-        // _listOfJoinedGroups.addAll(result.data!.listOfJoinedGroup ?? []);
-        for (GetJoinedGroupInfoResponse group
-            in result.data!.listOfJoinedGroup ?? []) {
-          if (group.isAdmin ?? false) {
-            _listOfManagingGroups.add(group);
-          } else {
-            _listOfJoinedGroups.add(group);
-          }
-        }
-        isJoinedGroupLoading = false;
-        notifyListeners();
-      }
-    }
+  searchGroup() {
+    _navigationService.navigateTo(Routes.exploreGroupView);
   }
 
   Future getAllGroups() async {
-    isAllGroupLoading = true;
-    _listOfAllGroups.clear();
+    _isLoading = true;
     notifyListeners();
-    var result = await _tamelyApi.getAllGroups(CounterBody(0), isHuman,
+    var result = await _tamelyApi.getAllGroups(CounterBody(_counter), isHuman,
         petToken: petToken);
 
     if (result.getException != null) {
       ServerError error = result.getException as ServerError;
       _snackbarService.showSnackbar(message: error.getErrorMessage());
-      isAllGroupLoading = false;
+      _isLoading = false;
       notifyListeners();
     } else if (result.data != null) {
       if (result.data!.success ?? false) {
-        _listOfAllGroups.addAll(result.data!.listOfGroups ?? []);
-        isAllGroupLoading = false;
+        listOfProfiles.addAll(result.data!.listOfGroups ?? []);
+        if ((result.data!.listOfGroups ?? []).length < 10) {
+          _isEndOfList = true;
+        }
+        _isLoading = false;
+        _counter++;
         notifyListeners();
       }
     }
@@ -122,7 +95,9 @@ class MyGroupsTabViewModel extends BaseModel {
     );
   }
 
-  Future searchGroups() async {
-    _navigationService.navigateTo(Routes.exploreGroupView);
-  }
+  bool get isEndOfList => _isEndOfList;
+
+  bool get isLoading => _isLoading;
+
+  int get counter => _counter;
 }

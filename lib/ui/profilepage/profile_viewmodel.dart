@@ -226,7 +226,7 @@ class ProfileViewModel extends BaseViewModel {
 
   Future getUserPosts() async {
     BaseResponse<ListOfFeedPostResponse> response =
-    await _tamelyApi.getUserPosts(true);
+        await _tamelyApi.getUserPosts(true);
     if (response.getException != null) {
       ServerError error = response.getException as ServerError;
       _snackBarService.showSnackbar(message: error.getErrorMessage());
@@ -515,5 +515,13 @@ class ProfileViewModel extends BaseViewModel {
 
   Future createPost() async {
     _navigationService.navigateTo(Routes.postCreation);
+  }
+
+  Future imageTapped(String url) async {
+    await _dialogService.showCustomDialog(
+      variant: DialogType.ImagePopUpDialog,
+      barrierDismissible: true,
+      data: url,
+    );
   }
 }

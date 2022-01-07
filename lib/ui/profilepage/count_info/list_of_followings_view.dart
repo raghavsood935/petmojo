@@ -78,12 +78,23 @@ class _ListOfFollowingsState extends State<ListOfFollowings> {
                               .followersDetailsResponse!
                               .followersInnerDetailsResponse!
                               .fullName ??
+                          model
+                              .listOfFollowersProfileModel[index]
+                              .profile
+                              .followersDetailsResponse!
+                              .followersInnerDetailsResponse!
+                              .name ??
                           "-"
                       : model
                               .listOfFollowingsProfileModel[index]
                               .followingDetailsResponse!
                               .followingInnerDetailsResponse!
                               .fullName ??
+                          model
+                              .listOfFollowingsProfileModel[index]
+                              .followingDetailsResponse!
+                              .followingInnerDetailsResponse!
+                              .name ??
                           "-"),
                   leading: CustomCircularAvatar(
                       radius: 24,

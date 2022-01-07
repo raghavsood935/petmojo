@@ -164,7 +164,7 @@ class FeedViewModel extends BaseModel {
     }
   }
 
-  void showMde(String mes) {
-    _snackBarService.showSnackbar(message: mes);
+  void showMde() {
+    _snackBarService.showSnackbar(message: _sharedPrefernceService.fcmToken);
   }
 }

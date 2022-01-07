@@ -94,6 +94,12 @@ class AppText extends StatelessWidget {
       Color color = colors.kcPrimaryTextColor})
       : style = bodyStyle.copyWith(color: color);
 
+  AppText.bodyBig(this.text,
+      {this.textAlign,
+      this.isSingleLined,
+      Color color = colors.kcPrimaryTextColor})
+      : style = bodyBigStyle.copyWith(color: color);
+
   @override
   Widget build(BuildContext context) {
     late TextOverflow overflow;

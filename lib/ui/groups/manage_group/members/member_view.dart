@@ -122,15 +122,18 @@ class MembersView extends StatelessWidget {
             ],
           ),
           floatingActionButton: Visibility(
-            visible: model.isMember,
-            child: FloatingActionButton(
-              onPressed: model.leaveGroup,
-              child: Icon(
-                Icons.logout,
-                color: colors.white,
+            visible: model.isAbleToLeave,
+            child: Visibility(
+              visible: model.isMember,
+              child: FloatingActionButton(
+                onPressed: model.leaveGroup,
+                child: Icon(
+                  Icons.logout,
+                  color: colors.white,
+                ),
+                backgroundColor: colors.primary,
+                tooltip: "Leave this Group",
               ),
-              backgroundColor: colors.primary,
-              tooltip: "Leave this Group",
             ),
           ),
         ),
@@ -156,7 +159,7 @@ class MemberListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: AppText.body(model.user!.fullname ?? "-"),
+      title: AppText.body(model.user!.fullname ?? model.user!.name ?? "-"),
       subtitle: Row(
         children: [
           Expanded(
@@ -181,13 +184,17 @@ class MemberListTile extends StatelessWidget {
       ),
       trailing: Visibility(
         visible: isAdmin,
-        child: IconButton(
-          onPressed: () => viewModel.onActionPressed(
-            model.user!.Id ?? "",
-            index,
-            model.isAdmin ?? false,
+        child: Visibility(
+          visible: (model.user!.Id) !=
+              (viewModel.isHuman ? viewModel.humanId : viewModel.petId),
+          child: IconButton(
+            onPressed: () => viewModel.onActionPressed(
+              model.user!.Id ?? "",
+              index,
+              model.isAdmin ?? false,
+            ),
+            icon: Icon(Icons.more_horiz),
           ),
-          icon: Icon(Icons.more_horiz),
         ),
       ),
     );

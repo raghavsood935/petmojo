@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -24,6 +25,22 @@ class _TamelyAppState extends State<TamelyApp> {
 
   final service = locator<SnackbarService>();
 
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
+  void getMessage() {
+    // _firebaseMessaging.configure(
+    //     onMessage: (Map<String, dynamic> message) async {
+    //   print('on message $message');
+    //   // setState(() => _message = message["notification"]["title"]);
+    // }, onResume: (Map<String, dynamic> message) async {
+    //   print('on resume $message');
+    //   // setState(() => _message = message["notification"]["title"]);
+    // }, onLaunch: (Map<String, dynamic> message) async {
+    //   print('on launch $message');
+    //   // setState(() => _message = message["notification"]["title"]);
+    // });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -38,6 +55,8 @@ class _TamelyAppState extends State<TamelyApp> {
       mainButtonTextColor: Colors.black,
     ));
   }
+
+  // void getMessage() {}
 
   @override
   Widget build(BuildContext context) {

@@ -129,10 +129,14 @@ class _ProfileViewState extends State<ProfileView> {
                                         Positioned(
                                           child: GestureDetector(
                                               onTap: () {
-                                                if (!widget.isInspectView)
+                                                if (widget.isInspectView) {
+                                                  model.imageTapped(
+                                                      model.profileImgUrl);
+                                                } else {
                                                   model.onImageButtonPressed(
                                                       ImageSource.gallery,
                                                       context);
+                                                }
                                               },
                                               child: CustomCircularAvatar(
                                                 imgPath: model.profileImgUrl,

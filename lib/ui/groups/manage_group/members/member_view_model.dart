@@ -20,6 +20,7 @@ class MemberViewModel extends BaseModel {
   final _bottomsheetService = locator<BottomSheetService>();
 
   bool isHuman = true;
+  String humanId = "";
   String petId = "";
   String petToken = "";
 
@@ -34,6 +35,10 @@ class MemberViewModel extends BaseModel {
 
   String groupId = "";
 
+  int adminCount = 0;
+  List<String> adminIds = [];
+  bool isAbleToLeave = false;
+
   int get counter => _counter;
   bool get isEndOfList => _isEndOfList;
 
@@ -45,6 +50,7 @@ class MemberViewModel extends BaseModel {
     isHuman = profile.isHuman;
     petId = profile.petId;
     petToken = profile.petToken;
+    humanId = profile.userId;
 
     groupId = grpID;
 
@@ -85,7 +91,32 @@ class MemberViewModel extends BaseModel {
       isLoading = false;
       _counter++;
       notifyListeners();
+      checkAdminCount();
     }
+  }
+
+  Future checkAdminCount() async {
+    adminCount = 0;
+    adminIds.clear();
+    notifyListeners();
+    for (GroupMemberResponse response in members) {
+      if (response.isAdmin ?? false) {
+        adminCount++;
+        adminIds.add(response.user!.Id ?? "");
+      }
+    }
+
+    if (adminCount <= 1) {
+      if (adminIds.contains((isHuman ? humanId : petId))) {
+        isAbleToLeave = false;
+      } else {
+        isAbleToLeave = true;
+      }
+    } else {
+      isAbleToLeave = true;
+    }
+
+    notifyListeners();
   }
 
   Future onActionPressed(String profileID, int index, bool isAdmin) async {

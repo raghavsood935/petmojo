@@ -58,6 +58,7 @@ _$_FollowersInnerDetailsResponse _$$_FollowersInnerDetailsResponseFromJson(
       username: json['username'] as String?,
       avatar: json['avatar'] as String?,
       fullName: json['fullName'] as String?,
+      name: json['name'] as String?,
     );
 
 Map<String, dynamic> _$$_FollowersInnerDetailsResponseToJson(
@@ -67,4 +68,5 @@ Map<String, dynamic> _$$_FollowersInnerDetailsResponseToJson(
       'username': instance.username,
       'avatar': instance.avatar,
       'fullName': instance.fullName,
+      'name': instance.name,
     };
