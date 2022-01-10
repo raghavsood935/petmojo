@@ -5,7 +5,7 @@ description: Tamely application
 # pub.dev using `pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+2
+version: 1.0.0+3
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -38,7 +38,6 @@ dependencies:
 
   #  image cropper
   image_cropper: ^1.4.1
-
 
   #  Auto complete text
   flutter_typeahead: ^3.2.1

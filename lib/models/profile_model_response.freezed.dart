@@ -27,6 +27,7 @@ class _$ProfileResponseTearOff {
       @JsonKey(name: "avatar") String? avatar,
       @JsonKey(name: "type") String? type,
       @JsonKey(name: "fullName") String? fullname,
+      @JsonKey(name: "name") String? name,
       @JsonKey(name: "following") int? following}) {
     return _ProfileResponse(
       Id: Id,
@@ -34,6 +35,7 @@ class _$ProfileResponseTearOff {
       avatar: avatar,
       type: type,
       fullname: fullname,
+      name: name,
       following: following,
     );
   }
@@ -58,6 +60,8 @@ mixin _$ProfileResponse {
   String? get type => throw _privateConstructorUsedError;
   @JsonKey(name: "fullName")
   String? get fullname => throw _privateConstructorUsedError;
+  @JsonKey(name: "name")
+  String? get name => throw _privateConstructorUsedError;
   @JsonKey(name: "following")
   int? get following => throw _privateConstructorUsedError;
 
@@ -78,6 +82,7 @@ abstract class $ProfileResponseCopyWith<$Res> {
       @JsonKey(name: "avatar") String? avatar,
       @JsonKey(name: "type") String? type,
       @JsonKey(name: "fullName") String? fullname,
+      @JsonKey(name: "name") String? name,
       @JsonKey(name: "following") int? following});
 }
 
@@ -97,6 +102,7 @@ class _$ProfileResponseCopyWithImpl<$Res>
     Object? avatar = freezed,
     Object? type = freezed,
     Object? fullname = freezed,
+    Object? name = freezed,
     Object? following = freezed,
   }) {
     return _then(_value.copyWith(
@@ -120,6 +126,10 @@ class _$ProfileResponseCopyWithImpl<$Res>
           ? _value.fullname
           : fullname // ignore: cast_nullable_to_non_nullable
               as String?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
       following: following == freezed
           ? _value.following
           : following // ignore: cast_nullable_to_non_nullable
@@ -141,6 +151,7 @@ abstract class _$ProfileResponseCopyWith<$Res>
       @JsonKey(name: "avatar") String? avatar,
       @JsonKey(name: "type") String? type,
       @JsonKey(name: "fullName") String? fullname,
+      @JsonKey(name: "name") String? name,
       @JsonKey(name: "following") int? following});
 }
 
@@ -162,6 +173,7 @@ class __$ProfileResponseCopyWithImpl<$Res>
     Object? avatar = freezed,
     Object? type = freezed,
     Object? fullname = freezed,
+    Object? name = freezed,
     Object? following = freezed,
   }) {
     return _then(_ProfileResponse(
@@ -185,6 +197,10 @@ class __$ProfileResponseCopyWithImpl<$Res>
           ? _value.fullname
           : fullname // ignore: cast_nullable_to_non_nullable
               as String?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
       following: following == freezed
           ? _value.following
           : following // ignore: cast_nullable_to_non_nullable
@@ -202,6 +218,7 @@ class _$_ProfileResponse extends _ProfileResponse {
       @JsonKey(name: "avatar") this.avatar,
       @JsonKey(name: "type") this.type,
       @JsonKey(name: "fullName") this.fullname,
+      @JsonKey(name: "name") this.name,
       @JsonKey(name: "following") this.following})
       : super._();
 
@@ -224,12 +241,15 @@ class _$_ProfileResponse extends _ProfileResponse {
   @JsonKey(name: "fullName")
   final String? fullname;
   @override
+  @JsonKey(name: "name")
+  final String? name;
+  @override
   @JsonKey(name: "following")
   final int? following;
 
   @override
   String toString() {
-    return 'ProfileResponse(Id: $Id, username: $username, avatar: $avatar, type: $type, fullname: $fullname, following: $following)';
+    return 'ProfileResponse(Id: $Id, username: $username, avatar: $avatar, type: $type, fullname: $fullname, name: $name, following: $following)';
   }
 
   @override
@@ -244,13 +264,14 @@ class _$_ProfileResponse extends _ProfileResponse {
             (identical(other.type, type) || other.type == type) &&
             (identical(other.fullname, fullname) ||
                 other.fullname == fullname) &&
+            (identical(other.name, name) || other.name == name) &&
             (identical(other.following, following) ||
                 other.following == following));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, Id, username, avatar, type, fullname, following);
+  int get hashCode => Object.hash(
+      runtimeType, Id, username, avatar, type, fullname, name, following);
 
   @JsonKey(ignore: true)
   @override
@@ -270,6 +291,7 @@ abstract class _ProfileResponse extends ProfileResponse {
       @JsonKey(name: "avatar") String? avatar,
       @JsonKey(name: "type") String? type,
       @JsonKey(name: "fullName") String? fullname,
+      @JsonKey(name: "name") String? name,
       @JsonKey(name: "following") int? following}) = _$_ProfileResponse;
   _ProfileResponse._() : super._();
 
@@ -291,6 +313,9 @@ abstract class _ProfileResponse extends ProfileResponse {
   @override
   @JsonKey(name: "fullName")
   String? get fullname;
+  @override
+  @JsonKey(name: "name")
+  String? get name;
   @override
   @JsonKey(name: "following")
   int? get following;

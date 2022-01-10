@@ -210,10 +210,11 @@ class _AlsoLikedGroupsListTileState extends State<AlsoLikedGroupsListTile> {
         },
         child: isJoined
             ? FollowingStaticBtn(
-                trueValue: "Joined", falseValue: "Join", state: true)
+                trueValue: "Joined", falseValue: "  Join   ", state: true)
             : FollowingStaticBtn(
-                trueValue: "Joined", falseValue: "Join", state: false),
+                trueValue: "Joined", falseValue: "  Join    ", state: false),
       ),
+      onTap: () => widget.viewModel.inspectGroup(widget.model.Id ?? ""),
     );
   }
 }

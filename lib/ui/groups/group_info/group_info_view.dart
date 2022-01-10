@@ -13,8 +13,6 @@ import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/util/utils.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/custom_circle_avatar.dart';
-import 'package:tamely/widgets/edit_button.dart';
-import 'package:tamely/widgets/main_btn.dart';
 import 'package:tamely/widgets/post_item_view.dart';
 
 class GroupInfoView extends StatelessWidget {
@@ -32,63 +30,67 @@ class GroupInfoView extends StatelessWidget {
           await model.init(groupId, true);
         },
         child: Scaffold(
-            body: model.isLoading
-                ? Center(
-                    child: CircularProgressIndicator(
-                      color: colors.primary,
-                    ),
-                  )
-                : SafeArea(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AppBar(
-                            backgroundColor: colors.white,
-                            leading: IconButton(
-                              icon: Icon(
-                                Icons.arrow_back_rounded,
-                                color: colors.black,
-                              ),
-                              onPressed: model.back,
+          body: model.isLoading
+              ? Center(
+                  child: CircularProgressIndicator(
+                    color: colors.primary,
+                  ),
+                )
+              : SafeArea(
+                  child: SingleChildScrollView(
+                    physics: ScrollPhysics(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppBar(
+                          backgroundColor: colors.white,
+                          leading: IconButton(
+                            icon: Icon(
+                              Icons.arrow_back_rounded,
+                              color: colors.black,
                             ),
-                            title: AppText.titleBold(tamelyGrp),
-                            actions: [
-                              Visibility(
-                                visible: model.isAdmin,
-                                child: GestureDetector(
-                                  child: Container(
-                                    height: 50,
-                                    margin: EdgeInsets.only(
-                                      right: 20,
-                                      top: 10,
-                                      bottom: 10,
-                                    ),
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 15, vertical: 10),
-                                    decoration: BoxDecoration(
-                                      color: colors.primary,
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: AppText.body1(
-                                      "Manage",
-                                      color: colors.white,
-                                    ),
-                                  ),
-                                  onTap: model.onManageTapped,
-                                ),
-                              ),
-                            ],
+                            onPressed: model.back,
                           ),
-                          Container(
-                            width: double.maxFinite,
-                            height: 225,
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  top: 0,
-                                  right: 0,
-                                  left: 0,
+                          title: AppText.titleBold(tamelyGrp),
+                          actions: [
+                            Visibility(
+                              visible: model.isAdmin,
+                              child: GestureDetector(
+                                child: Container(
+                                  height: 50,
+                                  margin: EdgeInsets.only(
+                                    right: 20,
+                                    top: 10,
+                                    bottom: 10,
+                                  ),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 15, vertical: 10),
+                                  decoration: BoxDecoration(
+                                    color: colors.primary,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: AppText.body1(
+                                    "Manage",
+                                    color: colors.white,
+                                  ),
+                                ),
+                                onTap: model.onManageTapped,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          width: double.maxFinite,
+                          height: 225,
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                top: 0,
+                                right: 0,
+                                left: 0,
+                                child: GestureDetector(
+                                  onTap: () =>
+                                      model.imageTapped(model.coverImgurl),
                                   child: Image.network(
                                     model.coverImgurl,
                                     fit: BoxFit.cover,
@@ -96,79 +98,84 @@ class GroupInfoView extends StatelessWidget {
                                     errorBuilder: errorBuilder,
                                   ),
                                 ),
-                                Positioned(
-                                  left: 20,
-                                  bottom: 0,
+                              ),
+                              Positioned(
+                                left: 20,
+                                bottom: 0,
+                                child: GestureDetector(
+                                  onTap: () =>
+                                      model.imageTapped(model.groupAvatar),
                                   child: CustomCircularAvatar(
                                     radius: 45,
                                     imgPath: model.groupAvatar,
                                   ),
                                 ),
-                                Positioned(
-                                  bottom: 0,
+                              ),
+                              Positioned(
+                                bottom: 0,
+                                right: 20,
+                                child: Visibility(
+                                  visible: model.isMember,
+                                  child: GestureDetector(
+                                    onTap: model.onInviteTapped,
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 5, horizontal: 15),
+                                      decoration: BoxDecoration(
+                                        color: colors.mediumBackgroundColor,
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: AppText.caption(
+                                        "+ Invite",
+                                        color: colors.primary,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Visibility(
+                                visible: model.isAdmin,
+                                child: Positioned(
+                                  top: 10,
                                   right: 20,
-                                  child: Visibility(
-                                    visible: model.isMember,
-                                    child: GestureDetector(
-                                      onTap: model.onInviteTapped,
-                                      child: Container(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 5, horizontal: 15),
-                                        decoration: BoxDecoration(
-                                          color: colors.mediumBackgroundColor,
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: AppText.caption(
-                                          "+ Invite",
-                                          color: colors.primary,
-                                        ),
+                                  child: GestureDetector(
+                                    onTap: () => model.onImageButtonPressed(
+                                        ImageSource.gallery, context),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: colors.black.withOpacity(0.5),
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      padding: EdgeInsets.all(5),
+                                      child: AppText.body1Bold(
+                                        "Change",
+                                        color: colors.primary,
                                       ),
                                     ),
                                   ),
                                 ),
-                                Visibility(
-                                  visible: model.isAdmin,
-                                  child: Positioned(
-                                    top: 10,
-                                    right: 20,
-                                    child: GestureDetector(
-                                      onTap: () => model.onImageButtonPressed(
-                                          ImageSource.gallery, context),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: colors.black.withOpacity(0.5),
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                        ),
-                                        padding: EdgeInsets.all(5),
-                                        child: AppText.body1Bold(
-                                          "Change",
-                                          color: colors.primary,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                // Visibility(
-                                //   visible: !model.isAdmin,
-                                //   child: Positioned(
-                                //     top: 10,
-                                //     left: 10,
-                                //     child: IconButton(
-                                //       icon: Icon(
-                                //         Icons.arrow_back_rounded,
-                                //         color: colors.black,
-                                //       ),
-                                //       onPressed: model.back,
-                                //     ),
-                                //   ),
-                                // ),
-                              ],
-                            ),
+                              ),
+                              // Visibility(
+                              //   visible: !model.isAdmin,
+                              //   child: Positioned(
+                              //     top: 10,
+                              //     left: 10,
+                              //     child: IconButton(
+                              //       icon: Icon(
+                              //         Icons.arrow_back_rounded,
+                              //         color: colors.black,
+                              //       ),
+                              //       onPressed: model.back,
+                              //     ),
+                              //   ),
+                              // ),
+                            ],
                           ),
-                          Padding(
-                            padding: commonPaddding,
+                        ),
+                        Padding(
+                          padding: commonPaddding,
+                          child: SingleChildScrollView(
+                            physics: ScrollPhysics(),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -230,8 +237,11 @@ class GroupInfoView extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Visibility(
-                            visible: model.isMember,
+                        ),
+                        Visibility(
+                          visible: model.isMember,
+                          child: SingleChildScrollView(
+                            physics: ScrollPhysics(),
                             child: Column(
                               children: [
                                 spacedDividerBigTiny,
@@ -255,19 +265,16 @@ class GroupInfoView extends StatelessWidget {
                                           color: colors.kcCaptionGreyColor,
                                         ),
                                         Spacer(),
-                                        GestureDetector(
-                                          onTap: () {},
-                                          child: Row(
-                                            children: [
-                                              Util.getImageChild(
-                                                  imageIcon, 16, 16),
-                                              horizontalSpaceTiny,
-                                              AppText.caption(
-                                                photoVideo,
-                                                color: colors.primary,
-                                              ),
-                                            ],
-                                          ),
+                                        Row(
+                                          children: [
+                                            Util.getImageChild(
+                                                imageIcon, 16, 16),
+                                            horizontalSpaceTiny,
+                                            AppText.caption(
+                                              photoVideo,
+                                              color: colors.primary,
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
@@ -276,12 +283,15 @@ class GroupInfoView extends StatelessWidget {
                               ],
                             ),
                           ),
-                          spacedDividerBigTiny,
-                          Visibility(
-                            visible: model.isAdmin,
-                            child: Visibility(
-                              visible: model.completedProfileStepCount <
-                                  model.completedProfileTotalCount,
+                        ),
+                        spacedDividerBigTiny,
+                        Visibility(
+                          visible: model.isAdmin,
+                          child: Visibility(
+                            visible: model.completedProfileStepCount <
+                                model.completedProfileTotalCount,
+                            child: SingleChildScrollView(
+                              physics: ScrollPhysics(),
                               child: Column(
                                 children: [
                                   Padding(
@@ -334,119 +344,356 @@ class GroupInfoView extends StatelessWidget {
                               ),
                             ),
                           ),
-                          DefaultTabController(
+                        ),
+
+                        // DefaultTabController(
+                        //   length: 2,
+                        //   child: Flexible(
+                        //     child: Scaffold(
+                        //       backgroundColor: colors.white,
+                        //       appBar: TabBar(
+                        //         labelColor: colors.primary,
+                        //         unselectedLabelColor: colors.kcCaptionGreyColor,
+                        //         tabs: [
+                        //           Tab(
+                        //             text: "Group Feed",
+                        //           ),
+                        //           Tab(
+                        //             text: "Photos/Videos",
+                        //           )
+                        //         ],
+                        //       ),
+                        //       body: TabBarView(
+                        //         children: [
+                        //           SingleChildScrollView(
+                        //             physics: ScrollPhysics(),
+                        //             child: Column(
+                        //               children: [
+                        //                 model.listOfPosts.isEmpty
+                        //                     ? Align(
+                        //                         alignment: Alignment.topCenter,
+                        //                         child: AppText.body1Bold(
+                        //                           "\n\nNo Feed found!",
+                        //                           color: colors.primary,
+                        //                         ),
+                        //                       )
+                        //                     : ListView.separated(
+                        //                         shrinkWrap: true,
+                        //                         physics: ScrollPhysics(),
+                        //                         itemCount:
+                        //                             model.listOfPosts.length,
+                        //                         itemBuilder: (context, index) =>
+                        //                             PostItemView(
+                        //                           postResponse:
+                        //                               model.listOfPosts[index],
+                        //                           needToShowComments: true,
+                        //                         ),
+                        //                         separatorBuilder:
+                        //                             (context, index) => Divider(
+                        //                           color: Colors.transparent,
+                        //                         ),
+                        //                       ),
+                        //                 verticalSpaceRegular,
+                        //                 Visibility(
+                        //                   visible: model.isPostLoading,
+                        //                   child: Align(
+                        //                     alignment: Alignment.center,
+                        //                     child: CircularProgressIndicator(
+                        //                       color: colors.primary,
+                        //                     ),
+                        //                   ),
+                        //                 ),
+                        //                 Visibility(
+                        //                   visible: !model.isEndOfList,
+                        //                   child: Visibility(
+                        //                     visible: !model.isPostLoading,
+                        //                     child: GestureDetector(
+                        //                       onTap: model.getGroupPosts,
+                        //                       child: AppText.body1Bold(
+                        //                         "See more Posts",
+                        //                         textAlign: TextAlign.center,
+                        //                         color: colors.primary,
+                        //                       ),
+                        //                     ),
+                        //                   ),
+                        //                 ),
+                        //                 verticalSpaceRegular,
+                        //               ],
+                        //             ),
+                        //           ),
+                        //           SingleChildScrollView(
+                        //             physics: ScrollPhysics(),
+                        //             child: Column(
+                        //               children: [
+                        //                 model.listOfPosts.isEmpty
+                        //                     ? Align(
+                        //                         alignment: Alignment.topCenter,
+                        //                         child: AppText.body1Bold(
+                        //                           "\n\nNo post found!",
+                        //                           color: colors.primary,
+                        //                         ),
+                        //                       )
+                        //                     : StaggeredGridView.countBuilder(
+                        //                         physics: ScrollPhysics(),
+                        //                         shrinkWrap: true,
+                        //                         itemCount:
+                        //                             model.listOfPosts.length,
+                        //                         crossAxisSpacing: 6,
+                        //                         mainAxisSpacing: 6,
+                        //                         crossAxisCount: 3,
+                        //                         itemBuilder: (context, index) =>
+                        //                             GestureDetector(
+                        //                           onTap: () =>
+                        //                               model.goToPostDetailsView(
+                        //                             model.listOfPosts[index],
+                        //                             index,
+                        //                           ),
+                        //                           child: postItem(
+                        //                             context,
+                        //                             index,
+                        //                             model.listOfPosts[index]
+                        //                                 .thumbnail!,
+                        //                           ),
+                        //                         ),
+                        //                         staggeredTileBuilder: (index) =>
+                        //                             StaggeredTile.fit(1),
+                        //                       ),
+                        //                 verticalSpaceRegular,
+                        //                 Visibility(
+                        //                   visible: model.isPostLoading,
+                        //                   child: Align(
+                        //                     alignment: Alignment.center,
+                        //                     child: CircularProgressIndicator(
+                        //                       color: colors.primary,
+                        //                     ),
+                        //                   ),
+                        //                 ),
+                        //                 Visibility(
+                        //                   visible: !model.isEndOfList,
+                        //                   child: Visibility(
+                        //                     visible: !model.isPostLoading,
+                        //                     child: GestureDetector(
+                        //                       onTap: model.getGroupPosts,
+                        //                       child: AppText.body1Bold(
+                        //                         "See more Posts",
+                        //                         textAlign: TextAlign.center,
+                        //                         color: colors.primary,
+                        //                       ),
+                        //                     ),
+                        //                   ),
+                        //                 ),
+                        //                 verticalSpaceRegular,
+                        //               ],
+                        //             ),
+                        //           ),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+
+                        SingleChildScrollView(
+                          physics: ScrollPhysics(),
+                          child: DefaultTabController(
                             length: 2,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Container(
-                                  child: TabBar(tabs: [
-                                    Tab(
-                                      text: "Group Feed",
-                                    ),
-                                    Tab(
-                                      text: "Photos/Videos",
-                                    )
-                                  ]),
-                                ),
-                                Container(
-                                  height: double.maxFinite,
-                                  // height: screenHeight(context),
-                                  child: TabBarView(
-                                    children: [
-                                      model.listOfPosts.isEmpty
-                                          ? Align(
-                                              alignment: Alignment.topCenter,
-                                              child: AppText.body1Bold(
-                                                "\n\nNo Feed found!",
-                                                color: colors.primary,
-                                              ),
-                                            )
-                                          : ListView.separated(
-                                              shrinkWrap: true,
-                                              physics:
-                                                  NeverScrollableScrollPhysics(),
-                                              itemCount:
-                                                  model.listOfPosts.length,
-                                              itemBuilder: (context, index) =>
-                                                  PostItemView(
-                                                postResponse:
-                                                    model.listOfPosts[index],
-                                                needToShowComments: true,
-                                              ),
-                                              separatorBuilder:
-                                                  (context, index) => Divider(
-                                                color: Colors.transparent,
-                                              ),
-                                            ),
-                                      model.listOfPosts.isEmpty
-                                          ? Align(
-                                              alignment: Alignment.topCenter,
-                                              child: AppText.body1Bold(
-                                                "\n\nNo post found!",
-                                                color: colors.primary,
-                                              ),
-                                            )
-                                          : StaggeredGridView.countBuilder(
-                                              physics: ScrollPhysics(),
-                                              shrinkWrap: true,
-                                              itemCount:
-                                                  model.listOfPosts.length,
-                                              crossAxisSpacing: 6,
-                                              mainAxisSpacing: 6,
-                                              crossAxisCount: 3,
-                                              itemBuilder: (context, index) =>
-                                                  GestureDetector(
-                                                onTap: () =>
-                                                    model.goToPostDetailsView(
-                                                  model.listOfPosts[index],
-                                                  index,
-                                                ),
-                                                child: postItem(
-                                                  context,
-                                                  index,
-                                                  model.listOfPosts[index]
-                                                      .thumbnail!,
-                                                ),
-                                              ),
-                                              staggeredTileBuilder: (index) =>
-                                                  StaggeredTile.fit(1),
-                                            ),
-                                    ],
+                            child: SingleChildScrollView(
+                              physics: ScrollPhysics(),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Container(
+                                    child: TabBar(tabs: [
+                                      Tab(
+                                        text: "Group Feed",
+                                      ),
+                                      Tab(
+                                        text: "Photos/Videos",
+                                      )
+                                    ]),
                                   ),
-                                )
-                              ],
-                            ),
-                          ),
-                          verticalSpaceRegular,
-                          Visibility(
-                            visible: model.isPostLoading,
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: CircularProgressIndicator(
-                                color: colors.primary,
+                                  SingleChildScrollView(
+                                    physics: ScrollPhysics(),
+                                    child: Container(
+                                      // height: double.maxFinite,
+                                      height: screenHeight(context),
+                                      child: Padding(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 15),
+                                        child: TabBarView(
+                                          children: [
+                                            SingleChildScrollView(
+                                              physics: ScrollPhysics(),
+                                              child: Column(
+                                                children: [
+                                                  model.listOfPosts.isEmpty
+                                                      ? Align(
+                                                          alignment: Alignment
+                                                              .topCenter,
+                                                          child:
+                                                              AppText.body1Bold(
+                                                            "\n\nNo Feed found!",
+                                                            color:
+                                                                colors.primary,
+                                                          ),
+                                                        )
+                                                      : ListView.separated(
+                                                          shrinkWrap: true,
+                                                          physics:
+                                                              ScrollPhysics(),
+                                                          itemCount: model
+                                                              .listOfPosts
+                                                              .length,
+                                                          itemBuilder: (context,
+                                                                  index) =>
+                                                              PostItemView(
+                                                            postResponse: model
+                                                                    .listOfPosts[
+                                                                index],
+                                                            needToShowComments:
+                                                                true,
+                                                          ),
+                                                          separatorBuilder:
+                                                              (context,
+                                                                      index) =>
+                                                                  Divider(
+                                                            color: Colors
+                                                                .transparent,
+                                                          ),
+                                                        ),
+                                                  verticalSpaceRegular,
+                                                  Visibility(
+                                                    visible:
+                                                        model.isPostLoading,
+                                                    child: Align(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        color: colors.primary,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Visibility(
+                                                    visible: !model.isEndOfList,
+                                                    child: Visibility(
+                                                      visible:
+                                                          !model.isPostLoading,
+                                                      child: GestureDetector(
+                                                        onTap:
+                                                            model.getGroupPosts,
+                                                        child:
+                                                            AppText.body1Bold(
+                                                          "See more Posts",
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          color: colors.primary,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  verticalSpaceRegular,
+                                                ],
+                                              ),
+                                            ),
+                                            SingleChildScrollView(
+                                              physics: ScrollPhysics(),
+                                              child: Column(
+                                                children: [
+                                                  model.listOfPosts.isEmpty
+                                                      ? Align(
+                                                          alignment: Alignment
+                                                              .topCenter,
+                                                          child:
+                                                              AppText.body1Bold(
+                                                            "\n\nNo post found!",
+                                                            color:
+                                                                colors.primary,
+                                                          ),
+                                                        )
+                                                      : StaggeredGridView
+                                                          .countBuilder(
+                                                          physics:
+                                                              ScrollPhysics(),
+                                                          shrinkWrap: true,
+                                                          itemCount: model
+                                                              .listOfPosts
+                                                              .length,
+                                                          crossAxisSpacing: 6,
+                                                          mainAxisSpacing: 6,
+                                                          crossAxisCount: 3,
+                                                          itemBuilder: (context,
+                                                                  index) =>
+                                                              GestureDetector(
+                                                            onTap: () => model
+                                                                .goToPostDetailsView(
+                                                              model.listOfPosts[
+                                                                  index],
+                                                              index,
+                                                            ),
+                                                            child: postItem(
+                                                              context,
+                                                              index,
+                                                              model
+                                                                  .listOfPosts[
+                                                                      index]
+                                                                  .thumbnail!,
+                                                            ),
+                                                          ),
+                                                          staggeredTileBuilder:
+                                                              (index) =>
+                                                                  StaggeredTile
+                                                                      .fit(1),
+                                                        ),
+                                                  verticalSpaceRegular,
+                                                  Visibility(
+                                                    visible:
+                                                        model.isPostLoading,
+                                                    child: Align(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        color: colors.primary,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Visibility(
+                                                    visible: !model.isEndOfList,
+                                                    child: Visibility(
+                                                      visible:
+                                                          !model.isPostLoading,
+                                                      child: GestureDetector(
+                                                        onTap:
+                                                            model.getGroupPosts,
+                                                        child:
+                                                            AppText.body1Bold(
+                                                          "See more Posts",
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          color: colors.primary,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  verticalSpaceRegular,
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
                           ),
-                          Visibility(
-                            visible: !model.isEndOfList,
-                            child: Visibility(
-                              visible: !model.isPostLoading,
-                              child: GestureDetector(
-                                onTap: model.getGroupPosts,
-                                child: AppText.body1Bold(
-                                  "See more Posts",
-                                  textAlign: TextAlign.center,
-                                  color: colors.primary,
-                                ),
-                              ),
-                            ),
-                          ),
-                          verticalSpaceRegular,
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  )),
+                  ),
+                ),
+        ),
       ),
     );
   }

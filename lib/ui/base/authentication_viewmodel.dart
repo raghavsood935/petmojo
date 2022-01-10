@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:stacked/stacked.dart';
@@ -10,10 +12,12 @@ import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/redirect_state.dart';
 import 'package:tamely/models/application_models.dart';
+import 'package:tamely/models/edit_response.dart';
 import 'package:tamely/models/params/login_body.dart';
 import 'package:tamely/models/params/profile_create_body.dart';
 import 'package:tamely/models/params/register_body.dart';
 import 'package:tamely/models/params/social_login_body.dart';
+import 'package:tamely/models/params/update_token_body.dart';
 import 'package:tamely/models/params/verify_mobile_otp_body.dart';
 import 'package:tamely/models/user_response_models.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
@@ -237,35 +241,64 @@ abstract class AuthenticationViewModel extends FormViewModel {
   }
 
   void _handleLoggedInUser(LocalUser currentUser, bool isNewUser,
-      {bool isSocialSignIn = false}) {
-    if (currentUser.confirmed && !isNewUser) {
-      sharedPreferencesService.currentState =
-          getRedirectStateName(RedirectState.Home);
-      navigationService.pushNamedAndRemoveUntil(Routes.dashboard,
-          arguments: DashboardArguments(
-            isNeedToUpdateProfile: true,
-            initialPageState: 0,
-            isHuman: true,
-            petID: "",
-            petToken: "",
-            initialState: 0,
-          ));
-    } else if (!currentUser.confirmed && !isSocialSignIn) {
-      sharedPreferencesService.currentState =
-          getRedirectStateName(RedirectState.Start);
-      navigationService.pushNamedAndRemoveUntil(
-        Routes.confirmOTPView,
-        arguments: ConfirmOTPViewArguments(
-          isEmailVerify: true,
-          verificationData: currentUser.email ?? "",
-          verificationType: getVerificationTypeName(VerificationType.login),
-        ),
-      );
-    } else if (isNewUser) {
-      sharedPreferencesService.currentState =
-          getRedirectStateName(RedirectState.ProfileCreate);
-      navigationService.pushNamedAndRemoveUntil(Routes.profileCreateView,
-          arguments: ProfileCreateViewArguments(user: currentUser));
+      {bool isSocialSignIn = false}) async {
+    await updateToken();
+    await updateToken().whenComplete(() {
+      if (currentUser.confirmed && !isNewUser) {
+        sharedPreferencesService.currentState =
+            getRedirectStateName(RedirectState.Home);
+        navigationService.pushNamedAndRemoveUntil(Routes.dashboard,
+            arguments: DashboardArguments(
+              isNeedToUpdateProfile: true,
+              initialPageState: 0,
+              isHuman: true,
+              petID: "",
+              petToken: "",
+              initialState: 0,
+            ));
+      } else if (!currentUser.confirmed && !isSocialSignIn) {
+        sharedPreferencesService.currentState =
+            getRedirectStateName(RedirectState.Start);
+        navigationService.pushNamedAndRemoveUntil(
+          Routes.confirmOTPView,
+          arguments: ConfirmOTPViewArguments(
+            isEmailVerify: true,
+            verificationData: currentUser.email ?? "",
+            verificationType: getVerificationTypeName(VerificationType.login),
+          ),
+        );
+      } else if (isNewUser) {
+        sharedPreferencesService.currentState =
+            getRedirectStateName(RedirectState.ProfileCreate);
+        navigationService.pushNamedAndRemoveUntil(Routes.profileCreateView,
+            arguments: ProfileCreateViewArguments(user: currentUser));
+      }
+    });
+  }
+
+  Future updateToken() async {
+    final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+
+    String token = "";
+
+    if (sharedPreferencesService.fcmToken != null) {
+      await firebaseMessaging.onTokenRefresh.listen((event) {
+        token = event;
+      });
+    } else {
+      token = (await firebaseMessaging.getToken())!;
+    }
+
+    if (await Util.checkInternetConnectivity()) {
+      BaseResponse<EditResponse> response = await runBusyFuture(
+          _tamelyApi.updateFCMToken(UpdateTokenBody(token)),
+          throwException: true);
+      if (response.data != null) {
+        print("token: ${token} ");
+        sharedPreferencesService.fcmToken = token;
+      }
+    } else {
+      snackBarService.showSnackbar(message: "No Internet connection");
     }
   }
 }

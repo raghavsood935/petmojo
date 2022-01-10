@@ -10,6 +10,7 @@ import 'package:tamely/api/base_response.dart';
 import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
+import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/models/feed_post_response.dart';
 import 'package:tamely/models/group_response/group_basic_info_response.dart';
 import 'package:tamely/models/list_of_feed_post_response.dart';
@@ -25,6 +26,7 @@ class GroupInfoViewModel extends BaseModel {
   final _navigationService = locator<NavigationService>();
   final _sharedPrefService = locator<SharedPreferencesService>();
   final _snackbarService = locator<SnackbarService>();
+  final _dialogService = locator<DialogService>();
   final _tamelyApi = locator<TamelyApi>();
 
   String groupId = "";
@@ -324,5 +326,13 @@ class GroupInfoViewModel extends BaseModel {
       _listOfPosts.removeAt(index);
       notifyListeners();
     }
+  }
+
+  Future imageTapped(String url) async {
+    await _dialogService.showCustomDialog(
+      variant: DialogType.ImagePopUpDialog,
+      barrierDismissible: true,
+      data: url,
+    );
   }
 }

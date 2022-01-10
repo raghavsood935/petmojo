@@ -29,6 +29,11 @@ const TextStyle bodyStyle = TextStyle(
   fontWeight: FontWeight.w400,
 );
 
+const TextStyle bodyBigStyle = TextStyle(
+  fontSize: 18,
+  fontWeight: FontWeight.w400,
+);
+
 const TextStyle titleStyle = TextStyle(
   fontSize: 18,
   fontWeight: FontWeight.w600,

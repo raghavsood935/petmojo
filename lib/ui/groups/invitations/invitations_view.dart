@@ -110,7 +110,8 @@ class _InvitationListTileState extends State<InvitationListTile> {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      widget.viewModel.declineInvitation(widget.model.Id ?? "");
+                      widget.viewModel
+                          .declineInvitation(widget.model.group!.Id ?? "");
                       setState(() {
                         isReacted = true;
                         reactedStatus = false;
@@ -128,7 +129,7 @@ class _InvitationListTileState extends State<InvitationListTile> {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      widget.viewModel.joinGroup(widget.model.Id ?? "");
+                      widget.viewModel.joinGroup(widget.model.group!.Id ?? "");
                       setState(() {
                         isReacted = true;
                         reactedStatus = true;

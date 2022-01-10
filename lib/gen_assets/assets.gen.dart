@@ -80,6 +80,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/feedback.svg
   SvgGenImage get feedback => const SvgGenImage('assets/images/feedback.svg');
 
+  /// File path: assets/images/gallery_color_image.png
+  AssetGenImage get galleryColorImage =>
+      const AssetGenImage('assets/images/gallery_color_image.png');
+
   /// File path: assets/images/google.png
   AssetGenImage get google => const AssetGenImage('assets/images/google.png');
 

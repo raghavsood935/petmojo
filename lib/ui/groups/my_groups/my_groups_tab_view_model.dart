@@ -5,6 +5,7 @@ import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/models/group_response/get_joined_groups_response.dart';
 import 'package:tamely/models/group_response/group_basic_info_response.dart';
+import 'package:tamely/models/params/counter_body.dart';
 import 'package:tamely/models/params/groups/group_basic_body.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
@@ -81,7 +82,8 @@ class MyGroupsTabViewModel extends BaseModel {
     isAllGroupLoading = true;
     _listOfAllGroups.clear();
     notifyListeners();
-    var result = await _tamelyApi.getAllGroups(isHuman, petToken: petToken);
+    var result = await _tamelyApi.getAllGroups(CounterBody(0), isHuman,
+        petToken: petToken);
 
     if (result.getException != null) {
       ServerError error = result.getException as ServerError;

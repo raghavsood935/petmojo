@@ -219,6 +219,23 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<EditResponse> updateFCMToken(updateTokenBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(updateTokenBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<EditResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/auth/registerFCMtoken',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = EditResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<UserNameAvailableResponse> checkUserName(username) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -822,23 +839,12 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<CreatePostResponse> createPost(type, image, caption, filter,
-      Userauthor, Animalauthor, authorType, group) async {
+  Future<CreatePostResponse> createPost(createPostBody) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = FormData();
-    _data.fields.add(MapEntry('type', type));
-    _data.files.add(MapEntry(
-        'image',
-        MultipartFile.fromFileSync(image.path,
-            filename: image.path.split(Platform.pathSeparator).last)));
-    _data.fields.add(MapEntry('caption', caption));
-    _data.fields.add(MapEntry('filter', filter));
-    _data.fields.add(MapEntry('Userauthor', Userauthor));
-    _data.fields.add(MapEntry('Animalauthor', Animalauthor));
-    _data.fields.add(MapEntry('authorType', authorType));
-    _data.fields.add(MapEntry('group', group));
+    final _data = <String, dynamic>{};
+    _data.addAll(createPostBody.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CreatePostResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
@@ -1257,11 +1263,12 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<GetAllGroupResponse> getAllGroups() async {
+  Future<GetAllGroupResponse> getAllGroups(counterBody) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
+    _data.addAll(counterBody.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<GetAllGroupResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
@@ -1307,11 +1314,12 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<getBlogs> GetBlogs() async {
+  Future<getBlogs> GetBlogs(counterBody) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
+    _data.addAll(counterBody.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<getBlogs>(
             Options(method: 'POST', headers: _headers, extra: _extra)
@@ -1336,6 +1344,40 @@ class _ApiClient implements ApiClient {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = LikedBlogResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<GetBlogDetailsResponse> getBlogDetails(likedBlogBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(likedBlogBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetBlogDetailsResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/community/getBlogDetails',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GetBlogDetailsResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<GetBlogLikeDetailsResponse> getBlogLikesDetails(likedBlogBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(likedBlogBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetBlogLikeDetailsResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/community/getLikeDetails',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GetBlogLikeDetailsResponse.fromJson(_result.data!);
     return value;
   }
 

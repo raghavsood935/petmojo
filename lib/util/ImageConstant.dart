@@ -4,11 +4,13 @@ String emptyProfileImgUrl =
 
 String lightSplashScreen = "assets/images/light_splash_screen.png";
 
+String logo = "assets/images/logo.png";
 String logoWithText = "assets/images/logo_with_name.png";
 
 String cameraIcon = "assets/images/camera.svg";
 String editIcon = "assets/images/edit.svg";
 String imageIcon = "assets/images/image.svg";
+String galleryColorIcon = "assets/images/gallery_color_image.png";
 String walletIcon = "assets/images/wallet.svg";
 String bookingIcon = "assets/images/bookings.svg";
 String settingsIcon = "assets/images/setting.svg";

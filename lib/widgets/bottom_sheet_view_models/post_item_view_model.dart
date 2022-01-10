@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
 import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/BottomSheetType.dart';
+import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/models/feed_post_response.dart';
 import 'package:tamely/models/params/delete_post_body.dart';
 import 'package:tamely/models/params/like_dislike_post_body.dart';
@@ -13,12 +15,14 @@ import 'package:tamely/shared/base_viewmodel.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/global_methods.dart';
+import 'package:tamely/widgets/full_screen_image.dart';
 
 class PostItemViewModel extends BaseModel {
   final _bottomsheetService = locator<BottomSheetService>();
   final _sharedPrefernceService = locator<SharedPreferencesService>();
   final navigationService = locator<NavigationService>();
   final _snackBarService = locator<SnackbarService>();
+  final _dialogService = locator<DialogService>();
   final _tamelyApi = locator<TamelyApi>();
 
   String myProfileImg = emptyProfileImgUrl;
@@ -206,5 +210,20 @@ class PostItemViewModel extends BaseModel {
     } else {
       return 0;
     }
+  }
+
+  Future imageTapped(String url) async {
+    // await _dialogService.showCustomDialog(
+    //   variant: DialogType.ImagePopUpDialog,
+    //   barrierDismissible: true,
+    //   data: url,
+    // );
+
+    navigationService.navigateTo(
+      Routes.fullScreenImage,
+      arguments: FullScreenImageArguments(url: url),
+    );
+
+    // Navigator.of(context).push(PageRouteBui)
   }
 }

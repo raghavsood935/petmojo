@@ -8,6 +8,7 @@ import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/models/group_response/get_joined_groups_response.dart';
+import 'package:tamely/models/params/create_post_body.dart';
 import 'package:tamely/models/pet_basic_details_response.dart';
 import 'package:tamely/models/user_details_model.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
@@ -23,6 +24,7 @@ class NewPostViewModel extends FutureViewModel<void> implements Initialisable {
   final _tamelyApi = locator<TamelyApi>();
 
   bool isHuman = true;
+  String userId = "";
   String petId = "";
   String petToken = "";
 
@@ -36,6 +38,7 @@ class NewPostViewModel extends FutureViewModel<void> implements Initialisable {
     CurrentProfile profile = _sharedPrefService.getCurrentProfile();
     isHuman = profile.isHuman;
     petId = profile.petId;
+    userId = profile.userId;
     petToken = profile.petToken;
     notifyListeners();
 
@@ -124,6 +127,13 @@ class NewPostViewModel extends FutureViewModel<void> implements Initialisable {
   }
 
   Future post(String path, String caption) async {
+    List<String> imageLinks = [];
+
+    imageLinks = await GlobalMethods.imageToTwoLinks(File(path));
+    await uploadPost(imageLinks, caption);
+  }
+
+  Future uploadPost(List<String> links, String caption) async {
     bool posting = false;
 
     List<PostOnProfile> finalList = postOn + postOnGroup;
@@ -131,18 +141,40 @@ class NewPostViewModel extends FutureViewModel<void> implements Initialisable {
     for (PostOnProfile profile in finalList) {
       if (profile.isChecked) {
         posting = true;
-        _tamelyApi.createPost(
-          File(path),
-          caption,
-          GlobalMethods.getProfileType(profile.isHuman),
-          profile.id,
-          profile.isHuman,
-          profile.token,
-          profile.isGroup ? profile.id : "",
+        String userAuthor = profile.isGroup
+            ? isHuman
+                ? userId
+                : ""
+            : profile.isHuman
+                ? profile.id
+                : "";
+        String animalAuthor = profile.isGroup
+            ? isHuman
+                ? ""
+                : petId
+            : profile.isHuman
+                ? ""
+                : profile.id;
+        String groupAuthor = profile.isGroup ? profile.id : "";
+        String authorType = profile.isGroup
+            ? GlobalMethods.getProfileType(isHuman)
+            : GlobalMethods.getProfileType(profile.isHuman);
+        await _tamelyApi.createPost(
+          CreatePostBody(
+            caption,
+            "",
+            userAuthor,
+            authorType,
+            links[0],
+            links[1],
+            animalAuthor,
+            groupAuthor,
+          ),
+          isHuman,
+          petToken,
         );
       }
     }
-
     if (posting) {
       CurrentProfile profile = _sharedPrefService.getCurrentProfile();
 

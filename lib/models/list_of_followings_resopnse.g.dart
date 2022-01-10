@@ -58,6 +58,7 @@ _$_FollowingInnerDetailsResponse _$$_FollowingInnerDetailsResponseFromJson(
       username: json['username'] as String?,
       avatar: json['avatar'] as String?,
       fullName: json['fullName'] as String?,
+      name: json['name'] as String?,
     );
 
 Map<String, dynamic> _$$_FollowingInnerDetailsResponseToJson(
@@ -67,4 +68,5 @@ Map<String, dynamic> _$$_FollowingInnerDetailsResponseToJson(
       'username': instance.username,
       'avatar': instance.avatar,
       'fullName': instance.fullName,
+      'name': instance.name,
     };

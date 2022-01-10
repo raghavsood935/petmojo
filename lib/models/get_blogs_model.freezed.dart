@@ -175,9 +175,11 @@ class _$blogDetailsTearOff {
       @JsonKey(name: "likes") int? likes,
       @JsonKey(name: "text") String? text,
       @JsonKey(name: "author") String? author,
+      @JsonKey(name: "authorType") String? authorType,
       @JsonKey(name: "title") String? title,
       @JsonKey(name: "peopleLiked") List<dynamic>? peopleLiked,
-      @JsonKey(name: "date") String? date}) {
+      @JsonKey(name: "date") String? date,
+      @JsonKey(name: "isLiked") bool? isLiked}) {
     return _blogDetails(
       sId: sId,
       images: images,
@@ -185,9 +187,11 @@ class _$blogDetailsTearOff {
       likes: likes,
       text: text,
       author: author,
+      authorType: authorType,
       title: title,
       peopleLiked: peopleLiked,
       date: date,
+      isLiked: isLiked,
     );
   }
 
@@ -213,12 +217,16 @@ mixin _$blogDetails {
   String? get text => throw _privateConstructorUsedError;
   @JsonKey(name: "author")
   String? get author => throw _privateConstructorUsedError;
+  @JsonKey(name: "authorType")
+  String? get authorType => throw _privateConstructorUsedError;
   @JsonKey(name: "title")
   String? get title => throw _privateConstructorUsedError;
   @JsonKey(name: "peopleLiked")
   List<dynamic>? get peopleLiked => throw _privateConstructorUsedError;
   @JsonKey(name: "date")
   String? get date => throw _privateConstructorUsedError;
+  @JsonKey(name: "isLiked")
+  bool? get isLiked => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -238,9 +246,11 @@ abstract class $blogDetailsCopyWith<$Res> {
       @JsonKey(name: "likes") int? likes,
       @JsonKey(name: "text") String? text,
       @JsonKey(name: "author") String? author,
+      @JsonKey(name: "authorType") String? authorType,
       @JsonKey(name: "title") String? title,
       @JsonKey(name: "peopleLiked") List<dynamic>? peopleLiked,
-      @JsonKey(name: "date") String? date});
+      @JsonKey(name: "date") String? date,
+      @JsonKey(name: "isLiked") bool? isLiked});
 }
 
 /// @nodoc
@@ -259,9 +269,11 @@ class _$blogDetailsCopyWithImpl<$Res> implements $blogDetailsCopyWith<$Res> {
     Object? likes = freezed,
     Object? text = freezed,
     Object? author = freezed,
+    Object? authorType = freezed,
     Object? title = freezed,
     Object? peopleLiked = freezed,
     Object? date = freezed,
+    Object? isLiked = freezed,
   }) {
     return _then(_value.copyWith(
       sId: sId == freezed
@@ -288,6 +300,10 @@ class _$blogDetailsCopyWithImpl<$Res> implements $blogDetailsCopyWith<$Res> {
           ? _value.author
           : author // ignore: cast_nullable_to_non_nullable
               as String?,
+      authorType: authorType == freezed
+          ? _value.authorType
+          : authorType // ignore: cast_nullable_to_non_nullable
+              as String?,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -300,6 +316,10 @@ class _$blogDetailsCopyWithImpl<$Res> implements $blogDetailsCopyWith<$Res> {
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as String?,
+      isLiked: isLiked == freezed
+          ? _value.isLiked
+          : isLiked // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -318,9 +338,11 @@ abstract class _$blogDetailsCopyWith<$Res>
       @JsonKey(name: "likes") int? likes,
       @JsonKey(name: "text") String? text,
       @JsonKey(name: "author") String? author,
+      @JsonKey(name: "authorType") String? authorType,
       @JsonKey(name: "title") String? title,
       @JsonKey(name: "peopleLiked") List<dynamic>? peopleLiked,
-      @JsonKey(name: "date") String? date});
+      @JsonKey(name: "date") String? date,
+      @JsonKey(name: "isLiked") bool? isLiked});
 }
 
 /// @nodoc
@@ -341,9 +363,11 @@ class __$blogDetailsCopyWithImpl<$Res> extends _$blogDetailsCopyWithImpl<$Res>
     Object? likes = freezed,
     Object? text = freezed,
     Object? author = freezed,
+    Object? authorType = freezed,
     Object? title = freezed,
     Object? peopleLiked = freezed,
     Object? date = freezed,
+    Object? isLiked = freezed,
   }) {
     return _then(_blogDetails(
       sId: sId == freezed
@@ -370,6 +394,10 @@ class __$blogDetailsCopyWithImpl<$Res> extends _$blogDetailsCopyWithImpl<$Res>
           ? _value.author
           : author // ignore: cast_nullable_to_non_nullable
               as String?,
+      authorType: authorType == freezed
+          ? _value.authorType
+          : authorType // ignore: cast_nullable_to_non_nullable
+              as String?,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -382,6 +410,10 @@ class __$blogDetailsCopyWithImpl<$Res> extends _$blogDetailsCopyWithImpl<$Res>
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as String?,
+      isLiked: isLiked == freezed
+          ? _value.isLiked
+          : isLiked // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -396,9 +428,11 @@ class _$_blogDetails extends _blogDetails {
       @JsonKey(name: "likes") this.likes,
       @JsonKey(name: "text") this.text,
       @JsonKey(name: "author") this.author,
+      @JsonKey(name: "authorType") this.authorType,
       @JsonKey(name: "title") this.title,
       @JsonKey(name: "peopleLiked") this.peopleLiked,
-      @JsonKey(name: "date") this.date})
+      @JsonKey(name: "date") this.date,
+      @JsonKey(name: "isLiked") this.isLiked})
       : super._();
 
   factory _$_blogDetails.fromJson(Map<String, dynamic> json) =>
@@ -423,6 +457,9 @@ class _$_blogDetails extends _blogDetails {
   @JsonKey(name: "author")
   final String? author;
   @override
+  @JsonKey(name: "authorType")
+  final String? authorType;
+  @override
   @JsonKey(name: "title")
   final String? title;
   @override
@@ -431,10 +468,13 @@ class _$_blogDetails extends _blogDetails {
   @override
   @JsonKey(name: "date")
   final String? date;
+  @override
+  @JsonKey(name: "isLiked")
+  final bool? isLiked;
 
   @override
   String toString() {
-    return 'blogDetails(sId: $sId, images: $images, thumbnail: $thumbnail, likes: $likes, text: $text, author: $author, title: $title, peopleLiked: $peopleLiked, date: $date)';
+    return 'blogDetails(sId: $sId, images: $images, thumbnail: $thumbnail, likes: $likes, text: $text, author: $author, authorType: $authorType, title: $title, peopleLiked: $peopleLiked, date: $date, isLiked: $isLiked)';
   }
 
   @override
@@ -449,10 +489,13 @@ class _$_blogDetails extends _blogDetails {
             (identical(other.likes, likes) || other.likes == likes) &&
             (identical(other.text, text) || other.text == text) &&
             (identical(other.author, author) || other.author == author) &&
+            (identical(other.authorType, authorType) ||
+                other.authorType == authorType) &&
             (identical(other.title, title) || other.title == title) &&
             const DeepCollectionEquality()
                 .equals(other.peopleLiked, peopleLiked) &&
-            (identical(other.date, date) || other.date == date));
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.isLiked, isLiked) || other.isLiked == isLiked));
   }
 
   @override
@@ -464,9 +507,11 @@ class _$_blogDetails extends _blogDetails {
       likes,
       text,
       author,
+      authorType,
       title,
       const DeepCollectionEquality().hash(peopleLiked),
-      date);
+      date,
+      isLiked);
 
   @JsonKey(ignore: true)
   @override
@@ -487,9 +532,11 @@ abstract class _blogDetails extends blogDetails {
       @JsonKey(name: "likes") int? likes,
       @JsonKey(name: "text") String? text,
       @JsonKey(name: "author") String? author,
+      @JsonKey(name: "authorType") String? authorType,
       @JsonKey(name: "title") String? title,
       @JsonKey(name: "peopleLiked") List<dynamic>? peopleLiked,
-      @JsonKey(name: "date") String? date}) = _$_blogDetails;
+      @JsonKey(name: "date") String? date,
+      @JsonKey(name: "isLiked") bool? isLiked}) = _$_blogDetails;
   _blogDetails._() : super._();
 
   factory _blogDetails.fromJson(Map<String, dynamic> json) =
@@ -514,6 +561,9 @@ abstract class _blogDetails extends blogDetails {
   @JsonKey(name: "author")
   String? get author;
   @override
+  @JsonKey(name: "authorType")
+  String? get authorType;
+  @override
   @JsonKey(name: "title")
   String? get title;
   @override
@@ -522,6 +572,9 @@ abstract class _blogDetails extends blogDetails {
   @override
   @JsonKey(name: "date")
   String? get date;
+  @override
+  @JsonKey(name: "isLiked")
+  bool? get isLiked;
   @override
   @JsonKey(ignore: true)
   _$blogDetailsCopyWith<_blogDetails> get copyWith =>

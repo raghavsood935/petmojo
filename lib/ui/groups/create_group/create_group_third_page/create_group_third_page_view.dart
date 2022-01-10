@@ -139,7 +139,7 @@ class _ResultProfileListTileState extends State<ResultProfileListTile> {
   Widget build(BuildContext context) {
     return ListTile(
       title: AppText.body(
-        widget.model.fullName ?? "-",
+        widget.model.fullName ?? widget.model.name ?? "-",
         color: colors.black,
       ),
       subtitle: AppText.caption(widget.model.username ?? "-"),

@@ -18,6 +18,8 @@ import 'package:tamely/ui/dogrunners/dogrunners_view.dart';
 import 'package:tamely/ui/dogrunners/location_picker_map.dart';
 import 'package:tamely/ui/dogrunningbooking/dogrunningbooking_view.dart';
 import 'package:tamely/ui/dummy_development_screen.dart';
+import 'package:tamely/ui/exploreblogs/explore_blog_search/blogs_deatils_page/blog_detail_view.dart';
+import 'package:tamely/ui/exploreblogs/explore_blogs_view.dart';
 import 'package:tamely/ui/for_you/for_you_search/for_you_tab_search_view.dart';
 import 'package:tamely/ui/forgotpassword/forgotpassword_view.dart';
 import 'package:tamely/ui/forgotpassword/new_password_view.dart';
@@ -31,6 +33,7 @@ import 'package:tamely/ui/groups/groups_view.dart';
 import 'package:tamely/ui/groups/manage_group/edit_group_info/edit_group_info_view.dart';
 import 'package:tamely/ui/groups/manage_group/manage_group_view.dart';
 import 'package:tamely/ui/groups/manage_group/members/member_view.dart';
+import 'package:tamely/ui/groups/trending_groups/trending_groups_view.dart';
 import 'package:tamely/ui/livemap/livemap_view.dart';
 import 'package:tamely/ui/login/login_view.dart';
 import 'package:tamely/ui/newpost/newpostLocation/newpostLocation_view.dart';
@@ -59,6 +62,7 @@ import 'package:tamely/ui/reportcard/reportcard_view.dart';
 import 'package:tamely/ui/signup/signup_view.dart';
 import 'package:tamely/ui/startup/startup_view.dart';
 import 'package:tamely/ui/tamelydogrunning/tamelydogrunning_view.dart';
+import 'package:tamely/widgets/full_screen_image.dart';
 import '../ui/settings/settings_human_view.dart';
 import '../ui/settings/settings_animal_view.dart';
 import '../ui/bookings/bookings_view.dart';
@@ -72,6 +76,7 @@ import '../ui/wallet/wallet_view.dart';
     MaterialRoute(page: StartupView, initial: true),
     //dummy development
     CupertinoRoute(page: DummyDevelopmentScreen),
+    CupertinoRoute(page: FullScreenImage),
 
     CupertinoRoute(page: OnBoardingView),
     CupertinoRoute(page: LoginView),
@@ -108,6 +113,7 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: EditGroupBasicInfo),
     CupertinoRoute(page: MembersView),
     CupertinoRoute(page: ExploreGroupView),
+    CupertinoRoute(page: TrendingGroups),
 
     //create post
     CupertinoRoute(page: PostCreation),
@@ -120,6 +126,8 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: PlayBuddiesView),
     CupertinoRoute(page: MatingView),
     CupertinoRoute(page: AdoptionView),
+    CupertinoRoute(page: ExploreBlogs),
+    CupertinoRoute(page: BlogDetailsPageView),
 
     // dashboard routes
     CupertinoRoute(page: SettingsHumanView),

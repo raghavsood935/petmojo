@@ -16,6 +16,7 @@ import 'package:stacked/stacked_annotations.dart';
 import '../enum/walkNumber.dart';
 import '../models/application_models.dart';
 import '../models/feed_post_response.dart';
+import '../models/get_blogs_model.dart';
 import '../models/my_animal_model.dart';
 import '../ui/appointmentdetails/appointmentdetails_view.dart';
 import '../ui/appointments/appointments_view.dart';
@@ -34,6 +35,8 @@ import '../ui/dogrunners/dogrunners_view.dart';
 import '../ui/dogrunners/location_picker_map.dart';
 import '../ui/dogrunningbooking/dogrunningbooking_view.dart';
 import '../ui/dummy_development_screen.dart';
+import '../ui/exploreblogs/explore_blog_search/blogs_deatils_page/blog_detail_view.dart';
+import '../ui/exploreblogs/explore_blogs_view.dart';
 import '../ui/feedback/feedback_view.dart';
 import '../ui/for_you/for_you_search/for_you_tab_search_view.dart';
 import '../ui/forgotpassword/forgotpassword_view.dart';
@@ -47,6 +50,7 @@ import '../ui/groups/groups_view.dart';
 import '../ui/groups/manage_group/edit_group_info/edit_group_info_view.dart';
 import '../ui/groups/manage_group/manage_group_view.dart';
 import '../ui/groups/manage_group/members/member_view.dart';
+import '../ui/groups/trending_groups/trending_groups_view.dart';
 import '../ui/help/help_view.dart';
 import '../ui/livemap/livemap_view.dart';
 import '../ui/login/login_view.dart';
@@ -78,10 +82,12 @@ import '../ui/signup/signup_view.dart';
 import '../ui/startup/startup_view.dart';
 import '../ui/tamelydogrunning/tamelydogrunning_view.dart';
 import '../ui/wallet/wallet_view.dart';
+import '../widgets/full_screen_image.dart';
 
 class Routes {
   static const String startupView = '/';
   static const String dummyDevelopmentScreen = '/dummy-development-screen';
+  static const String fullScreenImage = '/full-screen-image';
   static const String onBoardingView = '/on-boarding-view';
   static const String loginView = '/login-view';
   static const String dashboard = '/Dashboard';
@@ -118,6 +124,7 @@ class Routes {
   static const String editGroupBasicInfo = '/edit-group-basic-info';
   static const String membersView = '/members-view';
   static const String exploreGroupView = '/explore-group-view';
+  static const String trendingGroups = '/trending-groups';
   static const String postCreation = '/post-creation';
   static const String newPostLocation = '/new-post-location';
   static const String newPost = '/new-post';
@@ -126,6 +133,8 @@ class Routes {
   static const String playBuddiesView = '/play-buddies-view';
   static const String matingView = '/mating-view';
   static const String adoptionView = '/adoption-view';
+  static const String exploreBlogs = '/explore-blogs';
+  static const String blogDetailsPageView = '/blog-details-page-view';
   static const String settingsHumanView = '/settings-human-view';
   static const String settingsAnimalView = '/settings-animal-view';
   static const String feedbackView = '/feedback-view';
@@ -147,6 +156,7 @@ class Routes {
   static const all = <String>{
     startupView,
     dummyDevelopmentScreen,
+    fullScreenImage,
     onBoardingView,
     loginView,
     dashboard,
@@ -180,6 +190,7 @@ class Routes {
     editGroupBasicInfo,
     membersView,
     exploreGroupView,
+    trendingGroups,
     postCreation,
     newPostLocation,
     newPost,
@@ -188,6 +199,8 @@ class Routes {
     playBuddiesView,
     matingView,
     adoptionView,
+    exploreBlogs,
+    blogDetailsPageView,
     settingsHumanView,
     settingsAnimalView,
     feedbackView,
@@ -215,6 +228,7 @@ class StackedRouter extends RouterBase {
   final _routes = <RouteDef>[
     RouteDef(Routes.startupView, page: StartupView),
     RouteDef(Routes.dummyDevelopmentScreen, page: DummyDevelopmentScreen),
+    RouteDef(Routes.fullScreenImage, page: FullScreenImage),
     RouteDef(Routes.onBoardingView, page: OnBoardingView),
     RouteDef(Routes.loginView, page: LoginView),
     RouteDef(Routes.dashboard, page: Dashboard),
@@ -251,6 +265,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.editGroupBasicInfo, page: EditGroupBasicInfo),
     RouteDef(Routes.membersView, page: MembersView),
     RouteDef(Routes.exploreGroupView, page: ExploreGroupView),
+    RouteDef(Routes.trendingGroups, page: TrendingGroups),
     RouteDef(Routes.postCreation, page: PostCreation),
     RouteDef(Routes.newPostLocation, page: NewPostLocation),
     RouteDef(Routes.newPost, page: NewPost),
@@ -259,6 +274,8 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.playBuddiesView, page: PlayBuddiesView),
     RouteDef(Routes.matingView, page: MatingView),
     RouteDef(Routes.adoptionView, page: AdoptionView),
+    RouteDef(Routes.exploreBlogs, page: ExploreBlogs),
+    RouteDef(Routes.blogDetailsPageView, page: BlogDetailsPageView),
     RouteDef(Routes.settingsHumanView, page: SettingsHumanView),
     RouteDef(Routes.settingsAnimalView, page: SettingsAnimalView),
     RouteDef(Routes.feedbackView, page: FeedbackView),
@@ -293,6 +310,16 @@ class StackedRouter extends RouterBase {
         builder: (context) => DummyDevelopmentScreen(
           key: args.key,
           title: args.title,
+        ),
+        settings: data,
+      );
+    },
+    FullScreenImage: (data) {
+      var args = data.getArgs<FullScreenImageArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => FullScreenImage(
+          key: args.key,
+          url: args.url,
         ),
         settings: data,
       );
@@ -642,6 +669,12 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    TrendingGroups: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const TrendingGroups(),
+        settings: data,
+      );
+    },
     PostCreation: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const PostCreation(),
@@ -691,6 +724,22 @@ class StackedRouter extends RouterBase {
     AdoptionView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const AdoptionView(),
+        settings: data,
+      );
+    },
+    ExploreBlogs: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const ExploreBlogs(),
+        settings: data,
+      );
+    },
+    BlogDetailsPageView: (data) {
+      var args = data.getArgs<BlogDetailsPageViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => BlogDetailsPageView(
+          key: args.key,
+          blog: args.blog,
+        ),
         settings: data,
       );
     },
@@ -853,6 +902,13 @@ class DummyDevelopmentScreenArguments {
   final Key? key;
   final String title;
   DummyDevelopmentScreenArguments({this.key, required this.title});
+}
+
+/// FullScreenImage arguments holder class
+class FullScreenImageArguments {
+  final Key? key;
+  final String url;
+  FullScreenImageArguments({this.key, required this.url});
 }
 
 /// LoginView arguments holder class
@@ -1149,6 +1205,13 @@ class NewPostArguments {
   final Key? key;
   final String path;
   NewPostArguments({this.key, required this.path});
+}
+
+/// BlogDetailsPageView arguments holder class
+class BlogDetailsPageViewArguments {
+  final Key? key;
+  final blogDetails blog;
+  BlogDetailsPageViewArguments({this.key, required this.blog});
 }
 
 /// BookmarksView arguments holder class

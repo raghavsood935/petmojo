@@ -29,6 +29,7 @@ import 'package:tamely/models/user_response_models.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/animal_type_constant.dart';
 import 'package:tamely/util/global_methods.dart';
+import 'package:tamely/util/location_helper.dart';
 import 'package:tamely/util/utils.dart';
 
 class CreateAnimalViewModel extends FormViewModel {
@@ -400,7 +401,7 @@ class CreateAnimalViewModel extends FormViewModel {
       _tamelyApi.createAnimalProfile(
         CreateAnimalProfileBody(
           name,
-          username,
+          username.trimLeft().trimRight(),
           avatarUrl,
           selectedValue,
           bio,
@@ -488,7 +489,7 @@ class CreateAnimalViewModel extends FormViewModel {
       _tamelyApi.editAnimalProfile(
           EditAnimalProfileBody(
               name,
-              username,
+              username.trimLeft().trimRight(),
               avatarUrl,
               selectedValue,
               bio,
@@ -802,7 +803,10 @@ class CreateAnimalViewModel extends FormViewModel {
   }
 
   Future<void> getCurrentLocation() async {
-    _listenForPermissionStatus();
+    // _listenForPermissionStatus();
+
+    await LocationHelper.checkLocationPermission()
+        .whenComplete(() => _determinePosition());
   }
 
   @override
@@ -842,32 +846,37 @@ class CreateAnimalViewModel extends FormViewModel {
     bool serviceEnabled;
     LocationPermission permission;
     // Test if location services are enabled.
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      await requestPermission(_permission);
-      await Geolocator.openLocationSettings();
-      return Future.error('Location services are disabled.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        requestPermission(_permission);
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately.
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
+    // serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    // if (!serviceEnabled) {
+    //   await requestPermission(_permission);
+    //   await Geolocator.openLocationSettings();
+    //   return Future.error('Location services are disabled.');
+    // }
+    //
+    // permission = await Geolocator.checkPermission();
+    // if (permission == LocationPermission.denied) {
+    //   permission = await Geolocator.requestPermission();
+    //   if (permission == LocationPermission.denied) {
+    //     requestPermission(_permission);
+    //     return Future.error('Location permissions are denied');
+    //   }
+    // }
+    //
+    // if (permission == LocationPermission.deniedForever) {
+    //   // Permissions are denied forever, handle appropriately.
+    //   return Future.error(
+    //       'Location permissions are permanently denied, we cannot request permissions.');
+    // }
 
     // When we reach here, permissions are g anted and we can
     // continue accessing the position of the device.
-    Position location = await Geolocator.getCurrentPosition();
-    currentLocation = LatLng(location.latitude, location.longitude);
+    // Position location = await Geolocator.getCurrentPosition();
+
+    LocationHelper.getCurrentLocation().then((position) {
+      currentLocation = LatLng(position.latitude, position.longitude);
+      notifyListeners();
+    });
+    // currentLocation = LatLng(location.latitude, location.longitude);
     _address = await getAddress(
         Coordinates(currentLocation.latitude, currentLocation.longitude));
     isLocationPicked = true;

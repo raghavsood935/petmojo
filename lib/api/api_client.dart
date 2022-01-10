@@ -13,6 +13,8 @@ import 'package:tamely/models/create_post_response.dart';
 import 'package:tamely/models/edit_response.dart';
 import 'package:tamely/models/generate_pet_username_response.dart';
 import 'package:tamely/models/get_animals_by_location_response.dart';
+import 'package:tamely/models/get_blogs_details_model.dart';
+import 'package:tamely/models/get_blogs_like_details_model.dart';
 import 'package:tamely/models/get_blogs_model.dart';
 import 'package:tamely/models/get_bookmarks_model.dart';
 import 'package:tamely/models/get_payment_details_response.dart';
@@ -40,6 +42,7 @@ import 'package:tamely/models/params/comment_new/add_comment_body.dart';
 import 'package:tamely/models/params/confirm_relation_request_body.dart';
 import 'package:tamely/models/params/counter_body.dart';
 import 'package:tamely/models/params/create_animal_profile_body.dart';
+import 'package:tamely/models/params/create_post_body.dart';
 import 'package:tamely/models/params/delete_post_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_details_body.dart';
@@ -74,6 +77,7 @@ import 'package:tamely/models/params/send_mobile_otp_body.dart';
 import 'package:tamely/models/params/set_payment_details_body.dart';
 import 'package:tamely/models/params/show_people_to_follow_body.dart';
 import 'package:tamely/models/params/social_login_body.dart';
+import 'package:tamely/models/params/update_token_body.dart';
 import 'package:tamely/models/params/verify_mobile_otp_body.dart';
 import 'package:tamely/models/profile_details_by_id_response.dart';
 import 'package:tamely/models/params/groups/change_group_description_body.dart';
@@ -108,6 +112,7 @@ class Apis {
 
   static const String login = '/auth/login';
   static const String register = '/auth/register';
+  static const String updateFCMToken = '/auth/registerFCMtoken';
   static const String checkUserName = '/user/isusernameavailable/{username}';
   static const String user = '/user';
   static const String changePassword = '/auth/password';
@@ -227,6 +232,9 @@ class Apis {
   static const String getBlogs = '/community/getBlogs';
   //for Blogs likes
   static const String likedBlog = '/community/likeblog';
+  //for Blogs Details
+  static const String getBlogDetails = '/community/getBlogDetails';
+  static const String getBlogLikesDetails = '/community/getLikeDetails';
 
   // My Bookings Flow
   static const String getActiveAppointments =
@@ -297,6 +305,9 @@ abstract class ApiClient {
 
   @POST(Apis.register)
   Future<UserResponse> register(@Body() RegisterBody registerBody);
+
+  @POST(Apis.updateFCMToken)
+  Future<EditResponse> updateFCMToken(@Body() UpdateTokenBody updateTokenBody);
 
   @GET(Apis.checkUserName)
   Future<UserNameAvailableResponse> checkUserName(
@@ -432,16 +443,7 @@ abstract class ApiClient {
   Future<BookmarkResponse> bookmarkPost(@Path("postID") String postID);
 
   @POST(Apis.createPost)
-  Future<CreatePostResponse> createPost(
-    @Part(name: "type") String type,
-    @Part(name: "image") File image,
-    @Part(name: "caption") String caption,
-    @Part(name: "filter") String filter,
-    @Part(name: "Userauthor") String Userauthor,
-    @Part(name: "Animalauthor") String Animalauthor,
-    @Part(name: "authorType") String authorType,
-    @Part(name: "group") String group,
-  );
+  Future<CreatePostResponse> createPost(@Body() CreatePostBody createPostBody);
 
   @DELETE(Apis.deletePost)
   Future<EditResponse> deletePost(@Body() DeletePostBody deletePostBody);
@@ -559,7 +561,7 @@ abstract class ApiClient {
 
   // ---> Get All Groups
   @POST(Apis.getAllGroups)
-  Future<GetAllGroupResponse> getAllGroups();
+  Future<GetAllGroupResponse> getAllGroups(@Body() CounterBody counterBody);
 
   // ---> Delete Groups
   @POST(Apis.deleteGroup)
@@ -571,11 +573,21 @@ abstract class ApiClient {
 
   //getBlogs
   @POST(Apis.getBlogs)
-  Future<getBlogs> GetBlogs();
+  Future<getBlogs> GetBlogs(@Body() CounterBody counterBody);
 
-  // ---> Update hashtags Group
+  // ---> Like Blog
   @POST(Apis.likedBlog)
   Future<LikedBlogResponse> likedBlog(@Body() LikedBlogBody likedBlogBody);
+
+  // ---> Get Blog Details
+  @POST(Apis.getBlogDetails)
+  Future<GetBlogDetailsResponse> getBlogDetails(
+      @Body() LikedBlogBody likedBlogBody);
+
+  // ---> Get Blog Likes Details
+  @POST(Apis.getBlogLikesDetails)
+  Future<GetBlogLikeDetailsResponse> getBlogLikesDetails(
+      @Body() LikedBlogBody likedBlogBody);
 
   // ---> Get Strays
   @POST(Apis.getStrays)

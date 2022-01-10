@@ -226,7 +226,7 @@ class ProfileViewModel extends BaseViewModel {
 
   Future getUserPosts() async {
     BaseResponse<ListOfFeedPostResponse> response =
-    await _tamelyApi.getUserPosts(true);
+        await _tamelyApi.getUserPosts(true);
     if (response.getException != null) {
       ServerError error = response.getException as ServerError;
       _snackBarService.showSnackbar(message: error.getErrorMessage());
@@ -282,7 +282,7 @@ class ProfileViewModel extends BaseViewModel {
   int _noOfFollowing = 0;
   int _noOfHearts = 0;
 
-  bool isMyAnimalsVisibile = false;
+  bool isMyAnimalsVisibile = true;
   bool _profileCompleted = false;
 
   bool isFollowing = false;
@@ -488,6 +488,7 @@ class ProfileViewModel extends BaseViewModel {
     _listOfMyAnimals.clear();
     notifyListeners();
     UserDetailsModelResponse userDetailsModelResponse = response.user!;
+    _Id = userDetailsModelResponse.Id ?? "";
     _fullname = userDetailsModelResponse.fullName ?? "";
     _username = userDetailsModelResponse.username ?? "";
     _profileImgUrl = userDetailsModelResponse.avatar ?? "";
@@ -515,5 +516,13 @@ class ProfileViewModel extends BaseViewModel {
 
   Future createPost() async {
     _navigationService.navigateTo(Routes.postCreation);
+  }
+
+  Future imageTapped(String url) async {
+    await _dialogService.showCustomDialog(
+      variant: DialogType.ImagePopUpDialog,
+      barrierDismissible: true,
+      data: url,
+    );
   }
 }

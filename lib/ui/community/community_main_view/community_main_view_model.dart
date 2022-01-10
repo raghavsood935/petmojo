@@ -1,9 +1,12 @@
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
+import 'package:tamely/api/base_response.dart';
 import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
+import 'package:tamely/models/get_blogs_model.dart';
 import 'package:tamely/models/group_response/group_basic_info_response.dart';
+import 'package:tamely/models/params/counter_body.dart';
 import 'package:tamely/models/params/groups/group_basic_body.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
@@ -23,6 +26,7 @@ class CommunityMainViewModel extends BaseModel {
 
   bool isJoinedGroupLoading = false;
   bool isAllGroupLoading = false;
+  bool isBlogsLoading = false;
 
   String _location = "T-129 Emerald Hills Gurugram...";
 
@@ -37,7 +41,7 @@ class CommunityMainViewModel extends BaseModel {
 
   List<GroupBasicInfoResponse> _listOfAllGroups = [];
   List<PlayBuddiesNearMeModel> _listOfPlayBuddiesNearMeModel = [];
-  List<BlogsModel> _listOfBlogsModel = [];
+  List<blogDetails> listOfBlogs = [];
 
   String get location => _location;
 
@@ -48,8 +52,6 @@ class CommunityMainViewModel extends BaseModel {
 
   List<PlayBuddiesNearMeModel> get listOfPlayBuddiesNearMeModel =>
       _listOfPlayBuddiesNearMeModel;
-
-  List<BlogsModel> get listOfBlogsModel => _listOfBlogsModel;
 
   Future<void> goToGroupsView() async {
     navigationService.navigateTo(Routes.groupsView);
@@ -100,19 +102,15 @@ class CommunityMainViewModel extends BaseModel {
     notifyListeners();
 
     getAllGroups();
-
-    int i = 0;
-    while (i < 10) {
-      _listOfBlogsModel.add(BlogsModel());
-      i++;
-    }
+    getBlogsDetails();
   }
 
   Future getAllGroups() async {
     isAllGroupLoading = true;
     _listOfAllGroups.clear();
     notifyListeners();
-    var result = await _tamelyApi.getAllGroups(isHuman, petToken: petToken);
+    var result = await _tamelyApi.getAllGroups(CounterBody(0), isHuman,
+        petToken: petToken);
 
     if (result.getException != null) {
       ServerError error = result.getException as ServerError;
@@ -126,6 +124,35 @@ class CommunityMainViewModel extends BaseModel {
         notifyListeners();
       }
     }
+  }
+
+  Future getBlogsDetails() async {
+    isBlogsLoading = true;
+    notifyListeners();
+    BaseResponse<getBlogs> response =
+        await _tamelyApi.getListOfBlogs(CounterBody(0));
+    print(response);
+    if (response.getException != null) {
+      ServerError error = response.getException as ServerError;
+      snackBarService.showSnackbar(message: error.getErrorMessage());
+      print("error found");
+      isBlogsLoading = false;
+      notifyListeners();
+    } else if (response.data != null) {
+      listOfBlogs.addAll(response.data!.blogs ?? []);
+      isBlogsLoading = false;
+      notifyListeners();
+    } else {
+      isBlogsLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future goToBlogDetails(blogDetails blog) async {
+    navigationService.navigateTo(
+      Routes.blogDetailsPageView,
+      arguments: BlogDetailsPageViewArguments(blog: blog),
+    );
   }
 
   Future joinGroup(String groupId) async {
@@ -148,6 +175,18 @@ class CommunityMainViewModel extends BaseModel {
     navigationService.navigateTo(
       Routes.groupInfoView,
       arguments: GroupInfoViewArguments(groupId: grpId),
+    );
+  }
+
+  Future goToBlogs() async {
+    navigationService.navigateTo(
+      Routes.exploreBlogs,
+    );
+  }
+
+  Future goToTrendingGroups() async {
+    navigationService.navigateTo(
+      Routes.trendingGroups,
     );
   }
 }

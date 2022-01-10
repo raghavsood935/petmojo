@@ -421,11 +421,11 @@ class DrawerWidget extends ViewModelWidget<DashboardViewModel> {
 
   @override
   Widget build(BuildContext context, DashboardViewModel viewModel) {
-    return Column(
-      children: [
-        GestureDetector(
-          onTap: onTap,
-          child: Padding(
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -450,11 +450,11 @@ class DrawerWidget extends ViewModelWidget<DashboardViewModel> {
               ],
             ),
           ),
-        ),
-        Divider(
-          color: colors.kcMediumGreyColor,
-        ),
-      ],
+          Divider(
+            color: colors.kcMediumGreyColor,
+          ),
+        ],
+      ),
     );
   }
 }
