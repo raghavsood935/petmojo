@@ -282,7 +282,7 @@ class ProfileViewModel extends BaseViewModel {
   int _noOfFollowing = 0;
   int _noOfHearts = 0;
 
-  bool isMyAnimalsVisibile = false;
+  bool isMyAnimalsVisibile = true;
   bool _profileCompleted = false;
 
   bool isFollowing = false;

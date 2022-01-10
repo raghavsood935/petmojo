@@ -242,6 +242,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
 
   void _handleLoggedInUser(LocalUser currentUser, bool isNewUser,
       {bool isSocialSignIn = false}) async {
+    await updateToken();
     await updateToken().whenComplete(() {
       if (currentUser.confirmed && !isNewUser) {
         sharedPreferencesService.currentState =
@@ -276,16 +277,25 @@ abstract class AuthenticationViewModel extends FormViewModel {
   }
 
   Future updateToken() async {
-    FirebaseMessaging.instance.deleteToken();
-    String? token = await FirebaseMessaging.instance.getToken();
+    final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+
+    String token = "";
+
+    if (sharedPreferencesService.fcmToken != null) {
+      await firebaseMessaging.onTokenRefresh.listen((event) {
+        token = event;
+      });
+    } else {
+      token = (await firebaseMessaging.getToken())!;
+    }
 
     if (await Util.checkInternetConnectivity()) {
       BaseResponse<EditResponse> response = await runBusyFuture(
-          _tamelyApi.updateFCMToken(UpdateTokenBody(token ?? "")),
+          _tamelyApi.updateFCMToken(UpdateTokenBody(token)),
           throwException: true);
       if (response.data != null) {
-        print("token: ${token ?? ""} ");
-        sharedPreferencesService.fcmToken = token ?? "";
+        print("token: ${token} ");
+        sharedPreferencesService.fcmToken = token;
       }
     } else {
       snackBarService.showSnackbar(message: "No Internet connection");

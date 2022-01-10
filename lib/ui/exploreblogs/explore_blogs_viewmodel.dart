@@ -35,7 +35,7 @@ class ExploreBlogsViewModel extends BaseModel {
   String petId = "";
   String petToken = "";
 
-  void onInit() {
+  Future onInit() async {
     print("oninit");
 
     isHuman = _sharedPreferenceService.getCurrentProfile().isHuman;

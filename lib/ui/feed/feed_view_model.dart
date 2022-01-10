@@ -1,4 +1,5 @@
 import 'package:camera/camera.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
@@ -10,6 +11,7 @@ import 'package:tamely/models/feed_post_response.dart';
 import 'package:tamely/models/my_tales_model.dart';
 import 'package:tamely/models/params/counter_body.dart';
 import 'package:tamely/models/params/like_dislike_post_body.dart';
+import 'package:tamely/services/local_notification_service.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
 import 'package:tamely/util/ImageConstant.dart';
@@ -54,6 +56,8 @@ class FeedViewModel extends BaseModel {
     this.petToken = profile.petToken;
     this.userId = profile.userId;
     notifyListeners();
+
+    LocalNotificationService.initialize();
 
     seeMorePost();
   }
@@ -166,5 +170,8 @@ class FeedViewModel extends BaseModel {
 
   void showMde() {
     _snackBarService.showSnackbar(message: _sharedPrefernceService.fcmToken);
+    print(_sharedPrefernceService.fcmToken);
+
+    // LocalNotificationService.dummyDisplay();
   }
 }

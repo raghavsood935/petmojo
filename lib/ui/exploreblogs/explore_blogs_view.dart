@@ -32,47 +32,52 @@ class _ExploreBlogsState extends State<ExploreBlogs> {
         appBar: commonAppBar(context, "Explore Blogs"),
         body: Padding(
           padding: EdgeInsets.only(bottom: 10),
-          child: SingleChildScrollView(
-            physics: ScrollPhysics(),
-            child: Column(
-              children: [
-                verticalSpaceSmall,
-                ListView.separated(
-                  physics: ScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: model.listOfBlogs.length,
-                  itemBuilder: (context, index) => BlogItem(
-                    blog: model.listOfBlogs[index],
-                    isDetailView: false,
+          child: RefreshIndicator(
+            onRefresh: () async {
+              await model.onInit();
+            },
+            child: SingleChildScrollView(
+              physics: ScrollPhysics(),
+              child: Column(
+                children: [
+                  verticalSpaceSmall,
+                  ListView.separated(
+                    physics: ScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: model.listOfBlogs.length,
+                    itemBuilder: (context, index) => BlogItem(
+                      blog: model.listOfBlogs[index],
+                      isDetailView: false,
+                    ),
+                    separatorBuilder: (context, index) => spacedDividerSmall,
                   ),
-                  separatorBuilder: (context, index) => spacedDividerSmall,
-                ),
-                verticalSpaceRegular,
-                Visibility(
-                  visible: model.isLoading,
-                  child: CircularProgressIndicator(
-                    color: colors.primary,
+                  verticalSpaceRegular,
+                  Visibility(
+                    visible: model.isLoading,
+                    child: CircularProgressIndicator(
+                      color: colors.primary,
+                    ),
                   ),
-                ),
-                verticalSpaceRegular,
-                Visibility(
-                  visible: model.listOfBlogs.isNotEmpty,
-                  child: Visibility(
-                    visible: !model.isEndOfList,
+                  verticalSpaceRegular,
+                  Visibility(
+                    visible: model.listOfBlogs.isNotEmpty,
                     child: Visibility(
-                      visible: !model.isLoading,
-                      child: GestureDetector(
-                        onTap: () => model.getListOfBlogs(),
-                        child: AppText.body1Bold(
-                          "See more blogs",
-                          color: colors.primary,
+                      visible: !model.isEndOfList,
+                      child: Visibility(
+                        visible: !model.isLoading,
+                        child: GestureDetector(
+                          onTap: () => model.getListOfBlogs(),
+                          child: AppText.body1Bold(
+                            "See more blogs",
+                            color: colors.primary,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                verticalSpaceRegular,
-              ],
+                  verticalSpaceRegular,
+                ],
+              ),
             ),
           ),
         ),

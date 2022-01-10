@@ -1,11 +1,14 @@
 import 'dart:io';
 
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
 import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/enum/DialogType.dart';
+
+import 'package:http/http.dart' as http;
 
 class GlobalMethods {
   static final _dialogService = locator<DialogService>();
@@ -100,5 +103,15 @@ class GlobalMethods {
       _dialogService.completeDialog(DialogResponse(confirmed: true));
       return [];
     }
+  }
+
+  static Future<String> linkToFilePath(String url, String fileName) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final filePath = "${directory.path}/${fileName}";
+    final response = await http.get(Uri.parse(url));
+    final file = File(filePath);
+
+    await file.writeAsBytes(response.bodyBytes);
+    return filePath;
   }
 }

@@ -5,6 +5,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 import 'package:tamely/enum/connectivity_status.dart';
 import 'package:tamely/services/connectivity_service.dart';
+import 'package:tamely/services/local_notification_service.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/theme_setup.dart';
 import 'package:tamely/ui/dashboard/dashboard.dart';
@@ -25,26 +26,41 @@ class _TamelyAppState extends State<TamelyApp> {
 
   final service = locator<SnackbarService>();
 
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-
-  void getMessage() {
-    // _firebaseMessaging.configure(
-    //     onMessage: (Map<String, dynamic> message) async {
-    //   print('on message $message');
-    //   // setState(() => _message = message["notification"]["title"]);
-    // }, onResume: (Map<String, dynamic> message) async {
-    //   print('on resume $message');
-    //   // setState(() => _message = message["notification"]["title"]);
-    // }, onLaunch: (Map<String, dynamic> message) async {
-    //   print('on launch $message');
-    //   // setState(() => _message = message["notification"]["title"]);
-    // });
-  }
-
   @override
   void initState() {
     super.initState();
     setupSnackBarUi();
+
+    LocalNotificationService.initialize();
+
+    FirebaseMessaging.instance.getInitialMessage();
+
+    //foreground work
+    FirebaseMessaging.onMessage.listen((message) {
+      if (message.data != null) {
+        print(message.data["title"]);
+        print(message.data["body"]);
+
+        LocalNotificationService.display(message);
+      }
+    });
+
+    //background work not terminated
+    //To open specific page use clicks on notification
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      final routeFromMessage = message.data["route"];
+
+      print(routeFromMessage);
+    });
+
+    //background work app opened by the click on notification if the app is terminated
+    FirebaseMessaging.instance.getInitialMessage().then((message) {
+      if (message != null) {
+        final routeFromMessage = message.data["route"];
+
+        print(routeFromMessage);
+      }
+    });
   }
 
   void setupSnackBarUi() {
@@ -55,8 +71,6 @@ class _TamelyAppState extends State<TamelyApp> {
       mainButtonTextColor: Colors.black,
     ));
   }
-
-  // void getMessage() {}
 
   @override
   Widget build(BuildContext context) {

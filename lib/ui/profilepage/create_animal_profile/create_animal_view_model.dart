@@ -401,7 +401,7 @@ class CreateAnimalViewModel extends FormViewModel {
       _tamelyApi.createAnimalProfile(
         CreateAnimalProfileBody(
           name,
-          username,
+          username.trimLeft().trimRight(),
           avatarUrl,
           selectedValue,
           bio,
@@ -489,7 +489,7 @@ class CreateAnimalViewModel extends FormViewModel {
       _tamelyApi.editAnimalProfile(
           EditAnimalProfileBody(
               name,
-              username,
+              username.trimLeft().trimRight(),
               avatarUrl,
               selectedValue,
               bio,

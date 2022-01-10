@@ -115,7 +115,7 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
           EditAnimalProfileMainDetailsBody body =
               EditAnimalProfileMainDetailsBody(
             petID,
-            usernameValue ?? "",
+            (usernameValue ?? "").trimLeft().trimRight(),
             nameValue ?? "",
             shortBioValue ?? "",
             avatarUrl,
@@ -133,8 +133,12 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
           _snackBarService.showSnackbar(message: "$e");
         }
       } else {
-        ProfileCreateBody profileCreateBody = ProfileCreateBody(nameValue ?? "",
-            usernameValue ?? "", shortBioValue ?? "", "", avatarUrl);
+        ProfileCreateBody profileCreateBody = ProfileCreateBody(
+            nameValue ?? "",
+            (usernameValue ?? "").trimLeft().trimRight(),
+            shortBioValue ?? "",
+            "",
+            avatarUrl);
         try {
           await runBusyFuture(updateProfile(profileCreateBody, isEdit: isEdit),
               throwException: true);

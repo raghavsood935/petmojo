@@ -153,6 +153,10 @@ class FeedView extends StatelessWidget {
             ],
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: model.showMde,
+          child: Icon(Icons.add),
+        ),
       ),
     );
   }
