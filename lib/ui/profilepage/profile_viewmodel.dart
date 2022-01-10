@@ -488,6 +488,7 @@ class ProfileViewModel extends BaseViewModel {
     _listOfMyAnimals.clear();
     notifyListeners();
     UserDetailsModelResponse userDetailsModelResponse = response.user!;
+    _Id = userDetailsModelResponse.Id ?? "";
     _fullname = userDetailsModelResponse.fullName ?? "";
     _username = userDetailsModelResponse.username ?? "";
     _profileImgUrl = userDetailsModelResponse.avatar ?? "";
