@@ -161,9 +161,9 @@ class GroupInfoViewModel extends BaseModel {
     try {
       final pickedFile = await _picker.pickImage(
         source: source,
-        maxWidth: 500,
-        maxHeight: 500,
-        imageQuality: 100,
+        // maxWidth: 500,
+        // maxHeight: 500,
+        // imageQuality: 100,
       );
 
       if (pickedFile != null) {
@@ -193,6 +193,7 @@ class GroupInfoViewModel extends BaseModel {
       iosUiSettings: IOSUiSettings(
         aspectRatioLockEnabled: false,
       ),
+      compressQuality: 100,
     );
     notifyListeners();
     editCoverPhoto();
