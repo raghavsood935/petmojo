@@ -190,6 +190,7 @@ class MemberListTile extends StatelessWidget {
           child: IconButton(
             onPressed: () => viewModel.onActionPressed(
               model.user!.Id ?? "",
+              model.userType ?? "",
               index,
               model.isAdmin ?? false,
             ),

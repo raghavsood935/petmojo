@@ -48,30 +48,31 @@ class TamelyReviewsView extends StatelessWidget {
                 thickness: 5.0,
               ),
               verticalSpaceMedium,
+              verticalSpaceMedium,
 
               // booking button
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: GestureDetector(
-                  onTap: model.toBookRunning,
-                  child: Container(
-                    width: double.infinity,
-                    height: 50,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: colors.primary,
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    child: Text(
-                      bookButtonTitle,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14),
-                    ),
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 25),
+              //   child: GestureDetector(
+              //     onTap: model.toBookRunning,
+              //     child: Container(
+              //       width: double.infinity,
+              //       height: 50,
+              //       alignment: Alignment.center,
+              //       decoration: BoxDecoration(
+              //         color: colors.primary,
+              //         borderRadius: BorderRadius.circular(50),
+              //       ),
+              //       child: Text(
+              //         bookButtonTitle,
+              //         style: TextStyle(
+              //             color: Colors.white,
+              //             fontWeight: FontWeight.bold,
+              //             fontSize: 14),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               verticalSpaceRegular,
             ],
           ),

@@ -44,25 +44,25 @@ class CommunityMainView extends StatelessWidget {
                 onTap: model.goToGroupsView,
               ),
               verticalSpaceSmall,
-              // Padding(
-              //   padding: EdgeInsets.symmetric(horizontal: 15.0),
-              //   child: AppText.body1("Social center"),
-              // ),
-              // verticalSpaceTiny,
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 9.0),
-              //   child: GridView.builder(
-              //       shrinkWrap: true,
-              //       gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-              //           crossAxisCount: 3),
-              //       physics: NeverScrollableScrollPhysics(),
-              //       itemBuilder: (context, index) => GestureDetector(
-              //             child: socialCenterItem(
-              //                 context, model.listOfSocialCenterModel[index]),
-              //             onTap: () => model.onTapMethodForSocialCenter(index),
-              //           ),
-              //       itemCount: model.listOfSocialCenterModel.length),
-              // ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.0),
+                child: AppText.body1("Social center"),
+              ),
+              verticalSpaceTiny,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 9.0),
+                child: GridView.builder(
+                    shrinkWrap: true,
+                    gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3),
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) => GestureDetector(
+                          child: socialCenterItem(
+                              context, model.listOfSocialCenterModel[index]),
+                          onTap: () => model.onTapMethodForSocialCenter(index),
+                        ),
+                    itemCount: model.listOfSocialCenterModel.length),
+              ),
               spacedDividerBigTiny,
               ListTile(
                 leading: Image.asset(blogImgPath),

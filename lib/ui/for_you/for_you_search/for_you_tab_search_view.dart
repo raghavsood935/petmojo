@@ -4,6 +4,7 @@ import 'package:tamely/models/list_of_profiles_foy_you.dart';
 import 'package:tamely/ui/for_you/for_you_search/for_you_tab_search_view_model.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/global_methods.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/custom_circle_avatar.dart';
@@ -96,8 +97,14 @@ class _ForYouTabSearchViewState extends State<ForYouTabSearchView> {
                       physics: ScrollPhysics(),
                       itemCount: model.listOfProfiles.length,
                       itemBuilder: (context, index) => GestureDetector(
-                        onTap: () => model.inspectProfile(
-                            context, model.listOfProfiles[index].Id ?? ""),
+                        onTap: () => GlobalMethods.checkProfileType(
+                                model.listOfProfiles[index].type ?? "")
+                            ? model.inspectProfile(
+                                context, model.listOfProfiles[index].Id ?? "")
+                            : model.inspectAnimalProfile(
+                                context,
+                                model.listOfProfiles[index].Id ?? "",
+                                model.listOfProfiles[index].token ?? ""),
                         child: listItem(model.listOfProfiles[index]),
                       ),
                     ),

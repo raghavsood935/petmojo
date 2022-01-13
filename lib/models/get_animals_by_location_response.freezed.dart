@@ -194,21 +194,61 @@ class _$GetAnimalsByLocationDetailsResponseTearOff {
   const _$GetAnimalsByLocationDetailsResponseTearOff();
 
   _GetAnimalsByLocationDetailsResponse call(
-      {@JsonKey(name: "_id") String? Id,
-      @JsonKey(name: "name") String? name,
-      @JsonKey(name: "username") String? username,
-      @JsonKey(name: "avatar") String? avatar,
-      @JsonKey(name: "location") LatLongResponse? location,
-      @JsonKey(name: "guardians") List<GuardianResponse>? guardians,
-      @JsonKey(name: "distance") int? distance}) {
+      {@JsonKey(name: "_id")
+          String? Id,
+      @JsonKey(name: "name")
+          String? name,
+      @JsonKey(name: "username")
+          String? username,
+      @JsonKey(name: "token")
+          String? token,
+      @JsonKey(name: "avatar")
+          String? avatar,
+      @JsonKey(name: "location")
+          LatLongResponse? location,
+      @JsonKey(name: "guardians")
+          List<GuardianResponse>? guardians,
+      @JsonKey(name: "distance")
+          double? distance,
+      @JsonKey(name: "animalType")
+          String? animalType,
+      @JsonKey(name: "breed")
+          String? breed,
+      @JsonKey(name: "age")
+          String? age,
+      @JsonKey(name: "bio")
+          String? bio,
+      @JsonKey(name: "playFrom")
+          String? playFrom,
+      @JsonKey(name: "playTo")
+          String? playTo,
+      @JsonKey(name: "gender")
+          String? gender,
+      @JsonKey(name: "view")
+          int? view,
+      @JsonKey(name: "likes")
+          int? likes,
+      @JsonKey(name: "registeredWithKennelClub")
+          bool? registeredWithIndianKennelClub}) {
     return _GetAnimalsByLocationDetailsResponse(
       Id: Id,
       name: name,
       username: username,
+      token: token,
       avatar: avatar,
       location: location,
       guardians: guardians,
       distance: distance,
+      animalType: animalType,
+      breed: breed,
+      age: age,
+      bio: bio,
+      playFrom: playFrom,
+      playTo: playTo,
+      gender: gender,
+      view: view,
+      likes: likes,
+      registeredWithIndianKennelClub: registeredWithIndianKennelClub,
     );
   }
 
@@ -229,6 +269,8 @@ mixin _$GetAnimalsByLocationDetailsResponse {
   String? get name => throw _privateConstructorUsedError;
   @JsonKey(name: "username")
   String? get username => throw _privateConstructorUsedError;
+  @JsonKey(name: "token")
+  String? get token => throw _privateConstructorUsedError;
   @JsonKey(name: "avatar")
   String? get avatar => throw _privateConstructorUsedError;
   @JsonKey(name: "location")
@@ -236,7 +278,28 @@ mixin _$GetAnimalsByLocationDetailsResponse {
   @JsonKey(name: "guardians")
   List<GuardianResponse>? get guardians => throw _privateConstructorUsedError;
   @JsonKey(name: "distance")
-  int? get distance => throw _privateConstructorUsedError;
+  double? get distance => throw _privateConstructorUsedError;
+  @JsonKey(name: "animalType")
+  String? get animalType => throw _privateConstructorUsedError;
+  @JsonKey(name: "breed")
+  String? get breed => throw _privateConstructorUsedError;
+  @JsonKey(name: "age")
+  String? get age => throw _privateConstructorUsedError;
+  @JsonKey(name: "bio")
+  String? get bio => throw _privateConstructorUsedError;
+  @JsonKey(name: "playFrom")
+  String? get playFrom => throw _privateConstructorUsedError;
+  @JsonKey(name: "playTo")
+  String? get playTo => throw _privateConstructorUsedError;
+  @JsonKey(name: "gender")
+  String? get gender => throw _privateConstructorUsedError;
+  @JsonKey(name: "view")
+  int? get view => throw _privateConstructorUsedError;
+  @JsonKey(name: "likes")
+  int? get likes => throw _privateConstructorUsedError;
+  @JsonKey(name: "registeredWithKennelClub")
+  bool? get registeredWithIndianKennelClub =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -252,13 +315,42 @@ abstract class $GetAnimalsByLocationDetailsResponseCopyWith<$Res> {
           $Res Function(GetAnimalsByLocationDetailsResponse) then) =
       _$GetAnimalsByLocationDetailsResponseCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: "_id") String? Id,
-      @JsonKey(name: "name") String? name,
-      @JsonKey(name: "username") String? username,
-      @JsonKey(name: "avatar") String? avatar,
-      @JsonKey(name: "location") LatLongResponse? location,
-      @JsonKey(name: "guardians") List<GuardianResponse>? guardians,
-      @JsonKey(name: "distance") int? distance});
+      {@JsonKey(name: "_id")
+          String? Id,
+      @JsonKey(name: "name")
+          String? name,
+      @JsonKey(name: "username")
+          String? username,
+      @JsonKey(name: "token")
+          String? token,
+      @JsonKey(name: "avatar")
+          String? avatar,
+      @JsonKey(name: "location")
+          LatLongResponse? location,
+      @JsonKey(name: "guardians")
+          List<GuardianResponse>? guardians,
+      @JsonKey(name: "distance")
+          double? distance,
+      @JsonKey(name: "animalType")
+          String? animalType,
+      @JsonKey(name: "breed")
+          String? breed,
+      @JsonKey(name: "age")
+          String? age,
+      @JsonKey(name: "bio")
+          String? bio,
+      @JsonKey(name: "playFrom")
+          String? playFrom,
+      @JsonKey(name: "playTo")
+          String? playTo,
+      @JsonKey(name: "gender")
+          String? gender,
+      @JsonKey(name: "view")
+          int? view,
+      @JsonKey(name: "likes")
+          int? likes,
+      @JsonKey(name: "registeredWithKennelClub")
+          bool? registeredWithIndianKennelClub});
 
   $LatLongResponseCopyWith<$Res>? get location;
 }
@@ -277,10 +369,21 @@ class _$GetAnimalsByLocationDetailsResponseCopyWithImpl<$Res>
     Object? Id = freezed,
     Object? name = freezed,
     Object? username = freezed,
+    Object? token = freezed,
     Object? avatar = freezed,
     Object? location = freezed,
     Object? guardians = freezed,
     Object? distance = freezed,
+    Object? animalType = freezed,
+    Object? breed = freezed,
+    Object? age = freezed,
+    Object? bio = freezed,
+    Object? playFrom = freezed,
+    Object? playTo = freezed,
+    Object? gender = freezed,
+    Object? view = freezed,
+    Object? likes = freezed,
+    Object? registeredWithIndianKennelClub = freezed,
   }) {
     return _then(_value.copyWith(
       Id: Id == freezed
@@ -294,6 +397,10 @@ class _$GetAnimalsByLocationDetailsResponseCopyWithImpl<$Res>
       username: username == freezed
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
+              as String?,
+      token: token == freezed
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
               as String?,
       avatar: avatar == freezed
           ? _value.avatar
@@ -310,7 +417,47 @@ class _$GetAnimalsByLocationDetailsResponseCopyWithImpl<$Res>
       distance: distance == freezed
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
+              as double?,
+      animalType: animalType == freezed
+          ? _value.animalType
+          : animalType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      breed: breed == freezed
+          ? _value.breed
+          : breed // ignore: cast_nullable_to_non_nullable
+              as String?,
+      age: age == freezed
+          ? _value.age
+          : age // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bio: bio == freezed
+          ? _value.bio
+          : bio // ignore: cast_nullable_to_non_nullable
+              as String?,
+      playFrom: playFrom == freezed
+          ? _value.playFrom
+          : playFrom // ignore: cast_nullable_to_non_nullable
+              as String?,
+      playTo: playTo == freezed
+          ? _value.playTo
+          : playTo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      gender: gender == freezed
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as String?,
+      view: view == freezed
+          ? _value.view
+          : view // ignore: cast_nullable_to_non_nullable
               as int?,
+      likes: likes == freezed
+          ? _value.likes
+          : likes // ignore: cast_nullable_to_non_nullable
+              as int?,
+      registeredWithIndianKennelClub: registeredWithIndianKennelClub == freezed
+          ? _value.registeredWithIndianKennelClub
+          : registeredWithIndianKennelClub // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 
@@ -335,13 +482,42 @@ abstract class _$GetAnimalsByLocationDetailsResponseCopyWith<$Res>
       __$GetAnimalsByLocationDetailsResponseCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: "_id") String? Id,
-      @JsonKey(name: "name") String? name,
-      @JsonKey(name: "username") String? username,
-      @JsonKey(name: "avatar") String? avatar,
-      @JsonKey(name: "location") LatLongResponse? location,
-      @JsonKey(name: "guardians") List<GuardianResponse>? guardians,
-      @JsonKey(name: "distance") int? distance});
+      {@JsonKey(name: "_id")
+          String? Id,
+      @JsonKey(name: "name")
+          String? name,
+      @JsonKey(name: "username")
+          String? username,
+      @JsonKey(name: "token")
+          String? token,
+      @JsonKey(name: "avatar")
+          String? avatar,
+      @JsonKey(name: "location")
+          LatLongResponse? location,
+      @JsonKey(name: "guardians")
+          List<GuardianResponse>? guardians,
+      @JsonKey(name: "distance")
+          double? distance,
+      @JsonKey(name: "animalType")
+          String? animalType,
+      @JsonKey(name: "breed")
+          String? breed,
+      @JsonKey(name: "age")
+          String? age,
+      @JsonKey(name: "bio")
+          String? bio,
+      @JsonKey(name: "playFrom")
+          String? playFrom,
+      @JsonKey(name: "playTo")
+          String? playTo,
+      @JsonKey(name: "gender")
+          String? gender,
+      @JsonKey(name: "view")
+          int? view,
+      @JsonKey(name: "likes")
+          int? likes,
+      @JsonKey(name: "registeredWithKennelClub")
+          bool? registeredWithIndianKennelClub});
 
   @override
   $LatLongResponseCopyWith<$Res>? get location;
@@ -365,10 +541,21 @@ class __$GetAnimalsByLocationDetailsResponseCopyWithImpl<$Res>
     Object? Id = freezed,
     Object? name = freezed,
     Object? username = freezed,
+    Object? token = freezed,
     Object? avatar = freezed,
     Object? location = freezed,
     Object? guardians = freezed,
     Object? distance = freezed,
+    Object? animalType = freezed,
+    Object? breed = freezed,
+    Object? age = freezed,
+    Object? bio = freezed,
+    Object? playFrom = freezed,
+    Object? playTo = freezed,
+    Object? gender = freezed,
+    Object? view = freezed,
+    Object? likes = freezed,
+    Object? registeredWithIndianKennelClub = freezed,
   }) {
     return _then(_GetAnimalsByLocationDetailsResponse(
       Id: Id == freezed
@@ -382,6 +569,10 @@ class __$GetAnimalsByLocationDetailsResponseCopyWithImpl<$Res>
       username: username == freezed
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
+              as String?,
+      token: token == freezed
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
               as String?,
       avatar: avatar == freezed
           ? _value.avatar
@@ -398,7 +589,47 @@ class __$GetAnimalsByLocationDetailsResponseCopyWithImpl<$Res>
       distance: distance == freezed
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
+              as double?,
+      animalType: animalType == freezed
+          ? _value.animalType
+          : animalType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      breed: breed == freezed
+          ? _value.breed
+          : breed // ignore: cast_nullable_to_non_nullable
+              as String?,
+      age: age == freezed
+          ? _value.age
+          : age // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bio: bio == freezed
+          ? _value.bio
+          : bio // ignore: cast_nullable_to_non_nullable
+              as String?,
+      playFrom: playFrom == freezed
+          ? _value.playFrom
+          : playFrom // ignore: cast_nullable_to_non_nullable
+              as String?,
+      playTo: playTo == freezed
+          ? _value.playTo
+          : playTo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      gender: gender == freezed
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as String?,
+      view: view == freezed
+          ? _value.view
+          : view // ignore: cast_nullable_to_non_nullable
               as int?,
+      likes: likes == freezed
+          ? _value.likes
+          : likes // ignore: cast_nullable_to_non_nullable
+              as int?,
+      registeredWithIndianKennelClub: registeredWithIndianKennelClub == freezed
+          ? _value.registeredWithIndianKennelClub
+          : registeredWithIndianKennelClub // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -408,13 +639,42 @@ class __$GetAnimalsByLocationDetailsResponseCopyWithImpl<$Res>
 class _$_GetAnimalsByLocationDetailsResponse
     extends _GetAnimalsByLocationDetailsResponse {
   _$_GetAnimalsByLocationDetailsResponse(
-      {@JsonKey(name: "_id") this.Id,
-      @JsonKey(name: "name") this.name,
-      @JsonKey(name: "username") this.username,
-      @JsonKey(name: "avatar") this.avatar,
-      @JsonKey(name: "location") this.location,
-      @JsonKey(name: "guardians") this.guardians,
-      @JsonKey(name: "distance") this.distance})
+      {@JsonKey(name: "_id")
+          this.Id,
+      @JsonKey(name: "name")
+          this.name,
+      @JsonKey(name: "username")
+          this.username,
+      @JsonKey(name: "token")
+          this.token,
+      @JsonKey(name: "avatar")
+          this.avatar,
+      @JsonKey(name: "location")
+          this.location,
+      @JsonKey(name: "guardians")
+          this.guardians,
+      @JsonKey(name: "distance")
+          this.distance,
+      @JsonKey(name: "animalType")
+          this.animalType,
+      @JsonKey(name: "breed")
+          this.breed,
+      @JsonKey(name: "age")
+          this.age,
+      @JsonKey(name: "bio")
+          this.bio,
+      @JsonKey(name: "playFrom")
+          this.playFrom,
+      @JsonKey(name: "playTo")
+          this.playTo,
+      @JsonKey(name: "gender")
+          this.gender,
+      @JsonKey(name: "view")
+          this.view,
+      @JsonKey(name: "likes")
+          this.likes,
+      @JsonKey(name: "registeredWithKennelClub")
+          this.registeredWithIndianKennelClub})
       : super._();
 
   factory _$_GetAnimalsByLocationDetailsResponse.fromJson(
@@ -431,6 +691,9 @@ class _$_GetAnimalsByLocationDetailsResponse
   @JsonKey(name: "username")
   final String? username;
   @override
+  @JsonKey(name: "token")
+  final String? token;
+  @override
   @JsonKey(name: "avatar")
   final String? avatar;
   @override
@@ -441,11 +704,41 @@ class _$_GetAnimalsByLocationDetailsResponse
   final List<GuardianResponse>? guardians;
   @override
   @JsonKey(name: "distance")
-  final int? distance;
+  final double? distance;
+  @override
+  @JsonKey(name: "animalType")
+  final String? animalType;
+  @override
+  @JsonKey(name: "breed")
+  final String? breed;
+  @override
+  @JsonKey(name: "age")
+  final String? age;
+  @override
+  @JsonKey(name: "bio")
+  final String? bio;
+  @override
+  @JsonKey(name: "playFrom")
+  final String? playFrom;
+  @override
+  @JsonKey(name: "playTo")
+  final String? playTo;
+  @override
+  @JsonKey(name: "gender")
+  final String? gender;
+  @override
+  @JsonKey(name: "view")
+  final int? view;
+  @override
+  @JsonKey(name: "likes")
+  final int? likes;
+  @override
+  @JsonKey(name: "registeredWithKennelClub")
+  final bool? registeredWithIndianKennelClub;
 
   @override
   String toString() {
-    return 'GetAnimalsByLocationDetailsResponse(Id: $Id, name: $name, username: $username, avatar: $avatar, location: $location, guardians: $guardians, distance: $distance)';
+    return 'GetAnimalsByLocationDetailsResponse(Id: $Id, name: $name, username: $username, token: $token, avatar: $avatar, location: $location, guardians: $guardians, distance: $distance, animalType: $animalType, breed: $breed, age: $age, bio: $bio, playFrom: $playFrom, playTo: $playTo, gender: $gender, view: $view, likes: $likes, registeredWithIndianKennelClub: $registeredWithIndianKennelClub)';
   }
 
   @override
@@ -457,17 +750,51 @@ class _$_GetAnimalsByLocationDetailsResponse
             (identical(other.name, name) || other.name == name) &&
             (identical(other.username, username) ||
                 other.username == username) &&
+            (identical(other.token, token) || other.token == token) &&
             (identical(other.avatar, avatar) || other.avatar == avatar) &&
             (identical(other.location, location) ||
                 other.location == location) &&
             const DeepCollectionEquality().equals(other.guardians, guardians) &&
             (identical(other.distance, distance) ||
-                other.distance == distance));
+                other.distance == distance) &&
+            (identical(other.animalType, animalType) ||
+                other.animalType == animalType) &&
+            (identical(other.breed, breed) || other.breed == breed) &&
+            (identical(other.age, age) || other.age == age) &&
+            (identical(other.bio, bio) || other.bio == bio) &&
+            (identical(other.playFrom, playFrom) ||
+                other.playFrom == playFrom) &&
+            (identical(other.playTo, playTo) || other.playTo == playTo) &&
+            (identical(other.gender, gender) || other.gender == gender) &&
+            (identical(other.view, view) || other.view == view) &&
+            (identical(other.likes, likes) || other.likes == likes) &&
+            (identical(other.registeredWithIndianKennelClub,
+                    registeredWithIndianKennelClub) ||
+                other.registeredWithIndianKennelClub ==
+                    registeredWithIndianKennelClub));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, Id, name, username, avatar,
-      location, const DeepCollectionEquality().hash(guardians), distance);
+  int get hashCode => Object.hash(
+      runtimeType,
+      Id,
+      name,
+      username,
+      token,
+      avatar,
+      location,
+      const DeepCollectionEquality().hash(guardians),
+      distance,
+      animalType,
+      breed,
+      age,
+      bio,
+      playFrom,
+      playTo,
+      gender,
+      view,
+      likes,
+      registeredWithIndianKennelClub);
 
   @JsonKey(ignore: true)
   @override
@@ -485,13 +812,42 @@ class _$_GetAnimalsByLocationDetailsResponse
 abstract class _GetAnimalsByLocationDetailsResponse
     extends GetAnimalsByLocationDetailsResponse {
   factory _GetAnimalsByLocationDetailsResponse(
-          {@JsonKey(name: "_id") String? Id,
-          @JsonKey(name: "name") String? name,
-          @JsonKey(name: "username") String? username,
-          @JsonKey(name: "avatar") String? avatar,
-          @JsonKey(name: "location") LatLongResponse? location,
-          @JsonKey(name: "guardians") List<GuardianResponse>? guardians,
-          @JsonKey(name: "distance") int? distance}) =
+          {@JsonKey(name: "_id")
+              String? Id,
+          @JsonKey(name: "name")
+              String? name,
+          @JsonKey(name: "username")
+              String? username,
+          @JsonKey(name: "token")
+              String? token,
+          @JsonKey(name: "avatar")
+              String? avatar,
+          @JsonKey(name: "location")
+              LatLongResponse? location,
+          @JsonKey(name: "guardians")
+              List<GuardianResponse>? guardians,
+          @JsonKey(name: "distance")
+              double? distance,
+          @JsonKey(name: "animalType")
+              String? animalType,
+          @JsonKey(name: "breed")
+              String? breed,
+          @JsonKey(name: "age")
+              String? age,
+          @JsonKey(name: "bio")
+              String? bio,
+          @JsonKey(name: "playFrom")
+              String? playFrom,
+          @JsonKey(name: "playTo")
+              String? playTo,
+          @JsonKey(name: "gender")
+              String? gender,
+          @JsonKey(name: "view")
+              int? view,
+          @JsonKey(name: "likes")
+              int? likes,
+          @JsonKey(name: "registeredWithKennelClub")
+              bool? registeredWithIndianKennelClub}) =
       _$_GetAnimalsByLocationDetailsResponse;
   _GetAnimalsByLocationDetailsResponse._() : super._();
 
@@ -509,6 +865,9 @@ abstract class _GetAnimalsByLocationDetailsResponse
   @JsonKey(name: "username")
   String? get username;
   @override
+  @JsonKey(name: "token")
+  String? get token;
+  @override
   @JsonKey(name: "avatar")
   String? get avatar;
   @override
@@ -519,7 +878,37 @@ abstract class _GetAnimalsByLocationDetailsResponse
   List<GuardianResponse>? get guardians;
   @override
   @JsonKey(name: "distance")
-  int? get distance;
+  double? get distance;
+  @override
+  @JsonKey(name: "animalType")
+  String? get animalType;
+  @override
+  @JsonKey(name: "breed")
+  String? get breed;
+  @override
+  @JsonKey(name: "age")
+  String? get age;
+  @override
+  @JsonKey(name: "bio")
+  String? get bio;
+  @override
+  @JsonKey(name: "playFrom")
+  String? get playFrom;
+  @override
+  @JsonKey(name: "playTo")
+  String? get playTo;
+  @override
+  @JsonKey(name: "gender")
+  String? get gender;
+  @override
+  @JsonKey(name: "view")
+  int? get view;
+  @override
+  @JsonKey(name: "likes")
+  int? get likes;
+  @override
+  @JsonKey(name: "registeredWithKennelClub")
+  bool? get registeredWithIndianKennelClub;
   @override
   @JsonKey(ignore: true)
   _$GetAnimalsByLocationDetailsResponseCopyWith<

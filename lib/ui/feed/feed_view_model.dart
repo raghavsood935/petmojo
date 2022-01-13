@@ -57,8 +57,6 @@ class FeedViewModel extends BaseModel {
     this.userId = profile.userId;
     notifyListeners();
 
-    LocalNotificationService.initialize();
-
     seeMorePost();
   }
 
@@ -171,7 +169,5 @@ class FeedViewModel extends BaseModel {
   void showMde() {
     _snackBarService.showSnackbar(message: _sharedPrefernceService.fcmToken);
     print(_sharedPrefernceService.fcmToken);
-
-    // LocalNotificationService.dummyDisplay();
   }
 }

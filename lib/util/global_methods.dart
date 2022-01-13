@@ -34,6 +34,16 @@ class GlobalMethods {
     }
   }
 
+  static bool isMale(String? gender) {
+    if (gender == "") {
+      return true;
+    } else if (gender == "Male") {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   static String utcToLocal(String utcTime) {
     // var strToDateTime = DateTime.parse(utcTime,);
     if (utcTime.length >= 23) {

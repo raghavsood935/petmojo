@@ -57,6 +57,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/cross.png
   AssetGenImage get cross => const AssetGenImage('assets/images/cross.png');
 
+  /// File path: assets/images/crown.png
+  AssetGenImage get crown => const AssetGenImage('assets/images/crown.png');
+
   /// File path: assets/images/dog_pic_one.png
   AssetGenImage get dogPicOne =>
       const AssetGenImage('assets/images/dog_pic_one.png');
@@ -183,6 +186,14 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/main_bg.png
   AssetGenImage get mainBg => const AssetGenImage('assets/images/main_bg.png');
+
+  /// File path: assets/images/map_select_image.jpg
+  AssetGenImage get mapSelectImage =>
+      const AssetGenImage('assets/images/map_select_image.jpg');
+
+  /// File path: assets/images/marker_icon_current.svg
+  SvgGenImage get markerIconCurrent =>
+      const SvgGenImage('assets/images/marker_icon_current.svg');
 
   /// File path: assets/images/marker_icon_destination.png
   AssetGenImage get markerIconDestination =>

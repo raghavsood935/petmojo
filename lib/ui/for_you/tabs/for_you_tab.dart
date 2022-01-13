@@ -20,100 +20,105 @@ class _ForYouTabState extends State<ForYouTab> {
     return ViewModelBuilder<ForYouTabViewModel>.reactive(
       viewModelBuilder: () => ForYouTabViewModel(),
       onModelReady: (model) {
-        model.getPosts();
+        model.getPosts(false);
         controller.addListener(() {
           if (controller.position.pixels ==
               controller.position.maxScrollExtent) {
-            model.getPosts();
+            model.getPosts(true);
           }
         });
       },
-      builder: (context, model, child) => ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GestureDetector(
-              child: Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  border: Border.all(color: colors.kcGreyBackground),
-                  borderRadius: BorderRadius.circular(20),
+      builder: (context, model, child) => RefreshIndicator(
+        onRefresh: () async {
+          await model.getPosts(false);
+        },
+        child: ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: colors.kcGreyBackground),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.search_rounded),
+                      horizontalSpaceSmall,
+                      AppText.caption("Search for profiles, keywords etc.")
+                    ],
+                  ),
                 ),
-                child: Row(
-                  children: [
-                    Icon(Icons.search_rounded),
-                    horizontalSpaceSmall,
-                    AppText.caption("Search for profiles, keywords etc.")
-                  ],
-                ),
+                onTap: model.goToSearchView,
               ),
-              onTap: model.goToSearchView,
             ),
-          ),
-          // Padding(
-          //   padding: const EdgeInsets.all(8.0),
-          //   child: SizedBox(
-          //     height: 125,
-          //     child: ListView.separated(
-          //       scrollDirection: Axis.horizontal,
-          //       shrinkWrap: true,
-          //       itemCount: model.vidoes.length,
-          //       itemBuilder: (context, index) => rowPost(model.vidoes[index]),
-          //       separatorBuilder: (BuildContext context, int index) =>
-          //           horizontalSpaceSmall,
-          //     ),
-          //   ),
-          // ),
-          // spacedDividerSmall,
-          Container(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              children: [
-                StaggeredGridView.countBuilder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: model.dummyListOfPosts.length,
-                  crossAxisSpacing: 6,
-                  mainAxisSpacing: 6,
-                  crossAxisCount: 3,
-                  controller: controller,
-                  itemBuilder: (context, index) => GestureDetector(
-                    onTap: () =>
-                        model.postDetailsPage(model.dummyListOfPosts[index]),
-                    child: postItem(context, index,
-                        model.dummyListOfPosts[index].thumbnail ?? ""),
-                  ),
-                  staggeredTileBuilder: (index) => StaggeredTile.fit(1),
-                ),
-                verticalSpaceRegular,
-                Visibility(
-                  visible: model.isLoading,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: CircularProgressIndicator(
-                      color: colors.primary,
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: SizedBox(
+            //     height: 125,
+            //     child: ListView.separated(
+            //       scrollDirection: Axis.horizontal,
+            //       shrinkWrap: true,
+            //       itemCount: model.vidoes.length,
+            //       itemBuilder: (context, index) => rowPost(model.vidoes[index]),
+            //       separatorBuilder: (BuildContext context, int index) =>
+            //           horizontalSpaceSmall,
+            //     ),
+            //   ),
+            // ),
+            // spacedDividerSmall,
+            Container(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  StaggeredGridView.countBuilder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: model.dummyListOfPosts.length,
+                    crossAxisSpacing: 6,
+                    mainAxisSpacing: 6,
+                    crossAxisCount: 3,
+                    controller: controller,
+                    itemBuilder: (context, index) => GestureDetector(
+                      onTap: () =>
+                          model.postDetailsPage(model.dummyListOfPosts[index]),
+                      child: postItem(context, index,
+                          model.dummyListOfPosts[index].thumbnail ?? ""),
                     ),
+                    staggeredTileBuilder: (index) => StaggeredTile.fit(1),
                   ),
-                ),
-                Visibility(
-                  visible: !model.isEndOfList,
-                  child: Visibility(
-                    visible: !model.isLoading,
-                    child: GestureDetector(
-                      onTap: model.getPosts,
-                      child: AppText.body1Bold(
-                        "See more Posts",
-                        textAlign: TextAlign.center,
+                  verticalSpaceRegular,
+                  Visibility(
+                    visible: model.isLoading,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: CircularProgressIndicator(
                         color: colors.primary,
                       ),
                     ),
                   ),
-                ),
-                verticalSpaceRegular,
-              ],
+                  Visibility(
+                    visible: !model.isEndOfList,
+                    child: Visibility(
+                      visible: !model.isLoading,
+                      child: GestureDetector(
+                        onTap: ()=>model.getPosts(true),
+                        child: AppText.body1Bold(
+                          "See more Posts",
+                          textAlign: TextAlign.center,
+                          color: colors.primary,
+                        ),
+                      ),
+                    ),
+                  ),
+                  verticalSpaceRegular,
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

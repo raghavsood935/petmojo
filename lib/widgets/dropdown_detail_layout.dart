@@ -3,6 +3,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 
 class DropDownDetailsLayers extends StatefulWidget {
@@ -98,17 +99,21 @@ class _DropDownDetailsLayersState extends State<DropDownDetailsLayers> {
                 ),
               ),
             ),
-            ColoredBox(
+            Container(
               color: colors.white,
+              height: screenHeight(context),
               child: Padding(
                 padding: EdgeInsets.only(top: 5),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: widget.innerWidgets,
+                child: SingleChildScrollView(
+                  physics: ScrollPhysics(),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: widget.innerWidgets,
+                  ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       )),

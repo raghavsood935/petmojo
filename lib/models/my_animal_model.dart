@@ -29,6 +29,7 @@ class MyAnimalModelResponse with _$MyAnimalModelResponse {
     @JsonKey(name: "playTo") String? playTo,
     @JsonKey(name: "servicePet") bool? servicePet,
     @JsonKey(name: "spayed") bool? spayed,
+    @JsonKey(name: "isBrandAmbassador") bool? isBrandAmbassador,
     @JsonKey(name: "registeredWithKennelClub") bool? registeredWithKennelClub,
     @JsonKey(name: "friendlinessWithHumans") int? friendlinessWithHumans,
     @JsonKey(name: "friendlinessWithAnimals") int? friendlinessWithAnimals,

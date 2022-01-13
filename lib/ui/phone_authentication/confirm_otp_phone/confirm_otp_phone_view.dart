@@ -49,7 +49,7 @@ class ConfirmOtpPhoneView extends StatelessWidget with $ConfirmOtpPhoneView {
               Padding(
                 padding: commonPaddding,
                 child: AppText.body1(
-                    "One time password has been send to your phone number +91-$phoneNumber"),
+                    "One time password has been sent to your phone number +91-$phoneNumber"),
               ),
               verticalSpaceRegular,
               Padding(

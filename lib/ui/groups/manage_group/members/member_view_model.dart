@@ -119,7 +119,8 @@ class MemberViewModel extends BaseModel {
     notifyListeners();
   }
 
-  Future onActionPressed(String profileID, int index, bool isAdmin) async {
+  Future onActionPressed(
+      String profileID, String userType, int index, bool isAdmin) async {
     var sheetResponse = await _bottomsheetService.showCustomSheet(
       variant: BottomSheetType.BasicListOfOptionsBottomSheet,
       isScrollControlled: true,
@@ -132,33 +133,40 @@ class MemberViewModel extends BaseModel {
       switch (sheetResponse.data) {
         case 0:
           {
-            adminAction(profileID, isAdmin);
+            adminAction(
+              profileID,
+              userType,
+              isAdmin,
+            );
             break;
           }
         case 1:
           {
-            removeMember(profileID, index);
+            removeMember(profileID, userType, index);
             break;
           }
       }
     }
   }
 
-  Future adminAction(String id, bool isAdmin) async {
+  Future adminAction(String id, String userType, bool isAdmin) async {
     var result;
     if (isAdmin) {
       result = await _tamelyApi.removeAdmin(
-          MakeGroupAdminBody(groupId, id), isHuman,
+          MakeGroupAdminBody(groupId, id, userType), isHuman,
           petToken: petToken);
     } else {
       result = await _tamelyApi.makeAdmin(
-          MakeGroupAdminBody(groupId, id), isHuman,
+          MakeGroupAdminBody(groupId, id, userType), isHuman,
           petToken: petToken);
     }
 
     if (result.getException != null) {
-      ServerError error = result.getException as ServerError;
-      _snackbarService.showSnackbar(message: error.getErrorMessage());
+      // ServerError error = result.getException as ServerError;
+      // _snackbarService.showSnackbar(message: error.getErrorMessage());
+      getMembers(true);
+      isChanged = true;
+      notifyListeners();
     } else if (result.data != null) {
       if (result.data!.success ?? false) {
         getMembers(true);
@@ -169,9 +177,9 @@ class MemberViewModel extends BaseModel {
     }
   }
 
-  Future removeMember(String id, int index) async {
+  Future removeMember(String id, String userType, int index) async {
     var result = await _tamelyApi.removeMember(
-        MakeGroupAdminBody(groupId, id), isHuman,
+        MakeGroupAdminBody(groupId, id, userType), isHuman,
         petToken: petToken);
 
     if (result.getException != null) {

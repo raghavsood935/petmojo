@@ -29,10 +29,22 @@ class GetAnimalsByLocationDetailsResponse
     @JsonKey(name: "_id") String? Id,
     @JsonKey(name: "name") String? name,
     @JsonKey(name: "username") String? username,
+    @JsonKey(name: "token") String? token,
     @JsonKey(name: "avatar") String? avatar,
     @JsonKey(name: "location") LatLongResponse? location,
     @JsonKey(name: "guardians") List<GuardianResponse>? guardians,
-    @JsonKey(name: "distance") int? distance,
+    @JsonKey(name: "distance") double? distance,
+    @JsonKey(name: "animalType") String? animalType,
+    @JsonKey(name: "breed") String? breed,
+    @JsonKey(name: "age") String? age,
+    @JsonKey(name: "bio") String? bio,
+    @JsonKey(name: "playFrom") String? playFrom,
+    @JsonKey(name: "playTo") String? playTo,
+    @JsonKey(name: "gender") String? gender,
+    @JsonKey(name: "view") int? view,
+    @JsonKey(name: "likes") int? likes,
+    @JsonKey(name: "registeredWithKennelClub")
+        bool? registeredWithIndianKennelClub,
   }) = _GetAnimalsByLocationDetailsResponse;
 
   factory GetAnimalsByLocationDetailsResponse.fromJson(

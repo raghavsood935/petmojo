@@ -40,6 +40,7 @@ class _$MyAnimalModelResponseTearOff {
       @JsonKey(name: "playTo") String? playTo,
       @JsonKey(name: "servicePet") bool? servicePet,
       @JsonKey(name: "spayed") bool? spayed,
+      @JsonKey(name: "isBrandAmbassador") bool? isBrandAmbassador,
       @JsonKey(name: "registeredWithKennelClub") bool? registeredWithKennelClub,
       @JsonKey(name: "friendlinessWithHumans") int? friendlinessWithHumans,
       @JsonKey(name: "friendlinessWithAnimals") int? friendlinessWithAnimals,
@@ -68,6 +69,7 @@ class _$MyAnimalModelResponseTearOff {
       playTo: playTo,
       servicePet: servicePet,
       spayed: spayed,
+      isBrandAmbassador: isBrandAmbassador,
       registeredWithKennelClub: registeredWithKennelClub,
       friendlinessWithHumans: friendlinessWithHumans,
       friendlinessWithAnimals: friendlinessWithAnimals,
@@ -125,6 +127,8 @@ mixin _$MyAnimalModelResponse {
   bool? get servicePet => throw _privateConstructorUsedError;
   @JsonKey(name: "spayed")
   bool? get spayed => throw _privateConstructorUsedError;
+  @JsonKey(name: "isBrandAmbassador")
+  bool? get isBrandAmbassador => throw _privateConstructorUsedError;
   @JsonKey(name: "registeredWithKennelClub")
   bool? get registeredWithKennelClub => throw _privateConstructorUsedError;
   @JsonKey(name: "friendlinessWithHumans")
@@ -176,6 +180,7 @@ abstract class $MyAnimalModelResponseCopyWith<$Res> {
       @JsonKey(name: "playTo") String? playTo,
       @JsonKey(name: "servicePet") bool? servicePet,
       @JsonKey(name: "spayed") bool? spayed,
+      @JsonKey(name: "isBrandAmbassador") bool? isBrandAmbassador,
       @JsonKey(name: "registeredWithKennelClub") bool? registeredWithKennelClub,
       @JsonKey(name: "friendlinessWithHumans") int? friendlinessWithHumans,
       @JsonKey(name: "friendlinessWithAnimals") int? friendlinessWithAnimals,
@@ -218,6 +223,7 @@ class _$MyAnimalModelResponseCopyWithImpl<$Res>
     Object? playTo = freezed,
     Object? servicePet = freezed,
     Object? spayed = freezed,
+    Object? isBrandAmbassador = freezed,
     Object? registeredWithKennelClub = freezed,
     Object? friendlinessWithHumans = freezed,
     Object? friendlinessWithAnimals = freezed,
@@ -297,6 +303,10 @@ class _$MyAnimalModelResponseCopyWithImpl<$Res>
       spayed: spayed == freezed
           ? _value.spayed
           : spayed // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isBrandAmbassador: isBrandAmbassador == freezed
+          ? _value.isBrandAmbassador
+          : isBrandAmbassador // ignore: cast_nullable_to_non_nullable
               as bool?,
       registeredWithKennelClub: registeredWithKennelClub == freezed
           ? _value.registeredWithKennelClub
@@ -378,6 +388,7 @@ abstract class _$MyAnimalModelResponseCopyWith<$Res>
       @JsonKey(name: "playTo") String? playTo,
       @JsonKey(name: "servicePet") bool? servicePet,
       @JsonKey(name: "spayed") bool? spayed,
+      @JsonKey(name: "isBrandAmbassador") bool? isBrandAmbassador,
       @JsonKey(name: "registeredWithKennelClub") bool? registeredWithKennelClub,
       @JsonKey(name: "friendlinessWithHumans") int? friendlinessWithHumans,
       @JsonKey(name: "friendlinessWithAnimals") int? friendlinessWithAnimals,
@@ -423,6 +434,7 @@ class __$MyAnimalModelResponseCopyWithImpl<$Res>
     Object? playTo = freezed,
     Object? servicePet = freezed,
     Object? spayed = freezed,
+    Object? isBrandAmbassador = freezed,
     Object? registeredWithKennelClub = freezed,
     Object? friendlinessWithHumans = freezed,
     Object? friendlinessWithAnimals = freezed,
@@ -503,6 +515,10 @@ class __$MyAnimalModelResponseCopyWithImpl<$Res>
           ? _value.spayed
           : spayed // ignore: cast_nullable_to_non_nullable
               as bool?,
+      isBrandAmbassador: isBrandAmbassador == freezed
+          ? _value.isBrandAmbassador
+          : isBrandAmbassador // ignore: cast_nullable_to_non_nullable
+              as bool?,
       registeredWithKennelClub: registeredWithKennelClub == freezed
           ? _value.registeredWithKennelClub
           : registeredWithKennelClub // ignore: cast_nullable_to_non_nullable
@@ -568,6 +584,7 @@ class _$_MyAnimalModelResponse extends _MyAnimalModelResponse {
       @JsonKey(name: "playTo") this.playTo,
       @JsonKey(name: "servicePet") this.servicePet,
       @JsonKey(name: "spayed") this.spayed,
+      @JsonKey(name: "isBrandAmbassador") this.isBrandAmbassador,
       @JsonKey(name: "registeredWithKennelClub") this.registeredWithKennelClub,
       @JsonKey(name: "friendlinessWithHumans") this.friendlinessWithHumans,
       @JsonKey(name: "friendlinessWithAnimals") this.friendlinessWithAnimals,
@@ -635,6 +652,9 @@ class _$_MyAnimalModelResponse extends _MyAnimalModelResponse {
   @JsonKey(name: "spayed")
   final bool? spayed;
   @override
+  @JsonKey(name: "isBrandAmbassador")
+  final bool? isBrandAmbassador;
+  @override
   @JsonKey(name: "registeredWithKennelClub")
   final bool? registeredWithKennelClub;
   @override
@@ -667,7 +687,7 @@ class _$_MyAnimalModelResponse extends _MyAnimalModelResponse {
 
   @override
   String toString() {
-    return 'MyAnimalModelResponse(mating: $mating, adoption: $adoption, playBuddies: $playBuddies, Id: $Id, name: $name, username: $username, avatar: $avatar, category: $category, bio: $bio, animalType: $animalType, gender: $gender, breed: $breed, age: $age, playFrom: $playFrom, playTo: $playTo, servicePet: $servicePet, spayed: $spayed, registeredWithKennelClub: $registeredWithKennelClub, friendlinessWithHumans: $friendlinessWithHumans, friendlinessWithAnimals: $friendlinessWithAnimals, favouriteThings: $favouriteThings, thingsDislikes: $thingsDislikes, uniqueHabits: $uniqueHabits, eatingHabits: $eatingHabits, location: $location, guardians: $guardians, v: $v)';
+    return 'MyAnimalModelResponse(mating: $mating, adoption: $adoption, playBuddies: $playBuddies, Id: $Id, name: $name, username: $username, avatar: $avatar, category: $category, bio: $bio, animalType: $animalType, gender: $gender, breed: $breed, age: $age, playFrom: $playFrom, playTo: $playTo, servicePet: $servicePet, spayed: $spayed, isBrandAmbassador: $isBrandAmbassador, registeredWithKennelClub: $registeredWithKennelClub, friendlinessWithHumans: $friendlinessWithHumans, friendlinessWithAnimals: $friendlinessWithAnimals, favouriteThings: $favouriteThings, thingsDislikes: $thingsDislikes, uniqueHabits: $uniqueHabits, eatingHabits: $eatingHabits, location: $location, guardians: $guardians, v: $v)';
   }
 
   @override
@@ -699,6 +719,8 @@ class _$_MyAnimalModelResponse extends _MyAnimalModelResponse {
             (identical(other.servicePet, servicePet) ||
                 other.servicePet == servicePet) &&
             (identical(other.spayed, spayed) || other.spayed == spayed) &&
+            (identical(other.isBrandAmbassador, isBrandAmbassador) ||
+                other.isBrandAmbassador == isBrandAmbassador) &&
             (identical(
                     other.registeredWithKennelClub, registeredWithKennelClub) ||
                 other.registeredWithKennelClub == registeredWithKennelClub) &&
@@ -741,6 +763,7 @@ class _$_MyAnimalModelResponse extends _MyAnimalModelResponse {
         playTo,
         servicePet,
         spayed,
+        isBrandAmbassador,
         registeredWithKennelClub,
         friendlinessWithHumans,
         friendlinessWithAnimals,
@@ -784,6 +807,7 @@ abstract class _MyAnimalModelResponse extends MyAnimalModelResponse {
       @JsonKey(name: "playTo") String? playTo,
       @JsonKey(name: "servicePet") bool? servicePet,
       @JsonKey(name: "spayed") bool? spayed,
+      @JsonKey(name: "isBrandAmbassador") bool? isBrandAmbassador,
       @JsonKey(name: "registeredWithKennelClub") bool? registeredWithKennelClub,
       @JsonKey(name: "friendlinessWithHumans") int? friendlinessWithHumans,
       @JsonKey(name: "friendlinessWithAnimals") int? friendlinessWithAnimals,
@@ -850,6 +874,9 @@ abstract class _MyAnimalModelResponse extends MyAnimalModelResponse {
   @override
   @JsonKey(name: "spayed")
   bool? get spayed;
+  @override
+  @JsonKey(name: "isBrandAmbassador")
+  bool? get isBrandAmbassador;
   @override
   @JsonKey(name: "registeredWithKennelClub")
   bool? get registeredWithKennelClub;

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "183984006291-eg1o2bd9pdfg12sv1d1cgsj11vkmj2iv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.tamely.partner",
+            "certificate_hash": "9a9a902e6765e962894944a20a6c71378dfb8464"
+          }
+        },
+        {
           "client_id": "183984006291-he5cmbapft00qol9agnmc52tmie1l49p.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -89,6 +97,14 @@
           "android_info": {
             "package_name": "in.tamely.user",
             "certificate_hash": "a074ac92403eb7dc5a98f6df9f543c39efe95057"
+          }
+        },
+        {
+          "client_id": "183984006291-npa3fhiuq1tc3u6dvlu39q0ubfs9nc5u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.tamely.user",
+            "certificate_hash": "b33f52e93028c94e99b081fac92a87c6e6a469de"
           }
         },
         {

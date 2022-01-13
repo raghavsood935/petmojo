@@ -199,6 +199,7 @@ class _$ProfileForYouResponseTearOff {
       @JsonKey(name: "fullName") String? fullName,
       @JsonKey(name: "avatar") String? avatar,
       @JsonKey(name: "type") String? type,
+      @JsonKey(name: "token") String? token,
       @JsonKey(name: "description") String? description,
       @JsonKey(name: "members") int? members,
       @JsonKey(name: "name") String? name,
@@ -210,6 +211,7 @@ class _$ProfileForYouResponseTearOff {
       fullName: fullName,
       avatar: avatar,
       type: type,
+      token: token,
       description: description,
       members: members,
       name: name,
@@ -238,6 +240,8 @@ mixin _$ProfileForYouResponse {
   String? get avatar => throw _privateConstructorUsedError;
   @JsonKey(name: "type")
   String? get type => throw _privateConstructorUsedError;
+  @JsonKey(name: "token")
+  String? get token => throw _privateConstructorUsedError;
   @JsonKey(name: "description")
   String? get description => throw _privateConstructorUsedError;
   @JsonKey(name: "members")
@@ -266,6 +270,7 @@ abstract class $ProfileForYouResponseCopyWith<$Res> {
       @JsonKey(name: "fullName") String? fullName,
       @JsonKey(name: "avatar") String? avatar,
       @JsonKey(name: "type") String? type,
+      @JsonKey(name: "token") String? token,
       @JsonKey(name: "description") String? description,
       @JsonKey(name: "members") int? members,
       @JsonKey(name: "name") String? name,
@@ -289,6 +294,7 @@ class _$ProfileForYouResponseCopyWithImpl<$Res>
     Object? fullName = freezed,
     Object? avatar = freezed,
     Object? type = freezed,
+    Object? token = freezed,
     Object? description = freezed,
     Object? members = freezed,
     Object? name = freezed,
@@ -315,6 +321,10 @@ class _$ProfileForYouResponseCopyWithImpl<$Res>
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
+              as String?,
+      token: token == freezed
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
               as String?,
       description: description == freezed
           ? _value.description
@@ -353,6 +363,7 @@ abstract class _$ProfileForYouResponseCopyWith<$Res>
       @JsonKey(name: "fullName") String? fullName,
       @JsonKey(name: "avatar") String? avatar,
       @JsonKey(name: "type") String? type,
+      @JsonKey(name: "token") String? token,
       @JsonKey(name: "description") String? description,
       @JsonKey(name: "members") int? members,
       @JsonKey(name: "name") String? name,
@@ -378,6 +389,7 @@ class __$ProfileForYouResponseCopyWithImpl<$Res>
     Object? fullName = freezed,
     Object? avatar = freezed,
     Object? type = freezed,
+    Object? token = freezed,
     Object? description = freezed,
     Object? members = freezed,
     Object? name = freezed,
@@ -404,6 +416,10 @@ class __$ProfileForYouResponseCopyWithImpl<$Res>
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
+              as String?,
+      token: token == freezed
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
               as String?,
       description: description == freezed
           ? _value.description
@@ -438,6 +454,7 @@ class _$_ProfileForYouResponse extends _ProfileForYouResponse {
       @JsonKey(name: "fullName") this.fullName,
       @JsonKey(name: "avatar") this.avatar,
       @JsonKey(name: "type") this.type,
+      @JsonKey(name: "token") this.token,
       @JsonKey(name: "description") this.description,
       @JsonKey(name: "members") this.members,
       @JsonKey(name: "name") this.name,
@@ -464,6 +481,9 @@ class _$_ProfileForYouResponse extends _ProfileForYouResponse {
   @JsonKey(name: "type")
   final String? type;
   @override
+  @JsonKey(name: "token")
+  final String? token;
+  @override
   @JsonKey(name: "description")
   final String? description;
   @override
@@ -481,7 +501,7 @@ class _$_ProfileForYouResponse extends _ProfileForYouResponse {
 
   @override
   String toString() {
-    return 'ProfileForYouResponse(Id: $Id, username: $username, fullName: $fullName, avatar: $avatar, type: $type, description: $description, members: $members, name: $name, coverPhoto: $coverPhoto, isMember: $isMember)';
+    return 'ProfileForYouResponse(Id: $Id, username: $username, fullName: $fullName, avatar: $avatar, type: $type, token: $token, description: $description, members: $members, name: $name, coverPhoto: $coverPhoto, isMember: $isMember)';
   }
 
   @override
@@ -496,6 +516,7 @@ class _$_ProfileForYouResponse extends _ProfileForYouResponse {
                 other.fullName == fullName) &&
             (identical(other.avatar, avatar) || other.avatar == avatar) &&
             (identical(other.type, type) || other.type == type) &&
+            (identical(other.token, token) || other.token == token) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.members, members) || other.members == members) &&
@@ -508,7 +529,7 @@ class _$_ProfileForYouResponse extends _ProfileForYouResponse {
 
   @override
   int get hashCode => Object.hash(runtimeType, Id, username, fullName, avatar,
-      type, description, members, name, coverPhoto, isMember);
+      type, token, description, members, name, coverPhoto, isMember);
 
   @JsonKey(ignore: true)
   @override
@@ -529,6 +550,7 @@ abstract class _ProfileForYouResponse extends ProfileForYouResponse {
       @JsonKey(name: "fullName") String? fullName,
       @JsonKey(name: "avatar") String? avatar,
       @JsonKey(name: "type") String? type,
+      @JsonKey(name: "token") String? token,
       @JsonKey(name: "description") String? description,
       @JsonKey(name: "members") int? members,
       @JsonKey(name: "name") String? name,
@@ -554,6 +576,9 @@ abstract class _ProfileForYouResponse extends ProfileForYouResponse {
   @override
   @JsonKey(name: "type")
   String? get type;
+  @override
+  @JsonKey(name: "token")
+  String? get token;
   @override
   @JsonKey(name: "description")
   String? get description;

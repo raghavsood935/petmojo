@@ -16,6 +16,7 @@ class CommunityStartBannerView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<CommunityStartBannerViewModel>.reactive(
       viewModelBuilder: () => CommunityStartBannerViewModel(),
+      onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -41,7 +42,8 @@ class CommunityStartBannerView extends StatelessWidget {
                 ),
                 verticalSpaceSmall,
                 MainButtonWidget(
-                  onMainButtonTapped: model.goToCommunityChooseInterestsView,
+                  // onMainButtonTapped: model.goToCommunityChooseInterestsView,
+                  onMainButtonTapped: model.goToCommunityMainPage,
                   mainButtonTitle: "GET STARTED",
                 ),
               ],

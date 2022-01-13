@@ -163,7 +163,7 @@ class GroupInfoViewModel extends BaseModel {
         source: source,
         maxWidth: 500,
         maxHeight: 500,
-        imageQuality: 70,
+        imageQuality: 100,
       );
 
       if (pickedFile != null) {

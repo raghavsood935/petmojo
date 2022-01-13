@@ -37,6 +37,8 @@ String searchImgPath = "assets/images/Search.png";
 String addImgPath = "assets/images/Plus.png";
 String loginBannerImgPath = "assets/images/login_banner.png";
 String highDemandImgPath = "assets/images/high_demand.png";
+String crownImgPath = "assets/images/crown.png";
+String mapSelectImgPath = "assets/images/map_select_image.jpg";
 
 // animal images
 String birdFullImgPath = "assets/images/animals/bird.png";

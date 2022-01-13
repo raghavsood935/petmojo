@@ -3,6 +3,7 @@ import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
+import 'package:tamely/services/shared_preferences_service.dart';
 
 class CommunityStartBannerViewModel extends BaseModel {
   final log = getLogger('CommunityStartBannerView');
@@ -24,16 +25,34 @@ class CommunityStartBannerViewModel extends BaseModel {
     await _communityChooseInterestsView();
   }
 
-  Future _communityMainViewGo() async {
-    if (_communityMainView != null) {
-      await _navigationService.navigateTo(
-        _communityMainView!,
-        arguments: _destinationArguments,
-      );
-    }
+  final _sharedPreference = locator<SharedPreferencesService>();
+
+  bool isHuman = true;
+  String petId = "";
+  String petToken = "";
+  int profileCurrentIndex = 0;
+
+  void init() {
+    CurrentProfile profile = _sharedPreference.getCurrentProfile();
+    isHuman = profile.isHuman;
+    petId = profile.petId;
+    petToken = profile.petToken;
+    profileCurrentIndex = profile.currentIndex;
+    notifyListeners();
   }
 
-  void goToCommunityMainView() async {
-    await _communityMainViewGo();
+  Future goToCommunityMainPage() async {
+    _sharedPreference.setCommunityFirstTime(false);
+    _navigationService.pushNamedAndRemoveUntil(
+      Routes.dashboard,
+      arguments: DashboardArguments(
+        isNeedToUpdateProfile: false,
+        initialPageState: 1,
+        isHuman: isHuman,
+        petID: petId,
+        petToken: petToken,
+        initialState: profileCurrentIndex,
+      ),
+    );
   }
 }
