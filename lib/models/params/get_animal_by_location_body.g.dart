@@ -12,6 +12,8 @@ GetAnimalByLocationBody _$GetAnimalByLocationBodyFromJson(
       (json['lat'] as num).toDouble(),
       (json['long'] as num).toDouble(),
       json['counter'] as int,
+      json['type'] as String,
+      json['name'] as String,
     );
 
 Map<String, dynamic> _$GetAnimalByLocationBodyToJson(
@@ -20,4 +22,6 @@ Map<String, dynamic> _$GetAnimalByLocationBodyToJson(
       'lat': instance.lat,
       'long': instance.long,
       'counter': instance.counter,
+      'type': instance.type,
+      'name': instance.name,
     };

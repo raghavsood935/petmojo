@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/ui/community/community_main_view/adoption/adoption_profile_list_tile.dart';
 import 'package:tamely/ui/community/community_main_view/mating/mating_profile_list_tile.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/list_constant.dart';
+import 'package:tamely/util/location_helper.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/custom_circle_avatar.dart';
@@ -27,6 +29,8 @@ class _AdoptionViewState extends State<AdoptionView> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<AdoptionViewModel>.reactive(
       viewModelBuilder: () => AdoptionViewModel(),
+      onModelReady: (model) => model.init(),
+      onDispose: (model) => model.dispose(),
       builder: (context, model, child) => DropDownDetailsLayers(
         title: adoptionTitle,
         subTitle: adoptionSubTitle,
@@ -55,8 +59,8 @@ class _AdoptionViewState extends State<AdoptionView> {
             padding: const EdgeInsets.symmetric(horizontal: 5),
             child: SearchTextField(
               controller: model.searchTC,
-              onChange: (value) {},
-              hint: "Search for strays",
+              onChange: (value) => model.onSearchChange(value, false),
+              hint: "Search for adoption",
             ),
           ),
           Padding(
@@ -67,10 +71,10 @@ class _AdoptionViewState extends State<AdoptionView> {
               onChange: model.onFilterChange,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: AppText.body1Bold("Newest addition"),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          //   child: AppText.body1Bold("Newest addition"),
+          // ),
           // Padding(
           //   padding: const EdgeInsets.symmetric(horizontal: 20),
           //   child: SizedBox(
@@ -104,18 +108,70 @@ class _AdoptionViewState extends State<AdoptionView> {
           // spacedDividerBigTiny,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: AppText.body1Bold("Discover animals up for mating"),
+            child: AppText.body1Bold("Discover animals up for adoption"),
           ),
-          model.listOfAnimals.isEmpty
-              ? AppText.body1Bold("No profile found in that location")
-              : ListView.separated(
-                  physics: ScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) =>
-                      MatingProfileTile(profile: model.listOfAnimals[index]),
-                  separatorBuilder: (context, index) => spacedDividerTiny,
-                  itemCount: model.listOfAnimals.length,
+          (model.isLocationAvailable != null && !model.isLocationAvailable!)
+              ? LocationHelper.locationNotAvailableWidget(
+                  "animals for adoption")
+              : model.listOfAnimals.isEmpty
+                  ? Visibility(
+                      visible: !model.isLoading,
+                      child: Center(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 30),
+                          child: AppText.body1(
+                            "All animals are either adopted or no one is listed near you \n\nPlease try again at a later time",
+                            color: colors.kcCaptionGreyColor,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    )
+                  : ListView.separated(
+                      physics: ScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) => GestureDetector(
+                        onTap: () => model.inspectAnimalProfile(
+                            context,
+                            model.listOfAnimals[index].Id ?? "",
+                            model.listOfAnimals[index].token ?? ""),
+                        child: AdoptionProfileTile(
+                            profile: model.listOfAnimals[index]),
+                      ),
+                      separatorBuilder: (context, index) => spacedDividerTiny,
+                      itemCount: model.listOfAnimals.length,
+                    ),
+          verticalSpaceRegular,
+          Visibility(
+            visible: model.isLoading,
+            child: Center(
+              child: CircularProgressIndicator(
+                color: colors.primary,
+              ),
+            ),
+          ),
+          verticalSpaceRegular,
+          Visibility(
+            visible: model.searchTC.text.isNotEmpty,
+            child: Visibility(
+              visible: model.listOfAnimals.isNotEmpty,
+              child: Visibility(
+                visible: !model.isEndOfList,
+                child: Visibility(
+                  visible: !model.isLoading,
+                  child: GestureDetector(
+                    onTap: () =>
+                        model.onSearchChange(model.searchTC.text, true),
+                    child: AppText.body1Bold(
+                      "See more profiles",
+                      color: colors.primary,
+                    ),
+                  ),
                 ),
+              ),
+            ),
+          ),
+          verticalSpaceLarge
         ],
       ),
     );

@@ -7,8 +7,11 @@ class GetAnimalByLocationBody {
   final double lat;
   final double long;
   final int counter;
+  final String type;
+  final String name;
 
-  GetAnimalByLocationBody(this.lat, this.long, this.counter);
+  GetAnimalByLocationBody(
+      this.lat, this.long, this.counter, this.type, this.name);
 
   factory GetAnimalByLocationBody.fromJson(Map<String, dynamic> json) =>
       _$GetAnimalByLocationBodyFromJson(json);

@@ -6,16 +6,15 @@ import 'package:tamely/ui/community/community_main_view/strays_near_you/strays_n
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/global_methods.dart';
-import 'package:tamely/util/list_constant.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/rounded_text.dart';
 
-class MatingProfileTile extends StatelessWidget {
-  const MatingProfileTile({Key? key, required this.profile}) : super(key: key);
+class AdoptionProfileTile extends StatelessWidget {
+  const AdoptionProfileTile({Key? key, required this.profile})
+      : super(key: key);
 
   final GetAnimalsByLocationDetailsResponse profile;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -191,34 +190,12 @@ class MatingProfileTile extends StatelessWidget {
               ],
             ),
             verticalSpaceTiny,
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  AppText.caption(
-                      ("${profile.animalType}${(profile.breed ?? "").isEmpty ? "" : "(${profile.breed} )"}")
-                          .replaceAll(",", "")),
-                  Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: CircleAvatar(
-                      radius: 2,
-                      backgroundColor: colors.primary,
-                    ),
-                  ),
-                  AppText.caption(
-                    "${(profile.age ?? "").contains("-") ? "DOB : " : ""}",
-                  ),
-                  AppText.caption(
-                    "${profile.age}${(profile.age ?? "").contains("-") ? "" : ageTypeValues.contains(profile.age ?? "") ? "" : "years"}",
-                    color: colors.black,
-                  ),
-                ],
-              ),
-            ),
+            AppText.caption(
+                ("${profile.animalType}${(profile.breed ?? "").isEmpty ? "" : "(${profile.breed})"}")
+                    .replaceAll(",", "")),
             verticalSpaceTiny,
             AppText.caption(
-              "${(profile.registeredWithIndianKennelClub ?? false) ? "R" : "Not r"}egistered with Indian kennel club",
+              (profile.bio ?? "---").trimRight(),
               color: colors.black,
             ),
             // verticalSpaceSmall,

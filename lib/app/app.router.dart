@@ -16,6 +16,7 @@ import 'package:stacked/stacked_annotations.dart';
 import '../enum/walkNumber.dart';
 import '../models/application_models.dart';
 import '../models/feed_post_response.dart';
+import '../models/get_animals_by_location_response.dart';
 import '../models/get_blogs_model.dart';
 import '../models/my_animal_model.dart';
 import '../ui/appointmentdetails/appointmentdetails_view.dart';
@@ -704,8 +705,12 @@ class StackedRouter extends RouterBase {
       );
     },
     StrayNearYouMapView: (data) {
+      var args = data.getArgs<StrayNearYouMapViewArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => const StrayNearYouMapView(),
+        builder: (context) => StrayNearYouMapView(
+          key: args.key,
+          animals: args.animals,
+        ),
         settings: data,
       );
     },
@@ -1205,6 +1210,13 @@ class NewPostArguments {
   final Key? key;
   final String path;
   NewPostArguments({this.key, required this.path});
+}
+
+/// StrayNearYouMapView arguments holder class
+class StrayNearYouMapViewArguments {
+  final Key? key;
+  final List<GetAnimalsByLocationDetailsResponse> animals;
+  StrayNearYouMapViewArguments({this.key, required this.animals});
 }
 
 /// BlogDetailsPageView arguments holder class

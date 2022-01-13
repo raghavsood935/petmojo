@@ -28,6 +28,7 @@ _$_GetAnimalsByLocationDetailsResponse
           Id: json['_id'] as String?,
           name: json['name'] as String?,
           username: json['username'] as String?,
+          token: json['token'] as String?,
           avatar: json['avatar'] as String?,
           location: json['location'] == null
               ? null
@@ -36,7 +37,18 @@ _$_GetAnimalsByLocationDetailsResponse
           guardians: (json['guardians'] as List<dynamic>?)
               ?.map((e) => GuardianResponse.fromJson(e as Map<String, dynamic>))
               .toList(),
-          distance: json['distance'] as int?,
+          distance: (json['distance'] as num?)?.toDouble(),
+          animalType: json['animalType'] as String?,
+          breed: json['breed'] as String?,
+          age: json['age'] as String?,
+          bio: json['bio'] as String?,
+          playFrom: json['playFrom'] as String?,
+          playTo: json['playTo'] as String?,
+          gender: json['gender'] as String?,
+          view: json['view'] as int?,
+          likes: json['likes'] as int?,
+          registeredWithIndianKennelClub:
+              json['registeredWithKennelClub'] as bool?,
         );
 
 Map<String, dynamic> _$$_GetAnimalsByLocationDetailsResponseToJson(
@@ -45,8 +57,19 @@ Map<String, dynamic> _$$_GetAnimalsByLocationDetailsResponseToJson(
       '_id': instance.Id,
       'name': instance.name,
       'username': instance.username,
+      'token': instance.token,
       'avatar': instance.avatar,
       'location': instance.location,
       'guardians': instance.guardians,
       'distance': instance.distance,
+      'animalType': instance.animalType,
+      'breed': instance.breed,
+      'age': instance.age,
+      'bio': instance.bio,
+      'playFrom': instance.playFrom,
+      'playTo': instance.playTo,
+      'gender': instance.gender,
+      'view': instance.view,
+      'likes': instance.likes,
+      'registeredWithKennelClub': instance.registeredWithIndianKennelClub,
     };

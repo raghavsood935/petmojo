@@ -36,7 +36,7 @@ class LocalNotificationService {
         await GlobalMethods.linkToFilePath(message.data["image"], "bigImage");
     final styleInformation = BigPictureStyleInformation(
       FilePathAndroidBitmap(bigPicturePath),
-      // largeIcon: FilePathAndroidBitmap(largePicturePath)
+      largeIcon: FilePathAndroidBitmap(bigPicturePath),
     );
 
     NotificationDetails notificationDetails = NotificationDetails(
@@ -44,7 +44,7 @@ class LocalNotificationService {
         "tamelyid",
         "tamely channel",
         playSound: true,
-        styleInformation: styleInformation,
+        // styleInformation: styleInformation,
         // sound: RawResourceAndroidNotificationSound("pop"),
         importance: Importance.max,
         priority: Priority.max,

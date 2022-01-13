@@ -72,6 +72,8 @@ class AnimalProfileViewModel extends FutureViewModel {
 
   bool isGuardian = false;
 
+  bool isBrandAmbassador = false;
+
   List<FeedPostResponse> _listOfPosts = [];
 
   String get profilename => _profilename;
@@ -120,7 +122,7 @@ class AnimalProfileViewModel extends FutureViewModel {
         source: source,
         maxWidth: 500,
         maxHeight: 500,
-        imageQuality: 70,
+        imageQuality: 100,
       );
 
       if (pickedFile != null) {
@@ -323,6 +325,8 @@ class AnimalProfileViewModel extends FutureViewModel {
     _isUpForAdoption = response.animalprofileModel!.adoption ?? false;
     _isUpForMating = response.animalprofileModel!.mating ?? false;
     _isUpForPlayBuddies = response.animalprofileModel!.playBuddies ?? false;
+
+    isBrandAmbassador = response.animalprofileModel!.isBrandAmbassador??false;
 
     for (GuardiansModelResponse response
         in response.animalprofileModel!.guardians ?? []) {

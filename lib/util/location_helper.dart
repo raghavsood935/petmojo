@@ -1,8 +1,16 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/util/styles.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'Color.dart';
+import 'dart:ui' as ui;
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class LocationHelper {
   static Future<bool> checkLocationPermission() async {
@@ -177,5 +185,58 @@ class LocationHelper {
         );
       },
     );
+  }
+
+  static Future<String> getAddress(LatLng location) async {
+    final coordinates = new Coordinates(location.latitude, location.longitude);
+    var addresses =
+        await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    var first = addresses.first;
+    return '${first.locality}, ${first.adminArea}';
+  }
+
+  static Widget locationNotAvailableWidget(String screenName) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 50),
+      alignment: Alignment.center,
+      child: RichText(
+        text: TextSpan(
+          style: body1Style.copyWith(
+              color: colors.kcPrimaryTextColor, height: 1.8),
+          children: <TextSpan>[
+            TextSpan(
+                text:
+                    'In order to look at $screenName near you,\nplease turn on the location access by '),
+            TextSpan(
+                text: 'clicking here',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: colors.primary),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () => Geolocator.openAppSettings()),
+          ],
+        ),
+      ),
+    );
+  }
+
+  static Future<BitmapDescriptor> bitmapDescriptorFromSvgAsset(
+      String assetName) async {
+    String svgString = await DefaultAssetBundle.of(
+            StackedService.navigatorKey!.currentContext!)
+        .loadString(assetName);
+    DrawableRoot svgDrawableRoot =
+        await svg.fromSvgString(svgString, svgString);
+
+    MediaQueryData queryData =
+        MediaQuery.of(StackedService.navigatorKey!.currentContext!);
+    double devicePixelRatio = queryData.devicePixelRatio;
+    double width = 64 * devicePixelRatio;
+    double height = 64 * devicePixelRatio;
+
+    ui.Picture picture = svgDrawableRoot.toPicture(size: Size(width, height));
+
+    ui.Image image = await picture.toImage(width.toInt(), height.toInt());
+    ByteData? bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+    return BitmapDescriptor.fromBytes(bytes!.buffer.asUint8List());
   }
 }
