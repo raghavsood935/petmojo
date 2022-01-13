@@ -117,9 +117,9 @@ class CreateAnimalViewModel extends FormViewModel {
     try {
       final pickedFile = await _picker.pickImage(
         source: source,
-        maxWidth: 500,
-        maxHeight: 500,
-        imageQuality: 100,
+        // maxWidth: 500,
+        // maxHeight: 500,
+        // imageQuality: 100,
       );
 
       if (pickedFile != null) {

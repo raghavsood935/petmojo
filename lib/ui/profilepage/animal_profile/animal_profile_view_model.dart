@@ -120,9 +120,9 @@ class AnimalProfileViewModel extends FutureViewModel {
     try {
       final pickedFile = await _picker.pickImage(
         source: source,
-        maxWidth: 500,
-        maxHeight: 500,
-        imageQuality: 100,
+        // maxWidth: 500,
+        // maxHeight: 500,
+        // imageQuality: 100,
       );
 
       if (pickedFile != null) {
@@ -152,6 +152,7 @@ class AnimalProfileViewModel extends FutureViewModel {
       iosUiSettings: IOSUiSettings(
         aspectRatioLockEnabled: false,
       ),
+      compressQuality: 100,
     );
     notifyListeners();
     editAnimalProfileDetails();
@@ -326,7 +327,7 @@ class AnimalProfileViewModel extends FutureViewModel {
     _isUpForMating = response.animalprofileModel!.mating ?? false;
     _isUpForPlayBuddies = response.animalprofileModel!.playBuddies ?? false;
 
-    isBrandAmbassador = response.animalprofileModel!.isBrandAmbassador??false;
+    isBrandAmbassador = response.animalprofileModel!.isBrandAmbassador ?? false;
 
     for (GuardiansModelResponse response
         in response.animalprofileModel!.guardians ?? []) {

@@ -68,9 +68,9 @@ class ProfileViewModel extends BaseViewModel {
     try {
       final pickedFile = await _picker.pickImage(
         source: source,
-        maxWidth: 500,
-        maxHeight: 500,
-        imageQuality: 100,
+        // maxWidth: 500,
+        // maxHeight: 500,
+        // imageQuality: 100,
       );
 
       if (pickedFile != null) {
@@ -100,6 +100,7 @@ class ProfileViewModel extends BaseViewModel {
       iosUiSettings: IOSUiSettings(
         aspectRatioLockEnabled: false,
       ),
+      compressQuality: 100,
     );
     notifyListeners();
     await uploadImage();
