@@ -44,11 +44,11 @@ class LocalNotificationService {
         "tamelyid",
         "tamely channel",
         playSound: true,
-        // styleInformation: styleInformation,
-        // sound: RawResourceAndroidNotificationSound("pop"),
         importance: Importance.max,
         priority: Priority.max,
         channelShowBadge: true,
+        largeIcon: FilePathAndroidBitmap(bigPicturePath),
+        styleInformation: BigTextStyleInformation(""),
       ),
     );
 
