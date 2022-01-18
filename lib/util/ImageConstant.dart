@@ -66,13 +66,15 @@ String eventsImgPath = "assets/images/community_page_images/events.png";
 String blogImgPath = "assets/images/community_page_images/blogs.png";
 
 //service page
-String dailyDogRunning =
-    "assets/images/service_page_images/daily_dog_running.png";
-String houseSitting = "assets/images/service_page_images/house_sitting.png";
-String petBoarding = "assets/images/service_page_images/pet_boarding.png";
-String vetConsultation =
+String dogWalkingImgPath = "assets/images/service_page_images/dog_walking.png";
+String dogTranningImgPath = "assets/images/service_page_images/dog_traning.png";
+String doorStepDeliveryImgPath =
+    "assets/images/service_page_images/doorstep_deliivery.png";
+String grommingImgPath = "assets/images/service_page_images/grooming.png";
+String petBoardingImgPath =
+    "assets/images/service_page_images/pet_boarding.png";
+String vetConsultationImgPath =
     "assets/images/service_page_images/vet_consultation.png";
-String petGrooming = "assets/images/service_page_images/pet_grooming.png";
 
 //animal type images
 String alpacaImgPath = "assets/images/animal_type_images/alpaca.png";
