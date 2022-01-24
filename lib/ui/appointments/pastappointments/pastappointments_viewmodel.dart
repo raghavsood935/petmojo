@@ -1,6 +1,7 @@
 import 'package:tamely/api/api_service.dart';
 import 'package:tamely/api/base_response.dart';
 import 'package:tamely/api/server_error.dart';
+import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/enum/activeAppointmentStatus.dart';
 import 'package:tamely/models/my_appointments_response.dart';
 import 'package:tamely/models/params/get_data_body.dart';
@@ -25,6 +26,7 @@ class PastAppointmentsViewModel extends FutureViewModel<void>
 
   final userService = locator<UserService>();
   final snackBarService = locator<SnackbarService>();
+  final _dialogService = locator<DialogService>();
 
   selectAccountType(String? newValue) {
     selectedServiceType = newValue!;
@@ -68,6 +70,7 @@ class PastAppointmentsViewModel extends FutureViewModel<void>
     print("4");
     try {
       if (await Util.checkInternetConnectivity()) {
+        _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
         _pastAppointments.clear();
 
         BaseResponse<MyAppointmentsResponse> result = await runBusyFuture(
@@ -109,6 +112,7 @@ class PastAppointmentsViewModel extends FutureViewModel<void>
           }
           notifyListeners();
         }
+        _dialogService.completeDialog(DialogResponse(confirmed: true));
       } else {
         snackBarService.showSnackbar(message: "No Internet connection");
       }

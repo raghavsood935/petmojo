@@ -28,7 +28,7 @@ class _NewPostState extends State<NewPost> {
     // ModalRoute.of(context)?.settings.arguments as String;
     return ViewModelBuilder<NewPostViewModel>.reactive(
       viewModelBuilder: () => NewPostViewModel(),
-      onModelReady: (model) => model.getUSerDetails(),
+      onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
@@ -164,7 +164,7 @@ class _NewPostState extends State<NewPost> {
                             horizontal: 15, vertical: 15),
                         child: Align(
                           alignment: Alignment.centerLeft,
-                          child: AppText.body1Bold('Post on Profiles & Groups'),
+                          child: AppText.body1Bold('Post on Profiles'),
                         ),
                       ),
                       model.isLoading
@@ -172,6 +172,7 @@ class _NewPostState extends State<NewPost> {
                           : ListView.builder(
                               scrollDirection: Axis.vertical,
                               shrinkWrap: true,
+                              physics: ScrollPhysics(),
                               itemCount: model.postOn.length,
                               itemBuilder: (BuildContext context, int index) {
                                 bool isChecked = false;
@@ -212,6 +213,72 @@ class _NewPostState extends State<NewPost> {
                                             ),
                                             onChanged: (bool? val) {
                                               model.postOn[index]
+                                                  .onSelectedChange();
+                                              setState(() {
+                                                isChecked = !isChecked;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 15),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: AppText.body1Bold('Post on Groups'),
+                        ),
+                      ),
+                      model.isGroupLoading
+                          ? CircularProgressIndicator(color: colors.primary)
+                          : ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              physics: ScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: model.postOnGroup.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                bool isChecked = false;
+                                return Card(
+                                  elevation: 0,
+                                  child: Container(
+                                    child: Column(
+                                      children: [
+                                        Theme(
+                                          data: ThemeData(
+                                            checkboxTheme: CheckboxThemeData(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                            ),
+                                          ),
+                                          child: CheckboxListTile(
+                                            activeColor: colors.primary,
+                                            dense: true,
+                                            title: new Text(
+                                              model.postOnGroup[index].name,
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
+                                                  letterSpacing: 0.5),
+                                            ),
+                                            value: model
+                                                .postOnGroup[index].isChecked,
+                                            secondary: Container(
+                                              height: 50,
+                                              width: 50,
+                                              child: CircleAvatar(
+                                                backgroundImage: NetworkImage(
+                                                    model.postOnGroup[index]
+                                                        .profileimg),
+                                              ),
+                                            ),
+                                            onChanged: (bool? val) {
+                                              model.postOnGroup[index]
                                                   .onSelectedChange();
                                               setState(() {
                                                 isChecked = !isChecked;

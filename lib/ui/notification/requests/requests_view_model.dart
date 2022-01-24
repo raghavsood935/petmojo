@@ -89,7 +89,7 @@ class RequestsViewModel extends BaseModel {
 
   Future acceptRelationRequest(String animalId) async {
     var result = await _tamelyApi.confirmRelationsRequest(
-        ConfirmRelationRequestBody(animalId,petId), petToken);
+        ConfirmRelationRequestBody(animalId, petId), petToken);
 
     if (result.getException != null) {
       ServerError error = result.getException as ServerError;
@@ -101,7 +101,7 @@ class RequestsViewModel extends BaseModel {
 
   Future declineRelationRequest(String id, String animalId) async {
     var result = await _tamelyApi.rejectRelationRequest(
-        RejectRelationRequestBody(id, animalId), petToken);
+        RejectRelationRequestBody(id, petId), petToken);
 
     if (result.getException != null) {
       ServerError error = result.getException as ServerError;

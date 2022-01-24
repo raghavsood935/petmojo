@@ -52,6 +52,7 @@ class FollowersInnerDetailsResponse with _$FollowersInnerDetailsResponse {
     @JsonKey(name: "username") String? username,
     @JsonKey(name: "avatar") String? avatar,
     @JsonKey(name: "fullName") String? fullName,
+    @JsonKey(name: "name") String? name,
   }) = _FollowersInnerDetailsResponse;
 
   factory FollowersInnerDetailsResponse.fromJson(Map<String, dynamic> json) =>

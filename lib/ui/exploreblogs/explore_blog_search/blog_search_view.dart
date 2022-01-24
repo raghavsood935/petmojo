@@ -22,7 +22,7 @@ class BlogSerachView extends StatefulWidget {
 class _BlogSerachViewState extends State<BlogSerachView> {
   @override
   Widget build(BuildContext context) {
-    List<Map> blogcards = ExploreBlogsViewModel().vidoes;
+    List blogcards = ExploreBlogsViewModel().listOfBlogs;
 
     return ViewModelBuilder<BlogSerachViewModel>.reactive(
       viewModelBuilder: () => BlogSerachViewModel(),

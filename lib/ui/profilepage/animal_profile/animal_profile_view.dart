@@ -133,16 +133,22 @@ class _AnimalProfileViewState extends State<AnimalProfileView> {
                           children: [
                             verticalSpaceRegular,
                             SizedBox(
-                              height: 100,
-                              width: 100,
+                              height: 120,
+                              width: 150,
                               child: Stack(
                                 children: [
                                   Positioned(
+                                    top: 20,
+                                    right: 0,
+                                    left: 0,
                                     child: GestureDetector(
                                         onTap: () {
-                                          if (!widget.isInspectView)
+                                          if (widget.isInspectView) {
+                                            model.imageTapped(model.avatar);
+                                          } else {
                                             model.onImageButtonPressed(
                                                 ImageSource.gallery, context);
+                                          }
                                         },
                                         child: CustomCircularAvatar(
                                           imgPath: model.avatar,
@@ -151,7 +157,7 @@ class _AnimalProfileViewState extends State<AnimalProfileView> {
                                   ),
                                   Positioned(
                                     bottom: 5,
-                                    right: 5,
+                                    right: 25,
                                     child: Visibility(
                                       visible: !widget.isInspectView,
                                       child: GestureDetector(
@@ -167,6 +173,16 @@ class _AnimalProfileViewState extends State<AnimalProfileView> {
                                           ),
                                         ),
                                       ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: 0,
+                                    right: 15,
+                                    child: Visibility(
+                                      visible: model.isBrandAmbassador,
+                                      child: Transform.rotate(
+                                          angle: .4,
+                                          child: Image.asset(crownImgPath)),
                                     ),
                                   ),
                                 ],
@@ -340,7 +356,8 @@ class _AnimalProfileViewState extends State<AnimalProfileView> {
                   Visibility(
                     visible: model.isUpForAdoption ||
                         model.isUpForMating ||
-                        model.isUpForPlayBuddies,
+                        model.isUpForPlayBuddies ||
+                        model.isBrandAmbassador,
                     child: Column(
                       children: [
                         SizedBox(
@@ -348,6 +365,11 @@ class _AnimalProfileViewState extends State<AnimalProfileView> {
                           child: ListView(
                             scrollDirection: Axis.horizontal,
                             children: [
+                              Visibility(
+                                visible: model.isBrandAmbassador,
+                                child: roundedText(
+                                    "Tamely Official Brand Ambassdor"),
+                              ),
                               Visibility(
                                 visible: model.isUpForAdoption,
                                 child: roundedText(upForAdoption),
@@ -426,8 +448,8 @@ class _AnimalProfileViewState extends State<AnimalProfileView> {
                         mainAxisSpacing: 6,
                         crossAxisCount: 3,
                         itemBuilder: (context, index) => GestureDetector(
-                          onTap: () => model
-                              .goToPostDetailsView(model.listOfPosts[index]),
+                          onTap: () => model.goToPostDetailsView(
+                              model.listOfPosts[index], index),
                           child: postItem(
                             context,
                             index,
@@ -448,7 +470,7 @@ class _AnimalProfileViewState extends State<AnimalProfileView> {
 }
 
 Widget postItem(BuildContext context, int index, String url) => Container(
-      // height: getPostItemHeight(context, index),
+      height: getPostItemHeight(context, index),
       margin: EdgeInsets.all(3),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),

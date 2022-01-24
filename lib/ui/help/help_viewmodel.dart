@@ -47,9 +47,9 @@ class HelpViewModel extends BaseModel {
     try {
       final pickedFile = await _picker.pickImage(
         source: source,
-        maxWidth: 500,
-        maxHeight: 500,
-        imageQuality: 70,
+        // maxWidth: 500,
+        // maxHeight: 500,
+        // imageQuality: 100,
       );
 
       if (pickedFile != null) {

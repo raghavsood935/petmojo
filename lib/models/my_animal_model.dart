@@ -1,5 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:tamely/models/guardians_model.dart';
+import 'package:tamely/models/location_resopnse.dart';
+
+import 'get_appointment_details_response.dart';
 
 part 'my_animal_model.freezed.dart';
 part 'my_animal_model.g.dart';
@@ -26,6 +29,7 @@ class MyAnimalModelResponse with _$MyAnimalModelResponse {
     @JsonKey(name: "playTo") String? playTo,
     @JsonKey(name: "servicePet") bool? servicePet,
     @JsonKey(name: "spayed") bool? spayed,
+    @JsonKey(name: "isBrandAmbassador") bool? isBrandAmbassador,
     @JsonKey(name: "registeredWithKennelClub") bool? registeredWithKennelClub,
     @JsonKey(name: "friendlinessWithHumans") int? friendlinessWithHumans,
     @JsonKey(name: "friendlinessWithAnimals") int? friendlinessWithAnimals,
@@ -33,7 +37,7 @@ class MyAnimalModelResponse with _$MyAnimalModelResponse {
     @JsonKey(name: "thingsDislikes") String? thingsDislikes,
     @JsonKey(name: "uniqueHabits") String? uniqueHabits,
     @JsonKey(name: "eatingHabits") String? eatingHabits,
-    @JsonKey(name: "location") String? location,
+    @JsonKey(name: "location") LatLongResponse? location,
     @JsonKey(name: "guardians") List<GuardiansModelResponse>? guardians,
     @JsonKey(name: "__v") int? v,
   }) = _MyAnimalModelResponse;

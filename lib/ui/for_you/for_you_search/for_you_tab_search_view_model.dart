@@ -84,6 +84,21 @@ class ForYouTabSearchViewModel extends BaseModel {
     );
   }
 
+  Future inspectAnimalProfile(
+      BuildContext ct, String petId, String petToken) async {
+    await _navigationService.navigateTo(
+      Routes.animalProfileView,
+      arguments: AnimalProfileViewArguments(
+        isFromDashboard: false,
+        isInspectView: true,
+        id: petId,
+        token: petToken,
+        inspecterProfileId: _id,
+        inspecterProfileType: GlobalMethods.getProfileType(isHuman),
+      ),
+    );
+  }
+
   Future init() async {
     CurrentProfile profile = _sharedPreferenceService.getCurrentProfile();
 

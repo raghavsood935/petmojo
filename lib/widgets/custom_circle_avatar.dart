@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/ImageConstant.dart';
 
 class CustomCircularAvatar extends StatelessWidget {
   CustomCircularAvatar({
@@ -28,6 +29,7 @@ class CustomCircularAvatar extends StatelessWidget {
             : CircleAvatar(
                 backgroundColor: colors.lightBackgroundColor,
                 radius: (radius - 4.0),
+                backgroundImage: NetworkImage(emptyProfileImgUrl),
               ),
       ),
     );

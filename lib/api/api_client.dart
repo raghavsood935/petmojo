@@ -12,8 +12,19 @@ import 'package:tamely/models/common_response.dart';
 import 'package:tamely/models/create_post_response.dart';
 import 'package:tamely/models/edit_response.dart';
 import 'package:tamely/models/generate_pet_username_response.dart';
+import 'package:tamely/models/get_animals_by_location_response.dart';
+import 'package:tamely/models/get_blogs_details_model.dart';
+import 'package:tamely/models/get_blogs_like_details_model.dart';
+import 'package:tamely/models/get_blogs_model.dart';
 import 'package:tamely/models/get_bookmarks_model.dart';
 import 'package:tamely/models/get_payment_details_response.dart';
+import 'package:tamely/models/group_response/get_all_group_members_response.dart';
+import 'package:tamely/models/group_response/get_all_groups_response.dart';
+import 'package:tamely/models/group_response/get_group_info_response.dart';
+import 'package:tamely/models/group_response/get_joined_groups_response.dart';
+import 'package:tamely/models/group_response/group_create_response.dart';
+import 'package:tamely/models/group_response/pending_groups_invitations_response.dart';
+import 'package:tamely/models/like_blog_response.dart';
 import 'package:tamely/models/list_of_comments_response.dart';
 import 'package:tamely/models/list_of_feed_post_response.dart';
 import 'package:tamely/models/list_of_followers_resopnse.dart';
@@ -30,19 +41,29 @@ import 'package:tamely/models/params/change_bio_avatar_body.dart';
 import 'package:tamely/models/params/comment_new/add_comment_body.dart';
 import 'package:tamely/models/params/confirm_relation_request_body.dart';
 import 'package:tamely/models/params/counter_body.dart';
+import 'package:tamely/models/params/create_animal_profile_body.dart';
+import 'package:tamely/models/params/create_post_body.dart';
 import 'package:tamely/models/params/delete_post_body.dart';
+import 'package:tamely/models/params/edit_animal_profile_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_details_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_main_details_body.dart';
 import 'package:tamely/models/params/feedback_body.dart';
 import 'package:tamely/models/params/fetch_list_of_following_body.dart';
+import 'package:tamely/models/params/get_animal_by_location_body.dart';
 import 'package:tamely/models/params/get_guardians_body.dart';
 import 'package:tamely/models/params/get_payment_details_body.dart';
 import 'package:tamely/models/params/get_post_by_id.dart';
 import 'package:tamely/models/params/get_profile_details_by_id_body.dart';
 import 'package:tamely/models/params/get_relation_requests_body.dart';
+import 'package:tamely/models/params/groups/edit_group_cover_body.dart';
+import 'package:tamely/models/params/groups/edit_group_details_body.dart';
+import 'package:tamely/models/params/groups/group_basic_body.dart';
+import 'package:tamely/models/params/groups/group_basic_with_counter_body.dart';
+import 'package:tamely/models/params/groups/make_admin_group_body.dart';
 import 'package:tamely/models/params/guardians_and_relations/send_guardian_request_body.dart';
 import 'package:tamely/models/params/guardians_and_relations/send_relation_request_body.dart';
 import 'package:tamely/models/params/like_dislike_post_body.dart';
+import 'package:tamely/models/params/liked_blog_body.dart';
 import 'package:tamely/models/params/login_body.dart';
 import 'package:tamely/models/params/need_help_body.dart';
 import 'package:tamely/models/params/profile_create_body.dart';
@@ -56,13 +77,13 @@ import 'package:tamely/models/params/send_mobile_otp_body.dart';
 import 'package:tamely/models/params/set_payment_details_body.dart';
 import 'package:tamely/models/params/show_people_to_follow_body.dart';
 import 'package:tamely/models/params/social_login_body.dart';
+import 'package:tamely/models/params/update_token_body.dart';
 import 'package:tamely/models/params/verify_mobile_otp_body.dart';
 import 'package:tamely/models/profile_details_by_id_response.dart';
 import 'package:tamely/models/params/groups/change_group_description_body.dart';
 import 'package:tamely/models/params/groups/create_group_body.dart';
 import 'package:tamely/models/params/groups/update_group_hashtags_body.dart';
 import 'package:tamely/models/params/groups/invite_people_group_body.dart';
-import 'package:tamely/models/group_response/group_create_resopnse.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
 import 'package:tamely/models/user_response_models.dart';
 import 'package:tamely/models/get_appointment_details_response.dart';
@@ -91,6 +112,7 @@ class Apis {
 
   static const String login = '/auth/login';
   static const String register = '/auth/register';
+  static const String updateFCMToken = '/auth/registerFCMtoken';
   static const String checkUserName = '/user/isusernameavailable/{username}';
   static const String user = '/user';
   static const String changePassword = '/auth/password';
@@ -179,10 +201,40 @@ class Apis {
 
   //community
   // ---> Groups
+  static const String getGroupDetails = '/community/getGroupDetails';
+  static const String getGroupPosts = '/community/retrieveGroupFeed';
   static const String createGroup = '/community/createGroup';
   static const String changeDescription = '/community/changeDescription';
   static const String updateHashtags = '/community/updateHashtags';
+  static const String editCoverPhoto = '/community/editCoverPhoto';
+  static const String editGroupDetails = '/community/editGroupDetails';
   static const String invitePeople = '/community/invitePeople';
+  static const String getMembers = '/community/getMembers';
+  static const String showPendingInvitations =
+      '/community/showPendingInvitations';
+  static const String getJoinedGroups = '/community/getJoinedGroups';
+  static const String joinGroup = '/community/joinGroup';
+  static const String leaveGroup = '/community/leaveGroup';
+  static const String makeAdmin = '/community/makeAdmin';
+  static const String removeAdmin = '/community/removeAdmin';
+  static const String removeMember = '/community/removeMember';
+  static const String getAllGroups = '/community/getAllGroups';
+  static const String deleteGroup = '/community/deleteGroup';
+  static const String declineInvitation = '/community/declineInvitation';
+
+  // --> Social Center
+  static const String getStrays = '/community/getStrays';
+  static const String getPlayBuddies = '/community/getPlayBuddies';
+  static const String getAdoption = '/community/getAdoption';
+  static const String getMating = '/community/getMating';
+
+  //for Blogs
+  static const String getBlogs = '/community/getBlogs';
+  //for Blogs likes
+  static const String likedBlog = '/community/likeblog';
+  //for Blogs Details
+  static const String getBlogDetails = '/community/getBlogDetails';
+  static const String getBlogLikesDetails = '/community/getLikeDetails';
 
   // My Bookings Flow
   static const String getActiveAppointments =
@@ -253,6 +305,9 @@ abstract class ApiClient {
 
   @POST(Apis.register)
   Future<UserResponse> register(@Body() RegisterBody registerBody);
+
+  @POST(Apis.updateFCMToken)
+  Future<EditResponse> updateFCMToken(@Body() UpdateTokenBody updateTokenBody);
 
   @GET(Apis.checkUserName)
   Future<UserNameAvailableResponse> checkUserName(
@@ -349,46 +404,11 @@ abstract class ApiClient {
 
   @POST(Apis.animalProfileCreate)
   Future<AnimalProfileCreateResopnse> animalProfileCreate(
-    @Part(name: "name") String name,
-    @Part(name: "username") String username,
-    @Part(name: "avatar") String avatar,
-    @Part(name: "category") String category,
-    @Part(name: "bio") String bio,
-    @Part(name: "animalType") String animalType,
-    @Part(name: "gender") String gender,
-    @Part(name: "breed") String breed,
-    @Part(name: "age") String age,
-    @Part(name: "mating") bool mating,
-    @Part(name: "adoption") bool adoption,
-    @Part(name: "playBuddies") bool playBuddies,
-    @Part(name: "registeredWithKennelClub") bool registeredWithKennelClub,
-    @Part(name: "playFrom") String playFrom,
-    @Part(name: "playTo") String playTo,
-    @Part(name: "location") String location,
-  );
+      @Body() CreateAnimalProfileBody createAnimalProfileBody);
 
-  @PUT(Apis.animalProfileEdit)
+  @POST(Apis.animalProfileEdit)
   Future<EditResponse> editAnimalProfile(
-    @Part(name: "name") String? name,
-    @Part(name: "username") String? username,
-    @Part(name: "avatar") String? avatar,
-    @Part(name: "category") String? category,
-    @Part(name: "bio") String? bio,
-    @Part(name: "animalType") String? animalType,
-    @Part(name: "gender") String? gender,
-    @Part(name: "breed") String? breed,
-    @Part(name: "age") String? age,
-    @Part(name: "mating") bool? mating,
-    @Part(name: "adoption") bool? adoption,
-    @Part(name: "playBuddies") bool? playBuddies,
-    @Part(name: "registeredWithKennelClub") bool? registeredWithKennelClub,
-    @Part(name: "playFrom") String? playFrom,
-    @Part(name: "playTo") String? playTo,
-    @Part(name: "location") String? location,
-    @Part(name: "servicePet") bool? servicePet,
-    @Part(name: "spayed") bool? spayed,
-    @Part(name: "animalId") String? animalId,
-  );
+      @Body() EditAnimalProfileBody editAnimalProfileBody);
 
   @POST(Apis.animalProfileDetails)
   Future<AnimalProfileDetailModelResponse> getAnimalProfileDetail(
@@ -423,15 +443,7 @@ abstract class ApiClient {
   Future<BookmarkResponse> bookmarkPost(@Path("postID") String postID);
 
   @POST(Apis.createPost)
-  Future<CreatePostResponse> createPost(
-    @Part(name: "type") String type,
-    @Part(name: "image") File image,
-    @Part(name: "caption") String caption,
-    @Part(name: "filter") String filter,
-    @Part(name: "Userauthor") String Userauthor,
-    @Part(name: "Animalauthor") String Animalauthor,
-    @Part(name: "authorType") String authorType,
-  );
+  Future<CreatePostResponse> createPost(@Body() CreatePostBody createPostBody);
 
   @DELETE(Apis.deletePost)
   Future<EditResponse> deletePost(@Body() DeletePostBody deletePostBody);
@@ -472,6 +484,16 @@ abstract class ApiClient {
   Future<GetPetDetailsResponse> getPetDetails();
 
   //Community
+  // ---> get Group Details
+  @POST(Apis.getGroupDetails)
+  Future<GetGroupInfoResponse> getGroupDetails(
+      @Body() GroupBasicBody groupBasicBody);
+
+  // ---> get Group Posts
+  @POST(Apis.getGroupPosts)
+  Future<ListOfFeedPostResponse> getGroupPosts(
+      @Body() GroupBasicWithCounterBody groupBasicWithCounterBody);
+
   // ---> Create Group
   @POST(Apis.createGroup)
   Future<GroupCreateResponse> createGroup(
@@ -487,10 +509,105 @@ abstract class ApiClient {
   Future<EditResponse> updateHashtags(
       @Body() UpdateGroupHashtagsBody updateGroupHashtagsBody);
 
+  // ---> Edit Group Cover Photo
+  @POST(Apis.editCoverPhoto)
+  Future<EditResponse> editCoverPhoto(
+      @Body() EditGroupCoverBody editGroupCoverBody);
+
+  // ---> Edit Group Details
+  @POST(Apis.editGroupDetails)
+  Future<EditResponse> editGroupDetails(
+      @Body() EditGroupDetailsBody editGroupDetailsBody);
+
   // ---> Invite peoples Group
   @POST(Apis.invitePeople)
   Future<EditResponse> invitePeople(
       @Body() InvitePeopleGroupBody invitePeopleGroupBody);
+
+  // ---> Get members of Group
+  @POST(Apis.getMembers)
+  Future<GetAllGroupMembersResponse> getMembers(
+      @Body() GroupBasicWithCounterBody groupBasicWithCounterBody);
+
+  // ---> Show pending invitations
+  @POST(Apis.showPendingInvitations)
+  Future<PendingGroupInvitationResponse> showPendingInvitations();
+
+  // ---> Get Joined Groups
+  @POST(Apis.getJoinedGroups)
+  Future<GetJoinedGroupResponse> getJoinedGroups();
+
+  // ---> Join group
+  @POST(Apis.joinGroup)
+  Future<EditResponse> joinGroup(@Body() GroupBasicBody groupBasicBody);
+
+  // ---> Leave group
+  @POST(Apis.leaveGroup)
+  Future<EditResponse> leaveGroup(@Body() GroupBasicBody groupBasicBody);
+
+  // ---> Make admin
+  @POST(Apis.makeAdmin)
+  Future<EditResponse> makeAdmin(@Body() MakeGroupAdminBody makeGroupAdminBody);
+
+  // ---> Remove admin
+  @POST(Apis.removeAdmin)
+  Future<EditResponse> removeAdmin(
+      @Body() MakeGroupAdminBody makeGroupAdminBody);
+
+  // ---> Remove member
+  @POST(Apis.removeMember)
+  Future<EditResponse> removeMember(
+      @Body() MakeGroupAdminBody makeGroupAdminBody);
+
+  // ---> Get All Groups
+  @POST(Apis.getAllGroups)
+  Future<GetAllGroupResponse> getAllGroups(@Body() CounterBody counterBody);
+
+  // ---> Delete Groups
+  @POST(Apis.deleteGroup)
+  Future<EditResponse> deleteGroup(@Body() GroupBasicBody groupBasicBody);
+
+  // ---> Decline Groups Invitation
+  @POST(Apis.declineInvitation)
+  Future<EditResponse> declineInvitation(@Body() GroupBasicBody groupBasicBody);
+
+  //getBlogs
+  @POST(Apis.getBlogs)
+  Future<getBlogs> GetBlogs(@Body() CounterBody counterBody);
+
+  // ---> Like Blog
+  @POST(Apis.likedBlog)
+  Future<LikedBlogResponse> likedBlog(@Body() LikedBlogBody likedBlogBody);
+
+  // ---> Get Blog Details
+  @POST(Apis.getBlogDetails)
+  Future<GetBlogDetailsResponse> getBlogDetails(
+      @Body() LikedBlogBody likedBlogBody);
+
+  // ---> Get Blog Likes Details
+  @POST(Apis.getBlogLikesDetails)
+  Future<GetBlogLikeDetailsResponse> getBlogLikesDetails(
+      @Body() LikedBlogBody likedBlogBody);
+
+  // ---> Get Strays
+  @POST(Apis.getStrays)
+  Future<GetAnimalsByLocationResponse> getStrays(
+      @Body() GetAnimalByLocationBody getAnimalByLocationBody);
+
+  // ---> Get Strays
+  @POST(Apis.getPlayBuddies)
+  Future<GetAnimalsByLocationResponse> getPlayBuddies(
+      @Body() GetAnimalByLocationBody getAnimalByLocationBody);
+
+  // ---> Get Strays
+  @POST(Apis.getAdoption)
+  Future<GetAnimalsByLocationResponse> getAdoption(
+      @Body() GetAnimalByLocationBody getAnimalByLocationBody);
+
+  // ---> Get Strays
+  @POST(Apis.getMating)
+  Future<GetAnimalsByLocationResponse> getMating(
+      @Body() GetAnimalByLocationBody getAnimalByLocationBody);
 
   // -- Booking A Run
   @POST(Apis.bookARun)

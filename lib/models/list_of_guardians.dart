@@ -39,6 +39,7 @@ class GuardianDetailsResponse with _$GuardianDetailsResponse {
     @JsonKey(name: "_id") String? Id,
     @JsonKey(name: "email") String? email,
     @JsonKey(name: "username") String? username,
+    @JsonKey(name: "fullName") String? fullName,
     @JsonKey(name: "avatar") String? avatar,
   }) = _GuardianDetailsResponse;
 

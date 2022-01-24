@@ -8,12 +8,15 @@ class SearchTextField extends StatefulWidget {
     required this.onChange,
     required this.hint,
     this.isPaddingNeeded = true,
+    this.isMapSuffix,
   }) : super(key: key);
 
   TextEditingController controller;
   String hint;
   bool isPaddingNeeded;
   Function(String value) onChange;
+
+  Widget? isMapSuffix;
 
   @override
   _SearchTextFieldState createState() => _SearchTextFieldState();
@@ -44,16 +47,17 @@ class _SearchTextFieldState extends State<SearchTextField> {
             Icons.search,
             color: colors.primary,
           ),
-          suffix: GestureDetector(
-            onTap: () {
-              widget.controller.clear();
-              widget.onChange("");
-            },
-            child: Icon(
-              Icons.cancel_outlined,
-              size: 20,
-            ),
-          ),
+          suffix: widget.isMapSuffix ??
+              GestureDetector(
+                onTap: () {
+                  widget.controller.clear();
+                  widget.onChange("");
+                },
+                child: Icon(
+                  Icons.cancel_outlined,
+                  size: 20,
+                ),
+              ),
           border: roundedBorder.copyWith(
             borderSide: BorderSide(color: colors.kcLightGreyColor),
           ),

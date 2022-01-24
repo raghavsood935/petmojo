@@ -5,6 +5,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
+import 'package:tamely/app/app.router.dart';
 
 class TamelyDogRunnersViewModel extends FutureViewModel<void>
     implements Initialisable {
@@ -25,6 +26,14 @@ class TamelyDogRunnersViewModel extends FutureViewModel<void>
   int get noOfJobs => _noOfJobs;
   double get noOfRating => _noOfRating;
   int get noOfRepeatClients => _noOfRepeatClients;
+
+  toBookRunning() {
+    _navigationService.navigateTo(
+      Routes.dogRunningBookingView,
+      arguments:
+          DogRunningBookingViewArguments(currentLocation: currentLocation),
+    );
+  }
 
   @override
   Future<void> futureToRun() async {

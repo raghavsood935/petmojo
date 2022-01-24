@@ -4,6 +4,8 @@ import 'package:geocoder/geocoder.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
+import 'package:tamely/models/get_appointment_details_response.dart';
+import 'package:tamely/models/location_resopnse.dart';
 import 'package:tamely/models/my_animal_model.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
 import 'package:tamely/util/String.dart';
@@ -11,7 +13,7 @@ import 'package:tamely/util/String.dart';
 class GeneralInfoViewModel extends BaseModel {
   final _navigationService = locator<NavigationService>();
 
-  String _location = "gasrgraesadrgwer";
+  String _location = "-";
 
   String _serviecPet = "";
   String _spayed = "";
@@ -19,31 +21,35 @@ class GeneralInfoViewModel extends BaseModel {
   String _breed = "";
   String _gender = "";
 
-  Future getLocation(String latLog) async {
-    List<String> position = latLog.split(",");
+  Future getLocation(LatLongResponse loct) async {
+    if (loct.coordinates != null && loct.coordinates!.length == 2) {
+      double log = loct.coordinates![0];
+      double lat = loct.coordinates![1];
 
-    print(latLog);
+      var address = await Geocoder.local
+          .findAddressesFromCoordinates(Coordinates(lat, log));
+      print("this is subAdminArea ${address.first.subAdminArea}");
+      print("this is locality ${address.first.locality}");
 
-    if (position != null && position.length <= 2) {
-      double lat = double.parse(position[0]);
-      double log = double.parse(position[1]);
-
-      final coordinates = new Coordinates(lat, log);
-
-      var addresses =
-          await Geocoder.local.findAddressesFromCoordinates(coordinates);
-      var first = addresses.first;
-
-      _location = first.addressLine;
-
+      _location = '${address.first.locality}, ${address.first.subAdminArea}';
       notifyListeners();
 
-      print(_location);
-    } else {
-      _location = "AAAAAAAAAAA";
-      print("EMPTY");
-      notifyListeners();
+      // Coordinates coordinates = new Coordinates(lat, log);
+      // var addresses =
+      //     await Geocoder.local.findAddressesFromCoordinates(coordinates);
+      // var first = addresses.first;
+      //
+      // _location = first.addressLine;
+      //
+      // notifyListeners();
+      //
+      // print(_location);
     }
+    // else {
+    // _location = "AAAAAAAAAAA";
+    // print("EMPTY");
+    // notifyListeners();
+    // }
   }
 
   Future goToEdit(String petId, String petToken) async {
@@ -61,6 +67,10 @@ class GeneralInfoViewModel extends BaseModel {
   }
 
   Future setSomeDetails(MyAnimalModelResponse animalModelResponse) async {
+    if (animalModelResponse.location != null) {
+      getLocation(animalModelResponse.location!);
+    }
+
     if (animalModelResponse.servicePet == null) {
       _serviecPet = "-";
     } else {

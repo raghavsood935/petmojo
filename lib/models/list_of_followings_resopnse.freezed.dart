@@ -595,12 +595,14 @@ class _$FollowingInnerDetailsResponseTearOff {
       {@JsonKey(name: "_id") String? Id,
       @JsonKey(name: "username") String? username,
       @JsonKey(name: "avatar") String? avatar,
-      @JsonKey(name: "fullName") String? fullName}) {
+      @JsonKey(name: "fullName") String? fullName,
+      @JsonKey(name: "name") String? name}) {
     return _FollowingInnerDetailsResponse(
       Id: Id,
       username: username,
       avatar: avatar,
       fullName: fullName,
+      name: name,
     );
   }
 
@@ -622,6 +624,8 @@ mixin _$FollowingInnerDetailsResponse {
   String? get avatar => throw _privateConstructorUsedError;
   @JsonKey(name: "fullName")
   String? get fullName => throw _privateConstructorUsedError;
+  @JsonKey(name: "name")
+  String? get name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -639,7 +643,8 @@ abstract class $FollowingInnerDetailsResponseCopyWith<$Res> {
       {@JsonKey(name: "_id") String? Id,
       @JsonKey(name: "username") String? username,
       @JsonKey(name: "avatar") String? avatar,
-      @JsonKey(name: "fullName") String? fullName});
+      @JsonKey(name: "fullName") String? fullName,
+      @JsonKey(name: "name") String? name});
 }
 
 /// @nodoc
@@ -657,6 +662,7 @@ class _$FollowingInnerDetailsResponseCopyWithImpl<$Res>
     Object? username = freezed,
     Object? avatar = freezed,
     Object? fullName = freezed,
+    Object? name = freezed,
   }) {
     return _then(_value.copyWith(
       Id: Id == freezed
@@ -675,6 +681,10 @@ class _$FollowingInnerDetailsResponseCopyWithImpl<$Res>
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
               as String?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -691,7 +701,8 @@ abstract class _$FollowingInnerDetailsResponseCopyWith<$Res>
       {@JsonKey(name: "_id") String? Id,
       @JsonKey(name: "username") String? username,
       @JsonKey(name: "avatar") String? avatar,
-      @JsonKey(name: "fullName") String? fullName});
+      @JsonKey(name: "fullName") String? fullName,
+      @JsonKey(name: "name") String? name});
 }
 
 /// @nodoc
@@ -713,6 +724,7 @@ class __$FollowingInnerDetailsResponseCopyWithImpl<$Res>
     Object? username = freezed,
     Object? avatar = freezed,
     Object? fullName = freezed,
+    Object? name = freezed,
   }) {
     return _then(_FollowingInnerDetailsResponse(
       Id: Id == freezed
@@ -731,6 +743,10 @@ class __$FollowingInnerDetailsResponseCopyWithImpl<$Res>
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
               as String?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -742,7 +758,8 @@ class _$_FollowingInnerDetailsResponse extends _FollowingInnerDetailsResponse {
       {@JsonKey(name: "_id") this.Id,
       @JsonKey(name: "username") this.username,
       @JsonKey(name: "avatar") this.avatar,
-      @JsonKey(name: "fullName") this.fullName})
+      @JsonKey(name: "fullName") this.fullName,
+      @JsonKey(name: "name") this.name})
       : super._();
 
   factory _$_FollowingInnerDetailsResponse.fromJson(
@@ -761,10 +778,13 @@ class _$_FollowingInnerDetailsResponse extends _FollowingInnerDetailsResponse {
   @override
   @JsonKey(name: "fullName")
   final String? fullName;
+  @override
+  @JsonKey(name: "name")
+  final String? name;
 
   @override
   String toString() {
-    return 'FollowingInnerDetailsResponse(Id: $Id, username: $username, avatar: $avatar, fullName: $fullName)';
+    return 'FollowingInnerDetailsResponse(Id: $Id, username: $username, avatar: $avatar, fullName: $fullName, name: $name)';
   }
 
   @override
@@ -777,11 +797,13 @@ class _$_FollowingInnerDetailsResponse extends _FollowingInnerDetailsResponse {
                 other.username == username) &&
             (identical(other.avatar, avatar) || other.avatar == avatar) &&
             (identical(other.fullName, fullName) ||
-                other.fullName == fullName));
+                other.fullName == fullName) &&
+            (identical(other.name, name) || other.name == name));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, Id, username, avatar, fullName);
+  int get hashCode =>
+      Object.hash(runtimeType, Id, username, avatar, fullName, name);
 
   @JsonKey(ignore: true)
   @override
@@ -798,11 +820,11 @@ class _$_FollowingInnerDetailsResponse extends _FollowingInnerDetailsResponse {
 abstract class _FollowingInnerDetailsResponse
     extends FollowingInnerDetailsResponse {
   factory _FollowingInnerDetailsResponse(
-          {@JsonKey(name: "_id") String? Id,
-          @JsonKey(name: "username") String? username,
-          @JsonKey(name: "avatar") String? avatar,
-          @JsonKey(name: "fullName") String? fullName}) =
-      _$_FollowingInnerDetailsResponse;
+      {@JsonKey(name: "_id") String? Id,
+      @JsonKey(name: "username") String? username,
+      @JsonKey(name: "avatar") String? avatar,
+      @JsonKey(name: "fullName") String? fullName,
+      @JsonKey(name: "name") String? name}) = _$_FollowingInnerDetailsResponse;
   _FollowingInnerDetailsResponse._() : super._();
 
   factory _FollowingInnerDetailsResponse.fromJson(Map<String, dynamic> json) =
@@ -820,6 +842,9 @@ abstract class _FollowingInnerDetailsResponse
   @override
   @JsonKey(name: "fullName")
   String? get fullName;
+  @override
+  @JsonKey(name: "name")
+  String? get name;
   @override
   @JsonKey(ignore: true)
   _$FollowingInnerDetailsResponseCopyWith<_FollowingInnerDetailsResponse>

@@ -26,6 +26,7 @@ _$_MyAnimalModelResponse _$$_MyAnimalModelResponseFromJson(
       playTo: json['playTo'] as String?,
       servicePet: json['servicePet'] as bool?,
       spayed: json['spayed'] as bool?,
+      isBrandAmbassador: json['isBrandAmbassador'] as bool?,
       registeredWithKennelClub: json['registeredWithKennelClub'] as bool?,
       friendlinessWithHumans: json['friendlinessWithHumans'] as int?,
       friendlinessWithAnimals: json['friendlinessWithAnimals'] as int?,
@@ -33,7 +34,9 @@ _$_MyAnimalModelResponse _$$_MyAnimalModelResponseFromJson(
       thingsDislikes: json['thingsDislikes'] as String?,
       uniqueHabits: json['uniqueHabits'] as String?,
       eatingHabits: json['eatingHabits'] as String?,
-      location: json['location'] as String?,
+      location: json['location'] == null
+          ? null
+          : LatLongResponse.fromJson(json['location'] as Map<String, dynamic>),
       guardians: (json['guardians'] as List<dynamic>?)
           ?.map(
               (e) => GuardiansModelResponse.fromJson(e as Map<String, dynamic>))
@@ -61,6 +64,7 @@ Map<String, dynamic> _$$_MyAnimalModelResponseToJson(
       'playTo': instance.playTo,
       'servicePet': instance.servicePet,
       'spayed': instance.spayed,
+      'isBrandAmbassador': instance.isBrandAmbassador,
       'registeredWithKennelClub': instance.registeredWithKennelClub,
       'friendlinessWithHumans': instance.friendlinessWithHumans,
       'friendlinessWithAnimals': instance.friendlinessWithAnimals,

@@ -45,10 +45,10 @@ class _RelationsTileState extends State<RelationsTile> {
               imgPath: widget.profileModel.avatar ?? emptyProfileImgUrl,
             ),
             title: AppText.body(
-              widget.profileModel.username ?? "-",
+              widget.profileModel.name ?? widget.profileModel.fullName ?? "-",
               color: colors.black,
             ),
-            // subtitle: AppText.caption(widget.profileModel.username ?? "-"),
+            subtitle: AppText.caption(widget.profileModel.username ?? "-"),
             trailing: isRequested
                 ? FollowBtn(
                     initialState: true,

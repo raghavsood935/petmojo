@@ -198,13 +198,25 @@ class _$ProfileForYouResponseTearOff {
       @JsonKey(name: "username") String? username,
       @JsonKey(name: "fullName") String? fullName,
       @JsonKey(name: "avatar") String? avatar,
-      @JsonKey(name: "type") String? type}) {
+      @JsonKey(name: "type") String? type,
+      @JsonKey(name: "token") String? token,
+      @JsonKey(name: "description") String? description,
+      @JsonKey(name: "members") int? members,
+      @JsonKey(name: "name") String? name,
+      @JsonKey(name: "coverPhoto") String? coverPhoto,
+      @JsonKey(name: "isMember") bool? isMember}) {
     return _ProfileForYouResponse(
       Id: Id,
       username: username,
       fullName: fullName,
       avatar: avatar,
       type: type,
+      token: token,
+      description: description,
+      members: members,
+      name: name,
+      coverPhoto: coverPhoto,
+      isMember: isMember,
     );
   }
 
@@ -228,6 +240,18 @@ mixin _$ProfileForYouResponse {
   String? get avatar => throw _privateConstructorUsedError;
   @JsonKey(name: "type")
   String? get type => throw _privateConstructorUsedError;
+  @JsonKey(name: "token")
+  String? get token => throw _privateConstructorUsedError;
+  @JsonKey(name: "description")
+  String? get description => throw _privateConstructorUsedError;
+  @JsonKey(name: "members")
+  int? get members => throw _privateConstructorUsedError;
+  @JsonKey(name: "name")
+  String? get name => throw _privateConstructorUsedError;
+  @JsonKey(name: "coverPhoto")
+  String? get coverPhoto => throw _privateConstructorUsedError;
+  @JsonKey(name: "isMember")
+  bool? get isMember => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -245,7 +269,13 @@ abstract class $ProfileForYouResponseCopyWith<$Res> {
       @JsonKey(name: "username") String? username,
       @JsonKey(name: "fullName") String? fullName,
       @JsonKey(name: "avatar") String? avatar,
-      @JsonKey(name: "type") String? type});
+      @JsonKey(name: "type") String? type,
+      @JsonKey(name: "token") String? token,
+      @JsonKey(name: "description") String? description,
+      @JsonKey(name: "members") int? members,
+      @JsonKey(name: "name") String? name,
+      @JsonKey(name: "coverPhoto") String? coverPhoto,
+      @JsonKey(name: "isMember") bool? isMember});
 }
 
 /// @nodoc
@@ -264,6 +294,12 @@ class _$ProfileForYouResponseCopyWithImpl<$Res>
     Object? fullName = freezed,
     Object? avatar = freezed,
     Object? type = freezed,
+    Object? token = freezed,
+    Object? description = freezed,
+    Object? members = freezed,
+    Object? name = freezed,
+    Object? coverPhoto = freezed,
+    Object? isMember = freezed,
   }) {
     return _then(_value.copyWith(
       Id: Id == freezed
@@ -286,6 +322,30 @@ class _$ProfileForYouResponseCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
+      token: token == freezed
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      members: members == freezed
+          ? _value.members
+          : members // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      coverPhoto: coverPhoto == freezed
+          ? _value.coverPhoto
+          : coverPhoto // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isMember: isMember == freezed
+          ? _value.isMember
+          : isMember // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -302,7 +362,13 @@ abstract class _$ProfileForYouResponseCopyWith<$Res>
       @JsonKey(name: "username") String? username,
       @JsonKey(name: "fullName") String? fullName,
       @JsonKey(name: "avatar") String? avatar,
-      @JsonKey(name: "type") String? type});
+      @JsonKey(name: "type") String? type,
+      @JsonKey(name: "token") String? token,
+      @JsonKey(name: "description") String? description,
+      @JsonKey(name: "members") int? members,
+      @JsonKey(name: "name") String? name,
+      @JsonKey(name: "coverPhoto") String? coverPhoto,
+      @JsonKey(name: "isMember") bool? isMember});
 }
 
 /// @nodoc
@@ -323,6 +389,12 @@ class __$ProfileForYouResponseCopyWithImpl<$Res>
     Object? fullName = freezed,
     Object? avatar = freezed,
     Object? type = freezed,
+    Object? token = freezed,
+    Object? description = freezed,
+    Object? members = freezed,
+    Object? name = freezed,
+    Object? coverPhoto = freezed,
+    Object? isMember = freezed,
   }) {
     return _then(_ProfileForYouResponse(
       Id: Id == freezed
@@ -345,6 +417,30 @@ class __$ProfileForYouResponseCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
+      token: token == freezed
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      members: members == freezed
+          ? _value.members
+          : members // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      coverPhoto: coverPhoto == freezed
+          ? _value.coverPhoto
+          : coverPhoto // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isMember: isMember == freezed
+          ? _value.isMember
+          : isMember // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -357,7 +453,13 @@ class _$_ProfileForYouResponse extends _ProfileForYouResponse {
       @JsonKey(name: "username") this.username,
       @JsonKey(name: "fullName") this.fullName,
       @JsonKey(name: "avatar") this.avatar,
-      @JsonKey(name: "type") this.type})
+      @JsonKey(name: "type") this.type,
+      @JsonKey(name: "token") this.token,
+      @JsonKey(name: "description") this.description,
+      @JsonKey(name: "members") this.members,
+      @JsonKey(name: "name") this.name,
+      @JsonKey(name: "coverPhoto") this.coverPhoto,
+      @JsonKey(name: "isMember") this.isMember})
       : super._();
 
   factory _$_ProfileForYouResponse.fromJson(Map<String, dynamic> json) =>
@@ -378,10 +480,28 @@ class _$_ProfileForYouResponse extends _ProfileForYouResponse {
   @override
   @JsonKey(name: "type")
   final String? type;
+  @override
+  @JsonKey(name: "token")
+  final String? token;
+  @override
+  @JsonKey(name: "description")
+  final String? description;
+  @override
+  @JsonKey(name: "members")
+  final int? members;
+  @override
+  @JsonKey(name: "name")
+  final String? name;
+  @override
+  @JsonKey(name: "coverPhoto")
+  final String? coverPhoto;
+  @override
+  @JsonKey(name: "isMember")
+  final bool? isMember;
 
   @override
   String toString() {
-    return 'ProfileForYouResponse(Id: $Id, username: $username, fullName: $fullName, avatar: $avatar, type: $type)';
+    return 'ProfileForYouResponse(Id: $Id, username: $username, fullName: $fullName, avatar: $avatar, type: $type, token: $token, description: $description, members: $members, name: $name, coverPhoto: $coverPhoto, isMember: $isMember)';
   }
 
   @override
@@ -395,12 +515,21 @@ class _$_ProfileForYouResponse extends _ProfileForYouResponse {
             (identical(other.fullName, fullName) ||
                 other.fullName == fullName) &&
             (identical(other.avatar, avatar) || other.avatar == avatar) &&
-            (identical(other.type, type) || other.type == type));
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.token, token) || other.token == token) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.members, members) || other.members == members) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.coverPhoto, coverPhoto) ||
+                other.coverPhoto == coverPhoto) &&
+            (identical(other.isMember, isMember) ||
+                other.isMember == isMember));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, Id, username, fullName, avatar, type);
+  int get hashCode => Object.hash(runtimeType, Id, username, fullName, avatar,
+      type, token, description, members, name, coverPhoto, isMember);
 
   @JsonKey(ignore: true)
   @override
@@ -420,7 +549,13 @@ abstract class _ProfileForYouResponse extends ProfileForYouResponse {
       @JsonKey(name: "username") String? username,
       @JsonKey(name: "fullName") String? fullName,
       @JsonKey(name: "avatar") String? avatar,
-      @JsonKey(name: "type") String? type}) = _$_ProfileForYouResponse;
+      @JsonKey(name: "type") String? type,
+      @JsonKey(name: "token") String? token,
+      @JsonKey(name: "description") String? description,
+      @JsonKey(name: "members") int? members,
+      @JsonKey(name: "name") String? name,
+      @JsonKey(name: "coverPhoto") String? coverPhoto,
+      @JsonKey(name: "isMember") bool? isMember}) = _$_ProfileForYouResponse;
   _ProfileForYouResponse._() : super._();
 
   factory _ProfileForYouResponse.fromJson(Map<String, dynamic> json) =
@@ -441,6 +576,24 @@ abstract class _ProfileForYouResponse extends ProfileForYouResponse {
   @override
   @JsonKey(name: "type")
   String? get type;
+  @override
+  @JsonKey(name: "token")
+  String? get token;
+  @override
+  @JsonKey(name: "description")
+  String? get description;
+  @override
+  @JsonKey(name: "members")
+  int? get members;
+  @override
+  @JsonKey(name: "name")
+  String? get name;
+  @override
+  @JsonKey(name: "coverPhoto")
+  String? get coverPhoto;
+  @override
+  @JsonKey(name: "isMember")
+  bool? get isMember;
   @override
   @JsonKey(ignore: true)
   _$ProfileForYouResponseCopyWith<_ProfileForYouResponse> get copyWith =>

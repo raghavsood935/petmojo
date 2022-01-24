@@ -292,7 +292,11 @@ class _PostItemViewState extends State<PostItemView> {
               ],
             ),
           ),
-          SwiperWidget(model: widget.postResponse),
+          GestureDetector(
+            onTap: () => model
+                .imageTapped(widget.postResponse.image ?? emptyProfileImgUrl),
+            child: SwiperWidget(model: widget.postResponse),
+          ),
           verticalSpaceTiny,
           Padding(
             padding: commonPaddding,

@@ -16,8 +16,19 @@ import 'package:tamely/models/comment_added_response.dart';
 import 'package:tamely/models/create_post_response.dart';
 import 'package:tamely/models/edit_response.dart';
 import 'package:tamely/models/generate_pet_username_response.dart';
+import 'package:tamely/models/get_animals_by_location_response.dart';
+import 'package:tamely/models/get_blogs_details_model.dart';
+import 'package:tamely/models/get_blogs_like_details_model.dart';
+import 'package:tamely/models/get_blogs_model.dart';
 import 'package:tamely/models/get_bookmarks_model.dart';
 import 'package:tamely/models/get_payment_details_response.dart';
+import 'package:tamely/models/group_response/get_all_group_members_response.dart';
+import 'package:tamely/models/group_response/get_all_groups_response.dart';
+import 'package:tamely/models/group_response/get_group_info_response.dart';
+import 'package:tamely/models/group_response/get_joined_groups_response.dart';
+import 'package:tamely/models/group_response/group_create_response.dart';
+import 'package:tamely/models/group_response/pending_groups_invitations_response.dart';
+import 'package:tamely/models/like_blog_response.dart';
 import 'package:tamely/models/list_of_comments_response.dart';
 import 'package:tamely/models/list_of_feed_post_response.dart';
 import 'package:tamely/models/list_of_followers_resopnse.dart';
@@ -34,19 +45,29 @@ import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/models/params/comment_new/add_comment_body.dart';
 import 'package:tamely/models/params/confirm_relation_request_body.dart';
 import 'package:tamely/models/params/counter_body.dart';
+import 'package:tamely/models/params/create_animal_profile_body.dart';
+import 'package:tamely/models/params/create_post_body.dart';
 import 'package:tamely/models/params/delete_post_body.dart';
+import 'package:tamely/models/params/edit_animal_profile_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_details_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_main_details_body.dart';
 import 'package:tamely/models/params/feedback_body.dart';
 import 'package:tamely/models/params/fetch_list_of_following_body.dart';
+import 'package:tamely/models/params/get_animal_by_location_body.dart';
 import 'package:tamely/models/params/get_guardians_body.dart';
 import 'package:tamely/models/params/get_payment_details_body.dart';
 import 'package:tamely/models/params/get_post_by_id.dart';
 import 'package:tamely/models/params/get_profile_details_by_id_body.dart';
 import 'package:tamely/models/params/get_relation_requests_body.dart';
+import 'package:tamely/models/params/groups/edit_group_cover_body.dart';
+import 'package:tamely/models/params/groups/edit_group_details_body.dart';
+import 'package:tamely/models/params/groups/group_basic_body.dart';
+import 'package:tamely/models/params/groups/group_basic_with_counter_body.dart';
+import 'package:tamely/models/params/groups/make_admin_group_body.dart';
 import 'package:tamely/models/params/guardians_and_relations/send_guardian_request_body.dart';
 import 'package:tamely/models/params/guardians_and_relations/send_relation_request_body.dart';
 import 'package:tamely/models/params/like_dislike_post_body.dart';
+import 'package:tamely/models/params/liked_blog_body.dart';
 import 'package:tamely/models/params/login_body.dart';
 import 'package:tamely/models/params/need_help_body.dart';
 import 'package:tamely/models/params/profile_create_body.dart';
@@ -63,9 +84,9 @@ import 'package:tamely/models/params/groups/change_group_description_body.dart';
 import 'package:tamely/models/params/groups/create_group_body.dart';
 import 'package:tamely/models/params/groups/update_group_hashtags_body.dart';
 import 'package:tamely/models/params/groups/invite_people_group_body.dart';
-import 'package:tamely/models/group_response/group_create_resopnse.dart';
 import 'package:tamely/models/params/social_login_body.dart';
 import 'package:tamely/models/params/change_bio_avatar_body.dart';
+import 'package:tamely/models/params/update_token_body.dart';
 import 'package:tamely/models/params/verify_mobile_otp_body.dart';
 import 'package:tamely/models/profile_details_by_id_response.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
@@ -134,16 +155,13 @@ class TamelyApi {
       if (isHuman) {
         dio.options.headers["authorization"] =
             "${_sharedPreferenceServices.authToken}";
+        dio.options.headers["type"] = "User";
       } else {
         dio.options.headers["authorization"] = animalToken;
+        dio.options.headers["type"] = "Animal";
       }
     }
 
-    if (isHuman) {
-      dio.options.headers["type"] = "User";
-    } else {
-      dio.options.headers["type"] = "Animal";
-    }
     return ApiClient(dio);
   }
 
@@ -187,6 +205,19 @@ class TamelyApi {
     CommonResponse response;
     try {
       response = await getMultiPartApiClient().updateImage(imageFile);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  Future<BaseResponse<EditResponse>> updateFCMToken(
+      UpdateTokenBody updateTokenBody) async {
+    EditResponse response;
+    try {
+      response = await getApiClient(true, true).updateFCMToken(updateTokenBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()
@@ -481,44 +512,11 @@ class TamelyApi {
   }
 
   Future<BaseResponse<AnimalProfileCreateResopnse>> createAnimalProfile(
-    String name,
-    String username,
-    String avatar,
-    String category,
-    String bio,
-    String animalType,
-    String gender,
-    String breed,
-    String age,
-    bool mating,
-    bool adoption,
-    bool playBuddies,
-    bool registeredWithKennelClub,
-    String playFrom,
-    String playTo,
-    String location,
-  ) async {
+      CreateAnimalProfileBody body) async {
     log.d("create animal profile called");
     AnimalProfileCreateResopnse response;
     try {
-      response = await getApiClient(true, true).animalProfileCreate(
-        name,
-        username,
-        avatar,
-        category,
-        bio,
-        animalType,
-        gender,
-        breed,
-        age,
-        mating,
-        adoption,
-        playBuddies,
-        registeredWithKennelClub,
-        playFrom,
-        playTo,
-        location,
-      );
+      response = await getApiClient(true, true).animalProfileCreate(body);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()
@@ -600,49 +598,11 @@ class TamelyApi {
   }
 
   Future<BaseResponse<EditResponse>> editAnimalProfile(
-      String name,
-      String username,
-      String avatar,
-      String category,
-      String bio,
-      String animalType,
-      String gender,
-      String breed,
-      String age,
-      bool mating,
-      bool adoption,
-      bool playBuddies,
-      bool registeredWithKennelClub,
-      String playFrom,
-      String playTo,
-      String location,
-      bool servicePet,
-      bool spayed,
-      String animalId,
-      String petToken) async {
+      EditAnimalProfileBody editAnimalProfileBody, String petToken) async {
     EditResponse response;
     try {
       response = await getApiClient(true, false, animalToken: petToken)
-          .editAnimalProfile(
-              name,
-              username,
-              avatar,
-              category,
-              bio,
-              animalType,
-              gender,
-              breed,
-              age,
-              mating,
-              adoption,
-              playBuddies,
-              registeredWithKennelClub,
-              playFrom,
-              playTo,
-              location,
-              servicePet,
-              spayed,
-              animalId);
+          .editAnimalProfile(editAnimalProfileBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()
@@ -812,9 +772,8 @@ class TamelyApi {
     CommonResponse response;
     try {
       response = await getApiClient(
-        true,
         false,
-        animalToken: petToken,
+        true,
       ).rejectRelationRequest(rejectRelationRequestBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -824,13 +783,15 @@ class TamelyApi {
     return BaseResponse()..data = response;
   }
 
-  Future<BaseResponse<CreatePostResponse>> createPost(File file, String caption,
-      String type, String id, bool isHuman, String petToken) async {
+  Future<BaseResponse<CreatePostResponse>> createPost(
+    CreatePostBody createPostBody,
+    bool isHuman,
+    String petToken,
+  ) async {
     CreatePostResponse response;
     try {
       response = await getApiClient(true, isHuman, animalToken: petToken)
-          .createPost(type, file, caption, "", isHuman ? id : "",
-              isHuman ? "" : id, type);
+          .createPost(createPostBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()
@@ -1052,12 +1013,46 @@ class TamelyApi {
 
   //Community
 
+  //---> get group details
+  Future<BaseResponse<GetGroupInfoResponse>> getGroupDetails(
+      GroupBasicBody groupBasicBody, bool isHuman,
+      {String animalToken = ""}) async {
+    GetGroupInfoResponse response;
+    try {
+      response = await getApiClient(true, isHuman, animalToken: animalToken)
+          .getGroupDetails(groupBasicBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  //---> Get group posts
+  Future<BaseResponse<ListOfFeedPostResponse>> getGroupPosts(
+      GroupBasicWithCounterBody groupBasicWithCounterBody, bool isHuman,
+      {String animalToken = ""}) async {
+    ListOfFeedPostResponse response;
+    try {
+      response = await getApiClient(true, isHuman, animalToken: animalToken)
+          .getGroupPosts(groupBasicWithCounterBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
   //---> create group
   Future<BaseResponse<GroupCreateResponse>> createGroup(
-      CreateGroupBody createGroupBody) async {
+      CreateGroupBody createGroupBody, bool isHuman,
+      {String animalToken = ""}) async {
     GroupCreateResponse response;
     try {
-      response = await getApiClient(true, true).createGroup(createGroupBody);
+      response = await getApiClient(true, isHuman, animalToken: animalToken)
+          .createGroup(createGroupBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()
@@ -1068,10 +1063,11 @@ class TamelyApi {
 
   //--->  Change description group
   Future<BaseResponse<EditResponse>> changeDescription(
-      ChangeGroupDescriptionBody changeGroupDescriptionBody) async {
+      ChangeGroupDescriptionBody changeGroupDescriptionBody, bool isHuman,
+      {String animalToken = ""}) async {
     EditResponse response;
     try {
-      response = await getApiClient(true, true)
+      response = await getApiClient(true, isHuman, animalToken: animalToken)
           .changeDescription(changeGroupDescriptionBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -1083,11 +1079,44 @@ class TamelyApi {
 
   //--->   Update hashtags group
   Future<BaseResponse<EditResponse>> updateHashtags(
-      UpdateGroupHashtagsBody updateGroupHashtagsBody) async {
+      UpdateGroupHashtagsBody updateGroupHashtagsBody, bool isHuman,
+      {String animalToken = ""}) async {
     EditResponse response;
     try {
-      response = await getApiClient(true, true)
+      response = await getApiClient(true, isHuman, animalToken: animalToken)
           .updateHashtags(updateGroupHashtagsBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  //--->  Edit group details
+  Future<BaseResponse<EditResponse>> editGroupDetails(
+      EditGroupDetailsBody editGroupDetailsBody, bool isHuman,
+      {String petToken = ""}) async {
+    EditResponse response;
+    try {
+      response = await getApiClient(true, isHuman, animalToken: petToken)
+          .editGroupDetails(editGroupDetailsBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  //--->  Edit group cover photo
+  Future<BaseResponse<EditResponse>> editCoverPhoto(
+      EditGroupCoverBody editGroupCoverBody, bool isHuman,
+      {String petToken = ""}) async {
+    EditResponse response;
+    try {
+      response = await getApiClient(true, isHuman, animalToken: petToken)
+          .editCoverPhoto(editGroupCoverBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()
@@ -1098,11 +1127,306 @@ class TamelyApi {
 
   //--->  Invite peoples Group
   Future<BaseResponse<EditResponse>> invitePeople(
-      InvitePeopleGroupBody invitePeopleGroupBody) async {
+      InvitePeopleGroupBody invitePeopleGroupBody, bool isHuman,
+      {String animalToken = ""}) async {
     EditResponse response;
     try {
+      response = await getApiClient(true, isHuman, animalToken: animalToken)
+          .invitePeople(invitePeopleGroupBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  //--->  Invite peoples Group
+  Future<BaseResponse<GetAllGroupMembersResponse>> getMembers(
+      GroupBasicWithCounterBody groupBasicWithCounterBody) async {
+    GetAllGroupMembersResponse response;
+    try {
       response =
-          await getApiClient(true, true).invitePeople(invitePeopleGroupBody);
+          await getApiClient(true, true).getMembers(groupBasicWithCounterBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  //--->  Show pending invitations
+  Future<BaseResponse<PendingGroupInvitationResponse>> showPendingInvitations(
+      bool isHuman,
+      {String petToken = ""}) async {
+    PendingGroupInvitationResponse response;
+    try {
+      response = await getApiClient(true, isHuman, animalToken: petToken)
+          .showPendingInvitations();
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // ---> Get Joined Groups
+  Future<BaseResponse<GetJoinedGroupResponse>> getJoinedGroups(bool isHuman,
+      {String petToken = ""}) async {
+    GetJoinedGroupResponse response;
+    try {
+      response = await getApiClient(true, isHuman, animalToken: petToken)
+          .getJoinedGroups();
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // ---> Join group
+  Future<BaseResponse<EditResponse>> joinGroup(
+      GroupBasicBody groupBasicBody, bool isHuman,
+      {String petToken = ""}) async {
+    EditResponse response;
+    try {
+      response = await getApiClient(true, isHuman, animalToken: petToken)
+          .joinGroup(groupBasicBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // ---> Leave group
+  Future<BaseResponse<EditResponse>> leaveGroup(
+      GroupBasicBody groupBasicBody, bool isHuman,
+      {String petToken = ""}) async {
+    EditResponse response;
+    try {
+      response = await getApiClient(true, isHuman, animalToken: petToken)
+          .leaveGroup(groupBasicBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // ---> Make admin
+  Future<BaseResponse<EditResponse>> makeAdmin(
+      MakeGroupAdminBody makeGroupAdminBody, bool isHuman,
+      {String petToken = ""}) async {
+    EditResponse response;
+    try {
+      response = await getApiClient(true, isHuman, animalToken: petToken)
+          .makeAdmin(makeGroupAdminBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // ---> Remove admin
+  Future<BaseResponse<EditResponse>> removeAdmin(
+      MakeGroupAdminBody makeGroupAdminBody, bool isHuman,
+      {String petToken = ""}) async {
+    EditResponse response;
+    try {
+      response = await getApiClient(true, isHuman, animalToken: petToken)
+          .removeAdmin(makeGroupAdminBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // ---> Remove member from group
+  Future<BaseResponse<EditResponse>> removeMember(
+      MakeGroupAdminBody makeGroupAdminBody, bool isHuman,
+      {String petToken = ""}) async {
+    EditResponse response;
+    try {
+      response = await getApiClient(true, isHuman, animalToken: petToken)
+          .removeMember(makeGroupAdminBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // ---> Get All Groups
+  Future<BaseResponse<GetAllGroupResponse>> getAllGroups(
+      CounterBody counterBody, bool isHuman,
+      {String petToken = ""}) async {
+    GetAllGroupResponse response;
+    try {
+      response = await getApiClient(true, isHuman, animalToken: petToken)
+          .getAllGroups(counterBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // ---> Delete Groups
+  Future<BaseResponse<EditResponse>> deleteGroup(
+      GroupBasicBody groupBasicBody, bool isHuman,
+      {String petToken = ""}) async {
+    EditResponse response;
+    try {
+      response = await getApiClient(true, isHuman, animalToken: petToken)
+          .deleteGroup(groupBasicBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // ---> Decline Groups Invitation
+  Future<BaseResponse<EditResponse>> declineInvitation(
+      GroupBasicBody groupBasicBody, bool isHuman,
+      {String petToken = ""}) async {
+    EditResponse response;
+    try {
+      response = await getApiClient(true, isHuman, animalToken: petToken)
+          .declineInvitation(groupBasicBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // ---> Get Stray Animas
+  Future<BaseResponse<GetAnimalsByLocationResponse>> getStrays(
+      GetAnimalByLocationBody getAnimalByLocationBody) async {
+    GetAnimalsByLocationResponse response;
+    try {
+      response =
+          await getApiClient(true, true).getStrays(getAnimalByLocationBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // ---> Get Play Buddies Animas
+  Future<BaseResponse<GetAnimalsByLocationResponse>> getPlayBuddies(
+      GetAnimalByLocationBody getAnimalByLocationBody) async {
+    GetAnimalsByLocationResponse response;
+    try {
+      response = await getApiClient(true, true)
+          .getPlayBuddies(getAnimalByLocationBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // ---> Get Adoption Animas
+  Future<BaseResponse<GetAnimalsByLocationResponse>> getAdoption(
+      GetAnimalByLocationBody getAnimalByLocationBody) async {
+    GetAnimalsByLocationResponse response;
+    try {
+      response =
+          await getApiClient(true, true).getAdoption(getAnimalByLocationBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // ---> Get Mating Animas
+  Future<BaseResponse<GetAnimalsByLocationResponse>> getMating(
+      GetAnimalByLocationBody getAnimalByLocationBody) async {
+    GetAnimalsByLocationResponse response;
+    try {
+      response =
+          await getApiClient(true, true).getMating(getAnimalByLocationBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // Get Blogs
+  Future<BaseResponse<getBlogs>> getListOfBlogs(CounterBody counterBody) async {
+    log.d("googleLogin called");
+    getBlogs response;
+    try {
+      response = await getApiClient(true, true).GetBlogs(counterBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  //--->   Liked Blog
+  Future<BaseResponse<LikedBlogResponse>> likedBlog(
+      LikedBlogBody likedBlogBody, bool isHuman,
+      {String petToken = ""}) async {
+    LikedBlogResponse response;
+    try {
+      response = await getApiClient(true, isHuman, animalToken: petToken)
+          .likedBlog(likedBlogBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  //--->  Get Blog Details
+  Future<BaseResponse<GetBlogDetailsResponse>> getBlogDetails(
+      LikedBlogBody likedBlogBody) async {
+    GetBlogDetailsResponse response;
+    try {
+      response = await getApiClient(true, true).getBlogDetails(likedBlogBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  //--->  Get Blog Like Details
+  Future<BaseResponse<GetBlogLikeDetailsResponse>> getBlogLikesDetails(
+      LikedBlogBody likedBlogBody, bool isHuman,
+      {String petToken = ""}) async {
+    GetBlogLikeDetailsResponse response;
+    try {
+      response = await getApiClient(true, isHuman, animalToken: petToken)
+          .getBlogLikesDetails(likedBlogBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()

@@ -29,6 +29,12 @@ _$_ProfileForYouResponse _$$_ProfileForYouResponseFromJson(
       fullName: json['fullName'] as String?,
       avatar: json['avatar'] as String?,
       type: json['type'] as String?,
+      token: json['token'] as String?,
+      description: json['description'] as String?,
+      members: json['members'] as int?,
+      name: json['name'] as String?,
+      coverPhoto: json['coverPhoto'] as String?,
+      isMember: json['isMember'] as bool?,
     );
 
 Map<String, dynamic> _$$_ProfileForYouResponseToJson(
@@ -39,4 +45,10 @@ Map<String, dynamic> _$$_ProfileForYouResponseToJson(
       'fullName': instance.fullName,
       'avatar': instance.avatar,
       'type': instance.type,
+      'token': instance.token,
+      'description': instance.description,
+      'members': instance.members,
+      'name': instance.name,
+      'coverPhoto': instance.coverPhoto,
+      'isMember': instance.isMember,
     };

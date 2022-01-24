@@ -51,9 +51,14 @@ class ForYouTabViewModel extends BaseModel {
     notifyListeners();
   }
 
-  Future getPosts() async {
+  Future getPosts(bool isSeeMore) async {
     print("COUNTER VALUE $_counter");
     _isLoading = true;
+    if (!isSeeMore) {
+      _dummyListOfPosts.clear();
+      _counter = 0;
+      notifyListeners();
+    }
     notifyListeners();
     var result = await _tamelyApi.getForYouPost(CounterBody(_counter), isHuman,
         animalToken: petToken);

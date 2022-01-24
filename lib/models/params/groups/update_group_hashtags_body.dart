@@ -5,7 +5,7 @@ part 'update_group_hashtags_body.g.dart';
 @JsonSerializable(explicitToJson: true)
 class UpdateGroupHashtagsBody {
   final String groupId;
-  final String hashtags;
+  final List<String> hashtags;
 
   UpdateGroupHashtagsBody(this.groupId, this.hashtags);
 

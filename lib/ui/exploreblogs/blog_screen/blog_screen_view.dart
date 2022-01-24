@@ -45,7 +45,7 @@ class _BlogScreenState extends State<BlogScreen> {
                   height: MediaQuery.of(context).size.height * 0.25,
                   width: MediaQuery.of(context).size.width,
                   child: Image.network(
-                    '${todo['postimg']}',
+                    '${todo['thumbnail']}',
                   ),
                 ),
                 Padding(
@@ -71,29 +71,29 @@ class _BlogScreenState extends State<BlogScreen> {
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.04,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                '${todo['thumbnail']}',
-                              ),
-                            ),
-                            Text(
-                              "Vartika Kakar",
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w600),
-                            ),
-                          ],
-                        ),
+                        // Row(
+                        //   children: [
+                        //     CircleAvatar(
+                        //       backgroundImage: NetworkImage(
+                        //         '${todo['thumbnail']}',
+                        //       ),
+                        //     ),
+                        //     Text(
+                        //       "Vartika Kakar",
+                        //       style: TextStyle(
+                        //           fontSize: 16, fontWeight: FontWeight.w600),
+                        //     ),
+                        //   ],
+                        // ),
                         Row(
                           children: [
                             LikeBtn(
                                 initialState: ExploreBlogsViewModel().isLiked,
                                 onTap: () {}),
                             Text(
-                              '${todo['hearts']}',
+                              '${todo['likes']}',
                               style: TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.w600),
                             ),
@@ -184,7 +184,7 @@ class _BlogScreenState extends State<BlogScreen> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Text(
-                    '${todo['content']}',
+                    '${todo['text']}',
                     style: body2Style.copyWith(
                       height: 1.5,
                     ),

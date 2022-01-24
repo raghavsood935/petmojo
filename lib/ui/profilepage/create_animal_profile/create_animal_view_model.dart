@@ -4,8 +4,11 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
@@ -13,15 +16,20 @@ import 'package:tamely/api/base_response.dart';
 import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
+import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/BottomSheetType.dart';
 import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/models/common_response.dart';
 import 'package:tamely/models/my_animal_model.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
+import 'package:tamely/models/params/create_animal_profile_body.dart';
+import 'package:tamely/models/params/edit_animal_profile_body.dart';
+import 'package:tamely/models/params/location_body.dart';
 import 'package:tamely/models/user_response_models.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/animal_type_constant.dart';
 import 'package:tamely/util/global_methods.dart';
+import 'package:tamely/util/location_helper.dart';
 import 'package:tamely/util/utils.dart';
 
 class CreateAnimalViewModel extends FormViewModel {
@@ -31,6 +39,8 @@ class CreateAnimalViewModel extends FormViewModel {
   final _tamelyApi = locator<TamelyApi>();
   final _dialogService = locator<DialogService>();
   final _snackBarService = locator<SnackbarService>();
+
+  ScrollController scrollController = ScrollController();
 
   final ImagePicker _picker = ImagePicker();
 
@@ -73,6 +83,8 @@ class CreateAnimalViewModel extends FormViewModel {
 
   bool _isValid = false;
 
+  bool isLocationPicked = false;
+
   dynamic _pickImageError;
   XFile? _imageFile;
   String avatarUrl = "";
@@ -87,6 +99,11 @@ class CreateAnimalViewModel extends FormViewModel {
 
   bool get isValidUsername => _isValidUsername;
 
+  LatLng currentLocation = const LatLng(28.445364671660784, 77.05960247665644);
+  String _address = "Gurugram, Haryana";
+
+  String get address => _address;
+
   String validUser(TextEditingController usernameController) {
     if (_isValidUsername) {
       return "";
@@ -100,9 +117,9 @@ class CreateAnimalViewModel extends FormViewModel {
     try {
       final pickedFile = await _picker.pickImage(
         source: source,
-        maxWidth: 500,
-        maxHeight: 500,
-        imageQuality: 70,
+        // maxWidth: 500,
+        // maxHeight: 500,
+        // imageQuality: 100,
       );
 
       if (pickedFile != null) {
@@ -193,6 +210,18 @@ class CreateAnimalViewModel extends FormViewModel {
             spayedPetValue = model.spayed ?? false;
             // _dialogService.completeDialog(DialogResponse(confirmed: true));
             // checkBreedAvailable(model.animalType ?? "");
+
+            if (model.location != null) {
+              if ((model.location!.coordinates ?? []).length == 2) {
+                currentLocation = LatLng(model.location!.coordinates![1],
+                    model.location!.coordinates![0]);
+                isLocationPicked = true;
+                _address = await getAddress(Coordinates(
+                    currentLocation.latitude, currentLocation.longitude));
+                notifyListeners();
+              }
+            }
+
             notifyListeners();
           }
         });
@@ -314,19 +343,22 @@ class CreateAnimalViewModel extends FormViewModel {
   }
 
   Future<void> createAnimalProfile() async {
-    if (_imageFile != null) {
-      uploadImage().whenComplete(() => {
-            if (selectedValue.isNotEmpty && selectedValue == "Stray")
-              {
-                getCurrentLocation()
-                    .whenComplete(() => createAnimalProfileAccount())
-              }
-            else
-              {createAnimalProfileAccount()}
-          });
+    if (selectedValue.isNotEmpty && selectedValue == "Stray" ||
+        matingValue ||
+        adoptionValue ||
+        playBuddiesValue) {
+      if (isLocationPicked) {
+        if (_imageFile != null) {
+          uploadImage().whenComplete(() => {createAnimalProfileAccount()});
+        } else {
+          createAnimalProfileAccount();
+        }
+      } else {
+        await _listenForPermissionStatus();
+      }
     } else {
-      if (selectedValue.isNotEmpty && selectedValue == "Stray") {
-        getCurrentLocation().whenComplete(() => createAnimalProfileAccount());
+      if (_imageFile != null) {
+        uploadImage().whenComplete(() => {createAnimalProfileAccount()});
       } else {
         createAnimalProfileAccount();
       }
@@ -355,29 +387,38 @@ class CreateAnimalViewModel extends FormViewModel {
       }
     }
 
-    String currentLocationString = "";
-    if (_currentPosition != null) {
-      currentLocationString =
-          "${_currentPosition!.latitude},${_currentPosition!.longitude}";
+    LocationBody? locationBody;
+    if (currentLocation != null) {
+      locationBody = LocationBody(
+          "Point", [currentLocation.longitude, currentLocation.latitude]);
+      notifyListeners();
+    } else {
+      locationBody = LocationBody("Point", [0.0, 0.0]);
+      notifyListeners();
     }
 
-    var response = await runBusyFuture(_tamelyApi.createAnimalProfile(
-        name,
-        username,
-        avatarUrl,
-        selectedValue,
-        bio,
-        selectedAnimalType,
-        selectedAnimalGender,
-        breed,
-        animalAge,
-        matingValue,
-        adoptionValue,
-        playBuddiesValue,
-        resigteredWithKCValue,
-        playFrom,
-        playTo,
-        currentLocationString));
+    var response = await runBusyFuture(
+      _tamelyApi.createAnimalProfile(
+        CreateAnimalProfileBody(
+          name,
+          username.trimLeft().trimRight(),
+          avatarUrl,
+          selectedValue,
+          bio,
+          selectedAnimalType,
+          selectedAnimalGender,
+          breed,
+          animalAge,
+          matingValue,
+          adoptionValue,
+          playBuddiesValue,
+          resigteredWithKCValue,
+          playFrom,
+          playTo,
+          locationBody,
+        ),
+      ),
+    );
 
     if (response.getException != null) {
       ServerError error = response.getException as ServerError;
@@ -390,10 +431,25 @@ class CreateAnimalViewModel extends FormViewModel {
   }
 
   Future editAnimalProfile(String petId) async {
-    if (_imageFile != null) {
-      uploadImage().whenComplete(() => editAnimalProfileAccount(petId));
+    if (selectedValue.isNotEmpty && selectedValue == "Stray" ||
+        matingValue ||
+        adoptionValue ||
+        playBuddiesValue) {
+      if (isLocationPicked) {
+        if (_imageFile != null) {
+          uploadImage().whenComplete(() => {editAnimalProfileAccount(petId)});
+        } else {
+          editAnimalProfileAccount(petId);
+        }
+      } else {
+        await _listenForPermissionStatus();
+      }
     } else {
-      editAnimalProfileAccount(petId);
+      if (_imageFile != null) {
+        uploadImage().whenComplete(() => {editAnimalProfileAccount(petId)});
+      } else {
+        editAnimalProfileAccount(petId);
+      }
     }
   }
 
@@ -419,28 +475,40 @@ class CreateAnimalViewModel extends FormViewModel {
       }
     }
 
-    var response = await runBusyFuture(_tamelyApi.editAnimalProfile(
-      name,
-      username,
-      avatarUrl,
-      selectedValue,
-      bio,
-      selectedAnimalType,
-      selectedAnimalGender,
-      breed,
-      animalAge,
-      matingValue,
-      adoptionValue,
-      playBuddiesValue,
-      resigteredWithKCValue,
-      playFrom,
-      playTo,
-      "",
-      servicePetValue,
-      spayedPetValue,
-      petId,
-      petToken,
-    ));
+    LocationBody? locationBody;
+    if (currentLocation != null) {
+      locationBody = LocationBody(
+          "Point", [currentLocation.longitude, currentLocation.latitude]);
+      notifyListeners();
+    } else {
+      locationBody = LocationBody("Point", [0.0, 0.0]);
+      notifyListeners();
+    }
+
+    var response = await runBusyFuture(
+      _tamelyApi.editAnimalProfile(
+          EditAnimalProfileBody(
+              name,
+              username.trimLeft().trimRight(),
+              avatarUrl,
+              selectedValue,
+              bio,
+              selectedAnimalType,
+              selectedAnimalGender,
+              breed,
+              animalAge,
+              matingValue,
+              adoptionValue,
+              playBuddiesValue,
+              resigteredWithKCValue,
+              playFrom,
+              playTo,
+              servicePetValue,
+              spayedPetValue,
+              locationBody,
+              petId),
+          petToken),
+    );
 
     if (response.getException != null) {
       ServerError error = response.getException as ServerError;
@@ -489,20 +557,6 @@ class CreateAnimalViewModel extends FormViewModel {
       selectedDateValue = "${picked_s.day}-${picked_s.month}-${picked_s.year}";
 
       dob = selectedDateValue;
-
-      // ageValue = selectedDate.year - picked_s.year;
-      // int month1 = selectedDate.month;
-      // int month2 = picked_s.month;
-      //
-      // if (month2 > month1) {
-      //   ageValue--;
-      // } else if (month1 == month2) {
-      //   int day1 = selectedDate.day;
-      //   int day2 = picked_s.day;
-      //   if (day2 > day1) {
-      //     ageValue--;
-      //   }
-      // }
 
       notifyListeners();
     }
@@ -749,36 +803,10 @@ class CreateAnimalViewModel extends FormViewModel {
   }
 
   Future<void> getCurrentLocation() async {
-    bool serviceEnabled;
-    LocationPermission permission;
+    // _listenForPermissionStatus();
 
-    // Test if location services are enabled.
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      _snackBarService.showSnackbar(message: locationPermissionDisabled);
-      return Future.error(locationPermissionDisabled);
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        _snackBarService.showSnackbar(message: locationPermissionDenied);
-        return Future.error(locationPermissionDenied);
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately.
-      _snackBarService.showSnackbar(
-          message: locationPermissionDeniedPermanently);
-      return Future.error(locationPermissionDeniedPermanently);
-    }
-
-    _currentPosition = await Geolocator.getCurrentPosition();
-
-    log.d(
-        "Latitude : ${_currentPosition!.latitude} , Longitude : ${_currentPosition!.longitude}");
+    await LocationHelper.checkLocationPermission()
+        .whenComplete(() => _determinePosition());
   }
 
   @override
@@ -796,6 +824,93 @@ class CreateAnimalViewModel extends FormViewModel {
     });
 
     notifyListeners();
+  }
+
+  final Permission _permission = Permission.location;
+  PermissionStatus _permissionStatus = PermissionStatus.denied;
+
+  Future<void> _listenForPermissionStatus() async {
+    final status = await _permission.status;
+    _permissionStatus = status;
+    notifyListeners();
+    _determinePosition();
+  }
+
+  Future<void> requestPermission(Permission permission) async {
+    final status = await permission.request();
+    _permissionStatus = status;
+    notifyListeners();
+  }
+
+  Future<void> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    // Test if location services are enabled.
+    // serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    // if (!serviceEnabled) {
+    //   await requestPermission(_permission);
+    //   await Geolocator.openLocationSettings();
+    //   return Future.error('Location services are disabled.');
+    // }
+    //
+    // permission = await Geolocator.checkPermission();
+    // if (permission == LocationPermission.denied) {
+    //   permission = await Geolocator.requestPermission();
+    //   if (permission == LocationPermission.denied) {
+    //     requestPermission(_permission);
+    //     return Future.error('Location permissions are denied');
+    //   }
+    // }
+    //
+    // if (permission == LocationPermission.deniedForever) {
+    //   // Permissions are denied forever, handle appropriately.
+    //   return Future.error(
+    //       'Location permissions are permanently denied, we cannot request permissions.');
+    // }
+
+    // When we reach here, permissions are g anted and we can
+    // continue accessing the position of the device.
+    // Position location = await Geolocator.getCurrentPosition();
+
+    LocationHelper.getCurrentLocation().then((position) {
+      currentLocation = LatLng(position.latitude, position.longitude);
+      notifyListeners();
+    });
+    // currentLocation = LatLng(location.latitude, location.longitude);
+    _address = await getAddress(
+        Coordinates(currentLocation.latitude, currentLocation.longitude));
+    isLocationPicked = true;
+    scrollController.jumpTo(scrollController.position.maxScrollExtent);
+    _snackBarService.showSnackbar(message: "Confirm you location");
+    notifyListeners();
+  }
+
+  Future<String> getAddress(Coordinates coordinates) async {
+    var address =
+        await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    print("this is subAdminArea ${address.first.subAdminArea}");
+    print("this is locality ${address.first.locality}");
+    return '${address.first.locality}, ${address.first.subAdminArea}';
+  }
+
+  void changeAddress() async {
+    List result = await _navigationService.navigateTo(Routes.locationPicker);
+    if (result[1]) {
+      currentLocation = result[0];
+      setLocation(result[0]);
+    } else {
+      _address = "Gurugram, Haryana";
+    }
+    notifyListeners();
+  }
+
+  Future<void> setLocation(LatLng location) async {
+    if (location.latitude != 0)
+      await getAddress(Coordinates(location.latitude, location.longitude))
+          .then((value) {
+        _address = value;
+        notifyListeners();
+      });
   }
 }
 

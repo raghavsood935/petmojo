@@ -402,12 +402,14 @@ class _$GuardianDetailsResponseTearOff {
       @JsonKey(name: "_id") String? Id,
       @JsonKey(name: "email") String? email,
       @JsonKey(name: "username") String? username,
+      @JsonKey(name: "fullName") String? fullName,
       @JsonKey(name: "avatar") String? avatar}) {
     return _GuardianDetailsResponse(
       confirmed: confirmed,
       Id: Id,
       email: email,
       username: username,
+      fullName: fullName,
       avatar: avatar,
     );
   }
@@ -430,6 +432,8 @@ mixin _$GuardianDetailsResponse {
   String? get email => throw _privateConstructorUsedError;
   @JsonKey(name: "username")
   String? get username => throw _privateConstructorUsedError;
+  @JsonKey(name: "fullName")
+  String? get fullName => throw _privateConstructorUsedError;
   @JsonKey(name: "avatar")
   String? get avatar => throw _privateConstructorUsedError;
 
@@ -449,6 +453,7 @@ abstract class $GuardianDetailsResponseCopyWith<$Res> {
       @JsonKey(name: "_id") String? Id,
       @JsonKey(name: "email") String? email,
       @JsonKey(name: "username") String? username,
+      @JsonKey(name: "fullName") String? fullName,
       @JsonKey(name: "avatar") String? avatar});
 }
 
@@ -467,6 +472,7 @@ class _$GuardianDetailsResponseCopyWithImpl<$Res>
     Object? Id = freezed,
     Object? email = freezed,
     Object? username = freezed,
+    Object? fullName = freezed,
     Object? avatar = freezed,
   }) {
     return _then(_value.copyWith(
@@ -485,6 +491,10 @@ class _$GuardianDetailsResponseCopyWithImpl<$Res>
       username: username == freezed
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fullName: fullName == freezed
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
               as String?,
       avatar: avatar == freezed
           ? _value.avatar
@@ -506,6 +516,7 @@ abstract class _$GuardianDetailsResponseCopyWith<$Res>
       @JsonKey(name: "_id") String? Id,
       @JsonKey(name: "email") String? email,
       @JsonKey(name: "username") String? username,
+      @JsonKey(name: "fullName") String? fullName,
       @JsonKey(name: "avatar") String? avatar});
 }
 
@@ -527,6 +538,7 @@ class __$GuardianDetailsResponseCopyWithImpl<$Res>
     Object? Id = freezed,
     Object? email = freezed,
     Object? username = freezed,
+    Object? fullName = freezed,
     Object? avatar = freezed,
   }) {
     return _then(_GuardianDetailsResponse(
@@ -546,6 +558,10 @@ class __$GuardianDetailsResponseCopyWithImpl<$Res>
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String?,
+      fullName: fullName == freezed
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
+              as String?,
       avatar: avatar == freezed
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
@@ -562,6 +578,7 @@ class _$_GuardianDetailsResponse extends _GuardianDetailsResponse {
       @JsonKey(name: "_id") this.Id,
       @JsonKey(name: "email") this.email,
       @JsonKey(name: "username") this.username,
+      @JsonKey(name: "fullName") this.fullName,
       @JsonKey(name: "avatar") this.avatar})
       : super._();
 
@@ -581,12 +598,15 @@ class _$_GuardianDetailsResponse extends _GuardianDetailsResponse {
   @JsonKey(name: "username")
   final String? username;
   @override
+  @JsonKey(name: "fullName")
+  final String? fullName;
+  @override
   @JsonKey(name: "avatar")
   final String? avatar;
 
   @override
   String toString() {
-    return 'GuardianDetailsResponse(confirmed: $confirmed, Id: $Id, email: $email, username: $username, avatar: $avatar)';
+    return 'GuardianDetailsResponse(confirmed: $confirmed, Id: $Id, email: $email, username: $username, fullName: $fullName, avatar: $avatar)';
   }
 
   @override
@@ -600,12 +620,14 @@ class _$_GuardianDetailsResponse extends _GuardianDetailsResponse {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.username, username) ||
                 other.username == username) &&
+            (identical(other.fullName, fullName) ||
+                other.fullName == fullName) &&
             (identical(other.avatar, avatar) || other.avatar == avatar));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, confirmed, Id, email, username, avatar);
+  int get hashCode => Object.hash(
+      runtimeType, confirmed, Id, email, username, fullName, avatar);
 
   @JsonKey(ignore: true)
   @override
@@ -625,6 +647,7 @@ abstract class _GuardianDetailsResponse extends GuardianDetailsResponse {
       @JsonKey(name: "_id") String? Id,
       @JsonKey(name: "email") String? email,
       @JsonKey(name: "username") String? username,
+      @JsonKey(name: "fullName") String? fullName,
       @JsonKey(name: "avatar") String? avatar}) = _$_GuardianDetailsResponse;
   _GuardianDetailsResponse._() : super._();
 
@@ -643,6 +666,9 @@ abstract class _GuardianDetailsResponse extends GuardianDetailsResponse {
   @override
   @JsonKey(name: "username")
   String? get username;
+  @override
+  @JsonKey(name: "fullName")
+  String? get fullName;
   @override
   @JsonKey(name: "avatar")
   String? get avatar;

@@ -1,43 +1,128 @@
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/api/api_service.dart';
+import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
+import 'package:tamely/models/group_response/get_joined_groups_response.dart';
+import 'package:tamely/models/group_response/group_basic_info_response.dart';
+import 'package:tamely/models/params/counter_body.dart';
+import 'package:tamely/models/params/groups/group_basic_body.dart';
+import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
 
 class MyGroupsTabViewModel extends BaseModel {
   final _navigationService = locator<NavigationService>();
+  final _sharedPrefService = locator<SharedPreferencesService>();
+  final _snackbarService = locator<SnackbarService>();
+  final _tamelyApi = locator<TamelyApi>();
 
-  List _listOfManagingGroups = [];
-  List _listOfJoinedGroups = [GroupsModel()];
-  List _listOfAlsoLikedGroups = [];
+  bool isHuman = true;
+  String petId = "";
+  String petToken = "";
 
-  List get listOfManagingGroups => _listOfManagingGroups;
+  bool isJoinedGroupLoading = false;
+  bool isAllGroupLoading = false;
 
-  List get listOfAlsoLikedGroups => _listOfAlsoLikedGroups;
+  List<GetJoinedGroupInfoResponse> _listOfManagingGroups = [];
+  List<GetJoinedGroupInfoResponse> _listOfJoinedGroups = [];
+  List<GroupBasicInfoResponse> _listOfAllGroups = [];
 
-  List get listOfJoinedGroups => _listOfJoinedGroups;
+  List<GetJoinedGroupInfoResponse> get listOfManagingGroups =>
+      _listOfManagingGroups;
+
+  List<GetJoinedGroupInfoResponse> get listOfJoinedGroups =>
+      _listOfJoinedGroups;
+
+  List<GroupBasicInfoResponse> get listOfAllGroups => _listOfAllGroups;
 
   Future createGroup() async {
-    _navigationService.navigateTo(Routes.createGroupView);
+    _navigationService.navigateTo(Routes.createGroupFirstView);
   }
 
-  dummyInitial() {
-    for (int i = 0; i < 10; i++) {
-      _listOfAlsoLikedGroups.add(GroupsModel());
+  Future init() async {
+    CurrentProfile profile = _sharedPrefService.getCurrentProfile();
+    isHuman = profile.isHuman;
+    petId = profile.petId;
+    petToken = profile.petToken;
+    notifyListeners();
+
+    getAllGroups();
+    getJoinedGroups();
+  }
+
+  Future getJoinedGroups() async {
+    isJoinedGroupLoading = true;
+    _listOfJoinedGroups.clear();
+    notifyListeners();
+    var result = await _tamelyApi.getJoinedGroups(isHuman, petToken: petToken);
+
+    if (result.getException != null) {
+      ServerError error = result.getException as ServerError;
+      _snackbarService.showSnackbar(message: error.getErrorMessage());
+      isJoinedGroupLoading = false;
+      notifyListeners();
+    } else if (result.data != null) {
+      if (result.data!.success ?? false) {
+        // _listOfJoinedGroups.addAll(result.data!.listOfJoinedGroup ?? []);
+        for (GetJoinedGroupInfoResponse group
+            in result.data!.listOfJoinedGroup ?? []) {
+          if (group.isAdmin ?? false) {
+            _listOfManagingGroups.add(group);
+          } else {
+            _listOfJoinedGroups.add(group);
+          }
+        }
+        isJoinedGroupLoading = false;
+        notifyListeners();
+      }
     }
   }
 
-  Future searchGroups() async {}
-}
+  Future getAllGroups() async {
+    isAllGroupLoading = true;
+    _listOfAllGroups.clear();
+    notifyListeners();
+    var result = await _tamelyApi.getAllGroups(CounterBody(0), isHuman,
+        petToken: petToken);
 
-class GroupsModel {
-  String _groupName = "India Solo travellers";
-  String _membersCount = "874k";
-  String _groupProfileImgUrl =
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJCNf4o2GO1wvZ-M-KBWbOvsZbALu4e192KQ&usqp=CAU";
+    if (result.getException != null) {
+      ServerError error = result.getException as ServerError;
+      _snackbarService.showSnackbar(message: error.getErrorMessage());
+      isAllGroupLoading = false;
+      notifyListeners();
+    } else if (result.data != null) {
+      if (result.data!.success ?? false) {
+        _listOfAllGroups.addAll(result.data!.listOfGroups ?? []);
+        isAllGroupLoading = false;
+        notifyListeners();
+      }
+    }
+  }
 
-  String get groupName => _groupName;
+  Future joinGroup(String groupId) async {
+    var result = await _tamelyApi.joinGroup(GroupBasicBody(groupId), isHuman,
+        petToken: petToken);
 
-  String get membersCount => _membersCount;
+    if (result.getException != null) {
+      ServerError error = result.getException as ServerError;
+      if (error.getErrorMessage() == "Received invalid status code: 400") {
+        _snackbarService.showSnackbar(message: "You are already a member!");
+      } else {
+        _snackbarService.showSnackbar(message: error.getErrorMessage());
+      }
+    } else if (result.data != null) {
+      _snackbarService.showSnackbar(message: result.data!.message ?? "");
+    }
+  }
 
-  String get groupProfileImgUrl => _groupProfileImgUrl;
+  Future inspectGroup(String grpId) async {
+    _navigationService.navigateTo(
+      Routes.groupInfoView,
+      arguments: GroupInfoViewArguments(groupId: grpId),
+    );
+  }
+
+  Future searchGroups() async {
+    _navigationService.navigateTo(Routes.exploreGroupView);
+  }
 }

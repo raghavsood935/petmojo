@@ -72,6 +72,8 @@ class AnimalProfileViewModel extends FutureViewModel {
 
   bool isGuardian = false;
 
+  bool isBrandAmbassador = false;
+
   List<FeedPostResponse> _listOfPosts = [];
 
   String get profilename => _profilename;
@@ -118,9 +120,9 @@ class AnimalProfileViewModel extends FutureViewModel {
     try {
       final pickedFile = await _picker.pickImage(
         source: source,
-        maxWidth: 500,
-        maxHeight: 500,
-        imageQuality: 70,
+        // maxWidth: 500,
+        // maxHeight: 500,
+        // imageQuality: 100,
       );
 
       if (pickedFile != null) {
@@ -150,6 +152,7 @@ class AnimalProfileViewModel extends FutureViewModel {
       iosUiSettings: IOSUiSettings(
         aspectRatioLockEnabled: false,
       ),
+      compressQuality: 100,
     );
     notifyListeners();
     editAnimalProfileDetails();
@@ -161,8 +164,8 @@ class AnimalProfileViewModel extends FutureViewModel {
     try {
       EditAnimalProfileMainDetailsBody body = EditAnimalProfileMainDetailsBody(
         _Id,
-        _username,
         _profilename,
+        _username,
         _shortBio,
         _avatar,
       );
@@ -199,9 +202,15 @@ class AnimalProfileViewModel extends FutureViewModel {
     );
   }
 
-  void goToPostDetailsView(FeedPostResponse postResponse) async {
-    await _navigationService.navigateTo(Routes.singlePostDetailsView,
+  void goToPostDetailsView(FeedPostResponse postResponse, int index) async {
+    var result = await _navigationService.navigateTo(
+        Routes.singlePostDetailsView,
         arguments: SinglePostDetailsViewArguments(postResponse: postResponse));
+
+    if (result == 1) {
+      _listOfPosts.removeAt(index);
+      notifyListeners();
+    }
   }
 
   void goToAnimalEdit() async {
@@ -247,7 +256,7 @@ class AnimalProfileViewModel extends FutureViewModel {
       notifyListeners();
     }
     getAnimalDetails();
-    getAnimalPosts();
+    getAnimalPosts(fromRefresh: fromRefresh);
   }
 
   Future getAnimalPosts({bool fromRefresh = false}) async {
@@ -318,6 +327,8 @@ class AnimalProfileViewModel extends FutureViewModel {
     _isUpForMating = response.animalprofileModel!.mating ?? false;
     _isUpForPlayBuddies = response.animalprofileModel!.playBuddies ?? false;
 
+    isBrandAmbassador = response.animalprofileModel!.isBrandAmbassador ?? false;
+
     for (GuardiansModelResponse response
         in response.animalprofileModel!.guardians ?? []) {
       if (response.Id == _inspecterId) {
@@ -356,6 +367,14 @@ class AnimalProfileViewModel extends FutureViewModel {
 
   Future createPost() async {
     _navigationService.navigateTo(Routes.postCreation);
+  }
+
+  Future imageTapped(String url) async {
+    await _dialogService.showCustomDialog(
+      variant: DialogType.ImagePopUpDialog,
+      barrierDismissible: true,
+      data: url,
+    );
   }
 
   @override

@@ -3,14 +3,18 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:camera/camera.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tamely/ui/post/crop_image.dart';
 import 'package:tamely/ui/post/edit_image.dart';
 import 'package:tamely/ui/post/preview_screen.dart';
 import 'package:image/image.dart' as img;
-
+import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/ui_helpers.dart';
 
 class CameraView extends StatefulWidget {
   final List<CameraDescription> cameras;
@@ -26,18 +30,31 @@ class CameraView extends StatefulWidget {
 class _CameraViewState extends State<CameraView> {
   CameraController? controller;
 
-
   late File _imageFile;
-  final List<Permission> _permission = [Permission.camera,Permission.microphone,Permission.mediaLibrary];
+  final List<Permission> _permission = [
+    Permission.camera,
+    Permission.microphone,
+    Permission.mediaLibrary
+  ];
   PermissionStatus _cameraPermissionStatus = PermissionStatus.denied;
   PermissionStatus _micPermissionStatus = PermissionStatus.denied;
   PermissionStatus _writePermissionStatus = PermissionStatus.denied;
   File? _videoFile;
   bool visibility = false;
-  List<IconData> icons = [Icons.flash_off,Icons.flash_auto,Icons.flash_on,Icons.highlight];
-  List<FlashMode> fMode = [FlashMode.off,FlashMode.auto,FlashMode.always,FlashMode.torch];
+  List<IconData> icons = [
+    Icons.flash_off,
+    Icons.flash_auto,
+    Icons.flash_on,
+    Icons.highlight
+  ];
+  List<FlashMode> fMode = [
+    FlashMode.off,
+    FlashMode.auto,
+    FlashMode.always,
+    FlashMode.torch
+  ];
   int flashMode = 0;
-  String path ='';
+  String path = '';
 
   // Initial values
   bool _isCameraInitialized = false;
@@ -45,7 +62,7 @@ class _CameraViewState extends State<CameraView> {
   bool _isVideoCameraSelected = false;
   bool _isRecordingInProgress = false;
   bool fileType = false;
-  double aspectRatio = 4/3;
+  double aspectRatio = 4 / 3;
 
   final resolutionPresets = ResolutionPreset.values;
 
@@ -64,25 +81,24 @@ class _CameraViewState extends State<CameraView> {
     if (cameraController == null || !cameraController.value.isInitialized) {
       return;
     }
-    switch(state){
-      case AppLifecycleState.inactive :
+    switch (state) {
+      case AppLifecycleState.inactive:
         await cameraController.dispose();
         break;
-      case AppLifecycleState.resumed :
+      case AppLifecycleState.resumed:
         onNewCameraSelected(cameraController.description);
         _listenForPermissionStatus();
         break;
-      case AppLifecycleState.paused :
+      case AppLifecycleState.paused:
         await cameraController.dispose();
         break;
-      case AppLifecycleState.detached :
+      case AppLifecycleState.detached:
         await cameraController.dispose();
         break;
     }
-
   }
 
-  init() async{
+  init() async {
     _listenForPermissionStatus();
     onNewCameraSelected(widget.cameras[0]);
   }
@@ -91,12 +107,14 @@ class _CameraViewState extends State<CameraView> {
     _cameraPermissionStatus = await _permission[0].status;
     _micPermissionStatus = await _permission[1].status;
     _writePermissionStatus = await _permission[2].status;
-    if(_cameraPermissionStatus.isGranted&&_micPermissionStatus.isGranted&&_writePermissionStatus.isGranted){
+    if (_cameraPermissionStatus.isGranted &&
+        _micPermissionStatus.isGranted &&
+        _writePermissionStatus.isGranted) {
       setState(() {
-        visibility =true;
+        visibility = true;
       });
-    }else
-      visibility=false;
+    } else
+      visibility = false;
   }
 
   void onNewCameraSelected(CameraDescription cameraDescription) async {
@@ -176,16 +194,14 @@ class _CameraViewState extends State<CameraView> {
   }
 
   Future<void> onLongPressRelease() async {
-    XFile? rawVideo =
-    await stopVideoRecording();
-    File videoFile =
-    File(rawVideo!.path);
-    int currentUnix = DateTime.now()
-        .millisecondsSinceEpoch;
-    final directory =
-    await getApplicationDocumentsDirectory();
+    XFile? rawVideo = await stopVideoRecording();
+    File videoFile = File(rawVideo!.path);
+    int currentUnix = DateTime.now().millisecondsSinceEpoch;
+    final directory = await getApplicationDocumentsDirectory();
     String fileFormat = videoFile.path.split('.').last;
-    _videoFile = await videoFile.copy('${directory.path}/$currentUnix.$fileFormat',);
+    _videoFile = await videoFile.copy(
+      '${directory.path}/$currentUnix.$fileFormat',
+    );
     if (_isVideoCameraSelected && !_isRecordingInProgress) {
       setState(() {
         _isVideoCameraSelected = false;
@@ -193,14 +209,35 @@ class _CameraViewState extends State<CameraView> {
     }
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) =>
-            PreviewScreen(
-                type: true,videoFile: _videoFile),
+        builder: (context) => PreviewScreen(type: true, videoFile: _videoFile),
       ),
     );
   }
 
-  Future<File> convert(RawImage rawImage,File file) async {
+  dynamic _pickImageError;
+  final ImagePicker _picker = ImagePicker();
+  Future onImageButtonPressed(BuildContext context) async {
+    try {
+      final pickedFile = await _picker.pickImage(
+        source: ImageSource.gallery,
+        // maxWidth: 500,
+        // maxHeight: 500,
+        // imageQuality: 100,
+      );
+
+      if (pickedFile != null) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => CropImage(File(pickedFile.path)),
+          ),
+        );
+      }
+    } catch (e) {
+      _pickImageError = e;
+    }
+  }
+
+  Future<File> convert(RawImage rawImage, File file) async {
     var byteData = await rawImage.image!.toByteData(
       format: ImageByteFormat.png,
     );
@@ -223,7 +260,7 @@ class _CameraViewState extends State<CameraView> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth =  MediaQuery.of(context).size.width;
+    double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     double bottomAppBarHeight = AppBar().preferredSize.height;
 
@@ -232,176 +269,220 @@ class _CameraViewState extends State<CameraView> {
         backgroundColor: Colors.black,
         body: Container(
           width: screenWidth,
-          height: screenHeight-bottomAppBarHeight,
-          child : visibility ? _isCameraInitialized ?
-          Stack(
-            children: [
-              Center(
-                child: AspectRatio(
-                    aspectRatio: 1/controller!.value.aspectRatio,
-                    child: CameraPreview(controller!),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  16.0,
-                  16.0,
-                  16.0,
-                  16.0,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Spacer(),
-                    Row(
-                      mainAxisAlignment:
-                      MainAxisAlignment.spaceBetween,
+          height: screenHeight - bottomAppBarHeight,
+          child: visibility
+              ? _isCameraInitialized
+                  ? Stack(
                       children: [
-                        InkWell(
-                          onTap: _isRecordingInProgress
-                              ? ()  {
-
-                          }
-                              : () {
-                            setState(() {
-                              _isCameraInitialized = false;
-                            });
-                            onNewCameraSelected(widget.cameras[
-                            _isRearCameraSelected ? 1 : 0]);
-                            setState(() {
-                              _isRearCameraSelected =
-                              !_isRearCameraSelected;
-                            });
-                          },
-                          child:Icon(
-                            _isRearCameraSelected
-                                ? Icons.camera_front
-                                : Icons.camera_rear,
-                            color: Colors.white,
-                            size: 30,
+                        Center(
+                          child: AspectRatio(
+                            aspectRatio: 1 / controller!.value.aspectRatio,
+                            child: CameraPreview(controller!),
                           ),
                         ),
-                        GestureDetector(
-                          onLongPress: () async{
-                            if (!_isVideoCameraSelected) {
-                              setState(() {
-                                _isVideoCameraSelected = true;
-                              });
-                              await startVideoRecording();
-                            }
-                          },
-                          onLongPressEnd: (result) async {
-                            if (_isRecordingInProgress) onLongPressRelease();
-                          } ,
-                          child: InkWell(
-                            onTap: () async {
-                              setState(() {
-                                flashMode=0;
-                              });
-
-                              XFile? rawImage =
-                              await takePicture();
-                               _imageFile =
-                              File(rawImage!.path);
-
-                              int currentUnix = DateTime.now()
-                                  .millisecondsSinceEpoch;
-
-                              final directory =
-                              await getApplicationDocumentsDirectory();
-
-                              String fileFormat =
-                                  _imageFile.path.split('.').last;
-
-                              await _imageFile.copy(
-                                '${directory.path}/$currentUnix.$fileFormat',
-                              );
-
-                              if(!_isRearCameraSelected){
-                                flipImage().then((value) =>
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                        CropImage( value),
-                                      ),
-                                    ));
-                              }else {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        CropImage( _imageFile),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(
+                            16.0,
+                            16.0,
+                            16.0,
+                            16.0,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Align(
+                                alignment: Alignment.center,
+                                child: InkWell(
+                                  onTap: () async {
+                                    setState(() {
+                                      flashMode++;
+                                    });
+                                    await controller!.setFlashMode(
+                                      fMode[flashMode % 4],
+                                    );
+                                  },
+                                  child: Icon(
+                                    icons[flashMode % 4],
+                                    color: Colors.white,
                                   ),
-                                );
-                              }
-                            },
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Icon(
-                                  Icons.circle,
-                                  color: _isVideoCameraSelected
-                                      ? Colors.white
-                                      : Colors.white38,
-                                  size: 80,
                                 ),
-                                Icon(
-                                  Icons.circle,
-                                  color: _isVideoCameraSelected
-                                      ? Colors.red
-                                      : Colors.white,
-                                  size: 65,
+                              ),
+                              Spacer(),
+                              SizedBox(
+                                height: 125,
+                                width: screenWidth,
+                                child: Stack(
+                                  children: [
+                                    Positioned(
+                                      left: 0,
+                                      bottom: 0,
+                                      top: 0,
+                                      right: 0,
+                                      child: GestureDetector(
+                                        onLongPress: () async {
+                                          if (!_isVideoCameraSelected) {
+                                            setState(() {
+                                              _isVideoCameraSelected = true;
+                                            });
+                                            await startVideoRecording();
+                                          }
+                                        },
+                                        onLongPressEnd: (result) async {
+                                          if (_isRecordingInProgress)
+                                            onLongPressRelease();
+                                        },
+                                        child: InkWell(
+                                          onTap: () async {
+                                            setState(() {
+                                              flashMode = 0;
+                                            });
+
+                                            XFile? rawImage =
+                                                await takePicture();
+                                            _imageFile = File(rawImage!.path);
+
+                                            int currentUnix = DateTime.now()
+                                                .millisecondsSinceEpoch;
+
+                                            final directory =
+                                                await getApplicationDocumentsDirectory();
+
+                                            String fileFormat =
+                                                _imageFile.path.split('.').last;
+
+                                            await _imageFile.copy(
+                                              '${directory.path}/$currentUnix.$fileFormat',
+                                            );
+
+                                            if (!_isRearCameraSelected) {
+                                              flipImage().then((value) =>
+                                                  Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          CropImage(value),
+                                                    ),
+                                                  ));
+                                            } else {
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      CropImage(_imageFile),
+                                                ),
+                                              );
+                                            }
+                                          },
+                                          child: Stack(
+                                            alignment: Alignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.circle,
+                                                color: _isVideoCameraSelected
+                                                    ? Colors.white
+                                                    : Colors.white38,
+                                                size: 80,
+                                              ),
+                                              Icon(
+                                                Icons.circle,
+                                                color: _isVideoCameraSelected
+                                                    ? Colors.red
+                                                    : Colors.white,
+                                                size: 65,
+                                              ),
+                                              _isVideoCameraSelected &&
+                                                      _isRecordingInProgress
+                                                  ? const Icon(
+                                                      Icons.stop_rounded,
+                                                      color: Colors.white,
+                                                      size: 32,
+                                                    )
+                                                  : Container(),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      left: 0,
+                                      bottom: 0,
+                                      top: 0,
+                                      child: GestureDetector(
+                                        onTap: () =>
+                                            onImageButtonPressed(context),
+                                        child: Image.asset(
+                                          galleryColorIcon,
+                                          height: 75,
+                                          width: 75,
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      right: 15,
+                                      bottom: 0,
+                                      top: 0,
+                                      child: InkWell(
+                                        onTap: _isRecordingInProgress
+                                            ? () {}
+                                            : () {
+                                                setState(() {
+                                                  _isCameraInitialized = false;
+                                                });
+                                                onNewCameraSelected(
+                                                    widget.cameras[
+                                                        _isRearCameraSelected
+                                                            ? 1
+                                                            : 0]);
+                                                setState(() {
+                                                  _isRearCameraSelected =
+                                                      !_isRearCameraSelected;
+                                                });
+                                              },
+                                        child: Icon(
+                                          _isRearCameraSelected
+                                              ? Icons.camera_front
+                                              : Icons.camera_rear,
+                                          color: Colors.white,
+                                          size: 30,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                _isVideoCameraSelected &&
-                                    _isRecordingInProgress
-                                    ? const Icon(
-                                  Icons.stop_rounded,
-                                  color: Colors.white,
-                                  size: 32,
-                                )
-                                    : Container(),
-                              ],
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () async {
-                            setState(() {
-                              flashMode++;
-                            });
-                            await controller!.setFlashMode(
-                              fMode[flashMode%4],
-                            );
-                          },
-                          child: Icon(
-                            icons[flashMode%4],
-                            color: Colors.white,
+                              ),
+                            ],
                           ),
                         ),
                       ],
+                    )
+                  : const Center(
+                      child: Text(
+                        'LOADING',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    )
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Use Tamely\'s camera',
+                      style: TextStyle(color: Colors.white, fontSize: 24),
                     ),
+                    Text(
+                      'Take photos and videos with the Tamely app.',
+                      style: TextStyle(color: Colors.white38, fontSize: 16),
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          openAppSettings();
+                        },
+                        child: Text(
+                          'Turn On',
+                          style: TextStyle(color: Colors.blue, fontSize: 18),
+                        ))
                   ],
                 ),
-              ),
-            ],
-          ): const
-          Center(
-            child: Text(
-              'LOADING',
-              style: TextStyle(color: Colors.white),
-            ),
-          ) :
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text('Use Tamely\'s camera', style: TextStyle(color: Colors.white, fontSize: 24),),
-              Text('Take photos and videos with the Tamely app.', style: TextStyle(color: Colors.white38, fontSize: 16),),
-              TextButton(onPressed:(){ openAppSettings();}, child: Text('Turn On', style: TextStyle(color: Colors.blue, fontSize: 18),))
-            ],
-          ),
         ),
       ),
     );
   }
-
 }
