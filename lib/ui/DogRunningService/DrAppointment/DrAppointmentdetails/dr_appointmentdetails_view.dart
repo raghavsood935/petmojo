@@ -9,17 +9,18 @@ import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_input_field.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/custom_circle_avatar.dart';
+import 'dr_appointmentdetails_viewmodel.dart';
 
-import 'appointmentdetails_viewmodel.dart';
 
-class AppointmentDetailsView extends StatelessWidget {
-  const AppointmentDetailsView({Key? key, required this.appointmentId})
+
+class DRAppointmentDetailsView extends StatelessWidget {
+  const DRAppointmentDetailsView({Key? key, required this.appointmentId})
       : super(key: key);
   final String appointmentId;
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<AppointmentDetailsViewModel>.reactive(
+    return ViewModelBuilder<DRAppointmentDetailsViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
         body: SafeArea(
@@ -78,33 +79,33 @@ class AppointmentDetailsView extends StatelessWidget {
                               ),
                               model.dogs.length == 1
                                   ? GestureDetector(
-                                      onTap: model.toDogProfileOne,
-                                      child: AppText.body1(
-                                        "${model.dogs[0]}",
-                                        color: colors.primary,
-                                      ),
-                                    )
+                                onTap: model.toDogProfileOne,
+                                child: AppText.body1(
+                                  "${model.dogs[0]}",
+                                  color: colors.primary,
+                                ),
+                              )
                                   : Row(
-                                      children: [
-                                        GestureDetector(
-                                          onTap: model.toDogProfileOne,
-                                          child: AppText.body1(
-                                            "${model.dogs[0]}",
-                                            color: colors.primary,
-                                          ),
-                                        ),
-                                        AppText.body1(
-                                          "  &  ",
-                                        ),
-                                        GestureDetector(
-                                          onTap: model.toDogProfileTwo,
-                                          child: AppText.body1(
-                                            "${model.dogs[1]}",
-                                            color: colors.primary,
-                                          ),
-                                        ),
-                                      ],
+                                children: [
+                                  GestureDetector(
+                                    onTap: model.toDogProfileOne,
+                                    child: AppText.body1(
+                                      "${model.dogs[0]}",
+                                      color: colors.primary,
                                     ),
+                                  ),
+                                  AppText.body1(
+                                    "  &  ",
+                                  ),
+                                  GestureDetector(
+                                    onTap: model.toDogProfileTwo,
+                                    child: AppText.body1(
+                                      "${model.dogs[1]}",
+                                      color: colors.primary,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
                         ],
@@ -296,16 +297,16 @@ class AppointmentDetailsView extends StatelessWidget {
                               ),
                               child: model.loadingTestimony
                                   ? CircularProgressIndicator(
-                                      valueColor:
-                                          AlwaysStoppedAnimation(Colors.white),
-                                    )
+                                valueColor:
+                                AlwaysStoppedAnimation(Colors.white),
+                              )
                                   : Text(
-                                      submitButton,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14),
-                                    ),
+                                submitButton,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14),
+                              ),
                             ),
                           ),
                           verticalSpaceRegular,
@@ -333,13 +334,13 @@ class AppointmentDetailsView extends StatelessWidget {
                           children: [
                             model.serviceCompleted
                                 ? Icon(
-                                    Icons.check_circle,
-                                    color: colors.green30,
-                                  )
+                              Icons.check_circle,
+                              color: colors.green30,
+                            )
                                 : Icon(
-                                    Icons.error,
-                                    color: colors.white,
-                                  ),
+                              Icons.error,
+                              color: colors.white,
+                            ),
                             horizontalSpaceSmall,
                             AppText.caption(
                               model.serviceCompleted
@@ -384,49 +385,49 @@ class AppointmentDetailsView extends StatelessWidget {
                 verticalSpaceMedium,
                 model.numberOfWalk == 1
                     ? Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25),
-                        child: WalkItem(
-                          walkName: walkSingleLabel,
-                          walkTime: model.walkOneTime,
-                          showLive: model.showLiveOne,
-                          showUpcoming: model.showUpcomingOne,
-                          showReport: model.showReportOne,
-                          onTapped: model.showLiveOne
-                              ? model.toLiveMapOne
-                              : model.toReportCardOne,
-                        ),
-                      )
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: WalkItem(
+                    walkName: walkSingleLabel,
+                    walkTime: model.walkOneTime,
+                    showLive: model.showLiveOne,
+                    showUpcoming: model.showUpcomingOne,
+                    showReport: model.showReportOne,
+                    onTapped: model.showLiveOne
+                        ? model.toLiveMapOne
+                        : model.toReportCardOne,
+                  ),
+                )
                     : Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 25),
-                            child: WalkItem(
-                              walkName: walkOneLabel,
-                              walkTime: model.walkOneTime,
-                              showLive: model.showLiveOne,
-                              showUpcoming: model.showUpcomingOne,
-                              showReport: model.showReportOne,
-                              onTapped: model.showLiveOne
-                                  ? model.toLiveMapOne
-                                  : model.toReportCardOne,
-                            ),
-                          ),
-                          spacedDivider,
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 25),
-                            child: WalkItem(
-                              walkName: walkTwoLabel,
-                              walkTime: model.walkTwoTime,
-                              showLive: model.showLiveTwo,
-                              showUpcoming: model.showUpcomingTwo,
-                              showReport: model.showReportTwo,
-                              onTapped: model.showLiveTwo
-                                  ? model.toLiveMapTwo
-                                  : model.toReportCardTwo,
-                            ),
-                          ),
-                        ],
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      child: WalkItem(
+                        walkName: walkOneLabel,
+                        walkTime: model.walkOneTime,
+                        showLive: model.showLiveOne,
+                        showUpcoming: model.showUpcomingOne,
+                        showReport: model.showReportOne,
+                        onTapped: model.showLiveOne
+                            ? model.toLiveMapOne
+                            : model.toReportCardOne,
                       ),
+                    ),
+                    spacedDivider,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      child: WalkItem(
+                        walkName: walkTwoLabel,
+                        walkTime: model.walkTwoTime,
+                        showLive: model.showLiveTwo,
+                        showUpcoming: model.showUpcomingTwo,
+                        showReport: model.showReportTwo,
+                        onTapped: model.showLiveTwo
+                            ? model.toLiveMapTwo
+                            : model.toReportCardTwo,
+                      ),
+                    ),
+                  ],
+                ),
                 verticalSpaceMedium,
                 const Divider(
                   color: colors.kcLightGreyBackground,
@@ -450,52 +451,52 @@ class AppointmentDetailsView extends StatelessWidget {
                           children: [
                             model.dogs.length == 1
                                 ? Column(
-                                    children: [
-                                      BookingItem(
-                                        detailName: petOneNameLabel,
-                                        detailValue: "${model.dogs[0]}",
-                                        clickable: true,
-                                        onTapped: model.toDogProfileOne,
-                                      ),
-                                      verticalSpaceRegular,
-                                      BookingItem(
-                                        detailName: petOneSizeLabel,
-                                        detailValue: "${model.dogsSize[0]}",
-                                        clickable: false,
-                                      ),
-                                      verticalSpaceRegular,
-                                    ],
-                                  )
+                              children: [
+                                BookingItem(
+                                  detailName: petOneNameLabel,
+                                  detailValue: "${model.dogs[0]}",
+                                  clickable: true,
+                                  onTapped: model.toDogProfileOne,
+                                ),
+                                verticalSpaceRegular,
+                                BookingItem(
+                                  detailName: petOneSizeLabel,
+                                  detailValue: "${model.dogsSize[0]}",
+                                  clickable: false,
+                                ),
+                                verticalSpaceRegular,
+                              ],
+                            )
                                 : Column(
-                                    children: [
-                                      BookingItem(
-                                        detailName: petOneNameLabel,
-                                        detailValue: "${model.dogs[0]}",
-                                        clickable: true,
-                                        onTapped: model.toDogProfileOne,
-                                      ),
-                                      verticalSpaceRegular,
-                                      BookingItem(
-                                        detailName: petOneSizeLabel,
-                                        detailValue: "${model.dogsSize[0]}",
-                                        clickable: false,
-                                      ),
-                                      verticalSpaceRegular,
-                                      BookingItem(
-                                        detailName: petTwoNameLabel,
-                                        detailValue: "${model.dogs[1]}",
-                                        clickable: true,
-                                        onTapped: model.toDogProfileOne,
-                                      ),
-                                      verticalSpaceRegular,
-                                      BookingItem(
-                                        detailName: petTwoSizeLabel,
-                                        detailValue: "${model.dogsSize[1]}",
-                                        clickable: false,
-                                      ),
-                                      verticalSpaceRegular,
-                                    ],
-                                  ),
+                              children: [
+                                BookingItem(
+                                  detailName: petOneNameLabel,
+                                  detailValue: "${model.dogs[0]}",
+                                  clickable: true,
+                                  onTapped: model.toDogProfileOne,
+                                ),
+                                verticalSpaceRegular,
+                                BookingItem(
+                                  detailName: petOneSizeLabel,
+                                  detailValue: "${model.dogsSize[0]}",
+                                  clickable: false,
+                                ),
+                                verticalSpaceRegular,
+                                BookingItem(
+                                  detailName: petTwoNameLabel,
+                                  detailValue: "${model.dogs[1]}",
+                                  clickable: true,
+                                  onTapped: model.toDogProfileOne,
+                                ),
+                                verticalSpaceRegular,
+                                BookingItem(
+                                  detailName: petTwoSizeLabel,
+                                  detailValue: "${model.dogsSize[1]}",
+                                  clickable: false,
+                                ),
+                                verticalSpaceRegular,
+                              ],
+                            ),
                             BookingItem(
                               detailName: frequencyLabel,
                               detailValue: model.numberOfWalk == 1
@@ -530,25 +531,25 @@ class AppointmentDetailsView extends StatelessWidget {
                             verticalSpaceRegular,
                             model.numberOfWalk == 1
                                 ? BookingItem(
-                                    detailName: walkOneTimeLabel,
-                                    detailValue: model.walkOneTime,
-                                    clickable: false,
-                                  )
+                              detailName: walkOneTimeLabel,
+                              detailValue: model.walkOneTime,
+                              clickable: false,
+                            )
                                 : Column(
-                                    children: [
-                                      BookingItem(
-                                        detailName: walkOneTimeLabel,
-                                        detailValue: model.walkOneTime,
-                                        clickable: false,
-                                      ),
-                                      verticalSpaceRegular,
-                                      BookingItem(
-                                        detailName: walkTwoTimeLabel,
-                                        detailValue: model.walkTwoTime,
-                                        clickable: false,
-                                      ),
-                                    ],
-                                  ),
+                              children: [
+                                BookingItem(
+                                  detailName: walkOneTimeLabel,
+                                  detailValue: model.walkOneTime,
+                                  clickable: false,
+                                ),
+                                verticalSpaceRegular,
+                                BookingItem(
+                                  detailName: walkTwoTimeLabel,
+                                  detailValue: model.walkTwoTime,
+                                  clickable: false,
+                                ),
+                              ],
+                            ),
                             verticalSpaceRegular,
                           ],
                         ),
@@ -762,7 +763,7 @@ class AppointmentDetailsView extends StatelessWidget {
           ),
         ),
       ),
-      viewModelBuilder: () => AppointmentDetailsViewModel(appointmentId),
+      viewModelBuilder: () => DRAppointmentDetailsViewModel(appointmentId),
     );
   }
 }
@@ -770,12 +771,12 @@ class AppointmentDetailsView extends StatelessWidget {
 class WalkItem extends StatelessWidget {
   const WalkItem(
       {Key? key,
-      this.walkName,
-      this.walkTime,
-      this.showLive,
-      this.showUpcoming,
-      this.showReport,
-      this.onTapped})
+        this.walkName,
+        this.walkTime,
+        this.showLive,
+        this.showUpcoming,
+        this.showReport,
+        this.onTapped})
       : super(key: key);
   final String? walkName;
   final String? walkTime;
@@ -810,25 +811,25 @@ class WalkItem extends StatelessWidget {
         ),
         showUpcoming!
             ? AppText.body1(
-                upcomingWalkLabel,
-                color: colors.kcCaptionGreyColor,
-              )
+          upcomingWalkLabel,
+          color: colors.kcCaptionGreyColor,
+        )
             : Container(
-                height: 0,
-                width: 0,
-              ),
+          height: 0,
+          width: 0,
+        ),
         showReport!
             ? GestureDetector(
-                onTap: onTapped,
-                child: AppText.body1(
-                  seeReportLabel,
-                  color: colors.primary,
-                ),
-              )
+          onTap: onTapped,
+          child: AppText.body1(
+            seeReportLabel,
+            color: colors.primary,
+          ),
+        )
             : Container(
-                height: 0,
-                width: 0,
-              )
+          height: 0,
+          width: 0,
+        )
       ],
     );
   }
@@ -837,10 +838,10 @@ class WalkItem extends StatelessWidget {
 class BookingItem extends StatelessWidget {
   const BookingItem(
       {Key? key,
-      this.detailName,
-      this.detailValue,
-      this.clickable,
-      this.onTapped})
+        this.detailName,
+        this.detailValue,
+        this.clickable,
+        this.onTapped})
       : super(key: key);
   final String? detailName;
   final String? detailValue;
@@ -857,19 +858,19 @@ class BookingItem extends StatelessWidget {
         horizontalSpaceMedium,
         clickable!
             ? GestureDetector(
-                onTap: onTapped,
-                child: AppText.body1(
-                  detailValue!,
-                  color: colors.primary,
-                ),
-              )
+          onTap: onTapped,
+          child: AppText.body1(
+            detailValue!,
+            color: colors.primary,
+          ),
+        )
             : Expanded(
-                child: AppText.body1(
-                  detailValue!,
-                  color: colors.kcCaptionGreyColor,
-                  textAlign: TextAlign.right,
-                ),
-              ),
+          child: AppText.body1(
+            detailValue!,
+            color: colors.kcCaptionGreyColor,
+            textAlign: TextAlign.right,
+          ),
+        ),
       ],
     );
   }

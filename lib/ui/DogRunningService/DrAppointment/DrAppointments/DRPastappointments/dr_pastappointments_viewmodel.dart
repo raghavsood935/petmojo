@@ -2,11 +2,8 @@ import 'package:tamely/api/api_service.dart';
 import 'package:tamely/api/base_response.dart';
 import 'package:tamely/api/server_error.dart';
 import 'package:tamely/enum/DialogType.dart';
-import 'package:tamely/enum/activeAppointmentStatus.dart';
 import 'package:tamely/models/my_appointments_response.dart';
-import 'package:tamely/models/params/get_data_body.dart';
 import 'package:tamely/services/user_service.dart';
-import 'package:tamely/ui/appointments/activeappointments/activeappointments_viewmodel.dart';
 import 'package:tamely/util/utils.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -16,7 +13,7 @@ import 'package:tamely/enum/pastAppointmentStatus.dart';
 import 'package:tamely/enum/selectService.dart';
 import 'package:tamely/util/String.dart';
 
-class PastAppointmentsViewModel extends FutureViewModel<void>
+class DRPastAppointmentsViewModel extends FutureViewModel<void>
     implements Initialisable {
   final log = getLogger('PastAppointmentsViewModel');
   final _navigationService = locator<NavigationService>();

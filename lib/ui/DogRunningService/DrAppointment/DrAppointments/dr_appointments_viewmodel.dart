@@ -11,7 +11,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 
-class AppointmentsViewModel extends FutureViewModel<void>
+class DRAppointmentsViewModel extends FutureViewModel<void>
     implements Initialisable {
   final log = getLogger('SelectServiceViewModel');
   final _navigationService = locator<NavigationService>();

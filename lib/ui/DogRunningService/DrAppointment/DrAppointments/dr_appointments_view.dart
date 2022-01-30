@@ -1,21 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:tamely/ui/appointments/pastappointments/pastappointments_view.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 
-import 'activeappointments/activeappointments_view.dart';
-import 'appointments_viewmodel.dart';
+import 'DRActiveappointments/dr_activeappointments_view.dart';
+import 'DRPastappointments/dr_pastappointments_view.dart';
+import 'dr_appointments_viewmodel.dart';
 
-class AppointmentsView extends StatelessWidget {
-  const AppointmentsView({Key? key}) : super(key: key);
+class DRAppointmentsView extends StatelessWidget {
+  const DRAppointmentsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<AppointmentsViewModel>.reactive(
+    return ViewModelBuilder<DRAppointmentsViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
         body: SafeArea(
@@ -97,8 +97,8 @@ class AppointmentsView extends StatelessWidget {
                       ),
                       body: TabBarView(
                         children: [
-                          ActiveAppointmentsView(),
-                          PastAppointmentsView(),
+                          DRActiveAppointmentsView(),
+                          DRPastAppointmentsView(),
                         ],
                       ),
                     ),
@@ -109,7 +109,7 @@ class AppointmentsView extends StatelessWidget {
           ),
         ),
       ),
-      viewModelBuilder: () => AppointmentsViewModel(),
+      viewModelBuilder: () => DRAppointmentsViewModel(),
     );
   }
 }

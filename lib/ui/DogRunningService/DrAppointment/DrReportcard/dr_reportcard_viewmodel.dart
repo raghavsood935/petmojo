@@ -17,7 +17,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 
-class ReportCardViewModel extends FutureViewModel<void>
+class DRReportCardViewModel extends FutureViewModel<void>
     implements Initialisable {
   final log = getLogger('ReportCardViewModel');
   final _navigationService = locator<NavigationService>();
@@ -30,7 +30,7 @@ class ReportCardViewModel extends FutureViewModel<void>
   WalkNumber walkNumber;
   String appointmentId;
 
-  ReportCardViewModel(
+  DRReportCardViewModel(
       this.noOfDogs, this.dogs, this.date, this.walkNumber, this.appointmentId);
 
   void navigateBack() {

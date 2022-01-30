@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/enum/pastAppointmentStatus.dart';
-import 'package:tamely/ui/appointments/pastappointments/pastappointments_viewmodel.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/custom_circle_avatar.dart';
 
-class PastAppointmentsView extends StatelessWidget {
-  const PastAppointmentsView({Key? key}) : super(key: key);
+import 'dr_pastappointments_viewmodel.dart';
+
+class DRPastAppointmentsView extends StatelessWidget {
+  const DRPastAppointmentsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<PastAppointmentsViewModel>.reactive(
+    return ViewModelBuilder<DRPastAppointmentsViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
         body: SafeArea(
@@ -84,7 +85,7 @@ class PastAppointmentsView extends StatelessWidget {
           ),
         ),
       ),
-      viewModelBuilder: () => PastAppointmentsViewModel(),
+      viewModelBuilder: () => DRPastAppointmentsViewModel(),
     );
   }
 }

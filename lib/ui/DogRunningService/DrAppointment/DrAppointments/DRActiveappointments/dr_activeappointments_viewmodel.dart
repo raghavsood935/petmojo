@@ -3,11 +3,8 @@ import 'package:tamely/api/base_response.dart';
 import 'package:tamely/api/server_error.dart';
 import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/models/my_appointments_response.dart';
-import 'package:tamely/models/params/change_appointment_status_body.dart';
-import 'package:tamely/models/params/get_data_body.dart';
 import 'package:tamely/models/params/reorder_a_run_body.dart';
 import 'package:tamely/models/reorder_a_run_response.dart';
-import 'package:tamely/models/send_data_response.dart';
 import 'package:tamely/services/user_service.dart';
 import 'package:tamely/util/utils.dart';
 import 'package:stacked/stacked.dart';
@@ -16,11 +13,10 @@ import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/activeAppointmentStatus.dart';
-import 'package:tamely/enum/selectService.dart';
 import 'package:tamely/util/String.dart';
 import 'package:intl/intl.dart';
 
-class ActiveAppointmentsViewModel extends FutureViewModel<void>
+class DRActiveAppointmentsViewModel extends FutureViewModel<void>
     implements Initialisable {
   final log = getLogger('ActiveAppointmentsViewModel');
   final _navigationService = locator<NavigationService>();
@@ -69,7 +65,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
 
   void toBooking() async {
     _navigationService.navigateTo(
-      Routes.dogRunningBookingView,
+      Routes.dRDogRunningBookingView,
     );
   }
 
@@ -80,8 +76,8 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
   void toAppointmentDetails(index) async {
     String? bookingId = activeAppointments[index].bookingId;
     await _navigationService.navigateTo(
-      Routes.appointmentDetailsView,
-      arguments: AppointmentDetailsViewArguments(appointmentId: bookingId!),
+      Routes.dRAppointmentDetailsView,
+      arguments: DRAppointmentDetailsViewArguments(appointmentId: bookingId!),
     );
     getActiveAppointments();
   }
@@ -104,8 +100,8 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
           if (success!) {
             activeAppointments[index].showReorder = false;
             _navigationService.replaceWith(
-              Routes.paymentView,
-              arguments: PaymentViewArguments(
+              Routes.dRPaymentView,
+              arguments: DRPaymentViewArguments(
                   amount: newAmountDouble.toInt(), bookingId: newBookingId!),
             );
           }

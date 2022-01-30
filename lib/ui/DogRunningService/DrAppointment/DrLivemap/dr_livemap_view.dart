@@ -1,8 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:tamely/enum/walkNumber.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/util/Color.dart';
@@ -10,10 +8,10 @@ import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 
-import 'livemap_viewmodel.dart';
+import 'dr_livemap_viewmodel.dart';
 
-class LiveMapView extends StatelessWidget {
-  const LiveMapView({
+class DRLiveMapView extends StatelessWidget {
+  const DRLiveMapView({
     Key? key,
     required this.walkNumber,
     required this.serviceProviderId,
@@ -27,13 +25,13 @@ class LiveMapView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<LiveMapViewModel>.reactive(
-      onModelReady: (model){
+    return ViewModelBuilder<DRLiveMapViewModel>.reactive(
+      onModelReady: (model) {
         model.init();
       },
       onDispose: (model) {
         model.onDispose();
-        },
+      },
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
         body: SafeArea(
@@ -70,19 +68,18 @@ class LiveMapView extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Container(
-                  color: colors.kcCaptionGreyColor,
-                  child:GoogleMap(
-                    mapType: MapType.normal,
-                    markers: model.markers,
-                    myLocationEnabled: false,
-                    zoomControlsEnabled: false,
-                    polylines: model.mapPolylines,
-                    initialCameraPosition: model.initialLocation,
-                    onMapCreated: (GoogleMapController controller) {
-                      model.controller.complete(controller);
-                    },
-                  )
-                ),
+                    color: colors.kcCaptionGreyColor,
+                    child: GoogleMap(
+                      mapType: MapType.normal,
+                      markers: model.markers,
+                      myLocationEnabled: false,
+                      zoomControlsEnabled: false,
+                      polylines: model.mapPolylines,
+                      initialCameraPosition: model.initialLocation,
+                      onMapCreated: (GoogleMapController controller) {
+                        model.controller.complete(controller);
+                      },
+                    )),
               ),
 
               // Bottom
@@ -130,7 +127,7 @@ class LiveMapView extends StatelessWidget {
           ),
         ),
       ),
-      viewModelBuilder: () => LiveMapViewModel(
+      viewModelBuilder: () => DRLiveMapViewModel(
         walkNumber,
         serviceProviderId,
         userId,

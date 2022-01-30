@@ -26,9 +26,8 @@ import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/walkStatus.dart';
-import 'package:tamely/enum/walkNumber.dart';
 
-class AppointmentDetailsViewModel extends FutureViewModel<void>
+class DRAppointmentDetailsViewModel extends FutureViewModel<void>
     implements Initialisable {
   final log = getLogger('AppointmentDetailsViewModel');
   final _navigationService = locator<NavigationService>();
@@ -39,7 +38,7 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
   final _dialogService = locator<DialogService>();
 
   final String bookingId;
-  AppointmentDetailsViewModel(this.bookingId);
+  DRAppointmentDetailsViewModel(this.bookingId);
 
   String _userId = "";
   String _serviceProviderId = "";
@@ -254,8 +253,8 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
   }
 
   void toLiveMapOne() async {
-    await _navigationService.navigateTo(Routes.liveMapView,
-        arguments: LiveMapViewArguments(
+    await _navigationService.navigateTo(Routes.dRLiveMapView,
+        arguments: DRLiveMapViewArguments(
           walkNumber: WalkNumber.One,
           serviceProviderId: serviceProviderId,
           userId: userId,
@@ -265,8 +264,8 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
   }
 
   void toLiveMapTwo() async {
-    await _navigationService.navigateTo(Routes.liveMapView,
-        arguments: LiveMapViewArguments(
+    await _navigationService.navigateTo(Routes.dRLiveMapView,
+        arguments: DRLiveMapViewArguments(
           walkNumber: WalkNumber.Two,
           serviceProviderId: serviceProviderId,
           userId: userId,
@@ -276,8 +275,8 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
   }
 
   void toReportCardOne() {
-    _navigationService.navigateTo(Routes.reportCardView,
-        arguments: ReportCardViewArguments(
+    _navigationService.navigateTo(Routes.dRReportCardView,
+        arguments: DRReportCardViewArguments(
           noOfDogs: numberOfPets,
           dogs: dogs,
           date: selectedDate,
@@ -287,8 +286,8 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
   }
 
   void toReportCardTwo() {
-    _navigationService.navigateTo(Routes.reportCardView,
-        arguments: ReportCardViewArguments(
+    _navigationService.navigateTo(Routes.dRReportCardView,
+        arguments: DRReportCardViewArguments(
           noOfDogs: numberOfPets,
           dogs: dogs,
           date: selectedDate,
@@ -398,7 +397,7 @@ class AppointmentDetailsViewModel extends FutureViewModel<void>
   }
 
   void toBookAgain() {
-    _navigationService.navigateTo(Routes.dogRunningBookingView);
+    _navigationService.navigateTo(Routes.dRDogRunningBookingView);
   }
 
   //
