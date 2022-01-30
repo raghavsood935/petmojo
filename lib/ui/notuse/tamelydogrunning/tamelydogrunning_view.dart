@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:tamely/ui/tamelydogrunning/tamelydogrunning_viewmodel.dart';
-import 'package:tamely/ui/tamelydogrunning/tamelyoverview/tamelyoverview_view.dart';
-import 'package:tamely/ui/tamelydogrunning/tamelyratechart/tamelyratechart_view.dart';
-import 'package:tamely/ui/tamelydogrunning/tamelyreviews/tamelyreviews_view.dart';
+import 'package:tamely/ui/notuse/tamelydogrunning/tamelydogrunning_viewmodel.dart';
+import 'package:tamely/ui/notuse/tamelydogrunning/tamelyoverview/tamelyoverview_view.dart';
+import 'package:tamely/ui/notuse/tamelydogrunning/tamelyratechart/tamelyratechart_view.dart';
+import 'package:tamely/ui/notuse/tamelydogrunning/tamelyreviews/tamelyreviews_view.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';

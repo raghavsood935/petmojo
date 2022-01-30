@@ -2,17 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tamely/enum/dog_running_package.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/ui/DogRunningService/DrBookingService/DrBooking/dr_dogrunningbooking_viewmodel.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_input_field.dart';
 import 'package:tamely/widgets/app_text.dart';
 
-import '../dogrunningbooking_viewmodel.dart';
-
-class SelectPackageView extends ViewModelWidget<DogRunningBookingViewModel> {
+class DRSelectPackageView
+    extends ViewModelWidget<DRDogRunningBookingViewModel> {
   @override
-  Widget build(BuildContext context, DogRunningBookingViewModel model) {
+  Widget build(BuildContext context, DRDogRunningBookingViewModel model) {
     return SafeArea(
       child: SingleChildScrollView(
         child: Column(

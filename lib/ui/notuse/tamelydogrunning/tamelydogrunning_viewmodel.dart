@@ -1,26 +1,35 @@
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:tamely/app/app.locator.dart';
-import 'package:tamely/app/app.logger.dart';
+
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
 
-class TamelyRateChartViewModel extends FutureViewModel<void>
+class TamelyDogRunnersViewModel extends FutureViewModel<void>
     implements Initialisable {
-  final log = getLogger('TamelyRateChartViewModel');
+  final log = getLogger('TamelyDogRunnersViewModel');
   final _navigationService = locator<NavigationService>();
 
   LatLng currentLocation;
-  TamelyRateChartViewModel(this.currentLocation);
+  TamelyDogRunnersViewModel(this.currentLocation);
 
   void navigateBack() {
     _navigationService.back();
   }
 
+  int _noOfJobs = 24;
+  double _noOfRating = 4.5;
+  int _noOfRepeatClients = 24;
+
+  int get noOfJobs => _noOfJobs;
+  double get noOfRating => _noOfRating;
+  int get noOfRepeatClients => _noOfRepeatClients;
+
   toBookRunning() {
     _navigationService.navigateTo(
-      Routes.dogRunningBookingView,
+      Routes.dRDogRunningBookingView,
     );
   }
 

@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:tamely/ui/payment/payment_viewmodel.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
-import 'package:tamely/widgets/app_input_field.dart';
 import 'package:tamely/widgets/app_text.dart';
+import 'dr_payment_viewmodel.dart';
 
-class PaymentView extends StatelessWidget {
-  const PaymentView({Key? key, required this.amount, required this.bookingId})
+class DRPaymentView extends StatelessWidget {
+  const DRPaymentView({Key? key, required this.amount, required this.bookingId})
       : super(key: key);
   final int amount;
   final String bookingId;
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<PaymentViewModel>.reactive(
+    return ViewModelBuilder<DrPaymentViewModel>.reactive(
       onModelReady: (model) {
         //model.setPaymentStatus(false);
         model.startState();
@@ -177,7 +176,7 @@ class PaymentView extends StatelessWidget {
           ),
         ),
       ),
-      viewModelBuilder: () => PaymentViewModel(amount, bookingId),
+      viewModelBuilder: () => DrPaymentViewModel(amount, bookingId),
     );
   }
 }

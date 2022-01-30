@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:tamely/ui/tamelydogrunning/tamelyoverview/tamelyoverview_viewmodel.dart';
+import 'package:tamely/ui/notuse/tamelydogrunning/tamelyoverview/tamelyoverview_viewmodel.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';

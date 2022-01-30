@@ -5,19 +5,19 @@ import 'package:stacked/stacked.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
-import 'dogrunningbooking_viewmodel.dart';
+import 'dr_dogrunningbooking_viewmodel.dart';
 
-class DogRunningBookingView extends StatefulWidget {
-  const DogRunningBookingView({Key? key}) : super(key: key);
+class DRDogRunningBookingView extends StatefulWidget {
+  const DRDogRunningBookingView({Key? key}) : super(key: key);
 
   @override
-  State<DogRunningBookingView> createState() => _DogRunningBookingViewState();
+  State<DRDogRunningBookingView> createState() => _DRDogRunningBookingViewState();
 }
 
-class _DogRunningBookingViewState extends State<DogRunningBookingView> {
+class _DRDogRunningBookingViewState extends State<DRDogRunningBookingView> {
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<DogRunningBookingViewModel>.reactive(
+    return ViewModelBuilder<DRDogRunningBookingViewModel>.reactive(
       onModelReady: (model) async {
         await model.getPets();
         await model.getFreeWalkStatus();
@@ -26,7 +26,7 @@ class _DogRunningBookingViewState extends State<DogRunningBookingView> {
       onDispose: (model) {
         model.dispose();
       },
-      viewModelBuilder: () => DogRunningBookingViewModel(),
+      viewModelBuilder: () => DRDogRunningBookingViewModel(),
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
         body: SafeArea(

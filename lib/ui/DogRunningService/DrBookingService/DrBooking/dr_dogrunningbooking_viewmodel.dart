@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoder/geocoder.dart';
@@ -22,14 +21,14 @@ import 'package:tamely/models/params/book_a_run_body.dart';
 import 'package:tamely/models/params/set_payment_details_body.dart';
 import 'package:tamely/models/send_data_response.dart';
 import 'package:tamely/services/user_service.dart';
-import 'package:tamely/ui/dogrunningbooking/selectpackage/selectpackage_view.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/location_helper.dart';
 import 'package:tamely/util/utils.dart';
-import 'bookarun/bookarun_view.dart';
-import 'bookingdetails/bookingdetails_view.dart';
 
-class DogRunningBookingViewModel extends FormViewModel {
+import 'DrBookarun/dr_bookarun_view.dart';
+import 'DrBookingdetails/dr_bookingdetails_view.dart';
+
+class DRDogRunningBookingViewModel extends FormViewModel {
   final log = getLogger('DogRunningBookingView');
   final _navigationService = locator<NavigationService>();
 
@@ -71,8 +70,8 @@ class DogRunningBookingViewModel extends FormViewModel {
     //false,
   ];
   List<Widget> _pages = [
-    BookARunView(),
-    BookingDetailsView(),
+    DRBookARunView(),
+    DRBookingDetailsView(),
     //SelectPackageView()
   ];
   List<String> _titles = [
@@ -145,12 +144,12 @@ class DogRunningBookingViewModel extends FormViewModel {
         _navigationService.back();
         _navigationService.back();
         _navigationService.back();
-        _navigationService.navigateTo(Routes.appointmentsView);
+        _navigationService.navigateTo(Routes.dRAppointmentsView);
       } else {
         if (bookingId != "") {
           _navigationService.replaceWith(
-            Routes.paymentView,
-            arguments: PaymentViewArguments(
+            Routes.dRPaymentView,
+            arguments: DRPaymentViewArguments(
                 amount: amount.toInt(), bookingId: bookingId),
           );
         }

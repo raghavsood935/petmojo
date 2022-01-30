@@ -7,11 +7,12 @@ import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_input_field.dart';
 import 'package:tamely/widgets/app_text.dart';
-import '../dogrunningbooking_viewmodel.dart';
+import '../dr_dogrunningbooking_viewmodel.dart';
 
-class BookingDetailsView extends ViewModelWidget<DogRunningBookingViewModel> {
+class DRBookingDetailsView
+    extends ViewModelWidget<DRDogRunningBookingViewModel> {
   @override
-  Widget build(BuildContext context, DogRunningBookingViewModel model) {
+  Widget build(BuildContext context, DRDogRunningBookingViewModel model) {
     return SafeArea(
       child: SingleChildScrollView(
         child: Column(

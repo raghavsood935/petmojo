@@ -25,7 +25,7 @@ class TamelyOverviewViewModel extends FutureViewModel<void>
 
   toBookRunning() {
     _navigationService.navigateTo(
-      Routes.dogRunningBookingView,
+      Routes.dRDogRunningBookingView,
     );
   }
 

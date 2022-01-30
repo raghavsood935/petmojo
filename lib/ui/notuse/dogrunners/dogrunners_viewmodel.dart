@@ -112,9 +112,9 @@ class DogRunnersViewModel extends FutureViewModel<void>
   }
 
   void toTamelyDogRunning() async {
-    await _navigationService.navigateTo(Routes.tamelyDogRunnersView,
-        arguments:
-            TamelyDogRunnersViewArguments(currentLocation: currentLocation));
+    // await _navigationService.navigateTo(Routes.TamelyDogRunnersView,
+    //     arguments:
+    //         TamelyDogRunnersViewArguments(currentLocation: currentLocation));
   }
 
   @override

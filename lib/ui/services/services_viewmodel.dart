@@ -50,7 +50,7 @@ class ServicesViewModel extends BaseModel {
       case 0:
         {
           _navigationService.navigateTo(
-            Routes.dogRunningBookingView,
+            Routes.dRDogRunningBookingView,
           );
           break;
         }
@@ -100,11 +100,7 @@ class ServicesViewModel extends BaseModel {
   get appointmentType => this._appointmentType;
 
   void toMyBookings() {
-    _navigationService.navigateTo(Routes.appointmentsView);
-  }
-
-  void toDogWalking() {
-    _navigationService.navigateTo(Routes.dogRunnersView);
+    _navigationService.navigateTo(Routes.dRAppointmentsView);
   }
 }
 
