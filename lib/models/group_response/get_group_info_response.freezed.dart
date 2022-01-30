@@ -149,11 +149,12 @@ class _$_GetGroupInfoResponse extends _GetGroupInfoResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _GetGroupInfoResponse &&
-            (identical(other.group, group) || other.group == group));
+            const DeepCollectionEquality().equals(other.group, group));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, group);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(group));
 
   @JsonKey(ignore: true)
   @override

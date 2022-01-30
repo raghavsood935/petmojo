@@ -21,8 +21,6 @@ class TamelyRateChartViewModel extends FutureViewModel<void>
   toBookRunning() {
     _navigationService.navigateTo(
       Routes.dogRunningBookingView,
-      arguments:
-          DogRunningBookingViewArguments(currentLocation: currentLocation),
     );
   }
 

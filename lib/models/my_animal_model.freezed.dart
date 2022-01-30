@@ -695,85 +695,78 @@ class _$_MyAnimalModelResponse extends _MyAnimalModelResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _MyAnimalModelResponse &&
-            (identical(other.mating, mating) || other.mating == mating) &&
-            (identical(other.adoption, adoption) ||
-                other.adoption == adoption) &&
-            (identical(other.playBuddies, playBuddies) ||
-                other.playBuddies == playBuddies) &&
-            (identical(other.Id, Id) || other.Id == Id) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.username, username) ||
-                other.username == username) &&
-            (identical(other.avatar, avatar) || other.avatar == avatar) &&
-            (identical(other.category, category) ||
-                other.category == category) &&
-            (identical(other.bio, bio) || other.bio == bio) &&
-            (identical(other.animalType, animalType) ||
-                other.animalType == animalType) &&
-            (identical(other.gender, gender) || other.gender == gender) &&
-            (identical(other.breed, breed) || other.breed == breed) &&
-            (identical(other.age, age) || other.age == age) &&
-            (identical(other.playFrom, playFrom) ||
-                other.playFrom == playFrom) &&
-            (identical(other.playTo, playTo) || other.playTo == playTo) &&
-            (identical(other.servicePet, servicePet) ||
-                other.servicePet == servicePet) &&
-            (identical(other.spayed, spayed) || other.spayed == spayed) &&
-            (identical(other.isBrandAmbassador, isBrandAmbassador) ||
-                other.isBrandAmbassador == isBrandAmbassador) &&
-            (identical(
-                    other.registeredWithKennelClub, registeredWithKennelClub) ||
-                other.registeredWithKennelClub == registeredWithKennelClub) &&
-            (identical(other.friendlinessWithHumans, friendlinessWithHumans) ||
-                other.friendlinessWithHumans == friendlinessWithHumans) &&
-            (identical(
-                    other.friendlinessWithAnimals, friendlinessWithAnimals) ||
-                other.friendlinessWithAnimals == friendlinessWithAnimals) &&
-            (identical(other.favouriteThings, favouriteThings) ||
-                other.favouriteThings == favouriteThings) &&
-            (identical(other.thingsDislikes, thingsDislikes) ||
-                other.thingsDislikes == thingsDislikes) &&
-            (identical(other.uniqueHabits, uniqueHabits) ||
-                other.uniqueHabits == uniqueHabits) &&
-            (identical(other.eatingHabits, eatingHabits) ||
-                other.eatingHabits == eatingHabits) &&
-            (identical(other.location, location) ||
-                other.location == location) &&
+            const DeepCollectionEquality().equals(other.mating, mating) &&
+            const DeepCollectionEquality().equals(other.adoption, adoption) &&
+            const DeepCollectionEquality()
+                .equals(other.playBuddies, playBuddies) &&
+            const DeepCollectionEquality().equals(other.Id, Id) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.username, username) &&
+            const DeepCollectionEquality().equals(other.avatar, avatar) &&
+            const DeepCollectionEquality().equals(other.category, category) &&
+            const DeepCollectionEquality().equals(other.bio, bio) &&
+            const DeepCollectionEquality()
+                .equals(other.animalType, animalType) &&
+            const DeepCollectionEquality().equals(other.gender, gender) &&
+            const DeepCollectionEquality().equals(other.breed, breed) &&
+            const DeepCollectionEquality().equals(other.age, age) &&
+            const DeepCollectionEquality().equals(other.playFrom, playFrom) &&
+            const DeepCollectionEquality().equals(other.playTo, playTo) &&
+            const DeepCollectionEquality()
+                .equals(other.servicePet, servicePet) &&
+            const DeepCollectionEquality().equals(other.spayed, spayed) &&
+            const DeepCollectionEquality()
+                .equals(other.isBrandAmbassador, isBrandAmbassador) &&
+            const DeepCollectionEquality().equals(
+                other.registeredWithKennelClub, registeredWithKennelClub) &&
+            const DeepCollectionEquality()
+                .equals(other.friendlinessWithHumans, friendlinessWithHumans) &&
+            const DeepCollectionEquality().equals(
+                other.friendlinessWithAnimals, friendlinessWithAnimals) &&
+            const DeepCollectionEquality()
+                .equals(other.favouriteThings, favouriteThings) &&
+            const DeepCollectionEquality()
+                .equals(other.thingsDislikes, thingsDislikes) &&
+            const DeepCollectionEquality()
+                .equals(other.uniqueHabits, uniqueHabits) &&
+            const DeepCollectionEquality()
+                .equals(other.eatingHabits, eatingHabits) &&
+            const DeepCollectionEquality().equals(other.location, location) &&
             const DeepCollectionEquality().equals(other.guardians, guardians) &&
-            (identical(other.v, v) || other.v == v));
+            const DeepCollectionEquality().equals(other.v, v));
   }
 
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
-        mating,
-        adoption,
-        playBuddies,
-        Id,
-        name,
-        username,
-        avatar,
-        category,
-        bio,
-        animalType,
-        gender,
-        breed,
-        age,
-        playFrom,
-        playTo,
-        servicePet,
-        spayed,
-        isBrandAmbassador,
-        registeredWithKennelClub,
-        friendlinessWithHumans,
-        friendlinessWithAnimals,
-        favouriteThings,
-        thingsDislikes,
-        uniqueHabits,
-        eatingHabits,
-        location,
+        const DeepCollectionEquality().hash(mating),
+        const DeepCollectionEquality().hash(adoption),
+        const DeepCollectionEquality().hash(playBuddies),
+        const DeepCollectionEquality().hash(Id),
+        const DeepCollectionEquality().hash(name),
+        const DeepCollectionEquality().hash(username),
+        const DeepCollectionEquality().hash(avatar),
+        const DeepCollectionEquality().hash(category),
+        const DeepCollectionEquality().hash(bio),
+        const DeepCollectionEquality().hash(animalType),
+        const DeepCollectionEquality().hash(gender),
+        const DeepCollectionEquality().hash(breed),
+        const DeepCollectionEquality().hash(age),
+        const DeepCollectionEquality().hash(playFrom),
+        const DeepCollectionEquality().hash(playTo),
+        const DeepCollectionEquality().hash(servicePet),
+        const DeepCollectionEquality().hash(spayed),
+        const DeepCollectionEquality().hash(isBrandAmbassador),
+        const DeepCollectionEquality().hash(registeredWithKennelClub),
+        const DeepCollectionEquality().hash(friendlinessWithHumans),
+        const DeepCollectionEquality().hash(friendlinessWithAnimals),
+        const DeepCollectionEquality().hash(favouriteThings),
+        const DeepCollectionEquality().hash(thingsDislikes),
+        const DeepCollectionEquality().hash(uniqueHabits),
+        const DeepCollectionEquality().hash(eatingHabits),
+        const DeepCollectionEquality().hash(location),
         const DeepCollectionEquality().hash(guardians),
-        v
+        const DeepCollectionEquality().hash(v)
       ]);
 
   @JsonKey(ignore: true)

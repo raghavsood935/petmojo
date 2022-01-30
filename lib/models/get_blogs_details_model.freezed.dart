@@ -149,11 +149,12 @@ class _$_GetBlogDetailsResponse extends _GetBlogDetailsResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _GetBlogDetailsResponse &&
-            (identical(other.blog, blog) || other.blog == blog));
+            const DeepCollectionEquality().equals(other.blog, blog));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, blog);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(blog));
 
   @JsonKey(ignore: true)
   @override

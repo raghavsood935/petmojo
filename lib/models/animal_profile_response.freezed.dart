@@ -198,15 +198,19 @@ class _$_AnimalProfileResponse extends _AnimalProfileResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _AnimalProfileResponse &&
-            (identical(other.Id, Id) || other.Id == Id) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.username, username) ||
-                other.username == username) &&
-            (identical(other.avatar, avatar) || other.avatar == avatar));
+            const DeepCollectionEquality().equals(other.Id, Id) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.username, username) &&
+            const DeepCollectionEquality().equals(other.avatar, avatar));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, Id, name, username, avatar);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(Id),
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(username),
+      const DeepCollectionEquality().hash(avatar));
 
   @JsonKey(ignore: true)
   @override

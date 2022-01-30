@@ -23,81 +23,81 @@ class TamelyRateChartView extends StatelessWidget {
               children: [
                 verticalSpaceRegular,
                 // rate chart
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RateItem(
-                        title: perWalkTitle,
-                        subtitle: perWalkSubtitle,
-                        rate: perWalkRate,
-                        rateLabel: perWalkRateLabel,
-                      ),
-                      verticalSpaceMedium,
-                      RateItem(
-                        title: perWeekOnceTitle,
-                        subtitle: perWeekOnceSubtitle,
-                        rate: perWeekOnceRate,
-                        rateLabel: perWeekOnceRateLabel,
-                      ),
-                      verticalSpaceMedium,
-                      RateItem(
-                        title: perWeekTwiceTitle,
-                        subtitle: perWeekTwiceSubtitle,
-                        rate: perWeekTwiceRate,
-                        rateLabel: perWeekTwiceRateLabel,
-                      ),
-                      verticalSpaceMedium,
-                      RateItem(
-                        title: perMonthOnceTitle,
-                        subtitle: perMonthOnceSubtitle,
-                        rate: perMonthOnceRate,
-                        rateLabel: perMonthOnceRateLabel,
-                      ),
-                      verticalSpaceMedium,
-                      RateItem(
-                        title: perMonthTwiceTitle,
-                        subtitle: perMonthTwiceSubtitle,
-                        rate: perMonthTwiceRate,
-                        rateLabel: perMonthTwiceRateLabel,
-                      ),
-                    ],
-                  ),
-                ),
-                verticalSpaceMedium,
-                const Divider(
-                  color: colors.kcLightGreyBackground,
-                  height: 5.0,
-                  thickness: 5.0,
-                ),
-                verticalSpaceMedium,
-                verticalSpaceMedium,
-
-                // booking button
                 // Padding(
                 //   padding: const EdgeInsets.symmetric(horizontal: 25),
-                //   child: GestureDetector(
-                //     onTap: model.toBookRunning,
-                //     child: Container(
-                //       width: double.infinity,
-                //       height: 50,
-                //       alignment: Alignment.center,
-                //       decoration: BoxDecoration(
-                //         color: colors.primary,
-                //         borderRadius: BorderRadius.circular(50),
+                //   child: Column(
+                //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     children: [
+                //       RateItem(
+                //         title: perWalkTitle,
+                //         subtitle: perWalkSubtitle,
+                //         rate: perWalkRate,
+                //         rateLabel: perWalkRateLabel,
                 //       ),
-                //       child: Text(
-                //         bookButtonTitle,
-                //         style: TextStyle(
-                //             color: Colors.white,
-                //             fontWeight: FontWeight.bold,
-                //             fontSize: 14),
+                //       verticalSpaceMedium,
+                //       RateItem(
+                //         title: perWeekOnceTitle,
+                //         subtitle: perWeekOnceSubtitle,
+                //         rate: perWeekOnceRate,
+                //         rateLabel: perWeekOnceRateLabel,
                 //       ),
-                //     ),
+                //       verticalSpaceMedium,
+                //       RateItem(
+                //         title: perWeekTwiceTitle,
+                //         subtitle: perWeekTwiceSubtitle,
+                //         rate: perWeekTwiceRate,
+                //         rateLabel: perWeekTwiceRateLabel,
+                //       ),
+                //       verticalSpaceMedium,
+                //       RateItem(
+                //         title: perMonthOnceTitle,
+                //         subtitle: perMonthOnceSubtitle,
+                //         rate: perMonthOnceRate,
+                //         rateLabel: perMonthOnceRateLabel,
+                //       ),
+                //       verticalSpaceMedium,
+                //       RateItem(
+                //         title: perMonthTwiceTitle,
+                //         subtitle: perMonthTwiceSubtitle,
+                //         rate: perMonthTwiceRate,
+                //         rateLabel: perMonthTwiceRateLabel,
+                //       ),
+                //     ],
                 //   ),
                 // ),
-                verticalSpaceRegular,
+                // verticalSpaceMedium,
+                // const Divider(
+                //   color: colors.kcLightGreyBackground,
+                //   height: 5.0,
+                //   thickness: 5.0,
+                // ),
+                // verticalSpaceMedium,
+                // verticalSpaceMedium,
+                //
+                // // booking button
+                // // Padding(
+                // //   padding: const EdgeInsets.symmetric(horizontal: 25),
+                // //   child: GestureDetector(
+                // //     onTap: model.toBookRunning,
+                // //     child: Container(
+                // //       width: double.infinity,
+                // //       height: 50,
+                // //       alignment: Alignment.center,
+                // //       decoration: BoxDecoration(
+                // //         color: colors.primary,
+                // //         borderRadius: BorderRadius.circular(50),
+                // //       ),
+                // //       child: Text(
+                // //         bookButtonTitle,
+                // //         style: TextStyle(
+                // //             color: Colors.white,
+                // //             fontWeight: FontWeight.bold,
+                // //             fontSize: 14),
+                // //       ),
+                // //     ),
+                // //   ),
+                // // ),
+                // verticalSpaceRegular,
               ],
             ),
           ),

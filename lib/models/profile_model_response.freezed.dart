@@ -257,21 +257,25 @@ class _$_ProfileResponse extends _ProfileResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ProfileResponse &&
-            (identical(other.Id, Id) || other.Id == Id) &&
-            (identical(other.username, username) ||
-                other.username == username) &&
-            (identical(other.avatar, avatar) || other.avatar == avatar) &&
-            (identical(other.type, type) || other.type == type) &&
-            (identical(other.fullname, fullname) ||
-                other.fullname == fullname) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.following, following) ||
-                other.following == following));
+            const DeepCollectionEquality().equals(other.Id, Id) &&
+            const DeepCollectionEquality().equals(other.username, username) &&
+            const DeepCollectionEquality().equals(other.avatar, avatar) &&
+            const DeepCollectionEquality().equals(other.type, type) &&
+            const DeepCollectionEquality().equals(other.fullname, fullname) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.following, following));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, Id, username, avatar, type, fullname, name, following);
+      runtimeType,
+      const DeepCollectionEquality().hash(Id),
+      const DeepCollectionEquality().hash(username),
+      const DeepCollectionEquality().hash(avatar),
+      const DeepCollectionEquality().hash(type),
+      const DeepCollectionEquality().hash(fullname),
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(following));
 
   @JsonKey(ignore: true)
   @override

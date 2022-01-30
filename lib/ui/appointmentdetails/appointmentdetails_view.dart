@@ -563,82 +563,82 @@ class AppointmentDetailsView extends StatelessWidget {
                 ),
 
                 //Division 7 - Pet Details
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: ExpansionTile(
-                    iconColor: colors.black,
-                    collapsedIconColor: colors.black,
-                    title: AppText.body2(
-                      petDetailsTitle,
-                    ),
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Column(
-                              children: [
-                                BookingItem(
-                                  detailName: detailOne,
-                                  detailValue: "${model.detailsReplies[0]}",
-                                  clickable: false,
-                                ),
-                                verticalSpaceRegular,
-                                BookingItem(
-                                  detailName: detailTwo,
-                                  detailValue: "${model.detailsReplies[1]}",
-                                  clickable: false,
-                                ),
-                                verticalSpaceRegular,
-                                BookingItem(
-                                  detailName: detailThree,
-                                  detailValue: "${model.detailsReplies[2]}",
-                                  clickable: false,
-                                ),
-                                verticalSpaceRegular,
-                                BookingItem(
-                                  detailName: detailFour,
-                                  detailValue: "${model.detailsReplies[3]}",
-                                  clickable: false,
-                                ),
-                                verticalSpaceRegular,
-                                BookingItem(
-                                  detailName: detailFive,
-                                  detailValue: "${model.detailsReplies[4]}",
-                                  clickable: false,
-                                ),
-                              ],
-                            ),
-                          ),
-                          spacedDivider,
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AppText.caption(
-                                  specialInstructions,
-                                ),
-                                verticalSpaceRegular,
-                                AppText.caption(
-                                  model.instructions,
-                                  color: colors.kcCaptionGreyColor,
-                                ),
-                                verticalSpaceRegular,
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const Divider(
-                  color: colors.kcLightGreyBackground,
-                  height: 5.0,
-                  thickness: 5.0,
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 10),
+                //   child: ExpansionTile(
+                //     iconColor: colors.black,
+                //     collapsedIconColor: colors.black,
+                //     title: AppText.body2(
+                //       petDetailsTitle,
+                //     ),
+                //     children: [
+                //       Column(
+                //         crossAxisAlignment: CrossAxisAlignment.start,
+                //         children: [
+                //           Padding(
+                //             padding: const EdgeInsets.symmetric(horizontal: 15),
+                //             child: Column(
+                //               children: [
+                //                 BookingItem(
+                //                   detailName: detailOne,
+                //                   detailValue: "${model.detailsReplies[0]}",
+                //                   clickable: false,
+                //                 ),
+                //                 verticalSpaceRegular,
+                //                 BookingItem(
+                //                   detailName: detailTwo,
+                //                   detailValue: "${model.detailsReplies[1]}",
+                //                   clickable: false,
+                //                 ),
+                //                 verticalSpaceRegular,
+                //                 BookingItem(
+                //                   detailName: detailThree,
+                //                   detailValue: "${model.detailsReplies[2]}",
+                //                   clickable: false,
+                //                 ),
+                //                 verticalSpaceRegular,
+                //                 BookingItem(
+                //                   detailName: detailFour,
+                //                   detailValue: "${model.detailsReplies[3]}",
+                //                   clickable: false,
+                //                 ),
+                //                 verticalSpaceRegular,
+                //                 BookingItem(
+                //                   detailName: detailFive,
+                //                   detailValue: "${model.detailsReplies[4]}",
+                //                   clickable: false,
+                //                 ),
+                //               ],
+                //             ),
+                //           ),
+                //           spacedDivider,
+                //           Padding(
+                //             padding: const EdgeInsets.symmetric(horizontal: 15),
+                //             child: Column(
+                //               crossAxisAlignment: CrossAxisAlignment.start,
+                //               children: [
+                //                 AppText.caption(
+                //                   specialInstructions,
+                //                 ),
+                //                 verticalSpaceRegular,
+                //                 AppText.caption(
+                //                   model.instructions,
+                //                   color: colors.kcCaptionGreyColor,
+                //                 ),
+                //                 verticalSpaceRegular,
+                //               ],
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                // const Divider(
+                //   color: colors.kcLightGreyBackground,
+                //   height: 5.0,
+                //   thickness: 5.0,
+                // ),
 
                 //Division 8 - Address
                 Padding(

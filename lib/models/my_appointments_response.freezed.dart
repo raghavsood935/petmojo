@@ -191,18 +191,14 @@ class _$AppointmentListResponseTearOff {
   const _$AppointmentListResponseTearOff();
 
   _AppointmentListResponse call(
-      {@JsonKey(name: "petDetails")
-          List<PetDetailsResponse>? petDetails,
-      @JsonKey(name: "bookingStatus")
-          int? bookingStatus,
-      @JsonKey(name: "serviceType")
-          int? serviceType,
-      @JsonKey(name: "_id")
-          String? appointmentId,
-      @JsonKey(name: "ServiceProvider")
-          UserDetailsResponse? user,
-      @JsonKey(name: "bookingDetails")
-          BookingDetailsResponse? bookingDetails}) {
+      {@JsonKey(name: "petDetails") List<PetDetailsResponse>? petDetails,
+      @JsonKey(name: "bookingStatus") int? bookingStatus,
+      @JsonKey(name: "serviceType") int? serviceType,
+      @JsonKey(name: "_id") String? appointmentId,
+      @JsonKey(name: "ServiceProvider") UserDetailsResponse? user,
+      @JsonKey(name: "bookingDetails") BookingDetailsResponse? bookingDetails,
+      @JsonKey(name: "daysLeft") int? daysLeft,
+      @JsonKey(name: "isReorderDone") bool? isReorderDone}) {
     return _AppointmentListResponse(
       petDetails: petDetails,
       bookingStatus: bookingStatus,
@@ -210,6 +206,8 @@ class _$AppointmentListResponseTearOff {
       appointmentId: appointmentId,
       user: user,
       bookingDetails: bookingDetails,
+      daysLeft: daysLeft,
+      isReorderDone: isReorderDone,
     );
   }
 
@@ -237,6 +235,10 @@ mixin _$AppointmentListResponse {
   @JsonKey(name: "bookingDetails")
   BookingDetailsResponse? get bookingDetails =>
       throw _privateConstructorUsedError;
+  @JsonKey(name: "daysLeft")
+  int? get daysLeft => throw _privateConstructorUsedError;
+  @JsonKey(name: "isReorderDone")
+  bool? get isReorderDone => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -255,7 +257,9 @@ abstract class $AppointmentListResponseCopyWith<$Res> {
       @JsonKey(name: "serviceType") int? serviceType,
       @JsonKey(name: "_id") String? appointmentId,
       @JsonKey(name: "ServiceProvider") UserDetailsResponse? user,
-      @JsonKey(name: "bookingDetails") BookingDetailsResponse? bookingDetails});
+      @JsonKey(name: "bookingDetails") BookingDetailsResponse? bookingDetails,
+      @JsonKey(name: "daysLeft") int? daysLeft,
+      @JsonKey(name: "isReorderDone") bool? isReorderDone});
 
   $UserDetailsResponseCopyWith<$Res>? get user;
   $BookingDetailsResponseCopyWith<$Res>? get bookingDetails;
@@ -278,6 +282,8 @@ class _$AppointmentListResponseCopyWithImpl<$Res>
     Object? appointmentId = freezed,
     Object? user = freezed,
     Object? bookingDetails = freezed,
+    Object? daysLeft = freezed,
+    Object? isReorderDone = freezed,
   }) {
     return _then(_value.copyWith(
       petDetails: petDetails == freezed
@@ -304,6 +310,14 @@ class _$AppointmentListResponseCopyWithImpl<$Res>
           ? _value.bookingDetails
           : bookingDetails // ignore: cast_nullable_to_non_nullable
               as BookingDetailsResponse?,
+      daysLeft: daysLeft == freezed
+          ? _value.daysLeft
+          : daysLeft // ignore: cast_nullable_to_non_nullable
+              as int?,
+      isReorderDone: isReorderDone == freezed
+          ? _value.isReorderDone
+          : isReorderDone // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 
@@ -344,7 +358,9 @@ abstract class _$AppointmentListResponseCopyWith<$Res>
       @JsonKey(name: "serviceType") int? serviceType,
       @JsonKey(name: "_id") String? appointmentId,
       @JsonKey(name: "ServiceProvider") UserDetailsResponse? user,
-      @JsonKey(name: "bookingDetails") BookingDetailsResponse? bookingDetails});
+      @JsonKey(name: "bookingDetails") BookingDetailsResponse? bookingDetails,
+      @JsonKey(name: "daysLeft") int? daysLeft,
+      @JsonKey(name: "isReorderDone") bool? isReorderDone});
 
   @override
   $UserDetailsResponseCopyWith<$Res>? get user;
@@ -372,6 +388,8 @@ class __$AppointmentListResponseCopyWithImpl<$Res>
     Object? appointmentId = freezed,
     Object? user = freezed,
     Object? bookingDetails = freezed,
+    Object? daysLeft = freezed,
+    Object? isReorderDone = freezed,
   }) {
     return _then(_AppointmentListResponse(
       petDetails: petDetails == freezed
@@ -398,6 +416,14 @@ class __$AppointmentListResponseCopyWithImpl<$Res>
           ? _value.bookingDetails
           : bookingDetails // ignore: cast_nullable_to_non_nullable
               as BookingDetailsResponse?,
+      daysLeft: daysLeft == freezed
+          ? _value.daysLeft
+          : daysLeft // ignore: cast_nullable_to_non_nullable
+              as int?,
+      isReorderDone: isReorderDone == freezed
+          ? _value.isReorderDone
+          : isReorderDone // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -411,7 +437,9 @@ class _$_AppointmentListResponse extends _AppointmentListResponse {
       @JsonKey(name: "serviceType") this.serviceType,
       @JsonKey(name: "_id") this.appointmentId,
       @JsonKey(name: "ServiceProvider") this.user,
-      @JsonKey(name: "bookingDetails") this.bookingDetails})
+      @JsonKey(name: "bookingDetails") this.bookingDetails,
+      @JsonKey(name: "daysLeft") this.daysLeft,
+      @JsonKey(name: "isReorderDone") this.isReorderDone})
       : super._();
 
   factory _$_AppointmentListResponse.fromJson(Map<String, dynamic> json) =>
@@ -435,10 +463,16 @@ class _$_AppointmentListResponse extends _AppointmentListResponse {
   @override
   @JsonKey(name: "bookingDetails")
   final BookingDetailsResponse? bookingDetails;
+  @override
+  @JsonKey(name: "daysLeft")
+  final int? daysLeft;
+  @override
+  @JsonKey(name: "isReorderDone")
+  final bool? isReorderDone;
 
   @override
   String toString() {
-    return 'AppointmentListResponse(petDetails: $petDetails, bookingStatus: $bookingStatus, serviceType: $serviceType, appointmentId: $appointmentId, user: $user, bookingDetails: $bookingDetails)';
+    return 'AppointmentListResponse(petDetails: $petDetails, bookingStatus: $bookingStatus, serviceType: $serviceType, appointmentId: $appointmentId, user: $user, bookingDetails: $bookingDetails, daysLeft: $daysLeft, isReorderDone: $isReorderDone)';
   }
 
   @override
@@ -448,26 +482,31 @@ class _$_AppointmentListResponse extends _AppointmentListResponse {
             other is _AppointmentListResponse &&
             const DeepCollectionEquality()
                 .equals(other.petDetails, petDetails) &&
-            (identical(other.bookingStatus, bookingStatus) ||
-                other.bookingStatus == bookingStatus) &&
-            (identical(other.serviceType, serviceType) ||
-                other.serviceType == serviceType) &&
-            (identical(other.appointmentId, appointmentId) ||
-                other.appointmentId == appointmentId) &&
-            (identical(other.user, user) || other.user == user) &&
-            (identical(other.bookingDetails, bookingDetails) ||
-                other.bookingDetails == bookingDetails));
+            const DeepCollectionEquality()
+                .equals(other.bookingStatus, bookingStatus) &&
+            const DeepCollectionEquality()
+                .equals(other.serviceType, serviceType) &&
+            const DeepCollectionEquality()
+                .equals(other.appointmentId, appointmentId) &&
+            const DeepCollectionEquality().equals(other.user, user) &&
+            const DeepCollectionEquality()
+                .equals(other.bookingDetails, bookingDetails) &&
+            const DeepCollectionEquality().equals(other.daysLeft, daysLeft) &&
+            const DeepCollectionEquality()
+                .equals(other.isReorderDone, isReorderDone));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(petDetails),
-      bookingStatus,
-      serviceType,
-      appointmentId,
-      user,
-      bookingDetails);
+      const DeepCollectionEquality().hash(bookingStatus),
+      const DeepCollectionEquality().hash(serviceType),
+      const DeepCollectionEquality().hash(appointmentId),
+      const DeepCollectionEquality().hash(user),
+      const DeepCollectionEquality().hash(bookingDetails),
+      const DeepCollectionEquality().hash(daysLeft),
+      const DeepCollectionEquality().hash(isReorderDone));
 
   @JsonKey(ignore: true)
   @override
@@ -494,7 +533,11 @@ abstract class _AppointmentListResponse extends AppointmentListResponse {
       @JsonKey(name: "ServiceProvider")
           UserDetailsResponse? user,
       @JsonKey(name: "bookingDetails")
-          BookingDetailsResponse? bookingDetails}) = _$_AppointmentListResponse;
+          BookingDetailsResponse? bookingDetails,
+      @JsonKey(name: "daysLeft")
+          int? daysLeft,
+      @JsonKey(name: "isReorderDone")
+          bool? isReorderDone}) = _$_AppointmentListResponse;
   _AppointmentListResponse._() : super._();
 
   factory _AppointmentListResponse.fromJson(Map<String, dynamic> json) =
@@ -518,6 +561,12 @@ abstract class _AppointmentListResponse extends AppointmentListResponse {
   @override
   @JsonKey(name: "bookingDetails")
   BookingDetailsResponse? get bookingDetails;
+  @override
+  @JsonKey(name: "daysLeft")
+  int? get daysLeft;
+  @override
+  @JsonKey(name: "isReorderDone")
+  bool? get isReorderDone;
   @override
   @JsonKey(ignore: true)
   _$AppointmentListResponseCopyWith<_AppointmentListResponse> get copyWith =>
@@ -708,17 +757,19 @@ class _$_UserDetailsResponse extends _UserDetailsResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _UserDetailsResponse &&
-            (identical(other.userId, userId) || other.userId == userId) &&
-            (identical(other.username, username) ||
-                other.username == username) &&
-            (identical(other.fullName, fullName) ||
-                other.fullName == fullName) &&
-            (identical(other.avatar, avatar) || other.avatar == avatar));
+            const DeepCollectionEquality().equals(other.userId, userId) &&
+            const DeepCollectionEquality().equals(other.username, username) &&
+            const DeepCollectionEquality().equals(other.fullName, fullName) &&
+            const DeepCollectionEquality().equals(other.avatar, avatar));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, userId, username, fullName, avatar);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(userId),
+      const DeepCollectionEquality().hash(username),
+      const DeepCollectionEquality().hash(fullName),
+      const DeepCollectionEquality().hash(avatar));
 
   @JsonKey(ignore: true)
   @override
@@ -982,20 +1033,21 @@ class _$_BookingDetailsResponse extends _BookingDetailsResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _BookingDetailsResponse &&
-            (identical(other.package, package) || other.package == package) &&
-            (identical(other.bookingId, bookingId) ||
-                other.bookingId == bookingId) &&
-            (identical(other.run1Time, run1Time) ||
-                other.run1Time == run1Time) &&
-            (identical(other.run2Time, run2Time) ||
-                other.run2Time == run2Time) &&
-            (identical(other.startDate, startDate) ||
-                other.startDate == startDate));
+            const DeepCollectionEquality().equals(other.package, package) &&
+            const DeepCollectionEquality().equals(other.bookingId, bookingId) &&
+            const DeepCollectionEquality().equals(other.run1Time, run1Time) &&
+            const DeepCollectionEquality().equals(other.run2Time, run2Time) &&
+            const DeepCollectionEquality().equals(other.startDate, startDate));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, package, bookingId, run1Time, run2Time, startDate);
+      runtimeType,
+      const DeepCollectionEquality().hash(package),
+      const DeepCollectionEquality().hash(bookingId),
+      const DeepCollectionEquality().hash(run1Time),
+      const DeepCollectionEquality().hash(run2Time),
+      const DeepCollectionEquality().hash(startDate));
 
   @JsonKey(ignore: true)
   @override
@@ -1227,18 +1279,22 @@ class _$_PackageResponse extends _PackageResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _PackageResponse &&
-            (identical(other.subscriptionType, subscriptionType) ||
-                other.subscriptionType == subscriptionType) &&
-            (identical(other.amount, amount) || other.amount == amount) &&
-            (identical(other.numberOfDays, numberOfDays) ||
-                other.numberOfDays == numberOfDays) &&
-            (identical(other.numberOfTimes, numberOfTimes) ||
-                other.numberOfTimes == numberOfTimes));
+            const DeepCollectionEquality()
+                .equals(other.subscriptionType, subscriptionType) &&
+            const DeepCollectionEquality().equals(other.amount, amount) &&
+            const DeepCollectionEquality()
+                .equals(other.numberOfDays, numberOfDays) &&
+            const DeepCollectionEquality()
+                .equals(other.numberOfTimes, numberOfTimes));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, subscriptionType, amount, numberOfDays, numberOfTimes);
+      runtimeType,
+      const DeepCollectionEquality().hash(subscriptionType),
+      const DeepCollectionEquality().hash(amount),
+      const DeepCollectionEquality().hash(numberOfDays),
+      const DeepCollectionEquality().hash(numberOfTimes));
 
   @JsonKey(ignore: true)
   @override
@@ -1444,14 +1500,18 @@ class _$_PetDetailsResponse extends _PetDetailsResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _PetDetailsResponse &&
-            (identical(other.petId, petId) || other.petId == petId) &&
-            (identical(other.petName, petName) || other.petName == petName) &&
-            (identical(other.petUserName, petUserName) ||
-                other.petUserName == petUserName));
+            const DeepCollectionEquality().equals(other.petId, petId) &&
+            const DeepCollectionEquality().equals(other.petName, petName) &&
+            const DeepCollectionEquality()
+                .equals(other.petUserName, petUserName));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, petId, petName, petUserName);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(petId),
+      const DeepCollectionEquality().hash(petName),
+      const DeepCollectionEquality().hash(petUserName));
 
   @JsonKey(ignore: true)
   @override

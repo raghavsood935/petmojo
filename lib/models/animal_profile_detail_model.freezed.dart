@@ -161,12 +161,13 @@ class _$_AnimalProfileDetailModelResponse
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _AnimalProfileDetailModelResponse &&
-            (identical(other.animalprofileModel, animalprofileModel) ||
-                other.animalprofileModel == animalprofileModel));
+            const DeepCollectionEquality()
+                .equals(other.animalprofileModel, animalprofileModel));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, animalprofileModel);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(animalprofileModel));
 
   @JsonKey(ignore: true)
   @override

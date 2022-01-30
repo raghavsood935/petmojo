@@ -237,20 +237,25 @@ class _$_GetReportResponse extends _GetReportResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _GetReportResponse &&
-            (identical(other.distance, distance) ||
-                other.distance == distance) &&
-            (identical(other.time, time) || other.time == time) &&
-            (identical(other.rating, rating) || other.rating == rating) &&
+            const DeepCollectionEquality().equals(other.distance, distance) &&
+            const DeepCollectionEquality().equals(other.time, time) &&
+            const DeepCollectionEquality().equals(other.rating, rating) &&
             const DeepCollectionEquality().equals(other.repeat, repeat) &&
-            (identical(other.dogPicture, dogPicture) ||
-                other.dogPicture == dogPicture) &&
-            (identical(other.mapPicture, mapPicture) ||
-                other.mapPicture == mapPicture));
+            const DeepCollectionEquality()
+                .equals(other.dogPicture, dogPicture) &&
+            const DeepCollectionEquality()
+                .equals(other.mapPicture, mapPicture));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, distance, time, rating,
-      const DeepCollectionEquality().hash(repeat), dogPicture, mapPicture);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(distance),
+      const DeepCollectionEquality().hash(time),
+      const DeepCollectionEquality().hash(rating),
+      const DeepCollectionEquality().hash(repeat),
+      const DeepCollectionEquality().hash(dogPicture),
+      const DeepCollectionEquality().hash(mapPicture));
 
   @JsonKey(ignore: true)
   @override
@@ -443,12 +448,15 @@ class _$_GetPeeAndPooResponse extends _GetPeeAndPooResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _GetPeeAndPooResponse &&
-            (identical(other.isPeed, isPeed) || other.isPeed == isPeed) &&
-            (identical(other.isPooed, isPooed) || other.isPooed == isPooed));
+            const DeepCollectionEquality().equals(other.isPeed, isPeed) &&
+            const DeepCollectionEquality().equals(other.isPooed, isPooed));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isPeed, isPooed);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(isPeed),
+      const DeepCollectionEquality().hash(isPooed));
 
   @JsonKey(ignore: true)
   @override

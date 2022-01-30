@@ -132,11 +132,12 @@ class _$_SendDataResponse extends _SendDataResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _SendDataResponse &&
-            (identical(other.success, success) || other.success == success));
+            const DeepCollectionEquality().equals(other.success, success));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, success);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(success));
 
   @JsonKey(ignore: true)
   @override

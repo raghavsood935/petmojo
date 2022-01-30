@@ -50,7 +50,7 @@ class ServicesViewModel extends BaseModel {
       case 0:
         {
           _navigationService.navigateTo(
-            Routes.dogRunnersView,
+            Routes.dogRunningBookingView,
           );
           break;
         }
@@ -86,7 +86,6 @@ class ServicesViewModel extends BaseModel {
         }
     }
   }
-
 
   String get location => this._location;
 

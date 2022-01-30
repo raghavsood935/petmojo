@@ -161,12 +161,14 @@ class _$_GetBlogLikeDetailsResponse extends _GetBlogLikeDetailsResponse {
         (other.runtimeType == runtimeType &&
             other is _GetBlogLikeDetailsResponse &&
             const DeepCollectionEquality().equals(other.like, like) &&
-            (identical(other.success, success) || other.success == success));
+            const DeepCollectionEquality().equals(other.success, success));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(like), success);
+      runtimeType,
+      const DeepCollectionEquality().hash(like),
+      const DeepCollectionEquality().hash(success));
 
   @JsonKey(ignore: true)
   @override
@@ -381,14 +383,18 @@ class _$_BlogLikeDetails extends _BlogLikeDetails {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _BlogLikeDetails &&
-            (identical(other.sId, sId) || other.sId == sId) &&
-            (identical(other.person, person) || other.person == person) &&
-            (identical(other.personType, personType) ||
-                other.personType == personType));
+            const DeepCollectionEquality().equals(other.sId, sId) &&
+            const DeepCollectionEquality().equals(other.person, person) &&
+            const DeepCollectionEquality()
+                .equals(other.personType, personType));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, sId, person, personType);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(sId),
+      const DeepCollectionEquality().hash(person),
+      const DeepCollectionEquality().hash(personType));
 
   @JsonKey(ignore: true)
   @override

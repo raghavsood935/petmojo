@@ -359,14 +359,17 @@ class _$_GroupMemberResponse extends _GroupMemberResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _GroupMemberResponse &&
-            (identical(other.isAdmin, isAdmin) || other.isAdmin == isAdmin) &&
-            (identical(other.userType, userType) ||
-                other.userType == userType) &&
-            (identical(other.user, user) || other.user == user));
+            const DeepCollectionEquality().equals(other.isAdmin, isAdmin) &&
+            const DeepCollectionEquality().equals(other.userType, userType) &&
+            const DeepCollectionEquality().equals(other.user, user));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isAdmin, userType, user);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(isAdmin),
+      const DeepCollectionEquality().hash(userType),
+      const DeepCollectionEquality().hash(user));
 
   @JsonKey(ignore: true)
   @override

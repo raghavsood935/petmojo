@@ -516,16 +516,15 @@ class _$_NotificationResponse extends _NotificationResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _NotificationResponse &&
-            (identical(other.Id, Id) || other.Id == Id) &&
-            (identical(other.read, read) || other.read == read) &&
+            const DeepCollectionEquality().equals(other.Id, Id) &&
+            const DeepCollectionEquality().equals(other.read, read) &&
             const DeepCollectionEquality()
                 .equals(other.userReceiverResponse, userReceiverResponse) &&
-            (identical(other.notificationType, notificationType) ||
-                other.notificationType == notificationType) &&
-            (identical(other.date, date) || other.date == date) &&
-            (identical(
-                    other.notificationDataResponse, notificationDataResponse) ||
-                other.notificationDataResponse == notificationDataResponse) &&
+            const DeepCollectionEquality()
+                .equals(other.notificationType, notificationType) &&
+            const DeepCollectionEquality().equals(other.date, date) &&
+            const DeepCollectionEquality().equals(
+                other.notificationDataResponse, notificationDataResponse) &&
             const DeepCollectionEquality()
                 .equals(other.senderUserResponse, senderUserResponse) &&
             const DeepCollectionEquality()
@@ -537,12 +536,12 @@ class _$_NotificationResponse extends _NotificationResponse {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      Id,
-      read,
+      const DeepCollectionEquality().hash(Id),
+      const DeepCollectionEquality().hash(read),
       const DeepCollectionEquality().hash(userReceiverResponse),
-      notificationType,
-      date,
-      notificationDataResponse,
+      const DeepCollectionEquality().hash(notificationType),
+      const DeepCollectionEquality().hash(date),
+      const DeepCollectionEquality().hash(notificationDataResponse),
       const DeepCollectionEquality().hash(senderUserResponse),
       const DeepCollectionEquality().hash(senderAnimalResponse),
       const DeepCollectionEquality().hash(animalReceiverResponse));
@@ -737,11 +736,12 @@ class _$_UserReceiverResponse extends _UserReceiverResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _UserReceiverResponse &&
-            (identical(other.Id, Id) || other.Id == Id));
+            const DeepCollectionEquality().equals(other.Id, Id));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, Id);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(Id));
 
   @JsonKey(ignore: true)
   @override
@@ -915,13 +915,15 @@ class _$_SenderUserResponse extends _SenderUserResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _SenderUserResponse &&
-            (identical(other.Id, Id) || other.Id == Id) &&
-            (identical(other.username, username) ||
-                other.username == username));
+            const DeepCollectionEquality().equals(other.Id, Id) &&
+            const DeepCollectionEquality().equals(other.username, username));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, Id, username);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(Id),
+      const DeepCollectionEquality().hash(username));
 
   @JsonKey(ignore: true)
   @override
@@ -1121,13 +1123,17 @@ class _$_NotificationDataResponse extends _NotificationDataResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _NotificationDataResponse &&
-            (identical(other.postId, postId) || other.postId == postId) &&
-            (identical(other.image, image) || other.image == image) &&
-            (identical(other.message, message) || other.message == message));
+            const DeepCollectionEquality().equals(other.postId, postId) &&
+            const DeepCollectionEquality().equals(other.image, image) &&
+            const DeepCollectionEquality().equals(other.message, message));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, postId, image, message);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(postId),
+      const DeepCollectionEquality().hash(image),
+      const DeepCollectionEquality().hash(message));
 
   @JsonKey(ignore: true)
   @override

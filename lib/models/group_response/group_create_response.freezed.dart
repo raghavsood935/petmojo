@@ -177,13 +177,17 @@ class _$_GroupCreateResponse extends _GroupCreateResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _GroupCreateResponse &&
-            (identical(other.message, message) || other.message == message) &&
-            (identical(other.success, success) || other.success == success) &&
-            (identical(other.groupId, groupId) || other.groupId == groupId));
+            const DeepCollectionEquality().equals(other.message, message) &&
+            const DeepCollectionEquality().equals(other.success, success) &&
+            const DeepCollectionEquality().equals(other.groupId, groupId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message, success, groupId);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(message),
+      const DeepCollectionEquality().hash(success),
+      const DeepCollectionEquality().hash(groupId));
 
   @JsonKey(ignore: true)
   @override

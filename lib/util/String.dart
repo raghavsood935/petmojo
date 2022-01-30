@@ -227,29 +227,38 @@ String acceptedAnimalsSubtext = "Dogs - all sizes";
 
 // -- Rate Chart page
 
-String perWalkTitle = "Per run";
-String perWeekOnceTitle = "Per week (Once a day)";
-String perWeekTwiceTitle = "Per week (Twice a day)";
-String perMonthOnceTitle = "Per month (Once a day)";
-String perMonthTwiceTitle = "Per month (Twice a day)";
+String perWalkTitle = "FREE trial session";
+String perMonthOnceTitle = "Monthly Dog Walking - Once a Day";
+String perMonthTwiceTitle = "Monthly Dog Walking - Twice a Day";
 
-String perWalkSubtitle = "(25-30mins)";
-String perWeekOnceSubtitle = "25-30mins per run, One day off";
-String perWeekTwiceSubtitle = "25-30mins per run, One day off";
-String perMonthOnceSubtitle = "25-30mins per run, Weekly one day off";
-String perMonthTwiceSubtitle = "25-30mins per run, Weekly one day off";
+String perWalkSubtitleOne = "30 mins walk";
+String perMonthOnceSubtitleOne = "30 mins walk each";
+String perMonthTwiceSubtitleOne = "30 mins walk each";
 
-String perWalkRate = "Rs.300";
-String perWeekOnceRate = "Rs.1500";
-String perWeekTwiceRate = "Rs.2500";
-String perMonthOnceRate = "Rs.4500";
-String perMonthTwiceRate = "Rs.8500";
+String perWalkSubtitleTwo = "FREE Assessment";
+String perMonthOnceSubtitleTwo = "Weekly one off";
+String perMonthTwiceSubtitleTwo = "Weekly one off";
 
-String perWalkRateLabel = "(extra pet: Rs.100)";
-String perWeekOnceRateLabel = "(extra pet: Rs.500)";
-String perWeekTwiceRateLabel = "(extra pet: Rs.700)";
-String perMonthOnceRateLabel = "(extra pet: Rs.1500)";
-String perMonthTwiceRateLabel = "(extra pet: Rs.2700)";
+String perWalkRateOld = "FREE";
+String perMonthOnceRateOld = "₹5,500/-";
+String perMonthTwiceRateOld = "Rs.₹10,600/-";
+
+String perWalkRateNew = "FREE";
+String perMonthOnceRateNew = "₹4,500/-";
+String perMonthTwiceRateNew = "₹8,500/-";
+
+String perWalkRateLabel = "";
+String perMonthOnceRateLabel = "(You save 1,000)";
+String perMonthTwiceRateLabel = "(You save 2,100)";
+
+// See more
+
+String walkSeeOne = "GPS Live Tracking";
+String walkSeeTwo = "Daily Report Card";
+String walkSeeThree = "Photo Updates";
+String walkSeeFour = "Distance Covered";
+String walkSeeFive = "Recommended 60 mins excercise each day";
+String walkSeeSix = "Helps in Overexcitement Correction";
 
 // Book a Run Page
 
@@ -260,7 +269,11 @@ String bookARunTitle = "Book a run";
 
 String bookARunLabel =
     "Pet parenting is hard, we can make it a whole lot easier!";
-String bookARunSubtitle = "Please tell us about your pet";
+String bookARunSubtitleWithFree =
+    "Almost there! Select which package your pet needs? Call us on 9009004473 if you have any query.";
+
+String bookARunSubtitle =
+    "Our dog runner really liked your pet! Please choose from a package below to gift your pet fun filled walks daily:";
 
 String noOfPetsLabel = "Number of pets";
 
@@ -328,9 +341,9 @@ String runTwoLabel = "Run time 2";
 
 String timingsOne = "6am-9am";
 String timingsTwo = "9am-12am";
-String timingsThree = "12am-3am";
-String timingsFour = "3am-6am";
-String timingsFive = "6am-10am";
+String timingsThree = "12pm-3pm";
+String timingsFour = "3pm-6pm";
+String timingsFive = "6pm-10pm";
 String timingsSix = "None";
 
 String previousRunnersLabel = "Book your previous dog runners";
@@ -434,6 +447,10 @@ String pastAppointmentsTitle = "Past";
 String pendingLabel = "Dog runner will be assigned shortly";
 String upcomingLabel = "Upcoming";
 String confirmedLabel = "Confirmed";
+String reorderLabel = "Reorder";
+String bookLabel = "Book Now";
+String reorderTextLabel =
+    "Only a few days left in your package! Kindly renew ASAP!";
 
 // -- Past
 String canceledLabel = "Canceled";

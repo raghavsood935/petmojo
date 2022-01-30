@@ -275,22 +275,27 @@ class _$_CommentAddedResponse extends _CommentAddedResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _CommentAddedResponse &&
-            (identical(other.commentId, commentId) ||
-                other.commentId == commentId) &&
-            (identical(other.message, message) || other.message == message) &&
-            (identical(other.authorId, authorId) ||
-                other.authorId == authorId) &&
-            (identical(other.authorType, authorType) ||
-                other.authorType == authorType) &&
-            (identical(other.postId, postId) || other.postId == postId) &&
-            (identical(other.date, date) || other.date == date) &&
-            (identical(other.authorDetailsResponse, authorDetailsResponse) ||
-                other.authorDetailsResponse == authorDetailsResponse));
+            const DeepCollectionEquality().equals(other.commentId, commentId) &&
+            const DeepCollectionEquality().equals(other.message, message) &&
+            const DeepCollectionEquality().equals(other.authorId, authorId) &&
+            const DeepCollectionEquality()
+                .equals(other.authorType, authorType) &&
+            const DeepCollectionEquality().equals(other.postId, postId) &&
+            const DeepCollectionEquality().equals(other.date, date) &&
+            const DeepCollectionEquality()
+                .equals(other.authorDetailsResponse, authorDetailsResponse));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, commentId, message, authorId,
-      authorType, postId, date, authorDetailsResponse);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(commentId),
+      const DeepCollectionEquality().hash(message),
+      const DeepCollectionEquality().hash(authorId),
+      const DeepCollectionEquality().hash(authorType),
+      const DeepCollectionEquality().hash(postId),
+      const DeepCollectionEquality().hash(date),
+      const DeepCollectionEquality().hash(authorDetailsResponse));
 
   @JsonKey(ignore: true)
   @override
@@ -498,13 +503,15 @@ class _$_AuthorDetailsResponse extends _AuthorDetailsResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _AuthorDetailsResponse &&
-            (identical(other.username, username) ||
-                other.username == username) &&
-            (identical(other.avatar, avatar) || other.avatar == avatar));
+            const DeepCollectionEquality().equals(other.username, username) &&
+            const DeepCollectionEquality().equals(other.avatar, avatar));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, username, avatar);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(username),
+      const DeepCollectionEquality().hash(avatar));
 
   @JsonKey(ignore: true)
   @override
@@ -688,13 +695,15 @@ class _$_AnimalAuthorDetailsResponse extends _AnimalAuthorDetailsResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _AnimalAuthorDetailsResponse &&
-            (identical(other.username, username) ||
-                other.username == username) &&
-            (identical(other.avatar, avatar) || other.avatar == avatar));
+            const DeepCollectionEquality().equals(other.username, username) &&
+            const DeepCollectionEquality().equals(other.avatar, avatar));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, username, avatar);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(username),
+      const DeepCollectionEquality().hash(avatar));
 
   @JsonKey(ignore: true)
   @override

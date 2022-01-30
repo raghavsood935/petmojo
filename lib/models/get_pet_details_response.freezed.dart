@@ -306,11 +306,12 @@ class _$_PetDetailsResponse extends _PetDetailsResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _PetDetailsResponse &&
-            (identical(other.pet, pet) || other.pet == pet));
+            const DeepCollectionEquality().equals(other.pet, pet));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, pet);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(pet));
 
   @JsonKey(ignore: true)
   @override
@@ -504,14 +505,18 @@ class _$_PetInfoResponse extends _PetInfoResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _PetInfoResponse &&
-            (identical(other.petId, petId) || other.petId == petId) &&
-            (identical(other.petName, petName) || other.petName == petName) &&
-            (identical(other.petUserName, petUserName) ||
-                other.petUserName == petUserName));
+            const DeepCollectionEquality().equals(other.petId, petId) &&
+            const DeepCollectionEquality().equals(other.petName, petName) &&
+            const DeepCollectionEquality()
+                .equals(other.petUserName, petUserName));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, petId, petName, petUserName);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(petId),
+      const DeepCollectionEquality().hash(petName),
+      const DeepCollectionEquality().hash(petUserName));
 
   @JsonKey(ignore: true)
   @override
