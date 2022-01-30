@@ -17,6 +17,7 @@ import 'package:tamely/models/get_blogs_details_model.dart';
 import 'package:tamely/models/get_blogs_like_details_model.dart';
 import 'package:tamely/models/get_blogs_model.dart';
 import 'package:tamely/models/get_bookmarks_model.dart';
+import 'package:tamely/models/get_free_walk_response.dart';
 import 'package:tamely/models/get_payment_details_response.dart';
 import 'package:tamely/models/group_response/get_all_group_members_response.dart';
 import 'package:tamely/models/group_response/get_all_groups_response.dart';
@@ -69,6 +70,7 @@ import 'package:tamely/models/params/need_help_body.dart';
 import 'package:tamely/models/params/profile_create_body.dart';
 import 'package:tamely/models/params/register_body.dart';
 import 'package:tamely/models/params/reject_relation_request_body.dart';
+import 'package:tamely/models/params/reorder_a_run_body.dart';
 import 'package:tamely/models/params/resend_mobile_otp_body.dart';
 import 'package:tamely/models/params/reset_password_body.dart';
 import 'package:tamely/models/params/search_profile_body.dart';
@@ -84,6 +86,7 @@ import 'package:tamely/models/params/groups/change_group_description_body.dart';
 import 'package:tamely/models/params/groups/create_group_body.dart';
 import 'package:tamely/models/params/groups/update_group_hashtags_body.dart';
 import 'package:tamely/models/params/groups/invite_people_group_body.dart';
+import 'package:tamely/models/reorder_a_run_response.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
 import 'package:tamely/models/user_response_models.dart';
 import 'package:tamely/models/get_appointment_details_response.dart';
@@ -193,7 +196,9 @@ class Apis {
   static const String addComment = '/comment/{commentID}';
   static const String fetchComment = '/comment/{commentID}/{counter}';
 
-  // Booking Appointments
+  // Booking Appointments -- Dog running
+  static const String getFreeWalk = '/user/isFreeWalkAvailable';
+  static const String setFreeWalk = '/user/updateFreeWalkStatus';
   static const String getPetDetails = '/serviceBooking/getPetDetails';
   static const String bookARun = '/serviceBooking/serviceBooking';
   static const String getPaymentDetails = '/serviceBooking/generateOrderId';
@@ -243,6 +248,7 @@ class Apis {
       '/serviceBooking/getmybookedAppointments';
   static const String getPastAppointments =
       '/serviceBooking/getmypastAppointments';
+  static const String reorderARun = '/serviceBooking/reorder';
   static const String getAppointmentDetails =
       '/serviceBooking/getAppointmentDetails';
   static const String changeAppointmentStatus =
@@ -609,6 +615,14 @@ abstract class ApiClient {
   Future<GetAnimalsByLocationResponse> getMating(
       @Body() GetAnimalByLocationBody getAnimalByLocationBody);
 
+  // -- Get Free Walk
+  @POST(Apis.getFreeWalk)
+  Future<GetFreeWalkResponse> getFreeWalk();
+
+  // -- Set Free Walk
+  @POST(Apis.setFreeWalk)
+  Future<SendDataResponse> setFreeWalk();
+
   // -- Booking A Run
   @POST(Apis.bookARun)
   Future<BookARunResponse> bookARun(@Body() BookARunBody bookARunBody);
@@ -637,6 +651,11 @@ abstract class ApiClient {
   @POST(Apis.getPastAppointments)
   Future<MyAppointmentsResponse> getPastAppointments();
 
+  // -- Reorder A Run
+  @POST(Apis.reorderARun)
+  Future<ReorderARunResponse> reorderARun(
+      @Body() ReorderARunBody reorderARunBody);
+
   // -- Get Appointment Details
   @POST(Apis.getAppointmentDetails)
   Future<GetAppointmentDetailsResponse> getAppointmentDetails(
@@ -652,7 +671,7 @@ abstract class ApiClient {
   Future<GetScrollStatusResponse> getScrollStatus(
       @Body() GetScrollStatusBody getScrollStatusBody);
 
-  // -- Get Report Run One (from this)
+  // -- Get Report Run One
   @POST(Apis.getRunningReport)
   Future<GetReportResponse> getRunOneReport(
       @Body() GetReportOneBody getReportOneBody);

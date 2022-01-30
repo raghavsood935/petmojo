@@ -253,21 +253,26 @@ class _$_UserProfileDetailsResponse extends _UserProfileDetailsResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _UserProfileDetailsResponse &&
-            (identical(other.userDetailsModel, userDetailsModel) ||
-                other.userDetailsModel == userDetailsModel) &&
-            (identical(other.totalFollowers, totalFollowers) ||
-                other.totalFollowers == totalFollowers) &&
-            (identical(other.totalFollowings, totalFollowings) ||
-                other.totalFollowings == totalFollowings) &&
-            (identical(other.totalLikes, totalLikes) ||
-                other.totalLikes == totalLikes) &&
-            (identical(other.totalPosts, totalPosts) ||
-                other.totalPosts == totalPosts));
+            const DeepCollectionEquality()
+                .equals(other.userDetailsModel, userDetailsModel) &&
+            const DeepCollectionEquality()
+                .equals(other.totalFollowers, totalFollowers) &&
+            const DeepCollectionEquality()
+                .equals(other.totalFollowings, totalFollowings) &&
+            const DeepCollectionEquality()
+                .equals(other.totalLikes, totalLikes) &&
+            const DeepCollectionEquality()
+                .equals(other.totalPosts, totalPosts));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, userDetailsModel, totalFollowers,
-      totalFollowings, totalLikes, totalPosts);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(userDetailsModel),
+      const DeepCollectionEquality().hash(totalFollowers),
+      const DeepCollectionEquality().hash(totalFollowings),
+      const DeepCollectionEquality().hash(totalLikes),
+      const DeepCollectionEquality().hash(totalPosts));
 
   @JsonKey(ignore: true)
   @override

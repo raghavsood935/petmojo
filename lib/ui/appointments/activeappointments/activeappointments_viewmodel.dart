@@ -5,6 +5,8 @@ import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/models/my_appointments_response.dart';
 import 'package:tamely/models/params/change_appointment_status_body.dart';
 import 'package:tamely/models/params/get_data_body.dart';
+import 'package:tamely/models/params/reorder_a_run_body.dart';
+import 'package:tamely/models/reorder_a_run_response.dart';
 import 'package:tamely/models/send_data_response.dart';
 import 'package:tamely/services/user_service.dart';
 import 'package:tamely/util/utils.dart';
@@ -65,6 +67,12 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
   //   ),
   // ];
 
+  void toBooking() async {
+    _navigationService.navigateTo(
+      Routes.dogRunningBookingView,
+    );
+  }
+
   List<ActiveAppointmentClass> _activeAppointments = [];
 
   List<ActiveAppointmentClass> get activeAppointments => _activeAppointments;
@@ -75,11 +83,42 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
       Routes.appointmentDetailsView,
       arguments: AppointmentDetailsViewArguments(appointmentId: bookingId!),
     );
-    print("this isd $bookingId");
     getActiveAppointments();
   }
 
   final _tamelyApi = locator<TamelyApi>();
+
+  void reorderARun(index) async {
+    String? bookingId = activeAppointments[index].bookingId;
+    try {
+      if (await Util.checkInternetConnectivity()) {
+        ReorderARunBody reorderARunBody = ReorderARunBody(bookingId!);
+        BaseResponse<ReorderARunResponse> result = await runBusyFuture(
+            _tamelyApi.reorderARun(reorderARunBody),
+            throwException: true);
+        if (result.data != null) {
+          bool? success = result.data!.success;
+          String? newBookingId = result.data!.newBookingId;
+          String? newAmount = result.data!.newAmount;
+          double? newAmountDouble = double.parse(newAmount!);
+          if (success!) {
+            activeAppointments[index].showReorder = false;
+            _navigationService.replaceWith(
+              Routes.paymentView,
+              arguments: PaymentViewArguments(
+                  amount: newAmountDouble.toInt(), bookingId: newBookingId!),
+            );
+          }
+        }
+        notifyListeners();
+      } else {
+        snackBarService.showSnackbar(message: "No Internet connection");
+      }
+    } on ServerError catch (e) {
+      log.e(e.toString());
+    }
+    notifyListeners();
+  }
 
   void getActiveAppointments() async {
     print("4");
@@ -131,6 +170,27 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             } else if (each.bookingStatus == 1) {
               newAppointment.status = ActiveAppointmentStatus.Accepted;
             }
+
+            // Days Left
+            int? numberOfDaysLeft = each.daysLeft;
+            bool? isReorderDone = each.isReorderDone;
+            String? subscriptionType =
+                each.bookingDetails!.package!.subscriptionType;
+            if (numberOfDaysLeft! <= 3 &&
+                subscriptionType != "Free" &&
+                isReorderDone == false) {
+              newAppointment.showReorder = true;
+            } else {
+              newAppointment.showReorder = false;
+            }
+
+            // Free Walk
+            if (subscriptionType == "Free") {
+              newAppointment.showBooking = true;
+            } else {
+              newAppointment.showBooking = false;
+            }
+
             _activeAppointments.add(newAppointment);
           }
           notifyListeners();
@@ -179,6 +239,27 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             } else if (each.bookingStatus == 1) {
               newAppointment.status = ActiveAppointmentStatus.Accepted;
             }
+
+            // Days Left
+            int? numberOfDaysLeft = each.daysLeft;
+            bool? isReorderDone = each.isReorderDone;
+            String? subscriptionType =
+                each.bookingDetails!.package!.subscriptionType;
+            if (numberOfDaysLeft! <= 3 &&
+                subscriptionType != "Free" &&
+                isReorderDone == false) {
+              newAppointment.showReorder = true;
+            } else {
+              newAppointment.showReorder = false;
+            }
+
+            // Free Walk
+            if (subscriptionType == "Free") {
+              newAppointment.showBooking = true;
+            } else {
+              newAppointment.showBooking = true;
+            }
+
             _activeAppointments.add(newAppointment);
           }
           notifyListeners();
@@ -208,6 +289,8 @@ class ActiveAppointmentClass {
   List<String> dogs;
   String? subscriptionType;
   String? dateAndTime;
+  bool? showReorder;
+  bool? showBooking;
   ActiveAppointmentStatus? status;
   ActiveAppointmentClass({
     this.appointmentId,
@@ -219,5 +302,7 @@ class ActiveAppointmentClass {
     this.subscriptionType,
     this.dateAndTime,
     this.status,
+    this.showReorder,
+    this.showBooking,
   });
 }

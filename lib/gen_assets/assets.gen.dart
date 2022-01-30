@@ -3,7 +3,7 @@
 ///  FlutterGen
 /// *****************************************************
 
-// ignore_for_file: directives_ordering
+// ignore_for_file: directives_ordering,unnecessary_import
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -42,6 +42,10 @@ class $AssetsImagesGen {
   AssetGenImage get bookmarkOutline =>
       const AssetGenImage('assets/images/bookmark_outline.png');
 
+  /// File path: assets/images/calendar_grey.png
+  AssetGenImage get calendarGrey =>
+      const AssetGenImage('assets/images/calendar_grey.png');
+
   /// File path: assets/images/camera.svg
   SvgGenImage get camera => const SvgGenImage('assets/images/camera.svg');
 
@@ -71,6 +75,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/drawer.svg
   SvgGenImage get drawer => const SvgGenImage('assets/images/drawer.svg');
 
+  /// File path: assets/images/dummy_dog_profile.png
+  AssetGenImage get dummyDogProfile =>
+      const AssetGenImage('assets/images/dummy_dog_profile.png');
+
   $AssetsImagesEmojiGen get emoji => const $AssetsImagesEmojiGen();
 
   /// File path: assets/images/explore.svg
@@ -82,6 +90,10 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/feedback.svg
   SvgGenImage get feedback => const SvgGenImage('assets/images/feedback.svg');
+
+  /// File path: assets/images/free_session.png
+  AssetGenImage get freeSession =>
+      const AssetGenImage('assets/images/free_session.png');
 
   /// File path: assets/images/gallery_color_image.png
   AssetGenImage get galleryColorImage =>
@@ -232,6 +244,14 @@ class $AssetsImagesGen {
   /// File path: assets/images/report_time.png
   AssetGenImage get reportTime =>
       const AssetGenImage('assets/images/report_time.png');
+
+  /// File path: assets/images/running_package.png
+  AssetGenImage get runningPackage =>
+      const AssetGenImage('assets/images/running_package.png');
+
+  /// File path: assets/images/seemore_time.svg
+  SvgGenImage get seemoreTime =>
+      const SvgGenImage('assets/images/seemore_time.svg');
 
   /// File path: assets/images/send.png
   AssetGenImage get send => const AssetGenImage('assets/images/send.png');
@@ -623,21 +643,25 @@ class $AssetsImagesServicePageImagesGen {
   AssetGenImage get appointments =>
       const AssetGenImage('assets/images/service_page_images/appointments.png');
 
-  /// File path: assets/images/service_page_images/daily_dog_running.png
-  AssetGenImage get dailyDogRunning => const AssetGenImage(
-      'assets/images/service_page_images/daily_dog_running.png');
+  /// File path: assets/images/service_page_images/dog_traning.png
+  AssetGenImage get dogTraning =>
+      const AssetGenImage('assets/images/service_page_images/dog_traning.png');
 
-  /// File path: assets/images/service_page_images/house_sitting.png
-  AssetGenImage get houseSitting => const AssetGenImage(
-      'assets/images/service_page_images/house_sitting.png');
+  /// File path: assets/images/service_page_images/dog_walking.png
+  AssetGenImage get dogWalking =>
+      const AssetGenImage('assets/images/service_page_images/dog_walking.png');
+
+  /// File path: assets/images/service_page_images/doorstep_deliivery.png
+  AssetGenImage get doorstepDeliivery => const AssetGenImage(
+      'assets/images/service_page_images/doorstep_deliivery.png');
+
+  /// File path: assets/images/service_page_images/grooming.png
+  AssetGenImage get grooming =>
+      const AssetGenImage('assets/images/service_page_images/grooming.png');
 
   /// File path: assets/images/service_page_images/pet_boarding.png
   AssetGenImage get petBoarding =>
       const AssetGenImage('assets/images/service_page_images/pet_boarding.png');
-
-  /// File path: assets/images/service_page_images/pet_grooming.png
-  AssetGenImage get petGrooming =>
-      const AssetGenImage('assets/images/service_page_images/pet_grooming.png');
 
   /// File path: assets/images/service_page_images/vet_consultation.png
   AssetGenImage get vetConsultation => const AssetGenImage(

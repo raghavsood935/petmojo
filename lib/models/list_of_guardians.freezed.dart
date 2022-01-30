@@ -342,16 +342,16 @@ class _$_GuardianResponse extends _GuardianResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _GuardianResponse &&
-            (identical(other.confirmed, confirmed) ||
-                other.confirmed == confirmed) &&
-            (identical(
-                    other.guardianDetailsResponse, guardianDetailsResponse) ||
-                other.guardianDetailsResponse == guardianDetailsResponse));
+            const DeepCollectionEquality().equals(other.confirmed, confirmed) &&
+            const DeepCollectionEquality().equals(
+                other.guardianDetailsResponse, guardianDetailsResponse));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, confirmed, guardianDetailsResponse);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(confirmed),
+      const DeepCollectionEquality().hash(guardianDetailsResponse));
 
   @JsonKey(ignore: true)
   @override
@@ -614,20 +614,23 @@ class _$_GuardianDetailsResponse extends _GuardianDetailsResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _GuardianDetailsResponse &&
-            (identical(other.confirmed, confirmed) ||
-                other.confirmed == confirmed) &&
-            (identical(other.Id, Id) || other.Id == Id) &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.username, username) ||
-                other.username == username) &&
-            (identical(other.fullName, fullName) ||
-                other.fullName == fullName) &&
-            (identical(other.avatar, avatar) || other.avatar == avatar));
+            const DeepCollectionEquality().equals(other.confirmed, confirmed) &&
+            const DeepCollectionEquality().equals(other.Id, Id) &&
+            const DeepCollectionEquality().equals(other.email, email) &&
+            const DeepCollectionEquality().equals(other.username, username) &&
+            const DeepCollectionEquality().equals(other.fullName, fullName) &&
+            const DeepCollectionEquality().equals(other.avatar, avatar));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, confirmed, Id, email, username, fullName, avatar);
+      runtimeType,
+      const DeepCollectionEquality().hash(confirmed),
+      const DeepCollectionEquality().hash(Id),
+      const DeepCollectionEquality().hash(email),
+      const DeepCollectionEquality().hash(username),
+      const DeepCollectionEquality().hash(fullName),
+      const DeepCollectionEquality().hash(avatar));
 
   @JsonKey(ignore: true)
   @override

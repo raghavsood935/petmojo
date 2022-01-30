@@ -21,6 +21,7 @@ import 'package:tamely/models/get_blogs_details_model.dart';
 import 'package:tamely/models/get_blogs_like_details_model.dart';
 import 'package:tamely/models/get_blogs_model.dart';
 import 'package:tamely/models/get_bookmarks_model.dart';
+import 'package:tamely/models/get_free_walk_response.dart';
 import 'package:tamely/models/get_payment_details_response.dart';
 import 'package:tamely/models/group_response/get_all_group_members_response.dart';
 import 'package:tamely/models/group_response/get_all_groups_response.dart';
@@ -73,6 +74,7 @@ import 'package:tamely/models/params/need_help_body.dart';
 import 'package:tamely/models/params/profile_create_body.dart';
 import 'package:tamely/models/params/register_body.dart';
 import 'package:tamely/models/params/reject_relation_request_body.dart';
+import 'package:tamely/models/params/reorder_a_run_body.dart';
 import 'package:tamely/models/params/resend_mobile_otp_body.dart';
 import 'package:tamely/models/params/reset_password_body.dart';
 import 'package:tamely/models/params/search_profile_body.dart';
@@ -89,6 +91,7 @@ import 'package:tamely/models/params/change_bio_avatar_body.dart';
 import 'package:tamely/models/params/update_token_body.dart';
 import 'package:tamely/models/params/verify_mobile_otp_body.dart';
 import 'package:tamely/models/profile_details_by_id_response.dart';
+import 'package:tamely/models/reorder_a_run_response.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
 import 'package:tamely/models/user_response_models.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
@@ -1437,6 +1440,34 @@ class TamelyApi {
 
   // Booking Appointments
 
+  // -- Get Free Walk
+  Future<BaseResponse<GetFreeWalkResponse>> getFreeWalk() async {
+    log.d("googleLogin called");
+    GetFreeWalkResponse response;
+    try {
+      response = await getApiClient(true, true).getFreeWalk();
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Set Free Walk
+  Future<BaseResponse<SendDataResponse>> setFreeWalk() async {
+    log.d("googleLogin called");
+    SendDataResponse response;
+    try {
+      response = await getApiClient(true, true).setFreeWalk();
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
   // -- Get Pet Details
   Future<BaseResponse<GetPetDetailsResponse>> getPetDetails() async {
     log.d("googleLogin called");
@@ -1534,6 +1565,21 @@ class TamelyApi {
     MyAppointmentsResponse response;
     try {
       response = await getApiClient(true, true).getPastAppointments();
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Reorder A Run
+  Future<BaseResponse<ReorderARunResponse>> reorderARun(
+      ReorderARunBody reorderARunBody) async {
+    print("2 ${reorderARunBody.bookingId}");
+    ReorderARunResponse response;
+    try {
+      response = await getApiClient(true, true).reorderARun(reorderARunBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()

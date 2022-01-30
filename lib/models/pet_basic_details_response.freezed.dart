@@ -197,15 +197,18 @@ class _$_PetBasicDetailsResponse extends _PetBasicDetailsResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _PetBasicDetailsResponse &&
-            (identical(other.confirmed, confirmed) ||
-                other.confirmed == confirmed) &&
-            (identical(other.Id, Id) || other.Id == Id) &&
-            (identical(other.detailsResponse, detailsResponse) ||
-                other.detailsResponse == detailsResponse));
+            const DeepCollectionEquality().equals(other.confirmed, confirmed) &&
+            const DeepCollectionEquality().equals(other.Id, Id) &&
+            const DeepCollectionEquality()
+                .equals(other.detailsResponse, detailsResponse));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, confirmed, Id, detailsResponse);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(confirmed),
+      const DeepCollectionEquality().hash(Id),
+      const DeepCollectionEquality().hash(detailsResponse));
 
   @JsonKey(ignore: true)
   @override
@@ -437,14 +440,19 @@ class _$_PetBasicInnerDetailsResponse extends _PetBasicInnerDetailsResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _PetBasicInnerDetailsResponse &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.Id, Id) || other.Id == Id) &&
-            (identical(other.avatar, avatar) || other.avatar == avatar) &&
-            (identical(other.token, token) || other.token == token));
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.Id, Id) &&
+            const DeepCollectionEquality().equals(other.avatar, avatar) &&
+            const DeepCollectionEquality().equals(other.token, token));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, Id, avatar, token);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(Id),
+      const DeepCollectionEquality().hash(avatar),
+      const DeepCollectionEquality().hash(token));
 
   @JsonKey(ignore: true)
   @override

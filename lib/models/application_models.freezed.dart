@@ -244,21 +244,25 @@ class _$_User extends _User {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _User &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.username, username) ||
-                other.username == username) &&
-            (identical(other.fullName, fullName) ||
-                other.fullName == fullName) &&
-            (identical(other.bio, bio) || other.bio == bio) &&
-            (identical(other.website, website) || other.website == website) &&
-            (identical(other.confirmed, confirmed) ||
-                other.confirmed == confirmed));
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.email, email) &&
+            const DeepCollectionEquality().equals(other.username, username) &&
+            const DeepCollectionEquality().equals(other.fullName, fullName) &&
+            const DeepCollectionEquality().equals(other.bio, bio) &&
+            const DeepCollectionEquality().equals(other.website, website) &&
+            const DeepCollectionEquality().equals(other.confirmed, confirmed));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, email, username, fullName, bio, website, confirmed);
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(email),
+      const DeepCollectionEquality().hash(username),
+      const DeepCollectionEquality().hash(fullName),
+      const DeepCollectionEquality().hash(bio),
+      const DeepCollectionEquality().hash(website),
+      const DeepCollectionEquality().hash(confirmed));
 
   @JsonKey(ignore: true)
   @override

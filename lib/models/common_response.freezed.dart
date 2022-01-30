@@ -158,13 +158,17 @@ class _$_CommonResponse extends _CommonResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _CommonResponse &&
-            (identical(other.message, message) || other.message == message) &&
-            (identical(other.token, token) || other.token == token) &&
-            (identical(other.avatar, avatar) || other.avatar == avatar));
+            const DeepCollectionEquality().equals(other.message, message) &&
+            const DeepCollectionEquality().equals(other.token, token) &&
+            const DeepCollectionEquality().equals(other.avatar, avatar));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message, token, avatar);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(message),
+      const DeepCollectionEquality().hash(token),
+      const DeepCollectionEquality().hash(avatar));
 
   @JsonKey(ignore: true)
   @override

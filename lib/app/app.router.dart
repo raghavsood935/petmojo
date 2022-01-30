@@ -820,12 +820,8 @@ class StackedRouter extends RouterBase {
       );
     },
     DogRunningBookingView: (data) {
-      var args = data.getArgs<DogRunningBookingViewArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => DogRunningBookingView(
-          key: args.key,
-          currentLocation: args.currentLocation,
-        ),
+        builder: (context) => const DogRunningBookingView(),
         settings: data,
       );
     },
@@ -1244,13 +1240,6 @@ class TamelyDogRunnersViewArguments {
   final Key? key;
   final LatLng currentLocation;
   TamelyDogRunnersViewArguments({this.key, required this.currentLocation});
-}
-
-/// DogRunningBookingView arguments holder class
-class DogRunningBookingViewArguments {
-  final Key? key;
-  final LatLng currentLocation;
-  DogRunningBookingViewArguments({this.key, required this.currentLocation});
 }
 
 /// PaymentView arguments holder class

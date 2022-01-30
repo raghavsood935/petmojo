@@ -167,12 +167,14 @@ class _$_GetJoinedGroupResponse extends _GetJoinedGroupResponse {
             other is _GetJoinedGroupResponse &&
             const DeepCollectionEquality()
                 .equals(other.listOfJoinedGroup, listOfJoinedGroup) &&
-            (identical(other.success, success) || other.success == success));
+            const DeepCollectionEquality().equals(other.success, success));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(listOfJoinedGroup), success);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(listOfJoinedGroup),
+      const DeepCollectionEquality().hash(success));
 
   @JsonKey(ignore: true)
   @override
@@ -372,12 +374,15 @@ class _$_GetJoinedGroupInfoResponse extends _GetJoinedGroupInfoResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _GetJoinedGroupInfoResponse &&
-            (identical(other.isAdmin, isAdmin) || other.isAdmin == isAdmin) &&
-            (identical(other.group, group) || other.group == group));
+            const DeepCollectionEquality().equals(other.isAdmin, isAdmin) &&
+            const DeepCollectionEquality().equals(other.group, group));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isAdmin, group);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(isAdmin),
+      const DeepCollectionEquality().hash(group));
 
   @JsonKey(ignore: true)
   @override

@@ -347,16 +347,17 @@ class _$_FollowingResponse extends _FollowingResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _FollowingResponse &&
-            (identical(
-                    other.followingDetailsResponse, followingDetailsResponse) ||
-                other.followingDetailsResponse == followingDetailsResponse) &&
-            (identical(other.followingType, followingType) ||
-                other.followingType == followingType));
+            const DeepCollectionEquality().equals(
+                other.followingDetailsResponse, followingDetailsResponse) &&
+            const DeepCollectionEquality()
+                .equals(other.followingType, followingType));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, followingDetailsResponse, followingType);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(followingDetailsResponse),
+      const DeepCollectionEquality().hash(followingType));
 
   @JsonKey(ignore: true)
   @override
@@ -542,14 +543,14 @@ class _$_FollowingDetailsResponse extends _FollowingDetailsResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _FollowingDetailsResponse &&
-            (identical(other.followingInnerDetailsResponse,
-                    followingInnerDetailsResponse) ||
-                other.followingInnerDetailsResponse ==
-                    followingInnerDetailsResponse));
+            const DeepCollectionEquality().equals(
+                other.followingInnerDetailsResponse,
+                followingInnerDetailsResponse));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, followingInnerDetailsResponse);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(followingInnerDetailsResponse));
 
   @JsonKey(ignore: true)
   @override
@@ -792,18 +793,21 @@ class _$_FollowingInnerDetailsResponse extends _FollowingInnerDetailsResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _FollowingInnerDetailsResponse &&
-            (identical(other.Id, Id) || other.Id == Id) &&
-            (identical(other.username, username) ||
-                other.username == username) &&
-            (identical(other.avatar, avatar) || other.avatar == avatar) &&
-            (identical(other.fullName, fullName) ||
-                other.fullName == fullName) &&
-            (identical(other.name, name) || other.name == name));
+            const DeepCollectionEquality().equals(other.Id, Id) &&
+            const DeepCollectionEquality().equals(other.username, username) &&
+            const DeepCollectionEquality().equals(other.avatar, avatar) &&
+            const DeepCollectionEquality().equals(other.fullName, fullName) &&
+            const DeepCollectionEquality().equals(other.name, name));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, Id, username, avatar, fullName, name);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(Id),
+      const DeepCollectionEquality().hash(username),
+      const DeepCollectionEquality().hash(avatar),
+      const DeepCollectionEquality().hash(fullName),
+      const DeepCollectionEquality().hash(name));
 
   @JsonKey(ignore: true)
   @override

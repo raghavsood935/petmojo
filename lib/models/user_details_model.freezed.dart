@@ -300,17 +300,14 @@ class _$_UserDetailsModelResponse extends _UserDetailsModelResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _UserDetailsModelResponse &&
-            (identical(other.private, private) || other.private == private) &&
-            (identical(other.confirmed, confirmed) ||
-                other.confirmed == confirmed) &&
-            (identical(other.Id, Id) || other.Id == Id) &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.username, username) ||
-                other.username == username) &&
-            (identical(other.avatar, avatar) || other.avatar == avatar) &&
-            (identical(other.bio, bio) || other.bio == bio) &&
-            (identical(other.fullName, fullName) ||
-                other.fullName == fullName) &&
+            const DeepCollectionEquality().equals(other.private, private) &&
+            const DeepCollectionEquality().equals(other.confirmed, confirmed) &&
+            const DeepCollectionEquality().equals(other.Id, Id) &&
+            const DeepCollectionEquality().equals(other.email, email) &&
+            const DeepCollectionEquality().equals(other.username, username) &&
+            const DeepCollectionEquality().equals(other.avatar, avatar) &&
+            const DeepCollectionEquality().equals(other.bio, bio) &&
+            const DeepCollectionEquality().equals(other.fullName, fullName) &&
             const DeepCollectionEquality()
                 .equals(other.listOfPets, listOfPets));
   }
@@ -318,14 +315,14 @@ class _$_UserDetailsModelResponse extends _UserDetailsModelResponse {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      private,
-      confirmed,
-      Id,
-      email,
-      username,
-      avatar,
-      bio,
-      fullName,
+      const DeepCollectionEquality().hash(private),
+      const DeepCollectionEquality().hash(confirmed),
+      const DeepCollectionEquality().hash(Id),
+      const DeepCollectionEquality().hash(email),
+      const DeepCollectionEquality().hash(username),
+      const DeepCollectionEquality().hash(avatar),
+      const DeepCollectionEquality().hash(bio),
+      const DeepCollectionEquality().hash(fullName),
       const DeepCollectionEquality().hash(listOfPets));
 
   @JsonKey(ignore: true)

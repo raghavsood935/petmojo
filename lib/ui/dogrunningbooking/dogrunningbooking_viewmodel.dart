@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoder/geocoder.dart';
@@ -14,12 +16,15 @@ import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/dog_running_package.dart';
 import 'package:tamely/enum/no_of_runs.dart';
 import 'package:tamely/models/book_a_run_response.dart';
+import 'package:tamely/models/get_free_walk_response.dart';
 import 'package:tamely/models/get_pet_details_response.dart';
 import 'package:tamely/models/params/book_a_run_body.dart';
+import 'package:tamely/models/params/set_payment_details_body.dart';
 import 'package:tamely/models/send_data_response.dart';
 import 'package:tamely/services/user_service.dart';
 import 'package:tamely/ui/dogrunningbooking/selectpackage/selectpackage_view.dart';
 import 'package:tamely/util/String.dart';
+import 'package:tamely/util/location_helper.dart';
 import 'package:tamely/util/utils.dart';
 import 'bookarun/bookarun_view.dart';
 import 'bookingdetails/bookingdetails_view.dart';
@@ -28,25 +33,58 @@ class DogRunningBookingViewModel extends FormViewModel {
   final log = getLogger('DogRunningBookingView');
   final _navigationService = locator<NavigationService>();
 
-  LatLng currentLocation;
-  DogRunningBookingViewModel(this.currentLocation);
+  Future<void> init() async {
+    print('init');
+    await requestLocation();
+  }
+
+  Timer? _timer;
+  void dispose() {
+    if (_timer != null && _timer!.isActive) _timer!.cancel();
+  }
+
+  bool? _isLocationAvailable;
+  Future<void> requestLocation() async {
+    _isLocationAvailable = await LocationHelper.checkLocationPermission();
+    if (_isLocationAvailable != null && _isLocationAvailable!)
+      LocationHelper.getCurrentLocation().then((position) =>
+          setLocation(LatLng(position.latitude, position.longitude)));
+    else if (_timer == null) {
+      _timer = Timer.periodic(Duration(seconds: 3), (Timer t) async {
+        _isLocationAvailable = await LocationHelper.checkPermissionInBg();
+        if (_isLocationAvailable != null && _isLocationAvailable!) {
+          t.cancel();
+          LocationHelper.getCurrentLocation().then((position) =>
+              setLocation(LatLng(position.latitude, position.longitude)));
+        }
+      });
+    }
+  }
 
   final userService = locator<UserService>();
   final snackBarService = locator<SnackbarService>();
   final _tamelyApi = locator<TamelyApi>();
 
-  List<bool> _currentStep = [true, false, false];
+  List<bool> _currentStep = [
+    true,
+    false,
+    //false,
+  ];
   List<Widget> _pages = [
     BookARunView(),
     BookingDetailsView(),
-    SelectPackageView()
+    //SelectPackageView()
   ];
   List<String> _titles = [
     bookARunTitle,
     bookingDetailsTitle,
-    selectPackageTitle
+    //selectPackageTitle
   ];
-  List<String> _mainBtnTitles = [continueButton, continueButton, payButton];
+  List<String> _mainBtnTitles = [
+    continueButton,
+    //continueButton,
+    payButton,
+  ];
   PageController _controller = PageController();
   int _currentIndex = 0;
 
@@ -64,10 +102,6 @@ class DogRunningBookingViewModel extends FormViewModel {
       _isValid = true;
       controller.animateToPage(currentIndex - 1,
           duration: Duration(milliseconds: 500), curve: Curves.easeIn);
-    } else if (currentIndex == 2) {
-      _isValid = true;
-      controller.animateToPage(currentIndex - 1,
-          duration: Duration(milliseconds: 500), curve: Curves.easeIn);
     }
     notifyListeners();
   }
@@ -75,7 +109,7 @@ class DogRunningBookingViewModel extends FormViewModel {
   void onPageChanged(i) {
     _currentIndex = i;
     currentStep.clear();
-    for (int a = 0; a < 3; a++) {
+    for (int a = 0; a < 2; a++) {
       if (a <= i) {
         currentStep.insert(a, true);
       } else {
@@ -88,52 +122,315 @@ class DogRunningBookingViewModel extends FormViewModel {
   String _bookingId = "";
   String get bookingId => _bookingId;
 
-  Future onMainButtonPressed() async {
-    if (currentIndex == 0) {
-      print("nknbf $currentIndex");
-      controller.animateToPage(currentIndex + 1,
-          duration: Duration(milliseconds: 500), curve: Curves.easeIn);
-    }
-    if (currentIndex == 1) {
-      print("nknbf $currentIndex");
-      controller.animateToPage(currentIndex + 1,
-          duration: Duration(milliseconds: 500), curve: Curves.easeIn);
-    } else if (currentIndex == 2) {
-      await bookARun();
-      if (bookingId != "") {
-        _navigationService.replaceWith(
-          Routes.paymentView,
-          arguments: PaymentViewArguments(
-              amount: amount.toInt(), bookingId: bookingId),
-        );
-      }
-    }
-    notifyListeners();
-    if (currentIndex == 0) {
-      _isValid = false;
-      secondPageValidation("s");
-    } else if (currentIndex == 1) {
-      _isValid = false;
-      thirdPageValidation();
-    }
-    notifyListeners();
-  }
-
-  bool _isValid = true;
+  bool _isValid = false;
   bool get isValid => _isValid;
 
   bool _loading = false;
   bool get loading => _loading;
 
-  void setFirstPageValid() {
+  Future onMainButtonPressed() async {
     if (currentIndex == 0) {
-      print("8");
-      _isValid = true;
+      controller.animateToPage(currentIndex + 1,
+          duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+      await requestLocation();
+      _isValid = false;
+      secondPageValidation("s");
+    } else if (currentIndex == 1) {
+      await bookARun();
+      if (freeWalkAvailable) {
+        if (bookingId != "") {
+          await setFreePaymentDetails();
+          await setFreeWalkStatus();
+        }
+        _navigationService.back();
+        _navigationService.back();
+        _navigationService.back();
+        _navigationService.navigateTo(Routes.appointmentsView);
+      } else {
+        if (bookingId != "") {
+          _navigationService.replaceWith(
+            Routes.paymentView,
+            arguments: PaymentViewArguments(
+                amount: amount.toInt(), bookingId: bookingId),
+          );
+        }
+      }
     }
     notifyListeners();
   }
 
+  Future<void> setFreePaymentDetails() async {
+    _loading = true;
+    notifyListeners();
+    try {
+      if (await Util.checkInternetConnectivity()) {
+        SetPaymentDetailsBody setPaymentDetailsBody =
+            SetPaymentDetailsBody(bookingId, "FREE RUN");
+        BaseResponse<SendDataResponse> result = await runBusyFuture(
+            _tamelyApi.setPaymentDetails(setPaymentDetailsBody),
+            throwException: true);
+        notifyListeners();
+      } else {
+        snackBarService.showSnackbar(message: "No Internet connection");
+      }
+    } on ServerError catch (e) {
+      log.e(e.toString());
+    }
+    _loading = false;
+    notifyListeners();
+  }
+
   // Book a run
+
+  void checkValid() {
+    if (_freeWalkAvailable) {
+      _isValid = true;
+      _mainBtnTitles.remove(payButton);
+      _mainBtnTitles.add('Book Now');
+    } else {
+      selectedPlan = DogRunningPackage.Four;
+      _isValid = true;
+      _description = "Monthly";
+      _amount = 4500;
+      _frequency = 30;
+      _dayFrequency = 1;
+      _isOfferValid = false;
+      _isOfferAvailable = true;
+      _subTotal = 5500;
+      _discount = 10600;
+    }
+    setFirstPageValid();
+    notifyListeners();
+  }
+
+  // Free walk
+
+  bool _freeWalkAvailable = false;
+  bool get freeWalkAvailable => _freeWalkAvailable;
+
+  Future<void> getFreeWalkStatus() async {
+    try {
+      if (await Util.checkInternetConnectivity()) {
+        BaseResponse<GetFreeWalkResponse> result =
+            await runBusyFuture(_tamelyApi.getFreeWalk(), throwException: true);
+        if (result.data != null) {
+          _freeWalkAvailable = result.data!.isFreeWalkAvailable!;
+          notifyListeners();
+        }
+      } else {
+        snackBarService.showSnackbar(message: "No Internet connection");
+      }
+    } on ServerError catch (e) {
+      log.e(e.toString());
+    }
+  }
+
+  Future<void> setFreeWalkStatus() async {
+    try {
+      if (await Util.checkInternetConnectivity()) {
+        BaseResponse<SendDataResponse> result =
+            await runBusyFuture(_tamelyApi.setFreeWalk(), throwException: true);
+      } else {
+        snackBarService.showSnackbar(message: "No Internet connection");
+      }
+    } on ServerError catch (e) {
+      log.e(e.toString());
+    }
+  }
+
+  // Select Package
+
+  String _description = "Free";
+  String get description => _description;
+
+  double _subTotal = 0;
+  double get subTotal => _subTotal;
+
+  double _discount = 0;
+  double get discount => _discount;
+
+  double _amount = 0;
+  double get amount => _amount;
+
+  int _frequency = 1;
+  int get frequency => _frequency;
+
+  int _dayFrequency = 1;
+  int get dayFrequency => _dayFrequency;
+
+  DogRunningPackage? selectedPlan = DogRunningPackage.One;
+  DogRunningPackage? seeMoreSelectedPlan = DogRunningPackage.One;
+
+  void selectSeeMore(DogRunningPackage? value) {
+    if (seeMoreSelectedPlan == value) {
+      seeMoreSelectedPlan = DogRunningPackage.One;
+    } else if (seeMoreSelectedPlan != value) {
+      seeMoreSelectedPlan = value;
+    }
+    notifyListeners();
+  }
+
+  void selectPlan(DogRunningPackage? value) {
+    selectedPlan = value;
+    if (selectedPlan == DogRunningPackage.One) {
+      _isValid = true;
+      _description = "Free";
+      _amount = 0;
+      _frequency = 1;
+      _dayFrequency = 1;
+      _isOfferValid = false;
+      _isOfferAvailable = false;
+      _subTotal = 0;
+      _discount = 0;
+    } else if (selectedPlan == DogRunningPackage.Four) {
+      _isValid = true;
+      _description = "Monthly";
+      _amount = 4500;
+      _frequency = 30;
+      _dayFrequency = 1;
+      _isOfferValid = false;
+      _isOfferAvailable = true;
+      _subTotal = 5500;
+      _discount = 1000;
+    } else if (selectedPlan == DogRunningPackage.Five) {
+      _isValid = true;
+      _description = "Monthly";
+      _amount = 8500;
+      _frequency = 30;
+      _dayFrequency = 2;
+      _isOfferValid = false;
+      _isOfferAvailable = true;
+      _subTotal = 10600;
+      _discount = 2100;
+    }
+    setFirstPageValid();
+    notifyListeners();
+    promoCodeValidation("value");
+  }
+
+  // -- Offers
+
+  bool _isOfferAvailable = false;
+  bool get isOfferAvailable => _isOfferAvailable;
+
+  bool _isOfferValid = false;
+  bool get isOfferValid => _isOfferValid;
+
+  String _promoCode = "";
+  String get promoCode => _promoCode;
+
+  double _savedAmount = 0;
+  double get savedAmount => _savedAmount;
+
+  TextEditingController promoCodeController = TextEditingController();
+
+  void promoCodeValidation(String? value) {
+    if (promoCodeController.text == "Discount5%") {
+      _isOfferValid = true;
+      _promoCode = "Discount5%";
+      _savedAmount = (amount * 0.05);
+      _amount = amount - (amount * 0.05);
+    } else if (promoCodeController.text == "Discount10%") {
+      _isOfferValid = true;
+      _promoCode = "Discount10%";
+      _savedAmount = (amount * 0.10);
+      _amount = amount - (amount * 0.10);
+    } else if (promoCodeController.text == "Discount15%") {
+      _isOfferValid = true;
+      _promoCode = "Discount15%";
+      _savedAmount = (amount * 0.15);
+      _amount = amount - (amount * 0.15);
+    } else if (promoCodeController.text == "Discount20%") {
+      _isOfferValid = true;
+      _promoCode = "Discount20%";
+      _savedAmount = (amount * 0.20);
+      _amount = amount - (amount * 0.20);
+    } else if (promoCodeController.text == "Discount25%") {
+      _isOfferValid = true;
+      _promoCode = "Discount20%";
+      _savedAmount = (amount * 0.20);
+      _amount = amount - (amount * 0.20);
+    } else if (promoCodeController.text == "Discount30%") {
+      _isOfferValid = true;
+      _promoCode = "Discount30%";
+      _savedAmount = (amount * 0.30);
+      _amount = amount - (amount * 0.30);
+    } else if (promoCodeController.text == "Discount35%") {
+      _isOfferValid = true;
+      _promoCode = "Discount35%";
+      _savedAmount = (amount * 0.35);
+      _amount = amount - (amount * 0.35);
+    } else if (promoCodeController.text == "Freetesting0") {
+      _isOfferValid = true;
+      _promoCode = "Freetesting0";
+      _savedAmount = amount - 1.0;
+      _amount = 1.0;
+    }
+    notifyListeners();
+  }
+
+  void useOfferOne() {
+    _isOfferValid = true;
+    _promoCode = "PAWSOMEOFFER";
+    _savedAmount = 600.0;
+    _amount = amount - 600.0;
+    notifyListeners();
+  }
+
+  void useOfferTwo() {
+    _isOfferValid = true;
+    _promoCode = "PAWSOMEOFFER1K";
+    _savedAmount = 1100;
+    _amount = amount - 1100;
+    notifyListeners();
+  }
+
+  void setFirstPageValid() {
+    _isValid = true;
+    if (noOfDogs == 1) {
+      if (petDetailsBody.length != 1) {
+        _isValid = false;
+      }
+    } else if (noOfDogs == 2) {
+      if (petDetailsBody.length != 2) {
+        _isValid = false;
+      }
+    }
+    notifyListeners();
+  }
+
+  // -- Second Page
+
+  // -- start date
+
+  TextEditingController datePickers =
+      TextEditingController(text: "Select Date");
+
+  bool _isDatePicked = false;
+  bool get isDatePicked => _isDatePicked;
+
+  DateTime _pickedDate = DateTime.now();
+  DateTime get pickedDate => _pickedDate;
+
+  Future<void> selectDate(
+      BuildContext context, TextEditingController tc) async {
+    print("date");
+    DateTime lastDate = DateTime.now().add(Duration(days: 365));
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: pickedDate,
+      firstDate: DateTime.now(),
+      lastDate: lastDate,
+    );
+    if (picked != null) {
+      print(picked);
+      tc.text = "${picked.day}-${picked.month}-${picked.year}";
+      _pickedDate = picked;
+      _isDatePicked = true;
+      notifyListeners();
+      secondPageValidation('d');
+    }
+  }
 
   void secondPageValidation(String? value) {
     _isValid = true;
@@ -149,25 +446,34 @@ class DogRunningBookingViewModel extends FormViewModel {
         _isValid = true;
       }
     }
-
     if (addressLineTwoController.text == "") {
       print("4");
       _isValid = false;
     }
-    // if (addressLineThreeController.text == "") {
-    //   _isValid = false;
-    // }
     if (phoneController.text.length < 10) {
       print("5");
       _isValid = false;
     }
-    if (alternateNameController.text == "") {
-      print("6");
+    if (!isDatePicked) {
       _isValid = false;
+      print("this is shit: $isValid");
     }
-    if (alternatePhoneController.text.length < 10) {
-      print("7");
+    if (_selectedWeekdayOne == false &&
+        _selectedWeekdayTwo == false &&
+        _selectedWeekdayThree == false &&
+        _selectedWeekdayFour == false &&
+        _selectedWeekdayFive == false) {
       _isValid = false;
+      print("this is shit: $isValid");
+    }
+    if (dayFrequency == 2) {
+      if (_selectedWeekendOne == false &&
+          _selectedWeekendTwo == false &&
+          _selectedWeekendThree == false &&
+          _selectedWeekendFour == false &&
+          _selectedWeekendFive == false) {
+        _isValid = false;
+      }
     }
     notifyListeners();
   }
@@ -210,6 +516,7 @@ class DogRunningBookingViewModel extends FormViewModel {
         addressLineOneController.text = address;
         _lat = location.latitude;
         _long = location.longitude;
+        secondPageValidation('s');
         notifyListeners();
       });
     }
@@ -233,8 +540,6 @@ class DogRunningBookingViewModel extends FormViewModel {
       print('Not Available');
       snackBarService.showSnackbar(message: "Select a different location");
     }
-    secondPageValidation("v");
-    setFirstPageValid();
     return '${address.first.adminArea}, ${address.first.countryName}';
   }
 
@@ -251,56 +556,62 @@ class DogRunningBookingViewModel extends FormViewModel {
       _noOfDogs = 2;
     }
     notifyListeners();
+    if (hasPets) {
+      for (var pet in myPets) {
+        pet.selected = false;
+      }
+      _petDetailsBody.clear();
+    } else if (!hasPets) {
+      PetDetailsBody one = PetDetailsBody("111111111111111111111111", "Medium");
+      _petDetailsBody.add(one);
+      if (noOfDogs == 2) {
+        PetDetailsBody two =
+            PetDetailsBody("111111111111111111111111", "Medium");
+        _petDetailsBody.add(two);
+      }
+    }
+    setFirstPageValid();
+    notifyListeners();
   }
 
   bool _hasPets = false;
   bool get hasPets => _hasPets;
 
-  static List<String> _dogsId = ["111111111111111111111111"];
-  List<String> get dogsId => _dogsId;
+  List<PetsClass> _myPets = [];
+  List<PetsClass> get myPets => _myPets;
 
-  static List<String> _dogsOwned = ["Dog"];
-  List<String> get dogsOwned => _dogsOwned;
+  List<PetDetailsBody> _petDetailsBody = [];
+  List<PetDetailsBody> get petDetailsBody => _petDetailsBody;
 
-  String selectedDogOne = _dogsOwned[0];
-  String selectedDogOneId = _dogsId[0];
-
-  selectDogOne(String? newValue) {
-    selectedDogOne = newValue!;
-    int index = dogsOwned.indexWhere((element) => element == selectedDogOne);
-    selectedDogTwoId = dogsId[index];
-    notifyListeners();
-  }
-
-  String selectedDogTwo = _dogsOwned[0];
-  String selectedDogTwoId = _dogsId[0];
-
-  selectDogTwo(String? newValue) {
-    selectedDogTwo = newValue!;
-    int index = dogsOwned.indexWhere((element) => element == selectedDogTwo);
-    selectedDogTwoId = dogsId[index];
-    notifyListeners();
-  }
-
-  static List<String> _petSize = [
-    godSizeSmallLabel,
-    godSizeMediumLabel,
-    godSizeLargeLabel,
-    godSizeGiantLabel,
-  ];
-  List<String> get petSize => _petSize;
-
-  String selectedSizeOne = _petSize[0];
-
-  selectSizeOne(String? newValue) {
-    selectedSizeOne = newValue!;
-    notifyListeners();
-  }
-
-  String selectedSizeTwo = _petSize[0];
-
-  selectSizeTwo(String? newValue) {
-    selectedSizeTwo = newValue!;
+  void selectPet(index) {
+    if (noOfDogs == 1) {
+      for (var pet in myPets) {
+        pet.selected = false;
+      }
+      _petDetailsBody.clear();
+      myPets[index].selected = true;
+      PetDetailsBody one = PetDetailsBody(myPets[index].petId!, "Medium");
+      _petDetailsBody.add(one);
+      print("this $petDetailsBody");
+    }
+    if (noOfDogs == 2) {
+      if (petDetailsBody.length == 0 || petDetailsBody.length == 1) {
+        myPets[index].selected = true;
+        PetDetailsBody one = PetDetailsBody(myPets[index].petId!, "Medium");
+        _petDetailsBody.add(one);
+        print("this $petDetailsBody");
+      } else if (petDetailsBody.length == 2) {
+        for (var pet in myPets) {
+          pet.selected = false;
+        }
+        _petDetailsBody.clear();
+        myPets[index].selected = true;
+        PetDetailsBody one = PetDetailsBody(myPets[index].petId!, "Medium");
+        _petDetailsBody.add(one);
+        print("this $petDetailsBody");
+      }
+    }
+    setFirstPageValid();
     notifyListeners();
   }
 
@@ -353,180 +664,39 @@ class DogRunningBookingViewModel extends FormViewModel {
 
   // Booking details
 
-  void thirdPageValidation() {
-    _isValid = true;
-    if (!isDatePicked) {
-      _isValid = false;
-    }
-    if (_frequency != 1) {
-      if (_selectedDay1 == false &&
-          _selectedDay2 == false &&
-          _selectedDay3 == false &&
-          _selectedDay4 == false &&
-          _selectedDay5 == false &&
-          _selectedDay6 == false &&
-          _selectedDay7 == false) {
-        _isValid = false;
-      }
-    }
-    if (_selectedWeekdayOne == false &&
-        _selectedWeekdayTwo == false &&
-        _selectedWeekdayThree == false &&
-        _selectedWeekdayFour == false &&
-        _selectedWeekdayFive == false) {
-      _isValid = false;
-    }
-    if (dayFrequency == 2) {
-      if (_selectedWeekendOne == false &&
-          _selectedWeekendTwo == false &&
-          _selectedWeekendThree == false &&
-          _selectedWeekendFour == false &&
-          _selectedWeekendFive == false) {
-        _isValid = false;
-      }
-    }
-  }
-
-  // Select Package
-
-  String _description = "Once";
-  String get description => _description;
-
-  double _amount = 300;
-  double get amount => _amount;
-
-  int _frequency = 1;
-  int get frequency => _frequency;
-
-  int _dayFrequency = 1;
-  int get dayFrequency => _dayFrequency;
-
-  DogRunningPackage? selectedPlan = DogRunningPackage.One;
-
-  void selectPlan(DogRunningPackage? value) {
-    selectedPlan = value;
-    if (selectedPlan == DogRunningPackage.One) {
-      _description = "Once";
-      _amount = 300;
-      _frequency = 1;
-      _dayFrequency = 1;
-    } else if (selectedPlan == DogRunningPackage.Two) {
-      _description = "Weekly";
-      _amount = 1500;
-      _frequency = 7;
-      _dayFrequency = 1;
-    } else if (selectedPlan == DogRunningPackage.Three) {
-      _description = "Weekly";
-      _amount = 2500;
-      _frequency = 7;
-      _dayFrequency = 2;
-    } else if (selectedPlan == DogRunningPackage.Four) {
-      _description = "Monthly";
-      _amount = 4500;
-      _frequency = 30;
-      _dayFrequency = 1;
-    } else if (selectedPlan == DogRunningPackage.Five) {
-      _description = "Monthly";
-      _amount = 8500;
-      _frequency = 30;
-      _dayFrequency = 2;
-    }
-    notifyListeners();
-    thirdPageValidation();
-    promoCodeValidation("value");
-  }
-
-  // -- Offers
-
-  bool _isOfferValid = false;
-  bool get isOfferValid => _isOfferValid;
-
-  String _promoCode = "";
-  String get promoCode => _promoCode;
-
-  double _savedAmount = 0;
-  double get savedAmount => _savedAmount;
-
-  TextEditingController promoCodeController = TextEditingController();
-
-  void promoCodeValidation(String? value) {
-    if (promoCodeController.text == "Discount5%") {
-      _isOfferValid = true;
-      _promoCode = "Discount5%";
-      _savedAmount = (amount * 0.05);
-      _amount = amount - (amount * 0.05);
-    } else if (promoCodeController.text == "Discount10%") {
-      _isOfferValid = true;
-      _promoCode = "Discount10%";
-      print(amount);
-      _savedAmount = (amount * 0.10);
-      _amount = amount - (amount * 0.10);
-    } else if (promoCodeController.text == "Discount15%") {
-      _isOfferValid = true;
-      _promoCode = "Discount15%";
-      _savedAmount = (amount * 0.15);
-      _amount = amount - (amount * 0.15);
-    } else if (promoCodeController.text == "Discount20%") {
-      _isOfferValid = true;
-      _promoCode = "Discount20%";
-      _savedAmount = (amount * 0.20);
-      _amount = amount - (amount * 0.20);
-    } else if (promoCodeController.text == "Discount25%") {
-      _isOfferValid = true;
-      _promoCode = "Discount20%";
-      _savedAmount = (amount * 0.20);
-      _amount = amount - (amount * 0.20);
-    } else if (promoCodeController.text == "Discount30%") {
-      _isOfferValid = true;
-      _promoCode = "Discount30%";
-      _savedAmount = (amount * 0.30);
-      _amount = amount - (amount * 0.30);
-    } else if (promoCodeController.text == "Discount35%") {
-      _isOfferValid = true;
-      _promoCode = "Discount35%";
-      _savedAmount = (amount * 0.35);
-      _amount = amount - (amount * 0.35);
-    } else if (promoCodeController.text == "Freetesting0") {
-      _isOfferValid = true;
-      _promoCode = "Freetesting0";
-      _savedAmount = amount - 1.0;
-      _amount = 1.0;
-    }
-    notifyListeners();
-  }
-
-  void updatePromoCode() {
-    notifyListeners();
-  }
-
-  // -- start date
-
-  TextEditingController datePickers = TextEditingController();
-
-  bool _isDatePicked = false;
-  bool get isDatePicked => _isDatePicked;
-
-  DateTime _pickedDate = DateTime.now();
-  DateTime get pickedDate => _pickedDate;
-
-  Future<void> selectDate(
-      BuildContext context, TextEditingController tc) async {
-    DateTime lastDate = DateTime.now().add(Duration(days: 365));
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: pickedDate,
-      firstDate: DateTime.now(),
-      lastDate: lastDate,
-    );
-    if (picked != null) {
-      print(picked);
-      tc.text = "${picked.day}-${picked.month}-${picked.year}";
-      _pickedDate = picked;
-      _isDatePicked = true;
-      notifyListeners();
-      thirdPageValidation();
-    }
-  }
+  // void thirdPageValidation() {
+  //   _isValid = true;
+  //   if (!isDatePicked) {
+  //     _isValid = false;
+  //   }
+  //   // if (_frequency != 1) {
+  //   //   if (_selectedDay1 == false &&
+  //   //       _selectedDay2 == false &&
+  //   //       _selectedDay3 == false &&
+  //   //       _selectedDay4 == false &&
+  //   //       _selectedDay5 == false &&
+  //   //       _selectedDay6 == false &&
+  //   //       _selectedDay7 == false) {
+  //   //     _isValid = false;
+  //   //   }
+  //   // }
+  //   if (_selectedWeekdayOne == false &&
+  //       _selectedWeekdayTwo == false &&
+  //       _selectedWeekdayThree == false &&
+  //       _selectedWeekdayFour == false &&
+  //       _selectedWeekdayFive == false) {
+  //     _isValid = false;
+  //   }
+  //   if (dayFrequency == 2) {
+  //     if (_selectedWeekendOne == false &&
+  //         _selectedWeekendTwo == false &&
+  //         _selectedWeekendThree == false &&
+  //         _selectedWeekendFour == false &&
+  //         _selectedWeekendFive == false) {
+  //       _isValid = false;
+  //     }
+  //   }
+  // }
 
   // -- Days off
 
@@ -556,7 +726,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedDay7 = false;
     getOffDate();
     notifyListeners();
-    thirdPageValidation();
+    //thirdPageValidation();
   }
 
   void setSelectedDay2() {
@@ -569,7 +739,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedDay7 = false;
     getOffDate();
     notifyListeners();
-    thirdPageValidation();
+    //thirdPageValidation();
   }
 
   void setSelectedDay3() {
@@ -582,7 +752,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedDay7 = false;
     getOffDate();
     notifyListeners();
-    thirdPageValidation();
+    //thirdPageValidation();
   }
 
   void setSelectedDay4() {
@@ -595,7 +765,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedDay7 = false;
     getOffDate();
     notifyListeners();
-    thirdPageValidation();
+    //thirdPageValidation();
   }
 
   void setSelectedDay5() {
@@ -608,7 +778,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedDay7 = false;
     getOffDate();
     notifyListeners();
-    thirdPageValidation();
+    //thirdPageValidation();
   }
 
   void setSelectedDay6() {
@@ -621,7 +791,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedDay7 = false;
     getOffDate();
     notifyListeners();
-    thirdPageValidation();
+    //thirdPageValidation();
   }
 
   void setSelectedDay7() {
@@ -634,7 +804,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedDay7 = !_selectedDay7;
     getOffDate();
     notifyListeners();
-    thirdPageValidation();
+    //thirdPageValidation();
   }
 
   DateTime _offDate = DateTime.now();
@@ -707,7 +877,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedWeekdayFive = false;
     //_selectedWeekdaySix = false;
     notifyListeners();
-    thirdPageValidation();
+    secondPageValidation('s');
   }
 
   void setSelectedWeekday2() {
@@ -719,7 +889,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedWeekdayFive = false;
     //_selectedWeekdaySix = false;
     notifyListeners();
-    thirdPageValidation();
+    secondPageValidation('s');
   }
 
   void setSelectedWeekday3() {
@@ -731,7 +901,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedWeekdayFive = false;
     // _selectedWeekdaySix = false;
     notifyListeners();
-    thirdPageValidation();
+    secondPageValidation('s');
   }
 
   void setSelectedWeekday4() {
@@ -743,7 +913,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedWeekdayFive = false;
     //_selectedWeekdaySix = false;
     notifyListeners();
-    thirdPageValidation();
+    secondPageValidation('s');
   }
 
   void setSelectedWeekday5() {
@@ -755,7 +925,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedWeekdayFive = !_selectedWeekdayFive;
     //_selectedWeekdaySix = false;
     notifyListeners();
-    thirdPageValidation();
+    secondPageValidation('s');
   }
 
   // void setSelectedWeekday6() {
@@ -798,7 +968,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedWeekendFive = false;
     //_selectedWeekendSix = false;
     notifyListeners();
-    thirdPageValidation();
+    secondPageValidation('s');
   }
 
   void setSelectedWeekend2() {
@@ -810,7 +980,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedWeekendFive = false;
     //_selectedWeekendSix = false;
     notifyListeners();
-    thirdPageValidation();
+    secondPageValidation('s');
   }
 
   void setSelectedWeekend3() {
@@ -822,7 +992,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedWeekendFive = false;
     //_selectedWeekendSix = false;
     notifyListeners();
-    thirdPageValidation();
+    secondPageValidation('s');
   }
 
   void setSelectedWeekend4() {
@@ -834,7 +1004,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedWeekendFive = false;
     //_selectedWeekendSix = false;
     notifyListeners();
-    thirdPageValidation();
+    secondPageValidation('s');
   }
 
   void setSelectedWeekend5() {
@@ -846,7 +1016,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     _selectedWeekendFive = !_selectedWeekendFive;
     //_selectedWeekendSix = false;
     notifyListeners();
-    thirdPageValidation();
+    secondPageValidation('s');
   }
 
   // void setSelectedWeekend6() {
@@ -865,20 +1035,20 @@ class DogRunningBookingViewModel extends FormViewModel {
 
   bool get previousRunnersAvailable => _previousRunnersAvailable;
 
-  List<PreviousRunnersClass> _previousRunners = [
-    PreviousRunnersClass(
+  List<PetsClass> _previousRunners = [
+    PetsClass(
       name: "Joeylene Rivera",
       imageUrl:
           "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg",
       selected: false,
     ),
-    PreviousRunnersClass(
+    PetsClass(
       name: "Joeylene Rivera",
       imageUrl:
           "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg",
       selected: false,
     ),
-    PreviousRunnersClass(
+    PetsClass(
       name: "Joeylene Rivera",
       imageUrl:
           "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg",
@@ -886,7 +1056,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     ),
   ];
 
-  List<PreviousRunnersClass> get previousRunners => _previousRunners;
+  List<PetsClass> get previousRunners => _previousRunners;
 
   selectPreviousWalker(int index) {
     for (var each in _previousRunners) {
@@ -896,8 +1066,7 @@ class DogRunningBookingViewModel extends FormViewModel {
     notifyListeners();
   }
 
-  void getPets() async {
-    print("called");
+  Future<void> getPets() async {
     try {
       if (await Util.checkInternetConnectivity()) {
         BaseResponse<GetPetDetailsResponse> result = await runBusyFuture(
@@ -906,22 +1075,23 @@ class DogRunningBookingViewModel extends FormViewModel {
         List<PetDetailsResponse> petsList = result.data!.pets!;
 
         if (petsList.length != 0) {
-          _dogsOwned.clear();
-          _dogsId.clear();
+          _myPets.clear();
           _hasPets = true;
           for (var each in petsList) {
             PetInfoResponse petsData = each.pet!;
-            _dogsOwned.add(petsData.petName!);
-            _dogsId.add(petsData.petId!);
+            PetsClass petsClass = PetsClass(
+              name: petsData.petName!,
+              petId: petsData.petId!,
+              imageUrl: "assets/images/dog_running.png",
+              selected: false,
+            );
+            _myPets.add(petsClass);
           }
-          _dogsOwned.add("Dog");
-          _dogsId.add("111111111111111111111111");
-          print(dogsOwned);
-          print(dogsId);
         } else if (petsList.length == 0) {
           _hasPets = false;
+          selectRun(selectedRun);
         }
-        print("called end");
+
         notifyListeners();
       } else {
         snackBarService.showSnackbar(message: "No Internet connection");
@@ -949,13 +1119,6 @@ class DogRunningBookingViewModel extends FormViewModel {
     }
 
     //
-    List<PetDetailsBody> petDetailsBody = [];
-    PetDetailsBody one = PetDetailsBody(selectedDogOneId, selectedSizeOne);
-    petDetailsBody.add(one);
-    if (noOfDogs == 2) {
-      PetDetailsBody two = PetDetailsBody(selectedDogTwoId, selectedSizeTwo);
-      petDetailsBody.add(two);
-    }
 
     //
     PetBehaviourBody petBehaviourBody = PetBehaviourBody(
@@ -1028,9 +1191,10 @@ class DogRunningBookingViewModel extends FormViewModel {
   void setFormStatus() {}
 }
 
-class PreviousRunnersClass {
+class PetsClass {
   String? name;
+  String? petId;
   String? imageUrl;
   bool? selected;
-  PreviousRunnersClass({this.name, this.imageUrl, this.selected});
+  PetsClass({this.name, this.petId, this.imageUrl, this.selected});
 }

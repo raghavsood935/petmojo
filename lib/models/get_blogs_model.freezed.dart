@@ -482,36 +482,35 @@ class _$_blogDetails extends _blogDetails {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _blogDetails &&
-            (identical(other.sId, sId) || other.sId == sId) &&
+            const DeepCollectionEquality().equals(other.sId, sId) &&
             const DeepCollectionEquality().equals(other.images, images) &&
-            (identical(other.thumbnail, thumbnail) ||
-                other.thumbnail == thumbnail) &&
-            (identical(other.likes, likes) || other.likes == likes) &&
-            (identical(other.text, text) || other.text == text) &&
-            (identical(other.author, author) || other.author == author) &&
-            (identical(other.authorType, authorType) ||
-                other.authorType == authorType) &&
-            (identical(other.title, title) || other.title == title) &&
+            const DeepCollectionEquality().equals(other.thumbnail, thumbnail) &&
+            const DeepCollectionEquality().equals(other.likes, likes) &&
+            const DeepCollectionEquality().equals(other.text, text) &&
+            const DeepCollectionEquality().equals(other.author, author) &&
+            const DeepCollectionEquality()
+                .equals(other.authorType, authorType) &&
+            const DeepCollectionEquality().equals(other.title, title) &&
             const DeepCollectionEquality()
                 .equals(other.peopleLiked, peopleLiked) &&
-            (identical(other.date, date) || other.date == date) &&
-            (identical(other.isLiked, isLiked) || other.isLiked == isLiked));
+            const DeepCollectionEquality().equals(other.date, date) &&
+            const DeepCollectionEquality().equals(other.isLiked, isLiked));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      sId,
+      const DeepCollectionEquality().hash(sId),
       const DeepCollectionEquality().hash(images),
-      thumbnail,
-      likes,
-      text,
-      author,
-      authorType,
-      title,
+      const DeepCollectionEquality().hash(thumbnail),
+      const DeepCollectionEquality().hash(likes),
+      const DeepCollectionEquality().hash(text),
+      const DeepCollectionEquality().hash(author),
+      const DeepCollectionEquality().hash(authorType),
+      const DeepCollectionEquality().hash(title),
       const DeepCollectionEquality().hash(peopleLiked),
-      date,
-      isLiked);
+      const DeepCollectionEquality().hash(date),
+      const DeepCollectionEquality().hash(isLiked));
 
   @JsonKey(ignore: true)
   @override

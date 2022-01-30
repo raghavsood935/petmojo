@@ -378,17 +378,19 @@ class _$_RelationsResponse extends _RelationsResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _RelationsResponse &&
-            (identical(other.confirmed, confirmed) ||
-                other.confirmed == confirmed) &&
-            (identical(other.relation, relation) ||
-                other.relation == relation) &&
-            (identical(other.animal, animal) || other.animal == animal) &&
-            (identical(other.status, status) || other.status == status));
+            const DeepCollectionEquality().equals(other.confirmed, confirmed) &&
+            const DeepCollectionEquality().equals(other.relation, relation) &&
+            const DeepCollectionEquality().equals(other.animal, animal) &&
+            const DeepCollectionEquality().equals(other.status, status));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, confirmed, relation, animal, status);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(confirmed),
+      const DeepCollectionEquality().hash(relation),
+      const DeepCollectionEquality().hash(animal),
+      const DeepCollectionEquality().hash(status));
 
   @JsonKey(ignore: true)
   @override

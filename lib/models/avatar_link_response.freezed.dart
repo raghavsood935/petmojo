@@ -158,13 +158,13 @@ class _$_AvatarLinkResponse extends _AvatarLinkResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _AvatarLinkResponse &&
-            (identical(
-                    other.avatarLinkInnerResponse, avatarLinkInnerResponse) ||
-                other.avatarLinkInnerResponse == avatarLinkInnerResponse));
+            const DeepCollectionEquality().equals(
+                other.avatarLinkInnerResponse, avatarLinkInnerResponse));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, avatarLinkInnerResponse);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(avatarLinkInnerResponse));
 
   @JsonKey(ignore: true)
   @override
@@ -342,13 +342,15 @@ class _$_AvatarLinkInnerResponse extends _AvatarLinkInnerResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _AvatarLinkInnerResponse &&
-            (identical(other.image, image) || other.image == image) &&
-            (identical(other.thumbnail, thumbnail) ||
-                other.thumbnail == thumbnail));
+            const DeepCollectionEquality().equals(other.image, image) &&
+            const DeepCollectionEquality().equals(other.thumbnail, thumbnail));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, image, thumbnail);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(image),
+      const DeepCollectionEquality().hash(thumbnail));
 
   @JsonKey(ignore: true)
   @override

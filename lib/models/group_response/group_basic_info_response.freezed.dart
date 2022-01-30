@@ -298,32 +298,31 @@ class _$_GroupBasicInfoResponse extends _GroupBasicInfoResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _GroupBasicInfoResponse &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.members, members) || other.members == members) &&
-            (identical(other.Id, Id) || other.Id == Id) &&
-            (identical(other.avatar, avatar) || other.avatar == avatar) &&
+            const DeepCollectionEquality()
+                .equals(other.description, description) &&
+            const DeepCollectionEquality().equals(other.members, members) &&
+            const DeepCollectionEquality().equals(other.Id, Id) &&
+            const DeepCollectionEquality().equals(other.avatar, avatar) &&
             const DeepCollectionEquality().equals(other.hashtags, hashtags) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.coverPhoto, coverPhoto) ||
-                other.coverPhoto == coverPhoto) &&
-            (identical(other.isMember, isMember) ||
-                other.isMember == isMember) &&
-            (identical(other.isAdmin, isAdmin) || other.isAdmin == isAdmin));
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality()
+                .equals(other.coverPhoto, coverPhoto) &&
+            const DeepCollectionEquality().equals(other.isMember, isMember) &&
+            const DeepCollectionEquality().equals(other.isAdmin, isAdmin));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      description,
-      members,
-      Id,
-      avatar,
+      const DeepCollectionEquality().hash(description),
+      const DeepCollectionEquality().hash(members),
+      const DeepCollectionEquality().hash(Id),
+      const DeepCollectionEquality().hash(avatar),
       const DeepCollectionEquality().hash(hashtags),
-      name,
-      coverPhoto,
-      isMember,
-      isAdmin);
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(coverPhoto),
+      const DeepCollectionEquality().hash(isMember),
+      const DeepCollectionEquality().hash(isAdmin));
 
   @JsonKey(ignore: true)
   @override

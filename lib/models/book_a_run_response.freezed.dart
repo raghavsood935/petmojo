@@ -132,12 +132,12 @@ class _$_BookARunResponse extends _BookARunResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _BookARunResponse &&
-            (identical(other.bookingId, bookingId) ||
-                other.bookingId == bookingId));
+            const DeepCollectionEquality().equals(other.bookingId, bookingId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, bookingId);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(bookingId));
 
   @JsonKey(ignore: true)
   @override

@@ -157,14 +157,16 @@ class _$_LatLongResponse extends _LatLongResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _LatLongResponse &&
-            (identical(other.type, type) || other.type == type) &&
+            const DeepCollectionEquality().equals(other.type, type) &&
             const DeepCollectionEquality()
                 .equals(other.coordinates, coordinates));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, type, const DeepCollectionEquality().hash(coordinates));
+      runtimeType,
+      const DeepCollectionEquality().hash(type),
+      const DeepCollectionEquality().hash(coordinates));
 
   @JsonKey(ignore: true)
   @override

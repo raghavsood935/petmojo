@@ -157,13 +157,13 @@ class _$_CreatePostResponse extends _CreatePostResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _CreatePostResponse &&
-            (identical(other.createPostDetailsResponse,
-                    createPostDetailsResponse) ||
-                other.createPostDetailsResponse == createPostDetailsResponse));
+            const DeepCollectionEquality().equals(
+                other.createPostDetailsResponse, createPostDetailsResponse));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, createPostDetailsResponse);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(createPostDetailsResponse));
 
   @JsonKey(ignore: true)
   @override
@@ -482,31 +482,30 @@ class _$_CreatePostDetailsResponse extends _CreatePostDetailsResponse {
         (other.runtimeType == runtimeType &&
             other is _CreatePostDetailsResponse &&
             const DeepCollectionEquality().equals(other.hashtags, hashtags) &&
-            (identical(other.Id, Id) || other.Id == Id) &&
-            (identical(other.image, image) || other.image == image) &&
-            (identical(other.thumbnail, thumbnail) ||
-                other.thumbnail == thumbnail) &&
-            (identical(other.filter, filter) || other.filter == filter) &&
-            (identical(other.caption, caption) || other.caption == caption) &&
-            (identical(other.Userauthor, Userauthor) ||
-                other.Userauthor == Userauthor) &&
-            (identical(other.authorType, authorType) ||
-                other.authorType == authorType) &&
-            (identical(other.date, date) || other.date == date));
+            const DeepCollectionEquality().equals(other.Id, Id) &&
+            const DeepCollectionEquality().equals(other.image, image) &&
+            const DeepCollectionEquality().equals(other.thumbnail, thumbnail) &&
+            const DeepCollectionEquality().equals(other.filter, filter) &&
+            const DeepCollectionEquality().equals(other.caption, caption) &&
+            const DeepCollectionEquality()
+                .equals(other.Userauthor, Userauthor) &&
+            const DeepCollectionEquality()
+                .equals(other.authorType, authorType) &&
+            const DeepCollectionEquality().equals(other.date, date));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(hashtags),
-      Id,
-      image,
-      thumbnail,
-      filter,
-      caption,
-      Userauthor,
-      authorType,
-      date);
+      const DeepCollectionEquality().hash(Id),
+      const DeepCollectionEquality().hash(image),
+      const DeepCollectionEquality().hash(thumbnail),
+      const DeepCollectionEquality().hash(filter),
+      const DeepCollectionEquality().hash(caption),
+      const DeepCollectionEquality().hash(Userauthor),
+      const DeepCollectionEquality().hash(authorType),
+      const DeepCollectionEquality().hash(date));
 
   @JsonKey(ignore: true)
   @override

@@ -8,9 +8,7 @@ import 'package:tamely/widgets/app_text.dart';
 import 'dogrunningbooking_viewmodel.dart';
 
 class DogRunningBookingView extends StatefulWidget {
-  const DogRunningBookingView({Key? key, required this.currentLocation})
-      : super(key: key);
-  final LatLng currentLocation;
+  const DogRunningBookingView({Key? key}) : super(key: key);
 
   @override
   State<DogRunningBookingView> createState() => _DogRunningBookingViewState();
@@ -20,102 +18,102 @@ class _DogRunningBookingViewState extends State<DogRunningBookingView> {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<DogRunningBookingViewModel>.reactive(
-      onModelReady: (model) {
-        model.getPets();
-        model.setLocation(widget.currentLocation);
+      onModelReady: (model) async {
+        await model.getPets();
+        await model.getFreeWalkStatus();
+        model.checkValid();
       },
-      viewModelBuilder: () =>
-          DogRunningBookingViewModel(widget.currentLocation),
+      onDispose: (model) {
+        model.dispose();
+      },
+      viewModelBuilder: () => DogRunningBookingViewModel(),
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
         body: SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              verticalSpaceRegular,
-              // Heading
-              Stack(
-                alignment: AlignmentDirectional.center,
-                children: [
-                  Positioned(
-                    left: 25,
-                    child: IconButton(
-                      padding: EdgeInsets.zero,
-                      alignment: Alignment.centerLeft,
-                      icon: Icon(
-                        Icons.arrow_back,
-                        color: Colors.black,
-                      ),
-                      onPressed: model.navigateBack,
-                    ),
-                  ),
-                  Center(
-                    child: AppText.headingThree(
-                      model.titles[model.currentIndex],
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              ),
-              verticalSpaceTiny,
-              spacedDividerTiny,
-
-              // Page Indication
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.all(8.0),
-                      height: 5,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(2),
-                        color: model.currentStep[0]
-                            ? colors.primary
-                            : colors.kcMediumGreyColor,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                verticalSpaceRegular,
+                // Heading
+                Stack(
+                  alignment: AlignmentDirectional.center,
+                  children: [
+                    Positioned(
+                      left: 0,
+                      child: IconButton(
+                        padding: EdgeInsets.zero,
+                        alignment: Alignment.centerLeft,
+                        icon: Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.black,
+                        ),
+                        onPressed: () {
+                          model.navigateBack();
+                          SystemChannels.textInput
+                              .invokeMethod('TextInput.hide');
+                        },
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.all(8.0),
-                      height: 5,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(2),
-                        color: model.currentStep[1]
-                            ? colors.primary
-                            : colors.kcMediumGreyColor,
+                    Center(
+                      child: AppText.headingThree(
+                        model.titles[model.currentIndex],
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.all(8.0),
-                      height: 5,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(2),
-                        color: model.currentStep[2]
-                            ? colors.primary
-                            : colors.kcMediumGreyColor,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              verticalSpaceSmall,
-
-              // Body
-              Expanded(
-                child: PageView(
-                  scrollDirection: Axis.horizontal,
-                  scrollBehavior: ScrollBehavior(),
-                  physics: NeverScrollableScrollPhysics(),
-                  controller: model.controller,
-                  onPageChanged: model.onPageChanged,
-                  children: model.pages,
+                  ],
                 ),
-              ),
-            ],
+                verticalSpaceRegular,
+                //spacedDividerTiny,
+
+                // Page Indication
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        margin:
+                            EdgeInsets.only(top: 8.0, right: 8.0, bottom: 8.0),
+                        height: 5,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(2),
+                          color: model.currentStep[0]
+                              ? colors.primary
+                              : colors.kcMediumGreyColor,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        margin:
+                            EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+                        height: 5,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(2),
+                          color: model.currentStep[1]
+                              ? colors.primary
+                              : colors.kcMediumGreyColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                verticalSpaceSmall,
+
+                // Body
+                Expanded(
+                  child: PageView(
+                    scrollDirection: Axis.horizontal,
+                    scrollBehavior: ScrollBehavior(),
+                    physics: NeverScrollableScrollPhysics(),
+                    controller: model.controller,
+                    onPageChanged: model.onPageChanged,
+                    children: model.pages,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         bottomSheet: Padding(
@@ -138,7 +136,7 @@ class _DogRunningBookingViewState extends State<DogRunningBookingView> {
                 decoration: BoxDecoration(
                   color:
                       model.isValid ? colors.primary : colors.kcLightGreyColor,
-                  borderRadius: BorderRadius.circular(50),
+                  borderRadius: BorderRadius.circular(4),
                 ),
                 child: model.loading
                     ? CircularProgressIndicator(

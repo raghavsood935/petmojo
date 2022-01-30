@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked_annotations.dart';
+import 'package:tamely/enum/dog_running_package.dart';
 import 'package:tamely/enum/no_of_runs.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/models/comment_added_response.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
@@ -18,310 +21,272 @@ class BookARunView extends ViewModelWidget<DogRunningBookingViewModel> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Head
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText.body2(bookARunLabel),
-                  verticalSpaceSmall,
-                  AppText.body1(
-                    bookARunSubtitle,
-                    color: colors.kcCaptionGreyColor,
-                  ),
-                  verticalSpaceTiny,
-                ],
-              ),
-            ),
-            spacedDividerSmall,
             verticalSpaceSmall,
 
             // Number of pets
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText.body2(noOfPetsLabel),
-                  verticalSpaceSmall,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Radio<NoOfRuns>(
-                            value: NoOfRuns.One,
-                            groupValue: model.selectedRun,
-                            onChanged: (value) => model.selectRun(value),
-                            activeColor: colors.primary,
-                          ),
-                          AppText.body1("1"),
-                        ],
-                      ),
-                      horizontalSpaceRegular,
-                      Row(
-                        children: [
-                          Radio<NoOfRuns>(
-                            value: NoOfRuns.Two,
-                            groupValue: model.selectedRun,
-                            onChanged: (value) => model.selectRun(value),
-                            activeColor: colors.primary,
-                          ),
-                          AppText.body1("2"),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            spacedDividerSmall,
-            verticalSpaceSmall,
-
-            // Choose pet & Pet Size
-            // One
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppText.body1(choosePetLabel),
-                      Container(
-                        width: 140,
-                        child: DropdownButton<String>(
-                          isExpanded: true,
-                          value: model.selectedDogOne,
-                          hint: Text(model.dogsOwned[0]),
-                          icon: const Icon(Icons.arrow_downward),
-                          iconSize: 14,
-                          style: const TextStyle(color: Colors.deepPurple),
-                          underline: Container(
-                            height: 1,
-                            color: colors.kcCaptionGreyColor,
-                          ),
-                          onChanged: model.selectDogOne,
-                          items: model.dogsOwned
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(
-                                value,
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppText.body1(choosePetLabel),
-                      Container(
-                        width: 140,
-                        child: DropdownButton<String>(
-                          isExpanded: true,
-                          value: model.selectedSizeOne,
-                          hint: Text(model.petSize[0]),
-                          icon: const Icon(Icons.arrow_downward),
-                          iconSize: 14,
-                          style: const TextStyle(color: Colors.deepPurple),
-                          underline: Container(
-                            height: 1,
-                            color: colors.kcCaptionGreyColor,
-                          ),
-                          onChanged: model.selectSizeOne,
-                          items: model.petSize
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(
-                                value,
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-
-            // Two
-            model.noOfDogs == 2 ? verticalSpaceRegular : Container(),
-            model.noOfDogs == 2
-                ? Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppText.body2(noOfPetsLabel),
+                verticalSpaceSmall,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Row(
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AppText.body1(choosePetLabel),
-                            Container(
-                              width: 140,
-                              child: DropdownButton<String>(
-                                isExpanded: true,
-                                value: model.selectedDogTwo,
-                                hint: Text(model.dogsOwned[0]),
-                                icon: const Icon(Icons.arrow_downward),
-                                iconSize: 14,
-                                style:
-                                    const TextStyle(color: Colors.deepPurple),
-                                underline: Container(
-                                  height: 1,
-                                  color: colors.kcCaptionGreyColor,
-                                ),
-                                onChanged: model.selectDogTwo,
-                                items: model.dogsOwned
-                                    .map<DropdownMenuItem<String>>(
-                                        (String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(
-                                      value,
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                  );
-                                }).toList(),
-                              ),
-                            ),
-                          ],
+                        Radio<NoOfRuns>(
+                          value: NoOfRuns.One,
+                          groupValue: model.selectedRun,
+                          onChanged: (value) => model.selectRun(value),
+                          activeColor: colors.primary,
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AppText.body1(choosePetLabel),
-                            Container(
-                              width: 140,
-                              child: DropdownButton<String>(
-                                isExpanded: true,
-                                value: model.selectedSizeTwo,
-                                hint: Text(model.petSize[0]),
-                                icon: const Icon(Icons.arrow_downward),
-                                iconSize: 14,
-                                style:
-                                    const TextStyle(color: Colors.deepPurple),
-                                underline: Container(
-                                  height: 1,
-                                  color: colors.kcCaptionGreyColor,
-                                ),
-                                onChanged: model.selectSizeTwo,
-                                items: model.petSize
-                                    .map<DropdownMenuItem<String>>(
-                                        (String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(
-                                      value,
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                  );
-                                }).toList(),
-                              ),
-                            ),
-                          ],
-                        ),
+                        AppText.body1("1"),
                       ],
                     ),
-                  )
-                : Container(),
-            verticalSpaceMedium,
-            const Divider(
-              color: colors.kcLightGreyBackground,
-              height: 5.0,
-              thickness: 5.0,
+                    horizontalSpaceLarge,
+                    Row(
+                      children: [
+                        Radio<NoOfRuns>(
+                          value: NoOfRuns.Two,
+                          groupValue: model.selectedRun,
+                          onChanged: (value) => model.selectRun(value),
+                          activeColor: colors.primary,
+                        ),
+                        AppText.body1("2"),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
-            verticalSpaceMedium,
+            verticalSpaceTiny,
 
-            // Special Instructions
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
+            // Choose pet
+            Visibility(
+              visible: model.hasPets,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  verticalSpaceTiny,
+                  AppText.body2(choosePetLabel),
+                  verticalSpaceMedium,
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: AppText.body1(
-                        specialInstructionsLabel,
-                        textAlign: TextAlign.start,
-                        color: colors.black,
-                      ),
+                    height: 90,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: model.myPets.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return RunnerItems(
+                          name: model.myPets[index].name,
+                          imageUrl: model.myPets[index].imageUrl,
+                          selected: model.myPets[index].selected,
+                          onTapped: () => model.selectPet(index),
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) =>
+                          horizontalSpaceRegular,
                     ),
                   ),
-                  AppInputField(
-                    hint: specialInstructionsHint,
-                    controller: model.specialInstructionsController,
-                    textInputType: TextInputType.name,
-                    textCapitalization: TextCapitalization.none,
-                    maxLength: 150,
-                  ),
+                  verticalSpaceMedium,
                 ],
               ),
             ),
+            spacedDividerTiny,
+            verticalSpaceRegular,
+
+            // plans
+            AppText.body1(
+              model.freeWalkAvailable
+                  ? bookARunSubtitleWithFree
+                  : bookARunSubtitle,
+            ),
             verticalSpaceSmall,
-            const Divider(
-              color: colors.kcLightGreyBackground,
-              height: 5.0,
-              thickness: 5.0,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                model.freeWalkAvailable ? verticalSpaceMedium : Container(),
+                model.freeWalkAvailable
+                    ? FreePackageItem(
+                        value: DogRunningPackage.One,
+                        selectedValue: model.selectedPlan,
+                        onTaped: () => model.selectPlan(DogRunningPackage.One),
+                        title: perWalkTitle,
+                        subtitleOne: perWalkSubtitleOne,
+                        subtitleTwo: perWalkSubtitleTwo,
+                        rateOld: perWalkRateOld,
+                        rateNew: perWalkRateNew,
+                        rateLabel: perWalkRateLabel,
+                      )
+                    : Container(),
+                verticalSpaceMedium,
+                PackageItem(
+                  value: DogRunningPackage.Four,
+                  selectedValue: model.selectedPlan,
+                  onTaped: () => model.selectPlan(DogRunningPackage.Four),
+                  seeMoreSelectedValue: model.seeMoreSelectedPlan,
+                  onSeeMoreTaped: () =>
+                      model.selectSeeMore(DogRunningPackage.Four),
+                  title: perMonthOnceTitle,
+                  subtitleOne: perMonthOnceSubtitleOne,
+                  subtitleTwo: perMonthOnceSubtitleTwo,
+                  rateOld: perMonthOnceRateOld,
+                  rateNew: perMonthOnceRateNew,
+                  rateLabel: perMonthOnceRateLabel,
+                  seeMoreList: [
+                    walkSeeOne,
+                    walkSeeTwo,
+                    walkSeeThree,
+                    walkSeeFour
+                  ],
+                ),
+                verticalSpaceMedium,
+                PackageItem(
+                  value: DogRunningPackage.Five,
+                  selectedValue: model.selectedPlan,
+                  onTaped: () => model.selectPlan(DogRunningPackage.Five),
+                  seeMoreSelectedValue: model.seeMoreSelectedPlan,
+                  onSeeMoreTaped: () =>
+                      model.selectSeeMore(DogRunningPackage.Five),
+                  title: perMonthTwiceTitle,
+                  subtitleOne: perMonthTwiceSubtitleOne,
+                  subtitleTwo: perMonthTwiceSubtitleTwo,
+                  rateOld: perMonthTwiceRateOld,
+                  rateNew: perMonthTwiceRateNew,
+                  rateLabel: perMonthTwiceRateLabel,
+                  seeMoreList: [
+                    walkSeeOne,
+                    walkSeeTwo,
+                    walkSeeThree,
+                    walkSeeFour,
+                    walkSeeFive,
+                    walkSeeSix
+                  ],
+                ),
+              ],
             ),
             verticalSpaceMedium,
 
-            // Behaviours
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
+            // offers
+            Visibility(
+              visible: !model.isOfferValid && model.isOfferAvailable,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AppText.body2(detailTitle),
+                  AppText.body2("Offers Available!! 🎉🎉🎉🎁🎁🎁"),
+                  verticalSpaceRegular,
+                  AppInputField(
+                    hint: "Enter Promo Code",
+                    controller: model.promoCodeController,
+                    onChanged: model.promoCodeValidation,
+                    isBoxBorder: true,
+                    textInputType: TextInputType.name,
+                    textCapitalization: TextCapitalization.none,
+                  ),
+                  verticalSpaceTiny,
+                  model.selectedPlan == DogRunningPackage.Four
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                AppText.body2(
+                                  "PAWSOMEOFFER",
+                                  color: colors.primary,
+                                ),
+                                AppText.body2("Flat INR 600 off"),
+                              ],
+                            ),
+                            GestureDetector(
+                              onTap: model.useOfferOne,
+                              child: AppText.body2(
+                                "USE",
+                                color: colors.primary,
+                              ),
+                            ),
+                          ],
+                        )
+                      : Container(),
+                  model.selectedPlan == DogRunningPackage.Five
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                AppText.body2(
+                                  "PAWSOMEOFFER1K",
+                                  color: colors.primary,
+                                ),
+                                AppText.body2("Flat INR 1100 off"),
+                              ],
+                            ),
+                            GestureDetector(
+                              onTap: model.useOfferTwo,
+                              child: AppText.body2(
+                                "USE",
+                                color: colors.primary,
+                              ),
+                            ),
+                          ],
+                        )
+                      : Container(),
+                  model.selectedPlan == DogRunningPackage.Four ||
+                          model.selectedPlan == DogRunningPackage.Five
+                      ? verticalSpaceMedium
+                      : Container(),
+                ],
+              ),
+            ),
+
+            // Offer Done
+            Visibility(
+              visible: model.isOfferValid && model.isOfferAvailable,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText.body2("Offers"),
                   verticalSpaceSmall,
-                  BehavioursItem(
-                    behaviour: detailOne,
-                    selected: model.selectedDetailOne,
-                    onTapped: model.setSelectedDetail1,
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.check_circle_outline_rounded,
+                        color: colors.primary,
+                      ),
+                      horizontalSpaceSmall,
+                      Row(
+                        children: [
+                          AppText.body2(
+                            "Promo ",
+                          ),
+                          AppText.body2(
+                            " ${model.promoCode} ",
+                            color: colors.primary,
+                          ),
+                          AppText.body2(
+                            " Applied",
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                  BehavioursItem(
-                    behaviour: detailTwo,
-                    selected: model.selectedDetailTwo,
-                    onTapped: model.setSelectedDetail2,
-                  ),
-                  BehavioursItem(
-                    behaviour: detailThree,
-                    selected: model.selectedDetailThree,
-                    onTapped: model.setSelectedDetail3,
-                  ),
-                  BehavioursItem(
-                    behaviour: detailFour,
-                    selected: model.selectedDetailFour,
-                    onTapped: model.setSelectedDetail4,
-                  ),
-                  BehavioursItem(
-                    behaviour: detailFive,
-                    selected: model.selectedDetailFive,
-                    onTapped: model.setSelectedDetail5,
+                  verticalSpaceSmall,
+                  Column(
+                    children: [
+                      AppText.body2("You saved"),
+                      AppText.body2(
+                        "INR ${model.savedAmount}",
+                        color: colors.primary,
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
-            verticalSpaceSmall,
-            const Divider(
-              color: colors.kcLightGreyBackground,
-              height: 5.0,
-              thickness: 5.0,
-            ),
-            verticalSpaceMedium,
-            verticalSpaceMedium,
-            verticalSpaceMedium,
+
+            verticalSpaceLarge,
+            verticalSpaceLarge,
           ],
         ),
       ),
@@ -329,37 +294,351 @@ class BookARunView extends ViewModelWidget<DogRunningBookingViewModel> {
   }
 }
 
-class BehavioursItem extends StatelessWidget {
-  const BehavioursItem({Key? key, this.behaviour, this.selected, this.onTapped})
-      : super(key: key);
-  final String? behaviour;
-  final bool? selected;
-  final void Function(bool?)? onTapped;
+class FreePackageItem extends StatelessWidget {
+  const FreePackageItem({
+    Key? key,
+    this.title,
+    this.subtitleOne,
+    this.subtitleTwo,
+    this.rateLabel,
+    this.value,
+    this.selectedValue,
+    this.onTaped,
+    this.rateOld,
+    this.rateNew,
+    this.onSeeMoreTaped,
+  }) : super(key: key);
+  final String? title;
+  final String? subtitleOne;
+  final String? subtitleTwo;
+  final String? rateOld;
+  final String? rateNew;
+  final String? rateLabel;
+  final DogRunningPackage? value;
+  final DogRunningPackage? selectedValue;
+  final void Function()? onTaped;
+  final void Function()? onSeeMoreTaped;
 
   @override
   Widget build(BuildContext context) {
-    Color getColor(Set<MaterialState> states) {
-      const Set<MaterialState> activeStates = <MaterialState>{
-        MaterialState.selected,
-      };
-      if (states.any(activeStates.contains)) {
-        return colors.primary;
-      }
-      return colors.kcLightGreyColor;
-    }
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(child: AppText.body1(behaviour!)),
-        horizontalSpaceTiny,
-        Checkbox(
-          value: selected,
-          onChanged: onTapped,
-          checkColor: colors.white,
-          fillColor: MaterialStateProperty.resolveWith(getColor),
+    return GestureDetector(
+      onTap: onTaped,
+      child: Container(
+        height: 100.0,
+        margin: EdgeInsets.symmetric(horizontal: 5.0),
+        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+        decoration: new BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: selectedValue == value ? colors.primary : colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: selectedValue == value
+                  ? colors.white
+                  : colors.kcCaptionGreyColor,
+              blurRadius: 3.0, // soften the shadow
+              spreadRadius: 0.0, //extend the shadow
+              offset: Offset(
+                0, // Move to right 10  horizontally
+                0, // Move to bottom 10 Vertically
+              ),
+            )
+          ],
         ),
-      ],
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CircleAvatar(
+              child: Image.asset("assets/images/free_session.png"),
+            ),
+            horizontalSpaceSmall,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText.body2(
+                    title!,
+                    color: selectedValue == value ? colors.white : colors.black,
+                  ),
+                  verticalSpaceTiny,
+                  AppText.caption(
+                    subtitleTwo!,
+                    color: selectedValue == value
+                        ? colors.white
+                        : colors.kcCaptionGreyColor,
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AppText.body2(
+                    rateNew!,
+                    color:
+                        selectedValue == value ? colors.white : colors.primary,
+                  ),
+                  verticalSpaceTiny,
+                  AppText.body2(
+                    subtitleOne!,
+                    color:
+                        selectedValue == value ? colors.white : colors.primary,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PackageItem extends StatelessWidget {
+  const PackageItem({
+    Key? key,
+    this.title,
+    this.subtitleOne,
+    this.subtitleTwo,
+    this.rateLabel,
+    this.value,
+    this.selectedValue,
+    this.onTaped,
+    this.rateOld,
+    this.rateNew,
+    this.onSeeMoreTaped,
+    this.seeMoreSelectedValue,
+    this.seeMoreList,
+  }) : super(key: key);
+  final String? title;
+  final String? subtitleOne;
+  final String? subtitleTwo;
+  final String? rateOld;
+  final String? rateNew;
+  final String? rateLabel;
+  final List<String>? seeMoreList;
+  final DogRunningPackage? value;
+  final DogRunningPackage? selectedValue;
+  final DogRunningPackage? seeMoreSelectedValue;
+  final void Function()? onTaped;
+  final void Function()? onSeeMoreTaped;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTaped,
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 5.0),
+        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+        decoration: new BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: selectedValue == value ? colors.primary : colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: selectedValue == value
+                  ? colors.white
+                  : colors.kcCaptionGreyColor,
+              blurRadius: 3.0, // soften the shadow
+              spreadRadius: 0.0, //extend the shadow
+              offset: Offset(
+                0, // Move to right 10  horizontally
+                0, // Move to bottom 10 Vertically
+              ),
+            )
+          ],
+        ),
+        child: Column(
+          children: [
+            // Always
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CircleAvatar(
+                  child: Image.asset("assets/images/running_package.png"),
+                  backgroundColor: Color(0xffFFF0E0),
+                ),
+                horizontalSpaceSmall,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppText.body2(
+                        title!,
+                        color: selectedValue == value
+                            ? colors.white
+                            : colors.black,
+                      ),
+                      verticalSpaceTiny,
+                      Row(
+                        children: [
+                          SvgPicture.asset(
+                            "assets/images/seemore_time.svg",
+                            height: 13,
+                            width: 13,
+                            color: selectedValue == value
+                                ? colors.white
+                                : colors.primary,
+                          ),
+                          horizontalSpaceTiny,
+                          AppText.caption(
+                            subtitleOne!,
+                            color: selectedValue == value
+                                ? colors.white
+                                : colors.kcCaptionGreyColor,
+                          ),
+                        ],
+                      ),
+                      verticalSpaceTiny,
+                      Row(
+                        children: [
+                          SvgPicture.asset(
+                            "assets/images/seemore_time.svg",
+                            height: 13,
+                            width: 13,
+                            color: selectedValue == value
+                                ? colors.white
+                                : colors.primary,
+                          ),
+                          horizontalSpaceTiny,
+                          AppText.caption(
+                            subtitleTwo!,
+                            color: selectedValue == value
+                                ? colors.white
+                                : colors.kcCaptionGreyColor,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        rateOld!,
+                        style: TextStyle(
+                          fontSize: 14,
+                          decoration: TextDecoration.lineThrough,
+                          color: selectedValue == value
+                              ? colors.white
+                              : colors.black,
+                        ),
+                      ),
+                      AppText.body2(
+                        rateNew!,
+                        color: selectedValue == value
+                            ? colors.white
+                            : colors.primary,
+                      ),
+                      AppText.caption(
+                        rateLabel!,
+                        color: selectedValue == value
+                            ? colors.white
+                            : colors.kcCaptionGreyColor,
+                      ),
+                      verticalSpaceRegular,
+                      GestureDetector(
+                        onTap: onSeeMoreTaped,
+                        child: Text(
+                          seeMoreSelectedValue == value
+                              ? "See less"
+                              : "See more",
+                          style: TextStyle(
+                            color: selectedValue == value
+                                ? colors.white
+                                : colors.primary,
+                            fontSize: 14,
+                            decoration: TextDecoration.underline,
+                            decorationColor: selectedValue == value
+                                ? colors.white
+                                : colors.primary,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            seeMoreSelectedValue == value ? verticalSpaceRegular : Container(),
+            // See more
+            seeMoreSelectedValue == value
+                ? Container(
+                    child: Wrap(
+                      children: seeMoreList!
+                          .map(
+                            (item) => Row(
+                              children: [
+                                Icon(
+                                  Icons.check_rounded,
+                                  color: selectedValue == value
+                                      ? colors.white
+                                      : colors.primary,
+                                ),
+                                horizontalSpaceTiny,
+                                AppText.caption(
+                                  item,
+                                  color: selectedValue == value
+                                      ? colors.white
+                                      : colors.kcCaptionGreyColor,
+                                ),
+                              ],
+                            ),
+                          )
+                          .toList()
+                          .cast<Widget>(),
+                    ),
+                  )
+                : Container(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class RunnerItems extends StatelessWidget {
+  const RunnerItems({
+    Key? key,
+    this.name,
+    this.imageUrl,
+    this.onTapped,
+    this.selected,
+  }) : super(key: key);
+  final String? name;
+  final String? imageUrl;
+  final bool? selected;
+  final void Function()? onTapped;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTapped,
+      child: Container(
+        width: 90,
+        decoration: BoxDecoration(
+          color: colors.white,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: selected! ? colors.primary : colors.kcLightGreyColor,
+            width: selected! ? 1.5 : 1,
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            CircleAvatar(
+              child: Image.asset("assets/images/dummy_dog_profile.png"),
+            ),
+            AppText.body1(
+              name!,
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

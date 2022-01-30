@@ -159,14 +159,17 @@ class _$_PostOwnerDetailsResponse extends _PostOwnerDetailsResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _PostOwnerDetailsResponse &&
-            (identical(other.postOwnerId, postOwnerId) ||
-                other.postOwnerId == postOwnerId) &&
-            (identical(other.postOwnerType, postOwnerType) ||
-                other.postOwnerType == postOwnerType));
+            const DeepCollectionEquality()
+                .equals(other.postOwnerId, postOwnerId) &&
+            const DeepCollectionEquality()
+                .equals(other.postOwnerType, postOwnerType));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, postOwnerId, postOwnerType);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(postOwnerId),
+      const DeepCollectionEquality().hash(postOwnerType));
 
   @JsonKey(ignore: true)
   @override

@@ -317,13 +317,15 @@ class _$_BookmarkDetailResponse extends _BookmarkDetailResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _BookmarkDetailResponse &&
-            (identical(other.sId, sId) || other.sId == sId) &&
-            (identical(other.thumbnail, thumbnail) ||
-                other.thumbnail == thumbnail));
+            const DeepCollectionEquality().equals(other.sId, sId) &&
+            const DeepCollectionEquality().equals(other.thumbnail, thumbnail));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, sId, thumbnail);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(sId),
+      const DeepCollectionEquality().hash(thumbnail));
 
   @JsonKey(ignore: true)
   @override

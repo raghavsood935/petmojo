@@ -38,6 +38,8 @@ _$_AppointmentListResponse _$$_AppointmentListResponseFromJson(
           ? null
           : BookingDetailsResponse.fromJson(
               json['bookingDetails'] as Map<String, dynamic>),
+      daysLeft: json['daysLeft'] as int?,
+      isReorderDone: json['isReorderDone'] as bool?,
     );
 
 Map<String, dynamic> _$$_AppointmentListResponseToJson(
@@ -49,6 +51,8 @@ Map<String, dynamic> _$$_AppointmentListResponseToJson(
       '_id': instance.appointmentId,
       'ServiceProvider': instance.user,
       'bookingDetails': instance.bookingDetails,
+      'daysLeft': instance.daysLeft,
+      'isReorderDone': instance.isReorderDone,
     };
 
 _$_UserDetailsResponse _$$_UserDetailsResponseFromJson(

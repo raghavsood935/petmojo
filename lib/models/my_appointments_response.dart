@@ -27,6 +27,8 @@ class AppointmentListResponse with _$AppointmentListResponse {
     @JsonKey(name: "_id") String? appointmentId,
     @JsonKey(name: "ServiceProvider") UserDetailsResponse? user,
     @JsonKey(name: "bookingDetails") BookingDetailsResponse? bookingDetails,
+    @JsonKey(name: "daysLeft") int? daysLeft,
+    @JsonKey(name: "isReorderDone") bool? isReorderDone,
   }) = _AppointmentListResponse;
 
   factory AppointmentListResponse.fromJson(Map<String, dynamic> json) =>
