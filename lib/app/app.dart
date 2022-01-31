@@ -3,8 +3,12 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/services/user_service.dart';
-import 'package:tamely/ui/appointmentdetails/appointmentdetails_view.dart';
-import 'package:tamely/ui/appointments/appointments_view.dart';
+import 'package:tamely/ui/DogRunningService/DrAppointment/DrAppointmentdetails/dr_appointmentdetails_view.dart';
+import 'package:tamely/ui/DogRunningService/DrAppointment/DrAppointments/dr_appointments_view.dart';
+import 'package:tamely/ui/DogRunningService/DrAppointment/DrLivemap/dr_livemap_view.dart';
+import 'package:tamely/ui/DogRunningService/DrAppointment/DrReportcard/dr_reportcard_view.dart';
+import 'package:tamely/ui/DogRunningService/DrBookingService/DrBooking/dr_dogrunningbooking_view.dart';
+import 'package:tamely/ui/DogRunningService/DrBookingService/DrPayment/dr_payment_view.dart';
 import 'package:tamely/ui/chat/chat_view.dart';
 import 'package:tamely/ui/community/community_main_view/adoption/adoption_view.dart';
 import 'package:tamely/ui/community/community_main_view/community_main_view.dart';
@@ -14,9 +18,6 @@ import 'package:tamely/ui/community/community_main_view/strays_near_you/strays_n
 import 'package:tamely/ui/community/community_main_view/strays_near_you/strays_near_you_view.dart';
 import 'package:tamely/ui/community/first_time_views/community_choose_interests/community_choose_interests_view.dart';
 import 'package:tamely/ui/dashboard/dashboard.dart';
-import 'package:tamely/ui/dogrunners/dogrunners_view.dart';
-import 'package:tamely/ui/dogrunners/location_picker_map.dart';
-import 'package:tamely/ui/dogrunningbooking/dogrunningbooking_view.dart';
 import 'package:tamely/ui/dummy_development_screen.dart';
 import 'package:tamely/ui/exploreblogs/explore_blog_search/blogs_deatils_page/blog_detail_view.dart';
 import 'package:tamely/ui/exploreblogs/explore_blogs_view.dart';
@@ -26,7 +27,6 @@ import 'package:tamely/ui/forgotpassword/new_password_view.dart';
 import 'package:tamely/ui/groups/create_group/create_group_fisrt_page/create_group_fisrt_page_view.dart';
 import 'package:tamely/ui/groups/create_group/create_group_second_page/create_group_second_page_view.dart';
 import 'package:tamely/ui/groups/create_group/create_group_third_page/create_group_third_page_view.dart';
-import 'package:tamely/ui/groups/create_group/create_group_view.dart';
 import 'package:tamely/ui/groups/explore_groups/explore_groups_view.dart';
 import 'package:tamely/ui/groups/group_info/group_info_view.dart';
 import 'package:tamely/ui/groups/groups_view.dart';
@@ -34,15 +34,13 @@ import 'package:tamely/ui/groups/manage_group/edit_group_info/edit_group_info_vi
 import 'package:tamely/ui/groups/manage_group/manage_group_view.dart';
 import 'package:tamely/ui/groups/manage_group/members/member_view.dart';
 import 'package:tamely/ui/groups/trending_groups/trending_groups_view.dart';
-import 'package:tamely/ui/livemap/livemap_view.dart';
 import 'package:tamely/ui/login/login_view.dart';
 import 'package:tamely/ui/newpost/newpostLocation/newpostLocation_view.dart';
 import 'package:tamely/ui/newpost/newpost_view.dart';
-import 'package:tamely/ui/notification/notification/notifications.dart';
 import 'package:tamely/ui/notification/notification_main_page.dart';
+import 'package:tamely/ui/DogRunningService/DrBookingService/DrLocationPickerMap/location_picker_map.dart';
 import 'package:tamely/ui/onboarding/onboarding_view.dart';
 import 'package:tamely/ui/otp/confirm_otp_view.dart';
-import 'package:tamely/ui/payment/payment_view.dart';
 import 'package:tamely/ui/phone_authentication/confirm_otp_phone/confirm_otp_phone_view.dart';
 import 'package:tamely/ui/phone_authentication/phone_authentication_view.dart';
 import 'package:tamely/ui/post/camera_screen.dart';
@@ -58,10 +56,8 @@ import 'package:tamely/ui/profilepage/completed_profile/follow_people_action_vie
 import 'package:tamely/ui/profilepage/count_info/list_of_followings_view.dart';
 import 'package:tamely/ui/profilepage/create_animal_profile/create_animal_page_viewe.dart';
 import 'package:tamely/ui/profilepage/profile_view.dart';
-import 'package:tamely/ui/reportcard/reportcard_view.dart';
 import 'package:tamely/ui/signup/signup_view.dart';
 import 'package:tamely/ui/startup/startup_view.dart';
-import 'package:tamely/ui/tamelydogrunning/tamelydogrunning_view.dart';
 import 'package:tamely/widgets/full_screen_image.dart';
 import '../ui/settings/settings_human_view.dart';
 import '../ui/settings/settings_animal_view.dart';
@@ -139,19 +135,23 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: WalletView),
     CupertinoRoute(page: NotificationMainView),
 
-    // Dog running
-    CupertinoRoute(page: DogRunnersView),
-    CupertinoRoute(page: TamelyDogRunnersView),
-    CupertinoRoute(page: DogRunningBookingView),
-    CupertinoRoute(page: PaymentView),
+    // Services
+
+    // 1 - Dog Running service
+
+    // Booking Service
+    // At DogRunningService / DrBookingService
+    CupertinoRoute(page: DRDogRunningBookingView), // (New)
     CupertinoRoute(page: LocationPicker),
+    CupertinoRoute(page: DRPaymentView), // (New)
 
     // My Appointments
-    CupertinoRoute(page: AppointmentsView),
-    CupertinoRoute(page: AppointmentDetailsView),
+    // At DogRunningService / DrAppointment
+    CupertinoRoute(page: DRAppointmentDetailsView), // (New)
+    CupertinoRoute(page: DRAppointmentsView), // (Edit)
+    CupertinoRoute(page: DRLiveMapView),
+    CupertinoRoute(page: DRReportCardView), // (New)
     CupertinoRoute(page: ChatView),
-    CupertinoRoute(page: LiveMapView),
-    CupertinoRoute(page: ReportCardView),
   ],
   dependencies: [
     LazySingleton(classType: NavigationService),
