@@ -7,14 +7,14 @@ import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/custom_circle_avatar.dart';
-import 'dr_activeappointments_viewmodel.dart';
+import 'activeappointments_viewmodel.dart';
 
-class DRActiveAppointmentsView extends StatelessWidget {
-  const DRActiveAppointmentsView({Key? key}) : super(key: key);
+class ActiveAppointmentsView extends StatelessWidget {
+  const ActiveAppointmentsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<DRActiveAppointmentsViewModel>.reactive(
+    return ViewModelBuilder<ActiveAppointmentsViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
         body: SafeArea(
@@ -87,7 +87,7 @@ class DRActiveAppointmentsView extends StatelessWidget {
           ),
         ),
       ),
-      viewModelBuilder: () => DRActiveAppointmentsViewModel(),
+      viewModelBuilder: () => ActiveAppointmentsViewModel(),
     );
   }
 }

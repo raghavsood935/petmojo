@@ -13,7 +13,7 @@ import 'package:tamely/enum/pastAppointmentStatus.dart';
 import 'package:tamely/enum/selectService.dart';
 import 'package:tamely/util/String.dart';
 
-class DRPastAppointmentsViewModel extends FutureViewModel<void>
+class PastAppointmentsViewModel extends FutureViewModel<void>
     implements Initialisable {
   final log = getLogger('PastAppointmentsViewModel');
   final _navigationService = locator<NavigationService>();

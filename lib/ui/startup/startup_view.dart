@@ -68,7 +68,7 @@ class _StartupViewState extends State<StartupView>
               child: FadeTransition(
                 opacity: _fadeOut!,
                 child: Lottie.asset(
-                  'assets/lottie/new_animation.json',
+                  'assets/lottie/loading_animation.json',
                   width: double.maxFinite,
                   height: double.maxFinite,
                   onLoaded: (composition) {

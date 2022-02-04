@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked_annotations.dart';
-import 'package:tamely/enum/dog_running_package.dart';
+import 'package:tamely/enum/dog_training_package.dart';
 import 'package:tamely/enum/no_of_runs.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/models/comment_added_response.dart';
@@ -11,11 +11,11 @@ import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_input_field.dart';
 import 'package:tamely/widgets/app_text.dart';
-import '../dr_dogrunningbooking_viewmodel.dart';
+import '../dt_dogtrainingbooking_viewmodel.dart';
 
-class DRBookARunView extends ViewModelWidget<DRDogRunningBookingViewModel> {
+class DTBookARunView extends ViewModelWidget<DTDogTrainingBookingViewModel> {
   @override
-  Widget build(BuildContext context, DRDogRunningBookingViewModel model) {
+  Widget build(BuildContext context, DTDogTrainingBookingViewModel model) {
     return SafeArea(
       child: SingleChildScrollView(
         child: Column(
@@ -99,7 +99,7 @@ class DRBookARunView extends ViewModelWidget<DRDogRunningBookingViewModel> {
             AppText.body1(
               model.freeWalkAvailable
                   ? bookARunSubtitleWithFree
-                  : bookARunningSubtitle,
+                  : bookATrainingSubtitle,
             ),
             verticalSpaceSmall,
             Column(
@@ -108,59 +108,128 @@ class DRBookARunView extends ViewModelWidget<DRDogRunningBookingViewModel> {
                 model.freeWalkAvailable ? verticalSpaceMedium : Container(),
                 model.freeWalkAvailable
                     ? FreePackageItem(
-                        value: DogRunningPackage.One,
+                        value: DogTrainingPackage.One,
                         selectedValue: model.selectedPlan,
-                        onTaped: () => model.selectPlan(DogRunningPackage.One),
-                        title: perWalkTitle,
-                        subtitleOne: perWalkSubtitleOne,
-                        subtitleTwo: perWalkSubtitleTwo,
-                        rateOld: perWalkRateOld,
-                        rateNew: perWalkRateNew,
-                        rateLabel: perWalkRateLabel,
+                        onTaped: () => model.selectPlan(DogTrainingPackage.One),
+                        title: freeTrainingTitle,
+                        subtitleOne: freeTrainingSubtitleOne,
+                        subtitleTwo: freeTrainingSubtitleTwo,
+                        rateOld: freeTrainingRateOld,
+                        rateNew: freeTrainingRateNew,
+                        rateLabel: freeTrainingRateLabel,
                       )
                     : Container(),
                 verticalSpaceMedium,
                 PackageItem(
-                  value: DogRunningPackage.Four,
+                  value: DogTrainingPackage.Two,
                   selectedValue: model.selectedPlan,
-                  onTaped: () => model.selectPlan(DogRunningPackage.Four),
+                  onTaped: () => model.selectPlan(DogTrainingPackage.Two),
                   seeMoreSelectedValue: model.seeMoreSelectedPlan,
                   onSeeMoreTaped: () =>
-                      model.selectSeeMore(DogRunningPackage.Four),
-                  title: perMonthOnceTitle,
-                  subtitleOne: perMonthOnceSubtitleOne,
-                  subtitleTwo: perMonthOnceSubtitleTwo,
-                  rateOld: perMonthOnceRateOld,
-                  rateNew: perMonthOnceRateNew,
-                  rateLabel: perMonthOnceRateLabel,
+                      model.selectSeeMore(DogTrainingPackage.Two),
+                  title: twoTrainingTitle,
+                  subtitleOne: twoTrainingSubtitleOne,
+                  subtitleTwo: twoTrainingSubtitleTwo,
+                  rateOld: twoTrainingRateOld,
+                  rateNew: twoTrainingRateNew,
+                  rateLabel: twoTrainingRateLabel,
                   seeMoreList: [
-                    walkSeeOne,
-                    walkSeeTwo,
-                    walkSeeThree,
-                    walkSeeFour
+                    twoTrainingSeeOne,
+                    twoTrainingSeeTwo,
+                    twoTrainingSeeThree,
+                    twoTrainingSeeFour,
+                    twoTrainingSeeFive,
+                    twoTrainingSeeSix,
                   ],
                 ),
                 verticalSpaceMedium,
                 PackageItem(
-                  value: DogRunningPackage.Five,
+                  value: DogTrainingPackage.Three,
                   selectedValue: model.selectedPlan,
-                  onTaped: () => model.selectPlan(DogRunningPackage.Five),
+                  onTaped: () => model.selectPlan(DogTrainingPackage.Three),
                   seeMoreSelectedValue: model.seeMoreSelectedPlan,
                   onSeeMoreTaped: () =>
-                      model.selectSeeMore(DogRunningPackage.Five),
-                  title: perMonthTwiceTitle,
-                  subtitleOne: perMonthTwiceSubtitleOne,
-                  subtitleTwo: perMonthTwiceSubtitleTwo,
-                  rateOld: perMonthTwiceRateOld,
-                  rateNew: perMonthTwiceRateNew,
-                  rateLabel: perMonthTwiceRateLabel,
+                      model.selectSeeMore(DogTrainingPackage.Three),
+                  title: threeTrainingTitle,
+                  subtitleOne: threeTrainingSubtitleOne,
+                  subtitleTwo: threeTrainingSubtitleTwo,
+                  rateOld: threeTrainingRateOld,
+                  rateNew: threeTrainingRateNew,
+                  rateLabel: threeTrainingRateLabel,
                   seeMoreList: [
-                    walkSeeOne,
-                    walkSeeTwo,
-                    walkSeeThree,
-                    walkSeeFour,
-                    walkSeeFive,
-                    walkSeeSix
+                    threeTrainingSeeOne,
+                    threeTrainingSeeTwo,
+                    threeTrainingSeeThree,
+                    threeTrainingSeeFour,
+                    threeTrainingSeeFive,
+                    threeTrainingSeeSix,
+                    threeTrainingSeeSeven,
+                    threeTrainingSeeEight,
+                    threeTrainingSeeNine,
+                  ],
+                ),
+                verticalSpaceMedium,
+                PackageItem(
+                  value: DogTrainingPackage.Four,
+                  selectedValue: model.selectedPlan,
+                  onTaped: () => model.selectPlan(DogTrainingPackage.Four),
+                  seeMoreSelectedValue: model.seeMoreSelectedPlan,
+                  onSeeMoreTaped: () =>
+                      model.selectSeeMore(DogTrainingPackage.Four),
+                  title: fourTrainingTitle,
+                  subtitleOne: fourTrainingSubtitleOne,
+                  subtitleTwo: fourTrainingSubtitleTwo,
+                  rateOld: fourTrainingRateOld,
+                  rateNew: fourTrainingRateNew,
+                  rateLabel: fourTrainingRateLabel,
+                  seeMoreList: [
+                    fourTrainingSeeOne,
+                    fourTrainingSeeTwo,
+                    fourTrainingSeeThree,
+                    fourTrainingSeeFour,
+                    fourTrainingSeeFive,
+                    fourTrainingSeeSix,
+                    fourTrainingSeeSeven,
+                    fourTrainingSeeEight,
+                    fourTrainingSeeNine,
+                    fourTrainingSeeTen,
+                    fourTrainingSeeEleven,
+                    fourTrainingSeeTwelve,
+                    fourTrainingSeeThirteen,
+                  ],
+                ),
+                verticalSpaceMedium,
+                PackageItem(
+                  value: DogTrainingPackage.Five,
+                  selectedValue: model.selectedPlan,
+                  onTaped: () => model.selectPlan(DogTrainingPackage.Five),
+                  seeMoreSelectedValue: model.seeMoreSelectedPlan,
+                  onSeeMoreTaped: () =>
+                      model.selectSeeMore(DogTrainingPackage.Five),
+                  title: fiveTrainingTitle,
+                  subtitleOne: fiveTrainingSubtitleOne,
+                  subtitleTwo: fiveTrainingSubtitleTwo,
+                  rateOld: fiveTrainingRateOld,
+                  rateNew: fiveTrainingRateNew,
+                  rateLabel: fiveTrainingRateLabel,
+                  seeMoreList: [
+                    fiveTrainingSeeOne,
+                    fiveTrainingSeeTwo,
+                    fiveTrainingSeeThree,
+                    fiveTrainingSeeFour,
+                    fiveTrainingSeeFive,
+                    fiveTrainingSeeSix,
+                    fiveTrainingSeeSeven,
+                    fiveTrainingSeeEight,
+                    fiveTrainingSeeNine,
+                    fiveTrainingSeeTen,
+                    fiveTrainingSeeEleven,
+                    fiveTrainingSeeTwelve,
+                    fiveTrainingSeeThirteen,
+                    fiveTrainingSeeFourteen,
+                    fiveTrainingSeeFifteen,
+                    fiveTrainingSeeSixteen,
+                    fiveTrainingSeeSeventeen,
                   ],
                 ),
               ],
@@ -184,58 +253,29 @@ class DRBookARunView extends ViewModelWidget<DRDogRunningBookingViewModel> {
                     textCapitalization: TextCapitalization.none,
                   ),
                   verticalSpaceTiny,
-                  model.selectedPlan == DogRunningPackage.Four
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AppText.body2(
-                                  "PAWSOMEOFFER",
-                                  color: colors.primary,
-                                ),
-                                AppText.body2("Flat INR 600 off"),
-                              ],
-                            ),
-                            GestureDetector(
-                              onTap: model.useOfferOne,
-                              child: AppText.body2(
-                                "USE",
-                                color: colors.primary,
-                              ),
-                            ),
-                          ],
-                        )
-                      : Container(),
-                  model.selectedPlan == DogRunningPackage.Five
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AppText.body2(
-                                  "PAWSOMEOFFER1K",
-                                  color: colors.primary,
-                                ),
-                                AppText.body2("Flat INR 1100 off"),
-                              ],
-                            ),
-                            GestureDetector(
-                              onTap: model.useOfferTwo,
-                              child: AppText.body2(
-                                "USE",
-                                color: colors.primary,
-                              ),
-                            ),
-                          ],
-                        )
-                      : Container(),
-                  model.selectedPlan == DogRunningPackage.Four ||
-                          model.selectedPlan == DogRunningPackage.Five
-                      ? verticalSpaceMedium
-                      : Container(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AppText.body2(
+                            "PAWSOMEOFFER",
+                            color: colors.primary,
+                          ),
+                          AppText.body2("ADDITIONAL 10% OFF"),
+                        ],
+                      ),
+                      GestureDetector(
+                        onTap: model.useOfferOne,
+                        child: AppText.body2(
+                          "USE",
+                          color: colors.primary,
+                        ),
+                      ),
+                    ],
+                  ),
+                  verticalSpaceMedium,
                 ],
               ),
             ),
@@ -314,8 +354,8 @@ class FreePackageItem extends StatelessWidget {
   final String? rateOld;
   final String? rateNew;
   final String? rateLabel;
-  final DogRunningPackage? value;
-  final DogRunningPackage? selectedValue;
+  final DogTrainingPackage? value;
+  final DogTrainingPackage? selectedValue;
   final void Function()? onTaped;
   final void Function()? onSeeMoreTaped;
 
@@ -418,9 +458,9 @@ class PackageItem extends StatelessWidget {
   final String? rateNew;
   final String? rateLabel;
   final List<String>? seeMoreList;
-  final DogRunningPackage? value;
-  final DogRunningPackage? selectedValue;
-  final DogRunningPackage? seeMoreSelectedValue;
+  final DogTrainingPackage? value;
+  final DogTrainingPackage? selectedValue;
+  final DogTrainingPackage? seeMoreSelectedValue;
   final void Function()? onTaped;
   final void Function()? onSeeMoreTaped;
 
@@ -490,24 +530,27 @@ class PackageItem extends StatelessWidget {
                         ],
                       ),
                       verticalSpaceTiny,
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                            "assets/images/seemore_time.svg",
-                            height: 13,
-                            width: 13,
-                            color: selectedValue == value
-                                ? colors.white
-                                : colors.primary,
-                          ),
-                          horizontalSpaceTiny,
-                          AppText.caption(
-                            subtitleTwo!,
-                            color: selectedValue == value
-                                ? colors.white
-                                : colors.kcCaptionGreyColor,
-                          ),
-                        ],
+                      Visibility(
+                        visible: subtitleTwo != "",
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              "assets/images/seemore_time.svg",
+                              height: 13,
+                              width: 13,
+                              color: selectedValue == value
+                                  ? colors.white
+                                  : colors.primary,
+                            ),
+                            horizontalSpaceTiny,
+                            AppText.caption(
+                              subtitleTwo!,
+                              color: selectedValue == value
+                                  ? colors.white
+                                  : colors.kcCaptionGreyColor,
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

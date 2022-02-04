@@ -11,7 +11,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 
-class DRAppointmentsViewModel extends FutureViewModel<void>
+class AppointmentsViewModel extends FutureViewModel<void>
     implements Initialisable {
   final log = getLogger('SelectServiceViewModel');
   final _navigationService = locator<NavigationService>();
@@ -26,7 +26,7 @@ class DRAppointmentsViewModel extends FutureViewModel<void>
     _navigationService.back();
   }
 
-  bool _hasAppointments = false;
+  bool _hasAppointments = true;
 
   bool get hasAppointments => _hasAppointments;
 
@@ -84,7 +84,7 @@ class DRAppointmentsViewModel extends FutureViewModel<void>
 
   @override
   Future<void> futureToRun() async {
-    getActiveAppointments();
+    //getActiveAppointments();
     log.d("futureToRun");
   }
 }

@@ -12,7 +12,7 @@ import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
-import 'package:tamely/enum/dog_running_package.dart';
+import 'package:tamely/enum/dog_training_package.dart';
 import 'package:tamely/enum/no_of_runs.dart';
 import 'package:tamely/models/book_a_run_response.dart';
 import 'package:tamely/models/get_free_walk_response.dart';
@@ -25,10 +25,10 @@ import 'package:tamely/util/String.dart';
 import 'package:tamely/util/location_helper.dart';
 import 'package:tamely/util/utils.dart';
 
-import 'DrBookarun/dr_bookarun_view.dart';
-import 'DrBookingdetails/dr_bookingdetails_view.dart';
+import 'DtBookarun/dt_bookarun_view.dart';
+import 'DtBookingdetails/dt_bookingdetails_view.dart';
 
-class DRDogRunningBookingViewModel extends FormViewModel {
+class DTDogTrainingBookingViewModel extends FormViewModel {
   final log = getLogger('DogRunningBookingView');
   final _navigationService = locator<NavigationService>();
 
@@ -70,13 +70,13 @@ class DRDogRunningBookingViewModel extends FormViewModel {
     //false,
   ];
   List<Widget> _pages = [
-    DRBookARunView(),
-    DRBookingDetailsView(),
+    DTBookARunView(),
+    DTBookingDetailsView(),
     //SelectPackageView()
   ];
   List<String> _titles = [
-    bookARunTitle,
-    bookingDetailsTitle,
+    firstPageTitle,
+    secondPageTitle,
     //selectPackageTitle
   ];
   List<String> _mainBtnTitles = [
@@ -187,16 +187,19 @@ class DRDogRunningBookingViewModel extends FormViewModel {
       _mainBtnTitles.remove(payButton);
       _mainBtnTitles.add('Book Now');
     } else {
-      selectedPlan = DogRunningPackage.Four;
+      selectedPlan = DogTrainingPackage.Two;
       _isValid = true;
-      _description = "Monthly";
-      _amount = 4500;
-      _frequency = 30;
+      _description = "Puppy Training";
+      // old rate
+      _subTotal = 10788;
+      // new rate
+      _amount = 9588;
+      // save
+      _discount = 1200;
+      _frequency = 16;
       _dayFrequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = true;
-      _subTotal = 5500;
-      _discount = 10600;
     }
     setFirstPageValid();
     notifyListeners();
@@ -257,50 +260,78 @@ class DRDogRunningBookingViewModel extends FormViewModel {
   int _dayFrequency = 1;
   int get dayFrequency => _dayFrequency;
 
-  DogRunningPackage? selectedPlan = DogRunningPackage.One;
-  DogRunningPackage? seeMoreSelectedPlan = DogRunningPackage.One;
+  DogTrainingPackage? selectedPlan = DogTrainingPackage.One;
+  DogTrainingPackage? seeMoreSelectedPlan = DogTrainingPackage.One;
 
-  void selectSeeMore(DogRunningPackage? value) {
+  void selectSeeMore(DogTrainingPackage? value) {
     if (seeMoreSelectedPlan == value) {
-      seeMoreSelectedPlan = DogRunningPackage.One;
+      seeMoreSelectedPlan = DogTrainingPackage.One;
     } else if (seeMoreSelectedPlan != value) {
       seeMoreSelectedPlan = value;
     }
     notifyListeners();
   }
 
-  void selectPlan(DogRunningPackage? value) {
+  void selectPlan(DogTrainingPackage? value) {
     selectedPlan = value;
-    if (selectedPlan == DogRunningPackage.One) {
+    if (selectedPlan == DogTrainingPackage.One) {
       _isValid = true;
       _description = "Free";
       _amount = 0;
       _frequency = 1;
-      _dayFrequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = false;
       _subTotal = 0;
       _discount = 0;
-    } else if (selectedPlan == DogRunningPackage.Four) {
+    } else if (selectedPlan == DogTrainingPackage.Two) {
       _isValid = true;
-      _description = "Monthly";
-      _amount = 4500;
-      _frequency = 30;
-      _dayFrequency = 1;
+      _description = "Puppy Training";
+      // old rate
+      _subTotal = 10788;
+      // new rate
+      _amount = 9588;
+      // save
+      _discount = 1200;
+      _frequency = 16;
       _isOfferValid = false;
       _isOfferAvailable = true;
-      _subTotal = 5500;
-      _discount = 1000;
-    } else if (selectedPlan == DogRunningPackage.Five) {
+    } else if (selectedPlan == DogTrainingPackage.Three) {
       _isValid = true;
-      _description = "Monthly";
-      _amount = 8500;
-      _frequency = 30;
-      _dayFrequency = 2;
+      _description = "Basic Obedience & Behavioural Training";
+      // old rate
+      _subTotal = 21576;
+      // new rate
+      _amount = 18000;
+      // save
+      _discount = 3576;
+      _frequency = 24;
       _isOfferValid = false;
       _isOfferAvailable = true;
-      _subTotal = 10600;
-      _discount = 2100;
+    } else if (selectedPlan == DogTrainingPackage.Four) {
+      _isValid = true;
+      _description = "Advanced Obedience Behavioural and Guarding Training";
+      // old rate
+      _subTotal = 32364;
+      // new rate
+      _amount = 25560;
+      // save
+      _discount = 6804;
+      _frequency = 36;
+      _isOfferValid = false;
+      _isOfferAvailable = true;
+    } else if (selectedPlan == DogTrainingPackage.Five) {
+      _isValid = true;
+      _description =
+          "Elite STAGE SHOW Obedience, Behavioural, Guarding and Intellect Training";
+      // old rate
+      _subTotal = 43152;
+      // new rate
+      _amount = 32640;
+      // save
+      _discount = 10512;
+      _frequency = 48;
+      _isOfferValid = false;
+      _isOfferAvailable = true;
     }
     setFirstPageValid();
     notifyListeners();
@@ -329,58 +360,69 @@ class DRDogRunningBookingViewModel extends FormViewModel {
       _promoCode = "Discount5%";
       _savedAmount = (amount * 0.05);
       _amount = amount - (amount * 0.05);
+      String dummySaved = savedAmount.toStringAsFixed(2);
+      _savedAmount = double.parse(dummySaved);
     } else if (promoCodeController.text == "Discount10%") {
       _isOfferValid = true;
       _promoCode = "Discount10%";
       _savedAmount = (amount * 0.10);
       _amount = amount - (amount * 0.10);
+      String dummySaved = savedAmount.toStringAsFixed(2);
+      _savedAmount = double.parse(dummySaved);
     } else if (promoCodeController.text == "Discount15%") {
       _isOfferValid = true;
       _promoCode = "Discount15%";
       _savedAmount = (amount * 0.15);
       _amount = amount - (amount * 0.15);
+      String dummySaved = savedAmount.toStringAsFixed(2);
+      _savedAmount = double.parse(dummySaved);
     } else if (promoCodeController.text == "Discount20%") {
       _isOfferValid = true;
       _promoCode = "Discount20%";
       _savedAmount = (amount * 0.20);
       _amount = amount - (amount * 0.20);
+      String dummySaved = savedAmount.toStringAsFixed(2);
+      _savedAmount = double.parse(dummySaved);
     } else if (promoCodeController.text == "Discount25%") {
       _isOfferValid = true;
       _promoCode = "Discount20%";
       _savedAmount = (amount * 0.20);
       _amount = amount - (amount * 0.20);
+      String dummySaved = savedAmount.toStringAsFixed(2);
+      _savedAmount = double.parse(dummySaved);
     } else if (promoCodeController.text == "Discount30%") {
       _isOfferValid = true;
       _promoCode = "Discount30%";
       _savedAmount = (amount * 0.30);
       _amount = amount - (amount * 0.30);
+      String dummySaved = savedAmount.toStringAsFixed(2);
+      _savedAmount = double.parse(dummySaved);
     } else if (promoCodeController.text == "Discount35%") {
       _isOfferValid = true;
       _promoCode = "Discount35%";
       _savedAmount = (amount * 0.35);
       _amount = amount - (amount * 0.35);
+      String dummySaved = savedAmount.toStringAsFixed(2);
+      _savedAmount = double.parse(dummySaved);
     } else if (promoCodeController.text == "Freetesting0") {
       _isOfferValid = true;
       _promoCode = "Freetesting0";
       _savedAmount = amount - 1.0;
       _amount = 1.0;
+      String dummySaved = savedAmount.toStringAsFixed(2);
+      _savedAmount = double.parse(dummySaved);
     }
+
     notifyListeners();
   }
 
   void useOfferOne() {
     _isOfferValid = true;
     _promoCode = "PAWSOMEOFFER";
-    _savedAmount = 600.0;
-    _amount = amount - 600.0;
-    notifyListeners();
-  }
-
-  void useOfferTwo() {
-    _isOfferValid = true;
-    _promoCode = "PAWSOMEOFFER1K";
-    _savedAmount = 1100;
-    _amount = amount - 1100;
+    _savedAmount = (amount * 0.10);
+    _amount = amount - (amount * 0.10);
+    String dummySaved = savedAmount.toStringAsFixed(2);
+    _savedAmount = double.parse(dummySaved);
     notifyListeners();
   }
 
@@ -464,15 +506,6 @@ class DRDogRunningBookingViewModel extends FormViewModel {
         _selectedWeekdayFive == false) {
       _isValid = false;
       print("this is shit: $isValid");
-    }
-    if (dayFrequency == 2) {
-      if (_selectedWeekendOne == false &&
-          _selectedWeekendTwo == false &&
-          _selectedWeekendThree == false &&
-          _selectedWeekendFour == false &&
-          _selectedWeekendFive == false) {
-        _isValid = false;
-      }
     }
     notifyListeners();
   }

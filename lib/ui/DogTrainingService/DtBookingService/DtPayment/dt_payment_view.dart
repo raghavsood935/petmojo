@@ -4,17 +4,17 @@ import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
-import 'dr_payment_viewmodel.dart';
+import 'dt_payment_viewmodel.dart';
 
-class DRPaymentView extends StatelessWidget {
-  const DRPaymentView({Key? key, required this.amount, required this.bookingId})
+class DTPaymentView extends StatelessWidget {
+  const DTPaymentView({Key? key, required this.amount, required this.bookingId})
       : super(key: key);
   final int amount;
   final String bookingId;
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<DRPaymentViewModel>.reactive(
+    return ViewModelBuilder<DTPaymentViewModel>.reactive(
       onModelReady: (model) {
         //model.setPaymentStatus(false);
         model.startState();
@@ -176,7 +176,7 @@ class DRPaymentView extends StatelessWidget {
           ),
         ),
       ),
-      viewModelBuilder: () => DRPaymentViewModel(amount, bookingId),
+      viewModelBuilder: () => DTPaymentViewModel(amount, bookingId),
     );
   }
 }

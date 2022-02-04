@@ -7,14 +7,14 @@ import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/custom_circle_avatar.dart';
 
-import 'dr_pastappointments_viewmodel.dart';
+import 'pastappointments_viewmodel.dart';
 
-class DRPastAppointmentsView extends StatelessWidget {
-  const DRPastAppointmentsView({Key? key}) : super(key: key);
+class PastAppointmentsView extends StatelessWidget {
+  const PastAppointmentsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<DRPastAppointmentsViewModel>.reactive(
+    return ViewModelBuilder<PastAppointmentsViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
         body: SafeArea(
@@ -85,7 +85,7 @@ class DRPastAppointmentsView extends StatelessWidget {
           ),
         ),
       ),
-      viewModelBuilder: () => DRPastAppointmentsViewModel(),
+      viewModelBuilder: () => PastAppointmentsViewModel(),
     );
   }
 }

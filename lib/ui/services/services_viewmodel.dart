@@ -50,17 +50,14 @@ class ServicesViewModel extends BaseModel {
       case 0:
         {
           _navigationService.navigateTo(
-            Routes.dRDogRunningBookingView,
+            Routes.dROpening,
           );
           break;
         }
       case 1:
         {
           _navigationService.navigateTo(
-            Routes.dummyDevelopmentScreen,
-            arguments: DummyDevelopmentScreenArguments(
-              title: "Dog Training",
-            ),
+            Routes.dTOpening,
           );
           break;
         }
@@ -100,7 +97,7 @@ class ServicesViewModel extends BaseModel {
   get appointmentType => this._appointmentType;
 
   void toMyBookings() {
-    _navigationService.navigateTo(Routes.dRAppointmentsView);
+    _navigationService.navigateTo(Routes.appointmentsView);
   }
 }
 

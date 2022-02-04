@@ -19,12 +19,18 @@ import '../models/get_animals_by_location_response.dart';
 import '../models/get_blogs_model.dart';
 import '../models/my_animal_model.dart';
 import '../ui/DogRunningService/DrAppointment/DrAppointmentdetails/dr_appointmentdetails_view.dart';
-import '../ui/DogRunningService/DrAppointment/DrAppointments/dr_appointments_view.dart';
 import '../ui/DogRunningService/DrAppointment/DrLivemap/dr_livemap_view.dart';
 import '../ui/DogRunningService/DrAppointment/DrReportcard/dr_reportcard_view.dart';
 import '../ui/DogRunningService/DrBookingService/DrBooking/dr_dogrunningbooking_view.dart';
 import '../ui/DogRunningService/DrBookingService/DrLocationPickerMap/location_picker_map.dart';
+import '../ui/DogRunningService/DrBookingService/DrOpening/dr_opening_view.dart';
 import '../ui/DogRunningService/DrBookingService/DrPayment/dr_payment_view.dart';
+import '../ui/DogTrainingService/DtAppointment/DtAppointmentdetails/dt_appointmentdetails_view.dart';
+import '../ui/DogTrainingService/DtAppointment/DtReportcard/dt_reportcard_view.dart';
+import '../ui/DogTrainingService/DtBookingService/DtBooking/dt_dogtrainingbooking_view.dart';
+import '../ui/DogTrainingService/DtBookingService/DtOpening/dt_opening_view.dart';
+import '../ui/DogTrainingService/DtBookingService/DtPayment/dt_payment_view.dart';
+import '../ui/MyAppointments/appointments_view.dart';
 import '../ui/bookings/bookings_view.dart';
 import '../ui/bookmarks/bookmarks_view.dart';
 import '../ui/chat/chat_view.dart';
@@ -141,14 +147,21 @@ class Routes {
   static const String helpView = '/help-view';
   static const String walletView = '/wallet-view';
   static const String notificationMainView = '/notification-main-view';
+  static const String appointmentsView = '/appointments-view';
   static const String dRDogRunningBookingView = '/d-rdog-running-booking-view';
   static const String locationPicker = '/location-picker';
+  static const String dROpening = '/d-rOpening';
   static const String dRPaymentView = '/d-rpayment-view';
   static const String dRAppointmentDetailsView = '/d-rappointment-details-view';
-  static const String dRAppointmentsView = '/d-rappointments-view';
   static const String dRLiveMapView = '/d-rlive-map-view';
   static const String dRReportCardView = '/d-rreport-card-view';
   static const String chatView = '/chat-view';
+  static const String dTDogTrainingBookingView =
+      '/d-tdog-training-booking-view';
+  static const String dTOpening = '/d-tOpening';
+  static const String dTPaymentView = '/d-tpayment-view';
+  static const String dTAppointmentDetailsView = '/d-tappointment-details-view';
+  static const String dTReportCardView = '/d-treport-card-view';
   static const all = <String>{
     startupView,
     dummyDevelopmentScreen,
@@ -205,14 +218,20 @@ class Routes {
     helpView,
     walletView,
     notificationMainView,
+    appointmentsView,
     dRDogRunningBookingView,
     locationPicker,
+    dROpening,
     dRPaymentView,
     dRAppointmentDetailsView,
-    dRAppointmentsView,
     dRLiveMapView,
     dRReportCardView,
     chatView,
+    dTDogTrainingBookingView,
+    dTOpening,
+    dTPaymentView,
+    dTAppointmentDetailsView,
+    dTReportCardView,
   };
 }
 
@@ -278,14 +297,20 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.helpView, page: HelpView),
     RouteDef(Routes.walletView, page: WalletView),
     RouteDef(Routes.notificationMainView, page: NotificationMainView),
+    RouteDef(Routes.appointmentsView, page: AppointmentsView),
     RouteDef(Routes.dRDogRunningBookingView, page: DRDogRunningBookingView),
     RouteDef(Routes.locationPicker, page: LocationPicker),
+    RouteDef(Routes.dROpening, page: DROpening),
     RouteDef(Routes.dRPaymentView, page: DRPaymentView),
     RouteDef(Routes.dRAppointmentDetailsView, page: DRAppointmentDetailsView),
-    RouteDef(Routes.dRAppointmentsView, page: DRAppointmentsView),
     RouteDef(Routes.dRLiveMapView, page: DRLiveMapView),
     RouteDef(Routes.dRReportCardView, page: DRReportCardView),
     RouteDef(Routes.chatView, page: ChatView),
+    RouteDef(Routes.dTDogTrainingBookingView, page: DTDogTrainingBookingView),
+    RouteDef(Routes.dTOpening, page: DTOpening),
+    RouteDef(Routes.dTPaymentView, page: DTPaymentView),
+    RouteDef(Routes.dTAppointmentDetailsView, page: DTAppointmentDetailsView),
+    RouteDef(Routes.dTReportCardView, page: DTReportCardView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -794,6 +819,12 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    AppointmentsView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const AppointmentsView(),
+        settings: data,
+      );
+    },
     DRDogRunningBookingView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const DRDogRunningBookingView(),
@@ -803,6 +834,12 @@ class StackedRouter extends RouterBase {
     LocationPicker: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => LocationPicker(),
+        settings: data,
+      );
+    },
+    DROpening: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const DROpening(),
         settings: data,
       );
     },
@@ -824,12 +861,6 @@ class StackedRouter extends RouterBase {
           key: args.key,
           appointmentId: args.appointmentId,
         ),
-        settings: data,
-      );
-    },
-    DRAppointmentsView: (data) {
-      return CupertinoPageRoute<dynamic>(
-        builder: (context) => const DRAppointmentsView(),
         settings: data,
       );
     },
@@ -863,6 +894,53 @@ class StackedRouter extends RouterBase {
     ChatView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const ChatView(),
+        settings: data,
+      );
+    },
+    DTDogTrainingBookingView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const DTDogTrainingBookingView(),
+        settings: data,
+      );
+    },
+    DTOpening: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const DTOpening(),
+        settings: data,
+      );
+    },
+    DTPaymentView: (data) {
+      var args = data.getArgs<DTPaymentViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => DTPaymentView(
+          key: args.key,
+          amount: args.amount,
+          bookingId: args.bookingId,
+        ),
+        settings: data,
+      );
+    },
+    DTAppointmentDetailsView: (data) {
+      var args = data.getArgs<DTAppointmentDetailsViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => DTAppointmentDetailsView(
+          key: args.key,
+          appointmentId: args.appointmentId,
+        ),
+        settings: data,
+      );
+    },
+    DTReportCardView: (data) {
+      var args = data.getArgs<DTReportCardViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => DTReportCardView(
+          key: args.key,
+          noOfDogs: args.noOfDogs,
+          dogs: args.dogs,
+          date: args.date,
+          walkNumber: args.walkNumber,
+          appointmentId: args.appointmentId,
+        ),
         settings: data,
       );
     },
@@ -1250,6 +1328,39 @@ class DRReportCardViewArguments {
   final WalkNumber walkNumber;
   final String appointmentId;
   DRReportCardViewArguments(
+      {this.key,
+      required this.noOfDogs,
+      required this.dogs,
+      required this.date,
+      required this.walkNumber,
+      required this.appointmentId});
+}
+
+/// DTPaymentView arguments holder class
+class DTPaymentViewArguments {
+  final Key? key;
+  final int amount;
+  final String bookingId;
+  DTPaymentViewArguments(
+      {this.key, required this.amount, required this.bookingId});
+}
+
+/// DTAppointmentDetailsView arguments holder class
+class DTAppointmentDetailsViewArguments {
+  final Key? key;
+  final String appointmentId;
+  DTAppointmentDetailsViewArguments({this.key, required this.appointmentId});
+}
+
+/// DTReportCardView arguments holder class
+class DTReportCardViewArguments {
+  final Key? key;
+  final int noOfDogs;
+  final List<String> dogs;
+  final DateTime date;
+  final WalkNumber walkNumber;
+  final String appointmentId;
+  DTReportCardViewArguments(
       {this.key,
       required this.noOfDogs,
       required this.dogs,

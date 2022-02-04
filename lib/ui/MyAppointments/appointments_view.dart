@@ -5,17 +5,16 @@ import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
+import 'Activeappointments/activeappointments_view.dart';
+import 'Pastappointments/pastappointments_view.dart';
+import 'appointments_viewmodel.dart';
 
-import 'DRActiveappointments/dr_activeappointments_view.dart';
-import 'DRPastappointments/dr_pastappointments_view.dart';
-import 'dr_appointments_viewmodel.dart';
-
-class DRAppointmentsView extends StatelessWidget {
-  const DRAppointmentsView({Key? key}) : super(key: key);
+class AppointmentsView extends StatelessWidget {
+  const AppointmentsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<DRAppointmentsViewModel>.reactive(
+    return ViewModelBuilder<AppointmentsViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
         body: SafeArea(
@@ -97,8 +96,8 @@ class DRAppointmentsView extends StatelessWidget {
                       ),
                       body: TabBarView(
                         children: [
-                          DRActiveAppointmentsView(),
-                          DRPastAppointmentsView(),
+                          ActiveAppointmentsView(),
+                          PastAppointmentsView(),
                         ],
                       ),
                     ),
@@ -109,7 +108,7 @@ class DRAppointmentsView extends StatelessWidget {
           ),
         ),
       ),
-      viewModelBuilder: () => DRAppointmentsViewModel(),
+      viewModelBuilder: () => AppointmentsViewModel(),
     );
   }
 }

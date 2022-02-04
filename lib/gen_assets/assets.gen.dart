@@ -260,6 +260,8 @@ class $AssetsImagesGen {
   AssetGenImage get sendOutline =>
       const AssetGenImage('assets/images/send_outline.png');
 
+  $AssetsImagesServiceOpeningGen get serviceOpening =>
+      const $AssetsImagesServiceOpeningGen();
   $AssetsImagesServicePageImagesGen get servicePageImages =>
       const $AssetsImagesServicePageImagesGen();
 
@@ -288,14 +290,8 @@ class $AssetsImagesGen {
 class $AssetsLottieGen {
   const $AssetsLottieGen();
 
-  /// File path: assets/lottie/new_animation.json
-  String get newAnimation => 'assets/lottie/new_animation.json';
-
-  /// File path: assets/lottie/splash.json
-  String get splash => 'assets/lottie/splash.json';
-
-  /// File path: assets/lottie/tamely_loading.json
-  String get tamelyLoading => 'assets/lottie/tamely_loading.json';
+  /// File path: assets/lottie/loading_animation.json
+  String get loadingAnimation => 'assets/lottie/loading_animation.json';
 }
 
 class $AssetsImagesAnimalTypeImagesGen {
@@ -634,6 +630,58 @@ class $AssetsImagesEmojiGen {
 
   /// File path: assets/images/emoji/two.png
   AssetGenImage get two => const AssetGenImage('assets/images/emoji/two.png');
+}
+
+class $AssetsImagesServiceOpeningGen {
+  const $AssetsImagesServiceOpeningGen();
+
+  /// File path: assets/images/service_opening/opening_people.png
+  AssetGenImage get openingPeople =>
+      const AssetGenImage('assets/images/service_opening/opening_people.png');
+
+  /// File path: assets/images/service_opening/opening_running_dog.png
+  AssetGenImage get openingRunningDog => const AssetGenImage(
+      'assets/images/service_opening/opening_running_dog.png');
+
+  /// File path: assets/images/service_opening/opening_running_first_text.png
+  AssetGenImage get openingRunningFirstText => const AssetGenImage(
+      'assets/images/service_opening/opening_running_first_text.png');
+
+  /// File path: assets/images/service_opening/opening_running_fourth_text.png
+  AssetGenImage get openingRunningFourthText => const AssetGenImage(
+      'assets/images/service_opening/opening_running_fourth_text.png');
+
+  /// File path: assets/images/service_opening/opening_running_second_text.png
+  AssetGenImage get openingRunningSecondText => const AssetGenImage(
+      'assets/images/service_opening/opening_running_second_text.png');
+
+  /// File path: assets/images/service_opening/opening_training_dog.png
+  AssetGenImage get openingTrainingDog => const AssetGenImage(
+      'assets/images/service_opening/opening_training_dog.png');
+
+  /// File path: assets/images/service_opening/opening_training_fifth_text.png
+  AssetGenImage get openingTrainingFifthText => const AssetGenImage(
+      'assets/images/service_opening/opening_training_fifth_text.png');
+
+  /// File path: assets/images/service_opening/opening_training_first_text.png
+  AssetGenImage get openingTrainingFirstText => const AssetGenImage(
+      'assets/images/service_opening/opening_training_first_text.png');
+
+  /// File path: assets/images/service_opening/opening_training_fourth_text.png
+  AssetGenImage get openingTrainingFourthText => const AssetGenImage(
+      'assets/images/service_opening/opening_training_fourth_text.png');
+
+  /// File path: assets/images/service_opening/opening_training_medal.png
+  AssetGenImage get openingTrainingMedal => const AssetGenImage(
+      'assets/images/service_opening/opening_training_medal.png');
+
+  /// File path: assets/images/service_opening/opening_training_second_text.png
+  AssetGenImage get openingTrainingSecondText => const AssetGenImage(
+      'assets/images/service_opening/opening_training_second_text.png');
+
+  /// File path: assets/images/service_opening/opening_training_third_text.png
+  AssetGenImage get openingTrainingThirdText => const AssetGenImage(
+      'assets/images/service_opening/opening_training_third_text.png');
 }
 
 class $AssetsImagesServicePageImagesGen {

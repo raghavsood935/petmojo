@@ -4,11 +4,17 @@ import 'package:tamely/api/api_service.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/services/user_service.dart';
 import 'package:tamely/ui/DogRunningService/DrAppointment/DrAppointmentdetails/dr_appointmentdetails_view.dart';
-import 'package:tamely/ui/DogRunningService/DrAppointment/DrAppointments/dr_appointments_view.dart';
 import 'package:tamely/ui/DogRunningService/DrAppointment/DrLivemap/dr_livemap_view.dart';
 import 'package:tamely/ui/DogRunningService/DrAppointment/DrReportcard/dr_reportcard_view.dart';
 import 'package:tamely/ui/DogRunningService/DrBookingService/DrBooking/dr_dogrunningbooking_view.dart';
+import 'package:tamely/ui/DogRunningService/DrBookingService/DrOpening/dr_opening_view.dart';
 import 'package:tamely/ui/DogRunningService/DrBookingService/DrPayment/dr_payment_view.dart';
+import 'package:tamely/ui/DogTrainingService/DtAppointment/DtAppointmentdetails/dt_appointmentdetails_view.dart';
+import 'package:tamely/ui/DogTrainingService/DtAppointment/DtReportcard/dt_reportcard_view.dart';
+import 'package:tamely/ui/DogTrainingService/DtBookingService/DtBooking/dt_dogtrainingbooking_view.dart';
+import 'package:tamely/ui/DogTrainingService/DtBookingService/DtOpening/dt_opening_view.dart';
+import 'package:tamely/ui/DogTrainingService/DtBookingService/DtPayment/dt_payment_view.dart';
+import 'package:tamely/ui/MyAppointments/appointments_view.dart';
 import 'package:tamely/ui/chat/chat_view.dart';
 import 'package:tamely/ui/community/community_main_view/adoption/adoption_view.dart';
 import 'package:tamely/ui/community/community_main_view/community_main_view.dart';
@@ -136,22 +142,36 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: NotificationMainView),
 
     // Services
+    CupertinoRoute(page: AppointmentsView), // (Edit)
 
     // 1 - Dog Running service
 
     // Booking Service
     // At DogRunningService / DrBookingService
     CupertinoRoute(page: DRDogRunningBookingView), // (New)
-    CupertinoRoute(page: LocationPicker),
+    CupertinoRoute(page: LocationPicker), // (Common)
+    CupertinoRoute(page: DROpening), // (New)
     CupertinoRoute(page: DRPaymentView), // (New)
 
-    // My Appointments
+    // My Appointment
     // At DogRunningService / DrAppointment
     CupertinoRoute(page: DRAppointmentDetailsView), // (New)
-    CupertinoRoute(page: DRAppointmentsView), // (Edit)
-    CupertinoRoute(page: DRLiveMapView),
+    CupertinoRoute(page: DRLiveMapView), // (Based)
     CupertinoRoute(page: DRReportCardView), // (New)
     CupertinoRoute(page: ChatView),
+
+    // 2 - Dog Training service
+
+    // Booking Service
+    // At DogTrainingService / DtBookingService
+    CupertinoRoute(page: DTDogTrainingBookingView), // (New)
+    CupertinoRoute(page: DTOpening), // (New)
+    CupertinoRoute(page: DTPaymentView), // (New)
+
+    // My Appointment
+    // At DogTrainingService / DtAppointment
+    CupertinoRoute(page: DTAppointmentDetailsView), // (New)
+    CupertinoRoute(page: DTReportCardView), // (New)
   ],
   dependencies: [
     LazySingleton(classType: NavigationService),
