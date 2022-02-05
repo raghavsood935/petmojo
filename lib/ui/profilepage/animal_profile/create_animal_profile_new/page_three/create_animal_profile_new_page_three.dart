@@ -24,7 +24,7 @@ class _CreateAnimalProfileNewPageThreeState
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<CreateAnimalProfileNewPageThreeViewModel>.reactive(
-      onModelReady: (model) => model.setBreedList("dog"),
+      onModelReady: (model) => model.init(widget.id, widget.type),
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
         body: SafeArea(

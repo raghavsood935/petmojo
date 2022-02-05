@@ -193,6 +193,11 @@ class CreateAnimalViewModel extends FormViewModel {
                 selectedAnimalAgeChooseType = "AGE";
                 notifyListeners();
               }
+            } else {
+              // _snackBarService.showSnackbar(message: "INSIDE THE AGE");
+              ageType = select;
+              selectedAnimalAgeChooseType = "AGE";
+              notifyListeners();
             }
             fromTime.text = model.playFrom ?? "";
             toTime.text = model.playTo ?? "";

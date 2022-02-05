@@ -68,9 +68,10 @@ class CreateAnimalProfileNewPageThreeViewModel extends BaseModel {
   bool isValid = true;
   bool isLoading = false;
 
-  Future init(String id) async {
+  Future init(String id,String type) async {
     animalId = id;
     notifyListeners();
+    setBreedList(type);
   }
 
   Future onBack() async {
