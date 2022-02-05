@@ -144,7 +144,7 @@ class DRDogRunningBookingViewModel extends FormViewModel {
         _navigationService.back();
         _navigationService.back();
         _navigationService.back();
-        _navigationService.navigateTo(Routes.dRAppointmentsView);
+        _navigationService.navigateTo(Routes.appointmentsView);
       } else {
         if (bookingId != "") {
           _navigationService.replaceWith(

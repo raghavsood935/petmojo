@@ -144,7 +144,8 @@ class _AnimalProfileViewState extends State<AnimalProfileView> {
                                     child: GestureDetector(
                                         onTap: () {
                                           if (widget.isInspectView) {
-                                            model.imageTapped(model.avatar);
+                                            model.imageTapped(
+                                                context, model.avatar);
                                           } else {
                                             model.onImageButtonPressed(
                                                 ImageSource.gallery, context);
@@ -153,6 +154,7 @@ class _AnimalProfileViewState extends State<AnimalProfileView> {
                                         child: CustomCircularAvatar(
                                           imgPath: model.avatar,
                                           radius: 50,
+                                          isHuman: false,
                                         )),
                                   ),
                                   Positioned(

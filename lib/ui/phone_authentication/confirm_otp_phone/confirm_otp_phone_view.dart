@@ -40,8 +40,12 @@ class ConfirmOtpPhoneView extends StatelessWidget with $ConfirmOtpPhoneView {
                   ),
                 ),
               ),
+              Image.asset(
+                "assets/images/on_boarding/log_in_logo.png",
+                height: 150,
+              ),
               verticalSpaceTiny,
-              AppText.headingThree(
+              AppText.titleBold(
                 "Confirm your Phone Number",
                 textAlign: TextAlign.center,
               ),
@@ -49,21 +53,32 @@ class ConfirmOtpPhoneView extends StatelessWidget with $ConfirmOtpPhoneView {
               Padding(
                 padding: commonPaddding,
                 child: AppText.body1(
-                    "One time password has been sent to your phone number +91-$phoneNumber"),
+                  "OTP has been sent to your phone number +91-$phoneNumber",
+                  textAlign: TextAlign.center,
+                ),
               ),
               verticalSpaceRegular,
               Padding(
                 padding: commonPaddding,
-                child: AppText.caption("One-Time Password"),
-              ),
-              Padding(
-                padding: commonPaddding,
-                child: AppInputField(
+                child: TextField(
                   controller: model.otpTC,
-                  hint: "Enter OTP",
-                  textInputType: TextInputType.number,
+                  autofocus: true,
+                  decoration: InputDecoration(
+                    labelText: "OTP",
+                    labelStyle: TextStyle(color: colors.black),
+                    hintText: "Enter OTP",
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: colors.primary, width: 2),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: colors.primary, width: 2),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: colors.primary, width: 2),
+                    ),
+                  ),
+                  keyboardType: TextInputType.number,
                   maxLength: 6,
-                  autoFocus: true,
                 ),
               ),
               verticalSpaceRegular,
@@ -146,13 +161,13 @@ class ConfirmOtpPhoneView extends StatelessWidget with $ConfirmOtpPhoneView {
                 ? CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation(Colors.white),
                   )
-                : AppText.body2("VERIFY", color: colors.white),
+                : AppText.body1Bold("CONFIRM OTP", color: colors.white),
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(colors.primary),
               padding: MaterialStateProperty.all(const EdgeInsets.all(12)),
               shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
+                  borderRadius: BorderRadius.circular(10),
                 ),
               ),
             ),

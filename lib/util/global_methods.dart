@@ -16,7 +16,7 @@ class GlobalMethods {
   static final _navigationService = locator<NavigationService>();
   static final _snackBarService = locator<SnackbarService>();
 
-  static bool checkProfileType(String typeValue) {
+  static bool checkProfileType(String? typeValue) {
     if (typeValue == "human" || typeValue == "User" || typeValue == "Human") {
       return true;
     } else if (typeValue == "animal" || typeValue == "Animal") {

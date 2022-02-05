@@ -15,7 +15,7 @@ import 'package:tamely/models/send_data_response.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/util/utils.dart';
 
-class DrPaymentViewModel extends FutureViewModel<void>
+class DRPaymentViewModel extends FutureViewModel<void>
     implements Initialisable {
   final log = getLogger('PaymentViewModel');
   final _navigationService = locator<NavigationService>();
@@ -26,7 +26,7 @@ class DrPaymentViewModel extends FutureViewModel<void>
   int amount = 0;
   String bookingId = "";
 
-  DrPaymentViewModel(this.amount, this.bookingId);
+  DRPaymentViewModel(this.amount, this.bookingId);
 
   // display page
   bool _startPayment = false;
@@ -126,7 +126,7 @@ class DrPaymentViewModel extends FutureViewModel<void>
     _navigationService.back();
     _navigationService.back();
     _navigationService.back();
-    _navigationService.navigateTo(Routes.dRAppointmentsView);
+    _navigationService.navigateTo(Routes.appointmentsView);
   }
 
   void openCheckout() async {

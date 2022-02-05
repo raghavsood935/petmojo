@@ -89,7 +89,10 @@ class ServicesView extends StatelessWidget {
                 ),
               ),
               verticalSpaceTiny,
-              doorStepItem(context),
+              GestureDetector(
+                onTap: model.goToECommercePage,
+                child: doorStepItem(context),
+              ),
               verticalSpaceRegular,
               Padding(
                 padding: commonPaddding,

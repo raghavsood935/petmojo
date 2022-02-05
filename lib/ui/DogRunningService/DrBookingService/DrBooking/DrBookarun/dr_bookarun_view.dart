@@ -99,7 +99,7 @@ class DRBookARunView extends ViewModelWidget<DRDogRunningBookingViewModel> {
             AppText.body1(
               model.freeWalkAvailable
                   ? bookARunSubtitleWithFree
-                  : bookARunSubtitle,
+                  : bookARunningSubtitle,
             ),
             verticalSpaceSmall,
             Column(

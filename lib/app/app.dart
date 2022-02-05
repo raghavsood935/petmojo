@@ -4,11 +4,17 @@ import 'package:tamely/api/api_service.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/services/user_service.dart';
 import 'package:tamely/ui/DogRunningService/DrAppointment/DrAppointmentdetails/dr_appointmentdetails_view.dart';
-import 'package:tamely/ui/DogRunningService/DrAppointment/DrAppointments/dr_appointments_view.dart';
 import 'package:tamely/ui/DogRunningService/DrAppointment/DrLivemap/dr_livemap_view.dart';
 import 'package:tamely/ui/DogRunningService/DrAppointment/DrReportcard/dr_reportcard_view.dart';
 import 'package:tamely/ui/DogRunningService/DrBookingService/DrBooking/dr_dogrunningbooking_view.dart';
+import 'package:tamely/ui/DogRunningService/DrBookingService/DrOpening/dr_opening_view.dart';
 import 'package:tamely/ui/DogRunningService/DrBookingService/DrPayment/dr_payment_view.dart';
+import 'package:tamely/ui/DogTrainingService/DtAppointment/DtAppointmentdetails/dt_appointmentdetails_view.dart';
+import 'package:tamely/ui/DogTrainingService/DtAppointment/DtReportcard/dt_reportcard_view.dart';
+import 'package:tamely/ui/DogTrainingService/DtBookingService/DtBooking/dt_dogtrainingbooking_view.dart';
+import 'package:tamely/ui/DogTrainingService/DtBookingService/DtOpening/dt_opening_view.dart';
+import 'package:tamely/ui/DogTrainingService/DtBookingService/DtPayment/dt_payment_view.dart';
+import 'package:tamely/ui/MyAppointments/appointments_view.dart';
 import 'package:tamely/ui/chat/chat_view.dart';
 import 'package:tamely/ui/community/community_main_view/adoption/adoption_view.dart';
 import 'package:tamely/ui/community/community_main_view/community_main_view.dart';
@@ -19,6 +25,12 @@ import 'package:tamely/ui/community/community_main_view/strays_near_you/strays_n
 import 'package:tamely/ui/community/first_time_views/community_choose_interests/community_choose_interests_view.dart';
 import 'package:tamely/ui/dashboard/dashboard.dart';
 import 'package:tamely/ui/dummy_development_screen.dart';
+import 'package:tamely/ui/e_commerce/cart/cart_view.dart';
+import 'package:tamely/ui/e_commerce/check_out_page/check_out_view.dart';
+import 'package:tamely/ui/e_commerce/main_page/e_commerce_main_view.dart';
+import 'package:tamely/ui/e_commerce/order_detail_page/order_detail_view.dart';
+import 'package:tamely/ui/e_commerce/product_bookings/bookings_main_view.dart';
+import 'package:tamely/ui/e_commerce/product_detail/product_detail_view.dart';
 import 'package:tamely/ui/exploreblogs/explore_blog_search/blogs_deatils_page/blog_detail_view.dart';
 import 'package:tamely/ui/exploreblogs/explore_blogs_view.dart';
 import 'package:tamely/ui/for_you/for_you_search/for_you_tab_search_view.dart';
@@ -50,6 +62,9 @@ import 'package:tamely/ui/post_detail/single_post_details_page/single_post_detai
 import 'package:tamely/ui/profile/profile_create_view.dart';
 import 'package:tamely/ui/profilepage/animal_profile/animal_profile_view.dart';
 import 'package:tamely/ui/profilepage/animal_profile/basic_info/basic_info_view.dart';
+import 'package:tamely/ui/profilepage/animal_profile/create_animal_profile_new/page_one/create_animal_profile_new_page_one.dart';
+import 'package:tamely/ui/profilepage/animal_profile/create_animal_profile_new/page_three/create_animal_profile_new_page_three.dart';
+import 'package:tamely/ui/profilepage/animal_profile/create_animal_profile_new/page_two/create_animal_profile_new_page_two.dart';
 import 'package:tamely/ui/profilepage/animal_profile/guardians_and_relations/guardians_and_relations.dart';
 import 'package:tamely/ui/profilepage/completed_profile/add_details_profile_view.dart';
 import 'package:tamely/ui/profilepage/completed_profile/follow_people_action_view.dart';
@@ -99,6 +114,11 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: PostDetialsPageView),
     CupertinoRoute(page: SinglePostDetailsView),
 
+    //Create animal profile new ui routes
+    CupertinoRoute(page: CreateAnimalProfileNewPageOne),
+    CupertinoRoute(page: CreateAnimalProfileNewPageTwo),
+    CupertinoRoute(page: CreateAnimalProfileNewPageThree),
+
     // Group routes
     CupertinoRoute(page: GroupsView),
     CupertinoRoute(page: CreateGroupFirstView),
@@ -125,6 +145,14 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: ExploreBlogs),
     CupertinoRoute(page: BlogDetailsPageView),
 
+    //E-Commerce
+    CupertinoRoute(page: ECommerceMainView),
+    CupertinoRoute(page: ProductDetailView),
+    CupertinoRoute(page: CartView),
+    CupertinoRoute(page: CheckOutView),
+    CupertinoRoute(page: OrderDetailPage),
+    CupertinoRoute(page: ProductBookingsMainView),
+
     // dashboard routes
     CupertinoRoute(page: SettingsHumanView),
     CupertinoRoute(page: SettingsAnimalView),
@@ -136,22 +164,36 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: NotificationMainView),
 
     // Services
+    CupertinoRoute(page: AppointmentsView), // (Edit)
 
     // 1 - Dog Running service
 
     // Booking Service
     // At DogRunningService / DrBookingService
     CupertinoRoute(page: DRDogRunningBookingView), // (New)
-    CupertinoRoute(page: LocationPicker),
+    CupertinoRoute(page: LocationPicker), // (Common)
+    CupertinoRoute(page: DROpening), // (New)
     CupertinoRoute(page: DRPaymentView), // (New)
 
-    // My Appointments
+    // My Appointment
     // At DogRunningService / DrAppointment
     CupertinoRoute(page: DRAppointmentDetailsView), // (New)
-    CupertinoRoute(page: DRAppointmentsView), // (Edit)
-    CupertinoRoute(page: DRLiveMapView),
+    CupertinoRoute(page: DRLiveMapView), // (Based)
     CupertinoRoute(page: DRReportCardView), // (New)
     CupertinoRoute(page: ChatView),
+
+    // 2 - Dog Training service
+
+    // Booking Service
+    // At DogTrainingService / DtBookingService
+    CupertinoRoute(page: DTDogTrainingBookingView), // (New)
+    CupertinoRoute(page: DTOpening), // (New)
+    CupertinoRoute(page: DTPaymentView), // (New)
+
+    // My Appointment
+    // At DogTrainingService / DtAppointment
+    CupertinoRoute(page: DTAppointmentDetailsView), // (New)
+    CupertinoRoute(page: DTReportCardView), // (New)
   ],
   dependencies: [
     LazySingleton(classType: NavigationService),

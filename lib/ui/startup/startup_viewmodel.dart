@@ -53,7 +53,7 @@ class StartUpViewModel extends FutureViewModel<void> implements Initialisable {
         break;
 
       case RedirectState.Welcome:
-        _destinationRoute = Routes.onBoardingView;
+        _destinationRoute = Routes.loginView;
         break;
 
       case RedirectState.ProfileCreate:
@@ -117,7 +117,7 @@ class StartUpViewModel extends FutureViewModel<void> implements Initialisable {
 
   void moveToNext() async {
     if (_destinationRoute == null) {
-      _destinationRoute = Routes.onBoardingView;
+      _destinationRoute = Routes.loginView;
     }
     await _replaceWith();
   }

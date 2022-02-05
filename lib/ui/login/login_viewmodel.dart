@@ -11,12 +11,33 @@ class LoginViewModel extends AuthenticationViewModel {
 
   get isValid => _isValid;
 
+  bool emailFocus = false;
+  bool passwordFocus = false;
+
+  Future onEmailFocusChanges(bool focus) async {
+    emailFocus = focus;
+    notifyListeners();
+  }
+
+  Future onPasswordFocusChanges(bool focus) async {
+    passwordFocus = focus;
+    notifyListeners();
+  }
+
   void navigateBack() {
     navigationService.pushNamedAndRemoveUntil(Routes.onBoardingView);
   }
 
   void onForgotPassword() {
     navigationService.navigateTo(Routes.forgotPasswordView);
+  }
+
+  void onCreateAccount() {
+    navigationService.navigateTo(Routes.signUpView);
+  }
+
+  void onPhoneAuthentication() {
+    navigationService.navigateTo(Routes.phoneAuthenticationView);
   }
 
   void onProfileCreate() {

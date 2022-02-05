@@ -14,7 +14,7 @@ class DRPaymentView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<DrPaymentViewModel>.reactive(
+    return ViewModelBuilder<DRPaymentViewModel>.reactive(
       onModelReady: (model) {
         //model.setPaymentStatus(false);
         model.startState();
@@ -176,7 +176,7 @@ class DRPaymentView extends StatelessWidget {
           ),
         ),
       ),
-      viewModelBuilder: () => DrPaymentViewModel(amount, bookingId),
+      viewModelBuilder: () => DRPaymentViewModel(amount, bookingId),
     );
   }
 }

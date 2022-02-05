@@ -10,6 +10,10 @@ import 'package:tamely/models/bookmark_response.dart';
 import 'package:tamely/models/comment_added_response.dart';
 import 'package:tamely/models/common_response.dart';
 import 'package:tamely/models/create_post_response.dart';
+import 'package:tamely/models/e-commerce/fav_product_list_response.dart';
+import 'package:tamely/models/e-commerce/product_details_by_id_response.dart';
+import 'package:tamely/models/e-commerce/product_id_common_body.dart';
+import 'package:tamely/models/e-commerce/product_list_response.dart';
 import 'package:tamely/models/edit_response.dart';
 import 'package:tamely/models/generate_pet_username_response.dart';
 import 'package:tamely/models/get_animals_by_location_response.dart';
@@ -43,11 +47,14 @@ import 'package:tamely/models/params/comment_new/add_comment_body.dart';
 import 'package:tamely/models/params/confirm_relation_request_body.dart';
 import 'package:tamely/models/params/counter_body.dart';
 import 'package:tamely/models/params/create_animal_profile_body.dart';
+import 'package:tamely/models/params/create_animal_profile_new_body.dart';
 import 'package:tamely/models/params/create_post_body.dart';
 import 'package:tamely/models/params/delete_post_body.dart';
+import 'package:tamely/models/params/edit_animal_breed_age_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_details_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_main_details_body.dart';
+import 'package:tamely/models/params/edit_animal_type_body.dart';
 import 'package:tamely/models/params/feedback_body.dart';
 import 'package:tamely/models/params/fetch_list_of_following_body.dart';
 import 'package:tamely/models/params/get_animal_by_location_body.dart';
@@ -164,6 +171,8 @@ class Apis {
   static const String animalProfileEditDetails = '/animal/editPetHabits';
   static const String animalProfileEditMainDetails =
       '/animal/editPetMainDetails';
+  static const String editAnimalType = '/animal/editPet';
+  static const String editAnimalBreedAndAge = '/animal/editBreedAndAge';
 
   //Bookmarks
   static const String getBookmarks = '/hamburger/getBookmarks';
@@ -240,6 +249,14 @@ class Apis {
   //for Blogs Details
   static const String getBlogDetails = '/community/getBlogDetails';
   static const String getBlogLikesDetails = '/community/getLikeDetails';
+
+//E commerce
+  static const String getProducts = '/product/getProducts';
+  static const String getProductDetails = '/product/getProductDetails';
+  static const String addToCart = '/product/addToCart';
+  static const String getCartDetails = '/product/getCartDetails';
+  static const String addToFavourites = '/product/addToFavourites';
+  static const String getFavouriteDetails = '/product/getFavouriteDetails';
 
   // My Bookings Flow
   static const String getActiveAppointments =
@@ -411,6 +428,18 @@ abstract class ApiClient {
   @POST(Apis.animalProfileCreate)
   Future<AnimalProfileCreateResopnse> animalProfileCreate(
       @Body() CreateAnimalProfileBody createAnimalProfileBody);
+
+  @POST(Apis.animalProfileCreate)
+  Future<AnimalProfileCreateResopnse> animalProfileCreateNew(
+      @Body() CreateAnimalProfileNewBody createAnimalProfileNewBody);
+
+  @POST(Apis.editAnimalType)
+  Future<EditResponse> editAnimalType(
+      @Body() EditAnimalTypeBody editAnimalTypeBody);
+
+  @POST(Apis.editAnimalBreedAndAge)
+  Future<EditResponse> editAnimalBreedAndAge(
+      @Body() EditAnimalBreedAgeBody editAnimalBreedAgeBody);
 
   @POST(Apis.animalProfileEdit)
   Future<EditResponse> editAnimalProfile(
@@ -614,6 +643,34 @@ abstract class ApiClient {
   @POST(Apis.getMating)
   Future<GetAnimalsByLocationResponse> getMating(
       @Body() GetAnimalByLocationBody getAnimalByLocationBody);
+
+//E Commerce
+  // ---> Get List Of Products
+  @POST(Apis.getProducts)
+  Future<ProductListResponse> getProducts(@Body() CounterBody counterBody);
+
+  // ---> Get Product Details
+  @POST(Apis.getProductDetails)
+  Future<ProductDetailsByIdResponse> getProductDetails(
+      @Body() ProductIdCommonBody productIdCommonBody);
+
+  // ---> Add To Cart
+  @POST(Apis.addToCart)
+  Future<EditResponse> addToCart(
+      @Body() ProductIdCommonBody productIdCommonBody);
+
+  // ---> Get List Of Cart
+  @POST(Apis.getCartDetails)
+  Future<FavInnerProductListResponse> getCartDetails();
+
+  // ---> Add To Favourites
+  @POST(Apis.addToFavourites)
+  Future<EditResponse> addToFavourites(
+      @Body() ProductIdCommonBody productIdCommonBody);
+
+  // ---> Get List Of Favourite Products
+  @POST(Apis.getFavouriteDetails)
+  Future<FavProductListResponse> getFavouriteDetails();
 
   // -- Get Free Walk
   @POST(Apis.getFreeWalk)

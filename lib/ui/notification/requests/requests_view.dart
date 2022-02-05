@@ -93,7 +93,10 @@ class _GuardianRequestTileState extends State<GuardianRequestTile> {
     return ListTile(
       contentPadding: EdgeInsets.zero,
       leading: CustomCircularAvatar(
-          radius: 24, imgPath: widget.model.avatar ?? emptyProfileImgUrl),
+        radius: 24,
+        imgPath: widget.model.avatar ?? emptyProfileImgUrl,
+        isHuman: true,
+      ),
       title: AppText.body1Bold(widget.model.username ?? "-"),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -166,8 +169,10 @@ class _RelationRequestTileState extends State<RelationRequestTile> {
     return ListTile(
       contentPadding: EdgeInsets.zero,
       leading: CustomCircularAvatar(
-          radius: 24,
-          imgPath: widget.model.animalProfile!.avatar ?? emptyProfileImgUrl),
+        radius: 24,
+        imgPath: widget.model.animalProfile!.avatar ?? emptyProfileImgUrl,
+        isHuman: false,
+      ),
       title: AppText.body1Bold(widget.model.animalProfile!.name ?? "-"),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

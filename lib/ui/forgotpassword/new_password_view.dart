@@ -41,36 +41,85 @@ class NewPasswordView extends StatelessWidget with $NewPasswordView {
             mainAxisSize: MainAxisSize.max,
             children: [
               Container(
+                margin: EdgeInsets.symmetric(vertical: 15),
                 padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: AppText.body1(
-                    newPasswordLabel,
-                    textAlign: TextAlign.start,
-                    color: colors.black,
-                  ),
+                decoration: BoxDecoration(
+                  color: colors.white,
+                  border: Border.all(color: Color(0xFFD0D0D0), width: 0.5),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.email_rounded,
+                      color: Color(0xFFABB3BB),
+                    ),
+                    horizontalSpaceRegular,
+                    Expanded(
+                      child: TextField(
+                        controller: newPasswordController,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          disabledBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          errorBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          focusedErrorBorder: InputBorder.none,
+                          hintText: newPasswordHint,
+                          hintStyle: TextStyle(
+                            color: Color(0xFFABB3BB),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              AppInputField(
-                hint: newPasswordHint,
-                controller: newPasswordController,
-              ),
+              // AppInputField(
+              //   hint: newPasswordHint,
+              //   controller: newPasswordController,
+              // ),
               verticalSpaceMedium,
+              // Container(
+              //   padding: EdgeInsets.symmetric(horizontal: 10),
+              //   child: Align(
+              //     alignment: Alignment.centerLeft,
+              //     child: AppText.body1(
+              //       confirmPasswordLabel,
+              //       textAlign: TextAlign.start,
+              //       color: colors.black,
+              //     ),
+              //   ),
+              // ),
               Container(
+                margin: EdgeInsets.symmetric(vertical: 15),
                 padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: AppText.body1(
-                    confirmPasswordLabel,
-                    textAlign: TextAlign.start,
-                    color: colors.black,
-                  ),
+                decoration: BoxDecoration(
+                  color: colors.white,
+                  border: Border.all(color: Color(0xFFD0D0D0), width: 0.5),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.lock_rounded,
+                      color: Color(0xFFABB3BB),
+                    ),
+                    horizontalSpaceRegular,
+                    Expanded(
+                      child: AppPasswordInputField(
+                        hint: confirmPasswordHint,
+                        controller: confirmPasswordController,
+                        noNeedBorder: true,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              AppPasswordInputField(
-                hint: confirmPasswordHint,
-                controller: confirmPasswordController,
-              ),
+              // AppPasswordInputField(
+              //   hint: confirmPasswordHint,
+              //   controller: confirmPasswordController,
+              // ),
             ],
           ),
           showTermsText: false,

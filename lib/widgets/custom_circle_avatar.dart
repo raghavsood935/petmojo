@@ -7,10 +7,12 @@ class CustomCircularAvatar extends StatelessWidget {
     Key? key,
     required this.radius,
     required this.imgPath,
+    required this.isHuman,
   }) : super(key: key);
 
   final double radius;
   final String imgPath;
+  final bool isHuman;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,8 @@ class CustomCircularAvatar extends StatelessWidget {
             : CircleAvatar(
                 backgroundColor: colors.lightBackgroundColor,
                 radius: (radius - 4.0),
-                backgroundImage: NetworkImage(emptyProfileImgUrl),
+                backgroundImage: NetworkImage(
+                    isHuman ? emptyProfileImgUrl : emptyAnimalProfileImgUrl),
               ),
       ),
     );
