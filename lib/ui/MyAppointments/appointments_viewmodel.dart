@@ -26,7 +26,7 @@ class AppointmentsViewModel extends FutureViewModel<void>
     _navigationService.back();
   }
 
-  bool _hasAppointments = true;
+  bool _hasAppointments = false;
 
   bool get hasAppointments => _hasAppointments;
 
@@ -84,7 +84,7 @@ class AppointmentsViewModel extends FutureViewModel<void>
 
   @override
   Future<void> futureToRun() async {
-    //getActiveAppointments();
+    getActiveAppointments();
     log.d("futureToRun");
   }
 }
