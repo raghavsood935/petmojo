@@ -32,6 +32,7 @@ import 'package:tamely/ui/profilepage/animal_profile/animal_profile_view.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/global_methods.dart';
 import 'package:tamely/util/utils.dart';
+import 'package:tamely/widgets/dialogs/image_pop_dailog_view.dart';
 
 class ProfileViewModel extends BaseViewModel {
   final ImagePicker _picker = ImagePicker();
@@ -128,15 +129,12 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   Future _createAnimalProfileView() async {
-    if (_animalProfileCreateView != null) {
-      var result = await _navigationService.navigateTo(
-        _animalProfileCreateView!,
-        arguments: CreateAnimalPageViewArguments(isEdit: false),
-      );
+    var result = await _navigationService.navigateTo(
+      Routes.createAnimalProfileNewPageOne,
+    );
 
-      if (result == 1) {
-        getUserProfileDetails(true);
-      }
+    if (result == 1) {
+      getUserProfileDetails(true);
     }
   }
 
@@ -519,11 +517,11 @@ class ProfileViewModel extends BaseViewModel {
     _navigationService.navigateTo(Routes.postCreation);
   }
 
-  Future imageTapped(String url) async {
-    await _dialogService.showCustomDialog(
-      variant: DialogType.ImagePopUpDialog,
-      barrierDismissible: true,
-      data: url,
+  Future imageTapped(BuildContext context, String url) async {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => ImagePopUpView(url: url),
+      ),
     );
   }
 }

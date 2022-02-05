@@ -171,7 +171,8 @@ Widget relationListTile(RelationsResponse model) {
           ),
     leading: CustomCircularAvatar(
       radius: 24,
-      imgPath: model.animal!.avatar ?? emptyProfileImgUrl,
+      imgPath: model.animal!.avatar ?? "",
+      isHuman: false,
     ),
   );
 }

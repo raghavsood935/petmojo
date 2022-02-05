@@ -42,7 +42,8 @@ class _RelationsTileState extends State<RelationsTile> {
             contentPadding: EdgeInsets.zero,
             leading: CustomCircularAvatar(
               radius: 24,
-              imgPath: widget.profileModel.avatar ?? emptyProfileImgUrl,
+              imgPath: widget.profileModel.avatar ?? "",
+              isHuman: false,
             ),
             title: AppText.body(
               widget.profileModel.name ?? widget.profileModel.fullName ?? "-",

@@ -50,6 +50,10 @@ class _StartupViewState extends State<StartupView>
     animation2?.dispose();
   }
 
+  int index = 0;
+
+  SwiperController _imageScrollController = SwiperController();
+
   @override
   Widget build(BuildContext context) {
     final animationController = useAnimationController();
@@ -91,107 +95,125 @@ class _StartupViewState extends State<StartupView>
             ),
             FadeTransition(
               opacity: _fadeIn!,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  verticalSpaceMedium,
-                  Container(
-                    margin: const EdgeInsets.all(16),
-                    child: Image.asset("assets/images/workflow_banner1.png"),
-                  ),
-                  AppText.subheading(
-                    "Why Tamely?",
-                  ),
-                  verticalSpaceMedium,
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: ListTile(
-                          visualDensity:
-                              VisualDensity(horizontal: 0, vertical: -4),
-                          contentPadding: EdgeInsets.all(0),
-                          leading: Icon(
-                            Icons.check_box,
-                            color: colors.primary,
+              child: Container(
+                child: Stack(
+                  children: [
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      child: Image.asset(
+                        "assets/images/on_boarding/Vectoron_boarding_bg.png",
+                        width: screenWidth(context),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      child: SizedBox(
+                        height: 200,
+                        child: Swiper(
+                          itemCount: 3,
+                          controller: _imageScrollController,
+                          loop: false,
+                          index: index,
+                          itemBuilder: (context, index) => Column(
+                            children: [
+                              SizedBox(height: 90),
+                              Image.asset(
+                                "assets/images/on_boarding/on-boarding-image-${index + 1}.png",
+                                width: screenWidth(context),
+                              ),
+                              SizedBox(height: 150),
+                              Image.asset(
+                                "assets/images/on_boarding/on-boarding-text-${index + 1}.png",
+                                width: screenWidth(context),
+                              ),
+                            ],
                           ),
-                          // leading: Checkbox(
-                          //   value: model.title1Value,
-                          //   onChanged: model.title1Change,
-                          //   activeColor: colors.primary,
-                          // ),
-                          title: AppText.body1(wireFrameTitle1),
-                          selected: true,
+                          onIndexChanged: (int i) {
+                            setState(() {
+                              index = i;
+                            });
+                          },
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: ListTile(
-                          visualDensity:
-                              VisualDensity(horizontal: 0, vertical: -4),
-                          contentPadding: EdgeInsets.all(0),
-                          // leading: Checkbox(
-                          //   value: model.title2Value,
-                          //   onChanged: model.title2Change,
-                          //   activeColor: colors.primary,
-                          // ),
-                          leading: Icon(
-                            Icons.check_box,
-                            color: colors.primary,
-                          ),
-                          title: AppText.body1(wireFrameTitle2),
-                          selected: true,
+                    ),
+                    // Positioned(
+                    //   left: 0,
+                    //   right: 0,
+                    //   bottom: screenHeightPercentage(context, percentage: 0.15),
+                    //   child: SizedBox(
+                    //     height: 200,
+                    //     child: Swiper(
+                    //       itemCount: 3,
+                    //       controller: _textScrollController,
+                    //
+                    //       loop: false,
+                    //       index: index,
+                    //       itemBuilder: (context, index) => Image.asset(
+                    //         "assets/images/on_boarding/on-boarding-text-${index + 1}.png",
+                    //         width: screenWidth(context),
+                    //       ),
+                    //       onIndexChanged: (int i) {
+                    //         setState(() {
+                    //           index = i;
+                    //         });
+                    //       },
+                    //     ),
+                    //   ),
+                    // ),
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: screenHeightPercentage(context, percentage: 0.10),
+                      child: SizedBox(
+                        height: 35,
+                        width: screenWidth(context),
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              top: 0,
+                              bottom: 0,
+                              right: 0,
+                              left: 0,
+                              child: Center(
+                                child: AnimatedSmoothIndicator(
+                                  activeIndex: index,
+                                  count: 3,
+                                  effect: ScrollingDotsEffect(
+                                    activeDotScale: 1.5,
+                                    dotHeight: 10,
+                                    dotWidth: 10,
+                                    activeDotColor: colors.eCommercePrimary,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              right: 20,
+                              top: 0,
+                              bottom: 0,
+                              child: Visibility(
+                                visible: index == 2,
+                                child: IconButton(
+                                  onPressed: () => model.moveToNext(),
+                                  icon: Icon(
+                                    Icons.arrow_forward,
+                                    color: colors.primary,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: ListTile(
-                          visualDensity:
-                              VisualDensity(horizontal: 0, vertical: -4),
-                          contentPadding: EdgeInsets.all(0),
-                          // leading: Checkbox(
-                          //   value: model.title3Value,
-                          //   onChanged: model.title3Change,
-                          //   activeColor: colors.primary,
-                          // ),
-                          leading: Icon(
-                            Icons.check_box,
-                            color: colors.primary,
-                          ),
-                          title: AppText.body1(wireFrameTitle3),
-                          selected: true,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: ListTile(
-                          visualDensity:
-                              VisualDensity(horizontal: 0, vertical: -4),
-                          contentPadding: EdgeInsets.all(0),
-                          // leading: Checkbox(
-                          //   value: model.title4Value,
-                          //   onChanged: model.title4Change,
-                          //   activeColor: colors.primary,
-                          // ),
-                          leading: Icon(
-                            Icons.check_box,
-                            color: colors.primary,
-                          ),
-                          title: AppText.body1(wireFrameTitle4),
-                          selected: true,
-                        ),
-                      ),
-                    ],
-                  ),
-                  verticalSpaceMedium,
-                  MainButtonWidget(
-                      onMainButtonTapped: () {
-                        model.moveToNext();
-                      },
-                      mainButtonTitle: signUpLoginTitle),
-                ],
+                    )
+                  ],
+                ),
               ),
             )
           ],

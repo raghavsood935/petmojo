@@ -132,6 +132,7 @@ class _CommentsBottomSheetState extends State<CommentsBottomSheet> {
                     leading: CustomCircularAvatar(
                       radius: 20.0,
                       imgPath: widget.sheetRequest.customData.toString(),
+                      isHuman: model.isHuman,
                     ),
                     title: Container(
                       decoration: BoxDecoration(
@@ -214,13 +215,13 @@ Widget commentTile(CommentResponse comment) {
     leading: GlobalMethods.checkProfileType(comment.authorType ?? "")
         ? CustomCircularAvatar(
             radius: 20,
-            imgPath: comment.authorDetailsResponse!.first.avatar ??
-                emptyProfileImgUrl,
+            imgPath: comment.authorDetailsResponse!.first.avatar ?? "",
+            isHuman: true,
           )
         : CustomCircularAvatar(
             radius: 20,
-            imgPath: comment.animalAuthorDetailsResponse!.first.avatar ??
-                emptyProfileImgUrl,
+            imgPath: comment.animalAuthorDetailsResponse!.first.avatar ?? "",
+            isHuman: false,
           ),
   );
 }

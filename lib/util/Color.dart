@@ -29,7 +29,8 @@ class colors {
   static const Color kcLightGreyBackground = Color(0xffEEF2F9);
   static const Color kcCaptionGreyColor = Color(0xff999999);
 
-  static const Color primary = Color(0xffF696B1);
+  // static const Color primary = Color(0xffF696B1);
+  static const Color primary = Color(0xffFF5E95);
   static const Color primaryLight = Color(0xffFEF4F7);
   static const Color secondary = Color(0xffFDCD96);
   static const Color backgroundColor = Color(0xffFAFAFA);
@@ -83,4 +84,21 @@ class colors {
   static const Color black12 = Colors.black12;
   static const Color disableColor = Color(0xffEEF2F9);
   static Color get black26 => ISDARK == "true" ? white30 : Colors.black26;
+
+
+
+  static const List<Color> listOfProductBgColors = [
+    Color(0xFFFFF6C3),
+    Color(0xFFA3C7EE),
+    Color(0xFFFFE1D9),
+    Color(0xFFB4ECC3),
+  ];
+
+  static const List<Color> listOfProductColors = [
+    Color(0xFFFFED8A),
+    Color(0xFF85B9EF),
+    Color(0xFFFFCBBD),
+    Color(0xFF94DCA8),
+  ];
+
 }

@@ -66,6 +66,16 @@ void setupBottomSheetUi() {
               sheetRequest: sheetRequest,
               onDialogTap: completer,
             ),
+    BottomSheetType.ProductFilterBottomSheet:
+        (context, sheetRequest, completer) => ProductFilterBottomSheetView(
+              sheetRequest: sheetRequest,
+              onDialogTap: completer,
+            ),
+    BottomSheetType.ProductItemCountBottomSheet:
+        (context, sheetRequest, completer) => ProductItemCountBottomSheet(
+              sheetRequest: sheetRequest,
+              onDialogTap: completer,
+            ),
   };
   bottomSheetService.setCustomSheetBuilders(builders);
 }

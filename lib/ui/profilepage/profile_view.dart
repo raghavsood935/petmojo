@@ -130,7 +130,7 @@ class _ProfileViewState extends State<ProfileView> {
                                           child: GestureDetector(
                                               onTap: () {
                                                 if (widget.isInspectView) {
-                                                  model.imageTapped(
+                                                  model.imageTapped(context,
                                                       model.profileImgUrl);
                                                 } else {
                                                   model.onImageButtonPressed(
@@ -141,6 +141,7 @@ class _ProfileViewState extends State<ProfileView> {
                                               child: CustomCircularAvatar(
                                                 imgPath: model.profileImgUrl,
                                                 radius: 40,
+                                                isHuman: true,
                                               )),
                                         ),
                                         Positioned(

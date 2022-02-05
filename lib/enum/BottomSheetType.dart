@@ -12,4 +12,6 @@ enum BottomSheetType {
   CancelSubscriptionBottomSheet,
   DeletePostBottomSheet,
   BasicListOfOptionsBottomSheet,
+  ProductFilterBottomSheet,
+  ProductItemCountBottomSheet,
 }

@@ -99,6 +99,10 @@ class ServicesViewModel extends BaseModel {
   void toMyBookings() {
     _navigationService.navigateTo(Routes.appointmentsView);
   }
+
+  void goToECommercePage() {
+    // _navigationService.navigateTo(Routes.eCommerceMainView);
+  }
 }
 
 class ServicesModel {

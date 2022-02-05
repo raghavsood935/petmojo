@@ -164,6 +164,8 @@ class Apis {
   static const String animalProfileEditDetails = '/animal/editPetHabits';
   static const String animalProfileEditMainDetails =
       '/animal/editPetMainDetails';
+  static const String editAnimalType = '/animal/editPet';
+  static const String editAnimalBreedAndAge = '/animal/editBreedAndAge';
 
   //Bookmarks
   static const String getBookmarks = '/hamburger/getBookmarks';
@@ -240,6 +242,14 @@ class Apis {
   //for Blogs Details
   static const String getBlogDetails = '/community/getBlogDetails';
   static const String getBlogLikesDetails = '/community/getLikeDetails';
+
+//E commerce
+  static const String getProducts = '/product/getProducts';
+  static const String getProductDetails = '/product/getProductDetails';
+  static const String addToCart = '/product/addToCart';
+  static const String getCartDetails = '/product/getCartDetails';
+  static const String addToFavourites = '/product/addToFavourites';
+  static const String getFavouriteDetails = '/product/getFavouriteDetails';
 
   // My Bookings Flow
   static const String getActiveAppointments =
@@ -411,6 +421,18 @@ abstract class ApiClient {
   @POST(Apis.animalProfileCreate)
   Future<AnimalProfileCreateResopnse> animalProfileCreate(
       @Body() CreateAnimalProfileBody createAnimalProfileBody);
+
+  @POST(Apis.animalProfileCreate)
+  Future<AnimalProfileCreateResopnse> animalProfileCreateNew(
+      @Body() CreateAnimalProfileNewBody createAnimalProfileNewBody);
+
+  @POST(Apis.editAnimalType)
+  Future<EditResponse> editAnimalType(
+      @Body() EditAnimalTypeBody editAnimalTypeBody);
+
+  @POST(Apis.editAnimalBreedAndAge)
+  Future<EditResponse> editAnimalBreedAndAge(
+      @Body() EditAnimalBreedAgeBody editAnimalBreedAgeBody);
 
   @POST(Apis.animalProfileEdit)
   Future<EditResponse> editAnimalProfile(
@@ -614,6 +636,34 @@ abstract class ApiClient {
   @POST(Apis.getMating)
   Future<GetAnimalsByLocationResponse> getMating(
       @Body() GetAnimalByLocationBody getAnimalByLocationBody);
+
+//E Commerce
+  // ---> Get List Of Products
+  @POST(Apis.getProducts)
+  Future<ProductListResponse> getProducts(@Body() CounterBody counterBody);
+
+  // ---> Get Product Details
+  @POST(Apis.getProductDetails)
+  Future<ProductDetailsByIdResponse> getProductDetails(
+      @Body() ProductIdCommonBody productIdCommonBody);
+
+  // ---> Add To Cart
+  @POST(Apis.addToCart)
+  Future<EditResponse> addToCart(
+      @Body() ProductIdCommonBody productIdCommonBody);
+
+  // ---> Get List Of Cart
+  @POST(Apis.getCartDetails)
+  Future<FavInnerProductListResponse> getCartDetails();
+
+  // ---> Add To Favourites
+  @POST(Apis.addToFavourites)
+  Future<EditResponse> addToFavourites(
+      @Body() ProductIdCommonBody productIdCommonBody);
+
+  // ---> Get List Of Favourite Products
+  @POST(Apis.getFavouriteDetails)
+  Future<FavProductListResponse> getFavouriteDetails();
 
   // -- Get Free Walk
   @POST(Apis.getFreeWalk)

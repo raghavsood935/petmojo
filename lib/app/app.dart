@@ -105,6 +105,11 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: PostDetialsPageView),
     CupertinoRoute(page: SinglePostDetailsView),
 
+    //Create animal profile new ui routes
+    CupertinoRoute(page: CreateAnimalProfileNewPageOne),
+    CupertinoRoute(page: CreateAnimalProfileNewPageTwo),
+    CupertinoRoute(page: CreateAnimalProfileNewPageThree),
+
     // Group routes
     CupertinoRoute(page: GroupsView),
     CupertinoRoute(page: CreateGroupFirstView),
@@ -130,6 +135,14 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: AdoptionView),
     CupertinoRoute(page: ExploreBlogs),
     CupertinoRoute(page: BlogDetailsPageView),
+
+    //E-Commerce
+    CupertinoRoute(page: ECommerceMainView),
+    CupertinoRoute(page: ProductDetailView),
+    CupertinoRoute(page: CartView),
+    CupertinoRoute(page: CheckOutView),
+    CupertinoRoute(page: OrderDetailPage),
+    CupertinoRoute(page: ProductBookingsMainView),
 
     // dashboard routes
     CupertinoRoute(page: SettingsHumanView),

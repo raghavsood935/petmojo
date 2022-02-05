@@ -1438,8 +1438,147 @@ class TamelyApi {
     return BaseResponse()..data = response;
   }
 
-  // Booking Appointments
+  //create animal profile new
+  Future<BaseResponse<AnimalProfileCreateResopnse>> animalProfileCreateNew(
+      CreateAnimalProfileNewBody createAnimalProfileNewBody) async {
+    AnimalProfileCreateResopnse response;
+    try {
+      response = await getApiClient(true, true)
+          .animalProfileCreateNew(createAnimalProfileNewBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
 
+  //Edit animal Type
+  Future<BaseResponse<EditResponse>> editAnimalType(
+      EditAnimalTypeBody editAnimalTypeBody) async {
+    EditResponse response;
+    try {
+      response =
+          await getApiClient(true, true).editAnimalType(editAnimalTypeBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  //Edit animal Breed and age
+  Future<BaseResponse<EditResponse>> editAnimalBreedAndAge(
+      EditAnimalBreedAgeBody editAnimalBreedAgeBody) async {
+    EditResponse response;
+    try {
+      response = await getApiClient(true, true)
+          .editAnimalBreedAndAge(editAnimalBreedAgeBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  //E Commerce
+  // ---> Get List Of Products
+  Future<BaseResponse<ProductListResponse>> getProducts(
+      CounterBody counterBody, bool isHuman,
+      {String petToken = ""}) async {
+    ProductListResponse response;
+    try {
+      response = await getApiClient(true, isHuman, animalToken: petToken)
+          .getProducts(counterBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // ---> Get Product Details
+  Future<BaseResponse<ProductDetailsByIdResponse>> getProductDetails(
+      ProductIdCommonBody productIdCommonBody, bool isHuman,
+      {String petToken = ""}) async {
+    ProductDetailsByIdResponse response;
+    try {
+      response = await getApiClient(true, isHuman, animalToken: petToken)
+          .getProductDetails(productIdCommonBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // ---> Add To Cart
+  Future<BaseResponse<EditResponse>> addToCart(
+      ProductIdCommonBody productIdCommonBody, bool isHuman,
+      {String petToken = ""}) async {
+    EditResponse response;
+    try {
+      response = await getApiClient(true, isHuman, animalToken: petToken)
+          .addToCart(productIdCommonBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // ---> Get List Of Cart
+  Future<BaseResponse<FavInnerProductListResponse>> getCartDetails(bool isHuman,
+      {String petToken = ""}) async {
+    FavInnerProductListResponse response;
+    try {
+      response = await getApiClient(true, isHuman, animalToken: petToken)
+          .getCartDetails();
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // ---> Add To Favourites
+  Future<BaseResponse<EditResponse>> addToFavourites(
+      ProductIdCommonBody productIdCommonBody, bool isHuman,
+      {String petToken = ""}) async {
+    EditResponse response;
+    try {
+      response = await getApiClient(true, isHuman, animalToken: petToken)
+          .addToFavourites(productIdCommonBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // ---> Get List Of Favourite Products
+  Future<BaseResponse<FavProductListResponse>> getFavouriteDetails(bool isHuman,
+      {String petToken = ""}) async {
+    FavProductListResponse response;
+    try {
+      response = await getApiClient(true, isHuman, animalToken: petToken)
+          .getFavouriteDetails();
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // Booking Appointments
   // -- Get Free Walk
   Future<BaseResponse<GetFreeWalkResponse>> getFreeWalk() async {
     log.d("googleLogin called");

@@ -15,12 +15,14 @@ class AuthenticationLayout extends StatelessWidget {
   final void Function()? onForgotPassword;
   final void Function()? onBackPressed;
   final void Function()? onSignInWithFacebook;
+  final void Function()? onContinueWithPhone;
   final void Function()? onSignInWithGoogle;
   final void Function()? onResendOTP;
   final String? validationMessage;
   final bool busy;
   final bool isValid;
   final bool isSocialLoginEnabled;
+  final bool isProfilePage;
 
   const AuthenticationLayout({
     Key? key,
@@ -34,12 +36,14 @@ class AuthenticationLayout extends StatelessWidget {
     this.onBackPressed,
     this.onSignInWithFacebook,
     this.onSignInWithGoogle,
+    this.onContinueWithPhone,
     this.onResendOTP,
     this.validationMessage,
     this.showTermsText = false,
     this.busy = false,
     this.isValid = false,
     this.isSocialLoginEnabled = false,
+    this.isProfilePage = false,
   }) : super(key: key);
 
   @override
@@ -48,8 +52,8 @@ class AuthenticationLayout extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: ListView(
         children: [
-          if (onBackPressed == null) verticalSpaceLarge,
-          if (onBackPressed != null) verticalSpaceRegular,
+          // if (onBackPressed == null) verticalSpaceLarge,
+          // if (onBackPressed != null) verticalSpaceRegular,
           if (onBackPressed != null)
             IconButton(
               padding: EdgeInsets.zero,
@@ -60,21 +64,29 @@ class AuthenticationLayout extends StatelessWidget {
               ),
               onPressed: onBackPressed,
             ),
-          AppText.subheading(
+          Visibility(
+            visible: !isProfilePage,
+            child: Image.asset(
+              "assets/images/on_boarding/log_in_logo.png",
+              height: 150,
+            ),
+          ),
+          verticalSpaceSmall,
+          AppText.titleBold(
             title!,
             textAlign: TextAlign.center,
           ),
-          verticalSpaceMedium,
-          Align(
-            alignment: Alignment.center,
-            child: SizedBox(
-              child: AppText.body1(
-                subtitle!,
-                textAlign: TextAlign.center,
-                color: Colors.grey.shade600,
-              ),
-            ),
-          ),
+
+          // Align(
+          //   alignment: Alignment.center,
+          //   child: SizedBox(
+          //     child: AppText.body1(
+          //       subtitle!,
+          //       textAlign: TextAlign.center,
+          //       color: Colors.grey.shade600,
+          //     ),
+          //   ),
+          // ),
           verticalSpaceRegular,
           form!,
           verticalSpaceRegular,
@@ -83,7 +95,7 @@ class AuthenticationLayout extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: GestureDetector(
                   onTap: onForgotPassword,
-                  child: AppText.body(
+                  child: AppText.caption(
                     forgotPasswordLabel,
                     color: colors.primary,
                   )),
@@ -99,11 +111,11 @@ class AuthenticationLayout extends StatelessWidget {
             onTap: isValid ? onMainButtonTapped : null,
             child: Container(
               width: double.infinity,
-              height: 50,
+              height: 60,
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: isValid ? colors.primary : colors.kcLightGreyColor,
-                borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(10),
               ),
               child: busy
                   ? CircularProgressIndicator(
@@ -118,24 +130,7 @@ class AuthenticationLayout extends StatelessWidget {
                     ),
             ),
           ),
-          verticalSpaceRegular,
-          if (onCreateAccountTapped != null)
-            GestureDetector(
-              onTap: onCreateAccountTapped,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Don\'t have an account?'),
-                  horizontalSpaceTiny,
-                  Text(
-                    'Create an account',
-                    style: TextStyle(
-                      color: colors.primary,
-                    ),
-                  )
-                ],
-              ),
-            ),
+          verticalSpaceSmall,
           if (showTermsText)
             Column(
               children: [
@@ -166,53 +161,118 @@ class AuthenticationLayout extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
-                verticalSpaceRegular,
-                Align(
-                  alignment: Alignment.center,
-                  child: AppText.body(
-                    'Or',
-                  ),
+                verticalSpaceSmall,
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        color: Color(0xFFE1E1E1),
+                        height: 2,
+                      ),
+                    ),
+                    AppText.caption(
+                      '  Or Continue with  ',
+                      color: Color(0xFFB1B0B0),
+                    ),
+                    Expanded(
+                      child: Container(
+                        color: Color(0xFFE1E1E1),
+                        height: 2,
+                      ),
+                    ),
+                  ],
                 ),
                 verticalSpaceRegular,
                 Container(
-                  width: double.maxFinite,
-                  margin: const EdgeInsets.all(16),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
                   child: ElevatedButton.icon(
-                    onPressed: onSignInWithFacebook ?? () {},
-                    icon: Image.asset("assets/images/facebook.png"),
-                    label: AppText.body1(continueWithFB, color: Colors.white),
+                    onPressed: onContinueWithPhone ?? () {},
+                    icon: Icon(
+                      Icons.phone,
+                      color: Color(0xFFFF5E95),
+                    ),
+                    label: AppText.captionBold("Register with phone",
+                        color: Colors.black),
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(colors.fbBlue),
+                      backgroundColor:
+                          MaterialStateProperty.all(Color(0xFFFEF5F7)),
                       padding:
                           MaterialStateProperty.all(const EdgeInsets.all(12)),
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
+                          borderRadius: BorderRadius.circular(5.6),
                         ),
                       ),
                     ),
                   ),
                 ),
-                Container(
-                  width: double.maxFinite,
-                  margin: const EdgeInsets.all(16),
-                  child: ElevatedButton.icon(
-                    onPressed: onSignInWithGoogle ?? () {},
-                    icon: Image.asset("assets/images/google.png"),
-                    label: AppText.body1(continueWithGoogle,
-                        color: colors.kcPrimaryTextColor),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(colors.white),
-                      padding:
-                          MaterialStateProperty.all(const EdgeInsets.all(12)),
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 16, horizontal: 10),
+                        child: ElevatedButton.icon(
+                          onPressed: onSignInWithGoogle ?? () {},
+                          icon: Image.asset("assets/images/google_logo.png"),
+                          label: AppText.body1("Google", color: colors.white),
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Color(0xFFEA4335)),
+                            padding: MaterialStateProperty.all(
+                                const EdgeInsets.all(12)),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5.6),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                    Expanded(
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 16, horizontal: 10),
+                        child: ElevatedButton.icon(
+                          onPressed: onSignInWithFacebook ?? () {},
+                          icon: Image.asset("assets/images/fb_logo.png"),
+                          label: AppText.body1("Facebook", color: Colors.white),
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Color(0xFF298FFF)),
+                            padding: MaterialStateProperty.all(
+                                const EdgeInsets.all(12)),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5.6),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
+                verticalSpaceSmall,
+                if (onCreateAccountTapped != null)
+                  GestureDetector(
+                    onTap: onCreateAccountTapped,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Don\'t have an account?'),
+                        horizontalSpaceTiny,
+                        Text(
+                          'Sign Up',
+                          style: TextStyle(
+                            color: colors.primary,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
               ],
             ),
           if (onResendOTP != null) ResendOTPWidget(onResendOTP: onResendOTP!),

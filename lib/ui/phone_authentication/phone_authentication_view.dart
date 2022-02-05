@@ -41,10 +41,17 @@ class PhoneAuthenticationView extends StatelessWidget
                 ),
               ),
             ),
+            Align(
+              alignment: Alignment.center,
+              child: Image.asset(
+                "assets/images/on_boarding/log_in_logo.png",
+                height: 150,
+              ),
+            ),
             Padding(
               padding: commonPaddding,
-              child: AppText.headingThree(
-                "Continue With Phone",
+              child: AppText.titleBold(
+                "Create your account",
                 textAlign: TextAlign.center,
               ),
             ),
@@ -57,7 +64,7 @@ class PhoneAuthenticationView extends StatelessWidget
                 decoration: InputDecoration(
                   labelText: "Phone number",
                   labelStyle: TextStyle(color: colors.black),
-                  hintText: "Enter a Phone number",
+                  hintText: "Enter your Phone number",
                   prefix: AppText.body(
                     "+91  ",
                     color: colors.kcCaptionGreyColor,
@@ -143,14 +150,14 @@ class PhoneAuthenticationView extends StatelessWidget
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: colors.primary,
-              borderRadius: BorderRadius.circular(50),
+              borderRadius: BorderRadius.circular(10),
             ),
             child: model.isLoading
                 ? CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation(Colors.white),
                   )
                 : Text(
-                    "SEND OTP",
+                    "CONTINUE",
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
