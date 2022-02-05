@@ -36,41 +36,41 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
 
   // dummy values
 
-  List<ActiveAppointmentClass> _activeAppointments = [
-    ActiveAppointmentClass(
-      serviceType: ServiceType.DogRunning,
-      userName: "Joeylene Rivera",
-      userPicture:
-          "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg",
-      dogs: [
-        "Gracy",
-        "Tom",
-      ],
-      serviceName: dogWalkingTitle,
-      subscriptionType: "(Monthly, 1/day)",
-      dateAndTime: "24 Jan 2021 - 6-7PM",
-      status: ActiveAppointmentStatus.Pending,
-      showReorder: false,
-      showBooking: false,
-      bookingId: "1234",
-    ),
-    ActiveAppointmentClass(
-      serviceType: ServiceType.DogTraining,
-      userName: "Joeylene Rivera",
-      userPicture:
-          "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg",
-      dogs: [
-        "Gracy",
-      ],
-      serviceName: dogTrainingTitle,
-      subscriptionType: "(Monthly, 1/day)",
-      dateAndTime: "24 Jan 2021 - 6-7PM",
-      status: ActiveAppointmentStatus.Accepted,
-      showReorder: false,
-      showBooking: false,
-      bookingId: "1234",
-    ),
-  ];
+  // List<ActiveAppointmentClass> _activeAppointments = [
+  //   ActiveAppointmentClass(
+  //     serviceType: ServiceType.DogRunning,
+  //     userName: "Joeylene Rivera",
+  //     userPicture:
+  //         "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg",
+  //     dogs: [
+  //       "Gracy",
+  //       "Tom",
+  //     ],
+  //     serviceName: dogWalkingTitle,
+  //     subscriptionType: "(Monthly, 1/day)",
+  //     dateAndTime: "24 Jan 2021 - 6-7PM",
+  //     status: ActiveAppointmentStatus.Pending,
+  //     showReorder: false,
+  //     showBooking: false,
+  //     bookingId: "1234",
+  //   ),
+  //   ActiveAppointmentClass(
+  //     serviceType: ServiceType.DogTraining,
+  //     userName: "Joeylene Rivera",
+  //     userPicture:
+  //         "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg",
+  //     dogs: [
+  //       "Gracy",
+  //     ],
+  //     serviceName: dogTrainingTitle,
+  //     subscriptionType: "(Monthly, 1/day)",
+  //     dateAndTime: "24 Jan 2021 - 6-7PM",
+  //     status: ActiveAppointmentStatus.Accepted,
+  //     showReorder: false,
+  //     showBooking: false,
+  //     bookingId: "1234",
+  //   ),
+  // ];
 
   void toBooking() async {
     _navigationService.navigateTo(
@@ -78,7 +78,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
     );
   }
 
-  //List<ActiveAppointmentClass> _activeAppointments = [];
+  List<ActiveAppointmentClass> _activeAppointments = [];
 
   List<ActiveAppointmentClass> get activeAppointments => _activeAppointments;
 
@@ -96,7 +96,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
         arguments: DTAppointmentDetailsViewArguments(appointmentId: bookingId!),
       );
     }
-    //getActiveAppointments();
+    getActiveAppointments();
   }
 
   final _tamelyApi = locator<TamelyApi>();
@@ -162,13 +162,15 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             newAppointment.userPicture =
                 "https://dogexpress.in/wp-content/uploads/2021/10/What-Dog-Walking-Services-Should-You-Choose-In-The-US.jpg";
 
-            if (each.serviceType == 0) {
-              newAppointment.serviceType = ServiceType.DogRunning;
-              newAppointment.serviceName = dogWalkingTitle;
-            } else if (each.serviceType == 1) {
-              newAppointment.serviceType = ServiceType.DogTraining;
-              newAppointment.serviceName = dogTrainingTitle;
-            }
+            // if (each.serviceType == 0) {
+            //   newAppointment.serviceType = ServiceType.DogRunning;
+            //   newAppointment.serviceName = dogWalkingTitle;
+            // } else if (each.serviceType == 1) {
+            //   newAppointment.serviceType = ServiceType.DogTraining;
+            //   newAppointment.serviceName = dogTrainingTitle;
+            // }
+            newAppointment.serviceType = ServiceType.DogRunning;
+            newAppointment.serviceName = dogWalkingTitle;
 
             newAppointment.subscriptionType =
                 "(${each.bookingDetails!.package!.subscriptionType} , ${each.bookingDetails!.package!.numberOfTimes}/day )";
@@ -237,13 +239,15 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             newAppointment.userPicture =
                 "https://drive.google.com/file/d/1d0Et-uR0iNQoXWdBk5N5IhOAZ2RMdW_H/view?usp=sharing";
 
-            if (each.serviceType == 0) {
-              newAppointment.serviceType = ServiceType.DogRunning;
-              newAppointment.serviceName = dogWalkingTitle;
-            } else if (each.serviceType == 1) {
-              newAppointment.serviceType = ServiceType.DogTraining;
-              newAppointment.serviceName = dogTrainingTitle;
-            }
+            // if (each.serviceType == 0) {
+            //   newAppointment.serviceType = ServiceType.DogRunning;
+            //   newAppointment.serviceName = dogWalkingTitle;
+            // } else if (each.serviceType == 1) {
+            //   newAppointment.serviceType = ServiceType.DogTraining;
+            //   newAppointment.serviceName = dogTrainingTitle;
+            // }
+            newAppointment.serviceType = ServiceType.DogRunning;
+            newAppointment.serviceName = dogWalkingTitle;
 
             newAppointment.subscriptionType =
                 "(${each.bookingDetails!.package!.subscriptionType} , ${each.bookingDetails!.package!.numberOfTimes}/day )";
@@ -300,7 +304,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
 
   @override
   Future<void> futureToRun() async {
-    // getActiveAppointments();
+    getActiveAppointments();
     log.d("futureToRun");
   }
 }
