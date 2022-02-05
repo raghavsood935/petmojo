@@ -79,6 +79,10 @@ class $AssetsImagesGen {
   AssetGenImage get dummyDogProfile =>
       const AssetGenImage('assets/images/dummy_dog_profile.png');
 
+  /// File path: assets/images/e-commerce-logo-title.png
+  AssetGenImage get eCommerceLogoTitle =>
+      const AssetGenImage('assets/images/e-commerce-logo-title.png');
+
   $AssetsImagesEmojiGen get emoji => const $AssetsImagesEmojiGen();
 
   /// File path: assets/images/explore.svg
@@ -87,6 +91,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/facebook.png
   AssetGenImage get facebook =>
       const AssetGenImage('assets/images/facebook.png');
+
+  /// File path: assets/images/fb_logo.png
+  AssetGenImage get fbLogo => const AssetGenImage('assets/images/fb_logo.png');
 
   /// File path: assets/images/feedback.svg
   SvgGenImage get feedback => const SvgGenImage('assets/images/feedback.svg');
@@ -101,6 +108,10 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/google.png
   AssetGenImage get google => const AssetGenImage('assets/images/google.png');
+
+  /// File path: assets/images/google_logo.png
+  AssetGenImage get googleLogo =>
+      const AssetGenImage('assets/images/google_logo.png');
 
   /// File path: assets/images/group_of_peoples.png
   AssetGenImage get groupOfPeoples =>
@@ -221,6 +232,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/notification.svg
   SvgGenImage get notification =>
       const SvgGenImage('assets/images/notification.svg');
+
+  $AssetsImagesOnBoardingGen get onBoarding =>
+      const $AssetsImagesOnBoardingGen();
 
   /// File path: assets/images/opening.png
   AssetGenImage get opening => const AssetGenImage('assets/images/opening.png');
@@ -380,6 +394,10 @@ class $AssetsImagesAnimalTypeImagesGen {
   /// File path: assets/images/animal_type_images/monkey.png
   AssetGenImage get monkey =>
       const AssetGenImage('assets/images/animal_type_images/monkey.png');
+
+  /// File path: assets/images/animal_type_images/others.png
+  AssetGenImage get others =>
+      const AssetGenImage('assets/images/animal_type_images/others.png');
 
   /// File path: assets/images/animal_type_images/panda.png
   AssetGenImage get panda =>
@@ -630,6 +648,54 @@ class $AssetsImagesEmojiGen {
 
   /// File path: assets/images/emoji/two.png
   AssetGenImage get two => const AssetGenImage('assets/images/emoji/two.png');
+}
+
+class $AssetsImagesOnBoardingGen {
+  const $AssetsImagesOnBoardingGen();
+
+  /// File path: assets/images/on_boarding/Vectoron_boarding_bg.png
+  AssetGenImage get vectoronBoardingBg =>
+      const AssetGenImage('assets/images/on_boarding/Vectoron_boarding_bg.png');
+
+  /// File path: assets/images/on_boarding/complete_your_profile_logo.png
+  AssetGenImage get completeYourProfileLogo => const AssetGenImage(
+      'assets/images/on_boarding/complete_your_profile_logo.png');
+
+  /// File path: assets/images/on_boarding/create_pet_logo.png
+  AssetGenImage get createPetLogo =>
+      const AssetGenImage('assets/images/on_boarding/create_pet_logo.png');
+
+  /// File path: assets/images/on_boarding/log_in_logo.png
+  AssetGenImage get logInLogo =>
+      const AssetGenImage('assets/images/on_boarding/log_in_logo.png');
+
+  /// File path: assets/images/on_boarding/on-boarding-image-1.png
+  AssetGenImage get onBoardingImage1 =>
+      const AssetGenImage('assets/images/on_boarding/on-boarding-image-1.png');
+
+  /// File path: assets/images/on_boarding/on-boarding-image-2.png
+  AssetGenImage get onBoardingImage2 =>
+      const AssetGenImage('assets/images/on_boarding/on-boarding-image-2.png');
+
+  /// File path: assets/images/on_boarding/on-boarding-image-3.png
+  AssetGenImage get onBoardingImage3 =>
+      const AssetGenImage('assets/images/on_boarding/on-boarding-image-3.png');
+
+  /// File path: assets/images/on_boarding/on-boarding-text-1.png
+  AssetGenImage get onBoardingText1 =>
+      const AssetGenImage('assets/images/on_boarding/on-boarding-text-1.png');
+
+  /// File path: assets/images/on_boarding/on-boarding-text-2.png
+  AssetGenImage get onBoardingText2 =>
+      const AssetGenImage('assets/images/on_boarding/on-boarding-text-2.png');
+
+  /// File path: assets/images/on_boarding/on-boarding-text-3.png
+  AssetGenImage get onBoardingText3 =>
+      const AssetGenImage('assets/images/on_boarding/on-boarding-text-3.png');
+
+  /// File path: assets/images/on_boarding/on_boarding_common.png
+  AssetGenImage get onBoardingCommon =>
+      const AssetGenImage('assets/images/on_boarding/on_boarding_common.png');
 }
 
 class $AssetsImagesServiceOpeningGen {

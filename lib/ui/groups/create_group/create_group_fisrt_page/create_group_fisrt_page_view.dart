@@ -65,6 +65,7 @@ class _CreateGroupFirstViewState extends State<CreateGroupFirstView> {
                                     : CustomCircularAvatar(
                                         imgPath: model.avatarUrl,
                                         radius: 50,
+                                        isHuman: true,
                                       )),
                           ),
                           Positioned(

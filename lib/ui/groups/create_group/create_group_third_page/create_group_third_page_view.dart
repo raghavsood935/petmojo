@@ -5,6 +5,7 @@ import 'package:tamely/models/list_of_profiles_foy_you.dart';
 import 'package:tamely/ui/groups/create_group/create_group_third_page/create_group_third_page_view_model.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/global_methods.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/custom_circle_avatar.dart';
@@ -146,6 +147,7 @@ class _ResultProfileListTileState extends State<ResultProfileListTile> {
       leading: CustomCircularAvatar(
         radius: 24,
         imgPath: widget.model.avatar ?? emptyProfileImgUrl,
+        isHuman: GlobalMethods.checkProfileType(widget.model.type),
       ),
       trailing: GestureDetector(
         onTap: () {

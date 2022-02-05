@@ -57,7 +57,10 @@ class ServicesViewModel extends BaseModel {
       case 1:
         {
           _navigationService.navigateTo(
-            Routes.dTOpening,
+            Routes.dummyDevelopmentScreen,
+            arguments: DummyDevelopmentScreenArguments(
+              title: "Dog Training",
+            ),
           );
           break;
         }

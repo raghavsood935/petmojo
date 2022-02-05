@@ -15,7 +15,9 @@ class DROpening extends StatelessWidget {
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: Column(
+            child: SingleChildScrollView(
+              physics:ScrollPhysics(),
+              child : Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 verticalSpaceRegular,
@@ -106,7 +108,7 @@ class DROpening extends StatelessWidget {
                 ),
                 verticalSpaceRegular,
               ],
-            ),
+            ),)
           ),
         ),
       ),

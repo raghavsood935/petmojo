@@ -53,7 +53,7 @@ class StartUpViewModel extends FutureViewModel<void> implements Initialisable {
         break;
 
       case RedirectState.Welcome:
-        _destinationRoute = Routes.onBoardingView;
+        _destinationRoute = Routes.loginView;
         break;
 
       case RedirectState.ProfileCreate:

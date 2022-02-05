@@ -6,6 +6,8 @@ import 'package:tamely/widgets/dialogs/basic_list_of_options_bottom_sheet.dart';
 import 'package:tamely/widgets/dialogs/comments_bottom_sheet.dart';
 import 'package:tamely/widgets/dialogs/delete_post_bottom_sheet.dart';
 import 'package:tamely/widgets/dialogs/more_option_bottom_sheet.dart';
+import 'package:tamely/widgets/dialogs/product_filter_bottom_sheet_view.dart';
+import 'package:tamely/widgets/dialogs/product_item_count_bottom_sheet.dart';
 import 'package:tamely/widgets/dialogs/select_animal_breed_bottom_sheet.dart';
 import 'package:tamely/widgets/dialogs/select_animal_type_bottom_sheet.dart';
 import 'package:tamely/widgets/dialogs/select_other_animal_type_bottom_sheet.dart';

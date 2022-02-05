@@ -109,19 +109,15 @@ class _CreateAnimalProfileNewPageTwoState
                             height: screenWidthPercentage(context,
                                 percentage: 0.40),
                             margin: EdgeInsets.symmetric(vertical: 15),
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            child: model.petAnimalTypeListValues[index].type ==
-                                    "Others"
-                                ? Image.network(
-                                    model.petAnimalTypeListValues[index]
-                                        .imageAssetPath,
-                                    fit: BoxFit.cover,
-                                  )
-                                : Image.asset(
-                                    model.petAnimalTypeListValues[index]
-                                        .imageAssetPath,
-                                    fit: BoxFit.cover,
-                                  ),
+                            padding: EdgeInsets.symmetric(horizontal: 15),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.asset(
+                                model.petAnimalTypeListValues[index]
+                                    .imageAssetPath,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
                         ),
                         verticalSpaceSmall,

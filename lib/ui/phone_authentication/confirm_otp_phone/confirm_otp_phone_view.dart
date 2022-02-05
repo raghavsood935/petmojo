@@ -40,6 +40,10 @@ class ConfirmOtpPhoneView extends StatelessWidget with $ConfirmOtpPhoneView {
                   ),
                 ),
               ),
+              Image.asset(
+                "assets/images/on_boarding/log_in_logo.png",
+                height: 150,
+              ),
               verticalSpaceTiny,
               AppText.titleBold(
                 "Confirm your Phone Number",
@@ -56,16 +60,25 @@ class ConfirmOtpPhoneView extends StatelessWidget with $ConfirmOtpPhoneView {
               verticalSpaceRegular,
               Padding(
                 padding: commonPaddding,
-                child: AppText.caption("One-Time Password"),
-              ),
-              Padding(
-                padding: commonPaddding,
-                child: AppInputField(
+                child: TextField(
                   controller: model.otpTC,
-                  hint: "Enter OTP",
-                  textInputType: TextInputType.number,
+                  autofocus: true,
+                  decoration: InputDecoration(
+                    labelText: "OTP",
+                    labelStyle: TextStyle(color: colors.black),
+                    hintText: "Enter OTP",
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: colors.primary, width: 2),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: colors.primary, width: 2),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: colors.primary, width: 2),
+                    ),
+                  ),
+                  keyboardType: TextInputType.number,
                   maxLength: 6,
-                  autoFocus: true,
                 ),
               ),
               verticalSpaceRegular,

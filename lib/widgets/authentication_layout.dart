@@ -52,7 +52,7 @@ class AuthenticationLayout extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: ListView(
         children: [
-          // if (onBackPressed == null) verticalSpaceLarge,
+          if (onBackPressed == null) verticalSpaceRegular,
           // if (onBackPressed != null) verticalSpaceRegular,
           if (onBackPressed != null)
             IconButton(
@@ -184,6 +184,7 @@ class AuthenticationLayout extends StatelessWidget {
                 ),
                 verticalSpaceRegular,
                 Container(
+                  width: double.maxFinite,
                   margin:
                       const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
                   child: ElevatedButton.icon(
@@ -264,15 +265,14 @@ class AuthenticationLayout extends StatelessWidget {
                       children: [
                         Text('Don\'t have an account?'),
                         horizontalSpaceTiny,
-                        Text(
+                        AppText.body1Bold(
                           'Sign Up',
-                          style: TextStyle(
-                            color: colors.primary,
-                          ),
+                          color: colors.primary,
                         )
                       ],
                     ),
                   ),
+                verticalSpaceRegular,
               ],
             ),
           if (onResendOTP != null) ResendOTPWidget(onResendOTP: onResendOTP!),

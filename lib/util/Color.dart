@@ -38,6 +38,8 @@ class colors {
   static const Color lightBackgroundColor = Color(0xFFFEF4F7);
   static const Color inputFieldColor = Color(0xFFFBF0F4);
 
+  static const Color eCommercePrimary = Color(0xffEF7A9B);
+
   static const Color lightBlueBackgroundColor = Color(0xFFE0EBFF);
   static const Color blueColor = Color(0xFF0066FF);
 
@@ -85,8 +87,6 @@ class colors {
   static const Color disableColor = Color(0xffEEF2F9);
   static Color get black26 => ISDARK == "true" ? white30 : Colors.black26;
 
-
-
   static const List<Color> listOfProductBgColors = [
     Color(0xFFFFF6C3),
     Color(0xFFA3C7EE),
@@ -100,5 +100,4 @@ class colors {
     Color(0xFFFFCBBD),
     Color(0xFF94DCA8),
   ];
-
 }

@@ -92,8 +92,8 @@ class CreateAnimalProfileNewPageThreeViewModel extends BaseModel {
     notifyListeners();
 
     var response = await _tamelyApi.editAnimalBreedAndAge(
-        EditAnimalBreedAgeBody(
-            animalId, "$selectedYear-$selectedMonth", breedController.text));
+        EditAnimalBreedAgeBody(animalId, "$selectedYear-$selectedMonth",
+            breedController.text.isEmpty ? "-" : breedController.text));
 
     if (response.getException != null) {
       ServerError error = response.getException as ServerError;

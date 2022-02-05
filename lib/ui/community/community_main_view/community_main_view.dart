@@ -318,7 +318,11 @@ Widget playBuddiesNearMeItem(PlayBuddiesNearMeModel model) {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          CustomCircularAvatar(radius: 25, imgPath: model.profileImgUrl),
+          CustomCircularAvatar(
+            radius: 25,
+            imgPath: model.profileImgUrl,
+            isHuman: true,
+          ),
           verticalSpaceTiny,
           AppText.caption(
             model.name,

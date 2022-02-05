@@ -153,50 +153,69 @@ class _CreateAnimalProfileNewPageThreeState
                               elevation: 8,
                               color: colors.white,
                               borderRadius: BorderRadius.circular(20),
-                              child: DropdownButton<String>(
-                                isExpanded: true,
-                                itemHeight: null,
-                                icon: Icon(Icons.arrow_drop_down),
-                                value: model.selectedYear,
-                                items: model.listOfYears
-                                    .map((item) => DropdownMenuItem<String>(
-                                          child: AppText.body1(item,
-                                              color: item == "Years"
-                                                  ? colors.kcLightGreyColor
-                                                  : colors.black),
-                                          value: item,
-                                        ))
-                                    .toList(),
-                                onChanged: model.onChangeYear,
-                                onTap: () {
-                                  FocusScope.of(context).unfocus();
-                                },
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 10,
+                                  horizontal: 20,
+                                ),
+                                child: DropdownButton<String>(
+                                  isExpanded: true,
+                                  itemHeight: null,
+                                  icon: Icon(
+                                    Icons.arrow_drop_down,
+                                    color: colors.primary,
+                                  ),
+                                  value: model.selectedYear,
+                                  items: model.listOfYears
+                                      .map((item) => DropdownMenuItem<String>(
+                                            child: AppText.body1(item,
+                                                color: item == "Years"
+                                                    ? colors.kcLightGreyColor
+                                                    : colors.black),
+                                            value: item,
+                                          ))
+                                      .toList(),
+                                  onChanged: model.onChangeYear,
+                                  onTap: () {
+                                    FocusScope.of(context).unfocus();
+                                  },
+                                ),
                               ),
                             ),
                           ),
+                          horizontalSpaceRegular,
                           Expanded(
                             child: PhysicalModel(
                               elevation: 8,
                               color: colors.white,
                               borderRadius: BorderRadius.circular(20),
-                              child: DropdownButton<String>(
-                                isExpanded: true,
-                                itemHeight: null,
-                                icon: Icon(Icons.arrow_drop_down),
-                                value: model.selectedMonth,
-                                items: model.listOfMoths
-                                    .map((item) => DropdownMenuItem<String>(
-                                          child: AppText.body1(item,
-                                              color: item == "Months"
-                                                  ? colors.kcLightGreyColor
-                                                  : colors.black),
-                                          value: item,
-                                        ))
-                                    .toList(),
-                                onChanged: model.onChangeMonth,
-                                onTap: () {
-                                  FocusScope.of(context).unfocus();
-                                },
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 10,
+                                  horizontal: 20,
+                                ),
+                                child: DropdownButton<String>(
+                                  isExpanded: true,
+                                  itemHeight: null,
+                                  icon: Icon(
+                                    Icons.arrow_drop_down,
+                                    color: colors.primary,
+                                  ),
+                                  value: model.selectedMonth,
+                                  items: model.listOfMoths
+                                      .map((item) => DropdownMenuItem<String>(
+                                            child: AppText.body1(item,
+                                                color: item == "Months"
+                                                    ? colors.kcLightGreyColor
+                                                    : colors.black),
+                                            value: item,
+                                          ))
+                                      .toList(),
+                                  onChanged: model.onChangeMonth,
+                                  onTap: () {
+                                    FocusScope.of(context).unfocus();
+                                  },
+                                ),
                               ),
                             ),
                           ),
