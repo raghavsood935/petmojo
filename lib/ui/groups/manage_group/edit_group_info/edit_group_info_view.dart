@@ -68,6 +68,7 @@ class _EditGroupBasicInfoState extends State<EditGroupBasicInfo> {
                                 : CustomCircularAvatar(
                                     imgPath: model.avatarUrl,
                                     radius: 50,
+                                    isHuman: true,
                                   )),
                       ),
                       Positioned(

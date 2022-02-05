@@ -111,6 +111,7 @@ class _ProfileSelectionAppBarState extends State<ProfileSelectionAppBar> {
           child: CustomCircularAvatar(
             radius: 33,
             imgPath: widget.listOfProfiles[x].avatar,
+            isHuman: widget.listOfProfiles[x].isHuman,
           ),
         ),
       ),

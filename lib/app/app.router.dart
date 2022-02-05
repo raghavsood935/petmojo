@@ -14,6 +14,7 @@ import 'package:stacked/stacked_annotations.dart';
 
 import '../enum/walkNumber.dart';
 import '../models/application_models.dart';
+import '../models/e-commerce/product_response.dart';
 import '../models/feed_post_response.dart';
 import '../models/get_animals_by_location_response.dart';
 import '../models/get_blogs_model.dart';
@@ -43,6 +44,13 @@ import '../ui/community/community_main_view/strays_near_you/strays_near_you_view
 import '../ui/community/first_time_views/community_choose_interests/community_choose_interests_view.dart';
 import '../ui/dashboard/dashboard.dart';
 import '../ui/dummy_development_screen.dart';
+import '../ui/e_commerce/cart/cart_view.dart';
+import '../ui/e_commerce/cart/cart_view_model.dart';
+import '../ui/e_commerce/check_out_page/check_out_view.dart';
+import '../ui/e_commerce/main_page/e_commerce_main_view.dart';
+import '../ui/e_commerce/order_detail_page/order_detail_view.dart';
+import '../ui/e_commerce/product_bookings/bookings_main_view.dart';
+import '../ui/e_commerce/product_detail/product_detail_view.dart';
 import '../ui/exploreblogs/explore_blog_search/blogs_deatils_page/blog_detail_view.dart';
 import '../ui/exploreblogs/explore_blogs_view.dart';
 import '../ui/feedback/feedback_view.dart';
@@ -75,6 +83,9 @@ import '../ui/post_detail/single_post_details_page/single_post_details_view.dart
 import '../ui/profile/profile_create_view.dart';
 import '../ui/profilepage/animal_profile/animal_profile_view.dart';
 import '../ui/profilepage/animal_profile/basic_info/basic_info_view.dart';
+import '../ui/profilepage/animal_profile/create_animal_profile_new/page_one/create_animal_profile_new_page_one.dart';
+import '../ui/profilepage/animal_profile/create_animal_profile_new/page_three/create_animal_profile_new_page_three.dart';
+import '../ui/profilepage/animal_profile/create_animal_profile_new/page_two/create_animal_profile_new_page_two.dart';
 import '../ui/profilepage/animal_profile/guardians_and_relations/guardians_and_relations.dart';
 import '../ui/profilepage/completed_profile/add_details_profile_view.dart';
 import '../ui/profilepage/completed_profile/follow_people_action_view.dart';
@@ -119,6 +130,12 @@ class Routes {
       '/guardians-and-related-animals-view';
   static const String postDetialsPageView = '/post-detials-page-view';
   static const String singlePostDetailsView = '/single-post-details-view';
+  static const String createAnimalProfileNewPageOne =
+      '/create-animal-profile-new-page-one';
+  static const String createAnimalProfileNewPageTwo =
+      '/create-animal-profile-new-page-two';
+  static const String createAnimalProfileNewPageThree =
+      '/create-animal-profile-new-page-three';
   static const String groupsView = '/groups-view';
   static const String createGroupFirstView = '/create-group-first-view';
   static const String createGroupSecondView = '/create-group-second-view';
@@ -139,6 +156,12 @@ class Routes {
   static const String adoptionView = '/adoption-view';
   static const String exploreBlogs = '/explore-blogs';
   static const String blogDetailsPageView = '/blog-details-page-view';
+  static const String eCommerceMainView = '/e-commerce-main-view';
+  static const String productDetailView = '/product-detail-view';
+  static const String cartView = '/cart-view';
+  static const String checkOutView = '/check-out-view';
+  static const String orderDetailPage = '/order-detail-page';
+  static const String productBookingsMainView = '/product-bookings-main-view';
   static const String settingsHumanView = '/settings-human-view';
   static const String settingsAnimalView = '/settings-animal-view';
   static const String feedbackView = '/feedback-view';
@@ -190,6 +213,9 @@ class Routes {
     guardiansAndRelatedAnimalsView,
     postDetialsPageView,
     singlePostDetailsView,
+    createAnimalProfileNewPageOne,
+    createAnimalProfileNewPageTwo,
+    createAnimalProfileNewPageThree,
     groupsView,
     createGroupFirstView,
     createGroupSecondView,
@@ -210,6 +236,12 @@ class Routes {
     adoptionView,
     exploreBlogs,
     blogDetailsPageView,
+    eCommerceMainView,
+    productDetailView,
+    cartView,
+    checkOutView,
+    orderDetailPage,
+    productBookingsMainView,
     settingsHumanView,
     settingsAnimalView,
     feedbackView,
@@ -269,6 +301,12 @@ class StackedRouter extends RouterBase {
         page: GuardiansAndRelatedAnimalsView),
     RouteDef(Routes.postDetialsPageView, page: PostDetialsPageView),
     RouteDef(Routes.singlePostDetailsView, page: SinglePostDetailsView),
+    RouteDef(Routes.createAnimalProfileNewPageOne,
+        page: CreateAnimalProfileNewPageOne),
+    RouteDef(Routes.createAnimalProfileNewPageTwo,
+        page: CreateAnimalProfileNewPageTwo),
+    RouteDef(Routes.createAnimalProfileNewPageThree,
+        page: CreateAnimalProfileNewPageThree),
     RouteDef(Routes.groupsView, page: GroupsView),
     RouteDef(Routes.createGroupFirstView, page: CreateGroupFirstView),
     RouteDef(Routes.createGroupSecondView, page: CreateGroupSecondView),
@@ -289,6 +327,12 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.adoptionView, page: AdoptionView),
     RouteDef(Routes.exploreBlogs, page: ExploreBlogs),
     RouteDef(Routes.blogDetailsPageView, page: BlogDetailsPageView),
+    RouteDef(Routes.eCommerceMainView, page: ECommerceMainView),
+    RouteDef(Routes.productDetailView, page: ProductDetailView),
+    RouteDef(Routes.cartView, page: CartView),
+    RouteDef(Routes.checkOutView, page: CheckOutView),
+    RouteDef(Routes.orderDetailPage, page: OrderDetailPage),
+    RouteDef(Routes.productBookingsMainView, page: ProductBookingsMainView),
     RouteDef(Routes.settingsHumanView, page: SettingsHumanView),
     RouteDef(Routes.settingsAnimalView, page: SettingsAnimalView),
     RouteDef(Routes.feedbackView, page: FeedbackView),
@@ -592,6 +636,37 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    CreateAnimalProfileNewPageOne: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const CreateAnimalProfileNewPageOne(),
+        settings: data,
+      );
+    },
+    CreateAnimalProfileNewPageTwo: (data) {
+      var args =
+          data.getArgs<CreateAnimalProfileNewPageTwoArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => CreateAnimalProfileNewPageTwo(
+          key: args.key,
+          id: args.id,
+          token: args.token,
+        ),
+        settings: data,
+      );
+    },
+    CreateAnimalProfileNewPageThree: (data) {
+      var args =
+          data.getArgs<CreateAnimalProfileNewPageThreeArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => CreateAnimalProfileNewPageThree(
+          key: args.key,
+          id: args.id,
+          token: args.token,
+          type: args.type,
+        ),
+        settings: data,
+      );
+    },
     GroupsView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const GroupsView(),
@@ -761,6 +836,51 @@ class StackedRouter extends RouterBase {
           key: args.key,
           blog: args.blog,
         ),
+        settings: data,
+      );
+    },
+    ECommerceMainView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const ECommerceMainView(),
+        settings: data,
+      );
+    },
+    ProductDetailView: (data) {
+      var args = data.getArgs<ProductDetailViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => ProductDetailView(
+          key: args.key,
+          dummyProductModel: args.dummyProductModel,
+          index: args.index,
+        ),
+        settings: data,
+      );
+    },
+    CartView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const CartView(),
+        settings: data,
+      );
+    },
+    CheckOutView: (data) {
+      var args = data.getArgs<CheckOutViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => CheckOutView(
+          key: args.key,
+          listOfItems: args.listOfItems,
+        ),
+        settings: data,
+      );
+    },
+    OrderDetailPage: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const OrderDetailPage(),
+        settings: data,
+      );
+    },
+    ProductBookingsMainView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const ProductBookingsMainView(),
         settings: data,
       );
     },
@@ -1172,6 +1292,25 @@ class SinglePostDetailsViewArguments {
   SinglePostDetailsViewArguments({this.key, required this.postResponse});
 }
 
+/// CreateAnimalProfileNewPageTwo arguments holder class
+class CreateAnimalProfileNewPageTwoArguments {
+  final Key? key;
+  final String id;
+  final String token;
+  CreateAnimalProfileNewPageTwoArguments(
+      {this.key, required this.id, required this.token});
+}
+
+/// CreateAnimalProfileNewPageThree arguments holder class
+class CreateAnimalProfileNewPageThreeArguments {
+  final Key? key;
+  final String id;
+  final String token;
+  final String type;
+  CreateAnimalProfileNewPageThreeArguments(
+      {this.key, required this.id, required this.token, required this.type});
+}
+
 /// CreateGroupSecondView arguments holder class
 class CreateGroupSecondViewArguments {
   final Key? key;
@@ -1273,6 +1412,22 @@ class BlogDetailsPageViewArguments {
   final Key? key;
   final blogDetails blog;
   BlogDetailsPageViewArguments({this.key, required this.blog});
+}
+
+/// ProductDetailView arguments holder class
+class ProductDetailViewArguments {
+  final Key? key;
+  final ProductResponse dummyProductModel;
+  final int index;
+  ProductDetailViewArguments(
+      {this.key, required this.dummyProductModel, required this.index});
+}
+
+/// CheckOutView arguments holder class
+class CheckOutViewArguments {
+  final Key? key;
+  final List<CartItem> listOfItems;
+  CheckOutViewArguments({this.key, required this.listOfItems});
 }
 
 /// BookmarksView arguments holder class

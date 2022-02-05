@@ -7,15 +7,17 @@ class AppPasswordInputField extends StatefulWidget {
   final String hint;
   final Widget? leading;
   final Widget? trailing;
+  final bool? noNeedBorder;
 
-  AppPasswordInputField({
-    Key? key,
-    required this.controller,
-    this.label = '',
-    this.hint = '',
-    this.leading,
-    this.trailing,
-  }) : super(key: key);
+  AppPasswordInputField(
+      {Key? key,
+      required this.controller,
+      this.label = '',
+      this.hint = '',
+      this.leading,
+      this.trailing,
+      this.noNeedBorder})
+      : super(key: key);
 
   @override
   _AppPasswordInputFieldState createState() => _AppPasswordInputFieldState();
@@ -63,20 +65,32 @@ class _AppPasswordInputFieldState extends State<AppPasswordInputField> {
               });
             },
           ),
-          border: circularBorder.copyWith(
-            borderSide: BorderSide(color: colors.kcLightGreyColor),
-          ),
-          errorBorder: circularBorder.copyWith(
-            borderSide: BorderSide(color: Colors.red),
-          ),
-          focusedBorder: circularBorder.copyWith(
-            borderSide: BorderSide(color: colors.primary),
-          ),
-          enabledBorder: circularBorder.copyWith(
-            borderSide: BorderSide(color: colors.kcLightGreyColor),
-          ),
+          border: (widget.noNeedBorder ?? false)
+              ? InputBorder.none
+              : circularBorder.copyWith(
+                  borderSide: BorderSide(color: colors.kcLightGreyColor),
+                ),
+          errorBorder: (widget.noNeedBorder ?? false)
+              ? InputBorder.none
+              : circularBorder.copyWith(
+                  borderSide: BorderSide(color: Colors.red),
+                ),
+          focusedBorder: (widget.noNeedBorder ?? false)
+              ? InputBorder.none
+              : circularBorder.copyWith(
+                  borderSide: BorderSide(color: colors.primary),
+                ),
+          enabledBorder: (widget.noNeedBorder ?? false)
+              ? InputBorder.none
+              : circularBorder.copyWith(
+                  borderSide: BorderSide(color: colors.kcLightGreyColor),
+                ),
           labelStyle: TextStyle(fontSize: 16, color: colors.kcPrimaryTextColor),
-          hintStyle: TextStyle(fontSize: 14, color: colors.kcLightGreyColor),
+          hintStyle: TextStyle(
+              fontSize: 14,
+              color: (widget.noNeedBorder ?? false)
+                  ? Color(0xFFABB3BB)
+                  : colors.kcLightGreyColor),
         ),
       ),
     );

@@ -3,6 +3,7 @@ import 'package:stacked/stacked.dart';
 import 'package:tamely/ui/profilepage/completed_profile/follow_people_action_viewmodel.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/global_methods.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/custom_circle_avatar.dart';
@@ -62,10 +63,13 @@ class _FollowPeopleProfileActionViewState
                           model.listOfProfileModel[index].profile.fullname ??
                               "-"),
                       leading: CustomCircularAvatar(
-                          radius: 24,
-                          imgPath:
-                              model.listOfProfileModel[index].profile.avatar ??
-                                  emptyProfileImgUrl),
+                        radius: 24,
+                        imgPath:
+                            model.listOfProfileModel[index].profile.avatar ??
+                                "",
+                        isHuman: GlobalMethods.checkProfileType(
+                            model.listOfProfileModel[index].profile.type),
+                      ),
                       trailing: GestureDetector(
                         onTap: () {
                           if (!(model.listOfProfileModel[index].isFollowing)) {

@@ -11,6 +11,23 @@ class SignUpViewModel extends AuthenticationViewModel {
 
   get isValid => _isValid;
 
+  bool emailFocus = false;
+  bool passwordFocus = false;
+
+  Future onEmailFocusChanges(bool focus) async {
+    emailFocus = focus;
+    notifyListeners();
+  }
+
+  Future onPasswordFocusChanges(bool focus) async {
+    passwordFocus = focus;
+    notifyListeners();
+  }
+
+  void onPhoneAuthentication() {
+    navigationService.navigateTo(Routes.phoneAuthenticationView);
+  }
+
   void navigateBack() => navigationService.back();
 
   @override

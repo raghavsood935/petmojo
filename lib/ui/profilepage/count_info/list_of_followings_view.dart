@@ -97,21 +97,23 @@ class _ListOfFollowingsState extends State<ListOfFollowings> {
                               .name ??
                           "-"),
                   leading: CustomCircularAvatar(
-                      radius: 24,
-                      imgPath: widget.isFollowers
-                          ? model
-                                  .listOfFollowersProfileModel[index]
-                                  .profile
-                                  .followersDetailsResponse!
-                                  .followersInnerDetailsResponse!
-                                  .avatar ??
-                              emptyProfileImgUrl
-                          : model
-                                  .listOfFollowingsProfileModel[index]
-                                  .followingDetailsResponse!
-                                  .followingInnerDetailsResponse!
-                                  .avatar ??
-                              emptyProfileImgUrl),
+                    radius: 24,
+                    imgPath: widget.isFollowers
+                        ? model
+                                .listOfFollowersProfileModel[index]
+                                .profile
+                                .followersDetailsResponse!
+                                .followersInnerDetailsResponse!
+                                .avatar ??
+                            ""
+                        : model
+                                .listOfFollowingsProfileModel[index]
+                                .followingDetailsResponse!
+                                .followingInnerDetailsResponse!
+                                .avatar ??
+                            "",
+                    isHuman: true,
+                  ),
                   trailing: widget.isFollowers
                       ? GestureDetector(
                           onTap: () {

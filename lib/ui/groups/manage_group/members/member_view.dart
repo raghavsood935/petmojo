@@ -3,6 +3,7 @@ import 'package:stacked/stacked.dart';
 import 'package:tamely/models/group_response/get_all_group_members_response.dart';
 import 'package:tamely/ui/groups/manage_group/members/member_view_model.dart';
 import 'package:tamely/util/Color.dart';
+import 'package:tamely/util/global_methods.dart';
 import 'package:tamely/widgets/custom_circle_avatar.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/ImageConstant.dart';
@@ -181,6 +182,7 @@ class MemberListTile extends StatelessWidget {
       leading: CustomCircularAvatar(
         radius: 24,
         imgPath: model.user!.avatar ?? emptyProfileImgUrl,
+        isHuman: GlobalMethods.checkProfileType(model.userType),
       ),
       trailing: Visibility(
         visible: isAdmin,

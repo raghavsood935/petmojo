@@ -89,8 +89,8 @@ class GroupInfoView extends StatelessWidget {
                                 right: 0,
                                 left: 0,
                                 child: GestureDetector(
-                                  onTap: () =>
-                                      model.imageTapped(model.coverImgurl),
+                                  onTap: () => model.imageTapped(
+                                      context, model.coverImgurl),
                                   child: Image.network(
                                     model.coverImgurl,
                                     fit: BoxFit.cover,
@@ -103,11 +103,12 @@ class GroupInfoView extends StatelessWidget {
                                 left: 20,
                                 bottom: 0,
                                 child: GestureDetector(
-                                  onTap: () =>
-                                      model.imageTapped(model.groupAvatar),
+                                  onTap: () => model.imageTapped(
+                                      context, model.groupAvatar),
                                   child: CustomCircularAvatar(
                                     radius: 45,
                                     imgPath: model.groupAvatar,
+                                    isHuman: true,
                                   ),
                                 ),
                               ),
@@ -255,6 +256,7 @@ class GroupInfoView extends StatelessWidget {
                                         CustomCircularAvatar(
                                           radius: 20.0,
                                           imgPath: model.profileImg,
+                                          isHuman: model.isHuman,
                                         ),
                                         horizontalSpaceRegular,
                                         AppText.caption(

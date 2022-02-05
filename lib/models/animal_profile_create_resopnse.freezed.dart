@@ -22,9 +22,12 @@ AnimalProfileCreateResopnse _$AnimalProfileCreateResopnseFromJson(
 class _$AnimalProfileCreateResopnseTearOff {
   const _$AnimalProfileCreateResopnseTearOff();
 
-  _AnimalProfileCreateResopnse call({@JsonKey(name: "token") String? token}) {
+  _AnimalProfileCreateResopnse call(
+      {@JsonKey(name: "token") String? token,
+      @JsonKey(name: "id") String? id}) {
     return _AnimalProfileCreateResopnse(
       token: token,
+      id: id,
     );
   }
 
@@ -40,6 +43,8 @@ const $AnimalProfileCreateResopnse = _$AnimalProfileCreateResopnseTearOff();
 mixin _$AnimalProfileCreateResopnse {
   @JsonKey(name: "token")
   String? get token => throw _privateConstructorUsedError;
+  @JsonKey(name: "id")
+  String? get id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,7 +58,8 @@ abstract class $AnimalProfileCreateResopnseCopyWith<$Res> {
           AnimalProfileCreateResopnse value,
           $Res Function(AnimalProfileCreateResopnse) then) =
       _$AnimalProfileCreateResopnseCopyWithImpl<$Res>;
-  $Res call({@JsonKey(name: "token") String? token});
+  $Res call(
+      {@JsonKey(name: "token") String? token, @JsonKey(name: "id") String? id});
 }
 
 /// @nodoc
@@ -68,11 +74,16 @@ class _$AnimalProfileCreateResopnseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? token = freezed,
+    Object? id = freezed,
   }) {
     return _then(_value.copyWith(
       token: token == freezed
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
+              as String?,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -86,7 +97,8 @@ abstract class _$AnimalProfileCreateResopnseCopyWith<$Res>
           $Res Function(_AnimalProfileCreateResopnse) then) =
       __$AnimalProfileCreateResopnseCopyWithImpl<$Res>;
   @override
-  $Res call({@JsonKey(name: "token") String? token});
+  $Res call(
+      {@JsonKey(name: "token") String? token, @JsonKey(name: "id") String? id});
 }
 
 /// @nodoc
@@ -105,11 +117,16 @@ class __$AnimalProfileCreateResopnseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? token = freezed,
+    Object? id = freezed,
   }) {
     return _then(_AnimalProfileCreateResopnse(
       token: token == freezed
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
+              as String?,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -118,7 +135,8 @@ class __$AnimalProfileCreateResopnseCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_AnimalProfileCreateResopnse extends _AnimalProfileCreateResopnse {
-  _$_AnimalProfileCreateResopnse({@JsonKey(name: "token") this.token})
+  _$_AnimalProfileCreateResopnse(
+      {@JsonKey(name: "token") this.token, @JsonKey(name: "id") this.id})
       : super._();
 
   factory _$_AnimalProfileCreateResopnse.fromJson(Map<String, dynamic> json) =>
@@ -127,10 +145,13 @@ class _$_AnimalProfileCreateResopnse extends _AnimalProfileCreateResopnse {
   @override
   @JsonKey(name: "token")
   final String? token;
+  @override
+  @JsonKey(name: "id")
+  final String? id;
 
   @override
   String toString() {
-    return 'AnimalProfileCreateResopnse(token: $token)';
+    return 'AnimalProfileCreateResopnse(token: $token, id: $id)';
   }
 
   @override
@@ -138,12 +159,15 @@ class _$_AnimalProfileCreateResopnse extends _AnimalProfileCreateResopnse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _AnimalProfileCreateResopnse &&
-            const DeepCollectionEquality().equals(other.token, token));
+            const DeepCollectionEquality().equals(other.token, token) &&
+            const DeepCollectionEquality().equals(other.id, id));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(token));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(token),
+      const DeepCollectionEquality().hash(id));
 
   @JsonKey(ignore: true)
   @override
@@ -160,7 +184,8 @@ class _$_AnimalProfileCreateResopnse extends _AnimalProfileCreateResopnse {
 abstract class _AnimalProfileCreateResopnse
     extends AnimalProfileCreateResopnse {
   factory _AnimalProfileCreateResopnse(
-      {@JsonKey(name: "token") String? token}) = _$_AnimalProfileCreateResopnse;
+      {@JsonKey(name: "token") String? token,
+      @JsonKey(name: "id") String? id}) = _$_AnimalProfileCreateResopnse;
   _AnimalProfileCreateResopnse._() : super._();
 
   factory _AnimalProfileCreateResopnse.fromJson(Map<String, dynamic> json) =
@@ -169,6 +194,9 @@ abstract class _AnimalProfileCreateResopnse
   @override
   @JsonKey(name: "token")
   String? get token;
+  @override
+  @JsonKey(name: "id")
+  String? get id;
   @override
   @JsonKey(ignore: true)
   _$AnimalProfileCreateResopnseCopyWith<_AnimalProfileCreateResopnse>

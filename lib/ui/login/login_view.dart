@@ -6,9 +6,7 @@ import 'package:tamely/ui/login/login_viewmodel.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
-import 'package:tamely/widgets/app_input_field.dart';
 import 'package:tamely/widgets/app_password_input_field.dart';
-import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/authentication_layout.dart';
 
 @FormView(fields: [
@@ -28,11 +26,12 @@ class LoginView extends StatelessWidget with $LoginView {
           busy: model.isBusy,
           isValid: model.isValid,
           onMainButtonTapped: model.loginAccount,
-          onBackPressed: model.navigateBack,
           onForgotPassword: model.onForgotPassword,
           validationMessage: model.validationMessage,
           onSignInWithFacebook: model.useFacebookAuthentication,
           onSignInWithGoogle: model.useGoogleAuthentication,
+          onCreateAccountTapped: model.onCreateAccount,
+          onContinueWithPhone: model.onPhoneAuthentication,
           title: loginAccountTitle,
           subtitle: '',
           isSocialLoginEnabled: true,
@@ -42,37 +41,118 @@ class LoginView extends StatelessWidget with $LoginView {
             mainAxisSize: MainAxisSize.max,
             children: [
               Container(
+                margin: EdgeInsets.symmetric(vertical: 15),
                 padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: AppText.body1(
-                    emailUsernameLabel,
-                    textAlign: TextAlign.start,
-                    color: colors.black,
-                  ),
+                decoration: BoxDecoration(
+                  color: colors.white,
+                  border: Border.all(
+                      color:
+                          model.emailFocus ? colors.primary : Color(0xFFD0D0D0),
+                      width: 0.5),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.email_rounded,
+                      color:
+                          model.emailFocus ? colors.primary : Color(0xFFABB3BB),
+                    ),
+                    horizontalSpaceRegular,
+                    Expanded(
+                      child: FocusScope(
+                        child: Focus(
+                          onFocusChange: model.onEmailFocusChanges,
+                          child: TextField(
+                            controller: emailController,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              focusedErrorBorder: InputBorder.none,
+                              hintText: enterEmailUserNameHint,
+                              hintStyle: TextStyle(
+                                color: Color(0xFFABB3BB),
+                              ),
+                            ),
+                            keyboardType: TextInputType.emailAddress,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              AppInputField(
-                hint: enterEmailUserNameHint,
-                controller: emailController,
-                textInputType: TextInputType.emailAddress,
-              ),
-              verticalSpaceMedium,
               Container(
+                margin: EdgeInsets.symmetric(vertical: 15),
                 padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: AppText.body1(
-                    passwordLabel,
-                    textAlign: TextAlign.start,
-                    color: colors.black,
-                  ),
+                decoration: BoxDecoration(
+                  color: colors.white,
+                  border: Border.all(
+                      color: model.passwordFocus
+                          ? colors.primary
+                          : Color(0xFFD0D0D0),
+                      width: 0.5),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.lock_rounded,
+                      color: model.passwordFocus
+                          ? colors.primary
+                          : Color(0xFFABB3BB),
+                    ),
+                    horizontalSpaceRegular,
+                    Expanded(
+                      child: FocusScope(
+                        child: Focus(
+                          onFocusChange: model.onPasswordFocusChanges,
+                          child: AppPasswordInputField(
+                            hint: passwordHint,
+                            controller: passwordController,
+                            noNeedBorder: true,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              AppPasswordInputField(
-                hint: passwordHint,
-                controller: passwordController,
-              ),
+              // Container(
+              //   padding: EdgeInsets.symmetric(horizontal: 10),
+              //   child: Align(
+              //     alignment: Alignment.centerLeft,
+              //     child: AppText.body1(
+              //       emailUsernameLabel,
+              //       textAlign: TextAlign.start,
+              //       color: colors.black,
+              //     ),
+              //   ),
+              // ),
+              // AppInputField(
+              //   hint: enterEmailUserNameHint,
+              //   controller: emailController,
+              //   textInputType: TextInputType.emailAddress,
+              // ),
+              // verticalSpaceMedium,
+              // Container(
+              //   padding: EdgeInsets.symmetric(horizontal: 10),
+              //   child: Align(
+              //     alignment: Alignment.centerLeft,
+              //     child: AppText.body1(
+              //       passwordLabel,
+              //       textAlign: TextAlign.start,
+              //       color: colors.black,
+              //     ),
+              //   ),
+              // ),
+              // AppPasswordInputField(
+              //   hint: passwordHint,
+              //   controller: passwordController,
+              // ),
             ],
           ),
           showTermsText: false,

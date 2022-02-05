@@ -10,6 +10,7 @@ class AnimalProfileCreateResopnse with _$AnimalProfileCreateResopnse {
 
   factory AnimalProfileCreateResopnse({
     @JsonKey(name: "token") String? token,
+    @JsonKey(name: "id") String? id,
   }) = _AnimalProfileCreateResopnse;
 
   factory AnimalProfileCreateResopnse.fromJson(Map<String, dynamic> json) =>

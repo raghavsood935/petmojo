@@ -26,12 +26,6 @@ void setupDialogUi() {
             onDialogTap: completer,
           ),
         ),
-    DialogType.ImagePopUpDialog: (context, dialogRequest, completer) => Dialog(
-          child: ImagePopUpDialogView(
-            dialogRequest: dialogRequest,
-            onDialogTap: completer,
-          ),
-        ),
   };
   dialogService.registerCustomDialogBuilders(builders);
 }

@@ -25,6 +25,12 @@ import 'package:tamely/ui/community/community_main_view/strays_near_you/strays_n
 import 'package:tamely/ui/community/first_time_views/community_choose_interests/community_choose_interests_view.dart';
 import 'package:tamely/ui/dashboard/dashboard.dart';
 import 'package:tamely/ui/dummy_development_screen.dart';
+import 'package:tamely/ui/e_commerce/cart/cart_view.dart';
+import 'package:tamely/ui/e_commerce/check_out_page/check_out_view.dart';
+import 'package:tamely/ui/e_commerce/main_page/e_commerce_main_view.dart';
+import 'package:tamely/ui/e_commerce/order_detail_page/order_detail_view.dart';
+import 'package:tamely/ui/e_commerce/product_bookings/bookings_main_view.dart';
+import 'package:tamely/ui/e_commerce/product_detail/product_detail_view.dart';
 import 'package:tamely/ui/exploreblogs/explore_blog_search/blogs_deatils_page/blog_detail_view.dart';
 import 'package:tamely/ui/exploreblogs/explore_blogs_view.dart';
 import 'package:tamely/ui/for_you/for_you_search/for_you_tab_search_view.dart';
@@ -56,6 +62,9 @@ import 'package:tamely/ui/post_detail/single_post_details_page/single_post_detai
 import 'package:tamely/ui/profile/profile_create_view.dart';
 import 'package:tamely/ui/profilepage/animal_profile/animal_profile_view.dart';
 import 'package:tamely/ui/profilepage/animal_profile/basic_info/basic_info_view.dart';
+import 'package:tamely/ui/profilepage/animal_profile/create_animal_profile_new/page_one/create_animal_profile_new_page_one.dart';
+import 'package:tamely/ui/profilepage/animal_profile/create_animal_profile_new/page_three/create_animal_profile_new_page_three.dart';
+import 'package:tamely/ui/profilepage/animal_profile/create_animal_profile_new/page_two/create_animal_profile_new_page_two.dart';
 import 'package:tamely/ui/profilepage/animal_profile/guardians_and_relations/guardians_and_relations.dart';
 import 'package:tamely/ui/profilepage/completed_profile/add_details_profile_view.dart';
 import 'package:tamely/ui/profilepage/completed_profile/follow_people_action_view.dart';
@@ -105,6 +114,11 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: PostDetialsPageView),
     CupertinoRoute(page: SinglePostDetailsView),
 
+    //Create animal profile new ui routes
+    CupertinoRoute(page: CreateAnimalProfileNewPageOne),
+    CupertinoRoute(page: CreateAnimalProfileNewPageTwo),
+    CupertinoRoute(page: CreateAnimalProfileNewPageThree),
+
     // Group routes
     CupertinoRoute(page: GroupsView),
     CupertinoRoute(page: CreateGroupFirstView),
@@ -130,6 +144,14 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: AdoptionView),
     CupertinoRoute(page: ExploreBlogs),
     CupertinoRoute(page: BlogDetailsPageView),
+
+    //E-Commerce
+    CupertinoRoute(page: ECommerceMainView),
+    CupertinoRoute(page: ProductDetailView),
+    CupertinoRoute(page: CartView),
+    CupertinoRoute(page: CheckOutView),
+    CupertinoRoute(page: OrderDetailPage),
+    CupertinoRoute(page: ProductBookingsMainView),
 
     // dashboard routes
     CupertinoRoute(page: SettingsHumanView),
