@@ -164,7 +164,7 @@ class DRDogRunningBookingViewModel extends FormViewModel {
     try {
       if (await Util.checkInternetConnectivity()) {
         SetPaymentDetailsBody setPaymentDetailsBody =
-            SetPaymentDetailsBody(bookingId, "FREE RUN");
+            SetPaymentDetailsBody(bookingId, "FREE RUN", 0);
         BaseResponse<SendDataResponse> result = await runBusyFuture(
             _tamelyApi.setPaymentDetails(setPaymentDetailsBody),
             throwException: true);
@@ -386,13 +386,15 @@ class DRDogRunningBookingViewModel extends FormViewModel {
 
   void setFirstPageValid() {
     _isValid = true;
-    if (noOfDogs == 1) {
-      if (petDetailsBody.length != 1) {
-        _isValid = false;
-      }
-    } else if (noOfDogs == 2) {
-      if (petDetailsBody.length != 2) {
-        _isValid = false;
+    if (hasPets) {
+      if (noOfDogs == 1) {
+        if (petDetailsBody.length != 1) {
+          _isValid = false;
+        }
+      } else if (noOfDogs == 2) {
+        if (petDetailsBody.length != 2) {
+          _isValid = false;
+        }
       }
     }
     notifyListeners();

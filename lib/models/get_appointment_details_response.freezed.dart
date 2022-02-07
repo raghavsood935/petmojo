@@ -478,7 +478,7 @@ class _$GetBookingDetailsResponseTearOff {
   _GetBookingDetailsResponse call(
       {@JsonKey(name: "petBehaviour") PetBehaviourResponse? petBehaviour,
       @JsonKey(name: "petRunningLocation") LocationResponse? petRunningLocation,
-      @JsonKey(name: "package") PackageResponse? package,
+      @JsonKey(name: "package") DogRunningPackageResponse? package,
       @JsonKey(name: "numberOfPets") int? numberOfPets,
       @JsonKey(name: "petDetails") List<PetSizeResponse>? petDetails,
       @JsonKey(name: "specialInstructions") String? specialInstructions,
@@ -518,7 +518,7 @@ mixin _$GetBookingDetailsResponse {
   LocationResponse? get petRunningLocation =>
       throw _privateConstructorUsedError;
   @JsonKey(name: "package")
-  PackageResponse? get package => throw _privateConstructorUsedError;
+  DogRunningPackageResponse? get package => throw _privateConstructorUsedError;
   @JsonKey(name: "numberOfPets")
   int? get numberOfPets => throw _privateConstructorUsedError;
   @JsonKey(name: "petDetails")
@@ -550,7 +550,7 @@ abstract class $GetBookingDetailsResponseCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "petBehaviour") PetBehaviourResponse? petBehaviour,
       @JsonKey(name: "petRunningLocation") LocationResponse? petRunningLocation,
-      @JsonKey(name: "package") PackageResponse? package,
+      @JsonKey(name: "package") DogRunningPackageResponse? package,
       @JsonKey(name: "numberOfPets") int? numberOfPets,
       @JsonKey(name: "petDetails") List<PetSizeResponse>? petDetails,
       @JsonKey(name: "specialInstructions") String? specialInstructions,
@@ -562,7 +562,7 @@ abstract class $GetBookingDetailsResponseCopyWith<$Res> {
 
   $PetBehaviourResponseCopyWith<$Res>? get petBehaviour;
   $LocationResponseCopyWith<$Res>? get petRunningLocation;
-  $PackageResponseCopyWith<$Res>? get package;
+  $DogRunningPackageResponseCopyWith<$Res>? get package;
 }
 
 /// @nodoc
@@ -600,7 +600,7 @@ class _$GetBookingDetailsResponseCopyWithImpl<$Res>
       package: package == freezed
           ? _value.package
           : package // ignore: cast_nullable_to_non_nullable
-              as PackageResponse?,
+              as DogRunningPackageResponse?,
       numberOfPets: numberOfPets == freezed
           ? _value.numberOfPets
           : numberOfPets // ignore: cast_nullable_to_non_nullable
@@ -659,12 +659,12 @@ class _$GetBookingDetailsResponseCopyWithImpl<$Res>
   }
 
   @override
-  $PackageResponseCopyWith<$Res>? get package {
+  $DogRunningPackageResponseCopyWith<$Res>? get package {
     if (_value.package == null) {
       return null;
     }
 
-    return $PackageResponseCopyWith<$Res>(_value.package!, (value) {
+    return $DogRunningPackageResponseCopyWith<$Res>(_value.package!, (value) {
       return _then(_value.copyWith(package: value));
     });
   }
@@ -680,7 +680,7 @@ abstract class _$GetBookingDetailsResponseCopyWith<$Res>
   $Res call(
       {@JsonKey(name: "petBehaviour") PetBehaviourResponse? petBehaviour,
       @JsonKey(name: "petRunningLocation") LocationResponse? petRunningLocation,
-      @JsonKey(name: "package") PackageResponse? package,
+      @JsonKey(name: "package") DogRunningPackageResponse? package,
       @JsonKey(name: "numberOfPets") int? numberOfPets,
       @JsonKey(name: "petDetails") List<PetSizeResponse>? petDetails,
       @JsonKey(name: "specialInstructions") String? specialInstructions,
@@ -695,7 +695,7 @@ abstract class _$GetBookingDetailsResponseCopyWith<$Res>
   @override
   $LocationResponseCopyWith<$Res>? get petRunningLocation;
   @override
-  $PackageResponseCopyWith<$Res>? get package;
+  $DogRunningPackageResponseCopyWith<$Res>? get package;
 }
 
 /// @nodoc
@@ -736,7 +736,7 @@ class __$GetBookingDetailsResponseCopyWithImpl<$Res>
       package: package == freezed
           ? _value.package
           : package // ignore: cast_nullable_to_non_nullable
-              as PackageResponse?,
+              as DogRunningPackageResponse?,
       numberOfPets: numberOfPets == freezed
           ? _value.numberOfPets
           : numberOfPets // ignore: cast_nullable_to_non_nullable
@@ -801,7 +801,7 @@ class _$_GetBookingDetailsResponse extends _GetBookingDetailsResponse {
   final LocationResponse? petRunningLocation;
   @override
   @JsonKey(name: "package")
-  final PackageResponse? package;
+  final DogRunningPackageResponse? package;
   @override
   @JsonKey(name: "numberOfPets")
   final int? numberOfPets;
@@ -890,7 +890,7 @@ abstract class _GetBookingDetailsResponse extends GetBookingDetailsResponse {
       @JsonKey(name: "petRunningLocation")
           LocationResponse? petRunningLocation,
       @JsonKey(name: "package")
-          PackageResponse? package,
+          DogRunningPackageResponse? package,
       @JsonKey(name: "numberOfPets")
           int? numberOfPets,
       @JsonKey(name: "petDetails")
@@ -920,7 +920,7 @@ abstract class _GetBookingDetailsResponse extends GetBookingDetailsResponse {
   LocationResponse? get petRunningLocation;
   @override
   @JsonKey(name: "package")
-  PackageResponse? get package;
+  DogRunningPackageResponse? get package;
   @override
   @JsonKey(name: "numberOfPets")
   int? get numberOfPets;

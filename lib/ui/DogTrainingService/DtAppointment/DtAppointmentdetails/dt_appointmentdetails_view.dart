@@ -223,19 +223,19 @@ class DTAppointmentDetailsView extends StatelessWidget {
                               detailValue: model.startDateString,
                               clickable: false,
                             ),
-                            verticalSpaceRegular,
-                            BookingItem(
-                              detailName: "Timings",
-                              detailValue: model.walkOneTime,
-                              clickable: false,
-                            ),
+                            // verticalSpaceRegular,
+                            // BookingItem(
+                            //   detailName: "Timings",
+                            //   detailValue: model.walkOneTime,
+                            //   clickable: false,
+                            // ),
                             verticalSpaceRegular,
                             BookingItem(
                               detailName: "Session Report",
-                              detailValue: !model.showReportOne
+                              detailValue: model.showReportOne
                                   ? "See my report"
                                   : "Upcoming",
-                              clickable: !model.showReportOne ? true : false,
+                              clickable: model.showReportOne ? true : false,
                               onTapped: model.toReport,
                             ),
                             verticalSpaceRegular,
@@ -286,7 +286,7 @@ class DTAppointmentDetailsView extends StatelessWidget {
 
                 // -- Chat
                 Visibility(
-                  visible: !model.enableChat,
+                  visible: model.enableChat,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25),
                     child: Column(

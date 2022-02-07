@@ -14,24 +14,15 @@ import 'dt_reportcard_viewmodel.dart';
 
 class DTReportCardView extends StatelessWidget {
   DTReportCardView(
-      {Key? key,
-      required this.noOfDogs,
-      required this.dogs,
-      required this.date,
-      required this.walkNumber,
-      required this.appointmentId})
+      {Key? key, required this.appointmentId, required this.sessionNo})
       : super(key: key);
-  final int noOfDogs;
-  final List<String> dogs;
-  final DateTime date;
-  final WalkNumber walkNumber;
   final String appointmentId;
+  final int sessionNo;
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<DTReportCardViewModel>.reactive(
-      viewModelBuilder: () => DTReportCardViewModel(
-          noOfDogs, dogs, date, walkNumber, appointmentId),
+      viewModelBuilder: () => DTReportCardViewModel(appointmentId, sessionNo),
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
         body: SafeArea(
@@ -115,19 +106,6 @@ class DTReportCardView extends StatelessWidget {
                     ),
                   ),
 
-                  // Body
-                  // ReportItem(
-                  //   distance: "${model.distance} km",
-                  //   timeTook: "${model.timeTook} min",
-                  //   poo: model.dogPoo[0],
-                  //   pee: model.dogPee[0],
-                  //   gotRating: model.gotRating,
-                  //   rating: model.rating,
-                  //   dogPictureUrl: model.dogPicture,
-                  //   mapPictureUrl: model.mapPicture,
-                  //   starOnTaped: model.starOnTaped,
-                  // ),
-
                   // Dog Picture
                   Container(
                     height: 300,
@@ -178,12 +156,12 @@ class DTReportCardView extends StatelessWidget {
                         verticalSpaceSmall,
                         BookingItem(
                           detailName: "Duration",
-                          detailValue: "${model.dogs[0]}",
+                          detailValue: "${model.duration}",
                         ),
                         verticalSpaceSmall,
                         BookingItem(
                           detailName: "Session No",
-                          detailValue: "${model.dogs[0]}",
+                          detailValue: "${model.sessionNo}",
                         ),
                         verticalSpaceSmall,
                       ],
@@ -192,122 +170,122 @@ class DTReportCardView extends StatelessWidget {
                   verticalSpaceRegular,
 
                   // Division 6 - Rating
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    //height: 150,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        verticalSpaceRegular,
-                        AppText.body2(
-                          walkRatingTitle,
-                          textAlign: TextAlign.center,
-                        ),
-                        verticalSpaceRegular,
-                        model.gotRating
-                            ? Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.star,
-                                    color: model.rating >= 1
-                                        ? colors.primary
-                                        : colors.kcCaptionGreyColor,
-                                    size: 55.0,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: model.rating >= 2
-                                        ? colors.primary
-                                        : colors.kcCaptionGreyColor,
-                                    size: 55.0,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: model.rating >= 3
-                                        ? colors.primary
-                                        : colors.kcCaptionGreyColor,
-                                    size: 55.0,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: model.rating >= 4
-                                        ? colors.primary
-                                        : colors.kcCaptionGreyColor,
-                                    size: 55.0,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: model.rating >= 5
-                                        ? colors.primary
-                                        : colors.kcCaptionGreyColor,
-                                    size: 55.0,
-                                  ),
-                                ],
-                              )
-                            : Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () =>
-                                        model.starOnTaped(SelectedStar.One),
-                                    child: Icon(
-                                      Icons.star,
-                                      color: model.rating >= 1
-                                          ? colors.primary
-                                          : colors.kcCaptionGreyColor,
-                                      size: 55.0,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () =>
-                                        model.starOnTaped(SelectedStar.Two),
-                                    child: Icon(
-                                      Icons.star,
-                                      color: model.rating >= 2
-                                          ? colors.primary
-                                          : colors.kcCaptionGreyColor,
-                                      size: 55.0,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () =>
-                                        model.starOnTaped(SelectedStar.Three),
-                                    child: Icon(
-                                      Icons.star,
-                                      color: model.rating >= 3
-                                          ? colors.primary
-                                          : colors.kcCaptionGreyColor,
-                                      size: 55.0,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () =>
-                                        model.starOnTaped(SelectedStar.Four),
-                                    child: Icon(
-                                      Icons.star,
-                                      color: model.rating >= 4
-                                          ? colors.primary
-                                          : colors.kcCaptionGreyColor,
-                                      size: 55.0,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () =>
-                                        model.starOnTaped(SelectedStar.Five),
-                                    child: Icon(
-                                      Icons.star,
-                                      color: model.rating >= 5
-                                          ? colors.primary
-                                          : colors.kcCaptionGreyColor,
-                                      size: 55.0,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                      ],
-                    ),
-                  ),
+                  // Container(
+                  //   padding: const EdgeInsets.symmetric(horizontal: 10),
+                  //   //height: 150,
+                  //   child: Column(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //     children: [
+                  //       verticalSpaceRegular,
+                  //       AppText.body2(
+                  //         walkRatingTitle,
+                  //         textAlign: TextAlign.center,
+                  //       ),
+                  //       verticalSpaceRegular,
+                  //       model.gotRating
+                  //           ? Row(
+                  //               mainAxisAlignment: MainAxisAlignment.center,
+                  //               children: [
+                  //                 Icon(
+                  //                   Icons.star,
+                  //                   color: model.rating >= 1
+                  //                       ? colors.primary
+                  //                       : colors.kcCaptionGreyColor,
+                  //                   size: 55.0,
+                  //                 ),
+                  //                 Icon(
+                  //                   Icons.star,
+                  //                   color: model.rating >= 2
+                  //                       ? colors.primary
+                  //                       : colors.kcCaptionGreyColor,
+                  //                   size: 55.0,
+                  //                 ),
+                  //                 Icon(
+                  //                   Icons.star,
+                  //                   color: model.rating >= 3
+                  //                       ? colors.primary
+                  //                       : colors.kcCaptionGreyColor,
+                  //                   size: 55.0,
+                  //                 ),
+                  //                 Icon(
+                  //                   Icons.star,
+                  //                   color: model.rating >= 4
+                  //                       ? colors.primary
+                  //                       : colors.kcCaptionGreyColor,
+                  //                   size: 55.0,
+                  //                 ),
+                  //                 Icon(
+                  //                   Icons.star,
+                  //                   color: model.rating >= 5
+                  //                       ? colors.primary
+                  //                       : colors.kcCaptionGreyColor,
+                  //                   size: 55.0,
+                  //                 ),
+                  //               ],
+                  //             )
+                  //           : Row(
+                  //               mainAxisAlignment: MainAxisAlignment.center,
+                  //               children: [
+                  //                 GestureDetector(
+                  //                   onTap: () =>
+                  //                       model.starOnTaped(SelectedStar.One),
+                  //                   child: Icon(
+                  //                     Icons.star,
+                  //                     color: model.rating >= 1
+                  //                         ? colors.primary
+                  //                         : colors.kcCaptionGreyColor,
+                  //                     size: 55.0,
+                  //                   ),
+                  //                 ),
+                  //                 GestureDetector(
+                  //                   onTap: () =>
+                  //                       model.starOnTaped(SelectedStar.Two),
+                  //                   child: Icon(
+                  //                     Icons.star,
+                  //                     color: model.rating >= 2
+                  //                         ? colors.primary
+                  //                         : colors.kcCaptionGreyColor,
+                  //                     size: 55.0,
+                  //                   ),
+                  //                 ),
+                  //                 GestureDetector(
+                  //                   onTap: () =>
+                  //                       model.starOnTaped(SelectedStar.Three),
+                  //                   child: Icon(
+                  //                     Icons.star,
+                  //                     color: model.rating >= 3
+                  //                         ? colors.primary
+                  //                         : colors.kcCaptionGreyColor,
+                  //                     size: 55.0,
+                  //                   ),
+                  //                 ),
+                  //                 GestureDetector(
+                  //                   onTap: () =>
+                  //                       model.starOnTaped(SelectedStar.Four),
+                  //                   child: Icon(
+                  //                     Icons.star,
+                  //                     color: model.rating >= 4
+                  //                         ? colors.primary
+                  //                         : colors.kcCaptionGreyColor,
+                  //                     size: 55.0,
+                  //                   ),
+                  //                 ),
+                  //                 GestureDetector(
+                  //                   onTap: () =>
+                  //                       model.starOnTaped(SelectedStar.Five),
+                  //                   child: Icon(
+                  //                     Icons.star,
+                  //                     color: model.rating >= 5
+                  //                         ? colors.primary
+                  //                         : colors.kcCaptionGreyColor,
+                  //                     size: 55.0,
+                  //                   ),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //     ],
+                  //   ),
+                  // ),
                   verticalSpaceRegular,
                   verticalSpaceRegular,
                   verticalSpaceRegular,

@@ -25,14 +25,19 @@ import 'package:tamely/models/get_blogs_details_model.dart';
 import 'package:tamely/models/get_blogs_like_details_model.dart';
 import 'package:tamely/models/get_blogs_model.dart';
 import 'package:tamely/models/get_bookmarks_model.dart';
+import 'package:tamely/models/get_free_training_response.dart';
 import 'package:tamely/models/get_free_walk_response.dart';
 import 'package:tamely/models/get_payment_details_response.dart';
+import 'package:tamely/models/get_training_appointment_details_response.dart';
+import 'package:tamely/models/get_training_report_response.dart';
+import 'package:tamely/models/get_training_scroll_status_response.dart';
 import 'package:tamely/models/group_response/get_all_group_members_response.dart';
 import 'package:tamely/models/group_response/get_all_groups_response.dart';
 import 'package:tamely/models/group_response/get_group_info_response.dart';
 import 'package:tamely/models/group_response/get_joined_groups_response.dart';
 import 'package:tamely/models/group_response/group_create_response.dart';
 import 'package:tamely/models/group_response/pending_groups_invitations_response.dart';
+import 'package:tamely/models/has_appointments_response.dart';
 import 'package:tamely/models/like_blog_response.dart';
 import 'package:tamely/models/list_of_comments_response.dart';
 import 'package:tamely/models/list_of_feed_post_response.dart';
@@ -47,6 +52,7 @@ import 'package:tamely/models/list_of_relations.dart';
 import 'package:tamely/models/notification_response.dart';
 import 'package:tamely/models/common_response.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
+import 'package:tamely/models/params/book_a_training_body.dart';
 import 'package:tamely/models/params/comment_new/add_comment_body.dart';
 import 'package:tamely/models/params/confirm_relation_request_body.dart';
 import 'package:tamely/models/params/counter_body.dart';
@@ -61,12 +67,14 @@ import 'package:tamely/models/params/edit_animal_profile_main_details_body.dart'
 import 'package:tamely/models/params/edit_animal_type_body.dart';
 import 'package:tamely/models/params/feedback_body.dart';
 import 'package:tamely/models/params/fetch_list_of_following_body.dart';
+import 'package:tamely/models/params/get_training_scroll_status_body.dart';
 import 'package:tamely/models/params/get_animal_by_location_body.dart';
 import 'package:tamely/models/params/get_guardians_body.dart';
 import 'package:tamely/models/params/get_payment_details_body.dart';
 import 'package:tamely/models/params/get_post_by_id.dart';
 import 'package:tamely/models/params/get_profile_details_by_id_body.dart';
 import 'package:tamely/models/params/get_relation_requests_body.dart';
+import 'package:tamely/models/params/get_training_report_body.dart';
 import 'package:tamely/models/params/groups/edit_group_cover_body.dart';
 import 'package:tamely/models/params/groups/edit_group_details_body.dart';
 import 'package:tamely/models/params/groups/group_basic_body.dart';
@@ -1585,7 +1593,8 @@ class TamelyApi {
     return BaseResponse()..data = response;
   }
 
-  // Booking Appointments
+  // Booking Appointments -- Dog running
+
   // -- Get Free Walk
   Future<BaseResponse<GetFreeWalkResponse>> getFreeWalk() async {
     log.d("googleLogin called");
@@ -1675,7 +1684,83 @@ class TamelyApi {
     return BaseResponse()..data = response;
   }
 
+  // Booking Appointments -- Dog training
+
+  // -- Get Free Training
+  Future<BaseResponse<GetFreeTrainingResponse>> getFreeTraining() async {
+    log.d("googleLogin called");
+    GetFreeTrainingResponse response;
+    try {
+      response = await getApiClient(true, true).getFreeTraining();
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Set Free Training
+  Future<BaseResponse<SendDataResponse>> setFreeTraining() async {
+    log.d("googleLogin called");
+    SendDataResponse response;
+    try {
+      response = await getApiClient(true, true).setFreeTraining();
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Booking A Training
+  Future<BaseResponse<BookARunResponse>> bookATraining(
+      BookATrainingBody bookATrainingBody) async {
+    log.d("googleLogin called");
+    BookARunResponse response;
+    try {
+      response =
+          await getApiClient(true, true).bookATraining(bookATrainingBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Set Payment details Training
+  Future<BaseResponse<SendDataResponse>> setPaymentDetailsTraining(
+      SetPaymentDetailsBody setPaymentDetailsBody) async {
+    log.d("googleLogin called");
+    SendDataResponse response;
+    try {
+      response = await getApiClient(true, true)
+          .setPaymentDetailsTraining(setPaymentDetailsBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
   // My Bookings Flow
+
+  // -- Get active appointments
+  Future<BaseResponse<HasAppointmentsResponse>> hasAppointments() async {
+    print("2");
+    HasAppointmentsResponse response;
+    try {
+      response = await getApiClient(true, true).hasAppointments();
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
 
   // -- Get active appointments
   Future<BaseResponse<MyAppointmentsResponse>> getActiveAppointments() async {
@@ -1718,6 +1803,8 @@ class TamelyApi {
     }
     return BaseResponse()..data = response;
   }
+
+  // -- Dog running
 
   // -- Reorder A Run
   Future<BaseResponse<ReorderARunResponse>> reorderARun(
@@ -1853,6 +1940,88 @@ class TamelyApi {
     SendDataResponse response;
     try {
       response = await getApiClient(true, true).setTestimony(setTestimonyBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Dog training
+
+  // -- Reorder A Training
+  Future<BaseResponse<ReorderARunResponse>> reorderATraining(
+      ReorderARunBody reorderARunBody) async {
+    ReorderARunResponse response;
+    try {
+      response =
+          await getApiClient(true, true).reorderATraining(reorderARunBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Get Appointment Details Training
+  Future<BaseResponse<GetTrainingAppointmentDetailsResponse>>
+      getTrainingAppointmentDetails(
+          GetAppointmentDetailsBody getAppointmentDetailsBody) async {
+    print("2");
+    GetTrainingAppointmentDetailsResponse response;
+    try {
+      response = await getApiClient(true, true)
+          .getTrainingAppointmentDetails(getAppointmentDetailsBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Change Appointment Status Training
+  Future<BaseResponse<SendDataResponse>> changeTrainingAppointmentStatus(
+      ChangeAppointmentStatusBody changeAppointmentStatusBody) async {
+    print("2");
+    SendDataResponse response;
+    try {
+      response = await getApiClient(true, true)
+          .changeTrainingAppointmentStatus(changeAppointmentStatusBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Get Scroll Status Training
+  Future<BaseResponse<GetTrainingScrollStatusResponse>> getTrainingScrollStatus(
+      GetTrainingScrollStatusBody getTrainingScrollStatusBody) async {
+    print("2");
+    GetTrainingScrollStatusResponse response;
+    try {
+      response = await getApiClient(true, true)
+          .getTrainingScrollStatus(getTrainingScrollStatusBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Get Report Training
+  Future<BaseResponse<GetTrainingReportResponse>> getTrainingReport(
+      GetTrainingReportBody getTrainingReportBody) async {
+    print("2");
+    GetTrainingReportResponse response;
+    try {
+      response = await getApiClient(true, true)
+          .getTrainingReport(getTrainingReportBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()

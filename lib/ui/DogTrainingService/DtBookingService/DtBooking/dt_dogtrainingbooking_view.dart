@@ -20,7 +20,7 @@ class _DTDogTrainingBookingViewState extends State<DTDogTrainingBookingView> {
     return ViewModelBuilder<DTDogTrainingBookingViewModel>.reactive(
       onModelReady: (model) async {
         await model.getPets();
-        //await model.getFreeWalkStatus();
+        await model.getFreeWalkStatus();
         model.checkValid();
       },
       onDispose: (model) {

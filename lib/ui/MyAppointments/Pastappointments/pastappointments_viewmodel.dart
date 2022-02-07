@@ -74,9 +74,10 @@ class PastAppointmentsViewModel extends FutureViewModel<void>
             _tamelyApi.getPastAppointments(),
             throwException: true);
         if (result.data != null) {
-          List<AppointmentListResponse>? appointments =
-              result.data!.appointmentsList;
-          for (var each in appointments!) {
+          // Dog Running
+          List<DogRunningAppointmentListResponse>? dogRunningAppointments =
+              result.data!.dogRunningAppointmentsList;
+          for (var each in dogRunningAppointments!) {
             PastAppointmentClass newAppointment =
                 PastAppointmentClass(dogs: []);
             newAppointment.appointmentId = each.appointmentId;
@@ -107,6 +108,44 @@ class PastAppointmentsViewModel extends FutureViewModel<void>
             }
             _pastAppointments.add(newAppointment);
           }
+
+          notifyListeners();
+
+          // Dog Training
+          List<DogTrainingAppointmentListResponse>? dogTrainingAppointments =
+              result.data!.dogTrainingAppointmentsList;
+          for (var each in dogTrainingAppointments!) {
+            PastAppointmentClass newAppointment =
+                PastAppointmentClass(dogs: []);
+            newAppointment.appointmentId = each.appointmentId;
+            newAppointment.bookingId = each.bookingDetails!.bookingId;
+
+            try {
+              newAppointment.userName = each.user!.fullName!;
+            } catch (e) {
+              newAppointment.userName = "Dog Runner";
+            }
+
+            newAppointment.userPicture =
+                "https://drive.google.com/file/d/16IaPIGrT8gkAx-UGzVD9GsWXZ2Slvq2X/view?usp=sharing";
+
+            newAppointment.serviceName =
+                each.serviceType == 0 ? dogWalkingTitle : dogWalkingTitle;
+            newAppointment.subscriptionType =
+                "(${each.bookingDetails!.package!.subscriptionType} , ${each.bookingDetails!.package!.numberOfSessions}/day )";
+            newAppointment.dateAndTime = each.bookingDetails!.startDate;
+            List<PetDetailsResponse>? petDetails = each.petDetails;
+            for (var one in petDetails!) {
+              newAppointment.dogs.add(one.petName!);
+            }
+            if (each.bookingStatus == 3) {
+              newAppointment.status = PastAppointmentStatus.Completed;
+            } else if (each.bookingStatus == 4) {
+              newAppointment.status = PastAppointmentStatus.Canceled;
+            }
+            _pastAppointments.add(newAppointment);
+          }
+
           notifyListeners();
         }
         _dialogService.completeDialog(DialogResponse(confirmed: true));

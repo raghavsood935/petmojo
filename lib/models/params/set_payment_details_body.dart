@@ -6,8 +6,9 @@ part 'set_payment_details_body.g.dart';
 class SetPaymentDetailsBody {
   final String bookingId;
   final String transactionId;
+  final int amount;
 
-  SetPaymentDetailsBody(this.bookingId, this.transactionId);
+  SetPaymentDetailsBody(this.bookingId, this.transactionId, this.amount);
 
   factory SetPaymentDetailsBody.fromJson(Map<String, dynamic> json) =>
       _$SetPaymentDetailsBodyFromJson(json);

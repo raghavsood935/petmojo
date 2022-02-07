@@ -11,7 +11,8 @@ class DRDogRunningBookingView extends StatefulWidget {
   const DRDogRunningBookingView({Key? key}) : super(key: key);
 
   @override
-  State<DRDogRunningBookingView> createState() => _DRDogRunningBookingViewState();
+  State<DRDogRunningBookingView> createState() =>
+      _DRDogRunningBookingViewState();
 }
 
 class _DRDogRunningBookingViewState extends State<DRDogRunningBookingView> {

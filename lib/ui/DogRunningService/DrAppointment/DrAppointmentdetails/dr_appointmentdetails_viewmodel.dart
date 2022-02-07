@@ -607,7 +607,6 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
             }
             _numberOfDays = 7;
           }
-
           notifyListeners();
         }
         _dialogService.completeDialog(DialogResponse(confirmed: true));

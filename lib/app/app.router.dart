@@ -1055,11 +1055,8 @@ class StackedRouter extends RouterBase {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => DTReportCardView(
           key: args.key,
-          noOfDogs: args.noOfDogs,
-          dogs: args.dogs,
-          date: args.date,
-          walkNumber: args.walkNumber,
           appointmentId: args.appointmentId,
+          sessionNo: args.sessionNo,
         ),
         settings: data,
       );
@@ -1510,16 +1507,8 @@ class DTAppointmentDetailsViewArguments {
 /// DTReportCardView arguments holder class
 class DTReportCardViewArguments {
   final Key? key;
-  final int noOfDogs;
-  final List<String> dogs;
-  final DateTime date;
-  final WalkNumber walkNumber;
   final String appointmentId;
+  final int sessionNo;
   DTReportCardViewArguments(
-      {this.key,
-      required this.noOfDogs,
-      required this.dogs,
-      required this.date,
-      required this.walkNumber,
-      required this.appointmentId});
+      {this.key, required this.appointmentId, required this.sessionNo});
 }
