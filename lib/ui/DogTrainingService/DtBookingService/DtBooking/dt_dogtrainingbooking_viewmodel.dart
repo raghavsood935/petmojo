@@ -15,16 +15,17 @@ import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/dog_training_package.dart';
 import 'package:tamely/enum/no_of_runs.dart';
 import 'package:tamely/models/book_a_run_response.dart';
+import 'package:tamely/models/get_free_training_response.dart';
 import 'package:tamely/models/get_free_walk_response.dart';
 import 'package:tamely/models/get_pet_details_response.dart';
 import 'package:tamely/models/params/book_a_run_body.dart';
+import 'package:tamely/models/params/book_a_training_body.dart';
 import 'package:tamely/models/params/set_payment_details_body.dart';
 import 'package:tamely/models/send_data_response.dart';
 import 'package:tamely/services/user_service.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/location_helper.dart';
 import 'package:tamely/util/utils.dart';
-
 import 'DtBookarun/dt_bookarun_view.dart';
 import 'DtBookingdetails/dt_bookingdetails_view.dart';
 
@@ -67,21 +68,17 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   List<bool> _currentStep = [
     true,
     false,
-    //false,
   ];
   List<Widget> _pages = [
     DTBookARunView(),
     DTBookingDetailsView(),
-    //SelectPackageView()
   ];
   List<String> _titles = [
     firstPageTitle,
     secondPageTitle,
-    //selectPackageTitle
   ];
   List<String> _mainBtnTitles = [
     continueButton,
-    //continueButton,
     payButton,
   ];
   PageController _controller = PageController();
@@ -148,8 +145,8 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       } else {
         if (bookingId != "") {
           _navigationService.replaceWith(
-            Routes.dRPaymentView,
-            arguments: DRPaymentViewArguments(
+            Routes.dTPaymentView,
+            arguments: DTPaymentViewArguments(
                 amount: amount.toInt(), bookingId: bookingId),
           );
         }
@@ -164,9 +161,9 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     try {
       if (await Util.checkInternetConnectivity()) {
         SetPaymentDetailsBody setPaymentDetailsBody =
-            SetPaymentDetailsBody(bookingId, "FREE RUN");
+            SetPaymentDetailsBody(bookingId, "FREE RUN", 0);
         BaseResponse<SendDataResponse> result = await runBusyFuture(
-            _tamelyApi.setPaymentDetails(setPaymentDetailsBody),
+            _tamelyApi.setPaymentDetailsTraining(setPaymentDetailsBody),
             throwException: true);
         notifyListeners();
       } else {
@@ -213,10 +210,11 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   Future<void> getFreeWalkStatus() async {
     try {
       if (await Util.checkInternetConnectivity()) {
-        BaseResponse<GetFreeWalkResponse> result =
-            await runBusyFuture(_tamelyApi.getFreeWalk(), throwException: true);
+        BaseResponse<GetFreeTrainingResponse> result = await runBusyFuture(
+            _tamelyApi.getFreeTraining(),
+            throwException: true);
         if (result.data != null) {
-          _freeWalkAvailable = result.data!.isFreeWalkAvailable!;
+          _freeWalkAvailable = result.data!.isFreeTrainingAvailable!;
           notifyListeners();
         }
       } else {
@@ -230,8 +228,9 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   Future<void> setFreeWalkStatus() async {
     try {
       if (await Util.checkInternetConnectivity()) {
-        BaseResponse<SendDataResponse> result =
-            await runBusyFuture(_tamelyApi.setFreeWalk(), throwException: true);
+        BaseResponse<SendDataResponse> result = await runBusyFuture(
+            _tamelyApi.setFreeTraining(),
+            throwException: true);
       } else {
         snackBarService.showSnackbar(message: "No Internet connection");
       }
@@ -428,13 +427,15 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
 
   void setFirstPageValid() {
     _isValid = true;
-    if (noOfDogs == 1) {
-      if (petDetailsBody.length != 1) {
-        _isValid = false;
-      }
-    } else if (noOfDogs == 2) {
-      if (petDetailsBody.length != 2) {
-        _isValid = false;
+    if (hasPets) {
+      if (noOfDogs == 1) {
+        if (petDetailsBody.length != 1) {
+          _isValid = false;
+        }
+      } else if (noOfDogs == 2) {
+        if (petDetailsBody.length != 2) {
+          _isValid = false;
+        }
       }
     }
     notifyListeners();
@@ -594,11 +595,12 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       }
       _petDetailsBody.clear();
     } else if (!hasPets) {
-      PetDetailsBody one = PetDetailsBody("111111111111111111111111", "Medium");
+      PetDetailsTrainingBody one =
+          PetDetailsTrainingBody("111111111111111111111111", "Medium");
       _petDetailsBody.add(one);
       if (noOfDogs == 2) {
-        PetDetailsBody two =
-            PetDetailsBody("111111111111111111111111", "Medium");
+        PetDetailsTrainingBody two =
+            PetDetailsTrainingBody("111111111111111111111111", "Medium");
         _petDetailsBody.add(two);
       }
     }
@@ -612,8 +614,8 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   List<PetsClass> _myPets = [];
   List<PetsClass> get myPets => _myPets;
 
-  List<PetDetailsBody> _petDetailsBody = [];
-  List<PetDetailsBody> get petDetailsBody => _petDetailsBody;
+  List<PetDetailsTrainingBody> _petDetailsBody = [];
+  List<PetDetailsTrainingBody> get petDetailsBody => _petDetailsBody;
 
   void selectPet(index) {
     if (noOfDogs == 1) {
@@ -622,14 +624,16 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       }
       _petDetailsBody.clear();
       myPets[index].selected = true;
-      PetDetailsBody one = PetDetailsBody(myPets[index].petId!, "Medium");
+      PetDetailsTrainingBody one =
+          PetDetailsTrainingBody(myPets[index].petId!, "Medium");
       _petDetailsBody.add(one);
       print("this $petDetailsBody");
     }
     if (noOfDogs == 2) {
       if (petDetailsBody.length == 0 || petDetailsBody.length == 1) {
         myPets[index].selected = true;
-        PetDetailsBody one = PetDetailsBody(myPets[index].petId!, "Medium");
+        PetDetailsTrainingBody one =
+            PetDetailsTrainingBody(myPets[index].petId!, "Medium");
         _petDetailsBody.add(one);
         print("this $petDetailsBody");
       } else if (petDetailsBody.length == 2) {
@@ -638,7 +642,8 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
         }
         _petDetailsBody.clear();
         myPets[index].selected = true;
-        PetDetailsBody one = PetDetailsBody(myPets[index].petId!, "Medium");
+        PetDetailsTrainingBody one =
+            PetDetailsTrainingBody(myPets[index].petId!, "Medium");
         _petDetailsBody.add(one);
         print("this $petDetailsBody");
       }
@@ -1153,16 +1158,10 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     //
 
     //
-    PetBehaviourBody petBehaviourBody = PetBehaviourBody(
-      selectedDetailOne,
-      selectedDetailTwo,
-      selectedDetailThree,
-      selectedDetailFour,
-      selectedDetailFive,
-    );
 
     // empty
-    PetRunningLocationBody petRunningLocationBody = PetRunningLocationBody(
+    PetRunningLocationTrainingBody petRunningLocationBody =
+        PetRunningLocationTrainingBody(
       addressLineOneController.text,
       addressLineTwoController.text,
       addressLineThreeController.text,
@@ -1173,37 +1172,23 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     );
 
     //
-    PackageBody packageBody = PackageBody(
-        _description, _amount.toString(), _frequency, _dayFrequency);
+    PackageTrainingBody packageBody =
+        PackageTrainingBody(_description, _amount.toString(), _frequency);
 
-    // empty
-    List<RunDetailsBody> runDetailsBody = [];
-    RunDetailsBody three = RunDetailsBody(_weekDayTiming);
-    runDetailsBody.add(three);
-    print(runDetailsBody[0].runTime);
-    if (dayFrequency == 2) {
-      RunDetailsBody four = RunDetailsBody(_weekEndTiming);
-      runDetailsBody.add(four);
-    }
     //
     try {
       if (await Util.checkInternetConnectivity()) {
-        BookARunBody bookARunBody = BookARunBody(
+        BookATrainingBody bookATrainingBody = BookATrainingBody(
           noOfDogs,
           petDetailsBody,
-          specialInstructionsController.text,
-          petBehaviourBody,
           petRunningLocationBody,
           phoneController.text,
-          alternatePhoneController.text,
-          alternateNameController.text,
-          packageBody,
           startDateTimeStamp,
-          offDateTimeStamp,
-          runDetailsBody,
+          weekDayTiming,
+          packageBody,
         );
         BaseResponse<BookARunResponse> result = await runBusyFuture(
-            _tamelyApi.bookARun(bookARunBody),
+            _tamelyApi.bookATraining(bookATrainingBody),
             throwException: true);
         if (result.data != null) {
           _bookingId = result.data!.bookingId!;

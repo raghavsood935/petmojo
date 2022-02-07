@@ -75,14 +75,16 @@ class DTPaymentViewModel extends FutureViewModel<void>
   }
 
   void setPaymentDetails() async {
+    print("hi");
     try {
       if (await Util.checkInternetConnectivity()) {
         SetPaymentDetailsBody setPaymentDetailsBody = SetPaymentDetailsBody(
-            bookingId, getPaymentDetailsResponse.orderId!);
+            bookingId,
+            getPaymentDetailsResponse.orderId!,
+            getPaymentDetailsResponse.amount!);
         BaseResponse<SendDataResponse> result = await runBusyFuture(
-            _tamelyApi.setPaymentDetails(setPaymentDetailsBody),
+            _tamelyApi.setPaymentDetailsTraining(setPaymentDetailsBody),
             throwException: true);
-
         notifyListeners();
       } else {
         snackBarService.showSnackbar(message: "No Internet connection");

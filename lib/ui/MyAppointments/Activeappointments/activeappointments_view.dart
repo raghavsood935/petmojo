@@ -75,7 +75,7 @@ class ActiveAppointmentsView extends StatelessWidget {
                       showReorder: model.activeAppointments[index].showReorder,
                       onReorderTapped: () => model.reorderARun(index),
                       showBooking: model.activeAppointments[index].showBooking,
-                      onBookingTapped: model.toBooking,
+                      onBookingTapped: () => model.toBooking(index),
                     );
                   },
                   separatorBuilder: (BuildContext context, int index) =>

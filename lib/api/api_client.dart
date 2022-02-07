@@ -21,14 +21,19 @@ import 'package:tamely/models/get_blogs_details_model.dart';
 import 'package:tamely/models/get_blogs_like_details_model.dart';
 import 'package:tamely/models/get_blogs_model.dart';
 import 'package:tamely/models/get_bookmarks_model.dart';
+import 'package:tamely/models/get_free_training_response.dart';
 import 'package:tamely/models/get_free_walk_response.dart';
 import 'package:tamely/models/get_payment_details_response.dart';
+import 'package:tamely/models/get_training_appointment_details_response.dart';
+import 'package:tamely/models/get_training_report_response.dart';
+import 'package:tamely/models/get_training_scroll_status_response.dart';
 import 'package:tamely/models/group_response/get_all_group_members_response.dart';
 import 'package:tamely/models/group_response/get_all_groups_response.dart';
 import 'package:tamely/models/group_response/get_group_info_response.dart';
 import 'package:tamely/models/group_response/get_joined_groups_response.dart';
 import 'package:tamely/models/group_response/group_create_response.dart';
 import 'package:tamely/models/group_response/pending_groups_invitations_response.dart';
+import 'package:tamely/models/has_appointments_response.dart';
 import 'package:tamely/models/like_blog_response.dart';
 import 'package:tamely/models/list_of_comments_response.dart';
 import 'package:tamely/models/list_of_feed_post_response.dart';
@@ -42,6 +47,7 @@ import 'package:tamely/models/list_of_profiles_foy_you.dart';
 import 'package:tamely/models/list_of_relations.dart';
 import 'package:tamely/models/notification_response.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
+import 'package:tamely/models/params/book_a_training_body.dart';
 import 'package:tamely/models/params/change_bio_avatar_body.dart';
 import 'package:tamely/models/params/comment_new/add_comment_body.dart';
 import 'package:tamely/models/params/confirm_relation_request_body.dart';
@@ -57,12 +63,14 @@ import 'package:tamely/models/params/edit_animal_profile_main_details_body.dart'
 import 'package:tamely/models/params/edit_animal_type_body.dart';
 import 'package:tamely/models/params/feedback_body.dart';
 import 'package:tamely/models/params/fetch_list_of_following_body.dart';
+import 'package:tamely/models/params/get_training_scroll_status_body.dart';
 import 'package:tamely/models/params/get_animal_by_location_body.dart';
 import 'package:tamely/models/params/get_guardians_body.dart';
 import 'package:tamely/models/params/get_payment_details_body.dart';
 import 'package:tamely/models/params/get_post_by_id.dart';
 import 'package:tamely/models/params/get_profile_details_by_id_body.dart';
 import 'package:tamely/models/params/get_relation_requests_body.dart';
+import 'package:tamely/models/params/get_training_report_body.dart';
 import 'package:tamely/models/params/groups/edit_group_cover_body.dart';
 import 'package:tamely/models/params/groups/edit_group_details_body.dart';
 import 'package:tamely/models/params/groups/group_basic_body.dart';
@@ -213,6 +221,13 @@ class Apis {
   static const String getPaymentDetails = '/serviceBooking/generateOrderId';
   static const String setPaymentDetails = '/service/postPayment';
 
+  // Booking Appointments -- Dog training
+  static const String getFreeTraining = '/user/isFreeTrainingSessionAvailable';
+  static const String setFreeTraining = '/user/updateFreeTrainingSessionStatus';
+  static const String bookATraining = '/serviceBooking/bookDogTrainingService';
+  static const String setPaymentDetailsTraining =
+      '/service/postTrainingPayment';
+
   //community
   // ---> Groups
   static const String getGroupDetails = '/community/getGroupDetails';
@@ -259,12 +274,16 @@ class Apis {
   static const String getFavouriteDetails = '/product/getFavouriteDetails';
 
   // My Bookings Flow
+  static const String hasAppointments = '/serviceBooking/hasAppointments';
+
   static const String getActiveAppointments =
       '/serviceBooking/getmyactiveAppointments';
   static const String getBookedAppointments =
       '/serviceBooking/getmybookedAppointments';
   static const String getPastAppointments =
       '/serviceBooking/getmypastAppointments';
+
+  // -- Dog running
   static const String reorderARun = '/serviceBooking/reorder';
   static const String getAppointmentDetails =
       '/serviceBooking/getAppointmentDetails';
@@ -276,10 +295,20 @@ class Apis {
   static const String setRunningRating =
       '/serviceBooking/giveRatingstoeachWalk';
   static const String setTestimony = '/serviceBooking/giveRatingstoeachWalk';
+
+  // -- Dog training
+  static const String reorderATraining = '/serviceBooking/reorderTraining';
+  static const String getTrainingAppointmentDetails =
+      '/serviceBooking/getDogTrainingAppointmentDetails';
+  static const String changeTrainingAppointmentStatus =
+      '/serviceBooking/changeTrainingAppointmentstatus';
+  static const String getTrainingScrollStatus =
+      '/serviceBooking/getscrollSessionstatus';
+  static const String getTrainingReport = '/serviceBooking/getTrainingReport';
 }
 
-// @RestApi(baseUrl: "https://tamely.herokuapp.com/api/")
-@RestApi(baseUrl: "http://3.14.68.70:9000/api/")
+@RestApi(baseUrl: "https://tamely.herokuapp.com/api/")
+//@RestApi(baseUrl: "http://3.14.68.70:9000/api/")
 abstract class ApiClient {
   factory ApiClient(Dio dio, {String baseUrl}) = _ApiClient;
 
@@ -515,9 +544,6 @@ abstract class ApiClient {
   Future<ListOfCommentsResponse> fetchComments(
       @Path("commentID") String postId, @Path("counter") int counter);
 
-  @POST(Apis.getPetDetails)
-  Future<GetPetDetailsResponse> getPetDetails();
-
   //Community
   // ---> get Group Details
   @POST(Apis.getGroupDetails)
@@ -672,6 +698,8 @@ abstract class ApiClient {
   @POST(Apis.getFavouriteDetails)
   Future<FavProductListResponse> getFavouriteDetails();
 
+  // Booking Appointments -- Dog running
+
   // -- Get Free Walk
   @POST(Apis.getFreeWalk)
   Future<GetFreeWalkResponse> getFreeWalk();
@@ -679,6 +707,10 @@ abstract class ApiClient {
   // -- Set Free Walk
   @POST(Apis.setFreeWalk)
   Future<SendDataResponse> setFreeWalk();
+
+  // -- Get Pet Details
+  @POST(Apis.getPetDetails)
+  Future<GetPetDetailsResponse> getPetDetails();
 
   // -- Booking A Run
   @POST(Apis.bookARun)
@@ -689,24 +721,50 @@ abstract class ApiClient {
   Future<GetPaymentDetailsResponse> getPaymentDetails(
       @Body() GetPaymentDetailsBody getPaymentDetailsBody);
 
-  // -- Set Payment details
+  // -- Set Payment details Running
   @PATCH(Apis.setPaymentDetails)
   Future<SendDataResponse> setPaymentDetails(
       @Body() SetPaymentDetailsBody setPaymentDetailsBody);
 
+  // Booking Appointments -- Dog training
+
+  // -- Get Free Training (Working)
+  @POST(Apis.getFreeTraining)
+  Future<GetFreeTrainingResponse> getFreeTraining();
+
+  // -- Set Free Training (Working)
+  @POST(Apis.setFreeTraining)
+  Future<SendDataResponse> setFreeTraining();
+
+  // -- Booking A Training (Working)
+  @POST(Apis.bookATraining)
+  Future<BookARunResponse> bookATraining(
+      @Body() BookATrainingBody bookATrainingBody);
+
+  // -- Set Payment details Training (Working)
+  @PATCH(Apis.setPaymentDetailsTraining)
+  Future<SendDataResponse> setPaymentDetailsTraining(
+      @Body() SetPaymentDetailsBody setPaymentDetailsBody);
+
   // My Bookings Flow
 
-  // -- Get active appointments
+  // -- Check has Appointments (Working)
+  @POST(Apis.hasAppointments)
+  Future<HasAppointmentsResponse> hasAppointments();
+
+  // -- Get active appointments (Working)
   @POST(Apis.getActiveAppointments)
   Future<MyAppointmentsResponse> getActiveAppointments();
 
-  // -- Get booked appointments
+  // -- Get booked appointments (Working)
   @POST(Apis.getBookedAppointments)
   Future<MyAppointmentsResponse> getBookedAppointments();
 
-  // -- Get past appointments
+  // -- Get past appointments (Working)
   @POST(Apis.getPastAppointments)
   Future<MyAppointmentsResponse> getPastAppointments();
+
+  // -- Dog running
 
   // -- Reorder A Run
   @POST(Apis.reorderARun)
@@ -752,4 +810,31 @@ abstract class ApiClient {
   @POST(Apis.setTestimony)
   Future<SendDataResponse> setTestimony(
       @Body() SetTestimonyBody setTestimonyBody);
+
+  // -- Dog training
+
+  // -- Reorder A Training (Not Done yet)
+  @POST(Apis.reorderATraining)
+  Future<ReorderARunResponse> reorderATraining(
+      @Body() ReorderARunBody reorderARunBody);
+
+  // -- Get Appointment Details Training (Working)
+  @POST(Apis.getTrainingAppointmentDetails)
+  Future<GetTrainingAppointmentDetailsResponse> getTrainingAppointmentDetails(
+      @Body() GetAppointmentDetailsBody getAppointmentDetailsBody);
+
+  // -- Change Appointment Status Training (Not using it)
+  @POST(Apis.changeTrainingAppointmentStatus)
+  Future<SendDataResponse> changeTrainingAppointmentStatus(
+      @Body() ChangeAppointmentStatusBody changeAppointmentStatusBody);
+
+  // -- Get Scroll Status Training  (Working)
+  @POST(Apis.getTrainingScrollStatus)
+  Future<GetTrainingScrollStatusResponse> getTrainingScrollStatus(
+      @Body() GetTrainingScrollStatusBody getTrainingScrollStatusBody);
+
+  // -- Get Report Training (Can not check now)
+  @POST(Apis.getTrainingReport)
+  Future<GetTrainingReportResponse> getTrainingReport(
+      @Body() GetTrainingReportBody getTrainingReportBody);
 }

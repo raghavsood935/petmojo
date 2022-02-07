@@ -32,7 +32,7 @@ class GetBookingDetailsResponse with _$GetBookingDetailsResponse {
   factory GetBookingDetailsResponse({
     @JsonKey(name: "petBehaviour") PetBehaviourResponse? petBehaviour,
     @JsonKey(name: "petRunningLocation") LocationResponse? petRunningLocation,
-    @JsonKey(name: "package") PackageResponse? package,
+    @JsonKey(name: "package") DogRunningPackageResponse? package,
     @JsonKey(name: "numberOfPets") int? numberOfPets,
     @JsonKey(name: "petDetails") List<PetSizeResponse>? petDetails,
     @JsonKey(name: "specialInstructions") String? specialInstructions,

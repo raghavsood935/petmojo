@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/ui/DogRunningService/DrBookingService/DrOpening/dr_opening_viewmodel.dart';
 import 'package:tamely/util/Color.dart';
-import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
-import 'package:tamely/widgets/app_text.dart';
-
-import 'dt_opening_viewmodel.dart';
 
 class DTOpening extends StatelessWidget {
   const DTOpening({Key? key}) : super(key: key);

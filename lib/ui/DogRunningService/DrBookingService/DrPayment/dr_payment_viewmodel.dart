@@ -78,7 +78,9 @@ class DRPaymentViewModel extends FutureViewModel<void>
     try {
       if (await Util.checkInternetConnectivity()) {
         SetPaymentDetailsBody setPaymentDetailsBody = SetPaymentDetailsBody(
-            bookingId, getPaymentDetailsResponse.orderId!);
+            bookingId,
+            getPaymentDetailsResponse.orderId!,
+            getPaymentDetailsResponse.amount!);
         BaseResponse<SendDataResponse> result = await runBusyFuture(
             _tamelyApi.setPaymentDetails(setPaymentDetailsBody),
             throwException: true);
