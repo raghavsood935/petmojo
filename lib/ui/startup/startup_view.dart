@@ -103,7 +103,7 @@ class _StartupViewState extends State<StartupView>
               opacity: _fadeIn!,
               child: Container(
                 width: screenWidth(context),
-                height: screenHeightPercentage(context, percentage: 0.75),
+                height: screenHeightPercentage(context, percentage: 0.85),
                 color: colors.white,
                 child: Stack(
                   children: [
@@ -178,7 +178,8 @@ class _StartupViewState extends State<StartupView>
                     Positioned(
                       left: 0,
                       right: 0,
-                      bottom: screenHeightPercentage(context, percentage: 0.10),
+                      bottom: 0,
+                      // bottom: screenHeightPercentage(context, percentage: 0.10),
                       child: SizedBox(
                         height: 35,
                         width: screenWidth(context),

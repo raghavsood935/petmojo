@@ -228,11 +228,12 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             }
 
             // Free Walk
-            if (subscriptionType == "Free") {
-              newAppointment.showBooking = true;
-            } else {
-              newAppointment.showBooking = false;
-            }
+            // if (subscriptionType == "Free") {
+            //   newAppointment.showBooking = true;
+            // } else {
+            //   newAppointment.showBooking = false;
+            // }
+            newAppointment.showBooking = false;
 
             _activeAppointments.add(newAppointment);
           }
@@ -294,11 +295,12 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             }
 
             // Free Walk
-            if (subscriptionType == "Free") {
-              newAppointment.showBooking = true;
-            } else {
-              newAppointment.showBooking = false;
-            }
+            // if (subscriptionType == "Free") {
+            //   newAppointment.showBooking = true;
+            // } else {
+            //   newAppointment.showBooking = false;
+            // }
+            newAppointment.showBooking = false;
 
             _activeAppointments.add(newAppointment);
           }
@@ -365,11 +367,12 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             }
 
             // Free Walk
-            if (subscriptionType == "Free") {
-              newAppointment.showBooking = true;
-            } else {
-              newAppointment.showBooking = true;
-            }
+            // if (subscriptionType == "Free") {
+            //   newAppointment.showBooking = true;
+            // } else {
+            //   newAppointment.showBooking = false;
+            // }
+            newAppointment.showBooking = false;
 
             _activeAppointments.add(newAppointment);
           }
@@ -431,11 +434,12 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             }
 
             // Free Walk
-            if (subscriptionType == "Free") {
-              newAppointment.showBooking = true;
-            } else {
-              newAppointment.showBooking = true;
-            }
+            // if (subscriptionType == "Free") {
+            //   newAppointment.showBooking = true;
+            // } else {
+            //   newAppointment.showBooking = false;
+            // }
+            newAppointment.showBooking = false;
 
             _activeAppointments.add(newAppointment);
           }

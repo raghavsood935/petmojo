@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:tamely/ui/DogRunningService/DrBookingService/DrOpening/dr_opening_viewmodel.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ui_helpers.dart';
+import 'dt_opening_viewmodel.dart';
 
 class DTOpening extends StatelessWidget {
   const DTOpening({Key? key}) : super(key: key);
@@ -87,31 +87,38 @@ class DTOpening extends StatelessWidget {
                       "assets/images/service_opening/opening_training_fifth_text.png"),
                 ),
                 verticalSpaceTiny,
-                Spacer(),
-
-                // Button
-                GestureDetector(
-                  onTap: model.toDogTrainingBooking,
-                  child: Container(
-                    width: double.infinity,
-                    height: 50,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: colors.primary,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Text(
-                      "Try Now",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14),
-                    ),
-                  ),
-                ),
-                verticalSpaceRegular,
+                verticalSpaceTiny,
+                verticalSpace(80),
               ],
             ),
+          ),
+        ),
+        bottomSheet: Container(
+          height: 70,
+          child: Column(
+            children: [
+              GestureDetector(
+                onTap: model.toDogTrainingBooking,
+                child: Container(
+                  width: double.infinity,
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  height: 50,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: colors.primary,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Text(
+                    "Try Now",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14),
+                  ),
+                ),
+              ),
+              verticalSpaceRegular,
+            ],
           ),
         ),
       ),

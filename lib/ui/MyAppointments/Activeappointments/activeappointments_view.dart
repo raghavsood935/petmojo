@@ -262,25 +262,6 @@ class ActiveAppointmentItem extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // showReorder!
-                      //     ? GestureDetector(
-                      //         onTap: onReorderTapped,
-                      //         child: Container(
-                      //           height: 22.0,
-                      //           width: 70.0,
-                      //           decoration: BoxDecoration(
-                      //             color: colors.primary,
-                      //             borderRadius: BorderRadius.circular(50),
-                      //           ),
-                      //           child: Center(
-                      //             child: AppText.caption(
-                      //               reorderLabel,
-                      //               color: colors.white,
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       )
-                      //     : Container(),
                       verticalSpaceSmall,
                     ],
                   ),
@@ -303,21 +284,6 @@ class ActiveAppointmentItem extends StatelessWidget {
                 ),
               ),
             ),
-            // showReorder!
-            //     ? Container(
-            //         height: 25,
-            //         width: screenWidth(context),
-            //         decoration: BoxDecoration(
-            //           color: colors.primary,
-            //         ),
-            //         child: Center(
-            //           child: AppText.caption(
-            //             reorderTextLabel,
-            //             color: colors.white,
-            //           ),
-            //         ),
-            //       )
-            //     : Container(),
           ],
         ),
       ),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:tamely/ui/DogTrainingService/DtBookingService/DtOpening/dt_opening_viewmodel.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ui_helpers.dart';
+
+import 'dr_opening_viewmodel.dart';
 
 class DROpening extends StatelessWidget {
   const DROpening({Key? key}) : super(key: key);
@@ -82,9 +83,7 @@ class DROpening extends StatelessWidget {
                       "assets/images/service_opening/opening_training_fifth_text.png"),
                 ),
                 verticalSpaceTiny,
-                // Spacer(),
                 verticalSpace(80),
-                // Button
               ],
             ),
           ),

@@ -4,13 +4,13 @@ import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
 
-class DTOpeningViewModel extends FutureViewModel<void>
+class DROpeningViewModel extends FutureViewModel<void>
     implements Initialisable {
   final log = getLogger('PaymentViewModel');
   final _navigationService = locator<NavigationService>();
 
-  void toDogTrainingBooking() {
-    _navigationService.navigateTo(Routes.dTDogTrainingBookingView);
+  void toDogRunningBooking() {
+    _navigationService.navigateTo(Routes.dRDogRunningBookingView);
   }
 
   @override

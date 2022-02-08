@@ -22,30 +22,30 @@ class AppointmentsView extends StatelessWidget {
             children: [
               verticalSpaceRegular,
               // Heading
-              Stack(
-                alignment: AlignmentDirectional.center,
-                children: [
-                  Positioned(
-                    left: 25,
-                    child: IconButton(
-                      padding: EdgeInsets.zero,
-                      alignment: Alignment.centerLeft,
-                      icon: Icon(
-                        Icons.arrow_back,
-                        color: Colors.black,
-                      ),
-                      onPressed: model.navigateBack,
-                    ),
-                  ),
-                  Center(
-                    child: AppText.headingThree(
-                      myAppointmentsTitle,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              ),
-              spacedDividerSmall,
+              // Stack(
+              //   alignment: AlignmentDirectional.center,
+              //   children: [
+              //     Positioned(
+              //       left: 25,
+              //       child: IconButton(
+              //         padding: EdgeInsets.zero,
+              //         alignment: Alignment.centerLeft,
+              //         icon: Icon(
+              //           Icons.arrow_back,
+              //           color: Colors.black,
+              //         ),
+              //         onPressed: model.navigateBack,
+              //       ),
+              //     ),
+              //     Center(
+              //       child: AppText.headingThree(
+              //         myAppointmentsTitle,
+              //         textAlign: TextAlign.center,
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // spacedDividerSmall,
               //verticalSpaceSmall,
 
               // No appointments
