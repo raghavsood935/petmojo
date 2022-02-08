@@ -116,92 +116,97 @@ class DashboardViewModel extends FutureViewModel<void>
     String petToken,
     int initialPageState,
   ) async {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
-      _controller = PersistentTabController(initialIndex: initialPageState);
+    _controller = PersistentTabController(initialIndex: initialPageState);
+    fetchUserDetail(
+      initalState,
+      isNeedToUpdateProfile,
+      isHuman,
+      petId,
+      petToken,
+      initialPageState,
+    );
+  }
+
+  Future fetchUserDetail(
+    int initalState,
+    bool isNeedToUpdateProfile,
+    bool isHuman,
+    String petId,
+    String petToken,
+    int initialPageState,
+  ) async {
+    this.initialState = initalState;
+    this.isHuman = isHuman;
+    this.petId = petId;
+    this.petToken = petToken;
+    notifyListeners();
+    isErrorInLoading = false;
+    notifyListeners();
+    BaseResponse<UserProfileDetailsResponse> response =
+        await _tamelyApi.getUserProfileDetail();
+    if (response.getException != null) {
+      ServerError error = response.getException as ServerError;
+      _navigationService.back();
+      isErrorInLoading = true;
       notifyListeners();
-      this.initialState = initalState;
-      this.isHuman = isHuman;
-      this.petId = petId;
-      this.petToken = petToken;
-      notifyListeners();
-      isLoading = true;
-      isErrorInLoading = false;
-      notifyListeners();
-      if (isNeedToUpdateProfile) {
-        _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
+      _snackBarService.showSnackbar(message: error.getErrorMessage());
+    } else if (response.data != null) {
+      _userName = response.data!.userDetailsModel!.fullName ?? "";
+      _profileName = response.data!.userDetailsModel!.username ?? "";
+      _avatarUrl = response.data!.userDetailsModel!.avatar ?? "";
+      _userID = response.data!.userDetailsModel!.Id ?? "";
+      _listOfProfiles.insert(
+        0,
+        ProfileSelectBarItem(
+          _avatarUrl,
+          "",
+          "",
+          true,
+        ),
+      );
+      if (!isHuman) {
+        var animalProfileResponse = await _tamelyApi.getAnimalProfileDetail(
+            AnimalProfileDetailsBody(petId),
+            animalToken: petToken);
+        if (animalProfileResponse.data != null) {
+          _userName =
+              animalProfileResponse.data!.animalprofileModel!.name ?? "";
+          _profileName =
+              animalProfileResponse.data!.animalprofileModel!.username ?? "";
+          _avatarUrl = animalProfileResponse.data!.animalprofileModel!.avatar ??
+              emptyProfileImgUrl;
+        }
       }
-      BaseResponse<UserProfileDetailsResponse> response =
-          await _tamelyApi.getUserProfileDetail();
-      if (response.getException != null) {
-        ServerError error = response.getException as ServerError;
-        _dialogService.completeDialog(DialogResponse(confirmed: true));
-        _navigationService.back();
-        isLoading = false;
-        isErrorInLoading = true;
-        notifyListeners();
-        _snackBarService.showSnackbar(message: error.getErrorMessage());
-      } else if (response.data != null) {
-        _userName = response.data!.userDetailsModel!.fullName ?? "";
-        _profileName = response.data!.userDetailsModel!.username ?? "";
-        _avatarUrl = response.data!.userDetailsModel!.avatar ?? "";
-        _userID = response.data!.userDetailsModel!.Id ?? "";
-        _listOfProfiles.insert(
-          0,
+
+      for (PetBasicDetailsResponse petResponse
+          in response.data!.userDetailsModel!.listOfPets ?? []) {
+        _listOfProfiles.add(
           ProfileSelectBarItem(
-            _avatarUrl,
-            "",
-            "",
-            true,
-          ),
+              petResponse.detailsResponse!.avatar ?? emptyProfileImgUrl,
+              petResponse.detailsResponse!.Id!,
+              petResponse.detailsResponse!.token!,
+              false),
         );
-        if (!isHuman) {
-          var animalProfileResponse = await _tamelyApi.getAnimalProfileDetail(
-              AnimalProfileDetailsBody(petId),
-              animalToken: petToken);
-          if (animalProfileResponse.data != null) {
-            _userName =
-                animalProfileResponse.data!.animalprofileModel!.name ?? "";
-            _profileName =
-                animalProfileResponse.data!.animalprofileModel!.username ?? "";
-            _avatarUrl =
-                animalProfileResponse.data!.animalprofileModel!.avatar ??
-                    emptyProfileImgUrl;
-          }
-        }
-
-        for (PetBasicDetailsResponse petResponse
-            in response.data!.userDetailsModel!.listOfPets ?? []) {
-          _listOfProfiles.add(
-            ProfileSelectBarItem(
-                petResponse.detailsResponse!.avatar ?? emptyProfileImgUrl,
-                petResponse.detailsResponse!.Id!,
-                petResponse.detailsResponse!.token!,
-                false),
-          );
-        }
-
-        _sharedPrefService.saveCurrentProfile(
-          CurrentProfile(
-            userName,
-            profileName,
-            avatarUrl,
-            isHuman,
-            petId,
-            petToken,
-            userID,
-            initialPageState,
-          ),
-        );
-        isLoading = false;
-        notifyListeners();
-        _dialogService.completeDialog(DialogResponse(confirmed: true));
-        getNotificationCount();
-      } else {
-        _navigationService.back();
       }
-    });
 
-    // print(_sharedPrefService.getCurrentUser().toString());
+      _sharedPrefService.saveCurrentProfile(
+        CurrentProfile(
+          userName,
+          profileName,
+          avatarUrl,
+          isHuman,
+          petId,
+          petToken,
+          userID,
+          initialPageState,
+        ),
+      );
+      isLoading = false;
+      notifyListeners();
+      getNotificationCount();
+    } else {
+      _navigationService.back();
+    }
   }
 
   Future getNotificationCount() async {
@@ -284,14 +289,16 @@ class DashboardViewModel extends FutureViewModel<void>
   }
 
   Future<bool> onBackPressed() async {
-    var result = await _dialogService.showCustomDialog(
-        variant: DialogType.ExitAppDialog);
-
-    if (result != null) {
-      return result.confirmed;
-    } else {
-      return false;
-    }
+    // var result = await _dialogService.showCustomDialog(
+    //   variant: DialogType.ExitAppDialog,
+    // );
+    //
+    // if (result != null) {
+    //   return result.confirmed;
+    // } else {
+    //
+    // }
+    return false;
   }
 }
 

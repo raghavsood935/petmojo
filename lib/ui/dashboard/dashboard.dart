@@ -239,14 +239,16 @@ class _DashboardState extends State<Dashboard> {
       viewModelBuilder: () => DashboardViewModel(),
       onModelReady: (model) => model
           .init(
-            widget.initialState,
-            widget.isNeedToUpdateProfile,
-            widget.isHuman,
-            widget.petID,
-            widget.petToken,
-            widget.initialPageState,
-          )
-          .whenComplete(() => setState(() {})),
+        widget.initialState,
+        widget.isNeedToUpdateProfile,
+        widget.isHuman,
+        widget.petID,
+        widget.petToken,
+        widget.initialPageState,
+      )
+          .whenComplete(() {
+        setState(() {});
+      }),
       builder: (context, model, child) => WillPopScope(
         onWillPop: () => model.onBackPressed(),
         child: model.isLoading
