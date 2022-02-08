@@ -55,7 +55,7 @@ class PhoneAuthenticationView extends StatelessWidget
                 textAlign: TextAlign.center,
               ),
             ),
-            verticalSpaceRegular,
+            verticalSpace(35),
             Padding(
               padding: commonPaddding,
               child: TextField(

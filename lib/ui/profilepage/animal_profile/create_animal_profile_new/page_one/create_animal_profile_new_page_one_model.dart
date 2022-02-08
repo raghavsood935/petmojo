@@ -18,6 +18,8 @@ class CreateAnimalProfileNewPageOneViewModel extends BaseModel {
   bool isValid = true;
   bool isLoading = false;
 
+  bool isFromStart = false;
+
   Future onChange(String value) async {
     isValid = true;
     if (petNameController.text.isEmpty) {
@@ -30,8 +32,9 @@ class CreateAnimalProfileNewPageOneViewModel extends BaseModel {
     notifyListeners();
   }
 
-  Future onBack() async {
+  Future<bool> onBack() async {
     _navigationService.back(result: 0);
+    return true;
   }
 
   Future createProfile() async {
@@ -55,10 +58,33 @@ class CreateAnimalProfileNewPageOneViewModel extends BaseModel {
         _navigationService.replaceWith(
           Routes.createAnimalProfileNewPageTwo,
           arguments: CreateAnimalProfileNewPageTwoArguments(
-              id: response.data!.id ?? "", token: response.data!.token ?? ""),
+              id: response.data!.id ?? "",
+              token: response.data!.token ?? "",
+              isFromStart: isFromStart),
         );
       }
     }
+  }
+
+  void init(bool isStart) {
+    isFromStart = isStart;
+    notifyListeners();
+    generatePetName();
+  }
+
+  Future<bool> skip() async {
+    _navigationService.pushNamedAndRemoveUntil(
+      Routes.dashboard,
+      arguments: DashboardArguments(
+        isNeedToUpdateProfile: true,
+        initialPageState: 3,
+        isHuman: true,
+        petID: "",
+        petToken: "",
+        initialState: 0,
+      ),
+    );
+    return true;
   }
 
   Future<void> generatePetName() async {

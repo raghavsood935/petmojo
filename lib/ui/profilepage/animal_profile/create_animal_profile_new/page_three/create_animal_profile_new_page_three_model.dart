@@ -16,6 +16,8 @@ class CreateAnimalProfileNewPageThreeViewModel extends BaseModel {
   final _snackBarService = locator<SnackbarService>();
   final _bottomSheetService = locator<BottomSheetService>();
 
+  bool isFromStart = false;
+
   TextEditingController breedController = TextEditingController();
   TextEditingController dobController = TextEditingController();
 
@@ -68,14 +70,30 @@ class CreateAnimalProfileNewPageThreeViewModel extends BaseModel {
   bool isValid = true;
   bool isLoading = false;
 
-  Future init(String id,String type) async {
+  Future init(String id, String type, bool isStart) async {
     animalId = id;
+    isFromStart = isStart;
     notifyListeners();
     setBreedList(type);
   }
 
-  Future onBack() async {
-    _navigationService.back(result: 1);
+  Future<bool> onBack() async {
+    if (isFromStart) {
+      _navigationService.pushNamedAndRemoveUntil(
+        Routes.dashboard,
+        arguments: DashboardArguments(
+          isNeedToUpdateProfile: true,
+          initialPageState: 3,
+          isHuman: true,
+          petID: "",
+          petToken: "",
+          initialState: 0,
+        ),
+      );
+    } else {
+      _navigationService.back(result: 1);
+    }
+    return true;
   }
 
   Future onChangeYear(String? value) async {

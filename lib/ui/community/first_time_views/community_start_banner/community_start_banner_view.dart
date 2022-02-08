@@ -43,7 +43,8 @@ class CommunityStartBannerView extends StatelessWidget {
                 verticalSpaceSmall,
                 MainButtonWidget(
                   // onMainButtonTapped: model.goToCommunityChooseInterestsView,
-                  onMainButtonTapped: model.goToCommunityMainPage,
+                  onMainButtonTapped: () =>
+                      model.goToCommunityMainPage(context),
                   mainButtonTitle: "GET STARTED",
                 ),
               ],

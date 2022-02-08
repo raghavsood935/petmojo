@@ -1,9 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
+import 'package:tamely/ui/community/community_main_view/community_main_view.dart';
 
 class CommunityStartBannerViewModel extends BaseModel {
   final log = getLogger('CommunityStartBannerView');
@@ -41,18 +43,23 @@ class CommunityStartBannerViewModel extends BaseModel {
     notifyListeners();
   }
 
-  Future goToCommunityMainPage() async {
+  Future goToCommunityMainPage(BuildContext context) async {
     _sharedPreference.setCommunityFirstTime(false);
-    _navigationService.pushNamedAndRemoveUntil(
-      Routes.dashboard,
-      arguments: DashboardArguments(
-        isNeedToUpdateProfile: false,
-        initialPageState: 1,
-        isHuman: isHuman,
-        petID: petId,
-        petToken: petToken,
-        initialState: profileCurrentIndex,
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => CommunityMainView(),
       ),
     );
+    // _navigationService.pushNamedAndRemoveUntil(
+    //   Routes.dashboard,
+    //   arguments: DashboardArguments(
+    //     isNeedToUpdateProfile: false,
+    //     initialPageState: 1,
+    //     isHuman: isHuman,
+    //     petID: petId,
+    //     petToken: petToken,
+    //     initialState: profileCurrentIndex,
+    //   ),
+    // );
   }
 }

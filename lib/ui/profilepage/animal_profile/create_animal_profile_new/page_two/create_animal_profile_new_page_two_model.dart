@@ -14,6 +14,8 @@ class CreateAnimalProfileNewPageTwoViewModel extends BaseModel {
   final _tamelyApi = locator<TamelyApi>();
   final _snackBarService = locator<SnackbarService>();
 
+  bool isFromStart = false;
+
   String animalId = "";
 
   List<AnimalTypeModel> petAnimalTypeListValues = [
@@ -54,13 +56,30 @@ class CreateAnimalProfileNewPageTwoViewModel extends BaseModel {
   bool isValid = true;
   bool isLoading = false;
 
-  Future init(String id) async {
+  Future init(String id, bool isStart) async {
     animalId = id;
+    isFromStart = isStart;
+
     notifyListeners();
   }
 
-  Future onBack() async {
-    _navigationService.back(result: 1);
+  Future<bool> onBack() async {
+    if (isFromStart) {
+      _navigationService.pushNamedAndRemoveUntil(
+        Routes.dashboard,
+        arguments: DashboardArguments(
+          isNeedToUpdateProfile: true,
+          initialPageState: 3,
+          isHuman: true,
+          petID: "",
+          petToken: "",
+          initialState: 0,
+        ),
+      );
+    } else {
+      _navigationService.back(result: 1);
+    }
+    return true;
   }
 
   Future createProfile(int index) async {
@@ -82,9 +101,11 @@ class CreateAnimalProfileNewPageTwoViewModel extends BaseModel {
         _navigationService.replaceWith(
           Routes.createAnimalProfileNewPageThree,
           arguments: CreateAnimalProfileNewPageThreeArguments(
-              id: animalId,
-              token: "",
-              type: petAnimalTypeListValues[index].type),
+            id: animalId,
+            token: "",
+            type: petAnimalTypeListValues[index].type,
+            isFromStart: isFromStart,
+          ),
         );
       }
     }
@@ -94,7 +115,7 @@ class CreateAnimalProfileNewPageTwoViewModel extends BaseModel {
     _navigationService.replaceWith(
       Routes.createAnimalProfileNewPageThree,
       arguments: CreateAnimalProfileNewPageThreeArguments(
-          id: animalId, token: "", type: "dog"),
+          id: animalId, token: "", type: "dog", isFromStart: isFromStart),
     );
   }
 }
