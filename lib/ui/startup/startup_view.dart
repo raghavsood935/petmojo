@@ -102,6 +102,9 @@ class _StartupViewState extends State<StartupView>
             FadeTransition(
               opacity: _fadeIn!,
               child: Container(
+                width: screenWidth(context),
+                height: screenHeightPercentage(context, percentage: 0.75),
+                color: colors.white,
                 child: Stack(
                   children: [
                     Positioned(

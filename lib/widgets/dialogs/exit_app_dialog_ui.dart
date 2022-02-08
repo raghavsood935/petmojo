@@ -20,6 +20,7 @@ class ExitAppDialogUi extends StatelessWidget {
         color: colors.white,
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           AppText.titleBold("Alert!"),
           verticalSpaceRegular,
