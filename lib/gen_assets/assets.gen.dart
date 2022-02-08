@@ -696,6 +696,18 @@ class $AssetsImagesOnBoardingGen {
   /// File path: assets/images/on_boarding/on_boarding_common.png
   AssetGenImage get onBoardingCommon =>
       const AssetGenImage('assets/images/on_boarding/on_boarding_common.png');
+
+  /// File path: assets/images/on_boarding/txt1.svg
+  SvgGenImage get txt1 =>
+      const SvgGenImage('assets/images/on_boarding/txt1.svg');
+
+  /// File path: assets/images/on_boarding/txt2.svg
+  SvgGenImage get txt2 =>
+      const SvgGenImage('assets/images/on_boarding/txt2.svg');
+
+  /// File path: assets/images/on_boarding/txt3.svg
+  SvgGenImage get txt3 =>
+      const SvgGenImage('assets/images/on_boarding/txt3.svg');
 }
 
 class $AssetsImagesServiceOpeningGen {

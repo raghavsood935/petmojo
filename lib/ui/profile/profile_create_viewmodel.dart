@@ -156,7 +156,7 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
     if (isEdit) {
       navigationService.back();
     } else {
-      navigationService.pushNamedAndRemoveUntil(Routes.onBoardingView);
+      navigationService.pushNamedAndRemoveUntil(Routes.loginView);
     }
   }
 
@@ -216,7 +216,7 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
   bool checkValidateField() {
     _isValid = true;
     formValueMap.keys.forEach((element) {
-      if (element == UsernameValueKey) {
+      if (element == UsernameValueKey || element == NameValueKey) {
         String elementValue = formValueMap[element];
         if (elementValue.isEmpty) {
           _isValid = false;

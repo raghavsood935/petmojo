@@ -637,8 +637,14 @@ class StackedRouter extends RouterBase {
       );
     },
     CreateAnimalProfileNewPageOne: (data) {
+      var args = data.getArgs<CreateAnimalProfileNewPageOneArguments>(
+        orElse: () => CreateAnimalProfileNewPageOneArguments(),
+      );
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => const CreateAnimalProfileNewPageOne(),
+        builder: (context) => CreateAnimalProfileNewPageOne(
+          key: args.key,
+          isFromStart: args.isFromStart,
+        ),
         settings: data,
       );
     },
@@ -650,6 +656,7 @@ class StackedRouter extends RouterBase {
           key: args.key,
           id: args.id,
           token: args.token,
+          isFromStart: args.isFromStart,
         ),
         settings: data,
       );
@@ -663,6 +670,7 @@ class StackedRouter extends RouterBase {
           id: args.id,
           token: args.token,
           type: args.type,
+          isFromStart: args.isFromStart,
         ),
         settings: data,
       );
@@ -1289,13 +1297,24 @@ class SinglePostDetailsViewArguments {
   SinglePostDetailsViewArguments({this.key, required this.postResponse});
 }
 
+/// CreateAnimalProfileNewPageOne arguments holder class
+class CreateAnimalProfileNewPageOneArguments {
+  final Key? key;
+  final bool? isFromStart;
+  CreateAnimalProfileNewPageOneArguments({this.key, this.isFromStart});
+}
+
 /// CreateAnimalProfileNewPageTwo arguments holder class
 class CreateAnimalProfileNewPageTwoArguments {
   final Key? key;
   final String id;
   final String token;
+  final bool isFromStart;
   CreateAnimalProfileNewPageTwoArguments(
-      {this.key, required this.id, required this.token});
+      {this.key,
+      required this.id,
+      required this.token,
+      required this.isFromStart});
 }
 
 /// CreateAnimalProfileNewPageThree arguments holder class
@@ -1304,8 +1323,13 @@ class CreateAnimalProfileNewPageThreeArguments {
   final String id;
   final String token;
   final String type;
+  final bool isFromStart;
   CreateAnimalProfileNewPageThreeArguments(
-      {this.key, required this.id, required this.token, required this.type});
+      {this.key,
+      required this.id,
+      required this.token,
+      required this.type,
+      required this.isFromStart});
 }
 
 /// CreateGroupSecondView arguments holder class

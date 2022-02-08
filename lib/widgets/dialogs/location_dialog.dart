@@ -33,7 +33,7 @@ class LocationDialog extends StatelessWidget {
                 ),
                 verticalSpaceSmall,
                 AppText.body1(
-                  "Tamely collects location data to enable the service listing and animal profile listing even when the app is closed or not in use.",
+                  "Petmojo collects location data to enable the service listing and animal profile listing even when the app is closed or not in use.",
                   textAlign: TextAlign.center,
                 ),
               ],

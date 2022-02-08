@@ -14,6 +14,7 @@ import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/custom_circle_avatar.dart';
 import 'package:tamely/widgets/feed_app_bar.dart';
 import 'package:tamely/widgets/follow_static_btn.dart';
 import 'package:tamely/widgets/main_btn.dart';
@@ -100,18 +101,10 @@ class _DashboardState extends State<Dashboard> {
       verticalSpaceMedium,
       Row(
         children: [
-          CircleAvatar(
+          CustomCircularAvatar(
             radius: 30,
-            backgroundColor: colors.black,
-            child: CircleAvatar(
-              radius: 28,
-              backgroundColor: colors.lightBackgroundColor,
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(model.avatarUrl),
-                backgroundColor: Colors.transparent,
-                radius: 27,
-              ),
-            ),
+            imgPath: model.avatarUrl,
+            isHuman: model.isHuman,
           ),
           horizontalSpaceRegular,
           Column(
@@ -254,69 +247,72 @@ class _DashboardState extends State<Dashboard> {
             widget.initialPageState,
           )
           .whenComplete(() => setState(() {})),
-      builder: (context, model, child) => model.isLoading
-          ? Scaffold(
-              body: Visibility(
-                visible: model.isErrorInLoading,
-                child: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      AppText.body1Bold("Something went wrong!"),
-                      verticalSpaceSmall,
-                      MainButtonWidget(
-                          onMainButtonTapped: () => model.init(
-                                widget.initialState,
-                                widget.isNeedToUpdateProfile,
-                                widget.isHuman,
-                                widget.petID,
-                                widget.petToken,
-                                widget.initialPageState,
-                              ),
-                          mainButtonTitle: "RETRY"),
-                    ],
+      builder: (context, model, child) => WillPopScope(
+        onWillPop: () => model.onBackPressed(),
+        child: model.isLoading
+            ? Scaffold(
+                body: Visibility(
+                  visible: model.isErrorInLoading,
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        AppText.body1Bold("Something went wrong!"),
+                        verticalSpaceSmall,
+                        MainButtonWidget(
+                            onMainButtonTapped: () => model.init(
+                                  widget.initialState,
+                                  widget.isNeedToUpdateProfile,
+                                  widget.isHuman,
+                                  widget.petID,
+                                  widget.petToken,
+                                  widget.initialPageState,
+                                ),
+                            mainButtonTitle: "RETRY"),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            )
-          : Scaffold(
-              appBar: FeedAppBar(),
-              drawer: Drawer(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.max,
-                      children: _buildDrawerScreens(context, model)),
+              )
+            : Scaffold(
+                appBar: FeedAppBar(),
+                drawer: Drawer(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
+                        children: _buildDrawerScreens(context, model)),
+                  ),
                 ),
-              ),
-              body: PersistentTabView.custom(
-                context,
-                controller: model.controller,
-                screens: _buildScreens(context, model),
-                confineInSafeArea: true,
-                itemCount: 5,
-                handleAndroidBackButtonPress: true,
-                stateManagement: true,
-                hideNavigationBar: model.hideNavBar,
-                screenTransitionAnimation: ScreenTransitionAnimation(
-                  animateTabTransition: true,
-                  curve: Curves.easeIn,
-                  duration: Duration(milliseconds: 100),
+                body: PersistentTabView.custom(
+                  context,
+                  controller: model.controller,
+                  screens: _buildScreens(context, model),
+                  confineInSafeArea: true,
+                  itemCount: 5,
+                  handleAndroidBackButtonPress: true,
+                  stateManagement: true,
+                  hideNavigationBar: model.hideNavBar,
+                  screenTransitionAnimation: ScreenTransitionAnimation(
+                    animateTabTransition: true,
+                    curve: Curves.easeIn,
+                    duration: Duration(milliseconds: 100),
+                  ),
+                  customWidget: CustomNavBarWidget(
+                    items: _navBarsItems(),
+                    onItemSelected: (index) {
+                      model.controllerIndex(index);
+                    },
+                    selectedIndex: model.controller.index,
+                  ),
                 ),
-                customWidget: CustomNavBarWidget(
-                  items: _navBarsItems(),
-                  onItemSelected: (index) {
-                    model.controllerIndex(index);
-                  },
-                  selectedIndex: model.controller.index,
-                ),
+                backgroundColor: colors.white,
               ),
-              backgroundColor: colors.white,
-            ),
+      ),
     );
   }
 }

@@ -122,15 +122,11 @@ abstract class AuthenticationViewModel extends FormViewModel {
           if (isEdit) {
             navigationService.back(result: 1);
           } else {
-            navigationService.pushNamedAndRemoveUntil(Routes.dashboard,
-                arguments: DashboardArguments(
-                  isNeedToUpdateProfile: true,
-                  initialPageState: 0,
-                  isHuman: true,
-                  petID: "",
-                  petToken: "",
-                  initialState: 0,
-                ));
+            navigationService.pushNamedAndRemoveUntil(
+              Routes.createAnimalProfileNewPageOne,
+              arguments:
+                  CreateAnimalProfileNewPageOneArguments(isFromStart: true),
+            );
           }
         }
       } else {
@@ -250,7 +246,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
         navigationService.pushNamedAndRemoveUntil(Routes.dashboard,
             arguments: DashboardArguments(
               isNeedToUpdateProfile: true,
-              initialPageState: 0,
+              initialPageState: 3,
               isHuman: true,
               petID: "",
               petToken: "",

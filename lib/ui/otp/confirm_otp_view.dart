@@ -95,11 +95,11 @@ class ConfirmOTPView extends StatelessWidget with $ConfirmOTPView {
                   ],
                 ),
               ),
-              AppInputField(
-                hint: oneTimeHint,
-                textInputType: TextInputType.number,
-                controller: otpController,
-              ),
+              // AppInputField(
+              //   hint: oneTimeHint,
+              //   textInputType: TextInputType.number,
+              //   controller: otpController,
+              // ),
             ],
           ),
         ),

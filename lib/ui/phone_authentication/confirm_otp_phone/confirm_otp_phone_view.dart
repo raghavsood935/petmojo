@@ -49,7 +49,7 @@ class ConfirmOtpPhoneView extends StatelessWidget with $ConfirmOtpPhoneView {
                 "Confirm your Phone Number",
                 textAlign: TextAlign.center,
               ),
-              verticalSpaceSmall,
+              verticalSpace(35),
               Padding(
                 padding: commonPaddding,
                 child: AppText.body1(

@@ -68,6 +68,7 @@ class _TamelyAppState extends State<TamelyApp> {
     service.registerSnackbarConfig(SnackbarConfig(
       backgroundColor: colors.primary,
       textColor: Colors.white,
+      messageColor: Colors.white,
       mainButtonTextColor: Colors.black,
     ));
   }
@@ -101,7 +102,7 @@ class _TamelyAppState extends State<TamelyApp> {
       //   return LoginView();
     } else {
       return Dashboard(
-        initialPageState: 0,
+        initialPageState: 3,
         isNeedToUpdateProfile: true,
         isHuman: true,
         petToken: "",

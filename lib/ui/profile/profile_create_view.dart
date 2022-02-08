@@ -101,7 +101,7 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
                   color: colors.white,
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 15),
+                    margin: EdgeInsets.symmetric(vertical: 8),
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
                       children: [
@@ -154,7 +154,7 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
                   color: colors.white,
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 15),
+                    margin: EdgeInsets.symmetric(vertical: 8),
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
                       children: [
@@ -203,7 +203,7 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
                   color: colors.white,
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 15),
+                    margin: EdgeInsets.symmetric(vertical: 8),
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
                       children: [
@@ -235,35 +235,33 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
                     ),
                   ),
                 ),
-                verticalSpaceRegular,
-                GestureDetector(
-                  onTap: model.isValid ? model.saveProfileData : null,
-                  child: Container(
-                    width: double.infinity,
-                    height: 60,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: model.isValid
-                          ? colors.primary
-                          : colors.kcLightGreyColor,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: model.isBusy
-                        ? CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation(Colors.white),
-                          )
-                        : Text(
-                            continueButtonTitle,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14),
-                          ),
-                  ),
-                ),
-                verticalSpaceSmall,
+                verticalSpace(100),
               ],
             ),
+          ),
+        ),
+        bottomSheet: GestureDetector(
+          onTap: model.isValid ? model.saveProfileData : null,
+          child: Container(
+            width: double.infinity,
+            height: 60,
+            margin: commonPaddding,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: model.isValid ? colors.primary : colors.kcLightGreyColor,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: model.isBusy
+                ? CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation(Colors.white),
+                  )
+                : Text(
+                    continueButtonTitle,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14),
+                  ),
           ),
         ),
         // body: AuthenticationLayout(

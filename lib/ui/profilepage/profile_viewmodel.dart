@@ -131,6 +131,7 @@ class ProfileViewModel extends BaseViewModel {
   Future _createAnimalProfileView() async {
     var result = await _navigationService.navigateTo(
       Routes.createAnimalProfileNewPageOne,
+      arguments: CreateAnimalProfileNewPageOneArguments(isFromStart: false),
     );
 
     if (result == 1) {

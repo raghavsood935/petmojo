@@ -118,6 +118,7 @@ class DashboardViewModel extends FutureViewModel<void>
   ) async {
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
       _controller = PersistentTabController(initialIndex: initialPageState);
+      notifyListeners();
       this.initialState = initalState;
       this.isHuman = isHuman;
       this.petId = petId;
@@ -135,6 +136,7 @@ class DashboardViewModel extends FutureViewModel<void>
         ServerError error = response.getException as ServerError;
         _dialogService.completeDialog(DialogResponse(confirmed: true));
         _navigationService.back();
+        isLoading = false;
         isErrorInLoading = true;
         notifyListeners();
         _snackBarService.showSnackbar(message: error.getErrorMessage());
@@ -274,10 +276,22 @@ class DashboardViewModel extends FutureViewModel<void>
   }
 
   void onLogOutPressed() async {
-    _sharedPrefService.clearLoginData();
-    _sharedPrefService.currentState =
-        getRedirectStateName(RedirectState.Welcome);
-    _navigationService.pushNamedAndRemoveUntil(Routes.onBoardingView);
+    await _sharedPrefService.clearLoginData().whenComplete(() {
+      _sharedPrefService.currentState =
+          getRedirectStateName(RedirectState.Welcome);
+      _navigationService.pushNamedAndRemoveUntil(Routes.loginView);
+    });
+  }
+
+  Future<bool> onBackPressed() async {
+    var result = await _dialogService.showCustomDialog(
+        variant: DialogType.ExitAppDialog);
+
+    if (result != null) {
+      return result.confirmed;
+    } else {
+      return false;
+    }
   }
 }
 

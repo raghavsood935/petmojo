@@ -67,7 +67,13 @@ class UserService {
         await _tamelyApi.createAccount(registerBody);
     if (response.getException != null) {
       ServerError error = response.getException as ServerError;
-      _snackBarService.showSnackbar(message: error.getErrorMessage());
+      if (error.getErrorMessage() == "Received invalid status code: 400") {
+        _snackBarService.showSnackbar(
+            message:
+                "This email already has an account on Tamely! PLease try logging in instead of signing up!");
+      } else {
+        _snackBarService.showSnackbar(message: error.getErrorMessage());
+      }
     } else if (response.data != null) {
       _currentUser = response.data!.localUser;
       _sharedPreferenceService.authToken = response.data!.token ?? "";

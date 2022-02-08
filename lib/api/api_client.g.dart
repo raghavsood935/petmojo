@@ -8,7 +8,7 @@ part of 'api_client.dart';
 
 class _ApiClient implements ApiClient {
   _ApiClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://tamely.herokuapp.com/api/';
+    baseUrl ??= 'http://3.14.68.70:9000/api/';
   }
 
   final Dio _dio;

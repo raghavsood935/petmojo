@@ -100,7 +100,7 @@ class _BlogDetailsPageViewState extends State<BlogDetailsPageView> {
                                         ),
                                       ),
                                       horizontalSpaceSmall,
-                                      AppText.body("Tamely"),
+                                      AppText.body("Petmojo"),
                                       Spacer(),
                                       GestureDetector(
                                           child: model.isLiked

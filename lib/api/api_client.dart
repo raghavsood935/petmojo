@@ -307,8 +307,8 @@ class Apis {
   static const String getTrainingReport = '/serviceBooking/getTrainingReport';
 }
 
-@RestApi(baseUrl: "https://tamely.herokuapp.com/api/")
-//@RestApi(baseUrl: "http://3.14.68.70:9000/api/")
+// @RestApi(baseUrl: "https://tamely.herokuapp.com/api/")
+@RestApi(baseUrl: "http://3.14.68.70:9000/api/")
 abstract class ApiClient {
   factory ApiClient(Dio dio, {String baseUrl}) = _ApiClient;
 

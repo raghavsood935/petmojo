@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:lottie/lottie.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -73,25 +74,28 @@ class _StartupViewState extends State<StartupView>
               left: 0,
               child: FadeTransition(
                 opacity: _fadeOut!,
-                child: Lottie.asset(
-                  'assets/lottie/loading_animation.json',
-                  width: double.maxFinite,
-                  height: double.maxFinite,
-                  onLoaded: (composition) {
-                    animationController.addStatusListener((status) {
-                      if (status == AnimationStatus.completed) {
-                        model.moveToRedirectState();
-                        if (!model.isDestinationAvailable)
-                          animation2?.forward();
-                      }
-                    });
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Lottie.asset(
+                    'assets/lottie/loading_animation.json',
+                    width: double.maxFinite,
+                    height: double.maxFinite,
+                    onLoaded: (composition) {
+                      animationController.addStatusListener((status) {
+                        if (status == AnimationStatus.completed) {
+                          model.moveToRedirectState();
+                          if (!model.isDestinationAvailable)
+                            animation2?.forward();
+                        }
+                      });
 
-                    // Configure the AnimationController with the duration of the
-                    // Lottie file and start the animation.
-                    animationController
-                      ..duration = composition.duration
-                      ..forward();
-                  },
+                      // Configure the AnimationController with the duration of the
+                      // Lottie file and start the animation.
+                      animationController
+                        ..duration = composition.duration
+                        ..forward();
+                    },
+                  ),
                 ),
               ),
             ),
@@ -130,9 +134,9 @@ class _StartupViewState extends State<StartupView>
                                 width: screenWidth(context),
                               ),
                               SizedBox(height: 150),
-                              Image.asset(
-                                "assets/images/on_boarding/on-boarding-text-${index + 1}.png",
-                                width: screenWidth(context),
+                              SvgPicture.asset(
+                                "assets/images/on_boarding/txt${index + 1}.svg",
+                                // width: screenWidth(context),
                               ),
                             ],
                           ),
