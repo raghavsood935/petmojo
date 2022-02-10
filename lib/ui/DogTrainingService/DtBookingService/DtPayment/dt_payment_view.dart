@@ -16,11 +16,8 @@ class DTPaymentView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<DTPaymentViewModel>.reactive(
       onModelReady: (model) {
-        //model.setPaymentStatus(false);
         model.startState();
         model.getPaymentDetails();
-        //model.init();
-        //model.setPaymentStatus(true);
       },
       onDispose: (model) {
         model.endState();
