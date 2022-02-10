@@ -462,14 +462,11 @@ class _SwiperWidgetState extends State<SwiperWidget> {
               autoplay: false,
               loop: false,
               itemCount: [widget.model.image].length,
-              itemBuilder: (context, index) => Hero(
-                tag: "image",
-                child: Image.network(
-                  widget.model.image!,
-                  height: screenWidth(context),
-                  width: screenWidth(context),
-                  fit: BoxFit.cover,
-                ),
+              itemBuilder: (context, index) => Image.network(
+                widget.model.image!,
+                height: screenWidth(context),
+                width: screenWidth(context),
+                fit: BoxFit.cover,
               ),
               onIndexChanged: (int i) {
                 setState(() => _currentIndex = i + 1);

@@ -214,10 +214,15 @@ class PostItemViewModel extends BaseModel {
   }
 
   Future imageTapped(BuildContext context, String url) async {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => ImagePopUpView(url: url),
-      ),
+    // Navigator.of(context).push(
+    //   MaterialPageRoute(
+    //     builder: (context) => ImagePopUpView(url: url),
+    //   ),
+    // );
+
+    navigationService.navigateTo(
+      Routes.fullScreenImage,
+      arguments: FullScreenImageArguments(url: url),
     );
   }
 }

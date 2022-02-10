@@ -23,7 +23,8 @@ class CreateAnimalProfileNewPageThreeViewModel extends BaseModel {
 
   List<String> listOfYears = [
     "Years",
-    "1 Years",
+    "0 Year",
+    "1 Year",
     "2 Years",
     "3 Years",
     "4 Years",
@@ -120,9 +121,9 @@ class CreateAnimalProfileNewPageThreeViewModel extends BaseModel {
       isLoading = false;
       notifyListeners();
     } else if (response.data != null) {
-      _navigationService.back(result: 1);
       isLoading = false;
       notifyListeners();
+      onBack();
     }
   }
 

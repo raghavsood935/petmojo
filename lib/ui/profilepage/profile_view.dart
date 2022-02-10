@@ -12,6 +12,7 @@ import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/custom_circle_avatar.dart';
 import 'package:tamely/widgets/edit_button.dart';
 import 'package:tamely/widgets/follow_static_btn.dart';
+import 'package:tamely/widgets/shimmer_widgets.dart';
 
 class ProfileView extends StatefulWidget {
   final BuildContext menuScreenContext;
@@ -92,25 +93,31 @@ class _ProfileViewState extends State<ProfileView> {
                               ),
 
                               Visibility(
-                                visible: !widget.isInspectView,
-                                child: Positioned(
-                                  top: 30,
-                                  right: 20,
-                                  child: GestureDetector(
-                                    child: EditButton(),
-                                    onTap: model.goToProfileEditView,
+                                visible: !model.isBusy,
+                                child: Visibility(
+                                  visible: !widget.isInspectView,
+                                  child: Positioned(
+                                    top: 30,
+                                    right: 20,
+                                    child: GestureDetector(
+                                      child: EditButton(),
+                                      onTap: model.goToProfileEditView,
+                                    ),
                                   ),
                                 ),
                               ),
 
                               Visibility(
-                                visible: widget.isInspectView,
-                                child: Positioned(
-                                  top: 30,
-                                  left: 20,
-                                  child: GestureDetector(
-                                    child: Icon(Icons.arrow_back),
-                                    onTap: model.goBack,
+                                visible: !model.isBusy,
+                                child: Visibility(
+                                  visible: widget.isInspectView,
+                                  child: Positioned(
+                                    top: 30,
+                                    left: 20,
+                                    child: GestureDetector(
+                                      child: Icon(Icons.arrow_back),
+                                      onTap: model.goBack,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -127,43 +134,55 @@ class _ProfileViewState extends State<ProfileView> {
                                     child: Stack(
                                       children: [
                                         Positioned(
-                                          child: GestureDetector(
-                                              onTap: () {
-                                                if (widget.isInspectView) {
-                                                  model.imageTapped(context,
-                                                      model.profileImgUrl);
-                                                } else {
-                                                  model.onImageButtonPressed(
-                                                      ImageSource.gallery,
-                                                      context);
-                                                }
-                                              },
-                                              child: CustomCircularAvatar(
-                                                imgPath: model.profileImgUrl,
-                                                radius: 40,
-                                                isHuman: true,
-                                              )),
+                                          child: model.isBusy
+                                              ? ShimmerWidget.circular(
+                                                  height: 80,
+                                                  width: 80,
+                                                )
+                                              : GestureDetector(
+                                                  onTap: () {
+                                                    if (widget.isInspectView) {
+                                                      model.imageTapped(context,
+                                                          model.profileImgUrl);
+                                                    } else {
+                                                      model
+                                                          .onImageButtonPressed(
+                                                              ImageSource
+                                                                  .gallery,
+                                                              context);
+                                                    }
+                                                  },
+                                                  child: CustomCircularAvatar(
+                                                    imgPath:
+                                                        model.profileImgUrl,
+                                                    radius: 40,
+                                                    isHuman: true,
+                                                  )),
                                         ),
                                         Positioned(
                                           bottom: 10,
                                           right: 10,
                                           child: Visibility(
                                             visible: !widget.isInspectView,
-                                            child: GestureDetector(
-                                              onTap: () =>
-                                                  model.onImageButtonPressed(
-                                                      ImageSource.gallery,
-                                                      context),
-                                              child: CircleAvatar(
-                                                radius: 12,
-                                                backgroundColor: colors.primary,
-                                                child: Icon(
-                                                  Icons.camera_alt,
-                                                  color: colors.white,
-                                                  size: 12,
-                                                ),
-                                              ),
-                                            ),
+                                            child: model.isBusy
+                                                ? ShimmerWidget.circular(
+                                                    height: 24, width: 24)
+                                                : GestureDetector(
+                                                    onTap: () => model
+                                                        .onImageButtonPressed(
+                                                            ImageSource.gallery,
+                                                            context),
+                                                    child: CircleAvatar(
+                                                      radius: 12,
+                                                      backgroundColor:
+                                                          colors.primary,
+                                                      child: Icon(
+                                                        Icons.camera_alt,
+                                                        color: colors.white,
+                                                        size: 12,
+                                                      ),
+                                                    ),
+                                                  ),
                                           ),
                                         ),
                                       ],
@@ -171,29 +190,42 @@ class _ProfileViewState extends State<ProfileView> {
                                   ),
                                   verticalSpaceTiny,
                                   // profile name
-                                  AppText.body(model.fullname),
+                                  model.isBusy
+                                      ? ShimmerWidget.rectangular(
+                                          height: 18,
+                                          width: thirdScreenWidth(context),
+                                        )
+                                      : AppText.body(model.fullname),
                                   verticalSpaceTiny,
                                   // username and animal count
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      AppText.body1(
-                                        model.username,
-                                        color: colors.kcMediumGreyColor,
-                                      ),
-                                      horizontalSpaceTiny,
-                                      CircleAvatar(
-                                        radius: 2,
-                                        backgroundColor: colors.primary,
-                                      ),
-                                      horizontalSpaceTiny,
-                                      AppText.body1(
-                                          "${model.listOfMyAnimals.length}"),
-                                      horizontalSpaceTiny,
-                                      AppText.body1("animal",
-                                          color: colors.kcMediumGreyColor),
-                                    ],
-                                  ),
+                                  model.isBusy
+                                      ? ShimmerWidget.rectangular(
+                                          height: 18,
+                                          width: screenWidthPercentage(context,
+                                              percentage: 0.75),
+                                        )
+                                      : Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            AppText.body1(
+                                              model.username,
+                                              color: colors.kcMediumGreyColor,
+                                            ),
+                                            horizontalSpaceTiny,
+                                            CircleAvatar(
+                                              radius: 2,
+                                              backgroundColor: colors.primary,
+                                            ),
+                                            horizontalSpaceTiny,
+                                            AppText.body1(
+                                                "${model.listOfMyAnimals.length}"),
+                                            horizontalSpaceTiny,
+                                            AppText.body1("animal",
+                                                color:
+                                                    colors.kcMediumGreyColor),
+                                          ],
+                                        ),
                                   Padding(
                                     padding: EdgeInsets.only(
                                       right: 40,
@@ -202,25 +234,34 @@ class _ProfileViewState extends State<ProfileView> {
                                     ),
                                     child: Visibility(
                                       visible: model.shortBio.isNotEmpty,
-                                      child: AppText.body1(
-                                        model.shortBio,
-                                        textAlign: TextAlign.center,
-                                        color: colors.black,
-                                      ),
+                                      child: model.isBusy
+                                          ? ShimmerWidget.rectangular(
+                                              height: 18,
+                                              width: thirdScreenWidth(context),
+                                            )
+                                          : AppText.body1(
+                                              model.shortBio,
+                                              textAlign: TextAlign.center,
+                                              color: colors.black,
+                                            ),
                                     ),
                                   ),
                                   verticalSpaceTiny,
                                   // action text
                                   Visibility(
-                                    visible: model.completedProfileStepCount <
-                                            model.completedProfileTotalCount &&
-                                        !widget.isInspectView,
-                                    child: GestureDetector(
-                                      child: AppText.caption(
-                                        model.actionText,
-                                        color: colors.primary,
+                                    visible: !model.isBusy,
+                                    child: Visibility(
+                                      visible: model.completedProfileStepCount <
+                                              model
+                                                  .completedProfileTotalCount &&
+                                          !widget.isInspectView,
+                                      child: GestureDetector(
+                                        child: AppText.caption(
+                                          model.actionText,
+                                          color: colors.primary,
+                                        ),
+                                        onTap: model.goToCompleteProfile,
                                       ),
-                                      onTap: model.goToCompleteProfile,
                                     ),
                                   ),
 
@@ -286,55 +327,58 @@ class _ProfileViewState extends State<ProfileView> {
                         //complete your profile info
 
                         Visibility(
-                          visible: !widget.isInspectView,
+                          visible: !model.isBusy,
                           child: Visibility(
-                            visible: model.completedProfileStepCount <
-                                model.completedProfileTotalCount,
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      AppText.body(model.actionText),
-                                      AppText.body(
-                                        "${model.completedProfileStepCount} out of ${model.completedProfileTotalCount}",
-                                        color: Colors.blueAccent,
-                                      )
-                                    ],
+                            visible: !widget.isInspectView,
+                            child: Visibility(
+                              visible: model.completedProfileStepCount <
+                                  model.completedProfileTotalCount,
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        AppText.body(model.actionText),
+                                        AppText.body(
+                                          "${model.completedProfileStepCount} out of ${model.completedProfileTotalCount}",
+                                          color: Colors.blueAccent,
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                //action to complete profile
-                                Padding(
-                                  padding: const EdgeInsets.all(15),
-                                  child: Row(
-                                    children: [
-                                      Visibility(
-                                        visible: model.shortBio.isEmpty,
-                                        child: completeProfileItem(
-                                          Icons.person_outline_rounded,
-                                          "Add your short bio, profile picture",
-                                          "Add details",
-                                          model.goToAddDetailsProfileAction,
+                                  //action to complete profile
+                                  Padding(
+                                    padding: const EdgeInsets.all(15),
+                                    child: Row(
+                                      children: [
+                                        Visibility(
+                                          visible: model.shortBio.isEmpty,
+                                          child: completeProfileItem(
+                                            Icons.person_outline_rounded,
+                                            "Add your short bio, profile picture",
+                                            "Add details",
+                                            model.goToAddDetailsProfileAction,
+                                          ),
                                         ),
-                                      ),
-                                      Visibility(
-                                        visible: model.noOfFollowing < 1,
-                                        child: completeProfileItem(
-                                            Icons.people_outline_rounded,
-                                            "Follow at least 5 people to improve feed suggestions",
-                                            "Follow people",
-                                            model
-                                                .goToFollowPeopleProfileAction),
-                                      ),
-                                    ],
+                                        Visibility(
+                                          visible: model.noOfFollowing < 1,
+                                          child: completeProfileItem(
+                                              Icons.people_outline_rounded,
+                                              "Follow at least 5 people to improve feed suggestions",
+                                              "Follow people",
+                                              model
+                                                  .goToFollowPeopleProfileAction),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -364,87 +408,124 @@ class _ProfileViewState extends State<ProfileView> {
 
                         Visibility(
                           visible: model.isMyAnimalsVisibile,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Visibility(
-                                      visible: !widget.isInspectView,
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 20),
-                                        child: roundedImageWidget(
-                                          false,
-                                          "Add",
-                                          child: IconButton(
-                                            icon: Icon(
-                                              Icons.add,
-                                              size: 25,
-                                              color: colors.primary,
-                                            ),
-                                            onPressed: () => widget
-                                                    .isInspectView
-                                                ? {}
-                                                : model
-                                                    .goToCreateAnimalProfileView(),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Visibility(
+                                    visible: !widget.isInspectView,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 20),
+                                      child: roundedImageWidget(
+                                        false,
+                                        "Add",
+                                        child: IconButton(
+                                          icon: Icon(
+                                            Icons.add,
+                                            size: 25,
+                                            color: colors.primary,
                                           ),
+                                          onPressed: () => widget.isInspectView
+                                              ? {}
+                                              : model
+                                                  .goToCreateAnimalProfileView(),
                                         ),
                                       ),
                                     ),
-                                    horizontalSpaceRegular,
-                                    SizedBox(
-                                      height: 100,
-                                      child: ListView.separated(
-                                        scrollDirection: Axis.horizontal,
-                                        shrinkWrap: true,
-                                        itemCount: model.listOfMyAnimals.length,
-                                        itemBuilder: (context, index) =>
-                                            Visibility(
-                                          visible: model.listOfMyAnimals[index]
-                                                  .confirmed ??
-                                              false,
-                                          child: GestureDetector(
-                                            child: roundedImageWidget(
-                                              true,
-                                              model.listOfMyAnimals[index]
-                                                      .detailsResponse!.name ??
-                                                  "",
-                                              bgImg: NetworkImage(
-                                                model
-                                                        .listOfMyAnimals[index]
-                                                        .detailsResponse!
-                                                        .avatar ??
-                                                    emptyProfileImgUrl,
+                                  ),
+                                  horizontalSpaceRegular,
+                                  SizedBox(
+                                    height: 100,
+                                    child: model.isBusy
+                                        ? ListView.separated(
+                                            scrollDirection: Axis.horizontal,
+                                            shrinkWrap: true,
+                                            itemCount: 5,
+                                            itemBuilder: (context, index) =>
+                                                Column(
+                                              children: [
+                                                ShimmerWidget.circular(
+                                                    height: 60, width: 60),
+                                                verticalSpaceSmall,
+                                                ShimmerWidget.rectangular(
+                                                    height: 14, width: 60),
+                                              ],
+                                            ),
+                                            separatorBuilder:
+                                                (context, index) =>
+                                                    horizontalSpaceSmall,
+                                          )
+                                        : ListView.separated(
+                                            scrollDirection: Axis.horizontal,
+                                            shrinkWrap: true,
+                                            itemCount:
+                                                model.listOfMyAnimals.length,
+                                            itemBuilder: (context, index) =>
+                                                Visibility(
+                                              visible: model
+                                                      .listOfMyAnimals[index]
+                                                      .confirmed ??
+                                                  false,
+                                              child: GestureDetector(
+                                                child: roundedImageWidget(
+                                                  true,
+                                                  model
+                                                          .listOfMyAnimals[
+                                                              index]
+                                                          .detailsResponse!
+                                                          .name ??
+                                                      "",
+                                                  bgImg: CustomCircularAvatar(
+                                                    imgPath: model
+                                                            .listOfMyAnimals[
+                                                                index]
+                                                            .detailsResponse!
+                                                            .avatar ??
+                                                        "",
+                                                    radius: 30,
+                                                    isHuman: false,
+                                                  ),
+                                                ),
+                                                onTap: () => widget
+                                                        .isInspectView
+                                                    ? {}
+                                                    : model.goToAnimalProfileView(
+                                                        model
+                                                            .listOfMyAnimals[
+                                                                index]
+                                                            .detailsResponse!
+                                                            .Id!,
+                                                        model
+                                                            .listOfMyAnimals[
+                                                                index]
+                                                            .detailsResponse!
+                                                            .token!),
                                               ),
                                             ),
-                                            onTap: () => widget.isInspectView
-                                                ? {}
-                                                : model.goToAnimalProfileView(
-                                                    model.listOfMyAnimals[index]
-                                                        .detailsResponse!.Id!,
-                                                    model
-                                                        .listOfMyAnimals[index]
-                                                        .detailsResponse!
-                                                        .token!),
+                                            separatorBuilder: (BuildContext
+                                                        context,
+                                                    int index) =>
+                                                Visibility(
+                                                    visible: model
+                                                            .listOfMyAnimals[
+                                                                index]
+                                                            .confirmed ??
+                                                        false,
+                                                    child:
+                                                        horizontalSpaceSmall),
                                           ),
-                                        ),
-                                        separatorBuilder: (BuildContext context,
-                                                int index) =>
-                                            Visibility(
-                                                visible: model
-                                                        .listOfMyAnimals[index]
-                                                        .confirmed ??
-                                                    false,
-                                                child: horizontalSpaceSmall),
-                                      ),
-                                    )
-                                  ],
-                                ),
+                                  ),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -466,35 +547,36 @@ class _ProfileViewState extends State<ProfileView> {
                         ),
                         if (model.listOfPosts.length == 0)
                           Visibility(
-                            visible: !widget.isInspectView,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: widget.isInspectView
-                                  ? AppText.body1Bold("Nothing to show")
-                                  : Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: GestureDetector(
+                            visible: !model.isBusy,
+                            child: Visibility(
+                              visible: !widget.isInspectView,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: GestureDetector(
+                                    child: CircleAvatar(
+                                      backgroundColor: colors.black,
+                                      radius: 30,
+                                      child: CircleAvatar(
+                                        radius: 29,
+                                        backgroundColor: Colors.white,
                                         child: CircleAvatar(
-                                          backgroundColor: colors.black,
-                                          radius: 30,
-                                          child: CircleAvatar(
-                                            radius: 29,
-                                            backgroundColor: Colors.white,
-                                            child: CircleAvatar(
-                                              backgroundColor:
-                                                  colors.lightBackgroundColor,
-                                              radius: 26,
-                                              child: Icon(
-                                                Icons.add,
-                                                color: colors.primary,
-                                              ),
-                                            ),
+                                          backgroundColor:
+                                              colors.lightBackgroundColor,
+                                          radius: 26,
+                                          child: Icon(
+                                            Icons.add,
+                                            color: colors.primary,
                                           ),
                                         ),
-                                        onTap: model.createPost,
                                       ),
                                     ),
+                                    onTap: model.createPost,
+                                  ),
+                                ),
+                              ),
                             ),
                           )
                         else
@@ -590,28 +672,24 @@ double getPostItemHeight(BuildContext context, int index) {
 }
 
 Widget roundedImageWidget(bool isImage, String name,
-        {NetworkImage? bgImg, Widget? child}) =>
+        {Widget? bgImg, Widget? child}) =>
     Column(
       children: [
-        CircleAvatar(
-          backgroundColor: colors.black,
-          radius: 30,
-          child: CircleAvatar(
-            radius: 29,
-            backgroundColor: Colors.white,
-            child: isImage
-                ? CircleAvatar(
-                    backgroundColor: colors.lightBackgroundColor,
-                    radius: 26,
-                    backgroundImage: bgImg,
-                  )
-                : CircleAvatar(
+        isImage
+            ? bgImg!
+            : CircleAvatar(
+                backgroundColor: colors.black,
+                radius: 30,
+                child: CircleAvatar(
+                  radius: 29,
+                  backgroundColor: Colors.white,
+                  child: CircleAvatar(
                     backgroundColor: colors.lightBackgroundColor,
                     radius: 26,
                     child: child,
                   ),
-          ),
-        ),
+                ),
+              ),
         verticalSpaceTiny,
         AppText.caption(
           name,

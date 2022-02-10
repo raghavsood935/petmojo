@@ -296,23 +296,16 @@ class AnimalProfileViewModel extends FutureViewModel {
   }
 
   Future getAnimalDetails() async {
-    if (await Util.checkInternetConnectivity()) {
-      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
-        _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
-        var response = await runBusyFuture(_tamelyApi.getAnimalProfileDetail(
-            AnimalProfileDetailsBody(_Id),
-            animalToken: _token));
+    var response = await runBusyFuture(_tamelyApi.getAnimalProfileDetail(
+        AnimalProfileDetailsBody(_Id),
+        animalToken: _token));
 
-        if (response.getException != null) {
-          ServerError error = response.getException as ServerError;
-          _dialogService.completeDialog(DialogResponse(confirmed: true));
-          _snackBarService.showSnackbar(message: error.getErrorMessage());
-        } else if (response.data != null) {
-          _dialogService.completeDialog(DialogResponse(confirmed: true));
-          setValues(response.data!);
-        }
-      });
-    } else {}
+    if (response.getException != null) {
+      ServerError error = response.getException as ServerError;
+      _snackBarService.showSnackbar(message: error.getErrorMessage());
+    } else if (response.data != null) {
+      setValues(response.data!);
+    }
   }
 
   Future setValues(AnimalProfileDetailModelResponse response) async {

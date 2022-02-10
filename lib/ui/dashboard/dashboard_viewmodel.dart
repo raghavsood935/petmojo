@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:stacked/stacked.dart';
@@ -42,10 +43,10 @@ class DashboardViewModel extends FutureViewModel<void>
   String _userID = "";
   String get userID => _userID;
 
-  String _profileName = "Harsh Mittal";
+  String _profileName = "";
   String get profileName => _profileName;
 
-  String _userName = "harsh.mittal";
+  String _userName = "";
   String get userName => _userName;
 
   String _avatarUrl = "";
@@ -289,15 +290,16 @@ class DashboardViewModel extends FutureViewModel<void>
   }
 
   Future<bool> onBackPressed() async {
-    // var result = await _dialogService.showCustomDialog(
-    //   variant: DialogType.ExitAppDialog,
-    // );
-    //
-    // if (result != null) {
-    //   return result.confirmed;
-    // } else {
-    //
-    // }
+    var result = await _dialogService.showCustomDialog(
+      variant: DialogType.ExitAppDialog,
+    );
+
+    if (result != null) {
+      if (result.confirmed) {
+        SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+        return false;
+      }
+    }
     return false;
   }
 }

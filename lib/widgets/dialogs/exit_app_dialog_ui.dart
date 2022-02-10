@@ -22,6 +22,7 @@ class ExitAppDialogUi extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          verticalSpaceMedium,
           AppText.titleBold("Alert!"),
           verticalSpaceRegular,
           AppText.body1("Are you sure do you want to exit the app?"),
