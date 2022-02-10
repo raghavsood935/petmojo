@@ -35,7 +35,8 @@ class AppointmentsViewModel extends FutureViewModel<void>
     print("4");
     try {
       if (await Util.checkInternetConnectivity()) {
-        // _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
+        _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
+
         BaseResponse<HasAppointmentsResponse> resultOne = await runBusyFuture(
             _tamelyApi.hasAppointments(),
             throwException: true);
@@ -45,7 +46,7 @@ class AppointmentsViewModel extends FutureViewModel<void>
         }
         notifyListeners();
 
-        // _dialogService.completeDialog(DialogResponse(confirmed: true));
+        _dialogService.completeDialog(DialogResponse(confirmed: true));
       } else {
         snackBarService.showSnackbar(message: "No Internet connection");
       }
