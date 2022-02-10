@@ -23,7 +23,7 @@ class _$GetFreeTrainingResponseTearOff {
   const _$GetFreeTrainingResponseTearOff();
 
   _GetFreeTrainingResponse call(
-      {@JsonKey(name: "isFreeTrainingAvailable ")
+      {@JsonKey(name: "isFreeTrainingAvailable")
           bool? isFreeTrainingAvailable}) {
     return _GetFreeTrainingResponse(
       isFreeTrainingAvailable: isFreeTrainingAvailable,
@@ -40,7 +40,7 @@ const $GetFreeTrainingResponse = _$GetFreeTrainingResponseTearOff();
 
 /// @nodoc
 mixin _$GetFreeTrainingResponse {
-  @JsonKey(name: "isFreeTrainingAvailable ")
+  @JsonKey(name: "isFreeTrainingAvailable")
   bool? get isFreeTrainingAvailable => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -55,7 +55,7 @@ abstract class $GetFreeTrainingResponseCopyWith<$Res> {
           $Res Function(GetFreeTrainingResponse) then) =
       _$GetFreeTrainingResponseCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: "isFreeTrainingAvailable ")
+      {@JsonKey(name: "isFreeTrainingAvailable")
           bool? isFreeTrainingAvailable});
 }
 
@@ -89,7 +89,7 @@ abstract class _$GetFreeTrainingResponseCopyWith<$Res>
       __$GetFreeTrainingResponseCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: "isFreeTrainingAvailable ")
+      {@JsonKey(name: "isFreeTrainingAvailable")
           bool? isFreeTrainingAvailable});
 }
 
@@ -122,14 +122,14 @@ class __$GetFreeTrainingResponseCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_GetFreeTrainingResponse extends _GetFreeTrainingResponse {
   _$_GetFreeTrainingResponse(
-      {@JsonKey(name: "isFreeTrainingAvailable ") this.isFreeTrainingAvailable})
+      {@JsonKey(name: "isFreeTrainingAvailable") this.isFreeTrainingAvailable})
       : super._();
 
   factory _$_GetFreeTrainingResponse.fromJson(Map<String, dynamic> json) =>
       _$$_GetFreeTrainingResponseFromJson(json);
 
   @override
-  @JsonKey(name: "isFreeTrainingAvailable ")
+  @JsonKey(name: "isFreeTrainingAvailable")
   final bool? isFreeTrainingAvailable;
 
   @override
@@ -164,7 +164,7 @@ class _$_GetFreeTrainingResponse extends _GetFreeTrainingResponse {
 
 abstract class _GetFreeTrainingResponse extends GetFreeTrainingResponse {
   factory _GetFreeTrainingResponse(
-      {@JsonKey(name: "isFreeTrainingAvailable ")
+      {@JsonKey(name: "isFreeTrainingAvailable")
           bool? isFreeTrainingAvailable}) = _$_GetFreeTrainingResponse;
   _GetFreeTrainingResponse._() : super._();
 
@@ -172,7 +172,7 @@ abstract class _GetFreeTrainingResponse extends GetFreeTrainingResponse {
       _$_GetFreeTrainingResponse.fromJson;
 
   @override
-  @JsonKey(name: "isFreeTrainingAvailable ")
+  @JsonKey(name: "isFreeTrainingAvailable")
   bool? get isFreeTrainingAvailable;
   @override
   @JsonKey(ignore: true)

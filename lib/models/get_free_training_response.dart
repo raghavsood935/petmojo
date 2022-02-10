@@ -8,7 +8,7 @@ class GetFreeTrainingResponse with _$GetFreeTrainingResponse {
   GetFreeTrainingResponse._();
 
   factory GetFreeTrainingResponse({
-    @JsonKey(name: "isFreeTrainingAvailable ") bool? isFreeTrainingAvailable,
+    @JsonKey(name: "isFreeTrainingAvailable") bool? isFreeTrainingAvailable,
   }) = _GetFreeTrainingResponse;
 
   factory GetFreeTrainingResponse.fromJson(Map<String, dynamic> json) =>

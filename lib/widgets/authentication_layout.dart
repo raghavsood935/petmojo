@@ -193,7 +193,7 @@ class AuthenticationLayout extends StatelessWidget {
                       Icons.phone,
                       color: Color(0xFFFF5E95),
                     ),
-                    label: AppText.captionBold("Register with phone",
+                    label: AppText.captionBold("Continue with phone",
                         color: Colors.black),
                     style: ButtonStyle(
                       backgroundColor:
