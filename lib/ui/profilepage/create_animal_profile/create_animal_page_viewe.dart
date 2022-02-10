@@ -256,90 +256,90 @@ class CreateAnimalPageView extends StatelessWidget with $CreateAnimalPageView {
                             ),
                           ),
                           verticalSpaceTiny,
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              horizontalSpaceSmall,
-                              AppText.caption(
-                                "Age of Animal",
-                                color: colors.black,
-                              ),
-                              horizontalSpaceTiny,
-                              AppText.caption(
-                                "(Choose DOB or baby/adult/young)",
-                                color: colors.kcMediumGreyColor,
-                              ),
-                            ],
-                          ),
-                          verticalSpaceTiny,
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Radio<String>(
-                                value: "DOB",
-                                splashRadius: 0,
-                                groupValue: model.selectedAnimalAgeChooseType,
-                                onChanged: model.onAnimalAgeTypeChangeRadio,
-                                activeColor: colors.primary,
-                              ),
-                              Expanded(
-                                child: GestureDetector(
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          AppText.caption(
-                                              model.selectedDateValue),
-                                          Align(
-                                            alignment: Alignment.centerRight,
-                                            child: Icon(
-                                              Icons.calendar_today,
-                                              size: 20,
-                                              color: colors.kcLightGreyColor,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Divider(
-                                        color: colors.kcLightGreyColor,
-                                        thickness: 1,
-                                      )
-                                    ],
-                                  ),
-                                  onTap: () =>
-                                      model.selectedAnimalAgeChooseType == "DOB"
-                                          ? model.selectDate(
-                                              context, dobController)
-                                          : {},
-                                ),
-                              ),
-                              Radio<String>(
-                                value: "AGE",
-                                splashRadius: 0,
-                                groupValue: model.selectedAnimalAgeChooseType,
-                                onChanged: model.onAnimalAgeTypeChangeRadio,
-                                activeColor: colors.primary,
-                              ),
-                              Expanded(
-                                child: dropDownButton(
-                                  context,
-                                  model.ageType,
-                                  model.ageTypeValues,
-                                  "Choose age",
-                                  model.onChangeAge,
-                                  isEnabled:
-                                      model.selectedAnimalAgeChooseType ==
-                                          "AGE",
-                                ),
-                              ),
-                            ],
-                          )
+                          // Row(
+                          //   mainAxisSize: MainAxisSize.max,
+                          //   mainAxisAlignment: MainAxisAlignment.start,
+                          //   children: [
+                          //     horizontalSpaceSmall,
+                          //     AppText.caption(
+                          //       "Age of Animal",
+                          //       color: colors.black,
+                          //     ),
+                          //     horizontalSpaceTiny,
+                          //     AppText.caption(
+                          //       "(Choose DOB or baby/adult/young)",
+                          //       color: colors.kcMediumGreyColor,
+                          //     ),
+                          //   ],
+                          // ),
+                          // verticalSpaceTiny,
+                          // Row(
+                          //   mainAxisSize: MainAxisSize.max,
+                          //   mainAxisAlignment: MainAxisAlignment.end,
+                          //   crossAxisAlignment: CrossAxisAlignment.center,
+                          //   children: [
+                          //     Radio<String>(
+                          //       value: "DOB",
+                          //       splashRadius: 0,
+                          //       groupValue: model.selectedAnimalAgeChooseType,
+                          //       onChanged: model.onAnimalAgeTypeChangeRadio,
+                          //       activeColor: colors.primary,
+                          //     ),
+                          //     Expanded(
+                          //       child: GestureDetector(
+                          //         child: Column(
+                          //           children: [
+                          //             Row(
+                          //               mainAxisSize: MainAxisSize.max,
+                          //               mainAxisAlignment:
+                          //                   MainAxisAlignment.spaceBetween,
+                          //               children: [
+                          //                 AppText.caption(
+                          //                     model.selectedDateValue),
+                          //                 Align(
+                          //                   alignment: Alignment.centerRight,
+                          //                   child: Icon(
+                          //                     Icons.calendar_today,
+                          //                     size: 20,
+                          //                     color: colors.kcLightGreyColor,
+                          //                   ),
+                          //                 ),
+                          //               ],
+                          //             ),
+                          //             Divider(
+                          //               color: colors.kcLightGreyColor,
+                          //               thickness: 1,
+                          //             )
+                          //           ],
+                          //         ),
+                          //         onTap: () =>
+                          //             model.selectedAnimalAgeChooseType == "DOB"
+                          //                 ? model.selectDate(
+                          //                     context, dobController)
+                          //                 : {},
+                          //       ),
+                          //     ),
+                          //     Radio<String>(
+                          //       value: "AGE",
+                          //       splashRadius: 0,
+                          //       groupValue: model.selectedAnimalAgeChooseType,
+                          //       onChanged: model.onAnimalAgeTypeChangeRadio,
+                          //       activeColor: colors.primary,
+                          //     ),
+                          //     Expanded(
+                          //       child: dropDownButton(
+                          //         context,
+                          //         model.ageType,
+                          //         model.ageTypeValues,
+                          //         "Choose age",
+                          //         model.onChangeAge,
+                          //         isEnabled:
+                          //             model.selectedAnimalAgeChooseType ==
+                          //                 "AGE",
+                          //       ),
+                          //     ),
+                          //   ],
+                          // )
                         ],
                       ),
                     ),

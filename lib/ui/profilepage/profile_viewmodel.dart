@@ -59,6 +59,8 @@ class ProfileViewModel extends BaseViewModel {
   XFile? _imageFile;
   File? _editedImage;
 
+  bool get isLoading => _isLoading;
+
   String get imagePath => _imageFile?.path ?? "";
 
   String? _animalProfileCreateView = Routes.createAnimalPageView;
@@ -114,7 +116,7 @@ class ProfileViewModel extends BaseViewModel {
     }
     if (await Util.checkInternetConnectivity()) {
       BaseResponse<CommonResponse> response =
-          await runBusyFuture(_tamelyApi.uploadImage(File(_editedImage!.path)));
+          await _tamelyApi.uploadImage(File(_editedImage!.path));
       if (response.getException != null) {
         ServerError error = response.getException as ServerError;
         _snackBarService.showSnackbar(message: error.getErrorMessage());
@@ -172,56 +174,26 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   Future getUserProfileDetailsById(String id, bool isNeedShowToLoading) async {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
-      if (isNeedShowToLoading) {
-        _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
-      }
-      GetProfileDetailsByIdBody body = GetProfileDetailsByIdBody("User", id);
-      BaseResponse<ProfileDetailsByIdResponse> response =
-          await _tamelyApi.getProfileDetailsById(body, true);
-      if (response.getException != null) {
-        ServerError error = response.getException as ServerError;
-        if (isNeedShowToLoading) {
-          _dialogService.completeDialog(DialogResponse(confirmed: true));
-          _navigationService.back();
-        }
-
-        _snackBarService.showSnackbar(message: error.getErrorMessage());
-      } else if (response.data != null) {
-        setProfileDetailsByIdValues(response.data!).then((value) =>
-            isNeedShowToLoading
-                ? _dialogService.completeDialog(DialogResponse(confirmed: true))
-                : {});
-      } else {
-        if (isNeedShowToLoading) {
-          _dialogService.completeDialog(DialogResponse(confirmed: true));
-        }
-      }
-    });
+    GetProfileDetailsByIdBody body = GetProfileDetailsByIdBody("User", id);
+    BaseResponse<ProfileDetailsByIdResponse> response =
+        await runBusyFuture(_tamelyApi.getProfileDetailsById(body, true));
+    if (response.getException != null) {
+      ServerError error = response.getException as ServerError;
+      _snackBarService.showSnackbar(message: error.getErrorMessage());
+    } else if (response.data != null) {
+      setProfileDetailsByIdValues(response.data!);
+    }
   }
 
   Future getUserProfileDetails(bool isNeedShowToLoading) async {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
-      if (isNeedShowToLoading) {
-        _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
-      }
-      BaseResponse<UserProfileDetailsResponse> response =
-          await _tamelyApi.getUserProfileDetail();
-      if (response.getException != null) {
-        ServerError error = response.getException as ServerError;
-        if (isNeedShowToLoading) {
-          _dialogService.completeDialog(DialogResponse(confirmed: true));
-          _navigationService.back();
-        }
-        _snackBarService.showSnackbar(message: error.getErrorMessage());
-      } else if (response.data != null) {
-        setValues(response.data!).then((value) => isNeedShowToLoading
-            ? _dialogService.completeDialog(DialogResponse(confirmed: true))
-            : {});
-      } else {
-        _dialogService.completeDialog(DialogResponse(confirmed: true));
-      }
-    });
+    BaseResponse<UserProfileDetailsResponse> response =
+        await runBusyFuture(_tamelyApi.getUserProfileDetail());
+    if (response.getException != null) {
+      ServerError error = response.getException as ServerError;
+      _snackBarService.showSnackbar(message: error.getErrorMessage());
+    } else if (response.data != null) {
+      setValues(response.data!);
+    }
   }
 
   Future getUserPosts() async {
@@ -317,8 +289,6 @@ class ProfileViewModel extends BaseViewModel {
   int get completedProfileTotalCount => _completedProfileTotalCount;
 
   bool get profileCompleted => _profileCompleted;
-
-  bool get isLoading => _isLoading;
 
   bool get isEndOfList => _isEndOfList;
 

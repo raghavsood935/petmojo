@@ -11,17 +11,17 @@ class ImagePopUpView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Hero(
-      tag: "image",
-      child: Scaffold(
-        body: Center(
+    return Scaffold(
+      body: Center(
+        child: Hero(
+          tag: "image",
           child: Image.network(
             url,
             errorBuilder: errorBuilder,
           ),
         ),
-        backgroundColor: colors.black,
       ),
+      backgroundColor: colors.black,
     );
   }
 }
