@@ -66,7 +66,6 @@ class _DRDogRunningBookingViewState extends State<DRDogRunningBookingView> {
                   ],
                 ),
                 verticalSpaceRegular,
-                //spacedDividerTiny,
 
                 // Page Indication
                 Row(

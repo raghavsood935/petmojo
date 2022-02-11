@@ -20,42 +20,7 @@ class ActiveAppointmentsView extends StatelessWidget {
         body: SafeArea(
           child: Column(
             children: [
-              verticalSpaceSmall,
-
-              // DropDown
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25),
-                child: Container(
-                  width: double.infinity,
-                  child: DropdownButton<String>(
-                    isExpanded: true,
-                    value: model.selectedServiceType,
-                    hint: Text(dogWalkingTitle),
-                    icon: const Icon(Icons.arrow_downward),
-                    iconSize: 14,
-                    style: const TextStyle(color: Colors.deepPurple),
-                    underline: Container(
-                      height: 1,
-                      color: colors.kcCaptionGreyColor,
-                    ),
-                    onChanged: model.selectAccountType,
-                    items: <String>[
-                      dogWalkingTitle,
-                    ].map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(
-                          value,
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ),
-              ),
-              spacedDividerSmall,
-              verticalSpaceSmall,
-
+              verticalSpaceMedium,
               //body
               Expanded(
                 child: ListView.separated(
@@ -79,10 +44,9 @@ class ActiveAppointmentsView extends StatelessWidget {
                     );
                   },
                   separatorBuilder: (BuildContext context, int index) =>
-                      spacedDividerSmall,
+                      verticalSpaceMedium,
                 ),
               ),
-              spacedDividerSmall,
             ],
           ),
         ),
@@ -123,33 +87,69 @@ class ActiveAppointmentItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTapped,
-      child: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(1),
-        ),
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GestureDetector(
+          onTap: onTapped,
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 5.0),
+            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
+            decoration: new BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: colors.kcCaptionGreyColor,
+                  blurRadius: 3.0, // soften the shadow
+                  spreadRadius: 0.0, //extend the shadow
+                  offset: Offset(
+                    0, // Move to right 10  horizontally
+                    0, // Move to bottom 10 Vertically
+                  ),
+                )
+              ],
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CircleAvatar(
-                    radius: 45.0 / 2,
+                    radius: 53.0 / 2,
                     backgroundColor: colors.primaryLight,
-                    child: Image.asset("assets/images/dog_running.png"),
+                    child: Image.asset(
+                      "assets/images/dog_running.png",
+                    ),
                   ),
                   horizontalSpaceRegular,
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      AppText.body1(
-                        serviceName!,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          AppText.body1(
+                            serviceName!,
+                          ),
+                          horizontalSpaceMedium,
+                          Visibility(
+                            visible: status == ActiveAppointmentStatus.Accepted,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 8),
+                              decoration: BoxDecoration(
+                                color: colors.green10,
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                              child: AppText.overline(
+                                confirmedLabel,
+                                color: colors.green70,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       verticalSpaceTiny,
                       Row(
@@ -198,95 +198,94 @@ class ActiveAppointmentItem extends StatelessWidget {
                             )
                           : Container(),
                       verticalSpaceTiny,
-                      AppText.body1(
-                        subscriptionType!,
-                      ),
-                      verticalSpaceTiny,
-                      AppText.body1(
-                        "$upcomingLabel - $dateAndTime!",
-                      ),
-                      verticalSpaceSmall,
-                      status == ActiveAppointmentStatus.Accepted &&
-                              showReorder! == false &&
-                              showBooking! == false
-                          ? Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 8),
-                              decoration: BoxDecoration(
-                                color: colors.green10,
-                                borderRadius: BorderRadius.circular(100),
-                              ),
-                              child: AppText.overline(
-                                confirmedLabel,
-                                color: colors.green70,
-                              ),
-                            )
-                          : Container(),
-                      Visibility(
-                        visible: showReorder!,
-                        child: GestureDetector(
-                          onTap: onReorderTapped,
-                          child: Container(
-                            height: 22.0,
-                            width: 70.0,
-                            decoration: BoxDecoration(
-                              color: colors.primary,
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            child: Center(
-                              child: AppText.caption(
-                                reorderLabel,
-                                color: colors.white,
-                              ),
-                            ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.access_time_outlined,
+                            color: colors.primary,
+                            size: 20,
                           ),
-                        ),
-                      ),
-                      Visibility(
-                        visible: showBooking!,
-                        child: GestureDetector(
-                          onTap: onBookingTapped,
-                          child: Container(
-                            height: 22.0,
-                            width: 70.0,
-                            decoration: BoxDecoration(
-                              color: colors.primary,
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            child: Center(
-                              child: AppText.caption(
-                                bookLabel,
-                                color: colors.white,
-                              ),
-                            ),
+                          horizontalSpaceTiny,
+                          AppText.body1(
+                            "$upcomingLabel : $dateAndTime!",
                           ),
-                        ),
+                        ],
                       ),
-                      verticalSpaceSmall,
                     ],
                   ),
                 ],
               ),
             ),
-            Visibility(
-              visible: showReorder!,
-              child: Container(
-                height: 25,
-                width: screenWidth(context),
-                decoration: BoxDecoration(
-                  color: colors.primary,
-                ),
-                child: Center(
-                  child: AppText.caption(
-                    reorderTextLabel,
-                    color: colors.white,
-                  ),
+          ),
+        ),
+        Visibility(
+          visible: showReorder! || showBooking!,
+          child: verticalSpaceRegular,
+        ),
+        Visibility(
+          visible: showReorder!,
+          child: GestureDetector(
+            onTap: onReorderTapped,
+            child: Container(
+              width: double.infinity,
+              margin: EdgeInsets.symmetric(horizontal: 5),
+              height: 50,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: colors.green10,
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Text(
+                reorderLabel,
+                style: TextStyle(
+                  color: colors.green70,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
                 ),
               ),
             ),
-          ],
+          ),
         ),
-      ),
+        Visibility(
+          visible: showBooking!,
+          child: GestureDetector(
+            onTap: onBookingTapped,
+            child: Container(
+              width: double.infinity,
+              margin: EdgeInsets.symmetric(horizontal: 5),
+              height: 50,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: colors.primary,
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Text(
+                bookLabel,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+          ),
+        ),
+        Visibility(
+          visible: showBooking!,
+          child: verticalSpaceSmall,
+        ),
+        Visibility(
+          visible: showBooking!,
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 5),
+            child: AppText.caption(
+              bookTextLabel,
+              color: colors.primary,
+              textAlign: TextAlign.left,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

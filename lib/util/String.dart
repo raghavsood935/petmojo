@@ -235,7 +235,7 @@ String perWalkSubtitleOne = "30 mins walk";
 String perMonthOnceSubtitleOne = "30 mins walk each";
 String perMonthTwiceSubtitleOne = "30 mins walk each";
 
-String perWalkSubtitleTwo = "FREE Assessment";
+String perWalkSubtitleTwo = "";
 String perMonthOnceSubtitleTwo = "Weekly one off";
 String perMonthTwiceSubtitleTwo = "Weekly one off";
 
@@ -273,7 +273,7 @@ String bookARunSubtitleWithFree =
     "Almost there! Select which package your pet needs? Call us on 9009004473 if you have any query.";
 
 String bookARunningSubtitle =
-    "Our dog runner really liked your pet! Please choose from a package below to gift your pet fun filled walks daily:";
+    "Our dog runner really liked your pet! Please choose from a package below to gift your pet fun filled walks daily. NO COST EMIs available.";
 
 String noOfPetsLabel = "Number of pets";
 
@@ -444,13 +444,13 @@ String pastAppointmentsTitle = "Past";
 
 // -- Active
 
-String pendingLabel = "Dog runner will be assigned shortly";
+String pendingLabel = "Dog runner will be \n assigned shortly";
 String upcomingLabel = "Upcoming";
 String confirmedLabel = "Confirmed";
-String reorderLabel = "Reorder";
-String bookLabel = "Book Now";
-String reorderTextLabel =
-    "Only a few days left in your package! Kindly renew ASAP!";
+String reorderLabel = "Renew Soon";
+String bookLabel = "Book your package";
+String bookTextLabel =
+    "*Easy EMI starting from 500 available. \n Please contact the sales team at 9009004473.";
 
 // -- Past
 String canceledLabel = "Canceled";
@@ -490,7 +490,7 @@ String onDevelop = "Under the development";
 // Book a run
 
 String bookATrainingSubtitle =
-    "Our dog trainer really liked your pet! Please choose from a package below to gift your pet fun filled trainings:";
+    "Our dog trainer really liked your pet! Please choose from a package below to gift your pet fun filled trainings. NO COST EMIs available.";
 
 String firstPageTitle = "Select Package";
 String secondPageTitle = "Book Dog Training";
