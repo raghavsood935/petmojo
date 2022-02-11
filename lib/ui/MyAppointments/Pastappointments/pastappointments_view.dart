@@ -20,42 +20,7 @@ class PastAppointmentsView extends StatelessWidget {
         body: SafeArea(
           child: Column(
             children: [
-              verticalSpaceSmall,
-
-              // DropDown
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25),
-                child: Container(
-                  width: double.infinity,
-                  child: DropdownButton<String>(
-                    isExpanded: true,
-                    value: model.selectedServiceType,
-                    hint: Text(dogWalkingTitle),
-                    icon: const Icon(Icons.arrow_downward),
-                    iconSize: 14,
-                    style: const TextStyle(color: Colors.deepPurple),
-                    underline: Container(
-                      height: 1,
-                      color: colors.kcCaptionGreyColor,
-                    ),
-                    onChanged: model.selectAccountType,
-                    items: <String>[
-                      dogWalkingTitle,
-                    ].map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(
-                          value,
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ),
-              ),
-              spacedDividerSmall,
-              verticalSpaceSmall,
-
+              verticalSpaceMedium,
               //body
               Expanded(
                 child: ListView.separated(
@@ -77,10 +42,9 @@ class PastAppointmentsView extends StatelessWidget {
                     );
                   },
                   separatorBuilder: (BuildContext context, int index) =>
-                      spacedDividerSmall,
+                      verticalSpaceMedium,
                 ),
               ),
-              spacedDividerSmall,
             ],
           ),
         ),
@@ -112,96 +76,120 @@ class PastAppointmentItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(1),
+      margin: EdgeInsets.symmetric(horizontal: 5.0),
+      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
+      decoration: new BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: colors.kcCaptionGreyColor,
+            blurRadius: 3.0, // soften the shadow
+            spreadRadius: 0.0, //extend the shadow
+            offset: Offset(
+              0, // Move to right 10  horizontally
+              0, // Move to bottom 10 Vertically
+            ),
+          )
+        ],
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CircleAvatar(
-            radius: 45.0 / 2,
-            backgroundColor: colors.primaryLight,
-            child: Image.asset("assets/images/dog_running.png"),
-          ),
-          horizontalSpaceRegular,
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AppText.body1(
-                serviceName!,
-              ),
-              verticalSpaceTiny,
-              Row(
-                children: [
-                  AppText.body1(
-                    "for ",
-                    color: colors.kcCaptionGreyColor,
-                  ),
-                  dogs!.length == 1
-                      ? AppText.body1(
-                          "${dogs![0]}",
-                        )
-                      : Row(
-                          children: [
-                            AppText.body1(
-                              "${dogs![0]}",
-                            ),
-                            AppText.body1(
-                              "  &  ",
-                              color: colors.kcCaptionGreyColor,
-                            ),
-                            AppText.body1(
-                              "${dogs![1]}",
-                            ),
-                          ],
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CircleAvatar(
+              radius: 45.0 / 2,
+              backgroundColor: colors.primaryLight,
+              child: Image.asset("assets/images/dog_running.png"),
+            ),
+            horizontalSpaceRegular,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    AppText.body1(
+                      serviceName!,
+                    ),
+                    horizontalSpaceMedium,
+                    Visibility(
+                      visible: status == PastAppointmentStatus.Canceled,
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+                        decoration: BoxDecoration(
+                          color: colors.primaryLight,
+                          borderRadius: BorderRadius.circular(100),
                         ),
-                  AppText.body1(
-                    " with ",
-                    color: colors.kcCaptionGreyColor,
-                  ),
-                  AppText.body1(
-                    userName!,
-                  ),
-                ],
-              ),
-              verticalSpaceTiny,
-              AppText.body1(
-                subscriptionType!,
-              ),
-              // verticalSpaceTiny,
-              // AppText.body1(
-              //   "$upcomingLabel - $dateAndTime!",
-              // ),
-              verticalSpaceSmall,
-              status == PastAppointmentStatus.Canceled
-                  ? Container(
-                      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-                      decoration: BoxDecoration(
-                        color: colors.primaryLight,
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      child: AppText.overline(
-                        canceledLabel,
-                        color: colors.red,
-                      ),
-                    )
-                  : Container(
-                      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-                      decoration: BoxDecoration(
-                        color: colors.green10,
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      child: AppText.overline(
-                        completedLabel,
-                        color: colors.green70,
+                        child: AppText.overline(
+                          canceledLabel,
+                          color: colors.red,
+                        ),
                       ),
                     ),
-            ],
-          ),
-        ],
+                    Visibility(
+                      visible: status == PastAppointmentStatus.Completed,
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+                        decoration: BoxDecoration(
+                          color: colors.green10,
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: AppText.overline(
+                          completedLabel,
+                          color: colors.green70,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                verticalSpaceTiny,
+                Row(
+                  children: [
+                    AppText.body1(
+                      "for ",
+                      color: colors.kcCaptionGreyColor,
+                    ),
+                    dogs!.length == 1
+                        ? AppText.body1(
+                            "${dogs![0]}",
+                          )
+                        : Row(
+                            children: [
+                              AppText.body1(
+                                "${dogs![0]}",
+                              ),
+                              AppText.body1(
+                                "  &  ",
+                                color: colors.kcCaptionGreyColor,
+                              ),
+                              AppText.body1(
+                                "${dogs![1]}",
+                              ),
+                            ],
+                          ),
+                    AppText.body1(
+                      " with ",
+                      color: colors.kcCaptionGreyColor,
+                    ),
+                    AppText.body1(
+                      userName!,
+                    ),
+                  ],
+                ),
+                verticalSpaceTiny,
+                AppText.body1(
+                  subscriptionType!,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
