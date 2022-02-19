@@ -34,6 +34,7 @@ class SignUpView extends StatelessWidget with $SignUpView {
           title: createAccountTitle,
           onSignInWithFacebook: model.useFacebookAuthentication,
           onSignInWithGoogle: model.useGoogleAuthentication,
+          onSignInWithApple: model.useAppleAuthentication,
           onContinueWithPhone: model.onPhoneAuthentication,
           subtitle: '',
           isSocialLoginEnabled: true,

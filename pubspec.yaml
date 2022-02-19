@@ -29,7 +29,8 @@ dependencies:
   shimmer: ^2.0.0
 
 
-
+  #apple sign in
+  sign_in_with_apple: ^3.3.0
 
   #carousel slider
   carousel_slider: ^4.0.0

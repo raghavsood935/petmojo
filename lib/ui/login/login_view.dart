@@ -30,6 +30,7 @@ class LoginView extends StatelessWidget with $LoginView {
           validationMessage: model.validationMessage,
           onSignInWithFacebook: model.useFacebookAuthentication,
           onSignInWithGoogle: model.useGoogleAuthentication,
+          onSignInWithApple: model.useAppleAuthentication,
           onCreateAccountTapped: model.onCreateAccount,
           onContinueWithPhone: model.onPhoneAuthentication,
           title: loginAccountTitle,
