@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
@@ -24,6 +25,7 @@ import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/services/user_service.dart';
 import 'package:tamely/ui/otp/confirm_otp_viewmodel.dart';
 import 'package:tamely/util/utils.dart';
+// import 'sign';
 
 abstract class AuthenticationViewModel extends FormViewModel {
   final log = getLogger('AuthenticationViewModel');
@@ -187,6 +189,31 @@ abstract class AuthenticationViewModel extends FormViewModel {
             isSocialSignIn: true);
 
       log.d("GoogleLogin ${googleSignInAuthentication.accessToken}");
+    } catch (e) {
+      log.e(e);
+    }
+  }
+
+  Future<void> useAppleAuthentication() async {
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+
+      print(credential);
+
+      // bool? result = await runBusyFuture(
+      //     handleSocialLogin(googleSignInAuthentication.accessToken!, false),
+      //     throwException: true);
+      //
+      // if (userService.hasLoggedInUser)
+      //   _handleLoggedInUser(userService.currentUser, result!,
+      //       isSocialSignIn: true);
+      //
+      // log.d("GoogleLogin ${googleSignInAuthentication.accessToken}");
     } catch (e) {
       log.e(e);
     }

@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
@@ -17,6 +19,7 @@ class AuthenticationLayout extends StatelessWidget {
   final void Function()? onSignInWithFacebook;
   final void Function()? onContinueWithPhone;
   final void Function()? onSignInWithGoogle;
+  final void Function()? onSignInWithApple;
   final void Function()? onResendOTP;
   final String? validationMessage;
   final bool busy;
@@ -36,6 +39,7 @@ class AuthenticationLayout extends StatelessWidget {
     this.onBackPressed,
     this.onSignInWithFacebook,
     this.onSignInWithGoogle,
+    this.onSignInWithApple,
     this.onContinueWithPhone,
     this.onResendOTP,
     this.validationMessage,
@@ -217,7 +221,7 @@ class AuthenticationLayout extends StatelessWidget {
                         child: ElevatedButton.icon(
                           onPressed: onSignInWithGoogle ?? () {},
                           icon: Image.asset("assets/images/google_logo.png"),
-                          label: AppText.body1("Google", color: colors.white),
+                          label: AppText.caption("Google", color: colors.white),
                           style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all(Color(0xFFEA4335)),
@@ -239,7 +243,8 @@ class AuthenticationLayout extends StatelessWidget {
                         child: ElevatedButton.icon(
                           onPressed: onSignInWithFacebook ?? () {},
                           icon: Image.asset("assets/images/fb_logo.png"),
-                          label: AppText.body1("Facebook", color: Colors.white),
+                          label:
+                              AppText.caption("Facebook", color: Colors.white),
                           style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all(Color(0xFF298FFF)),
@@ -256,6 +261,38 @@ class AuthenticationLayout extends StatelessWidget {
                     ),
                   ],
                 ),
+                if (Theme.of(context).platform == TargetPlatform.iOS)
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 10),
+                      child: ElevatedButton.icon(
+                        onPressed: onSignInWithApple ?? () {},
+                        icon: SvgPicture.asset(
+                          "assets/images/on_boarding/ios_logo.svg",
+                          height: 18,
+                        ),
+                        label:
+                            AppText.caption("APPLE  ID", color: colors.white),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Color(0xFF000000)),
+                          padding: MaterialStateProperty.all(
+                            const EdgeInsets.symmetric(
+                              vertical: 12,
+                              horizontal: 20,
+                            ),
+                          ),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.6),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 verticalSpaceSmall,
                 if (onCreateAccountTapped != null)
                   GestureDetector(

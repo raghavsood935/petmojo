@@ -181,12 +181,13 @@ class NewPostViewModel extends FutureViewModel<void> implements Initialisable {
       _navigationService.pushNamedAndRemoveUntil(
         Routes.dashboard,
         arguments: DashboardArguments(
-            initialPageState: 0,
-            isNeedToUpdateProfile: false,
-            isHuman: profile.isHuman,
-            petID: profile.petId,
-            petToken: profile.petToken,
-            initialState: profile.currentIndex),
+          initialPageState: 3,
+          isNeedToUpdateProfile: false,
+          isHuman: profile.isHuman,
+          petID: profile.petId,
+          petToken: profile.petToken,
+          initialState: profile.currentIndex,
+        ),
       );
 
       _snackBarService.showSnackbar(message: "Post is uploading...");
