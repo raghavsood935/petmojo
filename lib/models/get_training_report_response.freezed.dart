@@ -232,14 +232,12 @@ class _$GetTrainingReportDetailsResponseTearOff {
   const _$GetTrainingReportDetailsResponseTearOff();
 
   _GetTrainingReportDetailsResponse call(
-      {@JsonKey(name: "petNames") List<GetPetNamesResponse>? pet,
-      @JsonKey(name: "sessionNo") int? sessionNo,
+      {@JsonKey(name: "sessionNo") int? sessionNo,
       @JsonKey(name: "rating") int? rating,
       @JsonKey(name: "time") int? duration,
       @JsonKey(name: "picture") String? picture,
       @JsonKey(name: "createdAt") int? time}) {
     return _GetTrainingReportDetailsResponse(
-      pet: pet,
       sessionNo: sessionNo,
       rating: rating,
       duration: duration,
@@ -259,8 +257,6 @@ const $GetTrainingReportDetailsResponse =
 
 /// @nodoc
 mixin _$GetTrainingReportDetailsResponse {
-  @JsonKey(name: "petNames")
-  List<GetPetNamesResponse>? get pet => throw _privateConstructorUsedError;
   @JsonKey(name: "sessionNo")
   int? get sessionNo => throw _privateConstructorUsedError;
   @JsonKey(name: "rating")
@@ -285,8 +281,7 @@ abstract class $GetTrainingReportDetailsResponseCopyWith<$Res> {
           $Res Function(GetTrainingReportDetailsResponse) then) =
       _$GetTrainingReportDetailsResponseCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: "petNames") List<GetPetNamesResponse>? pet,
-      @JsonKey(name: "sessionNo") int? sessionNo,
+      {@JsonKey(name: "sessionNo") int? sessionNo,
       @JsonKey(name: "rating") int? rating,
       @JsonKey(name: "time") int? duration,
       @JsonKey(name: "picture") String? picture,
@@ -304,7 +299,6 @@ class _$GetTrainingReportDetailsResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? pet = freezed,
     Object? sessionNo = freezed,
     Object? rating = freezed,
     Object? duration = freezed,
@@ -312,10 +306,6 @@ class _$GetTrainingReportDetailsResponseCopyWithImpl<$Res>
     Object? time = freezed,
   }) {
     return _then(_value.copyWith(
-      pet: pet == freezed
-          ? _value.pet
-          : pet // ignore: cast_nullable_to_non_nullable
-              as List<GetPetNamesResponse>?,
       sessionNo: sessionNo == freezed
           ? _value.sessionNo
           : sessionNo // ignore: cast_nullable_to_non_nullable
@@ -349,8 +339,7 @@ abstract class _$GetTrainingReportDetailsResponseCopyWith<$Res>
       __$GetTrainingReportDetailsResponseCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: "petNames") List<GetPetNamesResponse>? pet,
-      @JsonKey(name: "sessionNo") int? sessionNo,
+      {@JsonKey(name: "sessionNo") int? sessionNo,
       @JsonKey(name: "rating") int? rating,
       @JsonKey(name: "time") int? duration,
       @JsonKey(name: "picture") String? picture,
@@ -372,7 +361,6 @@ class __$GetTrainingReportDetailsResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? pet = freezed,
     Object? sessionNo = freezed,
     Object? rating = freezed,
     Object? duration = freezed,
@@ -380,10 +368,6 @@ class __$GetTrainingReportDetailsResponseCopyWithImpl<$Res>
     Object? time = freezed,
   }) {
     return _then(_GetTrainingReportDetailsResponse(
-      pet: pet == freezed
-          ? _value.pet
-          : pet // ignore: cast_nullable_to_non_nullable
-              as List<GetPetNamesResponse>?,
       sessionNo: sessionNo == freezed
           ? _value.sessionNo
           : sessionNo // ignore: cast_nullable_to_non_nullable
@@ -413,8 +397,7 @@ class __$GetTrainingReportDetailsResponseCopyWithImpl<$Res>
 class _$_GetTrainingReportDetailsResponse
     extends _GetTrainingReportDetailsResponse {
   _$_GetTrainingReportDetailsResponse(
-      {@JsonKey(name: "petNames") this.pet,
-      @JsonKey(name: "sessionNo") this.sessionNo,
+      {@JsonKey(name: "sessionNo") this.sessionNo,
       @JsonKey(name: "rating") this.rating,
       @JsonKey(name: "time") this.duration,
       @JsonKey(name: "picture") this.picture,
@@ -425,9 +408,6 @@ class _$_GetTrainingReportDetailsResponse
           Map<String, dynamic> json) =>
       _$$_GetTrainingReportDetailsResponseFromJson(json);
 
-  @override
-  @JsonKey(name: "petNames")
-  final List<GetPetNamesResponse>? pet;
   @override
   @JsonKey(name: "sessionNo")
   final int? sessionNo;
@@ -446,7 +426,7 @@ class _$_GetTrainingReportDetailsResponse
 
   @override
   String toString() {
-    return 'GetTrainingReportDetailsResponse(pet: $pet, sessionNo: $sessionNo, rating: $rating, duration: $duration, picture: $picture, time: $time)';
+    return 'GetTrainingReportDetailsResponse(sessionNo: $sessionNo, rating: $rating, duration: $duration, picture: $picture, time: $time)';
   }
 
   @override
@@ -454,7 +434,6 @@ class _$_GetTrainingReportDetailsResponse
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _GetTrainingReportDetailsResponse &&
-            const DeepCollectionEquality().equals(other.pet, pet) &&
             const DeepCollectionEquality().equals(other.sessionNo, sessionNo) &&
             const DeepCollectionEquality().equals(other.rating, rating) &&
             const DeepCollectionEquality().equals(other.duration, duration) &&
@@ -465,7 +444,6 @@ class _$_GetTrainingReportDetailsResponse
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(pet),
       const DeepCollectionEquality().hash(sessionNo),
       const DeepCollectionEquality().hash(rating),
       const DeepCollectionEquality().hash(duration),
@@ -487,8 +465,7 @@ class _$_GetTrainingReportDetailsResponse
 abstract class _GetTrainingReportDetailsResponse
     extends GetTrainingReportDetailsResponse {
   factory _GetTrainingReportDetailsResponse(
-          {@JsonKey(name: "petNames") List<GetPetNamesResponse>? pet,
-          @JsonKey(name: "sessionNo") int? sessionNo,
+          {@JsonKey(name: "sessionNo") int? sessionNo,
           @JsonKey(name: "rating") int? rating,
           @JsonKey(name: "time") int? duration,
           @JsonKey(name: "picture") String? picture,
@@ -499,9 +476,6 @@ abstract class _GetTrainingReportDetailsResponse
   factory _GetTrainingReportDetailsResponse.fromJson(
       Map<String, dynamic> json) = _$_GetTrainingReportDetailsResponse.fromJson;
 
-  @override
-  @JsonKey(name: "petNames")
-  List<GetPetNamesResponse>? get pet;
   @override
   @JsonKey(name: "sessionNo")
   int? get sessionNo;

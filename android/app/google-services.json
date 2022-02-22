@@ -62,6 +62,13 @@
             {
               "client_id": "183984006291-0daaahgu1c9spnuqemi7cgta5qni7nf6.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "183984006291-889m5dlmhalt6rbphgvp1j7qfmnns6g8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "in.petmojo.partner"
+              }
             }
           ]
         }
@@ -131,6 +138,13 @@
             {
               "client_id": "183984006291-0daaahgu1c9spnuqemi7cgta5qni7nf6.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "183984006291-889m5dlmhalt6rbphgvp1j7qfmnns6g8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "in.petmojo.partner"
+              }
             }
           ]
         }

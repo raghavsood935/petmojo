@@ -28,10 +28,6 @@ Map<String, dynamic> _$$_GetTrainingReportResponseToJson(
 _$_GetTrainingReportDetailsResponse
     _$$_GetTrainingReportDetailsResponseFromJson(Map<String, dynamic> json) =>
         _$_GetTrainingReportDetailsResponse(
-          pet: (json['petNames'] as List<dynamic>?)
-              ?.map((e) =>
-                  GetPetNamesResponse.fromJson(e as Map<String, dynamic>))
-              .toList(),
           sessionNo: json['sessionNo'] as int?,
           rating: json['rating'] as int?,
           duration: json['time'] as int?,
@@ -42,7 +38,6 @@ _$_GetTrainingReportDetailsResponse
 Map<String, dynamic> _$$_GetTrainingReportDetailsResponseToJson(
         _$_GetTrainingReportDetailsResponse instance) =>
     <String, dynamic>{
-      'petNames': instance.pet,
       'sessionNo': instance.sessionNo,
       'rating': instance.rating,
       'time': instance.duration,
