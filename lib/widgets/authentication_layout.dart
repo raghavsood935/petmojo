@@ -187,31 +187,63 @@ class AuthenticationLayout extends StatelessWidget {
                   ],
                 ),
                 verticalSpaceRegular,
-                Container(
-                  width: double.maxFinite,
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
-                  child: ElevatedButton.icon(
-                    onPressed: onContinueWithPhone ?? () {},
-                    icon: Icon(
-                      Icons.phone,
-                      color: Color(0xFFFF5E95),
+                GestureDetector(
+                  onTap: onContinueWithPhone ?? () {},
+                  child: Container(
+                    // width: screenWidth(context),
+                    margin: const EdgeInsets.symmetric(
+                      vertical: 8,
+                      horizontal: 10,
                     ),
-                    label: AppText.captionBold("Continue with phone",
-                        color: Colors.black),
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(Color(0xFFFEF5F7)),
-                      padding:
-                          MaterialStateProperty.all(const EdgeInsets.all(12)),
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.6),
+                    padding: commonPaddding.copyWith(top: 12, bottom: 12),
+                    decoration: BoxDecoration(
+                      color: Color(0xFFFEF5F7),
+                      borderRadius: BorderRadius.circular(5.6),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.phone,
+                          color: Color(0xFFFF5E95),
                         ),
-                      ),
+                        Spacer(),
+                        AppText.captionBold("Register with Phone",
+                            color: Colors.black),
+                        Spacer(),
+                      ],
                     ),
                   ),
                 ),
+                if (Theme.of(context).platform == TargetPlatform.iOS)
+                  GestureDetector(
+                    onTap: onSignInWithApple ?? () {},
+                    child: Container(
+                      // width: screenWidth(context),
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 8,
+                        horizontal: 10,
+                      ),
+                      padding: commonPaddding.copyWith(top: 12, bottom: 12),
+                      decoration: BoxDecoration(
+                        color: Color(0xFF000000),
+                        borderRadius: BorderRadius.circular(5.6),
+                      ),
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            "assets/images/on_boarding/ios_logo.svg",
+                            height: 22,
+                          ),
+                          Spacer(),
+                          AppText.body1(
+                            "Sign in with Apple",
+                            color: colors.white,
+                          ),
+                          Spacer(),
+                        ],
+                      ),
+                    ),
+                  ),
                 Row(
                   children: [
                     Expanded(
@@ -261,38 +293,6 @@ class AuthenticationLayout extends StatelessWidget {
                     ),
                   ],
                 ),
-                if (Theme.of(context).platform == TargetPlatform.iOS)
-                  Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 8, horizontal: 10),
-                      child: ElevatedButton.icon(
-                        onPressed: onSignInWithApple ?? () {},
-                        icon: SvgPicture.asset(
-                          "assets/images/on_boarding/ios_logo.svg",
-                          height: 18,
-                        ),
-                        label:
-                            AppText.caption("APPLE  ID", color: colors.white),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Color(0xFF000000)),
-                          padding: MaterialStateProperty.all(
-                            const EdgeInsets.symmetric(
-                              vertical: 12,
-                              horizontal: 20,
-                            ),
-                          ),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.6),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
                 verticalSpaceSmall,
                 if (onCreateAccountTapped != null)
                   GestureDetector(
