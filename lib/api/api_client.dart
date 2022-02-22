@@ -119,6 +119,7 @@ import 'package:tamely/models/params/set_runtwo_rating_body.dart';
 import 'package:tamely/models/params/set_testimony_body.dart';
 import 'package:tamely/models/send_data_response.dart';
 import 'package:tamely/models/params/book_a_run_body.dart';
+import 'package:tamely/models/params/apple_signin_body.dart';
 part 'api_client.g.dart';
 
 ///APIs class is for api tags
@@ -129,6 +130,7 @@ class Apis {
   static const String imageToLink = '/user/getAvatarLink';
 
   static const String login = '/auth/login';
+  static const String appleLogin = '/auth/login/apple';
   static const String register = '/auth/register';
   static const String updateFCMToken = '/auth/registerFCMtoken';
   static const String checkUserName = '/user/isusernameavailable/{username}';
@@ -314,6 +316,9 @@ abstract class ApiClient {
 
   @POST(Apis.login)
   Future<UserResponse> login(@Body() LoginBody loginBody);
+
+  @POST(Apis.appleLogin)
+  Future<UserResponse> appleLogin(@Body() AppleSigninBody appleSigninBody);
 
   @PATCH(Apis.resetPassword)
   Future<CommonResponse> resetPassword(

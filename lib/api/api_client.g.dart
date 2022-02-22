@@ -33,6 +33,23 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<UserResponse> appleLogin(appleSigninBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(appleSigninBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UserResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/auth/login/apple',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = UserResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<CommonResponse> resetPassword(resetPasswordBody) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
