@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -14,6 +13,7 @@ import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/redirect_state.dart';
 import 'package:tamely/models/application_models.dart';
 import 'package:tamely/models/edit_response.dart';
+import 'package:tamely/models/params/apple_signin_body.dart';
 import 'package:tamely/models/params/login_body.dart';
 import 'package:tamely/models/params/profile_create_body.dart';
 import 'package:tamely/models/params/register_body.dart';
@@ -195,25 +195,35 @@ abstract class AuthenticationViewModel extends FormViewModel {
   }
 
   Future<void> useAppleAuthentication() async {
+    // if (!await AppleSignIn.isAvailable()) {
+    //   print('Apple signin is not possible on this device!');
+    // }
     try {
-      final credential = await SignInWithApple.getAppleIDCredential(
+      print('This device is eligible for apple signin service');
+      final res = await SignInWithApple.getAppleIDCredential(
         scopes: [
           AppleIDAuthorizationScopes.email,
           AppleIDAuthorizationScopes.fullName,
         ],
       );
 
-      print(credential);
-
-      // bool? result = await runBusyFuture(
-      //     handleSocialLogin(googleSignInAuthentication.accessToken!, false),
-      //     throwException: true);
-      //
-      // if (userService.hasLoggedInUser)
-      //   _handleLoggedInUser(userService.currentUser, result!,
-      //       isSocialSignIn: true);
-      //
-      // log.d("GoogleLogin ${googleSignInAuthentication.accessToken}");
+      var appleToken = res.userIdentifier ?? "";
+      var fullName = res.givenName ?? "";
+      var email = res.email ?? "";
+      // send {appleToken, fullName, email, type} in body of API
+      if (await Util.checkInternetConnectivity()) {
+        AppleSigninBody appleSigninBody =
+            AppleSigninBody(appleToken, fullName, email);
+        bool? result = await runBusyFuture(
+            userService.appleLoginAccount(appleSigninBody),
+            throwException: true);
+        // if (userService.hasLoggedInUser)
+        if (result != null)
+          _handleLoggedInUser(userService.currentUser, result,
+              isSocialSignIn: true);
+      } else {
+        snackBarService.showSnackbar(message: "No Internet connection");
+      }
     } catch (e) {
       log.e(e);
     }

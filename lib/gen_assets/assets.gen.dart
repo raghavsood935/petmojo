@@ -665,6 +665,10 @@ class $AssetsImagesOnBoardingGen {
   AssetGenImage get createPetLogo =>
       const AssetGenImage('assets/images/on_boarding/create_pet_logo.png');
 
+  /// File path: assets/images/on_boarding/ios_logo.svg
+  SvgGenImage get iosLogo =>
+      const SvgGenImage('assets/images/on_boarding/ios_logo.svg');
+
   /// File path: assets/images/on_boarding/log_in_logo.png
   AssetGenImage get logInLogo =>
       const AssetGenImage('assets/images/on_boarding/log_in_logo.png');

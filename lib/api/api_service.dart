@@ -52,6 +52,7 @@ import 'package:tamely/models/list_of_relations.dart';
 import 'package:tamely/models/notification_response.dart';
 import 'package:tamely/models/common_response.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
+import 'package:tamely/models/params/apple_signin_body.dart';
 import 'package:tamely/models/params/book_a_training_body.dart';
 import 'package:tamely/models/params/comment_new/add_comment_body.dart';
 import 'package:tamely/models/params/confirm_relation_request_body.dart';
@@ -126,7 +127,7 @@ import 'package:tamely/models/params/set_runone_rating_body.dart';
 import 'package:tamely/models/params/set_runtwo_rating_body.dart';
 import 'package:tamely/models/params/set_testimony_body.dart';
 import 'package:tamely/models/send_data_response.dart';
-
+import '../models/params/apple_signin_body.dart';
 import 'api_client.dart';
 
 class TamelyApi {
@@ -365,6 +366,20 @@ class TamelyApi {
     UserResponse response;
     try {
       response = await getApiClient(false, true).login(loginBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  Future<BaseResponse<UserResponse>> appleLogin(
+      AppleSigninBody appleBody) async {
+    log.d("loginAccount called");
+    UserResponse response;
+    try {
+      response = await getApiClient(false, true).appleLogin(appleBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()
