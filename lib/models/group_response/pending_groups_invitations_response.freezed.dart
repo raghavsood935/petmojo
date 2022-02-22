@@ -174,12 +174,14 @@ class _$_PendingGroupInvitationResponse
             other is _PendingGroupInvitationResponse &&
             const DeepCollectionEquality()
                 .equals(other.listOfInvitations, listOfInvitations) &&
-            (identical(other.success, success) || other.success == success));
+            const DeepCollectionEquality().equals(other.success, success));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(listOfInvitations), success);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(listOfInvitations),
+      const DeepCollectionEquality().hash(success));
 
   @JsonKey(ignore: true)
   @override
@@ -453,18 +455,23 @@ class _$_GroupInvitationResponse extends _GroupInvitationResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _GroupInvitationResponse &&
-            (identical(other.Id, Id) || other.Id == Id) &&
-            (identical(other.group, group) || other.group == group) &&
-            (identical(other.personType, personType) ||
-                other.personType == personType) &&
-            (identical(other.personInvited, personInvited) ||
-                other.personInvited == personInvited) &&
-            (identical(other.date, date) || other.date == date));
+            const DeepCollectionEquality().equals(other.Id, Id) &&
+            const DeepCollectionEquality().equals(other.group, group) &&
+            const DeepCollectionEquality()
+                .equals(other.personType, personType) &&
+            const DeepCollectionEquality()
+                .equals(other.personInvited, personInvited) &&
+            const DeepCollectionEquality().equals(other.date, date));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, Id, group, personType, personInvited, date);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(Id),
+      const DeepCollectionEquality().hash(group),
+      const DeepCollectionEquality().hash(personType),
+      const DeepCollectionEquality().hash(personInvited),
+      const DeepCollectionEquality().hash(date));
 
   @JsonKey(ignore: true)
   @override

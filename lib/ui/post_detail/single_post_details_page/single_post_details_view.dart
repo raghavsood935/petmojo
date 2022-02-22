@@ -52,6 +52,7 @@ class _SinglePostDetailsViewState extends State<SinglePostDetailsView> {
                   leading: CustomCircularAvatar(
                     radius: 20.0,
                     imgPath: model.profileImgUrl,
+                    isHuman: model.isHuman,
                   ),
                   title: Container(
                     decoration: BoxDecoration(

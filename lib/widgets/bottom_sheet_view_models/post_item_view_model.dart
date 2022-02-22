@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
@@ -15,7 +16,7 @@ import 'package:tamely/shared/base_viewmodel.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/global_methods.dart';
-import 'package:tamely/widgets/full_screen_image.dart';
+import 'package:tamely/widgets/dialogs/image_pop_dailog_view.dart';
 
 class PostItemViewModel extends BaseModel {
   final _bottomsheetService = locator<BottomSheetService>();
@@ -212,18 +213,16 @@ class PostItemViewModel extends BaseModel {
     }
   }
 
-  Future imageTapped(String url) async {
-    // await _dialogService.showCustomDialog(
-    //   variant: DialogType.ImagePopUpDialog,
-    //   barrierDismissible: true,
-    //   data: url,
+  Future imageTapped(BuildContext context, String url) async {
+    // Navigator.of(context).push(
+    //   MaterialPageRoute(
+    //     builder: (context) => ImagePopUpView(url: url),
+    //   ),
     // );
 
     navigationService.navigateTo(
       Routes.fullScreenImage,
       arguments: FullScreenImageArguments(url: url),
     );
-
-    // Navigator.of(context).push(PageRouteBui)
   }
 }

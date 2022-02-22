@@ -157,13 +157,15 @@ class _$_BookmarkResponse extends _BookmarkResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _BookmarkResponse &&
-            (identical(other.success, success) || other.success == success) &&
-            (identical(other.operation, operation) ||
-                other.operation == operation));
+            const DeepCollectionEquality().equals(other.success, success) &&
+            const DeepCollectionEquality().equals(other.operation, operation));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, success, operation);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(success),
+      const DeepCollectionEquality().hash(operation));
 
   @JsonKey(ignore: true)
   @override

@@ -3,7 +3,7 @@
 ///  FlutterGen
 /// *****************************************************
 
-// ignore_for_file: directives_ordering
+// ignore_for_file: directives_ordering,unnecessary_import
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -42,6 +42,10 @@ class $AssetsImagesGen {
   AssetGenImage get bookmarkOutline =>
       const AssetGenImage('assets/images/bookmark_outline.png');
 
+  /// File path: assets/images/calendar_grey.png
+  AssetGenImage get calendarGrey =>
+      const AssetGenImage('assets/images/calendar_grey.png');
+
   /// File path: assets/images/camera.svg
   SvgGenImage get camera => const SvgGenImage('assets/images/camera.svg');
 
@@ -71,6 +75,14 @@ class $AssetsImagesGen {
   /// File path: assets/images/drawer.svg
   SvgGenImage get drawer => const SvgGenImage('assets/images/drawer.svg');
 
+  /// File path: assets/images/dummy_dog_profile.png
+  AssetGenImage get dummyDogProfile =>
+      const AssetGenImage('assets/images/dummy_dog_profile.png');
+
+  /// File path: assets/images/e-commerce-logo-title.png
+  AssetGenImage get eCommerceLogoTitle =>
+      const AssetGenImage('assets/images/e-commerce-logo-title.png');
+
   $AssetsImagesEmojiGen get emoji => const $AssetsImagesEmojiGen();
 
   /// File path: assets/images/explore.svg
@@ -80,8 +92,15 @@ class $AssetsImagesGen {
   AssetGenImage get facebook =>
       const AssetGenImage('assets/images/facebook.png');
 
+  /// File path: assets/images/fb_logo.png
+  AssetGenImage get fbLogo => const AssetGenImage('assets/images/fb_logo.png');
+
   /// File path: assets/images/feedback.svg
   SvgGenImage get feedback => const SvgGenImage('assets/images/feedback.svg');
+
+  /// File path: assets/images/free_session.png
+  AssetGenImage get freeSession =>
+      const AssetGenImage('assets/images/free_session.png');
 
   /// File path: assets/images/gallery_color_image.png
   AssetGenImage get galleryColorImage =>
@@ -89,6 +108,10 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/google.png
   AssetGenImage get google => const AssetGenImage('assets/images/google.png');
+
+  /// File path: assets/images/google_logo.png
+  AssetGenImage get googleLogo =>
+      const AssetGenImage('assets/images/google_logo.png');
 
   /// File path: assets/images/group_of_peoples.png
   AssetGenImage get groupOfPeoples =>
@@ -210,6 +233,9 @@ class $AssetsImagesGen {
   SvgGenImage get notification =>
       const SvgGenImage('assets/images/notification.svg');
 
+  $AssetsImagesOnBoardingGen get onBoarding =>
+      const $AssetsImagesOnBoardingGen();
+
   /// File path: assets/images/opening.png
   AssetGenImage get opening => const AssetGenImage('assets/images/opening.png');
 
@@ -233,6 +259,14 @@ class $AssetsImagesGen {
   AssetGenImage get reportTime =>
       const AssetGenImage('assets/images/report_time.png');
 
+  /// File path: assets/images/running_package.png
+  AssetGenImage get runningPackage =>
+      const AssetGenImage('assets/images/running_package.png');
+
+  /// File path: assets/images/seemore_time.svg
+  SvgGenImage get seemoreTime =>
+      const SvgGenImage('assets/images/seemore_time.svg');
+
   /// File path: assets/images/send.png
   AssetGenImage get send => const AssetGenImage('assets/images/send.png');
 
@@ -240,6 +274,8 @@ class $AssetsImagesGen {
   AssetGenImage get sendOutline =>
       const AssetGenImage('assets/images/send_outline.png');
 
+  $AssetsImagesServiceOpeningGen get serviceOpening =>
+      const $AssetsImagesServiceOpeningGen();
   $AssetsImagesServicePageImagesGen get servicePageImages =>
       const $AssetsImagesServicePageImagesGen();
 
@@ -268,14 +304,8 @@ class $AssetsImagesGen {
 class $AssetsLottieGen {
   const $AssetsLottieGen();
 
-  /// File path: assets/lottie/new_animation.json
-  String get newAnimation => 'assets/lottie/new_animation.json';
-
-  /// File path: assets/lottie/splash.json
-  String get splash => 'assets/lottie/splash.json';
-
-  /// File path: assets/lottie/tamely_loading.json
-  String get tamelyLoading => 'assets/lottie/tamely_loading.json';
+  /// File path: assets/lottie/loading_animation.json
+  String get loadingAnimation => 'assets/lottie/loading_animation.json';
 }
 
 class $AssetsImagesAnimalTypeImagesGen {
@@ -364,6 +394,10 @@ class $AssetsImagesAnimalTypeImagesGen {
   /// File path: assets/images/animal_type_images/monkey.png
   AssetGenImage get monkey =>
       const AssetGenImage('assets/images/animal_type_images/monkey.png');
+
+  /// File path: assets/images/animal_type_images/others.png
+  AssetGenImage get others =>
+      const AssetGenImage('assets/images/animal_type_images/others.png');
 
   /// File path: assets/images/animal_type_images/panda.png
   AssetGenImage get panda =>
@@ -616,6 +650,122 @@ class $AssetsImagesEmojiGen {
   AssetGenImage get two => const AssetGenImage('assets/images/emoji/two.png');
 }
 
+class $AssetsImagesOnBoardingGen {
+  const $AssetsImagesOnBoardingGen();
+
+  /// File path: assets/images/on_boarding/Vectoron_boarding_bg.png
+  AssetGenImage get vectoronBoardingBg =>
+      const AssetGenImage('assets/images/on_boarding/Vectoron_boarding_bg.png');
+
+  /// File path: assets/images/on_boarding/complete_your_profile_logo.png
+  AssetGenImage get completeYourProfileLogo => const AssetGenImage(
+      'assets/images/on_boarding/complete_your_profile_logo.png');
+
+  /// File path: assets/images/on_boarding/create_pet_logo.png
+  AssetGenImage get createPetLogo =>
+      const AssetGenImage('assets/images/on_boarding/create_pet_logo.png');
+
+  /// File path: assets/images/on_boarding/ios_logo.svg
+  SvgGenImage get iosLogo =>
+      const SvgGenImage('assets/images/on_boarding/ios_logo.svg');
+
+  /// File path: assets/images/on_boarding/log_in_logo.png
+  AssetGenImage get logInLogo =>
+      const AssetGenImage('assets/images/on_boarding/log_in_logo.png');
+
+  /// File path: assets/images/on_boarding/on-boarding-image-1.png
+  AssetGenImage get onBoardingImage1 =>
+      const AssetGenImage('assets/images/on_boarding/on-boarding-image-1.png');
+
+  /// File path: assets/images/on_boarding/on-boarding-image-2.png
+  AssetGenImage get onBoardingImage2 =>
+      const AssetGenImage('assets/images/on_boarding/on-boarding-image-2.png');
+
+  /// File path: assets/images/on_boarding/on-boarding-image-3.png
+  AssetGenImage get onBoardingImage3 =>
+      const AssetGenImage('assets/images/on_boarding/on-boarding-image-3.png');
+
+  /// File path: assets/images/on_boarding/on-boarding-text-1.png
+  AssetGenImage get onBoardingText1 =>
+      const AssetGenImage('assets/images/on_boarding/on-boarding-text-1.png');
+
+  /// File path: assets/images/on_boarding/on-boarding-text-2.png
+  AssetGenImage get onBoardingText2 =>
+      const AssetGenImage('assets/images/on_boarding/on-boarding-text-2.png');
+
+  /// File path: assets/images/on_boarding/on-boarding-text-3.png
+  AssetGenImage get onBoardingText3 =>
+      const AssetGenImage('assets/images/on_boarding/on-boarding-text-3.png');
+
+  /// File path: assets/images/on_boarding/on_boarding_common.png
+  AssetGenImage get onBoardingCommon =>
+      const AssetGenImage('assets/images/on_boarding/on_boarding_common.png');
+
+  /// File path: assets/images/on_boarding/txt1.svg
+  SvgGenImage get txt1 =>
+      const SvgGenImage('assets/images/on_boarding/txt1.svg');
+
+  /// File path: assets/images/on_boarding/txt2.svg
+  SvgGenImage get txt2 =>
+      const SvgGenImage('assets/images/on_boarding/txt2.svg');
+
+  /// File path: assets/images/on_boarding/txt3.svg
+  SvgGenImage get txt3 =>
+      const SvgGenImage('assets/images/on_boarding/txt3.svg');
+}
+
+class $AssetsImagesServiceOpeningGen {
+  const $AssetsImagesServiceOpeningGen();
+
+  /// File path: assets/images/service_opening/opening_people.png
+  AssetGenImage get openingPeople =>
+      const AssetGenImage('assets/images/service_opening/opening_people.png');
+
+  /// File path: assets/images/service_opening/opening_running_dog.png
+  AssetGenImage get openingRunningDog => const AssetGenImage(
+      'assets/images/service_opening/opening_running_dog.png');
+
+  /// File path: assets/images/service_opening/opening_running_first_text.png
+  AssetGenImage get openingRunningFirstText => const AssetGenImage(
+      'assets/images/service_opening/opening_running_first_text.png');
+
+  /// File path: assets/images/service_opening/opening_running_fourth_text.png
+  AssetGenImage get openingRunningFourthText => const AssetGenImage(
+      'assets/images/service_opening/opening_running_fourth_text.png');
+
+  /// File path: assets/images/service_opening/opening_running_second_text.png
+  AssetGenImage get openingRunningSecondText => const AssetGenImage(
+      'assets/images/service_opening/opening_running_second_text.png');
+
+  /// File path: assets/images/service_opening/opening_training_dog.png
+  AssetGenImage get openingTrainingDog => const AssetGenImage(
+      'assets/images/service_opening/opening_training_dog.png');
+
+  /// File path: assets/images/service_opening/opening_training_fifth_text.png
+  AssetGenImage get openingTrainingFifthText => const AssetGenImage(
+      'assets/images/service_opening/opening_training_fifth_text.png');
+
+  /// File path: assets/images/service_opening/opening_training_first_text.png
+  AssetGenImage get openingTrainingFirstText => const AssetGenImage(
+      'assets/images/service_opening/opening_training_first_text.png');
+
+  /// File path: assets/images/service_opening/opening_training_fourth_text.png
+  AssetGenImage get openingTrainingFourthText => const AssetGenImage(
+      'assets/images/service_opening/opening_training_fourth_text.png');
+
+  /// File path: assets/images/service_opening/opening_training_medal.png
+  AssetGenImage get openingTrainingMedal => const AssetGenImage(
+      'assets/images/service_opening/opening_training_medal.png');
+
+  /// File path: assets/images/service_opening/opening_training_second_text.png
+  AssetGenImage get openingTrainingSecondText => const AssetGenImage(
+      'assets/images/service_opening/opening_training_second_text.png');
+
+  /// File path: assets/images/service_opening/opening_training_third_text.png
+  AssetGenImage get openingTrainingThirdText => const AssetGenImage(
+      'assets/images/service_opening/opening_training_third_text.png');
+}
+
 class $AssetsImagesServicePageImagesGen {
   const $AssetsImagesServicePageImagesGen();
 
@@ -623,21 +773,25 @@ class $AssetsImagesServicePageImagesGen {
   AssetGenImage get appointments =>
       const AssetGenImage('assets/images/service_page_images/appointments.png');
 
-  /// File path: assets/images/service_page_images/daily_dog_running.png
-  AssetGenImage get dailyDogRunning => const AssetGenImage(
-      'assets/images/service_page_images/daily_dog_running.png');
+  /// File path: assets/images/service_page_images/dog_traning.png
+  AssetGenImage get dogTraning =>
+      const AssetGenImage('assets/images/service_page_images/dog_traning.png');
 
-  /// File path: assets/images/service_page_images/house_sitting.png
-  AssetGenImage get houseSitting => const AssetGenImage(
-      'assets/images/service_page_images/house_sitting.png');
+  /// File path: assets/images/service_page_images/dog_walking.png
+  AssetGenImage get dogWalking =>
+      const AssetGenImage('assets/images/service_page_images/dog_walking.png');
+
+  /// File path: assets/images/service_page_images/doorstep_deliivery.png
+  AssetGenImage get doorstepDeliivery => const AssetGenImage(
+      'assets/images/service_page_images/doorstep_deliivery.png');
+
+  /// File path: assets/images/service_page_images/grooming.png
+  AssetGenImage get grooming =>
+      const AssetGenImage('assets/images/service_page_images/grooming.png');
 
   /// File path: assets/images/service_page_images/pet_boarding.png
   AssetGenImage get petBoarding =>
       const AssetGenImage('assets/images/service_page_images/pet_boarding.png');
-
-  /// File path: assets/images/service_page_images/pet_grooming.png
-  AssetGenImage get petGrooming =>
-      const AssetGenImage('assets/images/service_page_images/pet_grooming.png');
 
   /// File path: assets/images/service_page_images/vet_consultation.png
   AssetGenImage get vetConsultation => const AssetGenImage(

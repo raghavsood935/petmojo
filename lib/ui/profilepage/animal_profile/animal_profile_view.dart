@@ -11,6 +11,7 @@ import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/custom_circle_avatar.dart';
 import 'package:tamely/widgets/edit_button.dart';
 import 'package:tamely/widgets/follow_static_btn.dart';
+import 'package:tamely/widgets/shimmer_widgets.dart';
 
 import 'animal_profile_view_model.dart';
 
@@ -101,13 +102,16 @@ class _AnimalProfileViewState extends State<AnimalProfileView> {
                           ),
                         ),
                         Visibility(
-                          visible: !widget.isInspectView,
-                          child: Positioned(
-                            top: 30,
-                            right: 20,
-                            child: GestureDetector(
-                              child: EditButton(),
-                              onTap: model.goToAnimalEdit,
+                          visible: !model.isBusy,
+                          child: Visibility(
+                            visible: !widget.isInspectView,
+                            child: Positioned(
+                              top: 30,
+                              right: 20,
+                              child: GestureDetector(
+                                child: EditButton(),
+                                onTap: model.goToAnimalEdit,
+                              ),
                             ),
                           ),
                         ),
@@ -141,38 +145,53 @@ class _AnimalProfileViewState extends State<AnimalProfileView> {
                                     top: 20,
                                     right: 0,
                                     left: 0,
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          if (widget.isInspectView) {
-                                            model.imageTapped(model.avatar);
-                                          } else {
-                                            model.onImageButtonPressed(
-                                                ImageSource.gallery, context);
-                                          }
-                                        },
-                                        child: CustomCircularAvatar(
-                                          imgPath: model.avatar,
-                                          radius: 50,
-                                        )),
+                                    child: model.isBusy
+                                        ? ShimmerWidget.circular(
+                                            height: 100,
+                                            width: 100,
+                                          )
+                                        : GestureDetector(
+                                            onTap: () {
+                                              if (widget.isInspectView) {
+                                                model.imageTapped(
+                                                    context, model.avatar);
+                                              } else {
+                                                model.onImageButtonPressed(
+                                                    ImageSource.gallery,
+                                                    context);
+                                              }
+                                            },
+                                            child: CustomCircularAvatar(
+                                              imgPath: model.avatar,
+                                              radius: 50,
+                                              isHuman: false,
+                                            )),
                                   ),
                                   Positioned(
                                     bottom: 5,
                                     right: 25,
                                     child: Visibility(
                                       visible: !widget.isInspectView,
-                                      child: GestureDetector(
-                                        onTap: () => model.onImageButtonPressed(
-                                            ImageSource.gallery, context),
-                                        child: CircleAvatar(
-                                          radius: 12,
-                                          backgroundColor: colors.primary,
-                                          child: Icon(
-                                            Icons.camera_alt,
-                                            color: colors.white,
-                                            size: 12,
-                                          ),
-                                        ),
-                                      ),
+                                      child: model.isBusy
+                                          ? ShimmerWidget.circular(
+                                              height: 20,
+                                              width: 20,
+                                            )
+                                          : GestureDetector(
+                                              onTap: () =>
+                                                  model.onImageButtonPressed(
+                                                      ImageSource.gallery,
+                                                      context),
+                                              child: CircleAvatar(
+                                                radius: 12,
+                                                backgroundColor: colors.primary,
+                                                child: Icon(
+                                                  Icons.camera_alt,
+                                                  color: colors.white,
+                                                  size: 12,
+                                                ),
+                                              ),
+                                            ),
                                     ),
                                   ),
                                   Positioned(
@@ -239,36 +258,47 @@ class _AnimalProfileViewState extends State<AnimalProfileView> {
                             // ),
                             verticalSpaceTiny,
                             // profile name
-                            AppText.body(model.profilename),
+                            model.isBusy
+                                ? ShimmerWidget.rectangular(
+                                    height: 16,
+                                    width: thirdScreenWidth(context),
+                                  )
+                                : AppText.body(model.profilename),
 
                             verticalSpaceTiny,
                             // username and animal count
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 40),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  AppText.body1(
-                                    model.username,
-                                    isSingleLined: true,
-                                    color: colors.kcMediumGreyColor,
-                                  ),
-                                  horizontalSpaceTiny,
-                                  Visibility(
-                                    visible: model.animalBreed.isNotEmpty,
-                                    child: CircleAvatar(
-                                      radius: 2,
-                                      backgroundColor: colors.primary,
+                              child: model.isBusy
+                                  ? ShimmerWidget.rectangular(
+                                      height: 16,
+                                      width: halfScreenWidth(context),
+                                    )
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        AppText.body1(
+                                          model.username,
+                                          isSingleLined: true,
+                                          color: colors.kcMediumGreyColor,
+                                        ),
+                                        horizontalSpaceTiny,
+                                        Visibility(
+                                          visible: model.animalBreed.isNotEmpty,
+                                          child: CircleAvatar(
+                                            radius: 2,
+                                            backgroundColor: colors.primary,
+                                          ),
+                                        ),
+                                        horizontalSpaceTiny,
+                                        AppText.body1(
+                                            model.animalBreed.split(",").first,
+                                            isSingleLined: true,
+                                            color: colors.kcMediumGreyColor),
+                                      ],
                                     ),
-                                  ),
-                                  horizontalSpaceTiny,
-                                  AppText.body1(
-                                      model.animalBreed.split(",").first,
-                                      isSingleLined: true,
-                                      color: colors.kcMediumGreyColor),
-                                ],
-                              ),
                             ),
                             verticalSpaceSmall,
                             Padding(
@@ -354,40 +384,43 @@ class _AnimalProfileViewState extends State<AnimalProfileView> {
                     ),
                   ),
                   Visibility(
-                    visible: model.isUpForAdoption ||
-                        model.isUpForMating ||
-                        model.isUpForPlayBuddies ||
-                        model.isBrandAmbassador,
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 30,
-                          child: ListView(
-                            scrollDirection: Axis.horizontal,
-                            children: [
-                              Visibility(
-                                visible: model.isBrandAmbassador,
-                                child: roundedText(
-                                    "Tamely Official Brand Ambassdor"),
-                              ),
-                              Visibility(
-                                visible: model.isUpForAdoption,
-                                child: roundedText(upForAdoption),
-                              ),
-                              Visibility(
-                                visible: model.isUpForMating,
-                                child: roundedText(upForMating),
-                              ),
-                              Visibility(
-                                visible: model.isUpForPlayBuddies,
-                                child: roundedText(upForPlayBuddies),
-                              ),
-                            ],
+                    visible: !model.isBusy,
+                    child: Visibility(
+                      visible: model.isUpForAdoption ||
+                          model.isUpForMating ||
+                          model.isUpForPlayBuddies ||
+                          model.isBrandAmbassador,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 30,
+                            child: ListView(
+                              scrollDirection: Axis.horizontal,
+                              children: [
+                                Visibility(
+                                  visible: model.isBrandAmbassador,
+                                  child: roundedText(
+                                      "Tamely Official Brand Ambassdor"),
+                                ),
+                                Visibility(
+                                  visible: model.isUpForAdoption,
+                                  child: roundedText(upForAdoption),
+                                ),
+                                Visibility(
+                                  visible: model.isUpForMating,
+                                  child: roundedText(upForMating),
+                                ),
+                                Visibility(
+                                  visible: model.isUpForPlayBuddies,
+                                  child: roundedText(upForPlayBuddies),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        verticalSpaceSmall,
-                        Divider(color: colors.kcLightGreyColor, height: 1.0),
-                      ],
+                          verticalSpaceSmall,
+                          Divider(color: colors.kcLightGreyColor, height: 1.0),
+                        ],
+                      ),
                     ),
                   ),
                   ListTile(

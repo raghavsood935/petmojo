@@ -5,6 +5,7 @@ import 'package:tamely/ui/otp/confirm_otp_view.form.dart';
 import 'package:tamely/ui/otp/confirm_otp_viewmodel.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/String.dart';
+import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_input_field.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/authentication_layout.dart';
@@ -47,22 +48,58 @@ class ConfirmOTPView extends StatelessWidget with $ConfirmOTPView {
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: [
+              // Container(
+              //   padding: EdgeInsets.symmetric(horizontal: 10),
+              //   child: Align(
+              //     alignment: Alignment.centerLeft,
+              //     child: AppText.body1(
+              //       oneTimeLabel,
+              //       textAlign: TextAlign.start,
+              //       color: colors.black,
+              //     ),
+              //   ),
+              // ),
               Container(
+                margin: EdgeInsets.symmetric(vertical: 15),
                 padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: AppText.body1(
-                    oneTimeLabel,
-                    textAlign: TextAlign.start,
-                    color: colors.black,
-                  ),
+                decoration: BoxDecoration(
+                  color: colors.white,
+                  border: Border.all(color: Color(0xFFD0D0D0), width: 0.5),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.email_rounded,
+                      color: Color(0xFFABB3BB),
+                    ),
+                    horizontalSpaceRegular,
+                    Expanded(
+                      child: TextField(
+                        controller: otpController,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          disabledBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          errorBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          focusedErrorBorder: InputBorder.none,
+                          hintText: oneTimeHint,
+                          hintStyle: TextStyle(
+                            color: Color(0xFFABB3BB),
+                          ),
+                        ),
+                        keyboardType: TextInputType.number,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              AppInputField(
-                hint: oneTimeHint,
-                textInputType: TextInputType.number,
-                controller: otpController,
-              ),
+              // AppInputField(
+              //   hint: oneTimeHint,
+              //   textInputType: TextInputType.number,
+              //   controller: otpController,
+              // ),
             ],
           ),
         ),

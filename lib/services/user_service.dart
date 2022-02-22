@@ -7,6 +7,7 @@ import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/models/application_models.dart';
 import 'package:tamely/models/common_response.dart';
+import 'package:tamely/models/params/apple_signin_body.dart';
 import 'package:tamely/models/params/login_body.dart';
 import 'package:tamely/models/params/profile_create_body.dart';
 import 'package:tamely/models/params/register_body.dart';
@@ -67,7 +68,13 @@ class UserService {
         await _tamelyApi.createAccount(registerBody);
     if (response.getException != null) {
       ServerError error = response.getException as ServerError;
-      _snackBarService.showSnackbar(message: error.getErrorMessage());
+      if (error.getErrorMessage() == "Received invalid status code: 400") {
+        _snackBarService.showSnackbar(
+            message:
+                "This email already has an account on Tamely! PLease try logging in instead of signing up!");
+      } else {
+        _snackBarService.showSnackbar(message: error.getErrorMessage());
+      }
     } else if (response.data != null) {
       _currentUser = response.data!.localUser;
       _sharedPreferenceService.authToken = response.data!.token ?? "";
@@ -92,6 +99,23 @@ class UserService {
       _currentUser = response.data!.localUser;
       _sharedPreferenceService.authToken = response.data!.token ?? "";
       log.v("TOKEN :  ${_sharedPreferenceService.authToken}");
+      log.v('_currentUser has been saved');
+      return isNewUser;
+    }
+  }
+
+  Future<bool?> appleLoginAccount(AppleSigninBody appleSigninBody) async {
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
+    log.v('We have logging you in ...');
+    BaseResponse<UserResponse> response =
+        await _tamelyApi.appleLogin(appleSigninBody);
+    if (response.getException != null) {
+      ServerError error = response.getException as ServerError;
+      _snackBarService.showSnackbar(message: error.getErrorMessage());
+    } else if (response.data != null) {
+      bool? isNewUser = response.data!.isNewUser;
+      _currentUser = response.data!.localUser;
+      _sharedPreferenceService.authToken = response.data!.token ?? "";
       log.v('_currentUser has been saved');
       return isNewUser;
     }

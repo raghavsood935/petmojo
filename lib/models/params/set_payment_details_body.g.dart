@@ -11,6 +11,7 @@ SetPaymentDetailsBody _$SetPaymentDetailsBodyFromJson(
     SetPaymentDetailsBody(
       json['bookingId'] as String,
       json['transactionId'] as String,
+      json['amount'] as int,
     );
 
 Map<String, dynamic> _$SetPaymentDetailsBodyToJson(
@@ -18,4 +19,5 @@ Map<String, dynamic> _$SetPaymentDetailsBodyToJson(
     <String, dynamic>{
       'bookingId': instance.bookingId,
       'transactionId': instance.transactionId,
+      'amount': instance.amount,
     };

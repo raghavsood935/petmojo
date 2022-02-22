@@ -1,6 +1,8 @@
 //if empty profile image for that this image url
 String emptyProfileImgUrl =
-    "https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_640.png";
+    "https://res.cloudinary.com/tamely-app/image/upload/w_400,h_400,c_thumb/v1643900446/wozsplp2rcmyetk1n60s.jpg";
+String emptyAnimalProfileImgUrl =
+    "https://res.cloudinary.com/tamely-app/image/upload/w_400,h_400,c_thumb/v1643866409/kjhuoffg947xc6w84dzw.png";
 
 String lightSplashScreen = "assets/images/light_splash_screen.png";
 
@@ -104,3 +106,4 @@ String polarBearImgPath = "assets/images/animal_type_images/polar_bear.png";
 String rabbitImgPath = "assets/images/animal_type_images/rabbit.png";
 String sheepImgPath = "assets/images/animal_type_images/sheep.png";
 String tigerImgPath = "assets/images/animal_type_images/tiger.png";
+String othersImgPath = "assets/images/animal_type_images/others.png";

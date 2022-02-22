@@ -191,15 +191,17 @@ class _$_UserResponse extends _UserResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _UserResponse &&
-            (identical(other.localUser, localUser) ||
-                other.localUser == localUser) &&
-            (identical(other.token, token) || other.token == token) &&
-            (identical(other.isNewUser, isNewUser) ||
-                other.isNewUser == isNewUser));
+            const DeepCollectionEquality().equals(other.localUser, localUser) &&
+            const DeepCollectionEquality().equals(other.token, token) &&
+            const DeepCollectionEquality().equals(other.isNewUser, isNewUser));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, localUser, token, isNewUser);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(localUser),
+      const DeepCollectionEquality().hash(token),
+      const DeepCollectionEquality().hash(isNewUser));
 
   @JsonKey(ignore: true)
   @override
@@ -361,12 +363,13 @@ class _$_UserNameAvailableResponse extends _UserNameAvailableResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _UserNameAvailableResponse &&
-            (identical(other.isAvailable, isAvailable) ||
-                other.isAvailable == isAvailable));
+            const DeepCollectionEquality()
+                .equals(other.isAvailable, isAvailable));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isAvailable);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(isAvailable));
 
   @JsonKey(ignore: true)
   @override

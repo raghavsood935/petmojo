@@ -79,6 +79,7 @@ class _GuardiansViewState extends State<GuardiansView> {
                         imgPath: model.listOfResult[index].profileForYouResponse
                                 .avatar ??
                             emptyProfileImgUrl,
+                        isHuman: true,
                       ),
                       trailing: GestureDetector(
                         child: FollowingStaticBtn(
@@ -188,7 +189,8 @@ Widget guardiansListTile(GuardianResponse model) {
     subtitle: AppText.caption(model.guardianDetailsResponse!.email ?? "-"),
     leading: CustomCircularAvatar(
       radius: 24,
-      imgPath: model.guardianDetailsResponse!.avatar ?? emptyProfileImgUrl,
+      imgPath: model.guardianDetailsResponse!.avatar ?? "",
+      isHuman: true,
     ),
     trailing: (model.confirmed ?? false)
         ? FollowingStaticBtn(

@@ -155,12 +155,15 @@ class _$_EditResponse extends _EditResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _EditResponse &&
-            (identical(other.success, success) || other.success == success) &&
-            (identical(other.message, message) || other.message == message));
+            const DeepCollectionEquality().equals(other.success, success) &&
+            const DeepCollectionEquality().equals(other.message, message));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, success, message);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(success),
+      const DeepCollectionEquality().hash(message));
 
   @JsonKey(ignore: true)
   @override

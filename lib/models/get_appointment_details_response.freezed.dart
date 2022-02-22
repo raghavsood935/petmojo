@@ -365,34 +365,34 @@ class _$_GetAppointmentDetailsResponse extends _GetAppointmentDetailsResponse {
             other is _GetAppointmentDetailsResponse &&
             const DeepCollectionEquality()
                 .equals(other.petDetails, petDetails) &&
-            (identical(other.bookingStatus, bookingStatus) ||
-                other.bookingStatus == bookingStatus) &&
-            (identical(other.serviceStatus, serviceStatus) ||
-                other.serviceStatus == serviceStatus) &&
-            (identical(other.hasTestimony, hasTestimony) ||
-                other.hasTestimony == hasTestimony) &&
-            (identical(other.serviceType, serviceType) ||
-                other.serviceType == serviceType) &&
-            (identical(other.appointmentId, appointmentId) ||
-                other.appointmentId == appointmentId) &&
-            (identical(other.userId, userId) || other.userId == userId) &&
-            (identical(other.user, user) || other.user == user) &&
-            (identical(other.bookingDetails, bookingDetails) ||
-                other.bookingDetails == bookingDetails));
+            const DeepCollectionEquality()
+                .equals(other.bookingStatus, bookingStatus) &&
+            const DeepCollectionEquality()
+                .equals(other.serviceStatus, serviceStatus) &&
+            const DeepCollectionEquality()
+                .equals(other.hasTestimony, hasTestimony) &&
+            const DeepCollectionEquality()
+                .equals(other.serviceType, serviceType) &&
+            const DeepCollectionEquality()
+                .equals(other.appointmentId, appointmentId) &&
+            const DeepCollectionEquality().equals(other.userId, userId) &&
+            const DeepCollectionEquality().equals(other.user, user) &&
+            const DeepCollectionEquality()
+                .equals(other.bookingDetails, bookingDetails));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(petDetails),
-      bookingStatus,
-      serviceStatus,
-      hasTestimony,
-      serviceType,
-      appointmentId,
-      userId,
-      user,
-      bookingDetails);
+      const DeepCollectionEquality().hash(bookingStatus),
+      const DeepCollectionEquality().hash(serviceStatus),
+      const DeepCollectionEquality().hash(hasTestimony),
+      const DeepCollectionEquality().hash(serviceType),
+      const DeepCollectionEquality().hash(appointmentId),
+      const DeepCollectionEquality().hash(userId),
+      const DeepCollectionEquality().hash(user),
+      const DeepCollectionEquality().hash(bookingDetails));
 
   @JsonKey(ignore: true)
   @override
@@ -478,7 +478,7 @@ class _$GetBookingDetailsResponseTearOff {
   _GetBookingDetailsResponse call(
       {@JsonKey(name: "petBehaviour") PetBehaviourResponse? petBehaviour,
       @JsonKey(name: "petRunningLocation") LocationResponse? petRunningLocation,
-      @JsonKey(name: "package") PackageResponse? package,
+      @JsonKey(name: "package") DogRunningPackageResponse? package,
       @JsonKey(name: "numberOfPets") int? numberOfPets,
       @JsonKey(name: "petDetails") List<PetSizeResponse>? petDetails,
       @JsonKey(name: "specialInstructions") String? specialInstructions,
@@ -518,7 +518,7 @@ mixin _$GetBookingDetailsResponse {
   LocationResponse? get petRunningLocation =>
       throw _privateConstructorUsedError;
   @JsonKey(name: "package")
-  PackageResponse? get package => throw _privateConstructorUsedError;
+  DogRunningPackageResponse? get package => throw _privateConstructorUsedError;
   @JsonKey(name: "numberOfPets")
   int? get numberOfPets => throw _privateConstructorUsedError;
   @JsonKey(name: "petDetails")
@@ -550,7 +550,7 @@ abstract class $GetBookingDetailsResponseCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "petBehaviour") PetBehaviourResponse? petBehaviour,
       @JsonKey(name: "petRunningLocation") LocationResponse? petRunningLocation,
-      @JsonKey(name: "package") PackageResponse? package,
+      @JsonKey(name: "package") DogRunningPackageResponse? package,
       @JsonKey(name: "numberOfPets") int? numberOfPets,
       @JsonKey(name: "petDetails") List<PetSizeResponse>? petDetails,
       @JsonKey(name: "specialInstructions") String? specialInstructions,
@@ -562,7 +562,7 @@ abstract class $GetBookingDetailsResponseCopyWith<$Res> {
 
   $PetBehaviourResponseCopyWith<$Res>? get petBehaviour;
   $LocationResponseCopyWith<$Res>? get petRunningLocation;
-  $PackageResponseCopyWith<$Res>? get package;
+  $DogRunningPackageResponseCopyWith<$Res>? get package;
 }
 
 /// @nodoc
@@ -600,7 +600,7 @@ class _$GetBookingDetailsResponseCopyWithImpl<$Res>
       package: package == freezed
           ? _value.package
           : package // ignore: cast_nullable_to_non_nullable
-              as PackageResponse?,
+              as DogRunningPackageResponse?,
       numberOfPets: numberOfPets == freezed
           ? _value.numberOfPets
           : numberOfPets // ignore: cast_nullable_to_non_nullable
@@ -659,12 +659,12 @@ class _$GetBookingDetailsResponseCopyWithImpl<$Res>
   }
 
   @override
-  $PackageResponseCopyWith<$Res>? get package {
+  $DogRunningPackageResponseCopyWith<$Res>? get package {
     if (_value.package == null) {
       return null;
     }
 
-    return $PackageResponseCopyWith<$Res>(_value.package!, (value) {
+    return $DogRunningPackageResponseCopyWith<$Res>(_value.package!, (value) {
       return _then(_value.copyWith(package: value));
     });
   }
@@ -680,7 +680,7 @@ abstract class _$GetBookingDetailsResponseCopyWith<$Res>
   $Res call(
       {@JsonKey(name: "petBehaviour") PetBehaviourResponse? petBehaviour,
       @JsonKey(name: "petRunningLocation") LocationResponse? petRunningLocation,
-      @JsonKey(name: "package") PackageResponse? package,
+      @JsonKey(name: "package") DogRunningPackageResponse? package,
       @JsonKey(name: "numberOfPets") int? numberOfPets,
       @JsonKey(name: "petDetails") List<PetSizeResponse>? petDetails,
       @JsonKey(name: "specialInstructions") String? specialInstructions,
@@ -695,7 +695,7 @@ abstract class _$GetBookingDetailsResponseCopyWith<$Res>
   @override
   $LocationResponseCopyWith<$Res>? get petRunningLocation;
   @override
-  $PackageResponseCopyWith<$Res>? get package;
+  $DogRunningPackageResponseCopyWith<$Res>? get package;
 }
 
 /// @nodoc
@@ -736,7 +736,7 @@ class __$GetBookingDetailsResponseCopyWithImpl<$Res>
       package: package == freezed
           ? _value.package
           : package // ignore: cast_nullable_to_non_nullable
-              as PackageResponse?,
+              as DogRunningPackageResponse?,
       numberOfPets: numberOfPets == freezed
           ? _value.numberOfPets
           : numberOfPets // ignore: cast_nullable_to_non_nullable
@@ -801,7 +801,7 @@ class _$_GetBookingDetailsResponse extends _GetBookingDetailsResponse {
   final LocationResponse? petRunningLocation;
   @override
   @JsonKey(name: "package")
-  final PackageResponse? package;
+  final DogRunningPackageResponse? package;
   @override
   @JsonKey(name: "numberOfPets")
   final int? numberOfPets;
@@ -837,40 +837,37 @@ class _$_GetBookingDetailsResponse extends _GetBookingDetailsResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _GetBookingDetailsResponse &&
-            (identical(other.petBehaviour, petBehaviour) ||
-                other.petBehaviour == petBehaviour) &&
-            (identical(other.petRunningLocation, petRunningLocation) ||
-                other.petRunningLocation == petRunningLocation) &&
-            (identical(other.package, package) || other.package == package) &&
-            (identical(other.numberOfPets, numberOfPets) ||
-                other.numberOfPets == numberOfPets) &&
+            const DeepCollectionEquality()
+                .equals(other.petBehaviour, petBehaviour) &&
+            const DeepCollectionEquality()
+                .equals(other.petRunningLocation, petRunningLocation) &&
+            const DeepCollectionEquality().equals(other.package, package) &&
+            const DeepCollectionEquality()
+                .equals(other.numberOfPets, numberOfPets) &&
             const DeepCollectionEquality()
                 .equals(other.petDetails, petDetails) &&
-            (identical(other.specialInstructions, specialInstructions) ||
-                other.specialInstructions == specialInstructions) &&
-            (identical(other.phone, phone) || other.phone == phone) &&
-            (identical(other.run1Time, run1Time) ||
-                other.run1Time == run1Time) &&
-            (identical(other.run2Time, run2Time) ||
-                other.run2Time == run2Time) &&
-            (identical(other.startDate, startDate) ||
-                other.startDate == startDate) &&
+            const DeepCollectionEquality()
+                .equals(other.specialInstructions, specialInstructions) &&
+            const DeepCollectionEquality().equals(other.phone, phone) &&
+            const DeepCollectionEquality().equals(other.run1Time, run1Time) &&
+            const DeepCollectionEquality().equals(other.run2Time, run2Time) &&
+            const DeepCollectionEquality().equals(other.startDate, startDate) &&
             const DeepCollectionEquality().equals(other.daysOff, daysOff));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      petBehaviour,
-      petRunningLocation,
-      package,
-      numberOfPets,
+      const DeepCollectionEquality().hash(petBehaviour),
+      const DeepCollectionEquality().hash(petRunningLocation),
+      const DeepCollectionEquality().hash(package),
+      const DeepCollectionEquality().hash(numberOfPets),
       const DeepCollectionEquality().hash(petDetails),
-      specialInstructions,
-      phone,
-      run1Time,
-      run2Time,
-      startDate,
+      const DeepCollectionEquality().hash(specialInstructions),
+      const DeepCollectionEquality().hash(phone),
+      const DeepCollectionEquality().hash(run1Time),
+      const DeepCollectionEquality().hash(run2Time),
+      const DeepCollectionEquality().hash(startDate),
       const DeepCollectionEquality().hash(daysOff));
 
   @JsonKey(ignore: true)
@@ -893,7 +890,7 @@ abstract class _GetBookingDetailsResponse extends GetBookingDetailsResponse {
       @JsonKey(name: "petRunningLocation")
           LocationResponse? petRunningLocation,
       @JsonKey(name: "package")
-          PackageResponse? package,
+          DogRunningPackageResponse? package,
       @JsonKey(name: "numberOfPets")
           int? numberOfPets,
       @JsonKey(name: "petDetails")
@@ -923,7 +920,7 @@ abstract class _GetBookingDetailsResponse extends GetBookingDetailsResponse {
   LocationResponse? get petRunningLocation;
   @override
   @JsonKey(name: "package")
-  PackageResponse? get package;
+  DogRunningPackageResponse? get package;
   @override
   @JsonKey(name: "numberOfPets")
   int? get numberOfPets;
@@ -1158,18 +1155,23 @@ class _$_LocationResponse extends _LocationResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _LocationResponse &&
-            (identical(other.addressLine1, addressLine1) ||
-                other.addressLine1 == addressLine1) &&
-            (identical(other.addressLine2, addressLine2) ||
-                other.addressLine2 == addressLine2) &&
-            (identical(other.state, state) || other.state == state) &&
-            (identical(other.city, city) || other.city == city) &&
-            (identical(other.pinCode, pinCode) || other.pinCode == pinCode));
+            const DeepCollectionEquality()
+                .equals(other.addressLine1, addressLine1) &&
+            const DeepCollectionEquality()
+                .equals(other.addressLine2, addressLine2) &&
+            const DeepCollectionEquality().equals(other.state, state) &&
+            const DeepCollectionEquality().equals(other.city, city) &&
+            const DeepCollectionEquality().equals(other.pinCode, pinCode));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, addressLine1, addressLine2, state, city, pinCode);
+      runtimeType,
+      const DeepCollectionEquality().hash(addressLine1),
+      const DeepCollectionEquality().hash(addressLine2),
+      const DeepCollectionEquality().hash(state),
+      const DeepCollectionEquality().hash(city),
+      const DeepCollectionEquality().hash(pinCode));
 
   @JsonKey(ignore: true)
   @override
@@ -1334,11 +1336,12 @@ class _$_DayOffResponse extends _DayOffResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _DayOffResponse &&
-            (identical(other.off, off) || other.off == off));
+            const DeepCollectionEquality().equals(other.off, off));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, off);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(off));
 
   @JsonKey(ignore: true)
   @override
@@ -1487,11 +1490,12 @@ class _$_PetSizeResponse extends _PetSizeResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _PetSizeResponse &&
-            (identical(other.size, size) || other.size == size));
+            const DeepCollectionEquality().equals(other.size, size));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, size);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(size));
 
   @JsonKey(ignore: true)
   @override
@@ -1745,21 +1749,26 @@ class _$_PetBehaviourResponse extends _PetBehaviourResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _PetBehaviourResponse &&
-            (identical(other.petBehaviourOne, petBehaviourOne) ||
-                other.petBehaviourOne == petBehaviourOne) &&
-            (identical(other.petBehaviourTwo, petBehaviourTwo) ||
-                other.petBehaviourTwo == petBehaviourTwo) &&
-            (identical(other.petBehaviourThree, petBehaviourThree) ||
-                other.petBehaviourThree == petBehaviourThree) &&
-            (identical(other.petBehaviourFour, petBehaviourFour) ||
-                other.petBehaviourFour == petBehaviourFour) &&
-            (identical(other.petBehaviourFive, petBehaviourFive) ||
-                other.petBehaviourFive == petBehaviourFive));
+            const DeepCollectionEquality()
+                .equals(other.petBehaviourOne, petBehaviourOne) &&
+            const DeepCollectionEquality()
+                .equals(other.petBehaviourTwo, petBehaviourTwo) &&
+            const DeepCollectionEquality()
+                .equals(other.petBehaviourThree, petBehaviourThree) &&
+            const DeepCollectionEquality()
+                .equals(other.petBehaviourFour, petBehaviourFour) &&
+            const DeepCollectionEquality()
+                .equals(other.petBehaviourFive, petBehaviourFive));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, petBehaviourOne, petBehaviourTwo,
-      petBehaviourThree, petBehaviourFour, petBehaviourFive);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(petBehaviourOne),
+      const DeepCollectionEquality().hash(petBehaviourTwo),
+      const DeepCollectionEquality().hash(petBehaviourThree),
+      const DeepCollectionEquality().hash(petBehaviourFour),
+      const DeepCollectionEquality().hash(petBehaviourFive));
 
   @JsonKey(ignore: true)
   @override

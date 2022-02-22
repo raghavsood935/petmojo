@@ -50,17 +50,14 @@ class ServicesViewModel extends BaseModel {
       case 0:
         {
           _navigationService.navigateTo(
-            Routes.dogRunnersView,
+            Routes.dROpening,
           );
           break;
         }
       case 1:
         {
           _navigationService.navigateTo(
-            Routes.dummyDevelopmentScreen,
-            arguments: DummyDevelopmentScreenArguments(
-              title: "Dog Training",
-            ),
+            Routes.dTOpening,
           );
           break;
         }
@@ -87,7 +84,6 @@ class ServicesViewModel extends BaseModel {
     }
   }
 
-
   String get location => this._location;
 
   int get noOfAppointments => this._noOfAppointments;
@@ -104,8 +100,8 @@ class ServicesViewModel extends BaseModel {
     _navigationService.navigateTo(Routes.appointmentsView);
   }
 
-  void toDogWalking() {
-    _navigationService.navigateTo(Routes.dogRunnersView);
+  void goToECommercePage() {
+    // _navigationService.navigateTo(Routes.eCommerceMainView);
   }
 }
 

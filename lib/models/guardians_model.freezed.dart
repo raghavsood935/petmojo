@@ -178,14 +178,17 @@ class _$_GuardiansModelResponse extends _GuardiansModelResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _GuardiansModelResponse &&
-            (identical(other.confirmed, confirmed) ||
-                other.confirmed == confirmed) &&
-            (identical(other.Id, Id) || other.Id == Id) &&
-            (identical(other.user, user) || other.user == user));
+            const DeepCollectionEquality().equals(other.confirmed, confirmed) &&
+            const DeepCollectionEquality().equals(other.Id, Id) &&
+            const DeepCollectionEquality().equals(other.user, user));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, confirmed, Id, user);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(confirmed),
+      const DeepCollectionEquality().hash(Id),
+      const DeepCollectionEquality().hash(user));
 
   @JsonKey(ignore: true)
   @override

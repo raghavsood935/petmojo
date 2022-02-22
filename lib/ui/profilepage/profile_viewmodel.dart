@@ -32,6 +32,7 @@ import 'package:tamely/ui/profilepage/animal_profile/animal_profile_view.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/global_methods.dart';
 import 'package:tamely/util/utils.dart';
+import 'package:tamely/widgets/dialogs/image_pop_dailog_view.dart';
 
 class ProfileViewModel extends BaseViewModel {
   final ImagePicker _picker = ImagePicker();
@@ -57,6 +58,8 @@ class ProfileViewModel extends BaseViewModel {
   dynamic _pickImageError;
   XFile? _imageFile;
   File? _editedImage;
+
+  bool get isLoading => _isLoading;
 
   String get imagePath => _imageFile?.path ?? "";
 
@@ -113,7 +116,7 @@ class ProfileViewModel extends BaseViewModel {
     }
     if (await Util.checkInternetConnectivity()) {
       BaseResponse<CommonResponse> response =
-          await runBusyFuture(_tamelyApi.uploadImage(File(_editedImage!.path)));
+          await _tamelyApi.uploadImage(File(_editedImage!.path));
       if (response.getException != null) {
         ServerError error = response.getException as ServerError;
         _snackBarService.showSnackbar(message: error.getErrorMessage());
@@ -128,15 +131,13 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   Future _createAnimalProfileView() async {
-    if (_animalProfileCreateView != null) {
-      var result = await _navigationService.navigateTo(
-        _animalProfileCreateView!,
-        arguments: CreateAnimalPageViewArguments(isEdit: false),
-      );
+    var result = await _navigationService.navigateTo(
+      Routes.createAnimalProfileNewPageOne,
+      arguments: CreateAnimalProfileNewPageOneArguments(isFromStart: false),
+    );
 
-      if (result == 1) {
-        getUserProfileDetails(true);
-      }
+    if (result == 1) {
+      getUserProfileDetails(true);
     }
   }
 
@@ -173,56 +174,26 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   Future getUserProfileDetailsById(String id, bool isNeedShowToLoading) async {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
-      if (isNeedShowToLoading) {
-        _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
-      }
-      GetProfileDetailsByIdBody body = GetProfileDetailsByIdBody("User", id);
-      BaseResponse<ProfileDetailsByIdResponse> response =
-          await _tamelyApi.getProfileDetailsById(body, true);
-      if (response.getException != null) {
-        ServerError error = response.getException as ServerError;
-        if (isNeedShowToLoading) {
-          _dialogService.completeDialog(DialogResponse(confirmed: true));
-          _navigationService.back();
-        }
-
-        _snackBarService.showSnackbar(message: error.getErrorMessage());
-      } else if (response.data != null) {
-        setProfileDetailsByIdValues(response.data!).then((value) =>
-            isNeedShowToLoading
-                ? _dialogService.completeDialog(DialogResponse(confirmed: true))
-                : {});
-      } else {
-        if (isNeedShowToLoading) {
-          _dialogService.completeDialog(DialogResponse(confirmed: true));
-        }
-      }
-    });
+    GetProfileDetailsByIdBody body = GetProfileDetailsByIdBody("User", id);
+    BaseResponse<ProfileDetailsByIdResponse> response =
+        await runBusyFuture(_tamelyApi.getProfileDetailsById(body, true));
+    if (response.getException != null) {
+      ServerError error = response.getException as ServerError;
+      _snackBarService.showSnackbar(message: error.getErrorMessage());
+    } else if (response.data != null) {
+      setProfileDetailsByIdValues(response.data!);
+    }
   }
 
   Future getUserProfileDetails(bool isNeedShowToLoading) async {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
-      if (isNeedShowToLoading) {
-        _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
-      }
-      BaseResponse<UserProfileDetailsResponse> response =
-          await _tamelyApi.getUserProfileDetail();
-      if (response.getException != null) {
-        ServerError error = response.getException as ServerError;
-        if (isNeedShowToLoading) {
-          _dialogService.completeDialog(DialogResponse(confirmed: true));
-          _navigationService.back();
-        }
-        _snackBarService.showSnackbar(message: error.getErrorMessage());
-      } else if (response.data != null) {
-        setValues(response.data!).then((value) => isNeedShowToLoading
-            ? _dialogService.completeDialog(DialogResponse(confirmed: true))
-            : {});
-      } else {
-        _dialogService.completeDialog(DialogResponse(confirmed: true));
-      }
-    });
+    BaseResponse<UserProfileDetailsResponse> response =
+        await runBusyFuture(_tamelyApi.getUserProfileDetail());
+    if (response.getException != null) {
+      ServerError error = response.getException as ServerError;
+      _snackBarService.showSnackbar(message: error.getErrorMessage());
+    } else if (response.data != null) {
+      setValues(response.data!);
+    }
   }
 
   Future getUserPosts() async {
@@ -318,8 +289,6 @@ class ProfileViewModel extends BaseViewModel {
   int get completedProfileTotalCount => _completedProfileTotalCount;
 
   bool get profileCompleted => _profileCompleted;
-
-  bool get isLoading => _isLoading;
 
   bool get isEndOfList => _isEndOfList;
 
@@ -519,11 +488,11 @@ class ProfileViewModel extends BaseViewModel {
     _navigationService.navigateTo(Routes.postCreation);
   }
 
-  Future imageTapped(String url) async {
-    await _dialogService.showCustomDialog(
-      variant: DialogType.ImagePopUpDialog,
-      barrierDismissible: true,
-      data: url,
+  Future imageTapped(BuildContext context, String url) async {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => ImagePopUpView(url: url),
+      ),
     );
   }
 }

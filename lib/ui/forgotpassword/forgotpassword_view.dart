@@ -37,20 +37,40 @@ class ForgotPasswordView extends StatelessWidget with $ForgotPasswordView {
             children: [
               verticalSpaceRegular,
               Container(
+                margin: EdgeInsets.symmetric(vertical: 15),
                 padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: AppText.body1(
-                    emailLabel,
-                    textAlign: TextAlign.start,
-                    color: colors.black,
-                  ),
+                decoration: BoxDecoration(
+                  color: colors.white,
+                  border: Border.all(color: Color(0xFFD0D0D0), width: 0.5),
+                  borderRadius: BorderRadius.circular(8),
                 ),
-              ),
-              AppInputField(
-                hint: enterEmailHint,
-                controller: emailController,
-                textInputType: TextInputType.emailAddress,
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.email_rounded,
+                      color: Color(0xFFABB3BB),
+                    ),
+                    horizontalSpaceRegular,
+                    Expanded(
+                      child: TextField(
+                        controller: emailController,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          disabledBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          errorBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          focusedErrorBorder: InputBorder.none,
+                          hintText: "Enter email address",
+                          hintStyle: TextStyle(
+                            color: Color(0xFFABB3BB),
+                          ),
+                        ),
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               verticalSpaceMedium,
             ],

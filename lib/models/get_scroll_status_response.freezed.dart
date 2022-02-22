@@ -290,12 +290,13 @@ class _$_WalkStatusResponse extends _WalkStatusResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _WalkStatusResponse &&
-            (identical(other.walkStatus, walkStatus) ||
-                other.walkStatus == walkStatus));
+            const DeepCollectionEquality()
+                .equals(other.walkStatus, walkStatus));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, walkStatus);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(walkStatus));
 
   @JsonKey(ignore: true)
   @override

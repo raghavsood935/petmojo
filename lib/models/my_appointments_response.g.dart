@@ -9,39 +9,82 @@ part of 'my_appointments_response.dart';
 _$_MyAppointmentsResponse _$$_MyAppointmentsResponseFromJson(
         Map<String, dynamic> json) =>
     _$_MyAppointmentsResponse(
-      appointmentsList: (json['serviceList'] as List<dynamic>?)
-          ?.map((e) =>
-              AppointmentListResponse.fromJson(e as Map<String, dynamic>))
+      dogRunningAppointmentsList: (json['serviceList'] as List<dynamic>?)
+          ?.map((e) => DogRunningAppointmentListResponse.fromJson(
+              e as Map<String, dynamic>))
+          .toList(),
+      dogTrainingAppointmentsList: (json['Traininglist'] as List<dynamic>?)
+          ?.map((e) => DogTrainingAppointmentListResponse.fromJson(
+              e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$$_MyAppointmentsResponseToJson(
         _$_MyAppointmentsResponse instance) =>
     <String, dynamic>{
-      'serviceList': instance.appointmentsList,
+      'serviceList': instance.dogRunningAppointmentsList,
+      'Traininglist': instance.dogTrainingAppointmentsList,
     };
 
-_$_AppointmentListResponse _$$_AppointmentListResponseFromJson(
-        Map<String, dynamic> json) =>
-    _$_AppointmentListResponse(
-      petDetails: (json['petDetails'] as List<dynamic>?)
-          ?.map((e) => PetDetailsResponse.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      bookingStatus: json['bookingStatus'] as int?,
-      serviceType: json['serviceType'] as int?,
-      appointmentId: json['_id'] as String?,
-      user: json['ServiceProvider'] == null
-          ? null
-          : UserDetailsResponse.fromJson(
-              json['ServiceProvider'] as Map<String, dynamic>),
-      bookingDetails: json['bookingDetails'] == null
-          ? null
-          : BookingDetailsResponse.fromJson(
-              json['bookingDetails'] as Map<String, dynamic>),
-    );
+_$_DogTrainingAppointmentListResponse
+    _$$_DogTrainingAppointmentListResponseFromJson(Map<String, dynamic> json) =>
+        _$_DogTrainingAppointmentListResponse(
+          petDetails: (json['petDetails'] as List<dynamic>?)
+              ?.map(
+                  (e) => PetDetailsResponse.fromJson(e as Map<String, dynamic>))
+              .toList(),
+          bookingStatus: json['bookingStatus'] as int?,
+          serviceType: json['serviceType'] as int?,
+          appointmentId: json['_id'] as String?,
+          user: json['ServiceProvider'] == null
+              ? null
+              : UserDetailsResponse.fromJson(
+                  json['ServiceProvider'] as Map<String, dynamic>),
+          bookingDetails: json['DogTrainingbookingDetails'] == null
+              ? null
+              : DogTrainingBookingDetailsResponse.fromJson(
+                  json['DogTrainingbookingDetails'] as Map<String, dynamic>),
+          sessionsLeft: json['sessionsLeft'] as int?,
+          isReorderDone: json['isReorderDone'] as bool?,
+        );
 
-Map<String, dynamic> _$$_AppointmentListResponseToJson(
-        _$_AppointmentListResponse instance) =>
+Map<String, dynamic> _$$_DogTrainingAppointmentListResponseToJson(
+        _$_DogTrainingAppointmentListResponse instance) =>
+    <String, dynamic>{
+      'petDetails': instance.petDetails,
+      'bookingStatus': instance.bookingStatus,
+      'serviceType': instance.serviceType,
+      '_id': instance.appointmentId,
+      'ServiceProvider': instance.user,
+      'DogTrainingbookingDetails': instance.bookingDetails,
+      'sessionsLeft': instance.sessionsLeft,
+      'isReorderDone': instance.isReorderDone,
+    };
+
+_$_DogRunningAppointmentListResponse
+    _$$_DogRunningAppointmentListResponseFromJson(Map<String, dynamic> json) =>
+        _$_DogRunningAppointmentListResponse(
+          petDetails: (json['petDetails'] as List<dynamic>?)
+              ?.map(
+                  (e) => PetDetailsResponse.fromJson(e as Map<String, dynamic>))
+              .toList(),
+          bookingStatus: json['bookingStatus'] as int?,
+          serviceType: json['serviceType'] as int?,
+          appointmentId: json['_id'] as String?,
+          user: json['ServiceProvider'] == null
+              ? null
+              : UserDetailsResponse.fromJson(
+                  json['ServiceProvider'] as Map<String, dynamic>),
+          bookingDetails: json['bookingDetails'] == null
+              ? null
+              : DogRunningBookingDetailsResponse.fromJson(
+                  json['bookingDetails'] as Map<String, dynamic>),
+          daysLeft: json['daysLeft'] as int?,
+          isReorderDone: json['isReorderDone'] as bool?,
+        );
+
+Map<String, dynamic> _$$_DogRunningAppointmentListResponseToJson(
+        _$_DogRunningAppointmentListResponse instance) =>
     <String, dynamic>{
       'petDetails': instance.petDetails,
       'bookingStatus': instance.bookingStatus,
@@ -49,6 +92,8 @@ Map<String, dynamic> _$$_AppointmentListResponseToJson(
       '_id': instance.appointmentId,
       'ServiceProvider': instance.user,
       'bookingDetails': instance.bookingDetails,
+      'daysLeft': instance.daysLeft,
+      'isReorderDone': instance.isReorderDone,
     };
 
 _$_UserDetailsResponse _$$_UserDetailsResponseFromJson(
@@ -69,20 +114,40 @@ Map<String, dynamic> _$$_UserDetailsResponseToJson(
       'avatar': instance.avatar,
     };
 
-_$_BookingDetailsResponse _$$_BookingDetailsResponseFromJson(
-        Map<String, dynamic> json) =>
-    _$_BookingDetailsResponse(
-      package: json['package'] == null
-          ? null
-          : PackageResponse.fromJson(json['package'] as Map<String, dynamic>),
-      bookingId: json['_id'] as String?,
-      run1Time: json['run1'] as String?,
-      run2Time: json['run2'] as String?,
-      startDate: json['startDate'] as String?,
-    );
+_$_DogTrainingBookingDetailsResponse
+    _$$_DogTrainingBookingDetailsResponseFromJson(Map<String, dynamic> json) =>
+        _$_DogTrainingBookingDetailsResponse(
+          package: json['package'] == null
+              ? null
+              : DogTrainingPackageResponse.fromJson(
+                  json['package'] as Map<String, dynamic>),
+          bookingId: json['_id'] as String?,
+          startDate: json['startDate'] as String?,
+        );
 
-Map<String, dynamic> _$$_BookingDetailsResponseToJson(
-        _$_BookingDetailsResponse instance) =>
+Map<String, dynamic> _$$_DogTrainingBookingDetailsResponseToJson(
+        _$_DogTrainingBookingDetailsResponse instance) =>
+    <String, dynamic>{
+      'package': instance.package,
+      '_id': instance.bookingId,
+      'startDate': instance.startDate,
+    };
+
+_$_DogRunningBookingDetailsResponse
+    _$$_DogRunningBookingDetailsResponseFromJson(Map<String, dynamic> json) =>
+        _$_DogRunningBookingDetailsResponse(
+          package: json['package'] == null
+              ? null
+              : DogRunningPackageResponse.fromJson(
+                  json['package'] as Map<String, dynamic>),
+          bookingId: json['_id'] as String?,
+          run1Time: json['run1'] as String?,
+          run2Time: json['run2'] as String?,
+          startDate: json['startDate'] as String?,
+        );
+
+Map<String, dynamic> _$$_DogRunningBookingDetailsResponseToJson(
+        _$_DogRunningBookingDetailsResponse instance) =>
     <String, dynamic>{
       'package': instance.package,
       '_id': instance.bookingId,
@@ -91,15 +156,33 @@ Map<String, dynamic> _$$_BookingDetailsResponseToJson(
       'startDate': instance.startDate,
     };
 
-_$_PackageResponse _$$_PackageResponseFromJson(Map<String, dynamic> json) =>
-    _$_PackageResponse(
+_$_DogTrainingPackageResponse _$$_DogTrainingPackageResponseFromJson(
+        Map<String, dynamic> json) =>
+    _$_DogTrainingPackageResponse(
+      subscriptionType: json['description'] as String?,
+      amount: (json['amount'] as num?)?.toDouble(),
+      numberOfSessions: json['frequency'] as int?,
+    );
+
+Map<String, dynamic> _$$_DogTrainingPackageResponseToJson(
+        _$_DogTrainingPackageResponse instance) =>
+    <String, dynamic>{
+      'description': instance.subscriptionType,
+      'amount': instance.amount,
+      'frequency': instance.numberOfSessions,
+    };
+
+_$_DogRunningPackageResponse _$$_DogRunningPackageResponseFromJson(
+        Map<String, dynamic> json) =>
+    _$_DogRunningPackageResponse(
       subscriptionType: json['description'] as String?,
       amount: json['amount'] as String?,
       numberOfDays: json['frequency'] as int?,
       numberOfTimes: json['dayfrequency'] as int?,
     );
 
-Map<String, dynamic> _$$_PackageResponseToJson(_$_PackageResponse instance) =>
+Map<String, dynamic> _$$_DogRunningPackageResponseToJson(
+        _$_DogRunningPackageResponse instance) =>
     <String, dynamic>{
       'description': instance.subscriptionType,
       'amount': instance.amount,

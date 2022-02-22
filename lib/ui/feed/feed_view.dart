@@ -90,6 +90,7 @@ class FeedView extends StatelessWidget {
                       CustomCircularAvatar(
                         radius: 20.0,
                         imgPath: model.myProfileImg,
+                        isHuman: model.isHuman,
                       ),
                       horizontalSpaceRegular,
                       AppText.caption(
@@ -175,6 +176,7 @@ Widget rowItem(bool isCreateOne, String name, String url) {
               child: CustomCircularAvatar(
                 radius: 30.0,
                 imgPath: url,
+                isHuman: true,
               ),
             ),
             Positioned(

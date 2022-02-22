@@ -129,7 +129,7 @@ class LocationHelper {
             textAlign: TextAlign.center,
           ),
           content: AppText.body1(
-            "Tamely collects location data to enable live tracking even when the app is closed or not in use.",
+            "Petmojo collects location data to enable live tracking even when the app is closed or not in use.",
             textAlign: TextAlign.center,
           ),
           actionsAlignment: MainAxisAlignment.spaceEvenly,

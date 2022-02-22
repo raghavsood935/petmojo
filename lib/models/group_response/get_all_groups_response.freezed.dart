@@ -160,12 +160,14 @@ class _$_GetAllGroupResponse extends _GetAllGroupResponse {
             other is _GetAllGroupResponse &&
             const DeepCollectionEquality()
                 .equals(other.listOfGroups, listOfGroups) &&
-            (identical(other.success, success) || other.success == success));
+            const DeepCollectionEquality().equals(other.success, success));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(listOfGroups), success);
+      runtimeType,
+      const DeepCollectionEquality().hash(listOfGroups),
+      const DeepCollectionEquality().hash(success));
 
   @JsonKey(ignore: true)
   @override

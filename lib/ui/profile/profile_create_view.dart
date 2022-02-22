@@ -14,6 +14,7 @@ import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_input_field.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/authentication_layout.dart';
+import 'package:tamely/widgets/with_title_item.dart';
 
 import 'profile_create_view.form.dart';
 
@@ -52,133 +53,350 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
       },
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
-        body: AuthenticationLayout(
-          busy: model.isBusy,
-          isValid: model.isValid,
-          onMainButtonTapped: model.saveProfileData,
-          onBackPressed: model.onBack,
-          onForgotPassword: null,
-          validationMessage: model.validationMessage,
-          title: isEdit ?? false ? editProfileTitle : completeProfileTitle,
-          subtitle: isEdit ?? false ? "" : completeProfileSubTitle,
-          isSocialLoginEnabled: false,
-          showTermsText: false,
-          mainButtonTitle: continueButtonTitle,
-          form: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  model.onImageButtonPressed(ImageSource.gallery, context);
-                },
-                child: CircleAvatar(
-                  radius: 70,
-                  backgroundColor: colors.primary,
-                  child: CircleAvatar(
-                    radius: 67,
-                    backgroundColor: colors.kcLightGreyBackground,
-                    child: Stack(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            padding: commonPaddding,
+            physics: ScrollPhysics(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    alignment: Alignment.centerLeft,
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                    ),
+                    onPressed: model.onBack,
+                  ),
+                ),
+                AppText.titleBold(
+                  isEdit ?? false ? editProfileTitle : completeProfileTitle,
+                  textAlign: TextAlign.center,
+                ),
+                verticalSpaceSmall,
+                Image.asset(
+                    "assets/images/on_boarding/complete_your_profile_logo.png"),
+                verticalSpaceRegular,
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    AppText.captionBold(
+                      "Name",
+                      color: colors.black,
+                    ),
+                    AppText.body1Bold(
+                      "*",
+                      color: colors.primary,
+                    ),
+                  ],
+                ),
+                verticalSpaceSmall,
+                PhysicalModel(
+                  elevation: 8,
+                  color: colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 8),
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
                       children: [
-                        if (model.imagePath.isEmpty || model.avatarUrl.isEmpty)
-                          CircleAvatar(
-                            backgroundColor: colors.primary,
-                            radius: 65,
-                            child: SvgPicture.asset(
-                              cameraIcon,
-                              color: colors.white,
-                            ),
-                          ),
-                        if (model.avatarUrl.isNotEmpty &&
-                            model.imagePath.isEmpty)
-                          CircleAvatar(
-                            backgroundColor: colors.primary,
-                            radius: 65,
-                            child: ClipOval(
-                              child: SizedBox(
-                                width: 130,
-                                height: 130,
-                                child: Image.network(model.avatarUrl),
+                        Icon(
+                          Icons.person_outline_rounded,
+                          color: Color(0xFF393F45).withOpacity(0.50),
+                        ),
+                        horizontalSpaceRegular,
+                        Expanded(
+                          child: TextField(
+                            controller: nameController,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              focusedErrorBorder: InputBorder.none,
+                              hintText: fullNameHint,
+                              hintStyle: TextStyle(
+                                color: Color(0xFFABB3BB),
                               ),
                             ),
+                            keyboardType: TextInputType.name,
+                            textCapitalization: TextCapitalization.none,
                           ),
-                        if (model.imagePath.isNotEmpty)
-                          CircleAvatar(
-                            backgroundColor: colors.primary,
-                            radius: 65,
-                            child: ClipOval(
-                              child: SizedBox(
-                                width: 130,
-                                height: 130,
-                                child: Image.file(
-                                  File(model.imagePath),
-                                ),
-                              ),
-                            ),
-                          )
+                        ),
                       ],
                     ),
                   ),
                 ),
-              ),
-              verticalSpaceLarge,
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: AppText.body1(
-                    userNameLabel,
-                    textAlign: TextAlign.start,
-                    color: colors.black,
+                verticalSpaceRegular,
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    AppText.captionBold(
+                      "Username",
+                      color: colors.black,
+                    ),
+                    AppText.body1Bold(
+                      "*",
+                      color: colors.primary,
+                    ),
+                  ],
+                ),
+                verticalSpaceSmall,
+                PhysicalModel(
+                  elevation: 8,
+                  color: colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 8),
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.person_outline_rounded,
+                          color: Color(0xFF393F45).withOpacity(0.50),
+                        ),
+                        horizontalSpaceRegular,
+                        Expanded(
+                          child: TextField(
+                            controller: usernameController,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              focusedErrorBorder: InputBorder.none,
+                              hintText: userNameHint,
+                              hintStyle: TextStyle(
+                                color: Color(0xFFABB3BB),
+                              ),
+                            ),
+                            keyboardType: TextInputType.name,
+                            textCapitalization: TextCapitalization.none,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              AppInputField(
-                hint: userNameHint,
-                controller: usernameController,
-                errorText: model.validUser(usernameController),
-                textInputType: TextInputType.name,
-                textCapitalization: TextCapitalization.none,
-              ),
-              verticalSpaceMedium,
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: AppText.body1(
-                    fullNameLabel,
-                    textAlign: TextAlign.start,
-                    color: colors.black,
+                verticalSpaceRegular,
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    AppText.captionBold(
+                      "Short Bio",
+                      color: colors.black,
+                    ),
+                  ],
+                ),
+                verticalSpaceSmall,
+                PhysicalModel(
+                  elevation: 8,
+                  color: colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 8),
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.person_outline_rounded,
+                          color: Color(0xFF393F45).withOpacity(0.50),
+                        ),
+                        horizontalSpaceRegular,
+                        Expanded(
+                          child: TextField(
+                            controller: shortBioController,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              focusedErrorBorder: InputBorder.none,
+                              hintText: shortBioHint,
+                              hintStyle: TextStyle(
+                                color: Color(0xFFABB3BB),
+                              ),
+                            ),
+                            keyboardType: TextInputType.multiline,
+                            textCapitalization: TextCapitalization.sentences,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              AppInputField(
-                hint: fullNameHint,
-                controller: nameController,
-                textInputType: TextInputType.name,
-                textCapitalization: TextCapitalization.sentences,
-              ),
-              verticalSpaceMedium,
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: AppText.body1(
-                    shortBioLabel,
-                    textAlign: TextAlign.start,
-                    color: colors.black,
-                  ),
-                ),
-              ),
-              AppInputField(
-                hint: shortBioHint,
-                controller: shortBioController,
-                textInputType: TextInputType.multiline,
-                textCapitalization: TextCapitalization.sentences,
-              ),
-            ],
+                verticalSpace(100),
+              ],
+            ),
           ),
         ),
+        bottomSheet: GestureDetector(
+          onTap: model.isValid ? model.saveProfileData : null,
+          child: Container(
+            width: double.infinity,
+            height: 60,
+            margin: commonPaddding,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: model.isValid ? colors.primary : colors.kcLightGreyColor,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: model.isBusy
+                ? CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation(Colors.white),
+                  )
+                : Text(
+                    continueButtonTitle,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14),
+                  ),
+          ),
+        ),
+        // body: AuthenticationLayout(
+        //   busy: model.isBusy,
+        //   isValid: model.isValid,
+        //   onMainButtonTapped: model.saveProfileData,
+        //   onBackPressed: model.onBack,
+        //   onForgotPassword: null,
+        //   validationMessage: model.validationMessage,
+        //   title: isEdit ?? false ? editProfileTitle : completeProfileTitle,
+        //   subtitle: isEdit ?? false ? "" : completeProfileSubTitle,
+        //   isSocialLoginEnabled: false,
+        //   showTermsText: false,
+        //   mainButtonTitle: continueButtonTitle,
+        //   isProfilePage: true,
+        //   form: Column(
+        //     mainAxisAlignment: MainAxisAlignment.start,
+        //     mainAxisSize: MainAxisSize.max,
+        //     children: [
+        //       Image.asset(
+        //           "assets/images/on_boarding/complete_your_profile_logo.png"),
+        //       verticalSpaceRegular,
+        //       WithTitleItem(
+        //         title: "Username",
+        //         isManitory: true,
+        //         child: Padding(
+        //           padding: commonPaddding,
+        //           child: PhysicalModel(
+        //             elevation: 8,
+        //             color: colors.white,
+        //             borderRadius: BorderRadius.circular(20),
+        //             child: Container(
+        //               margin: EdgeInsets.symmetric(vertical: 15),
+        //               padding: EdgeInsets.symmetric(horizontal: 10),
+        //               // decoration: BoxDecoration(
+        //               //   color: colors.white,
+        //               //   borderRadius: BorderRadius.circular(20),
+        //               //   boxShadow: [
+        //               //     BoxShadow(
+        //               //       color: Color(0xFFC7C7C7),
+        //               //       blurRadius: 8,
+        //               //       spreadRadius: 4,
+        //               //       offset: Offset(10, 10),
+        //               //     ),
+        //               //   ],
+        //               // ),
+        //               child: Row(
+        //                 children: [
+        //                   Icon(
+        //                     Icons.person_outline_rounded,
+        //                     color: Color(0xFF393F45).withOpacity(0.50),
+        //                   ),
+        //                   horizontalSpaceRegular,
+        //                   Expanded(
+        //                     child: TextField(
+        //                       controller: usernameController,
+        //                       decoration: InputDecoration(
+        //                         border: InputBorder.none,
+        //                         disabledBorder: InputBorder.none,
+        //                         enabledBorder: InputBorder.none,
+        //                         errorBorder: InputBorder.none,
+        //                         focusedBorder: InputBorder.none,
+        //                         focusedErrorBorder: InputBorder.none,
+        //                         hintText: userNameHint,
+        //                         hintStyle: TextStyle(
+        //                           color: Color(0xFFABB3BB),
+        //                         ),
+        //                       ),
+        //                       keyboardType: TextInputType.name,
+        //                       textCapitalization: TextCapitalization.none,
+        //                     ),
+        //                   ),
+        //                 ],
+        //               ),
+        //             ),
+        //           ),
+        //         ),
+        //       ),
+        //       // Container(
+        //       //   padding: EdgeInsets.symmetric(horizontal: 10),
+        //       //   child: Align(
+        //       //     alignment: Alignment.centerLeft,
+        //       //     child: AppText.body1(
+        //       //       userNameLabel,
+        //       //       textAlign: TextAlign.start,
+        //       //       color: colors.black,
+        //       //     ),
+        //       //   ),
+        //       // ),
+        //       AppInputField(
+        //         hint: userNameHint,
+        //         controller: usernameController,
+        //         errorText: model.validUser(usernameController),
+        //         textInputType: TextInputType.name,
+        //         textCapitalization: TextCapitalization.none,
+        //       ),
+        //       verticalSpaceMedium,
+        //       Container(
+        //         padding: EdgeInsets.symmetric(horizontal: 10),
+        //         child: Align(
+        //           alignment: Alignment.centerLeft,
+        //           child: AppText.body1(
+        //             fullNameLabel,
+        //             textAlign: TextAlign.start,
+        //             color: colors.black,
+        //           ),
+        //         ),
+        //       ),
+        //       AppInputField(
+        //         hint: fullNameHint,
+        //         controller: nameController,
+        //         textInputType: TextInputType.name,
+        //         textCapitalization: TextCapitalization.sentences,
+        //       ),
+        //       verticalSpaceMedium,
+        //       Container(
+        //         padding: EdgeInsets.symmetric(horizontal: 10),
+        //         child: Align(
+        //           alignment: Alignment.centerLeft,
+        //           child: AppText.body1(
+        //             shortBioLabel,
+        //             textAlign: TextAlign.start,
+        //             color: colors.black,
+        //           ),
+        //         ),
+        //       ),
+        //       AppInputField(
+        //         hint: shortBioHint,
+        //         controller: shortBioController,
+        //         textInputType: TextInputType.multiline,
+        //         textCapitalization: TextCapitalization.sentences,
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ),
       viewModelBuilder: () => ProfileCreateViewModel(user),
     );

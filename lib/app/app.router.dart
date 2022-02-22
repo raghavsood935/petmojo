@@ -9,18 +9,29 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
 import '../enum/walkNumber.dart';
 import '../models/application_models.dart';
+import '../models/e-commerce/product_response.dart';
 import '../models/feed_post_response.dart';
 import '../models/get_animals_by_location_response.dart';
 import '../models/get_blogs_model.dart';
 import '../models/my_animal_model.dart';
-import '../ui/appointmentdetails/appointmentdetails_view.dart';
-import '../ui/appointments/appointments_view.dart';
+import '../ui/DogRunningService/DrAppointment/DrAppointmentdetails/dr_appointmentdetails_view.dart';
+import '../ui/DogRunningService/DrAppointment/DrLivemap/dr_livemap_view.dart';
+import '../ui/DogRunningService/DrAppointment/DrReportcard/dr_reportcard_view.dart';
+import '../ui/DogRunningService/DrBookingService/DrBooking/dr_dogrunningbooking_view.dart';
+import '../ui/DogRunningService/DrBookingService/DrLocationPickerMap/location_picker_map.dart';
+import '../ui/DogRunningService/DrBookingService/DrOpening/dr_opening_view.dart';
+import '../ui/DogRunningService/DrBookingService/DrPayment/dr_payment_view.dart';
+import '../ui/DogTrainingService/DtAppointment/DtAppointmentdetails/dt_appointmentdetails_view.dart';
+import '../ui/DogTrainingService/DtAppointment/DtReportcard/dt_reportcard_view.dart';
+import '../ui/DogTrainingService/DtBookingService/DtBooking/dt_dogtrainingbooking_view.dart';
+import '../ui/DogTrainingService/DtBookingService/DtOpening/dt_opening_view.dart';
+import '../ui/DogTrainingService/DtBookingService/DtPayment/dt_payment_view.dart';
+import '../ui/MyAppointments/appointments_view.dart';
 import '../ui/bookings/bookings_view.dart';
 import '../ui/bookmarks/bookmarks_view.dart';
 import '../ui/chat/chat_view.dart';
@@ -32,10 +43,14 @@ import '../ui/community/community_main_view/strays_near_you/strays_near_you_map_
 import '../ui/community/community_main_view/strays_near_you/strays_near_you_view.dart';
 import '../ui/community/first_time_views/community_choose_interests/community_choose_interests_view.dart';
 import '../ui/dashboard/dashboard.dart';
-import '../ui/dogrunners/dogrunners_view.dart';
-import '../ui/dogrunners/location_picker_map.dart';
-import '../ui/dogrunningbooking/dogrunningbooking_view.dart';
 import '../ui/dummy_development_screen.dart';
+import '../ui/e_commerce/cart/cart_view.dart';
+import '../ui/e_commerce/cart/cart_view_model.dart';
+import '../ui/e_commerce/check_out_page/check_out_view.dart';
+import '../ui/e_commerce/main_page/e_commerce_main_view.dart';
+import '../ui/e_commerce/order_detail_page/order_detail_view.dart';
+import '../ui/e_commerce/product_bookings/bookings_main_view.dart';
+import '../ui/e_commerce/product_detail/product_detail_view.dart';
 import '../ui/exploreblogs/explore_blog_search/blogs_deatils_page/blog_detail_view.dart';
 import '../ui/exploreblogs/explore_blogs_view.dart';
 import '../ui/feedback/feedback_view.dart';
@@ -53,14 +68,12 @@ import '../ui/groups/manage_group/manage_group_view.dart';
 import '../ui/groups/manage_group/members/member_view.dart';
 import '../ui/groups/trending_groups/trending_groups_view.dart';
 import '../ui/help/help_view.dart';
-import '../ui/livemap/livemap_view.dart';
 import '../ui/login/login_view.dart';
 import '../ui/newpost/newpostLocation/newpostLocation_view.dart';
 import '../ui/newpost/newpost_view.dart';
 import '../ui/notification/notification_main_page.dart';
 import '../ui/onboarding/onboarding_view.dart';
 import '../ui/otp/confirm_otp_view.dart';
-import '../ui/payment/payment_view.dart';
 import '../ui/phone_authentication/confirm_otp_phone/confirm_otp_phone_view.dart';
 import '../ui/phone_authentication/phone_authentication_view.dart';
 import '../ui/post/camera_screen.dart';
@@ -70,18 +83,19 @@ import '../ui/post_detail/single_post_details_page/single_post_details_view.dart
 import '../ui/profile/profile_create_view.dart';
 import '../ui/profilepage/animal_profile/animal_profile_view.dart';
 import '../ui/profilepage/animal_profile/basic_info/basic_info_view.dart';
+import '../ui/profilepage/animal_profile/create_animal_profile_new/page_one/create_animal_profile_new_page_one.dart';
+import '../ui/profilepage/animal_profile/create_animal_profile_new/page_three/create_animal_profile_new_page_three.dart';
+import '../ui/profilepage/animal_profile/create_animal_profile_new/page_two/create_animal_profile_new_page_two.dart';
 import '../ui/profilepage/animal_profile/guardians_and_relations/guardians_and_relations.dart';
 import '../ui/profilepage/completed_profile/add_details_profile_view.dart';
 import '../ui/profilepage/completed_profile/follow_people_action_view.dart';
 import '../ui/profilepage/count_info/list_of_followings_view.dart';
 import '../ui/profilepage/create_animal_profile/create_animal_page_viewe.dart';
 import '../ui/profilepage/profile_view.dart';
-import '../ui/reportcard/reportcard_view.dart';
 import '../ui/settings/settings_animal_view.dart';
 import '../ui/settings/settings_human_view.dart';
 import '../ui/signup/signup_view.dart';
 import '../ui/startup/startup_view.dart';
-import '../ui/tamelydogrunning/tamelydogrunning_view.dart';
 import '../ui/wallet/wallet_view.dart';
 import '../widgets/full_screen_image.dart';
 
@@ -116,6 +130,12 @@ class Routes {
       '/guardians-and-related-animals-view';
   static const String postDetialsPageView = '/post-detials-page-view';
   static const String singlePostDetailsView = '/single-post-details-view';
+  static const String createAnimalProfileNewPageOne =
+      '/create-animal-profile-new-page-one';
+  static const String createAnimalProfileNewPageTwo =
+      '/create-animal-profile-new-page-two';
+  static const String createAnimalProfileNewPageThree =
+      '/create-animal-profile-new-page-three';
   static const String groupsView = '/groups-view';
   static const String createGroupFirstView = '/create-group-first-view';
   static const String createGroupSecondView = '/create-group-second-view';
@@ -136,6 +156,12 @@ class Routes {
   static const String adoptionView = '/adoption-view';
   static const String exploreBlogs = '/explore-blogs';
   static const String blogDetailsPageView = '/blog-details-page-view';
+  static const String eCommerceMainView = '/e-commerce-main-view';
+  static const String productDetailView = '/product-detail-view';
+  static const String cartView = '/cart-view';
+  static const String checkOutView = '/check-out-view';
+  static const String orderDetailPage = '/order-detail-page';
+  static const String productBookingsMainView = '/product-bookings-main-view';
   static const String settingsHumanView = '/settings-human-view';
   static const String settingsAnimalView = '/settings-animal-view';
   static const String feedbackView = '/feedback-view';
@@ -144,16 +170,21 @@ class Routes {
   static const String helpView = '/help-view';
   static const String walletView = '/wallet-view';
   static const String notificationMainView = '/notification-main-view';
-  static const String dogRunnersView = '/dog-runners-view';
-  static const String tamelyDogRunnersView = '/tamely-dog-runners-view';
-  static const String dogRunningBookingView = '/dog-running-booking-view';
-  static const String paymentView = '/payment-view';
-  static const String locationPicker = '/location-picker';
   static const String appointmentsView = '/appointments-view';
-  static const String appointmentDetailsView = '/appointment-details-view';
+  static const String dRDogRunningBookingView = '/d-rdog-running-booking-view';
+  static const String locationPicker = '/location-picker';
+  static const String dROpening = '/d-rOpening';
+  static const String dRPaymentView = '/d-rpayment-view';
+  static const String dRAppointmentDetailsView = '/d-rappointment-details-view';
+  static const String dRLiveMapView = '/d-rlive-map-view';
+  static const String dRReportCardView = '/d-rreport-card-view';
   static const String chatView = '/chat-view';
-  static const String liveMapView = '/live-map-view';
-  static const String reportCardView = '/report-card-view';
+  static const String dTDogTrainingBookingView =
+      '/d-tdog-training-booking-view';
+  static const String dTOpening = '/d-tOpening';
+  static const String dTPaymentView = '/d-tpayment-view';
+  static const String dTAppointmentDetailsView = '/d-tappointment-details-view';
+  static const String dTReportCardView = '/d-treport-card-view';
   static const all = <String>{
     startupView,
     dummyDevelopmentScreen,
@@ -182,6 +213,9 @@ class Routes {
     guardiansAndRelatedAnimalsView,
     postDetialsPageView,
     singlePostDetailsView,
+    createAnimalProfileNewPageOne,
+    createAnimalProfileNewPageTwo,
+    createAnimalProfileNewPageThree,
     groupsView,
     createGroupFirstView,
     createGroupSecondView,
@@ -202,6 +236,12 @@ class Routes {
     adoptionView,
     exploreBlogs,
     blogDetailsPageView,
+    eCommerceMainView,
+    productDetailView,
+    cartView,
+    checkOutView,
+    orderDetailPage,
+    productBookingsMainView,
     settingsHumanView,
     settingsAnimalView,
     feedbackView,
@@ -210,16 +250,20 @@ class Routes {
     helpView,
     walletView,
     notificationMainView,
-    dogRunnersView,
-    tamelyDogRunnersView,
-    dogRunningBookingView,
-    paymentView,
-    locationPicker,
     appointmentsView,
-    appointmentDetailsView,
+    dRDogRunningBookingView,
+    locationPicker,
+    dROpening,
+    dRPaymentView,
+    dRAppointmentDetailsView,
+    dRLiveMapView,
+    dRReportCardView,
     chatView,
-    liveMapView,
-    reportCardView,
+    dTDogTrainingBookingView,
+    dTOpening,
+    dTPaymentView,
+    dTAppointmentDetailsView,
+    dTReportCardView,
   };
 }
 
@@ -257,6 +301,12 @@ class StackedRouter extends RouterBase {
         page: GuardiansAndRelatedAnimalsView),
     RouteDef(Routes.postDetialsPageView, page: PostDetialsPageView),
     RouteDef(Routes.singlePostDetailsView, page: SinglePostDetailsView),
+    RouteDef(Routes.createAnimalProfileNewPageOne,
+        page: CreateAnimalProfileNewPageOne),
+    RouteDef(Routes.createAnimalProfileNewPageTwo,
+        page: CreateAnimalProfileNewPageTwo),
+    RouteDef(Routes.createAnimalProfileNewPageThree,
+        page: CreateAnimalProfileNewPageThree),
     RouteDef(Routes.groupsView, page: GroupsView),
     RouteDef(Routes.createGroupFirstView, page: CreateGroupFirstView),
     RouteDef(Routes.createGroupSecondView, page: CreateGroupSecondView),
@@ -277,6 +327,12 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.adoptionView, page: AdoptionView),
     RouteDef(Routes.exploreBlogs, page: ExploreBlogs),
     RouteDef(Routes.blogDetailsPageView, page: BlogDetailsPageView),
+    RouteDef(Routes.eCommerceMainView, page: ECommerceMainView),
+    RouteDef(Routes.productDetailView, page: ProductDetailView),
+    RouteDef(Routes.cartView, page: CartView),
+    RouteDef(Routes.checkOutView, page: CheckOutView),
+    RouteDef(Routes.orderDetailPage, page: OrderDetailPage),
+    RouteDef(Routes.productBookingsMainView, page: ProductBookingsMainView),
     RouteDef(Routes.settingsHumanView, page: SettingsHumanView),
     RouteDef(Routes.settingsAnimalView, page: SettingsAnimalView),
     RouteDef(Routes.feedbackView, page: FeedbackView),
@@ -285,16 +341,20 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.helpView, page: HelpView),
     RouteDef(Routes.walletView, page: WalletView),
     RouteDef(Routes.notificationMainView, page: NotificationMainView),
-    RouteDef(Routes.dogRunnersView, page: DogRunnersView),
-    RouteDef(Routes.tamelyDogRunnersView, page: TamelyDogRunnersView),
-    RouteDef(Routes.dogRunningBookingView, page: DogRunningBookingView),
-    RouteDef(Routes.paymentView, page: PaymentView),
-    RouteDef(Routes.locationPicker, page: LocationPicker),
     RouteDef(Routes.appointmentsView, page: AppointmentsView),
-    RouteDef(Routes.appointmentDetailsView, page: AppointmentDetailsView),
+    RouteDef(Routes.dRDogRunningBookingView, page: DRDogRunningBookingView),
+    RouteDef(Routes.locationPicker, page: LocationPicker),
+    RouteDef(Routes.dROpening, page: DROpening),
+    RouteDef(Routes.dRPaymentView, page: DRPaymentView),
+    RouteDef(Routes.dRAppointmentDetailsView, page: DRAppointmentDetailsView),
+    RouteDef(Routes.dRLiveMapView, page: DRLiveMapView),
+    RouteDef(Routes.dRReportCardView, page: DRReportCardView),
     RouteDef(Routes.chatView, page: ChatView),
-    RouteDef(Routes.liveMapView, page: LiveMapView),
-    RouteDef(Routes.reportCardView, page: ReportCardView),
+    RouteDef(Routes.dTDogTrainingBookingView, page: DTDogTrainingBookingView),
+    RouteDef(Routes.dTOpening, page: DTOpening),
+    RouteDef(Routes.dTPaymentView, page: DTPaymentView),
+    RouteDef(Routes.dTAppointmentDetailsView, page: DTAppointmentDetailsView),
+    RouteDef(Routes.dTReportCardView, page: DTReportCardView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -576,6 +636,45 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    CreateAnimalProfileNewPageOne: (data) {
+      var args = data.getArgs<CreateAnimalProfileNewPageOneArguments>(
+        orElse: () => CreateAnimalProfileNewPageOneArguments(),
+      );
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => CreateAnimalProfileNewPageOne(
+          key: args.key,
+          isFromStart: args.isFromStart,
+        ),
+        settings: data,
+      );
+    },
+    CreateAnimalProfileNewPageTwo: (data) {
+      var args =
+          data.getArgs<CreateAnimalProfileNewPageTwoArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => CreateAnimalProfileNewPageTwo(
+          key: args.key,
+          id: args.id,
+          token: args.token,
+          isFromStart: args.isFromStart,
+        ),
+        settings: data,
+      );
+    },
+    CreateAnimalProfileNewPageThree: (data) {
+      var args =
+          data.getArgs<CreateAnimalProfileNewPageThreeArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => CreateAnimalProfileNewPageThree(
+          key: args.key,
+          id: args.id,
+          token: args.token,
+          type: args.type,
+          isFromStart: args.isFromStart,
+        ),
+        settings: data,
+      );
+    },
     GroupsView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const GroupsView(),
@@ -748,6 +847,51 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    ECommerceMainView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const ECommerceMainView(),
+        settings: data,
+      );
+    },
+    ProductDetailView: (data) {
+      var args = data.getArgs<ProductDetailViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => ProductDetailView(
+          key: args.key,
+          dummyProductModel: args.dummyProductModel,
+          index: args.index,
+        ),
+        settings: data,
+      );
+    },
+    CartView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const CartView(),
+        settings: data,
+      );
+    },
+    CheckOutView: (data) {
+      var args = data.getArgs<CheckOutViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => CheckOutView(
+          key: args.key,
+          listOfItems: args.listOfItems,
+        ),
+        settings: data,
+      );
+    },
+    OrderDetailPage: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const OrderDetailPage(),
+        settings: data,
+      );
+    },
+    ProductBookingsMainView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const ProductBookingsMainView(),
+        settings: data,
+      );
+    },
     SettingsHumanView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const SettingsHumanView(),
@@ -803,40 +947,15 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
-    DogRunnersView: (data) {
+    AppointmentsView: (data) {
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => DogRunnersView(),
+        builder: (context) => const AppointmentsView(),
         settings: data,
       );
     },
-    TamelyDogRunnersView: (data) {
-      var args = data.getArgs<TamelyDogRunnersViewArguments>(nullOk: false);
+    DRDogRunningBookingView: (data) {
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => TamelyDogRunnersView(
-          key: args.key,
-          currentLocation: args.currentLocation,
-        ),
-        settings: data,
-      );
-    },
-    DogRunningBookingView: (data) {
-      var args = data.getArgs<DogRunningBookingViewArguments>(nullOk: false);
-      return CupertinoPageRoute<dynamic>(
-        builder: (context) => DogRunningBookingView(
-          key: args.key,
-          currentLocation: args.currentLocation,
-        ),
-        settings: data,
-      );
-    },
-    PaymentView: (data) {
-      var args = data.getArgs<PaymentViewArguments>(nullOk: false);
-      return CupertinoPageRoute<dynamic>(
-        builder: (context) => PaymentView(
-          key: args.key,
-          amount: args.amount,
-          bookingId: args.bookingId,
-        ),
+        builder: (context) => const DRDogRunningBookingView(),
         settings: data,
       );
     },
@@ -846,17 +965,55 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
-    AppointmentsView: (data) {
+    DROpening: (data) {
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => const AppointmentsView(),
+        builder: (context) => const DROpening(),
         settings: data,
       );
     },
-    AppointmentDetailsView: (data) {
-      var args = data.getArgs<AppointmentDetailsViewArguments>(nullOk: false);
+    DRPaymentView: (data) {
+      var args = data.getArgs<DRPaymentViewArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => AppointmentDetailsView(
+        builder: (context) => DRPaymentView(
           key: args.key,
+          amount: args.amount,
+          bookingId: args.bookingId,
+        ),
+        settings: data,
+      );
+    },
+    DRAppointmentDetailsView: (data) {
+      var args = data.getArgs<DRAppointmentDetailsViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => DRAppointmentDetailsView(
+          key: args.key,
+          appointmentId: args.appointmentId,
+        ),
+        settings: data,
+      );
+    },
+    DRLiveMapView: (data) {
+      var args = data.getArgs<DRLiveMapViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => DRLiveMapView(
+          key: args.key,
+          walkNumber: args.walkNumber,
+          serviceProviderId: args.serviceProviderId,
+          userId: args.userId,
+          appointmentId: args.appointmentId,
+        ),
+        settings: data,
+      );
+    },
+    DRReportCardView: (data) {
+      var args = data.getArgs<DRReportCardViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => DRReportCardView(
+          key: args.key,
+          noOfDogs: args.noOfDogs,
+          dogs: args.dogs,
+          date: args.date,
+          walkNumber: args.walkNumber,
           appointmentId: args.appointmentId,
         ),
         settings: data,
@@ -868,29 +1025,46 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
-    LiveMapView: (data) {
-      var args = data.getArgs<LiveMapViewArguments>(nullOk: false);
+    DTDogTrainingBookingView: (data) {
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => LiveMapView(
+        builder: (context) => const DTDogTrainingBookingView(),
+        settings: data,
+      );
+    },
+    DTOpening: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const DTOpening(),
+        settings: data,
+      );
+    },
+    DTPaymentView: (data) {
+      var args = data.getArgs<DTPaymentViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => DTPaymentView(
           key: args.key,
-          walkNumber: args.walkNumber,
-          serviceProviderId: args.serviceProviderId,
-          userId: args.userId,
+          amount: args.amount,
+          bookingId: args.bookingId,
+        ),
+        settings: data,
+      );
+    },
+    DTAppointmentDetailsView: (data) {
+      var args = data.getArgs<DTAppointmentDetailsViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => DTAppointmentDetailsView(
+          key: args.key,
           appointmentId: args.appointmentId,
         ),
         settings: data,
       );
     },
-    ReportCardView: (data) {
-      var args = data.getArgs<ReportCardViewArguments>(nullOk: false);
+    DTReportCardView: (data) {
+      var args = data.getArgs<DTReportCardViewArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => ReportCardView(
+        builder: (context) => DTReportCardView(
           key: args.key,
-          noOfDogs: args.noOfDogs,
-          dogs: args.dogs,
-          date: args.date,
-          walkNumber: args.walkNumber,
           appointmentId: args.appointmentId,
+          sessionNo: args.sessionNo,
         ),
         settings: data,
       );
@@ -1123,6 +1297,41 @@ class SinglePostDetailsViewArguments {
   SinglePostDetailsViewArguments({this.key, required this.postResponse});
 }
 
+/// CreateAnimalProfileNewPageOne arguments holder class
+class CreateAnimalProfileNewPageOneArguments {
+  final Key? key;
+  final bool? isFromStart;
+  CreateAnimalProfileNewPageOneArguments({this.key, this.isFromStart});
+}
+
+/// CreateAnimalProfileNewPageTwo arguments holder class
+class CreateAnimalProfileNewPageTwoArguments {
+  final Key? key;
+  final String id;
+  final String token;
+  final bool isFromStart;
+  CreateAnimalProfileNewPageTwoArguments(
+      {this.key,
+      required this.id,
+      required this.token,
+      required this.isFromStart});
+}
+
+/// CreateAnimalProfileNewPageThree arguments holder class
+class CreateAnimalProfileNewPageThreeArguments {
+  final Key? key;
+  final String id;
+  final String token;
+  final String type;
+  final bool isFromStart;
+  CreateAnimalProfileNewPageThreeArguments(
+      {this.key,
+      required this.id,
+      required this.token,
+      required this.type,
+      required this.isFromStart});
+}
+
 /// CreateGroupSecondView arguments holder class
 class CreateGroupSecondViewArguments {
   final Key? key;
@@ -1226,6 +1435,22 @@ class BlogDetailsPageViewArguments {
   BlogDetailsPageViewArguments({this.key, required this.blog});
 }
 
+/// ProductDetailView arguments holder class
+class ProductDetailViewArguments {
+  final Key? key;
+  final ProductResponse dummyProductModel;
+  final int index;
+  ProductDetailViewArguments(
+      {this.key, required this.dummyProductModel, required this.index});
+}
+
+/// CheckOutView arguments holder class
+class CheckOutViewArguments {
+  final Key? key;
+  final List<CartItem> listOfItems;
+  CheckOutViewArguments({this.key, required this.listOfItems});
+}
+
 /// BookmarksView arguments holder class
 class BookmarksViewArguments {
   final Key? key;
@@ -1239,44 +1464,30 @@ class NotificationMainViewArguments {
   NotificationMainViewArguments({this.key, required this.haveAnyRequests});
 }
 
-/// TamelyDogRunnersView arguments holder class
-class TamelyDogRunnersViewArguments {
-  final Key? key;
-  final LatLng currentLocation;
-  TamelyDogRunnersViewArguments({this.key, required this.currentLocation});
-}
-
-/// DogRunningBookingView arguments holder class
-class DogRunningBookingViewArguments {
-  final Key? key;
-  final LatLng currentLocation;
-  DogRunningBookingViewArguments({this.key, required this.currentLocation});
-}
-
-/// PaymentView arguments holder class
-class PaymentViewArguments {
+/// DRPaymentView arguments holder class
+class DRPaymentViewArguments {
   final Key? key;
   final int amount;
   final String bookingId;
-  PaymentViewArguments(
+  DRPaymentViewArguments(
       {this.key, required this.amount, required this.bookingId});
 }
 
-/// AppointmentDetailsView arguments holder class
-class AppointmentDetailsViewArguments {
+/// DRAppointmentDetailsView arguments holder class
+class DRAppointmentDetailsViewArguments {
   final Key? key;
   final String appointmentId;
-  AppointmentDetailsViewArguments({this.key, required this.appointmentId});
+  DRAppointmentDetailsViewArguments({this.key, required this.appointmentId});
 }
 
-/// LiveMapView arguments holder class
-class LiveMapViewArguments {
+/// DRLiveMapView arguments holder class
+class DRLiveMapViewArguments {
   final Key? key;
   final WalkNumber walkNumber;
   final String serviceProviderId;
   final String userId;
   final String appointmentId;
-  LiveMapViewArguments(
+  DRLiveMapViewArguments(
       {this.key,
       required this.walkNumber,
       required this.serviceProviderId,
@@ -1284,19 +1495,44 @@ class LiveMapViewArguments {
       required this.appointmentId});
 }
 
-/// ReportCardView arguments holder class
-class ReportCardViewArguments {
+/// DRReportCardView arguments holder class
+class DRReportCardViewArguments {
   final Key? key;
   final int noOfDogs;
   final List<String> dogs;
   final DateTime date;
   final WalkNumber walkNumber;
   final String appointmentId;
-  ReportCardViewArguments(
+  DRReportCardViewArguments(
       {this.key,
       required this.noOfDogs,
       required this.dogs,
       required this.date,
       required this.walkNumber,
       required this.appointmentId});
+}
+
+/// DTPaymentView arguments holder class
+class DTPaymentViewArguments {
+  final Key? key;
+  final int amount;
+  final String bookingId;
+  DTPaymentViewArguments(
+      {this.key, required this.amount, required this.bookingId});
+}
+
+/// DTAppointmentDetailsView arguments holder class
+class DTAppointmentDetailsViewArguments {
+  final Key? key;
+  final String appointmentId;
+  DTAppointmentDetailsViewArguments({this.key, required this.appointmentId});
+}
+
+/// DTReportCardView arguments holder class
+class DTReportCardViewArguments {
+  final Key? key;
+  final String appointmentId;
+  final int sessionNo;
+  DTReportCardViewArguments(
+      {this.key, required this.appointmentId, required this.sessionNo});
 }

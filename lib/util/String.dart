@@ -76,7 +76,7 @@ String createAnimalTitle = "Create new animal profile";
 String editAnimalTitle = "Edit animal profile";
 
 //Drawer layout
-String walletTitle = "Tamely Wallet";
+String walletTitle = "petmojo Wallet";
 String walletSubTitle = "Add funds and redeem rewards!";
 
 String bookingTitle = "My bookings";
@@ -98,10 +98,10 @@ String logoutTitle = "Logout";
 String logoutSubTitle = "We will miss you!";
 
 //community page
-String communityTitle = "Join the Tamely community!";
+String communityTitle = "Join the petmojo community!";
 String communityDescription =
     "We are a family of animal lovers across the planet. Find, connect, meet, help and support other animal lovers.";
-String tamelyGrp = "Tamely Groups";
+String tamelyGrp = "petmojo Groups";
 String tamelyGrpDescription =
     "Join or create a group with other animal lovers, Discover interests and loving community.";
 
@@ -186,17 +186,17 @@ String godRunnersTitle = "Dog runners";
 
 String chooseCompanyTitle = "Service Provider(s) Near You -";
 
-String tamelyDogRunningTitle = "Tamely Dog Running";
+String tamelyDogRunningTitle = "petmojo Dog Running";
 
 String noServiceAvailableLabel =
     "No Dog Runners are available in your area \n\nPlease try with other nearby PIN Code";
 
 // Tamely Dog Running page
-String tamelyTitle = "Tamely";
+String tamelyTitle = "petmojo";
 
 String dogRunningTitle = "(Dog Running)";
 String tamelyDogRunningSubtitle =
-    "Tamely provides local, trusted and safe dog runners verified through a comprehensive background check";
+    "petmojo provides local, trusted and safe dog runners verified through a comprehensive background check";
 
 String overviewTitle = "Overview";
 String reviewsTitle = "Reviews";
@@ -227,29 +227,38 @@ String acceptedAnimalsSubtext = "Dogs - all sizes";
 
 // -- Rate Chart page
 
-String perWalkTitle = "Per run";
-String perWeekOnceTitle = "Per week (Once a day)";
-String perWeekTwiceTitle = "Per week (Twice a day)";
-String perMonthOnceTitle = "Per month (Once a day)";
-String perMonthTwiceTitle = "Per month (Twice a day)";
+String perWalkTitle = "FREE trial session";
+String perMonthOnceTitle = "Monthly Dog Walking - Once a Day";
+String perMonthTwiceTitle = "Monthly Dog Walking - Twice a Day";
 
-String perWalkSubtitle = "(25-30mins)";
-String perWeekOnceSubtitle = "25-30mins per run, One day off";
-String perWeekTwiceSubtitle = "25-30mins per run, One day off";
-String perMonthOnceSubtitle = "25-30mins per run, Weekly one day off";
-String perMonthTwiceSubtitle = "25-30mins per run, Weekly one day off";
+String perWalkSubtitleOne = "30 mins walk";
+String perMonthOnceSubtitleOne = "30 mins walk each";
+String perMonthTwiceSubtitleOne = "30 mins walk each";
 
-String perWalkRate = "Rs.300";
-String perWeekOnceRate = "Rs.1500";
-String perWeekTwiceRate = "Rs.2500";
-String perMonthOnceRate = "Rs.4500";
-String perMonthTwiceRate = "Rs.8500";
+String perWalkSubtitleTwo = "";
+String perMonthOnceSubtitleTwo = "Weekly one off";
+String perMonthTwiceSubtitleTwo = "Weekly one off";
 
-String perWalkRateLabel = "(extra pet: Rs.100)";
-String perWeekOnceRateLabel = "(extra pet: Rs.500)";
-String perWeekTwiceRateLabel = "(extra pet: Rs.700)";
-String perMonthOnceRateLabel = "(extra pet: Rs.1500)";
-String perMonthTwiceRateLabel = "(extra pet: Rs.2700)";
+String perWalkRateOld = "FREE";
+String perMonthOnceRateOld = "₹5,500/-";
+String perMonthTwiceRateOld = "Rs.₹10,600/-";
+
+String perWalkRateNew = "FREE";
+String perMonthOnceRateNew = "₹4,500/-";
+String perMonthTwiceRateNew = "₹8,500/-";
+
+String perWalkRateLabel = "";
+String perMonthOnceRateLabel = "(You save 1,000)";
+String perMonthTwiceRateLabel = "(You save 2,100)";
+
+// See more
+
+String walkSeeOne = "GPS Live Tracking";
+String walkSeeTwo = "Daily Report Card";
+String walkSeeThree = "Photo Updates";
+String walkSeeFour = "Distance Covered";
+String walkSeeFive = "Recommended 60 mins excercise each day";
+String walkSeeSix = "Helps in Overexcitement Correction";
 
 // Book a Run Page
 
@@ -260,7 +269,11 @@ String bookARunTitle = "Book a run";
 
 String bookARunLabel =
     "Pet parenting is hard, we can make it a whole lot easier!";
-String bookARunSubtitle = "Please tell us about your pet";
+String bookARunSubtitleWithFree =
+    "Almost there! Select which package your pet needs? Call us on 9009004473 if you have any query.";
+
+String bookARunningSubtitle =
+    "Our dog runner really liked your pet! Please choose from a package below to gift your pet fun filled walks daily. NO COST EMIs available.";
 
 String noOfPetsLabel = "Number of pets";
 
@@ -328,9 +341,9 @@ String runTwoLabel = "Run time 2";
 
 String timingsOne = "6am-9am";
 String timingsTwo = "9am-12am";
-String timingsThree = "12am-3am";
-String timingsFour = "3am-6am";
-String timingsFive = "6am-10am";
+String timingsThree = "12pm-3pm";
+String timingsFour = "3pm-6pm";
+String timingsFive = "6pm-10pm";
 String timingsSix = "None";
 
 String previousRunnersLabel = "Book your previous dog runners";
@@ -413,7 +426,7 @@ String submitButton = "Submit";
 // Partner Side - Report card Page
 
 String reportCardTitle = "Run Complete!";
-String reportCardSubtitle = "Tamely Report card";
+String reportCardSubtitle = "petmojo Report card";
 
 String walkRatingTitle = "Ratings for dog runner";
 String walkRatingSubtitle =
@@ -431,9 +444,13 @@ String pastAppointmentsTitle = "Past";
 
 // -- Active
 
-String pendingLabel = "Dog runner will be assigned shortly";
+String pendingLabel = "Dog runner will be \n assigned shortly";
 String upcomingLabel = "Upcoming";
 String confirmedLabel = "Confirmed";
+String reorderLabel = "Renew Soon";
+String bookLabel = "Book your package";
+String bookTextLabel =
+    "*Easy EMI starting from 500 available. \n Please contact the sales team at 9009004473.";
 
 // -- Past
 String canceledLabel = "Canceled";
@@ -467,3 +484,106 @@ String othersTag = "Others";
 //under development
 
 String onDevelop = "Under the development";
+
+// Dog Training
+
+// Book a run
+
+String bookATrainingSubtitle =
+    "Our dog trainer really liked your pet! Please choose from a package below to gift your pet fun filled trainings. NO COST EMIs available.";
+
+String firstPageTitle = "Select Package";
+String secondPageTitle = "Book Dog Training";
+String trainingTimeTitle = "Training time ";
+
+String freeTrainingTitle = "Demo Session";
+String twoTrainingTitle = "Puppy Training";
+String threeTrainingTitle = "Basic Obedience & Behavioural Training";
+String fourTrainingTitle =
+    "Advanced Obedience Behavioural and Guarding Training";
+String fiveTrainingTitle =
+    "Elite STAGE SHOW Obedience, Behavioural, Guarding and Intellect Training";
+
+String freeTrainingSubtitleOne = "30 Mins";
+String twoTrainingSubtitleOne = "16 Sessions";
+String threeTrainingSubtitleOne = "26 Sessions";
+String fourTrainingSubtitleOne = "36 Sessions";
+String fiveTrainingSubtitleOne = "48 Sessions";
+
+String freeTrainingSubtitleTwo = "FREE Assessment";
+String twoTrainingSubtitleTwo = "<5 months";
+String threeTrainingSubtitleTwo = "";
+String fourTrainingSubtitleTwo = "";
+String fiveTrainingSubtitleTwo = "";
+
+String freeTrainingRateOld = "FREE";
+String twoTrainingRateOld = "₹10,788/-";
+String threeTrainingRateOld = "₹21,576/-";
+String fourTrainingRateOld = "₹32,364/-";
+String fiveTrainingRateOld = "₹43,152/-";
+
+String freeTrainingRateNew = "FREE";
+String twoTrainingRateNew = "₹9,588/-";
+String threeTrainingRateNew = "₹18,000/-";
+String fourTrainingRateNew = "₹25,560/-";
+String fiveTrainingRateNew = "₹32,640/-";
+
+String freeTrainingRateLabel = "";
+String twoTrainingRateLabel = "(You save 1,200)";
+String threeTrainingRateLabel = "(You save 3,576)";
+String fourTrainingRateLabel = "(You save 6,804)";
+String fiveTrainingRateLabel = "(You save 10,512)";
+
+// See more
+
+String twoTrainingSeeOne = "Biting Calibration";
+String twoTrainingSeeTwo = "Potty Training";
+String twoTrainingSeeThree = "Socialization with other Dogs";
+String twoTrainingSeeFour = "Socialization with other humans";
+String twoTrainingSeeFive = "Puppy-proofing your home";
+String twoTrainingSeeSix = "Leash Walking";
+
+String threeTrainingSeeOne = "Instruction Hi-five!";
+String threeTrainingSeeTwo = "Instruction Handshake";
+String threeTrainingSeeThree = "Instruction Sit";
+String threeTrainingSeeFour = "Instruction Heal";
+String threeTrainingSeeFive = "Leash Walking";
+String threeTrainingSeeSix = "Instruction Down";
+String threeTrainingSeeSeven = "Instruction Come";
+String threeTrainingSeeEight = "Instruction Stay";
+String threeTrainingSeeNine = "Instruction No";
+
+String fourTrainingSeeOne = "Instruction Fetch";
+String fourTrainingSeeTwo = "Instruction Drop";
+String fourTrainingSeeThree = "Instruction Lie Down";
+String fourTrainingSeeFour = "Guarding";
+String fourTrainingSeeFive = "Instruction Hi-five!";
+String fourTrainingSeeSix = "Instruction Heal";
+String fourTrainingSeeSeven = "Leash Walking";
+String fourTrainingSeeEight = "Instruction Handshake";
+String fourTrainingSeeNine = "Instruction Sit";
+String fourTrainingSeeTen = "Instruction Down";
+String fourTrainingSeeEleven = "Instruction Come";
+String fourTrainingSeeTwelve = "Instruction Stay";
+String fourTrainingSeeThirteen = "Instruction No";
+
+String fiveTrainingSeeOne = "Instruction Salute";
+String fiveTrainingSeeTwo = "Instruction Rollover";
+String fiveTrainingSeeThree = "Counting 1-5 (Breed and Intelligence dependent)";
+String fiveTrainingSeeFour = "Without Leash Walking";
+String fiveTrainingSeeFive = "Instruction Eat/Don't Eat";
+String fiveTrainingSeeSix = "Instruction Fetch";
+String fiveTrainingSeeSeven = "Instruction Come";
+String fiveTrainingSeeEight = "Instruction Stay";
+String fiveTrainingSeeNine = "Instruction No";
+String fiveTrainingSeeTen = "Instruction Drop";
+String fiveTrainingSeeEleven = "Instruction Lie Down";
+String fiveTrainingSeeTwelve = "Guarding";
+String fiveTrainingSeeThirteen = "Instruction Hi-five!";
+String fiveTrainingSeeFourteen = "Instruction Handshake";
+String fiveTrainingSeeFifteen = "Instruction Sit";
+String fiveTrainingSeeSixteen = "Instruction Down";
+String fiveTrainingSeeSeventeen = "Instruction Heal";
+
+// My Appointments
+String dogTrainingTitle = "Dog Training";

@@ -339,39 +339,35 @@ class _$_GetPaymentDetailsResponse extends _GetPaymentDetailsResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _GetPaymentDetailsResponse &&
-            (identical(other.orderId, orderId) || other.orderId == orderId) &&
-            (identical(other.entity, entity) || other.entity == entity) &&
-            (identical(other.amount, amount) || other.amount == amount) &&
-            (identical(other.amountPaid, amountPaid) ||
-                other.amountPaid == amountPaid) &&
-            (identical(other.amountDue, amountDue) ||
-                other.amountDue == amountDue) &&
-            (identical(other.currency, currency) ||
-                other.currency == currency) &&
-            (identical(other.receiptId, receiptId) ||
-                other.receiptId == receiptId) &&
-            (identical(other.offerId, offerId) || other.offerId == offerId) &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.attempts, attempts) ||
-                other.attempts == attempts) &&
-            (identical(other.bookingDetails, bookingDetails) ||
-                other.bookingDetails == bookingDetails));
+            const DeepCollectionEquality().equals(other.orderId, orderId) &&
+            const DeepCollectionEquality().equals(other.entity, entity) &&
+            const DeepCollectionEquality().equals(other.amount, amount) &&
+            const DeepCollectionEquality()
+                .equals(other.amountPaid, amountPaid) &&
+            const DeepCollectionEquality().equals(other.amountDue, amountDue) &&
+            const DeepCollectionEquality().equals(other.currency, currency) &&
+            const DeepCollectionEquality().equals(other.receiptId, receiptId) &&
+            const DeepCollectionEquality().equals(other.offerId, offerId) &&
+            const DeepCollectionEquality().equals(other.status, status) &&
+            const DeepCollectionEquality().equals(other.attempts, attempts) &&
+            const DeepCollectionEquality()
+                .equals(other.bookingDetails, bookingDetails));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      orderId,
-      entity,
-      amount,
-      amountPaid,
-      amountDue,
-      currency,
-      receiptId,
-      offerId,
-      status,
-      attempts,
-      bookingDetails);
+      const DeepCollectionEquality().hash(orderId),
+      const DeepCollectionEquality().hash(entity),
+      const DeepCollectionEquality().hash(amount),
+      const DeepCollectionEquality().hash(amountPaid),
+      const DeepCollectionEquality().hash(amountDue),
+      const DeepCollectionEquality().hash(currency),
+      const DeepCollectionEquality().hash(receiptId),
+      const DeepCollectionEquality().hash(offerId),
+      const DeepCollectionEquality().hash(status),
+      const DeepCollectionEquality().hash(attempts),
+      const DeepCollectionEquality().hash(bookingDetails));
 
   @JsonKey(ignore: true)
   @override

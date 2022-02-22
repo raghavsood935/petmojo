@@ -77,11 +77,15 @@ class _PostItemViewState extends State<PostItemView> {
                       children: [
                         CustomCircularAvatar(
                           radius: 20,
-                          imgPath:
+                          imgPath: (widget.postResponse.userAuthor ?? [])
+                                  .isEmpty
+                              ? ""
+                              : widget.postResponse.userAuthor![0].avatar ?? "",
+                          isHuman: GlobalMethods.checkProfileType(
                               (widget.postResponse.userAuthor ?? []).isEmpty
-                                  ? emptyProfileImgUrl
-                                  : widget.postResponse.userAuthor![0].avatar ??
-                                      emptyProfileImgUrl,
+                                  ? ""
+                                  : widget.postResponse.userAuthor![0].type ??
+                                      ""),
                         ),
                         horizontalSpaceSmall,
                         Column(
@@ -183,7 +187,14 @@ class _PostItemViewState extends State<PostItemView> {
                           //     ? emptyProfileImgUrl
                           //     : widget.postResponse.userAuthor![0].avatar ??
                           //     emptyProfileImgUrl,
-                          imgPath: emptyProfileImgUrl,
+                          imgPath:
+                              (widget.postResponse.animalAuthorResponse ?? [])
+                                      .isEmpty
+                                  ? ""
+                                  : widget.postResponse.animalAuthorResponse![0]
+                                          .avatar ??
+                                      "-",
+                          isHuman: false,
                         ),
                         horizontalSpaceSmall,
                         Column(
@@ -293,8 +304,8 @@ class _PostItemViewState extends State<PostItemView> {
             ),
           ),
           GestureDetector(
-            onTap: () => model
-                .imageTapped(widget.postResponse.image ?? emptyProfileImgUrl),
+            onTap: () => model.imageTapped(
+                context, widget.postResponse.image ?? emptyProfileImgUrl),
             child: SwiperWidget(model: widget.postResponse),
           ),
           verticalSpaceTiny,
@@ -405,6 +416,7 @@ class _PostItemViewState extends State<PostItemView> {
                         CustomCircularAvatar(
                           radius: 17.0,
                           imgPath: model.myProfileImg,
+                          isHuman: model.isHuman,
                         ),
                         horizontalSpaceSmall,
                         AppText.caption(

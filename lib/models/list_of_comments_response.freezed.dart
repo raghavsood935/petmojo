@@ -441,30 +441,29 @@ class _$_CommentResponse extends _CommentResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _CommentResponse &&
-            (identical(other.commentId, commentId) ||
-                other.commentId == commentId) &&
-            (identical(other.message, message) || other.message == message) &&
+            const DeepCollectionEquality().equals(other.commentId, commentId) &&
+            const DeepCollectionEquality().equals(other.message, message) &&
             const DeepCollectionEquality()
                 .equals(other.authorDetailsResponse, authorDetailsResponse) &&
             const DeepCollectionEquality().equals(
                 other.animalAuthorDetailsResponse,
                 animalAuthorDetailsResponse) &&
-            (identical(other.authorType, authorType) ||
-                other.authorType == authorType) &&
-            (identical(other.postId, postId) || other.postId == postId) &&
-            (identical(other.date, date) || other.date == date));
+            const DeepCollectionEquality()
+                .equals(other.authorType, authorType) &&
+            const DeepCollectionEquality().equals(other.postId, postId) &&
+            const DeepCollectionEquality().equals(other.date, date));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      commentId,
-      message,
+      const DeepCollectionEquality().hash(commentId),
+      const DeepCollectionEquality().hash(message),
       const DeepCollectionEquality().hash(authorDetailsResponse),
       const DeepCollectionEquality().hash(animalAuthorDetailsResponse),
-      authorType,
-      postId,
-      date);
+      const DeepCollectionEquality().hash(authorType),
+      const DeepCollectionEquality().hash(postId),
+      const DeepCollectionEquality().hash(date));
 
   @JsonKey(ignore: true)
   @override

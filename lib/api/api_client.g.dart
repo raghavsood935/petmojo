@@ -33,6 +33,23 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<UserResponse> appleLogin(appleSigninBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(appleSigninBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UserResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/auth/login/apple',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = UserResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<CommonResponse> resetPassword(resetPasswordBody) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -75,7 +92,7 @@ class _ApiClient implements ApiClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CommonResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/auth/resendotp/$type',
+                .compose(_dio.options, '/auth/resendotp/${type}',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CommonResponse.fromJson(_result.data!);
@@ -244,7 +261,7 @@ class _ApiClient implements ApiClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<UserNameAvailableResponse>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/user/isusernameavailable/$username',
+                .compose(_dio.options, '/user/isusernameavailable/${username}',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = UserNameAvailableResponse.fromJson(_result.data!);
@@ -311,11 +328,14 @@ class _ApiClient implements ApiClient {
         MultipartFile.fromFileSync(image.path,
             filename: image.path.split(Platform.pathSeparator).last)));
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<CommonResponse>(
-            Options(method: 'PUT', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/user/avatar',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        _setStreamType<CommonResponse>(Options(
+                method: 'PUT',
+                headers: _headers,
+                extra: _extra,
+                contentType: 'multipart/form-data')
+            .compose(_dio.options, '/user/avatar',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CommonResponse.fromJson(_result.data!);
     return value;
   }
@@ -684,6 +704,58 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<AnimalProfileCreateResopnse> animalProfileCreateNew(
+      createAnimalProfileNewBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(createAnimalProfileNewBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<AnimalProfileCreateResopnse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/animal/register',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = AnimalProfileCreateResopnse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<EditResponse> editAnimalType(editAnimalTypeBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(editAnimalTypeBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<EditResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/animal/editPet',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = EditResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<EditResponse> editAnimalBreedAndAge(editAnimalBreedAgeBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(editAnimalBreedAgeBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<EditResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/animal/editBreedAndAge',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = EditResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<EditResponse> editAnimalProfile(editAnimalProfileBody) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -831,7 +903,7 @@ class _ApiClient implements ApiClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BookmarkResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/user/$postID/bookmark',
+                .compose(_dio.options, '/user/${postID}/bookmark',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BookmarkResponse.fromJson(_result.data!);
@@ -951,7 +1023,7 @@ class _ApiClient implements ApiClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CommentAddedResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/comment/$postId',
+                .compose(_dio.options, '/comment/${postId}',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CommentAddedResponse.fromJson(_result.data!);
@@ -967,26 +1039,10 @@ class _ApiClient implements ApiClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ListOfCommentsResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/comment/$postId/$counter',
+                .compose(_dio.options, '/comment/${postId}/${counter}',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ListOfCommentsResponse.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<GetPetDetailsResponse> getPetDetails() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<GetPetDetailsResponse>(
-            Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/serviceBooking/getPetDetails',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = GetPetDetailsResponse.fromJson(_result.data!);
     return value;
   }
 
@@ -1454,6 +1510,155 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<ProductListResponse> getProducts(counterBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(counterBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ProductListResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/product/getProducts',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ProductListResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ProductDetailsByIdResponse> getProductDetails(
+      productIdCommonBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(productIdCommonBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ProductDetailsByIdResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/product/getProductDetails',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ProductDetailsByIdResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<EditResponse> addToCart(productIdCommonBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(productIdCommonBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<EditResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/product/addToCart',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = EditResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FavInnerProductListResponse> getCartDetails() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FavInnerProductListResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/product/getCartDetails',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FavInnerProductListResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<EditResponse> addToFavourites(productIdCommonBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(productIdCommonBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<EditResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/product/addToFavourites',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = EditResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FavProductListResponse> getFavouriteDetails() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FavProductListResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/product/getFavouriteDetails',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FavProductListResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<GetFreeWalkResponse> getFreeWalk() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetFreeWalkResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/user/isFreeWalkAvailable',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GetFreeWalkResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<SendDataResponse> setFreeWalk() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<SendDataResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/user/updateFreeWalkStatus',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = SendDataResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<GetPetDetailsResponse> getPetDetails() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetPetDetailsResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/serviceBooking/getPetDetails',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GetPetDetailsResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<BookARunResponse> bookARun(bookARunBody) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -1506,6 +1711,89 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<GetFreeTrainingResponse> getFreeTraining() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetFreeTrainingResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/user/isFreeTrainingSessionAvailable',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GetFreeTrainingResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<SendDataResponse> setFreeTraining() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<SendDataResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/user/updateFreeTrainingSessionStatus',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = SendDataResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<BookARunResponse> bookATraining(bookATrainingBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(bookATrainingBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BookARunResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/serviceBooking/bookDogTrainingService',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BookARunResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<SendDataResponse> setPaymentDetailsTraining(
+      setPaymentDetailsBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(setPaymentDetailsBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<SendDataResponse>(
+            Options(method: 'PATCH', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/service/postTrainingPayment',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = SendDataResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<HasAppointmentsResponse> hasAppointments() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HasAppointmentsResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/serviceBooking/hasAppointments',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = HasAppointmentsResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<MyAppointmentsResponse> getActiveAppointments() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -1552,6 +1840,23 @@ class _ApiClient implements ApiClient {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = MyAppointmentsResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ReorderARunResponse> reorderARun(reorderARunBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(reorderARunBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ReorderARunResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/serviceBooking/reorder',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ReorderARunResponse.fromJson(_result.data!);
     return value;
   }
 
@@ -1692,6 +1997,97 @@ class _ApiClient implements ApiClient {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = SendDataResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ReorderARunResponse> reorderATraining(reorderARunBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(reorderARunBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ReorderARunResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/serviceBooking/reorderTraining',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ReorderARunResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<GetTrainingAppointmentDetailsResponse> getTrainingAppointmentDetails(
+      getAppointmentDetailsBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(getAppointmentDetailsBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetTrainingAppointmentDetailsResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options,
+                    '/serviceBooking/getDogTrainingAppointmentDetails',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GetTrainingAppointmentDetailsResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<SendDataResponse> changeTrainingAppointmentStatus(
+      changeAppointmentStatusBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(changeAppointmentStatusBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<SendDataResponse>(Options(
+                method: 'POST', headers: _headers, extra: _extra)
+            .compose(
+                _dio.options, '/serviceBooking/changeTrainingAppointmentstatus',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = SendDataResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<GetTrainingScrollStatusResponse> getTrainingScrollStatus(
+      getTrainingScrollStatusBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(getTrainingScrollStatusBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetTrainingScrollStatusResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/serviceBooking/getscrollSessionstatus',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GetTrainingScrollStatusResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<GetTrainingReportResponse> getTrainingReport(
+      getTrainingReportBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(getTrainingReportBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetTrainingReportResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/serviceBooking/getTrainingReport',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GetTrainingReportResponse.fromJson(_result.data!);
     return value;
   }
 

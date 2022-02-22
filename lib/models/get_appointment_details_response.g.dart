@@ -55,7 +55,8 @@ _$_GetBookingDetailsResponse _$$_GetBookingDetailsResponseFromJson(
               json['petRunningLocation'] as Map<String, dynamic>),
       package: json['package'] == null
           ? null
-          : PackageResponse.fromJson(json['package'] as Map<String, dynamic>),
+          : DogRunningPackageResponse.fromJson(
+              json['package'] as Map<String, dynamic>),
       numberOfPets: json['numberOfPets'] as int?,
       petDetails: (json['petDetails'] as List<dynamic>?)
           ?.map((e) => PetSizeResponse.fromJson(e as Map<String, dynamic>))

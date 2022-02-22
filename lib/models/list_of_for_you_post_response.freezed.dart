@@ -319,13 +319,15 @@ class _$_ForYouPostResponse extends _ForYouPostResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ForYouPostResponse &&
-            (identical(other.Id, Id) || other.Id == Id) &&
-            (identical(other.thumbnail, thumbnail) ||
-                other.thumbnail == thumbnail));
+            const DeepCollectionEquality().equals(other.Id, Id) &&
+            const DeepCollectionEquality().equals(other.thumbnail, thumbnail));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, Id, thumbnail);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(Id),
+      const DeepCollectionEquality().hash(thumbnail));
 
   @JsonKey(ignore: true)
   @override

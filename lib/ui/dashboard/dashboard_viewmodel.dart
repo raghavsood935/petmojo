@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:stacked/stacked.dart';
@@ -42,10 +43,10 @@ class DashboardViewModel extends FutureViewModel<void>
   String _userID = "";
   String get userID => _userID;
 
-  String _profileName = "Harsh Mittal";
+  String _profileName = "";
   String get profileName => _profileName;
 
-  String _userName = "harsh.mittal";
+  String _userName = "";
   String get userName => _userName;
 
   String _avatarUrl = "";
@@ -116,90 +117,97 @@ class DashboardViewModel extends FutureViewModel<void>
     String petToken,
     int initialPageState,
   ) async {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
-      _controller = PersistentTabController(initialIndex: initialPageState);
-      this.initialState = initalState;
-      this.isHuman = isHuman;
-      this.petId = petId;
-      this.petToken = petToken;
+    _controller = PersistentTabController(initialIndex: initialPageState);
+    fetchUserDetail(
+      initalState,
+      isNeedToUpdateProfile,
+      isHuman,
+      petId,
+      petToken,
+      initialPageState,
+    );
+  }
+
+  Future fetchUserDetail(
+    int initalState,
+    bool isNeedToUpdateProfile,
+    bool isHuman,
+    String petId,
+    String petToken,
+    int initialPageState,
+  ) async {
+    this.initialState = initalState;
+    this.isHuman = isHuman;
+    this.petId = petId;
+    this.petToken = petToken;
+    notifyListeners();
+    isErrorInLoading = false;
+    notifyListeners();
+    BaseResponse<UserProfileDetailsResponse> response =
+        await _tamelyApi.getUserProfileDetail();
+    if (response.getException != null) {
+      ServerError error = response.getException as ServerError;
+      _navigationService.back();
+      isErrorInLoading = true;
       notifyListeners();
-      isLoading = true;
-      isErrorInLoading = false;
-      notifyListeners();
-      if (isNeedToUpdateProfile) {
-        _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
+      _snackBarService.showSnackbar(message: error.getErrorMessage());
+    } else if (response.data != null) {
+      _userName = response.data!.userDetailsModel!.fullName ?? "";
+      _profileName = response.data!.userDetailsModel!.username ?? "";
+      _avatarUrl = response.data!.userDetailsModel!.avatar ?? "";
+      _userID = response.data!.userDetailsModel!.Id ?? "";
+      _listOfProfiles.insert(
+        0,
+        ProfileSelectBarItem(
+          _avatarUrl,
+          "",
+          "",
+          true,
+        ),
+      );
+      if (!isHuman) {
+        var animalProfileResponse = await _tamelyApi.getAnimalProfileDetail(
+            AnimalProfileDetailsBody(petId),
+            animalToken: petToken);
+        if (animalProfileResponse.data != null) {
+          _userName =
+              animalProfileResponse.data!.animalprofileModel!.name ?? "";
+          _profileName =
+              animalProfileResponse.data!.animalprofileModel!.username ?? "";
+          _avatarUrl = animalProfileResponse.data!.animalprofileModel!.avatar ??
+              emptyProfileImgUrl;
+        }
       }
-      BaseResponse<UserProfileDetailsResponse> response =
-          await _tamelyApi.getUserProfileDetail();
-      if (response.getException != null) {
-        ServerError error = response.getException as ServerError;
-        _dialogService.completeDialog(DialogResponse(confirmed: true));
-        _navigationService.back();
-        isErrorInLoading = true;
-        notifyListeners();
-        _snackBarService.showSnackbar(message: error.getErrorMessage());
-      } else if (response.data != null) {
-        _userName = response.data!.userDetailsModel!.fullName ?? "";
-        _profileName = response.data!.userDetailsModel!.username ?? "";
-        _avatarUrl = response.data!.userDetailsModel!.avatar ?? "";
-        _userID = response.data!.userDetailsModel!.Id ?? "";
-        _listOfProfiles.insert(
-          0,
+
+      for (PetBasicDetailsResponse petResponse
+          in response.data!.userDetailsModel!.listOfPets ?? []) {
+        _listOfProfiles.add(
           ProfileSelectBarItem(
-            _avatarUrl,
-            "",
-            "",
-            true,
-          ),
+              petResponse.detailsResponse!.avatar ?? emptyProfileImgUrl,
+              petResponse.detailsResponse!.Id!,
+              petResponse.detailsResponse!.token!,
+              false),
         );
-        if (!isHuman) {
-          var animalProfileResponse = await _tamelyApi.getAnimalProfileDetail(
-              AnimalProfileDetailsBody(petId),
-              animalToken: petToken);
-          if (animalProfileResponse.data != null) {
-            _userName =
-                animalProfileResponse.data!.animalprofileModel!.name ?? "";
-            _profileName =
-                animalProfileResponse.data!.animalprofileModel!.username ?? "";
-            _avatarUrl =
-                animalProfileResponse.data!.animalprofileModel!.avatar ??
-                    emptyProfileImgUrl;
-          }
-        }
-
-        for (PetBasicDetailsResponse petResponse
-            in response.data!.userDetailsModel!.listOfPets ?? []) {
-          _listOfProfiles.add(
-            ProfileSelectBarItem(
-                petResponse.detailsResponse!.avatar ?? emptyProfileImgUrl,
-                petResponse.detailsResponse!.Id!,
-                petResponse.detailsResponse!.token!,
-                false),
-          );
-        }
-
-        _sharedPrefService.saveCurrentProfile(
-          CurrentProfile(
-            userName,
-            profileName,
-            avatarUrl,
-            isHuman,
-            petId,
-            petToken,
-            userID,
-            initialPageState,
-          ),
-        );
-        isLoading = false;
-        notifyListeners();
-        _dialogService.completeDialog(DialogResponse(confirmed: true));
-        getNotificationCount();
-      } else {
-        _navigationService.back();
       }
-    });
 
-    // print(_sharedPrefService.getCurrentUser().toString());
+      _sharedPrefService.saveCurrentProfile(
+        CurrentProfile(
+          userName,
+          profileName,
+          avatarUrl,
+          isHuman,
+          petId,
+          petToken,
+          userID,
+          initialPageState,
+        ),
+      );
+      isLoading = false;
+      notifyListeners();
+      getNotificationCount();
+    } else {
+      _navigationService.back();
+    }
   }
 
   Future getNotificationCount() async {
@@ -274,10 +282,25 @@ class DashboardViewModel extends FutureViewModel<void>
   }
 
   void onLogOutPressed() async {
-    _sharedPrefService.clearLoginData();
-    _sharedPrefService.currentState =
-        getRedirectStateName(RedirectState.Welcome);
-    _navigationService.pushNamedAndRemoveUntil(Routes.onBoardingView);
+    await _sharedPrefService.clearLoginData().whenComplete(() {
+      _sharedPrefService.currentState =
+          getRedirectStateName(RedirectState.Welcome);
+      _navigationService.pushNamedAndRemoveUntil(Routes.loginView);
+    });
+  }
+
+  Future<bool> onBackPressed() async {
+    var result = await _dialogService.showCustomDialog(
+      variant: DialogType.ExitAppDialog,
+    );
+
+    if (result != null) {
+      if (result.confirmed) {
+        SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+        return false;
+      }
+    }
+    return false;
   }
 }
 

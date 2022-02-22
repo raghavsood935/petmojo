@@ -186,6 +186,7 @@ Widget listItem(ProfileForYouResponse profile) {
     leading: CustomCircularAvatar(
       radius: 30,
       imgPath: profile.avatar ?? emptyProfileImgUrl,
+      isHuman: GlobalMethods.checkProfileType(profile.type ?? ""),
     ),
     title: AppText.body1(profile.username ?? ""),
     subtitle: AppText.caption(profile.fullName ?? ""),

@@ -34,6 +34,8 @@ class SignUpView extends StatelessWidget with $SignUpView {
           title: createAccountTitle,
           onSignInWithFacebook: model.useFacebookAuthentication,
           onSignInWithGoogle: model.useGoogleAuthentication,
+          onSignInWithApple: model.useAppleAuthentication,
+          onContinueWithPhone: model.onPhoneAuthentication,
           subtitle: '',
           isSocialLoginEnabled: true,
           mainButtonTitle: signUpButton,
@@ -42,37 +44,147 @@ class SignUpView extends StatelessWidget with $SignUpView {
             mainAxisSize: MainAxisSize.max,
             children: [
               Container(
+                margin: EdgeInsets.symmetric(vertical: 15),
                 padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: AppText.body1(
-                    emailLabel,
-                    textAlign: TextAlign.start,
-                    color: colors.black,
-                  ),
+                decoration: BoxDecoration(
+                  color: colors.white,
+                  border: Border.all(
+                      color:
+                          model.emailFocus ? colors.primary : Color(0xFFD0D0D0),
+                      width: 0.5),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.email_rounded,
+                      color:
+                          model.emailFocus ? colors.primary : Color(0xFFABB3BB),
+                    ),
+                    horizontalSpaceRegular,
+                    Expanded(
+                      child: FocusScope(
+                        child: Focus(
+                          onFocusChange: model.onEmailFocusChanges,
+                          child: TextField(
+                            controller: emailController,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              focusedErrorBorder: InputBorder.none,
+                              hintText: enterEmailUserNameHint,
+                              hintStyle: TextStyle(
+                                color: Color(0xFFABB3BB),
+                              ),
+                            ),
+                            keyboardType: TextInputType.emailAddress,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              AppInputField(
-                hint: enterEmailHint,
-                controller: emailController,
-                textInputType: TextInputType.emailAddress,
-              ),
-              verticalSpaceMedium,
               Container(
+                margin: EdgeInsets.symmetric(vertical: 15),
                 padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: AppText.body1(
-                    passwordLabel,
-                    textAlign: TextAlign.start,
-                    color: colors.black,
-                  ),
+                decoration: BoxDecoration(
+                  color: colors.white,
+                  border: Border.all(
+                      color: model.passwordFocus
+                          ? colors.primary
+                          : Color(0xFFD0D0D0),
+                      width: 0.5),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.lock_rounded,
+                      color: model.passwordFocus
+                          ? colors.primary
+                          : Color(0xFFABB3BB),
+                    ),
+                    horizontalSpaceRegular,
+                    Expanded(
+                      child: FocusScope(
+                        child: Focus(
+                          onFocusChange: model.onPasswordFocusChanges,
+                          child: AppPasswordInputField(
+                            hint: passwordHint,
+                            controller: passwordController,
+                            noNeedBorder: true,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              AppPasswordInputField(
-                hint: passwordHint,
-                controller: passwordController,
-              ),
+              // Container(
+              //   margin: EdgeInsets.symmetric(vertical: 15),
+              //   padding: EdgeInsets.symmetric(horizontal: 10),
+              //   decoration: BoxDecoration(
+              //     color: colors.white,
+              //     border: Border.all(color: Color(0xFFD0D0D0), width: 0.5),
+              //     borderRadius: BorderRadius.circular(8),
+              //   ),
+              //   child: Row(
+              //     children: [
+              //       Icon(
+              //         Icons.email_rounded,
+              //         color: Color(0xFFABB3BB),
+              //       ),
+              //       horizontalSpaceRegular,
+              //       Expanded(
+              //         child: TextField(
+              //           controller: emailController,
+              //           decoration: InputDecoration(
+              //             border: InputBorder.none,
+              //             disabledBorder: InputBorder.none,
+              //             enabledBorder: InputBorder.none,
+              //             errorBorder: InputBorder.none,
+              //             focusedBorder: InputBorder.none,
+              //             focusedErrorBorder: InputBorder.none,
+              //             hintText: enterEmailUserNameHint,
+              //             hintStyle: TextStyle(
+              //               color: Color(0xFFABB3BB),
+              //             ),
+              //           ),
+              //           keyboardType: TextInputType.emailAddress,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // Container(
+              //   margin: EdgeInsets.symmetric(vertical: 15),
+              //   padding: EdgeInsets.symmetric(horizontal: 10),
+              //   decoration: BoxDecoration(
+              //     color: colors.white,
+              //     border: Border.all(color: Color(0xFFD0D0D0), width: 0.5),
+              //     borderRadius: BorderRadius.circular(8),
+              //   ),
+              //   child: Row(
+              //     children: [
+              //       Icon(
+              //         Icons.lock_rounded,
+              //         color: Color(0xFFABB3BB),
+              //       ),
+              //       horizontalSpaceRegular,
+              //       Expanded(
+              //         child: AppPasswordInputField(
+              //           hint: passwordHint,
+              //           controller: passwordController,
+              //           noNeedBorder: true,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
             ],
           ),
           showTermsText: true,

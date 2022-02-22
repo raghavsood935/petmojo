@@ -54,7 +54,7 @@ class _ProfileSelectionAppBarState extends State<ProfileSelectionAppBar> {
               Routes.dashboard,
               arguments: DashboardArguments(
                   isNeedToUpdateProfile: true,
-                  initialPageState: 0,
+                  initialPageState: 3,
                   isHuman: widget.listOfProfiles[x].isHuman,
                   petID: widget.listOfProfiles[x].id,
                   petToken: widget.listOfProfiles[x].token,
@@ -111,6 +111,7 @@ class _ProfileSelectionAppBarState extends State<ProfileSelectionAppBar> {
           child: CustomCircularAvatar(
             radius: 33,
             imgPath: widget.listOfProfiles[x].avatar,
+            isHuman: widget.listOfProfiles[x].isHuman,
           ),
         ),
       ),

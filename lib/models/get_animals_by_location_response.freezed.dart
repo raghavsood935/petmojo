@@ -746,55 +746,50 @@ class _$_GetAnimalsByLocationDetailsResponse
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _GetAnimalsByLocationDetailsResponse &&
-            (identical(other.Id, Id) || other.Id == Id) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.username, username) ||
-                other.username == username) &&
-            (identical(other.token, token) || other.token == token) &&
-            (identical(other.avatar, avatar) || other.avatar == avatar) &&
-            (identical(other.location, location) ||
-                other.location == location) &&
+            const DeepCollectionEquality().equals(other.Id, Id) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.username, username) &&
+            const DeepCollectionEquality().equals(other.token, token) &&
+            const DeepCollectionEquality().equals(other.avatar, avatar) &&
+            const DeepCollectionEquality().equals(other.location, location) &&
             const DeepCollectionEquality().equals(other.guardians, guardians) &&
-            (identical(other.distance, distance) ||
-                other.distance == distance) &&
-            (identical(other.animalType, animalType) ||
-                other.animalType == animalType) &&
-            (identical(other.breed, breed) || other.breed == breed) &&
-            (identical(other.age, age) || other.age == age) &&
-            (identical(other.bio, bio) || other.bio == bio) &&
-            (identical(other.playFrom, playFrom) ||
-                other.playFrom == playFrom) &&
-            (identical(other.playTo, playTo) || other.playTo == playTo) &&
-            (identical(other.gender, gender) || other.gender == gender) &&
-            (identical(other.view, view) || other.view == view) &&
-            (identical(other.likes, likes) || other.likes == likes) &&
-            (identical(other.registeredWithIndianKennelClub,
-                    registeredWithIndianKennelClub) ||
-                other.registeredWithIndianKennelClub ==
-                    registeredWithIndianKennelClub));
+            const DeepCollectionEquality().equals(other.distance, distance) &&
+            const DeepCollectionEquality()
+                .equals(other.animalType, animalType) &&
+            const DeepCollectionEquality().equals(other.breed, breed) &&
+            const DeepCollectionEquality().equals(other.age, age) &&
+            const DeepCollectionEquality().equals(other.bio, bio) &&
+            const DeepCollectionEquality().equals(other.playFrom, playFrom) &&
+            const DeepCollectionEquality().equals(other.playTo, playTo) &&
+            const DeepCollectionEquality().equals(other.gender, gender) &&
+            const DeepCollectionEquality().equals(other.view, view) &&
+            const DeepCollectionEquality().equals(other.likes, likes) &&
+            const DeepCollectionEquality().equals(
+                other.registeredWithIndianKennelClub,
+                registeredWithIndianKennelClub));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      Id,
-      name,
-      username,
-      token,
-      avatar,
-      location,
+      const DeepCollectionEquality().hash(Id),
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(username),
+      const DeepCollectionEquality().hash(token),
+      const DeepCollectionEquality().hash(avatar),
+      const DeepCollectionEquality().hash(location),
       const DeepCollectionEquality().hash(guardians),
-      distance,
-      animalType,
-      breed,
-      age,
-      bio,
-      playFrom,
-      playTo,
-      gender,
-      view,
-      likes,
-      registeredWithIndianKennelClub);
+      const DeepCollectionEquality().hash(distance),
+      const DeepCollectionEquality().hash(animalType),
+      const DeepCollectionEquality().hash(breed),
+      const DeepCollectionEquality().hash(age),
+      const DeepCollectionEquality().hash(bio),
+      const DeepCollectionEquality().hash(playFrom),
+      const DeepCollectionEquality().hash(playTo),
+      const DeepCollectionEquality().hash(gender),
+      const DeepCollectionEquality().hash(view),
+      const DeepCollectionEquality().hash(likes),
+      const DeepCollectionEquality().hash(registeredWithIndianKennelClub));
 
   @JsonKey(ignore: true)
   @override

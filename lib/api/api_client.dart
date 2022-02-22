@@ -10,6 +10,10 @@ import 'package:tamely/models/bookmark_response.dart';
 import 'package:tamely/models/comment_added_response.dart';
 import 'package:tamely/models/common_response.dart';
 import 'package:tamely/models/create_post_response.dart';
+import 'package:tamely/models/e-commerce/fav_product_list_response.dart';
+import 'package:tamely/models/e-commerce/product_details_by_id_response.dart';
+import 'package:tamely/models/e-commerce/product_id_common_body.dart';
+import 'package:tamely/models/e-commerce/product_list_response.dart';
 import 'package:tamely/models/edit_response.dart';
 import 'package:tamely/models/generate_pet_username_response.dart';
 import 'package:tamely/models/get_animals_by_location_response.dart';
@@ -17,13 +21,19 @@ import 'package:tamely/models/get_blogs_details_model.dart';
 import 'package:tamely/models/get_blogs_like_details_model.dart';
 import 'package:tamely/models/get_blogs_model.dart';
 import 'package:tamely/models/get_bookmarks_model.dart';
+import 'package:tamely/models/get_free_training_response.dart';
+import 'package:tamely/models/get_free_walk_response.dart';
 import 'package:tamely/models/get_payment_details_response.dart';
+import 'package:tamely/models/get_training_appointment_details_response.dart';
+import 'package:tamely/models/get_training_report_response.dart';
+import 'package:tamely/models/get_training_scroll_status_response.dart';
 import 'package:tamely/models/group_response/get_all_group_members_response.dart';
 import 'package:tamely/models/group_response/get_all_groups_response.dart';
 import 'package:tamely/models/group_response/get_group_info_response.dart';
 import 'package:tamely/models/group_response/get_joined_groups_response.dart';
 import 'package:tamely/models/group_response/group_create_response.dart';
 import 'package:tamely/models/group_response/pending_groups_invitations_response.dart';
+import 'package:tamely/models/has_appointments_response.dart';
 import 'package:tamely/models/like_blog_response.dart';
 import 'package:tamely/models/list_of_comments_response.dart';
 import 'package:tamely/models/list_of_feed_post_response.dart';
@@ -37,24 +47,30 @@ import 'package:tamely/models/list_of_profiles_foy_you.dart';
 import 'package:tamely/models/list_of_relations.dart';
 import 'package:tamely/models/notification_response.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
+import 'package:tamely/models/params/book_a_training_body.dart';
 import 'package:tamely/models/params/change_bio_avatar_body.dart';
 import 'package:tamely/models/params/comment_new/add_comment_body.dart';
 import 'package:tamely/models/params/confirm_relation_request_body.dart';
 import 'package:tamely/models/params/counter_body.dart';
 import 'package:tamely/models/params/create_animal_profile_body.dart';
+import 'package:tamely/models/params/create_animal_profile_new_body.dart';
 import 'package:tamely/models/params/create_post_body.dart';
 import 'package:tamely/models/params/delete_post_body.dart';
+import 'package:tamely/models/params/edit_animal_breed_age_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_details_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_main_details_body.dart';
+import 'package:tamely/models/params/edit_animal_type_body.dart';
 import 'package:tamely/models/params/feedback_body.dart';
 import 'package:tamely/models/params/fetch_list_of_following_body.dart';
+import 'package:tamely/models/params/get_training_scroll_status_body.dart';
 import 'package:tamely/models/params/get_animal_by_location_body.dart';
 import 'package:tamely/models/params/get_guardians_body.dart';
 import 'package:tamely/models/params/get_payment_details_body.dart';
 import 'package:tamely/models/params/get_post_by_id.dart';
 import 'package:tamely/models/params/get_profile_details_by_id_body.dart';
 import 'package:tamely/models/params/get_relation_requests_body.dart';
+import 'package:tamely/models/params/get_training_report_body.dart';
 import 'package:tamely/models/params/groups/edit_group_cover_body.dart';
 import 'package:tamely/models/params/groups/edit_group_details_body.dart';
 import 'package:tamely/models/params/groups/group_basic_body.dart';
@@ -69,6 +85,7 @@ import 'package:tamely/models/params/need_help_body.dart';
 import 'package:tamely/models/params/profile_create_body.dart';
 import 'package:tamely/models/params/register_body.dart';
 import 'package:tamely/models/params/reject_relation_request_body.dart';
+import 'package:tamely/models/params/reorder_a_run_body.dart';
 import 'package:tamely/models/params/resend_mobile_otp_body.dart';
 import 'package:tamely/models/params/reset_password_body.dart';
 import 'package:tamely/models/params/search_profile_body.dart';
@@ -84,6 +101,7 @@ import 'package:tamely/models/params/groups/change_group_description_body.dart';
 import 'package:tamely/models/params/groups/create_group_body.dart';
 import 'package:tamely/models/params/groups/update_group_hashtags_body.dart';
 import 'package:tamely/models/params/groups/invite_people_group_body.dart';
+import 'package:tamely/models/reorder_a_run_response.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
 import 'package:tamely/models/user_response_models.dart';
 import 'package:tamely/models/get_appointment_details_response.dart';
@@ -101,6 +119,7 @@ import 'package:tamely/models/params/set_runtwo_rating_body.dart';
 import 'package:tamely/models/params/set_testimony_body.dart';
 import 'package:tamely/models/send_data_response.dart';
 import 'package:tamely/models/params/book_a_run_body.dart';
+import 'package:tamely/models/params/apple_signin_body.dart';
 part 'api_client.g.dart';
 
 ///APIs class is for api tags
@@ -111,6 +130,7 @@ class Apis {
   static const String imageToLink = '/user/getAvatarLink';
 
   static const String login = '/auth/login';
+  static const String appleLogin = '/auth/login/apple';
   static const String register = '/auth/register';
   static const String updateFCMToken = '/auth/registerFCMtoken';
   static const String checkUserName = '/user/isusernameavailable/{username}';
@@ -161,6 +181,8 @@ class Apis {
   static const String animalProfileEditDetails = '/animal/editPetHabits';
   static const String animalProfileEditMainDetails =
       '/animal/editPetMainDetails';
+  static const String editAnimalType = '/animal/editPet';
+  static const String editAnimalBreedAndAge = '/animal/editBreedAndAge';
 
   //Bookmarks
   static const String getBookmarks = '/hamburger/getBookmarks';
@@ -193,11 +215,20 @@ class Apis {
   static const String addComment = '/comment/{commentID}';
   static const String fetchComment = '/comment/{commentID}/{counter}';
 
-  // Booking Appointments
+  // Booking Appointments -- Dog running
+  static const String getFreeWalk = '/user/isFreeWalkAvailable';
+  static const String setFreeWalk = '/user/updateFreeWalkStatus';
   static const String getPetDetails = '/serviceBooking/getPetDetails';
   static const String bookARun = '/serviceBooking/serviceBooking';
   static const String getPaymentDetails = '/serviceBooking/generateOrderId';
   static const String setPaymentDetails = '/service/postPayment';
+
+  // Booking Appointments -- Dog training
+  static const String getFreeTraining = '/user/isFreeTrainingSessionAvailable';
+  static const String setFreeTraining = '/user/updateFreeTrainingSessionStatus';
+  static const String bookATraining = '/serviceBooking/bookDogTrainingService';
+  static const String setPaymentDetailsTraining =
+      '/service/postTrainingPayment';
 
   //community
   // ---> Groups
@@ -236,13 +267,26 @@ class Apis {
   static const String getBlogDetails = '/community/getBlogDetails';
   static const String getBlogLikesDetails = '/community/getLikeDetails';
 
+//E commerce
+  static const String getProducts = '/product/getProducts';
+  static const String getProductDetails = '/product/getProductDetails';
+  static const String addToCart = '/product/addToCart';
+  static const String getCartDetails = '/product/getCartDetails';
+  static const String addToFavourites = '/product/addToFavourites';
+  static const String getFavouriteDetails = '/product/getFavouriteDetails';
+
   // My Bookings Flow
+  static const String hasAppointments = '/serviceBooking/hasAppointments';
+
   static const String getActiveAppointments =
       '/serviceBooking/getmyactiveAppointments';
   static const String getBookedAppointments =
       '/serviceBooking/getmybookedAppointments';
   static const String getPastAppointments =
       '/serviceBooking/getmypastAppointments';
+
+  // -- Dog running
+  static const String reorderARun = '/serviceBooking/reorder';
   static const String getAppointmentDetails =
       '/serviceBooking/getAppointmentDetails';
   static const String changeAppointmentStatus =
@@ -253,6 +297,16 @@ class Apis {
   static const String setRunningRating =
       '/serviceBooking/giveRatingstoeachWalk';
   static const String setTestimony = '/serviceBooking/giveRatingstoeachWalk';
+
+  // -- Dog training
+  static const String reorderATraining = '/serviceBooking/reorderTraining';
+  static const String getTrainingAppointmentDetails =
+      '/serviceBooking/getDogTrainingAppointmentDetails';
+  static const String changeTrainingAppointmentStatus =
+      '/serviceBooking/changeTrainingAppointmentstatus';
+  static const String getTrainingScrollStatus =
+      '/serviceBooking/getscrollSessionstatus';
+  static const String getTrainingReport = '/serviceBooking/getTrainingReport';
 }
 
 // @RestApi(baseUrl: "https://tamely.herokuapp.com/api/")
@@ -262,6 +316,9 @@ abstract class ApiClient {
 
   @POST(Apis.login)
   Future<UserResponse> login(@Body() LoginBody loginBody);
+
+  @POST(Apis.appleLogin)
+  Future<UserResponse> appleLogin(@Body() AppleSigninBody appleSigninBody);
 
   @PATCH(Apis.resetPassword)
   Future<CommonResponse> resetPassword(
@@ -406,6 +463,18 @@ abstract class ApiClient {
   Future<AnimalProfileCreateResopnse> animalProfileCreate(
       @Body() CreateAnimalProfileBody createAnimalProfileBody);
 
+  @POST(Apis.animalProfileCreate)
+  Future<AnimalProfileCreateResopnse> animalProfileCreateNew(
+      @Body() CreateAnimalProfileNewBody createAnimalProfileNewBody);
+
+  @POST(Apis.editAnimalType)
+  Future<EditResponse> editAnimalType(
+      @Body() EditAnimalTypeBody editAnimalTypeBody);
+
+  @POST(Apis.editAnimalBreedAndAge)
+  Future<EditResponse> editAnimalBreedAndAge(
+      @Body() EditAnimalBreedAgeBody editAnimalBreedAgeBody);
+
   @POST(Apis.animalProfileEdit)
   Future<EditResponse> editAnimalProfile(
       @Body() EditAnimalProfileBody editAnimalProfileBody);
@@ -479,9 +548,6 @@ abstract class ApiClient {
   @POST(Apis.fetchComment)
   Future<ListOfCommentsResponse> fetchComments(
       @Path("commentID") String postId, @Path("counter") int counter);
-
-  @POST(Apis.getPetDetails)
-  Future<GetPetDetailsResponse> getPetDetails();
 
   //Community
   // ---> get Group Details
@@ -609,6 +675,48 @@ abstract class ApiClient {
   Future<GetAnimalsByLocationResponse> getMating(
       @Body() GetAnimalByLocationBody getAnimalByLocationBody);
 
+//E Commerce
+  // ---> Get List Of Products
+  @POST(Apis.getProducts)
+  Future<ProductListResponse> getProducts(@Body() CounterBody counterBody);
+
+  // ---> Get Product Details
+  @POST(Apis.getProductDetails)
+  Future<ProductDetailsByIdResponse> getProductDetails(
+      @Body() ProductIdCommonBody productIdCommonBody);
+
+  // ---> Add To Cart
+  @POST(Apis.addToCart)
+  Future<EditResponse> addToCart(
+      @Body() ProductIdCommonBody productIdCommonBody);
+
+  // ---> Get List Of Cart
+  @POST(Apis.getCartDetails)
+  Future<FavInnerProductListResponse> getCartDetails();
+
+  // ---> Add To Favourites
+  @POST(Apis.addToFavourites)
+  Future<EditResponse> addToFavourites(
+      @Body() ProductIdCommonBody productIdCommonBody);
+
+  // ---> Get List Of Favourite Products
+  @POST(Apis.getFavouriteDetails)
+  Future<FavProductListResponse> getFavouriteDetails();
+
+  // Booking Appointments -- Dog running
+
+  // -- Get Free Walk
+  @POST(Apis.getFreeWalk)
+  Future<GetFreeWalkResponse> getFreeWalk();
+
+  // -- Set Free Walk
+  @POST(Apis.setFreeWalk)
+  Future<SendDataResponse> setFreeWalk();
+
+  // -- Get Pet Details
+  @POST(Apis.getPetDetails)
+  Future<GetPetDetailsResponse> getPetDetails();
+
   // -- Booking A Run
   @POST(Apis.bookARun)
   Future<BookARunResponse> bookARun(@Body() BookARunBody bookARunBody);
@@ -618,24 +726,55 @@ abstract class ApiClient {
   Future<GetPaymentDetailsResponse> getPaymentDetails(
       @Body() GetPaymentDetailsBody getPaymentDetailsBody);
 
-  // -- Set Payment details
+  // -- Set Payment details Running
   @PATCH(Apis.setPaymentDetails)
   Future<SendDataResponse> setPaymentDetails(
       @Body() SetPaymentDetailsBody setPaymentDetailsBody);
 
+  // Booking Appointments -- Dog training
+
+  // -- Get Free Training (Working)
+  @POST(Apis.getFreeTraining)
+  Future<GetFreeTrainingResponse> getFreeTraining();
+
+  // -- Set Free Training (Working)
+  @POST(Apis.setFreeTraining)
+  Future<SendDataResponse> setFreeTraining();
+
+  // -- Booking A Training (Working)
+  @POST(Apis.bookATraining)
+  Future<BookARunResponse> bookATraining(
+      @Body() BookATrainingBody bookATrainingBody);
+
+  // -- Set Payment details Training (Working)
+  @PATCH(Apis.setPaymentDetailsTraining)
+  Future<SendDataResponse> setPaymentDetailsTraining(
+      @Body() SetPaymentDetailsBody setPaymentDetailsBody);
+
   // My Bookings Flow
 
-  // -- Get active appointments
+  // -- Check has Appointments (Working)
+  @POST(Apis.hasAppointments)
+  Future<HasAppointmentsResponse> hasAppointments();
+
+  // -- Get active appointments (Working)
   @POST(Apis.getActiveAppointments)
   Future<MyAppointmentsResponse> getActiveAppointments();
 
-  // -- Get booked appointments
+  // -- Get booked appointments (Working)
   @POST(Apis.getBookedAppointments)
   Future<MyAppointmentsResponse> getBookedAppointments();
 
-  // -- Get past appointments
+  // -- Get past appointments (Working)
   @POST(Apis.getPastAppointments)
   Future<MyAppointmentsResponse> getPastAppointments();
+
+  // -- Dog running
+
+  // -- Reorder A Run
+  @POST(Apis.reorderARun)
+  Future<ReorderARunResponse> reorderARun(
+      @Body() ReorderARunBody reorderARunBody);
 
   // -- Get Appointment Details
   @POST(Apis.getAppointmentDetails)
@@ -652,7 +791,7 @@ abstract class ApiClient {
   Future<GetScrollStatusResponse> getScrollStatus(
       @Body() GetScrollStatusBody getScrollStatusBody);
 
-  // -- Get Report Run One (from this)
+  // -- Get Report Run One
   @POST(Apis.getRunningReport)
   Future<GetReportResponse> getRunOneReport(
       @Body() GetReportOneBody getReportOneBody);
@@ -676,4 +815,31 @@ abstract class ApiClient {
   @POST(Apis.setTestimony)
   Future<SendDataResponse> setTestimony(
       @Body() SetTestimonyBody setTestimonyBody);
+
+  // -- Dog training
+
+  // -- Reorder A Training (Not Done yet)
+  @POST(Apis.reorderATraining)
+  Future<ReorderARunResponse> reorderATraining(
+      @Body() ReorderARunBody reorderARunBody);
+
+  // -- Get Appointment Details Training (Working)
+  @POST(Apis.getTrainingAppointmentDetails)
+  Future<GetTrainingAppointmentDetailsResponse> getTrainingAppointmentDetails(
+      @Body() GetAppointmentDetailsBody getAppointmentDetailsBody);
+
+  // -- Change Appointment Status Training (Not using it)
+  @POST(Apis.changeTrainingAppointmentStatus)
+  Future<SendDataResponse> changeTrainingAppointmentStatus(
+      @Body() ChangeAppointmentStatusBody changeAppointmentStatusBody);
+
+  // -- Get Scroll Status Training  (Working)
+  @POST(Apis.getTrainingScrollStatus)
+  Future<GetTrainingScrollStatusResponse> getTrainingScrollStatus(
+      @Body() GetTrainingScrollStatusBody getTrainingScrollStatusBody);
+
+  // -- Get Report Training (Can not check now)
+  @POST(Apis.getTrainingReport)
+  Future<GetTrainingReportResponse> getTrainingReport(
+      @Body() GetTrainingReportBody getTrainingReportBody);
 }

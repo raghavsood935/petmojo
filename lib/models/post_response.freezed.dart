@@ -409,40 +409,38 @@ class _$_PostResponse extends _PostResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _PostResponse &&
-            (identical(other.Id, Id) || other.Id == Id) &&
+            const DeepCollectionEquality().equals(other.Id, Id) &&
             const DeepCollectionEquality().equals(other.hashtags, hashtags) &&
-            (identical(other.image, image) || other.image == image) &&
-            (identical(other.thumbnail, thumbnail) ||
-                other.thumbnail == thumbnail) &&
-            (identical(other.filter, filter) || other.filter == filter) &&
-            (identical(other.caption, caption) || other.caption == caption) &&
-            (identical(other.author, author) || other.author == author) &&
-            (identical(
-                    other.postOwnerDetailsResponse, postOwnerDetailsResponse) ||
-                other.postOwnerDetailsResponse == postOwnerDetailsResponse) &&
-            (identical(other.date, date) || other.date == date) &&
-            (identical(other.v, v) || other.v == v) &&
-            (identical(other.totalVotes, totalVotes) ||
-                other.totalVotes == totalVotes) &&
-            (identical(other.totalComments, totalComments) ||
-                other.totalComments == totalComments));
+            const DeepCollectionEquality().equals(other.image, image) &&
+            const DeepCollectionEquality().equals(other.thumbnail, thumbnail) &&
+            const DeepCollectionEquality().equals(other.filter, filter) &&
+            const DeepCollectionEquality().equals(other.caption, caption) &&
+            const DeepCollectionEquality().equals(other.author, author) &&
+            const DeepCollectionEquality().equals(
+                other.postOwnerDetailsResponse, postOwnerDetailsResponse) &&
+            const DeepCollectionEquality().equals(other.date, date) &&
+            const DeepCollectionEquality().equals(other.v, v) &&
+            const DeepCollectionEquality()
+                .equals(other.totalVotes, totalVotes) &&
+            const DeepCollectionEquality()
+                .equals(other.totalComments, totalComments));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      Id,
+      const DeepCollectionEquality().hash(Id),
       const DeepCollectionEquality().hash(hashtags),
-      image,
-      thumbnail,
-      filter,
-      caption,
-      author,
-      postOwnerDetailsResponse,
-      date,
-      v,
-      totalVotes,
-      totalComments);
+      const DeepCollectionEquality().hash(image),
+      const DeepCollectionEquality().hash(thumbnail),
+      const DeepCollectionEquality().hash(filter),
+      const DeepCollectionEquality().hash(caption),
+      const DeepCollectionEquality().hash(author),
+      const DeepCollectionEquality().hash(postOwnerDetailsResponse),
+      const DeepCollectionEquality().hash(date),
+      const DeepCollectionEquality().hash(v),
+      const DeepCollectionEquality().hash(totalVotes),
+      const DeepCollectionEquality().hash(totalComments));
 
   @JsonKey(ignore: true)
   @override

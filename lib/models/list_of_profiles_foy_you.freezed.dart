@@ -509,27 +509,35 @@ class _$_ProfileForYouResponse extends _ProfileForYouResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ProfileForYouResponse &&
-            (identical(other.Id, Id) || other.Id == Id) &&
-            (identical(other.username, username) ||
-                other.username == username) &&
-            (identical(other.fullName, fullName) ||
-                other.fullName == fullName) &&
-            (identical(other.avatar, avatar) || other.avatar == avatar) &&
-            (identical(other.type, type) || other.type == type) &&
-            (identical(other.token, token) || other.token == token) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.members, members) || other.members == members) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.coverPhoto, coverPhoto) ||
-                other.coverPhoto == coverPhoto) &&
-            (identical(other.isMember, isMember) ||
-                other.isMember == isMember));
+            const DeepCollectionEquality().equals(other.Id, Id) &&
+            const DeepCollectionEquality().equals(other.username, username) &&
+            const DeepCollectionEquality().equals(other.fullName, fullName) &&
+            const DeepCollectionEquality().equals(other.avatar, avatar) &&
+            const DeepCollectionEquality().equals(other.type, type) &&
+            const DeepCollectionEquality().equals(other.token, token) &&
+            const DeepCollectionEquality()
+                .equals(other.description, description) &&
+            const DeepCollectionEquality().equals(other.members, members) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality()
+                .equals(other.coverPhoto, coverPhoto) &&
+            const DeepCollectionEquality().equals(other.isMember, isMember));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, Id, username, fullName, avatar,
-      type, token, description, members, name, coverPhoto, isMember);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(Id),
+      const DeepCollectionEquality().hash(username),
+      const DeepCollectionEquality().hash(fullName),
+      const DeepCollectionEquality().hash(avatar),
+      const DeepCollectionEquality().hash(type),
+      const DeepCollectionEquality().hash(token),
+      const DeepCollectionEquality().hash(description),
+      const DeepCollectionEquality().hash(members),
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(coverPhoto),
+      const DeepCollectionEquality().hash(isMember));
 
   @JsonKey(ignore: true)
   @override
