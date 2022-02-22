@@ -21,7 +21,6 @@ class GetTrainingReportDetailsResponse with _$GetTrainingReportDetailsResponse {
   GetTrainingReportDetailsResponse._();
 
   factory GetTrainingReportDetailsResponse({
-    @JsonKey(name: "petNames") List<GetPetNamesResponse>? pet,
     @JsonKey(name: "sessionNo") int? sessionNo,
     @JsonKey(name: "rating") int? rating,
     @JsonKey(name: "time") int? duration,
