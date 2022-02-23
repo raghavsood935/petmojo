@@ -136,7 +136,7 @@ class DRDogRunningBookingViewModel extends FormViewModel {
       secondPageValidation("s");
     } else if (currentIndex == 1) {
       await bookARun();
-      if (freeWalkAvailable) {
+      if (freeWalkAvailable && selectedPlan == DogRunningPackage.One) {
         if (bookingId != "") {
           await setFreePaymentDetails();
           await setFreeWalkStatus();

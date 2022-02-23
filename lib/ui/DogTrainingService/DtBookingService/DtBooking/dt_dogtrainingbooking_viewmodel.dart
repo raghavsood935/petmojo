@@ -133,7 +133,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       secondPageValidation("s");
     } else if (currentIndex == 1) {
       await bookARun();
-      if (freeWalkAvailable) {
+      if (freeWalkAvailable && selectedPlan == DogTrainingPackage.One) {
         if (bookingId != "") {
           await setFreePaymentDetails();
           await setFreeWalkStatus();
