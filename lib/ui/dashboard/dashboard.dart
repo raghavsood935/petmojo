@@ -28,6 +28,7 @@ class Dashboard extends StatefulWidget {
     required this.petID,
     required this.petToken,
     required this.initialState,
+    this.checkUpdate,
   }) : super(key: key);
 
   final int initialState;
@@ -37,6 +38,7 @@ class Dashboard extends StatefulWidget {
   final String petID;
   final String petToken;
   final int initialPageState;
+  final bool? checkUpdate;
 
   @override
   State<Dashboard> createState() => _DashboardState();
@@ -239,12 +241,14 @@ class _DashboardState extends State<Dashboard> {
       viewModelBuilder: () => DashboardViewModel(),
       onModelReady: (model) => model
           .init(
+        context,
         widget.initialState,
         widget.isNeedToUpdateProfile,
         widget.isHuman,
         widget.petID,
         widget.petToken,
         widget.initialPageState,
+        widget.checkUpdate,
       )
           .whenComplete(() {
         setState(() {});
@@ -265,12 +269,14 @@ class _DashboardState extends State<Dashboard> {
                         verticalSpaceSmall,
                         MainButtonWidget(
                             onMainButtonTapped: () => model.init(
+                                  context,
                                   widget.initialState,
                                   widget.isNeedToUpdateProfile,
                                   widget.isHuman,
                                   widget.petID,
                                   widget.petToken,
                                   widget.initialPageState,
+                                  widget.checkUpdate,
                                 ),
                             mainButtonTitle: "RETRY"),
                       ],

@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
+import 'package:new_version/new_version.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -109,14 +110,45 @@ class DashboardViewModel extends FutureViewModel<void>
     notifyListeners();
   }
 
+  Future _checkVersion(BuildContext context) async {
+    print("Checking update......");
+    final newVersion = NewVersion(
+      androidId: "in.tamely.user",
+    );
+    final status = await newVersion.getVersionStatus();
+
+    if (status!.canUpdate) {
+      newVersion.showUpdateDialog(
+          context: context,
+          versionStatus: status,
+          allowDismissal: false,
+          dialogTitle: "UPDATE!!!",
+          dismissButtonText: "Skip",
+          updateButtonText: "Lets update",
+          dialogText:
+              "Please update the app from ${status.localVersion} to ${status.storeVersion}",
+          dismissAction: () {
+            SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+          });
+
+      print(
+          "Local version ${status.localVersion} \nStore version ${status.storeVersion}");
+    }
+  }
+
   Future init(
+    BuildContext context,
     int initalState,
     bool isNeedToUpdateProfile,
     bool isHuman,
     String petId,
     String petToken,
     int initialPageState,
+    bool? checkUpdate,
   ) async {
+    if (checkUpdate ?? false) {
+      _checkVersion(context);
+    }
     _controller = PersistentTabController(initialIndex: initialPageState);
     fetchUserDetail(
       initalState,

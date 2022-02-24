@@ -71,6 +71,7 @@ class StartUpViewModel extends FutureViewModel<void> implements Initialisable {
           petID: "",
           petToken: "",
           initialState: 0,
+          checkUpdate: true,
         );
         break;
     }
