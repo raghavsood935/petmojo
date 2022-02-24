@@ -411,6 +411,7 @@ class StackedRouter extends RouterBase {
           petID: args.petID,
           petToken: args.petToken,
           initialState: args.initialState,
+          checkUpdate: args.checkUpdate,
         ),
         settings: data,
       );
@@ -1102,6 +1103,7 @@ class DashboardArguments {
   final int initialPageState;
   final bool isNeedToUpdateProfile;
   final bool isHuman;
+  final bool? checkUpdate;
   final String petID;
   final String petToken;
   final int initialState;
@@ -1112,7 +1114,8 @@ class DashboardArguments {
       required this.isHuman,
       required this.petID,
       required this.petToken,
-      required this.initialState});
+      required this.initialState,
+      this.checkUpdate});
 }
 
 /// SignUpView arguments holder class

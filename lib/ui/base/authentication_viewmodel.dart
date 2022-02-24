@@ -288,6 +288,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
               petID: "",
               petToken: "",
               initialState: 0,
+              checkUpdate: true,
             ));
       } else if (!currentUser.confirmed && !isSocialSignIn) {
         sharedPreferencesService.currentState =
