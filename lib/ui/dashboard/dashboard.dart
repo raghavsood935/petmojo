@@ -41,10 +41,16 @@ class Dashboard extends StatefulWidget {
   final bool? checkUpdate;
 
   @override
-  State<Dashboard> createState() => _DashboardState();
+  State<Dashboard> createState() => _DashboardState(initialPageState);
 }
 
 class _DashboardState extends State<Dashboard> {
+  int index = 0;
+
+  _DashboardState(int i) {
+    index = i;
+  }
+
   List<Widget> _buildScreens(BuildContext context, DashboardViewModel model) {
     return [
       FeedView(
@@ -235,6 +241,64 @@ class _DashboardState extends State<Dashboard> {
     ];
   }
 
+  List<BottomNavigationBarItem> _bottomNavBarItems = [
+    BottomNavigationBarItem(
+      icon: SvgPicture.asset(
+        "assets/images/home.svg",
+      ),
+      activeIcon: SvgPicture.asset(
+        "assets/images/home.svg",
+        color: colors.primary,
+      ),
+      label: "Feed",
+      backgroundColor: colors.white,
+    ),
+    BottomNavigationBarItem(
+      icon: SvgPicture.asset(
+        "assets/images/community.svg",
+      ),
+      activeIcon: SvgPicture.asset(
+        "assets/images/community.svg",
+        color: colors.primary,
+      ),
+      label: "Community",
+      backgroundColor: colors.white,
+    ),
+    BottomNavigationBarItem(
+      icon: SvgPicture.asset(
+        "assets/images/explore.svg",
+      ),
+      activeIcon: SvgPicture.asset(
+        "assets/images/explore.svg",
+        color: colors.primary,
+      ),
+      label: "For you",
+      backgroundColor: colors.white,
+    ),
+    BottomNavigationBarItem(
+      icon: SvgPicture.asset(
+        "assets/images/services.svg",
+      ),
+      activeIcon: SvgPicture.asset(
+        "assets/images/services.svg",
+        color: colors.primary,
+      ),
+      label: "Services",
+      backgroundColor: colors.white,
+    ),
+    BottomNavigationBarItem(
+      icon: SvgPicture.asset(
+        "assets/images/community.svg",
+      ),
+      activeIcon: SvgPicture.asset(
+        "assets/images/community.svg",
+        color: colors.primary,
+      ),
+      label: "Profile",
+      backgroundColor: colors.white,
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<DashboardViewModel>.reactive(
@@ -296,29 +360,49 @@ class _DashboardState extends State<Dashboard> {
                         children: _buildDrawerScreens(context, model)),
                   ),
                 ),
-                body: PersistentTabView.custom(
-                  context,
-                  controller: model.controller,
-                  screens: _buildScreens(context, model),
-                  confineInSafeArea: true,
-                  itemCount: 5,
-                  handleAndroidBackButtonPress: true,
-                  stateManagement: true,
-                  hideNavigationBar: model.hideNavBar,
-                  screenTransitionAnimation: ScreenTransitionAnimation(
-                    animateTabTransition: true,
-                    curve: Curves.easeIn,
-                    duration: Duration(milliseconds: 100),
-                  ),
-                  customWidget: CustomNavBarWidget(
-                    items: _navBarsItems(),
-                    onItemSelected: (index) {
-                      model.controllerIndex(index);
-                    },
-                    selectedIndex: model.controller.index,
-                  ),
+                body: _buildScreens(context, model)[index],
+                bottomNavigationBar: BottomNavigationBar(
+                  elevation: 8.0,
+                  type: BottomNavigationBarType.fixed,
+                  backgroundColor: colors.white,
+                  // selectedLabelStyle: TextStyle(color: colors.primary),
+                  showSelectedLabels: true,
+                  showUnselectedLabels: true,
+                  selectedItemColor: colors.primary,
+                  unselectedItemColor: colors.kcMediumGreyColor,
+                  unselectedLabelStyle:
+                      TextStyle(color: colors.kcMediumGreyColor, fontSize: 12),
+                  items: _bottomNavBarItems,
+                  currentIndex: index,
+                  onTap: (int x) {
+                    setState(() {
+                      index = x;
+                    });
+                  },
                 ),
                 backgroundColor: colors.white,
+                // body: PersistentTabView.custom(
+                //   context,
+                //   controller: model.controller,
+                //   screens: _buildScreens(context, model),
+                //   confineInSafeArea: true,
+                //   itemCount: 5,
+                //   handleAndroidBackButtonPress: true,
+                //   stateManagement: true,
+                //   hideNavigationBar: model.hideNavBar,
+                //   screenTransitionAnimation: ScreenTransitionAnimation(
+                //     animateTabTransition: true,
+                //     curve: Curves.easeIn,
+                //     duration: Duration(milliseconds: 100),
+                //   ),
+                //   customWidget: CustomNavBarWidget(
+                //     items: _navBarsItems(),
+                //     onItemSelected: (index) {
+                //       model.controllerIndex(index);
+                //     },
+                //     selectedIndex: model.controller.index,
+                //   ),
+                // ),
               ),
       ),
     );
@@ -427,37 +511,41 @@ class DrawerWidget extends ViewModelWidget<DashboardViewModel> {
   Widget build(BuildContext context, DashboardViewModel viewModel) {
     return GestureDetector(
       onTap: onTap,
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SvgPicture.asset(
-                  iconUrl,
-                  height: 20,
-                  width: 20,
-                ),
-                horizontalSpaceSmall,
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppText.body(
-                      title,
-                      color: colors.kcPrimaryTextColor,
-                    ),
-                    verticalSpaceTiny,
-                    AppText.caption(subTitle),
-                  ],
-                ),
-              ],
+      child: Container(
+        color: Colors.transparent,
+        width: double.maxFinite,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SvgPicture.asset(
+                    iconUrl,
+                    height: 20,
+                    width: 20,
+                  ),
+                  horizontalSpaceSmall,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppText.body(
+                        title,
+                        color: colors.kcPrimaryTextColor,
+                      ),
+                      verticalSpaceTiny,
+                      AppText.caption(subTitle),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-          Divider(
-            color: colors.kcMediumGreyColor,
-          ),
-        ],
+            Divider(
+              color: colors.kcMediumGreyColor,
+            ),
+          ],
+        ),
       ),
     );
   }
