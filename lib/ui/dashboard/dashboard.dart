@@ -511,38 +511,41 @@ class DrawerWidget extends ViewModelWidget<DashboardViewModel> {
   Widget build(BuildContext context, DashboardViewModel viewModel) {
     return GestureDetector(
       onTap: onTap,
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SvgPicture.asset(
-                  iconUrl,
-                  height: 20,
-                  width: 20,
-                ),
-                horizontalSpaceSmall,
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppText.body(
-                      title,
-                      color: colors.kcPrimaryTextColor,
-                    ),
-                    verticalSpaceTiny,
-                    AppText.caption(subTitle),
-                  ],
-                ),
-              ],
+      child: Container(
+        color: Colors.transparent,
+        width: double.maxFinite,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SvgPicture.asset(
+                    iconUrl,
+                    height: 20,
+                    width: 20,
+                  ),
+                  horizontalSpaceSmall,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppText.body(
+                        title,
+                        color: colors.kcPrimaryTextColor,
+                      ),
+                      verticalSpaceTiny,
+                      AppText.caption(subTitle),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-          Divider(
-            color: colors.kcMediumGreyColor,
-          ),
-        ],
+            Divider(
+              color: colors.kcMediumGreyColor,
+            ),
+          ],
+        ),
       ),
     );
   }
