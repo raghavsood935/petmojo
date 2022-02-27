@@ -467,16 +467,41 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     if (picked != null) {
       print(picked);
       tc.text = "${picked.day}-${picked.month}-${picked.year}";
-      _pickedDate = picked;
-      _isDatePicked = true;
-      notifyListeners();
-      secondPageValidation('d');
+      if (picked.weekday != 7) {
+        _pickedDate = picked;
+        _isDatePicked = true;
+        notifyListeners();
+        secondPageValidation('d');
+      } else {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Sunday is Funday!"),
+              content: Text(
+                  "We do not provide services on sundays. Please select a different start date."),
+              actions: <Widget>[
+                TextButton(
+                  child: Text("Ok"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          },
+        );
+        _pickedDate = picked;
+        _isDatePicked = false;
+        notifyListeners();
+        secondPageValidation('d');
+      }
     }
   }
 
   void secondPageValidation(String? value) {
     _isValid = true;
-    if (addressLineOneController.text == "") {
+    if (addressLineTwoController.text == "") {
       print("1");
       _isValid = false;
     } else {
@@ -488,7 +513,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
         _isValid = true;
       }
     }
-    if (addressLineTwoController.text == "") {
+    if (addressLineOneController.text == "") {
       print("4");
       _isValid = false;
     }
@@ -546,7 +571,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       await getAddress(Coordinates(location.latitude, location.longitude))
           .then((value) {
         _address = value;
-        addressLineOneController.text = address;
+        addressLineTwoController.text = address;
         _lat = location.latitude;
         _long = location.longitude;
         secondPageValidation('s');
