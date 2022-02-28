@@ -619,6 +619,16 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
         pet.selected = false;
       }
       _petDetailsBody.clear();
+      myPets[0].selected = true;
+      PetDetailsTrainingBody one =
+          PetDetailsTrainingBody(myPets[0].petId!, "Medium");
+      _petDetailsBody.add(one);
+      if (noOfDogs == 2) {
+        myPets[1].selected = true;
+        PetDetailsTrainingBody one =
+            PetDetailsTrainingBody(myPets[1].petId!, "Medium");
+        _petDetailsBody.add(one);
+      }
     } else if (!hasPets) {
       PetDetailsTrainingBody one =
           PetDetailsTrainingBody("111111111111111111111111", "Medium");
@@ -1149,6 +1159,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
             );
             _myPets.add(petsClass);
           }
+          selectRun(selectedRun);
         } else if (petsList.length == 0) {
           _hasPets = false;
           selectRun(selectedRun);

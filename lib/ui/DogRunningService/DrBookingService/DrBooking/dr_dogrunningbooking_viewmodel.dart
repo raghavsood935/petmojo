@@ -587,6 +587,14 @@ class DRDogRunningBookingViewModel extends FormViewModel {
         pet.selected = false;
       }
       _petDetailsBody.clear();
+      myPets[0].selected = true;
+      PetDetailsBody one = PetDetailsBody(myPets[0].petId!, "Medium");
+      _petDetailsBody.add(one);
+      if (noOfDogs == 2) {
+        myPets[1].selected = true;
+        PetDetailsBody one = PetDetailsBody(myPets[1].petId!, "Medium");
+        _petDetailsBody.add(one);
+      }
     } else if (!hasPets) {
       PetDetailsBody one = PetDetailsBody("111111111111111111111111", "Medium");
       _petDetailsBody.add(one);
@@ -1113,11 +1121,11 @@ class DRDogRunningBookingViewModel extends FormViewModel {
             );
             _myPets.add(petsClass);
           }
+          selectRun(selectedRun);
         } else if (petsList.length == 0) {
           _hasPets = false;
           selectRun(selectedRun);
         }
-
         notifyListeners();
       } else {
         snackBarService.showSnackbar(message: "No Internet connection");
