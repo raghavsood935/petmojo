@@ -168,27 +168,31 @@ class _CreateAnimalProfileNewPageThreeState
                                     vertical: 5,
                                     horizontal: 20,
                                   ),
-                                  child: DropdownButton<String>(
-                                    isExpanded: true,
-                                    itemHeight: null,
-                                    icon: Icon(
-                                      Icons.arrow_drop_down,
-                                      color: colors.primary,
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton<String>(
+                                      isExpanded: true,
+                                      itemHeight: null,
+                                      icon: Icon(
+                                        Icons.arrow_drop_down,
+                                        color: colors.primary,
+                                      ),
+                                      value: model.selectedYear,
+                                      items: model.listOfYears
+                                          .map((item) =>
+                                              DropdownMenuItem<String>(
+                                                child: AppText.body1(item,
+                                                    color: item == "Years"
+                                                        ? colors
+                                                            .kcLightGreyColor
+                                                        : colors.black),
+                                                value: item,
+                                              ))
+                                          .toList(),
+                                      onChanged: model.onChangeYear,
+                                      onTap: () {
+                                        FocusScope.of(context).unfocus();
+                                      },
                                     ),
-                                    value: model.selectedYear,
-                                    items: model.listOfYears
-                                        .map((item) => DropdownMenuItem<String>(
-                                              child: AppText.body1(item,
-                                                  color: item == "Years"
-                                                      ? colors.kcLightGreyColor
-                                                      : colors.black),
-                                              value: item,
-                                            ))
-                                        .toList(),
-                                    onChanged: model.onChangeYear,
-                                    onTap: () {
-                                      FocusScope.of(context).unfocus();
-                                    },
                                   ),
                                 ),
                               ),
@@ -204,27 +208,31 @@ class _CreateAnimalProfileNewPageThreeState
                                     vertical: 5,
                                     horizontal: 20,
                                   ),
-                                  child: DropdownButton<String>(
-                                    isExpanded: true,
-                                    itemHeight: null,
-                                    icon: Icon(
-                                      Icons.arrow_drop_down,
-                                      color: colors.primary,
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton<String>(
+                                      isExpanded: true,
+                                      itemHeight: null,
+                                      icon: Icon(
+                                        Icons.arrow_drop_down,
+                                        color: colors.primary,
+                                      ),
+                                      value: model.selectedMonth,
+                                      items: model.listOfMoths
+                                          .map((item) =>
+                                              DropdownMenuItem<String>(
+                                                child: AppText.body1(item,
+                                                    color: item == "Months"
+                                                        ? colors
+                                                            .kcLightGreyColor
+                                                        : colors.black),
+                                                value: item,
+                                              ))
+                                          .toList(),
+                                      onChanged: model.onChangeMonth,
+                                      onTap: () {
+                                        FocusScope.of(context).unfocus();
+                                      },
                                     ),
-                                    value: model.selectedMonth,
-                                    items: model.listOfMoths
-                                        .map((item) => DropdownMenuItem<String>(
-                                              child: AppText.body1(item,
-                                                  color: item == "Months"
-                                                      ? colors.kcLightGreyColor
-                                                      : colors.black),
-                                              value: item,
-                                            ))
-                                        .toList(),
-                                    onChanged: model.onChangeMonth,
-                                    onTap: () {
-                                      FocusScope.of(context).unfocus();
-                                    },
                                   ),
                                 ),
                               ),
