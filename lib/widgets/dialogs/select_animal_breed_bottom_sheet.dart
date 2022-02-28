@@ -41,20 +41,20 @@ class _SelectAnimalBreedBottomSheetState
           physics: ScrollPhysics(),
           child: Column(
             children: [
-              Align(
-                alignment: Alignment.centerRight,
-                child: GestureDetector(
-                    child: AppText.body2(
-                      "Save",
-                      color: colors.primary,
-                    ),
-                    onTap: () {
-                      model.onSaveBreed().whenComplete(() => widget.onDialogTap(
-                          SheetResponse(
-                              confirmed: true,
-                              data: model.selectedBreedString)));
-                    }),
-              ),
+              // Align(
+              //   alignment: Alignment.centerRight,
+              //   child: GestureDetector(
+              //       child: AppText.body2(
+              //         "Save",
+              //         color: colors.primary,
+              //       ),
+              //       onTap: () {
+              //         model.onSaveBreed().whenComplete(() => widget.onDialogTap(
+              //             SheetResponse(
+              //                 confirmed: true,
+              //                 data: model.selectedBreedString)));
+              //       }),
+              // ),
               verticalSpaceSmall,
               AppText.headingThree(widget.sheetRequest.title ?? ""),
               SearchTextField(
@@ -66,14 +66,22 @@ class _SelectAnimalBreedBottomSheetState
                   physics: ScrollPhysics(),
                   itemCount: model.resultList.length,
                   itemBuilder: (context, index) {
-                    return CheckboxListTile(
-                      value: model.resultList[index].isChecked,
-                      onChanged: (bool? value) {
-                        setState(
-                            () => model.resultList[index].setChecked(value));
-                      },
-                      title: AppText.body(model.resultList[index].breedName),
-                      activeColor: colors.primary,
+                    return ListTile(
+                      title: AppText.body(model.resultList[index]),
+                      trailing: Visibility(
+                        visible: (widget.sheetRequest.data ?? "") ==
+                            model.resultList[index],
+                        child: Icon(
+                          Icons.check_rounded,
+                          color: colors.primary,
+                        ),
+                      ),
+                      onTap: () => widget.onDialogTap(
+                        SheetResponse(
+                          confirmed: true,
+                          data: model.resultList[index],
+                        ),
+                      ),
                     );
                   }),
             ],
