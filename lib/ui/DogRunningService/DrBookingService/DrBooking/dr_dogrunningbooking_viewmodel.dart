@@ -581,19 +581,33 @@ class DRDogRunningBookingViewModel extends FormViewModel {
     } else if (selectedRun == NoOfRuns.Two) {
       _noOfDogs = 2;
     }
+    setDefaultPets();
     notifyListeners();
+  }
+
+  void setDefaultPets() {
+    _petDetailsBody.clear();
     if (hasPets) {
       for (var pet in myPets) {
         pet.selected = false;
       }
-      _petDetailsBody.clear();
-      myPets[0].selected = true;
-      PetDetailsBody one = PetDetailsBody(myPets[0].petId!, "Medium");
-      _petDetailsBody.add(one);
-      if (noOfDogs == 2) {
-        myPets[1].selected = true;
-        PetDetailsBody one = PetDetailsBody(myPets[1].petId!, "Medium");
+      if (noOfDogs == 1) {
+        myPets[0].selected = true;
+        PetDetailsBody one = PetDetailsBody(myPets[0].petId!, "Medium");
         _petDetailsBody.add(one);
+      } else if (noOfDogs == 2) {
+        myPets[0].selected = true;
+        PetDetailsBody one = PetDetailsBody(myPets[0].petId!, "Medium");
+        _petDetailsBody.add(one);
+        if (numberOfPets == 1) {
+          PetDetailsBody one =
+              PetDetailsBody("111111111111111111111111", "Medium");
+          _petDetailsBody.add(one);
+        } else if (numberOfPets >= 2) {
+          myPets[1].selected = true;
+          PetDetailsBody one = PetDetailsBody(myPets[1].petId!, "Medium");
+          _petDetailsBody.add(one);
+        }
       }
     } else if (!hasPets) {
       PetDetailsBody one = PetDetailsBody("111111111111111111111111", "Medium");
@@ -614,6 +628,9 @@ class DRDogRunningBookingViewModel extends FormViewModel {
   List<PetsClass> _myPets = [];
   List<PetsClass> get myPets => _myPets;
 
+  int _numberOfPets = 0;
+  int get numberOfPets => _numberOfPets;
+
   List<PetDetailsBody> _petDetailsBody = [];
   List<PetDetailsBody> get petDetailsBody => _petDetailsBody;
 
@@ -626,14 +643,21 @@ class DRDogRunningBookingViewModel extends FormViewModel {
       myPets[index].selected = true;
       PetDetailsBody one = PetDetailsBody(myPets[index].petId!, "Medium");
       _petDetailsBody.add(one);
-      print("this $petDetailsBody");
     }
     if (noOfDogs == 2) {
-      if (petDetailsBody.length == 0 || petDetailsBody.length == 1) {
-        myPets[index].selected = true;
+      if (petDetailsBody.length == 0) {
         PetDetailsBody one = PetDetailsBody(myPets[index].petId!, "Medium");
+        myPets[index].selected = true;
         _petDetailsBody.add(one);
-        print("this $petDetailsBody");
+      } else if (petDetailsBody.length == 1) {
+        for (var each in petDetailsBody) {
+          if (each.petId != myPets[index].petId!) {
+            PetDetailsBody one = PetDetailsBody(myPets[index].petId!, "Medium");
+            myPets[index].selected = true;
+            _petDetailsBody.add(one);
+            break;
+          }
+        }
       } else if (petDetailsBody.length == 2) {
         for (var pet in myPets) {
           pet.selected = false;
@@ -642,7 +666,11 @@ class DRDogRunningBookingViewModel extends FormViewModel {
         myPets[index].selected = true;
         PetDetailsBody one = PetDetailsBody(myPets[index].petId!, "Medium");
         _petDetailsBody.add(one);
-        print("this $petDetailsBody");
+      }
+      if (numberOfPets == 1) {
+        PetDetailsBody one =
+            PetDetailsBody("111111111111111111111111", "Medium");
+        _petDetailsBody.add(one);
       }
     }
     setFirstPageValid();
@@ -1121,11 +1149,11 @@ class DRDogRunningBookingViewModel extends FormViewModel {
             );
             _myPets.add(petsClass);
           }
-          selectRun(selectedRun);
+          _numberOfPets = myPets.length;
         } else if (petsList.length == 0) {
           _hasPets = false;
-          selectRun(selectedRun);
         }
+        selectRun(selectedRun);
         notifyListeners();
       } else {
         snackBarService.showSnackbar(message: "No Internet connection");

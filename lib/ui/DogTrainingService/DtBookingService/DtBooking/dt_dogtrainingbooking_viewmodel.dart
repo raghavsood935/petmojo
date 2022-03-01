@@ -613,21 +613,36 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     } else if (selectedRun == NoOfRuns.Two) {
       _noOfDogs = 2;
     }
+    setDefaultPets();
     notifyListeners();
+  }
+
+  void setDefaultPets() {
+    _petDetailsBody.clear();
     if (hasPets) {
       for (var pet in myPets) {
         pet.selected = false;
       }
-      _petDetailsBody.clear();
-      myPets[0].selected = true;
-      PetDetailsTrainingBody one =
-          PetDetailsTrainingBody(myPets[0].petId!, "Medium");
-      _petDetailsBody.add(one);
-      if (noOfDogs == 2) {
-        myPets[1].selected = true;
+      if (noOfDogs == 1) {
+        myPets[0].selected = true;
         PetDetailsTrainingBody one =
-            PetDetailsTrainingBody(myPets[1].petId!, "Medium");
+            PetDetailsTrainingBody(myPets[0].petId!, "Medium");
         _petDetailsBody.add(one);
+      } else if (noOfDogs == 2) {
+        myPets[0].selected = true;
+        PetDetailsTrainingBody one =
+            PetDetailsTrainingBody(myPets[0].petId!, "Medium");
+        _petDetailsBody.add(one);
+        if (numberOfPets == 1) {
+          PetDetailsTrainingBody one =
+              PetDetailsTrainingBody("111111111111111111111111", "Medium");
+          _petDetailsBody.add(one);
+        } else if (numberOfPets >= 2) {
+          myPets[1].selected = true;
+          PetDetailsTrainingBody one =
+              PetDetailsTrainingBody(myPets[1].petId!, "Medium");
+          _petDetailsBody.add(one);
+        }
       }
     } else if (!hasPets) {
       PetDetailsTrainingBody one =
@@ -649,6 +664,9 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   List<PetsClass> _myPets = [];
   List<PetsClass> get myPets => _myPets;
 
+  int _numberOfPets = 0;
+  int get numberOfPets => _numberOfPets;
+
   List<PetDetailsTrainingBody> _petDetailsBody = [];
   List<PetDetailsTrainingBody> get petDetailsBody => _petDetailsBody;
 
@@ -662,15 +680,23 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       PetDetailsTrainingBody one =
           PetDetailsTrainingBody(myPets[index].petId!, "Medium");
       _petDetailsBody.add(one);
-      print("this $petDetailsBody");
     }
     if (noOfDogs == 2) {
-      if (petDetailsBody.length == 0 || petDetailsBody.length == 1) {
-        myPets[index].selected = true;
+      if (petDetailsBody.length == 0) {
         PetDetailsTrainingBody one =
             PetDetailsTrainingBody(myPets[index].petId!, "Medium");
+        myPets[index].selected = true;
         _petDetailsBody.add(one);
-        print("this $petDetailsBody");
+      } else if (petDetailsBody.length == 1) {
+        for (var each in petDetailsBody) {
+          if (each.petId != myPets[index].petId!) {
+            PetDetailsTrainingBody one =
+                PetDetailsTrainingBody(myPets[index].petId!, "Medium");
+            myPets[index].selected = true;
+            _petDetailsBody.add(one);
+            break;
+          }
+        }
       } else if (petDetailsBody.length == 2) {
         for (var pet in myPets) {
           pet.selected = false;
@@ -680,7 +706,11 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
         PetDetailsTrainingBody one =
             PetDetailsTrainingBody(myPets[index].petId!, "Medium");
         _petDetailsBody.add(one);
-        print("this $petDetailsBody");
+      }
+      if (numberOfPets == 1) {
+        PetDetailsTrainingBody one =
+            PetDetailsTrainingBody("111111111111111111111111", "Medium");
+        _petDetailsBody.add(one);
       }
     }
     setFirstPageValid();
@@ -1159,12 +1189,11 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
             );
             _myPets.add(petsClass);
           }
-          selectRun(selectedRun);
+          _numberOfPets = myPets.length;
         } else if (petsList.length == 0) {
           _hasPets = false;
-          selectRun(selectedRun);
         }
-
+        selectRun(selectedRun);
         notifyListeners();
       } else {
         snackBarService.showSnackbar(message: "No Internet connection");

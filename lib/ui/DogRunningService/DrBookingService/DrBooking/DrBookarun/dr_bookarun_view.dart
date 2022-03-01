@@ -44,19 +44,16 @@ class DRBookARunView extends ViewModelWidget<DRDogRunningBookingViewModel> {
                       ],
                     ),
                     horizontalSpaceLarge,
-                    Visibility(
-                      visible: model.hasPets && model.myPets.length >= 2,
-                      child: Row(
-                        children: [
-                          Radio<NoOfRuns>(
-                            value: NoOfRuns.Two,
-                            groupValue: model.selectedRun,
-                            onChanged: (value) => model.selectRun(value),
-                            activeColor: colors.primary,
-                          ),
-                          AppText.body1("2"),
-                        ],
-                      ),
+                    Row(
+                      children: [
+                        Radio<NoOfRuns>(
+                          value: NoOfRuns.Two,
+                          groupValue: model.selectedRun,
+                          onChanged: (value) => model.selectRun(value),
+                          activeColor: colors.primary,
+                        ),
+                        AppText.body1("2"),
+                      ],
                     ),
                   ],
                 ),
