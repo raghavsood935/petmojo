@@ -279,6 +279,7 @@ class DRDogRunningBookingViewModel extends FormViewModel {
       _dayFrequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = false;
+      _doneMultiply = false;
       _subTotal = 0;
       _discount = 0;
     } else if (selectedPlan == DogRunningPackage.Four) {
@@ -289,6 +290,7 @@ class DRDogRunningBookingViewModel extends FormViewModel {
       _dayFrequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = true;
+      _doneMultiply = false;
       _subTotal = 5500;
       _discount = 1000;
     } else if (selectedPlan == DogRunningPackage.Five) {
@@ -299,6 +301,7 @@ class DRDogRunningBookingViewModel extends FormViewModel {
       _dayFrequency = 2;
       _isOfferValid = false;
       _isOfferAvailable = true;
+      _doneMultiply = false;
       _subTotal = 10600;
       _discount = 2100;
     }
@@ -365,6 +368,7 @@ class DRDogRunningBookingViewModel extends FormViewModel {
       _savedAmount = amount - 1.0;
       _amount = 1.0;
     }
+    twoPets();
     notifyListeners();
   }
 
@@ -373,6 +377,7 @@ class DRDogRunningBookingViewModel extends FormViewModel {
     _promoCode = "PAWSOMEOFFER";
     _savedAmount = 600.0;
     _amount = amount - 600.0;
+    twoPets();
     notifyListeners();
   }
 
@@ -381,6 +386,7 @@ class DRDogRunningBookingViewModel extends FormViewModel {
     _promoCode = "PAWSOMEOFFER1K";
     _savedAmount = 1100;
     _amount = amount - 1100;
+    twoPets();
     notifyListeners();
   }
 
@@ -574,6 +580,9 @@ class DRDogRunningBookingViewModel extends FormViewModel {
   int _noOfDogs = 1;
   int get noOfDogs => _noOfDogs;
 
+  bool _doneMultiply = false;
+  bool get doneMultiply => _doneMultiply;
+
   void selectRun(NoOfRuns? value) {
     selectedRun = value;
     if (selectedRun == NoOfRuns.One) {
@@ -582,6 +591,20 @@ class DRDogRunningBookingViewModel extends FormViewModel {
       _noOfDogs = 2;
     }
     setDefaultPets();
+    twoPets();
+    notifyListeners();
+  }
+
+  void twoPets() {
+    if (noOfDogs == 2) {
+      _amount = amount * 2;
+      _savedAmount = savedAmount * 2;
+      _doneMultiply = true;
+    } else if (noOfDogs == 1 && doneMultiply) {
+      _amount = amount / 2;
+      _savedAmount = savedAmount / 2;
+      _doneMultiply = false;
+    }
     notifyListeners();
   }
 

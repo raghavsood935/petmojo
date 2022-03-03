@@ -280,57 +280,50 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _frequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = false;
+      _doneMultiply = false;
       _subTotal = 0;
       _discount = 0;
     } else if (selectedPlan == DogTrainingPackage.Two) {
       _isValid = true;
       _description = "Puppy Training";
-      // old rate
       _subTotal = 10788;
-      // new rate
       _amount = 9588;
-      // save
       _discount = 1200;
       _frequency = 16;
       _isOfferValid = false;
       _isOfferAvailable = true;
+      _doneMultiply = false;
     } else if (selectedPlan == DogTrainingPackage.Three) {
       _isValid = true;
       _description = "Basic Obedience & Behavioural Training";
-      // old rate
       _subTotal = 21576;
-      // new rate
       _amount = 18000;
-      // save
       _discount = 3576;
       _frequency = 24;
       _isOfferValid = false;
       _isOfferAvailable = true;
+      _doneMultiply = false;
     } else if (selectedPlan == DogTrainingPackage.Four) {
       _isValid = true;
       _description = "Advanced Obedience Behavioural and Guarding Training";
-      // old rate
       _subTotal = 32364;
-      // new rate
       _amount = 25560;
-      // save
       _discount = 6804;
       _frequency = 36;
       _isOfferValid = false;
       _isOfferAvailable = true;
+      _doneMultiply = false;
     } else if (selectedPlan == DogTrainingPackage.Five) {
       _isValid = true;
       _description =
           "Elite STAGE SHOW Obedience, Behavioural, Guarding and Intellect Training";
-      // old rate
       _subTotal = 43152;
-      // new rate
       _amount = 32640;
-      // save
       _discount = 10512;
       _frequency = 48;
       _isOfferValid = false;
       _isOfferAvailable = true;
+      _doneMultiply = false;
     }
     setFirstPageValid();
     notifyListeners();
@@ -411,7 +404,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       String dummySaved = savedAmount.toStringAsFixed(2);
       _savedAmount = double.parse(dummySaved);
     }
-
+    twoPets();
     notifyListeners();
   }
 
@@ -422,6 +415,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     _amount = amount - (amount * 0.10);
     String dummySaved = savedAmount.toStringAsFixed(2);
     _savedAmount = double.parse(dummySaved);
+    twoPets();
     notifyListeners();
   }
 
@@ -606,6 +600,9 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   int _noOfDogs = 1;
   int get noOfDogs => _noOfDogs;
 
+  bool _doneMultiply = false;
+  bool get doneMultiply => _doneMultiply;
+
   void selectRun(NoOfRuns? value) {
     selectedRun = value;
     if (selectedRun == NoOfRuns.One) {
@@ -614,6 +611,20 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _noOfDogs = 2;
     }
     setDefaultPets();
+    twoPets();
+    notifyListeners();
+  }
+
+  void twoPets() {
+    if (noOfDogs == 2) {
+      _amount = amount * 2;
+      _savedAmount = savedAmount * 2;
+      _doneMultiply = true;
+    } else if (noOfDogs == 1 && doneMultiply) {
+      _amount = amount / 2;
+      _savedAmount = savedAmount / 2;
+      _doneMultiply = false;
+    }
     notifyListeners();
   }
 
