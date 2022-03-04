@@ -137,7 +137,7 @@ class DTPaymentViewModel extends FutureViewModel<void>
       'amount': getPaymentDetailsResponse.amount,
       'name': '',
       'order_id': getPaymentDetailsResponse.orderId,
-      'description': 'Tamely Dog Running',
+      'description': 'Tamely Dog Training',
       'retry': {
         'enabled': true,
         'max_count': 2,

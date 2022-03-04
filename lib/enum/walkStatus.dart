@@ -1,1 +1,1 @@
-enum WalkStatus { showLive, showUpcoming, showReport }
+enum WalkStatus { showLive, showUpcoming, showReport, showNa }
