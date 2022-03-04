@@ -91,6 +91,8 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
 
   String _cancelAmount = "";
 
+  ScrollController scrollController = ScrollController();
+
   String get cancelAmount => _cancelAmount;
   List<String> get dogs => _dogs;
   List<String> get dogIds => _dogIds;
@@ -122,18 +124,22 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
   bool _showLiveOne = false;
   bool _showUpcomingOne = false;
   bool _showReportOne = false;
+  bool _showNaOne = false;
 
   bool _showLiveTwo = false;
   bool _showUpcomingTwo = false;
   bool _showReportTwo = false;
+  bool _showNaTwo = false;
 
   bool get showLiveOne => _showLiveOne;
   bool get showUpcomingOne => _showUpcomingOne;
   bool get showReportOne => _showReportOne;
+  bool get showNaOne => _showNaOne;
 
   bool get showLiveTwo => _showLiveTwo;
   bool get showUpcomingTwo => _showUpcomingTwo;
   bool get showReportTwo => _showReportTwo;
+  bool get showNaTwo => _showNaTwo;
 
   WalkStatus _walkStatusOne = WalkStatus.showUpcoming;
   WalkStatus get walkStatusOne => _walkStatusOne;
@@ -172,14 +178,22 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
       _showLiveTwo = true;
       _showUpcomingTwo = false;
       _showReportTwo = false;
+      _showNaTwo = false;
     } else if (_walkStatusTwo == WalkStatus.showReport) {
       _showLiveTwo = false;
       _showUpcomingTwo = false;
       _showReportTwo = true;
+      _showNaTwo = false;
     } else if (_walkStatusTwo == WalkStatus.showUpcoming) {
       _showLiveTwo = false;
       _showUpcomingTwo = true;
       _showReportTwo = false;
+      _showNaTwo = false;
+    } else if (_walkStatusTwo == WalkStatus.showNa) {
+      _showLiveTwo = false;
+      _showUpcomingTwo = false;
+      _showReportTwo = false;
+      _showNaTwo = true;
     }
     notifyListeners();
   }
@@ -189,14 +203,22 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
       _showLiveOne = true;
       _showUpcomingOne = false;
       _showReportOne = false;
+      _showNaOne = false;
     } else if (_walkStatusOne == WalkStatus.showReport) {
       _showLiveOne = false;
       _showUpcomingOne = false;
       _showReportOne = true;
+      _showNaOne = false;
     } else if (_walkStatusOne == WalkStatus.showUpcoming) {
       _showLiveOne = false;
       _showUpcomingOne = true;
       _showReportOne = false;
+      _showNaOne = false;
+    } else if (_walkStatusOne == WalkStatus.showNa) {
+      _showLiveOne = false;
+      _showUpcomingOne = false;
+      _showReportOne = false;
+      _showNaOne = true;
     }
     notifyListeners();
   }
@@ -332,8 +354,17 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
     notifyListeners();
   }
 
+  Future<void> scrollToCurrentDate() async {
+    int dateCount = (initialDate).difference(startDate).inDays;
+    if (scrollController.hasClients) {
+      double jumpValue = 66 * (dateCount).toDouble();
+      scrollController.animateTo(jumpValue,
+          duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+    }
+  }
+
   // scroll implementation
-  void getScrollStatus(DateTime date) async {
+  Future<void> getScrollStatus(DateTime date) async {
     DateTime convertedDate = date.add(Duration(hours: 5, minutes: 30));
     int toTimeStamp = convertedDate.millisecondsSinceEpoch;
     DateTime now = DateTime.now();
@@ -349,8 +380,16 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
           print(scroll);
           if (numberOfWalk == 1) {
             if (scroll![0].walkStatus == 0) {
-              // upcoming
-              _walkStatusOne = WalkStatus.showUpcoming;
+              if (date.day == now.day) {
+                // upcoming
+                _walkStatusOne = WalkStatus.showUpcoming;
+              } else if (date.isBefore(now)) {
+                // NA
+                _walkStatusOne = WalkStatus.showNa;
+              } else {
+                // upcoming
+                _walkStatusOne = WalkStatus.showUpcoming;
+              }
             } else if (scroll[0].walkStatus == 1) {
               // Started
               _walkStatusOne = WalkStatus.showLive;
@@ -362,8 +401,16 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
           notifyListeners();
           if (numberOfWalk == 2) {
             if (scroll![0].walkStatus == 0) {
-              // upcoming
-              _walkStatusOne = WalkStatus.showUpcoming;
+              if (date.day == now.day) {
+                // upcoming
+                _walkStatusOne = WalkStatus.showUpcoming;
+              } else if (date.isBefore(now)) {
+                // NA
+                _walkStatusOne = WalkStatus.showNa;
+              } else {
+                // upcoming
+                _walkStatusOne = WalkStatus.showUpcoming;
+              }
             } else if (scroll[0].walkStatus == 1) {
               // Started
               _walkStatusOne = WalkStatus.showLive;
@@ -373,8 +420,16 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
             }
 
             if (scroll[1].walkStatus == 0) {
-              // upcoming
-              _walkStatusTwo = WalkStatus.showUpcoming;
+              if (date.day == now.day) {
+                // upcoming
+                _walkStatusTwo = WalkStatus.showUpcoming;
+              } else if (date.isBefore(now)) {
+                // NA
+                _walkStatusTwo = WalkStatus.showNa;
+              } else {
+                // upcoming
+                _walkStatusTwo = WalkStatus.showUpcoming;
+              }
             } else if (scroll[1].walkStatus == 1) {
               // Started
               _walkStatusTwo = WalkStatus.showLive;
@@ -400,11 +455,9 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
     _navigationService.navigateTo(Routes.dRDogRunningBookingView);
   }
 
-  //
-  void dateSelected(date) {
-    print(date);
+  void dateSelected(date) async {
     _selectedDate = date;
-    getScrollStatus(date);
+    await getScrollStatus(date);
     notifyListeners();
   }
 
@@ -607,6 +660,8 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
             }
             _numberOfDays = 7;
           }
+
+          await scrollToCurrentDate();
           notifyListeners();
         }
         _dialogService.completeDialog(DialogResponse(confirmed: true));

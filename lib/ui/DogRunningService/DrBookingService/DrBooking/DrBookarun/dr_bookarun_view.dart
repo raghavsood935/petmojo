@@ -113,10 +113,7 @@ class DRBookARunView extends ViewModelWidget<DRDogRunningBookingViewModel> {
                         onTaped: () => model.selectPlan(DogRunningPackage.One),
                         title: perWalkTitle,
                         subtitleOne: perWalkSubtitleOne,
-                        subtitleTwo: perWalkSubtitleTwo,
                         rateOld: perWalkRateOld,
-                        rateNew: perWalkRateNew,
-                        rateLabel: perWalkRateLabel,
                       )
                     : Container(),
                 verticalSpaceMedium,
@@ -299,25 +296,17 @@ class FreePackageItem extends StatelessWidget {
     Key? key,
     this.title,
     this.subtitleOne,
-    this.subtitleTwo,
-    this.rateLabel,
-    this.value,
-    this.selectedValue,
-    this.onTaped,
-    this.rateOld,
-    this.rateNew,
-    this.onSeeMoreTaped,
+    this.value, //
+    this.selectedValue, //
+    this.onTaped, //
+    this.rateOld, //
   }) : super(key: key);
   final String? title;
   final String? subtitleOne;
-  final String? subtitleTwo;
   final String? rateOld;
-  final String? rateNew;
-  final String? rateLabel;
   final DogRunningPackage? value;
   final DogRunningPackage? selectedValue;
   final void Function()? onTaped;
-  final void Function()? onSeeMoreTaped;
 
   @override
   Widget build(BuildContext context) {
@@ -361,7 +350,7 @@ class FreePackageItem extends StatelessWidget {
                   ),
                   verticalSpaceTiny,
                   AppText.caption(
-                    subtitleTwo!,
+                    "",
                     color: selectedValue == value
                         ? colors.white
                         : colors.kcCaptionGreyColor,
@@ -372,10 +361,9 @@ class FreePackageItem extends StatelessWidget {
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AppText.body2(
-                    rateNew!,
+                    rateOld!,
                     color:
                         selectedValue == value ? colors.white : colors.primary,
                   ),

@@ -399,6 +399,7 @@ String walkOneLabel = "Run 1";
 String walkTwoLabel = "Run 2";
 
 String upcomingWalkLabel = "Upcoming";
+String naWalkLabel = "NA";
 String liveWalkLabel = "Check LIVE";
 String seeReportLabel = "See report >";
 
@@ -496,7 +497,7 @@ String firstPageTitle = "Select Package";
 String secondPageTitle = "Book Dog Training";
 String trainingTimeTitle = "Training time ";
 
-String freeTrainingTitle = "Demo Session";
+String freeTrainingTitle = "FREE Demo Session";
 String twoTrainingTitle = "Puppy Training";
 String threeTrainingTitle = "Basic Obedience & Behavioural Training";
 String fourTrainingTitle =
