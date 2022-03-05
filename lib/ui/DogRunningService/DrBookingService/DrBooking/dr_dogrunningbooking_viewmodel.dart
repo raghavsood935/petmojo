@@ -196,7 +196,7 @@ class DRDogRunningBookingViewModel extends FormViewModel {
       _isOfferValid = false;
       _isOfferAvailable = true;
       _subTotal = 5500;
-      _discount = 10600;
+      _discount = 1000;
     }
     setFirstPageValid();
     notifyListeners();

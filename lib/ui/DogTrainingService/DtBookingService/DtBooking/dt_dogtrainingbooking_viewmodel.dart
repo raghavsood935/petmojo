@@ -193,7 +193,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _amount = 9588;
       // save
       _discount = 1200;
-      _frequency = 16;
+      _frequency = 12;
       _dayFrequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = true;
@@ -289,7 +289,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _subTotal = 10788;
       _amount = 9588;
       _discount = 1200;
-      _frequency = 16;
+      _frequency = 12;
       _isOfferValid = false;
       _isOfferAvailable = true;
       _doneMultiply = false;
