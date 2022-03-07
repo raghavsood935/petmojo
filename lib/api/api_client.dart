@@ -9,6 +9,7 @@ import 'package:tamely/models/book_a_run_response.dart';
 import 'package:tamely/models/bookmark_response.dart';
 import 'package:tamely/models/comment_added_response.dart';
 import 'package:tamely/models/common_response.dart';
+import 'package:tamely/models/coupon_response.dart';
 import 'package:tamely/models/create_post_response.dart';
 import 'package:tamely/models/e-commerce/fav_product_list_response.dart';
 import 'package:tamely/models/e-commerce/product_details_by_id_response.dart';
@@ -52,6 +53,7 @@ import 'package:tamely/models/params/change_bio_avatar_body.dart';
 import 'package:tamely/models/params/comment_new/add_comment_body.dart';
 import 'package:tamely/models/params/confirm_relation_request_body.dart';
 import 'package:tamely/models/params/counter_body.dart';
+import 'package:tamely/models/params/coupon_body.dart';
 import 'package:tamely/models/params/create_animal_profile_body.dart';
 import 'package:tamely/models/params/create_animal_profile_new_body.dart';
 import 'package:tamely/models/params/create_post_body.dart';
@@ -307,6 +309,10 @@ class Apis {
   static const String getTrainingScrollStatus =
       '/serviceBooking/getscrollSessionstatus';
   static const String getTrainingReport = '/serviceBooking/getTrainingReport';
+
+  // -- Offers
+  static const String getCouponAmount = '/serviceBooking/Verifycoupon';
+  static const String setUsedCoupon = '/serviceBooking/MarkCoupon';
 }
 
 // @RestApi(baseUrl: "https://tamely.herokuapp.com/api/")
@@ -842,4 +848,12 @@ abstract class ApiClient {
   @POST(Apis.getTrainingReport)
   Future<GetTrainingReportResponse> getTrainingReport(
       @Body() GetTrainingReportBody getTrainingReportBody);
+
+  // -- Get Coupon Amount
+  @POST(Apis.getCouponAmount)
+  Future<CouponResponse> getCouponAmount(@Body() CouponBody couponBody);
+
+  // -- Set Used Coupon
+  @POST(Apis.setUsedCoupon)
+  Future<SendDataResponse> setUsedCoupon(@Body() CouponBody couponBody);
 }

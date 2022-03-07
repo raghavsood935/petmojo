@@ -219,7 +219,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             bool? isReorderDone = each.isReorderDone;
             String? subscriptionType =
                 each.bookingDetails!.package!.subscriptionType;
-            if (numberOfDaysLeft! <= 3 &&
+            if (numberOfDaysLeft! <= 5 &&
                 subscriptionType != "Free" &&
                 isReorderDone == false) {
               newAppointment.showReorder = true;
@@ -285,7 +285,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             bool? isReorderDone = each.isReorderDone;
             String? subscriptionType =
                 each.bookingDetails!.package!.subscriptionType;
-            if (numberOfDaysLeft! <= 3 &&
+            if (numberOfDaysLeft! <= 5 &&
                 subscriptionType != "Free" &&
                 isReorderDone == false) {
               newAppointment.showReorder = true;
@@ -356,7 +356,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             bool? isReorderDone = each.isReorderDone;
             String? subscriptionType =
                 each.bookingDetails!.package!.subscriptionType;
-            if (numberOfDaysLeft! <= 3 &&
+            if (numberOfDaysLeft! <= 5 &&
                 subscriptionType != "Free" &&
                 isReorderDone == false) {
               newAppointment.showReorder = true;
@@ -422,7 +422,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             bool? isReorderDone = each.isReorderDone;
             String? subscriptionType =
                 each.bookingDetails!.package!.subscriptionType;
-            if (numberOfDaysLeft! <= 3 &&
+            if (numberOfDaysLeft! <= 5 &&
                 subscriptionType != "Free" &&
                 isReorderDone == false) {
               newAppointment.showReorder = true;
