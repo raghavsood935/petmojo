@@ -175,64 +175,23 @@ class DRBookARunView extends ViewModelWidget<DRDogRunningBookingViewModel> {
                   AppInputField(
                     hint: "Enter Promo Code",
                     controller: model.promoCodeController,
-                    onChanged: model.promoCodeValidation,
+                    trailing: model.isCouponProcessing
+                        ? Transform.scale(
+                            scale: 0.6,
+                            child: CircularProgressIndicator(
+                              color: colors.primary,
+                            ),
+                          )
+                        : Icon(
+                            Icons.arrow_forward_rounded,
+                            color: colors.primary,
+                          ),
+                    trailingTapped: model.applyCoupon,
                     isBoxBorder: true,
                     textInputType: TextInputType.name,
                     textCapitalization: TextCapitalization.none,
                   ),
                   verticalSpaceTiny,
-                  model.selectedPlan == DogRunningPackage.Four
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AppText.body2(
-                                  "PAWSOMEOFFER",
-                                  color: colors.primary,
-                                ),
-                                AppText.body2("Flat INR 600 off"),
-                              ],
-                            ),
-                            GestureDetector(
-                              onTap: model.useOfferOne,
-                              child: AppText.body2(
-                                "USE",
-                                color: colors.primary,
-                              ),
-                            ),
-                          ],
-                        )
-                      : Container(),
-                  model.selectedPlan == DogRunningPackage.Five
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AppText.body2(
-                                  "PAWSOMEOFFER1K",
-                                  color: colors.primary,
-                                ),
-                                AppText.body2("Flat INR 1100 off"),
-                              ],
-                            ),
-                            GestureDetector(
-                              onTap: model.useOfferTwo,
-                              child: AppText.body2(
-                                "USE",
-                                color: colors.primary,
-                              ),
-                            ),
-                          ],
-                        )
-                      : Container(),
-                  model.selectedPlan == DogRunningPackage.Four ||
-                          model.selectedPlan == DogRunningPackage.Five
-                      ? verticalSpaceMedium
-                      : Container(),
                 ],
               ),
             ),

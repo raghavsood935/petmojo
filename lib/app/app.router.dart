@@ -1103,10 +1103,10 @@ class DashboardArguments {
   final int initialPageState;
   final bool isNeedToUpdateProfile;
   final bool isHuman;
-  final bool? checkUpdate;
   final String petID;
   final String petToken;
   final int initialState;
+  final bool? checkUpdate;
   DashboardArguments(
       {this.key,
       required this.initialPageState,

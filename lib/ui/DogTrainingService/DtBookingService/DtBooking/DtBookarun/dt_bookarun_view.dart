@@ -242,35 +242,23 @@ class DTBookARunView extends ViewModelWidget<DTDogTrainingBookingViewModel> {
                   AppInputField(
                     hint: "Enter Promo Code",
                     controller: model.promoCodeController,
-                    onChanged: model.promoCodeValidation,
+                    trailing: model.isCouponProcessing
+                        ? Transform.scale(
+                            scale: 0.6,
+                            child: CircularProgressIndicator(
+                              color: colors.primary,
+                            ),
+                          )
+                        : Icon(
+                            Icons.arrow_forward_rounded,
+                            color: colors.primary,
+                          ),
+                    trailingTapped: model.applyCoupon,
                     isBoxBorder: true,
                     textInputType: TextInputType.name,
                     textCapitalization: TextCapitalization.none,
                   ),
                   verticalSpaceTiny,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AppText.body2(
-                            "PAWSOMEOFFER",
-                            color: colors.primary,
-                          ),
-                          AppText.body2("ADDITIONAL 10% OFF"),
-                        ],
-                      ),
-                      GestureDetector(
-                        onTap: model.useOfferOne,
-                        child: AppText.body2(
-                          "USE",
-                          color: colors.primary,
-                        ),
-                      ),
-                    ],
-                  ),
-                  verticalSpaceMedium,
                 ],
               ),
             ),

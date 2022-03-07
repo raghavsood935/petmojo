@@ -113,7 +113,7 @@ class DRSelectPackageView
                     AppInputField(
                       hint: "Enter Promo Code",
                       controller: model.promoCodeController,
-                      onChanged: model.promoCodeValidation,
+                      //onChanged: model.promoCodeValidation,
                       //errorText: model.validUser(emailController),
                       textInputType: TextInputType.name,
                       textCapitalization: TextCapitalization.none,
