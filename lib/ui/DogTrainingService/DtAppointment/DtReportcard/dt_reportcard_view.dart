@@ -562,7 +562,7 @@ class ReportItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   AppText.body2(
-                    walkRatingTitle,
+                    trainingRatingTitle,
                     textAlign: TextAlign.center,
                   ),
                   gotRating!
