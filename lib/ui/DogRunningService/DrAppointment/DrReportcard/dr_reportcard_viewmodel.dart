@@ -44,7 +44,7 @@ class DRReportCardViewModel extends FutureViewModel<void>
   String _time = "";
 
   // needs
-  int _distance = 0;
+  String _distance = '0';
   int _timeTook = 0;
 
   String _dogPicture =
@@ -60,7 +60,7 @@ class DRReportCardViewModel extends FutureViewModel<void>
   String get dogPicture => _dogPicture;
   String get mapPicture => _mapPicture;
   String get time => _time;
-  int get distance => _distance;
+  String get distance => _distance;
   int get timeTook => _timeTook;
   List<bool> get dogPoo => _dogPoo;
   List<bool> get dogPee => _dogPee;

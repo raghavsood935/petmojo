@@ -22,7 +22,7 @@ class _$GetReportResponseTearOff {
   const _$GetReportResponseTearOff();
 
   _GetReportResponse call(
-      {@JsonKey(name: "distance") int? distance,
+      {@JsonKey(name: "distance") String? distance,
       @JsonKey(name: "time") int? time,
       @JsonKey(name: "rating") int? rating,
       @JsonKey(name: "reperate") List<GetPeeAndPooResponse>? repeat,
@@ -49,7 +49,7 @@ const $GetReportResponse = _$GetReportResponseTearOff();
 /// @nodoc
 mixin _$GetReportResponse {
   @JsonKey(name: "distance")
-  int? get distance => throw _privateConstructorUsedError;
+  String? get distance => throw _privateConstructorUsedError;
   @JsonKey(name: "time")
   int? get time => throw _privateConstructorUsedError;
   @JsonKey(name: "rating")
@@ -73,7 +73,7 @@ abstract class $GetReportResponseCopyWith<$Res> {
           GetReportResponse value, $Res Function(GetReportResponse) then) =
       _$GetReportResponseCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: "distance") int? distance,
+      {@JsonKey(name: "distance") String? distance,
       @JsonKey(name: "time") int? time,
       @JsonKey(name: "rating") int? rating,
       @JsonKey(name: "reperate") List<GetPeeAndPooResponse>? repeat,
@@ -103,7 +103,7 @@ class _$GetReportResponseCopyWithImpl<$Res>
       distance: distance == freezed
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       time: time == freezed
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
@@ -136,7 +136,7 @@ abstract class _$GetReportResponseCopyWith<$Res>
       __$GetReportResponseCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: "distance") int? distance,
+      {@JsonKey(name: "distance") String? distance,
       @JsonKey(name: "time") int? time,
       @JsonKey(name: "rating") int? rating,
       @JsonKey(name: "reperate") List<GetPeeAndPooResponse>? repeat,
@@ -168,7 +168,7 @@ class __$GetReportResponseCopyWithImpl<$Res>
       distance: distance == freezed
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       time: time == freezed
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
@@ -210,7 +210,7 @@ class _$_GetReportResponse extends _GetReportResponse {
 
   @override
   @JsonKey(name: "distance")
-  final int? distance;
+  final String? distance;
   @override
   @JsonKey(name: "time")
   final int? time;
@@ -270,7 +270,7 @@ class _$_GetReportResponse extends _GetReportResponse {
 
 abstract class _GetReportResponse extends GetReportResponse {
   factory _GetReportResponse(
-      {@JsonKey(name: "distance") int? distance,
+      {@JsonKey(name: "distance") String? distance,
       @JsonKey(name: "time") int? time,
       @JsonKey(name: "rating") int? rating,
       @JsonKey(name: "reperate") List<GetPeeAndPooResponse>? repeat,
@@ -283,7 +283,7 @@ abstract class _GetReportResponse extends GetReportResponse {
 
   @override
   @JsonKey(name: "distance")
-  int? get distance;
+  String? get distance;
   @override
   @JsonKey(name: "time")
   int? get time;
