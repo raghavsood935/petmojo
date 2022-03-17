@@ -69,7 +69,7 @@ class _ProductItemViewState extends State<ProductItemView> {
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
-                                model.favAction();
+                                model.favAction(isAlreadyFavorite: isFav);
                                 isFav = !isFav;
                               });
                             },

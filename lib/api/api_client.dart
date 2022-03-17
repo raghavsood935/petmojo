@@ -275,6 +275,7 @@ class Apis {
   static const String addToCart = '/product/addToCart';
   static const String getCartDetails = '/product/getCartDetails';
   static const String addToFavourites = '/product/addToFavourites';
+  static const String deleteFromFavourites = '/product/deleteFromFavourite';
   static const String getFavouriteDetails = '/product/getFavouriteDetails';
 
   // My Bookings Flow
@@ -703,6 +704,11 @@ abstract class ApiClient {
   // ---> Add To Favourites
   @POST(Apis.addToFavourites)
   Future<EditResponse> addToFavourites(
+      @Body() ProductIdCommonBody productIdCommonBody);
+
+  // ---> Delete From Favourites
+  @POST(Apis.deleteFromFavourites)
+  Future<EditResponse> deleteFromFavourites(
       @Body() ProductIdCommonBody productIdCommonBody);
 
   // ---> Get List Of Favourite Products

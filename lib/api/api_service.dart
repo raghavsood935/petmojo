@@ -1595,6 +1595,22 @@ class TamelyApi {
     return BaseResponse()..data = response;
   }
 
+  // ---> Delete From Favourites
+  Future<BaseResponse<EditResponse>> deleteFromFavourites(
+      ProductIdCommonBody productIdCommonBody, bool isHuman,
+      {String petToken = ""}) async {
+    EditResponse response;
+    try {
+      response = await getApiClient(true, isHuman, animalToken: petToken)
+          .deleteFromFavourites(productIdCommonBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
   // ---> Get List Of Favourite Products
   Future<BaseResponse<FavProductListResponse>> getFavouriteDetails(bool isHuman,
       {String petToken = ""}) async {

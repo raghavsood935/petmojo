@@ -42,10 +42,18 @@ class ProductItemViewModel extends BaseModel {
     notifyListeners();
   }
 
-  Future favAction() async {
-    var response = await _tamelyApi.addToFavourites(
+  Future favAction({required bool isAlreadyFavorite}) async {
+    var response;
+    if(isAlreadyFavorite){
+    response = await _tamelyApi.addToFavourites(
         ProductIdCommonBody(productID), isHuman,
         petToken: petToken);
+    }
+    else{
+      response = await _tamelyApi.deleteFromFavourites(
+          ProductIdCommonBody(productID), isHuman,
+          petToken: petToken);
+    }
     if (response.getException != null) {
       ServerError error = response.getException as ServerError;
       _snackBarService.showSnackbar(message: error.getErrorMessage());

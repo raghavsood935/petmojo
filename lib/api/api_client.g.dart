@@ -1595,6 +1595,23 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<EditResponse> deleteFromFavourites(productIdCommonBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(productIdCommonBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<EditResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/product/deleteFromFavourite',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = EditResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<FavProductListResponse> getFavouriteDetails() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
