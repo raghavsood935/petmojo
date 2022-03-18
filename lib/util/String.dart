@@ -430,6 +430,7 @@ String reportCardTitle = "Run Complete!";
 String reportCardSubtitle = "petmojo Report card";
 
 String walkRatingTitle = "Ratings for dog runner";
+String trainingRatingTitle = "Ratings for dog trainer";
 String walkRatingSubtitle =
     "You have not been rated yet. We will update it once you are rated.";
 String dogOneTitle = "(Dog 1)";
