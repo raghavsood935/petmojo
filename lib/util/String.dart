@@ -589,3 +589,70 @@ String fiveTrainingSeeSeventeen = "Instruction Heal";
 
 // My Appointments
 String dogTrainingTitle = "Dog Training";
+
+// Dog Grooming
+String groomingFirstPageTitle = "Book Dog Grooming";
+String groomingSecondPageTitle = "Book Dog Grooming";
+
+// Dog Grooming
+
+// Book a groom
+
+String bookAGroomingSubtitle = "Almost there! Select which package your pet needs. Call us on 9009004473 if any query.";
+
+String firstPageGroomingTitle = "Book Dog Grooming";
+String secondPageGroomingTitle = "Book Dog Grooming";
+String groomingTimeTitle = "Grooming time";
+
+String firstGroomingTitle = "Bath and brush";
+String twoGroomingTitle = "Haircut and Styling";
+String threeGroomingTitle = "Bath and Full Haircut";
+
+String firstGroomingSubtitleOne = "For general hygiene and a healthy looking coat";
+String twoGroomingSubtitleOne = "For full haircut and complete styling";
+String threeGroomingSubtitleOne = "Complete hygiene and styling";
+
+String firstGroomingRateOld = "₹1,200/-";
+String twoGroomingRateOld = "₹1,400/-";
+String threeGroomingRateOld = "₹2500/-";
+
+String firstGroomingRateNew = "₹749/-";
+String twoGroomingRateNew = "₹949/-";
+String threeGroomingRateNew = "₹1,499/-";
+
+String firstGroomingRateLabel = "(You save 251)";
+String twoGroomingRateLabel = "(You save 251)";
+String threeGroomingRateLabel = "(You save 1,000)";
+
+// See more
+
+String firstGroomingSeeOne = "Includes Bath";
+String firstGroomingSeeTwo = "Shampoo";
+String firstGroomingSeeThree = "Blow Dry";
+String firstGroomingSeeFour = "Brushing";
+String firstGroomingSeeFive = "Sanitary Trim";
+String firstGroomingSeeSix = "Nail Trim";
+String firstGroomingSeeSeven = "Ear Cleaning or Flushing";
+String firstGroomingSeeEight = "Anal Gland Cleaning";
+String firstGroomingSeeNine = "Scissoring Feet";
+String firstGroomingSeeTen = "Shaving Pads";
+
+String twoGroomingSeeOne = "Full Haircut";
+String twoGroomingSeeTwo = "Shaving and Hairstyling";
+
+String threeGroomingSeeOne = "Includes Bath";
+String threeGroomingSeeTwo = "Shampoo";
+String threeGroomingSeeThree = "Blow Dry";
+String threeGroomingSeeFour = "Brusing";
+String threeGroomingSeeFive = "Sanitary Trim";
+String threeGroomingSeeSix = "Full Haircut";
+String threeGroomingSeeSeven = "Nail Trim";
+String threeGroomingSeeEight = "Ear Cleaning or Flushing";
+String threeGroomingSeeNine = "Anal Gland Cleaning";
+String threeGroomingSeeTen = "Scissoring Feet";
+String threeGroomingSeeEleven = "Shaving Pads";
+String threeGroomingSeeTwelve = "Shaving and Hairstyling";
+
+String dogGroomingProductDescription = "Our grooming products are carefully selected to care for your pet’s skin coat and are non allergenic.";
+// My Appointments
+String dogGroomingTitle = "Dog Grooming";

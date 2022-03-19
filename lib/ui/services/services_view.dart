@@ -107,8 +107,12 @@ class ServicesView extends StatelessWidget {
                   crossAxisSpacing: 20,
                   mainAxisSpacing: 8,
                   crossAxisCount: 2,
-                  itemBuilder: (context, index) => servicesItem(
-                      context, model.listOfUpcommingServices[index]),
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () =>
+                        model.onServiceTap(model.listOfServices.length + index),
+                    child: servicesItem(
+                        context, model.listOfUpcommingServices[index]),
+                  ),
                   itemCount: model.listOfUpcommingServices.length,
                   staggeredTileBuilder: (index) => StaggeredTile.fit(1),
                 ),
