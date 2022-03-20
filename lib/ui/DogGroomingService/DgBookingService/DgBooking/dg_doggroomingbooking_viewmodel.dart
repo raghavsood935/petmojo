@@ -921,6 +921,9 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
   bool _selectedWeekdayThree = false;
   bool _selectedWeekdayFour = false;
   bool _selectedWeekdayFive = false;
+  bool _selectedWeekdaySix = false;
+  bool _selectedWeekdaySeven = false;
+  bool _selectedWeekdayEight = false;
   //bool _selectedWeekdaySix = false;
 
   bool get selectedWeekdayOne => _selectedWeekdayOne;
@@ -928,80 +931,125 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
   bool get selectedWeekdayThree => _selectedWeekdayThree;
   bool get selectedWeekdayFour => _selectedWeekdayFour;
   bool get selectedWeekdayFive => _selectedWeekdayFive;
+  bool get selectedWeekdaySix => _selectedWeekdaySix;
+  bool get selectedWeekdaySeven => _selectedWeekdaySeven;
+  bool get selectedWeekdayEight => _selectedWeekdayEight;
   //bool get selectedWeekdaySix => _selectedWeekdaySix;
 
   void setSelectedWeekday1() {
-    _weekDayTiming = timingsOne;
+    _weekDayTiming = groomingTimingsOne;
     print(weekDayTiming);
     _selectedWeekdayOne = !_selectedWeekdayOne;
     _selectedWeekdayTwo = false;
     _selectedWeekdayThree = false;
     _selectedWeekdayFour = false;
     _selectedWeekdayFive = false;
-    //_selectedWeekdaySix = false;
+    _selectedWeekdaySix = false;
+    _selectedWeekdaySeven = false;
+    _selectedWeekdayEight = false;
     notifyListeners();
     secondPageValidation('s');
   }
 
   void setSelectedWeekday2() {
-    _weekDayTiming = timingsTwo;
+    _weekDayTiming = groomingTimingsTwo;
     _selectedWeekdayOne = false;
     _selectedWeekdayTwo = !_selectedWeekdayTwo;
     _selectedWeekdayThree = false;
     _selectedWeekdayFour = false;
     _selectedWeekdayFive = false;
-    //_selectedWeekdaySix = false;
+    _selectedWeekdaySix = false;
+    _selectedWeekdaySeven = false;
+    _selectedWeekdayEight = false;
     notifyListeners();
     secondPageValidation('s');
   }
 
   void setSelectedWeekday3() {
-    _weekDayTiming = timingsThree;
+    _weekDayTiming = groomingTimingsThree;
     _selectedWeekdayOne = false;
     _selectedWeekdayTwo = false;
     _selectedWeekdayThree = !_selectedWeekdayThree;
     _selectedWeekdayFour = false;
     _selectedWeekdayFive = false;
-    // _selectedWeekdaySix = false;
+    _selectedWeekdaySix = false;
+    _selectedWeekdaySeven = false;
+    _selectedWeekdayEight = false;
     notifyListeners();
     secondPageValidation('s');
   }
 
   void setSelectedWeekday4() {
-    _weekDayTiming = timingsFour;
+    _weekDayTiming = groomingTimingsFour;
     _selectedWeekdayOne = false;
     _selectedWeekdayTwo = false;
     _selectedWeekdayThree = false;
     _selectedWeekdayFour = !_selectedWeekdayFour;
     _selectedWeekdayFive = false;
-    //_selectedWeekdaySix = false;
+    _selectedWeekdaySix = false;
+    _selectedWeekdaySeven = false;
+    _selectedWeekdayEight = false;
     notifyListeners();
     secondPageValidation('s');
   }
 
   void setSelectedWeekday5() {
-    _weekDayTiming = timingsFive;
+    _weekDayTiming = groomingTimingsFive;
     _selectedWeekdayOne = false;
     _selectedWeekdayTwo = false;
     _selectedWeekdayThree = false;
     _selectedWeekdayFour = false;
     _selectedWeekdayFive = !_selectedWeekdayFive;
-    //_selectedWeekdaySix = false;
+    _selectedWeekdaySix = false;
+    _selectedWeekdaySeven = false;
+    _selectedWeekdayEight = false;
+    notifyListeners();
+    secondPageValidation('s');
+  }
+  
+  void setSelectedWeekday6() {
+    _weekDayTiming = groomingTimingsSix;
+    _selectedWeekdayOne = false;
+    _selectedWeekdayTwo = false;
+    _selectedWeekdayThree = false;
+    _selectedWeekdayFour = false;
+    _selectedWeekdayFive = false;
+    _selectedWeekdaySix = !_selectedWeekdaySix;
+    _selectedWeekdaySeven = false;
+    _selectedWeekdayEight = false;
     notifyListeners();
     secondPageValidation('s');
   }
 
-  // void setSelectedWeekday6() {
-  //   _weekDayTiming = timingsSix;
-  //   _selectedWeekdayOne = false;
-  //   _selectedWeekdayTwo = false;
-  //   _selectedWeekdayThree = false;
-  //   _selectedWeekdayFour = false;
-  //   _selectedWeekdayFive = false;
-  //   _selectedWeekdaySix = !_selectedWeekdaySix;
-  //   notifyListeners();
-  //   thirdPageValidation();
-  // }
+  void setSelectedWeekday7() {
+    _weekDayTiming = groomingTimingsSeven;
+    _selectedWeekdayOne = false;
+    _selectedWeekdayTwo = false;
+    _selectedWeekdayThree = false;
+    _selectedWeekdayFour = false;
+    _selectedWeekdayFive = false;
+    _selectedWeekdaySix = false;
+    _selectedWeekdaySeven = !_selectedWeekdaySeven;
+    _selectedWeekdayEight = false;
+    notifyListeners();
+    secondPageValidation('s');
+  }
+
+  void setSelectedWeekday8() {
+    _weekDayTiming = groomingTimingsEight;
+    _selectedWeekdayOne = false;
+    _selectedWeekdayTwo = false;
+    _selectedWeekdayThree = false;
+    _selectedWeekdayFour = false;
+    _selectedWeekdayFive = false;
+    _selectedWeekdaySix = false;
+    _selectedWeekdaySeven = false;
+    _selectedWeekdayEight = !_selectedWeekdayEight;
+    notifyListeners();
+    secondPageValidation('s');
+  }
+
+  
 
   // -- Timings - Weekends
 

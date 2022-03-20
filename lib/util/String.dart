@@ -333,6 +333,7 @@ String selectPackageSubtitle =
     "Almost there! Select which package your pet needs?";
 
 String startDateLabel = "Start date";
+String singleDateLabel = "Date";
 
 String dayOffLabel = "Choose a day off";
 
@@ -656,3 +657,13 @@ String threeGroomingSeeTwelve = "Shaving and Hairstyling";
 String dogGroomingProductDescription = "Our grooming products are carefully selected to care for your pet’s skin coat and are non allergenic.";
 // My Appointments
 String dogGroomingTitle = "Dog Grooming";
+String groomingDetailsSubtitle = "Where do you want the grooming session?";
+
+String groomingTimingsOne = "6am-8am";
+String groomingTimingsTwo = "8am-10am";
+String groomingTimingsThree = "10am-12am";
+String groomingTimingsFour = "12am-2pm";
+String groomingTimingsFive = "2pm-4pm";
+String groomingTimingsSix = "4pm-6pm";
+String groomingTimingsSeven = "6pm-8pm";
+String groomingTimingsEight = "8pm-10pm";

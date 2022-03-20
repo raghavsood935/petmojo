@@ -23,7 +23,7 @@ class DGBookingDetailsView
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppText.body2(startDateLabel),
+                AppText.body2(singleDateLabel),
                 verticalSpaceRegular,
                 Row(
                   children: [
@@ -66,36 +66,51 @@ class DGBookingDetailsView
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppText.body2(trainingTimeTitle),
+                AppText.body2(groomingTimeTitle),
                 verticalSpaceRegular,
                 Wrap(
                   spacing: 10.0,
                   runSpacing: 10.0,
                   children: [
                     TimingItems(
-                      timing: timingsOne,
+                      timing: groomingTimingsOne,
                       selected: model.selectedWeekdayOne,
                       onTapped: model.setSelectedWeekday1,
                     ),
                     TimingItems(
-                      timing: timingsTwo,
+                      timing: groomingTimingsTwo,
                       selected: model.selectedWeekdayTwo,
                       onTapped: model.setSelectedWeekday2,
                     ),
                     TimingItems(
-                      timing: timingsThree,
+                      timing: groomingTimingsThree,
                       selected: model.selectedWeekdayThree,
                       onTapped: model.setSelectedWeekday3,
                     ),
                     TimingItems(
-                      timing: timingsFour,
+                      timing: groomingTimingsFour,
                       selected: model.selectedWeekdayFour,
                       onTapped: model.setSelectedWeekday4,
                     ),
                     TimingItems(
-                      timing: timingsFive,
+                      timing: groomingTimingsFive,
                       selected: model.selectedWeekdayFive,
                       onTapped: model.setSelectedWeekday5,
+                    ),
+                    TimingItems(
+                      timing: groomingTimingsSix,
+                      selected: model.selectedWeekdaySix,
+                      onTapped: model.setSelectedWeekday6,
+                    ),
+                    TimingItems(
+                      timing: groomingTimingsSeven,
+                      selected: model.selectedWeekdaySeven,
+                      onTapped: model.setSelectedWeekday7,
+                    ),
+                    TimingItems(
+                      timing: groomingTimingsEight,
+                      selected: model.selectedWeekdayEight,
+                      onTapped: model.setSelectedWeekday8,
                     ),
                   ],
                 ),
@@ -108,7 +123,7 @@ class DGBookingDetailsView
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppText.body2(bookingDetailsSubtitle),
+                AppText.body2(groomingDetailsSubtitle),
                 verticalSpaceMedium,
                 // Address 1
                 AppText.body1(
