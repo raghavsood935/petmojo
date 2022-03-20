@@ -448,6 +448,7 @@ String pastAppointmentsTitle = "Past";
 // -- Active
 
 String pendingLabel = "Dog runner will be \n assigned shortly";
+String groomingPendingLabel = "Dog groomer will be \n assigned shortly";
 String upcomingLabel = "Upcoming";
 String confirmedLabel = "Confirmed";
 String reorderLabel = "Renew Soon";

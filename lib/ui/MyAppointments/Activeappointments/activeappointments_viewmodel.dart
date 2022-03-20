@@ -82,10 +82,38 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
       _navigationService.navigateTo(
         Routes.dTDogTrainingBookingView,
       );
+    } else if(serviceType == ServiceType.DogGrooming){
+      // TODO: Implement payment from here.
+     await _dialogService.showCustomDialog(
+          variant: DialogType.SuccessDialog,
+          barrierDismissible: true,
+          title: "Payment Successful",
+          description: "Thank you! Your payment was successful and Your booking is now confirmed. Enjoy your day :)",
+          data: "ShowDialog",
+        );
     }
   }
 
-  List<ActiveAppointmentClass> _activeAppointments = [];
+  List<ActiveAppointmentClass> _activeAppointments = [
+    ActiveAppointmentClass(
+      serviceType: ServiceType.DogGrooming,
+      dogs: [
+        "Gracy",
+      ],
+      showBooking: true,
+      showReorder: false,
+      appointmentId: "A1111",
+      bookingId: "B1111",
+      subscriptionType: "One time",
+      dateAndTime: "24 Jan 2021",
+      status: ActiveAppointmentStatus.Pending,
+      serviceName: "Bath and Brush",
+      userName: "Joeylene Rivera",
+      userPicture:
+          "https://i.picsum.photos/id/696/200/300.jpg?hmac=Ukxvga_1GYxgfAqzwDhBPfVta6-hJKUhayVlI1yMIdk"
+    )
+  ];
+
 
   List<ActiveAppointmentClass> get activeAppointments => _activeAppointments;
 
@@ -104,6 +132,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
       );
     }
     getActiveAppointments();
+    
   }
 
   final _tamelyApi = locator<TamelyApi>();
@@ -166,7 +195,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
     try {
       if (await Util.checkInternetConnectivity()) {
         _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
-        _activeAppointments.clear();
+        // _activeAppointments.clear();
 
         // Booked Appointments
         BaseResponse<MyAppointmentsResponse> resultTwo = await runBusyFuture(
@@ -301,6 +330,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             }
 
             _activeAppointments.add(newAppointment);
+            
           }
           notifyListeners();
         }

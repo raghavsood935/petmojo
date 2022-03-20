@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/enum/activeAppointmentStatus.dart';
+import 'package:tamely/enum/service_type.dart';
 import 'package:tamely/gen_assets/assets.gen.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/String.dart';
@@ -41,6 +42,7 @@ class ActiveAppointmentsView extends StatelessWidget {
                       onReorderTapped: () => model.reorderARun(index),
                       showBooking: model.activeAppointments[index].showBooking,
                       onBookingTapped: () => model.toBooking(index),
+                      serviceType: model.activeAppointments[index].serviceType ?? ServiceType.DogRunning,
                     );
                   },
                   separatorBuilder: (BuildContext context, int index) =>
@@ -57,7 +59,7 @@ class ActiveAppointmentsView extends StatelessWidget {
 }
 
 class ActiveAppointmentItem extends StatelessWidget {
-  const ActiveAppointmentItem({
+  ActiveAppointmentItem({
     Key? key,
     this.userPicture,
     this.serviceName,
@@ -71,6 +73,7 @@ class ActiveAppointmentItem extends StatelessWidget {
     this.onReorderTapped,
     this.showBooking,
     this.onBookingTapped,
+    this.serviceType=ServiceType.DogRunning,
   }) : super(key: key);
   final String? userName;
   final String? userPicture;
@@ -84,7 +87,7 @@ class ActiveAppointmentItem extends StatelessWidget {
   final bool? showBooking;
   final void Function()? onReorderTapped;
   final void Function()? onBookingTapped;
-
+  final ServiceType serviceType;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -119,7 +122,9 @@ class ActiveAppointmentItem extends StatelessWidget {
                     radius: 53.0 / 2,
                     backgroundColor: colors.primaryLight,
                     child: Image.asset(
-                      "assets/images/dog_running.png",
+                      serviceType == ServiceType.DogGrooming
+                          ? "assets/images/dog_grooming_circle.png"
+                          : "assets/images/dog_running.png",
                     ),
                   ),
                   horizontalSpaceRegular,
@@ -193,7 +198,9 @@ class ActiveAppointmentItem extends StatelessWidget {
                       ),
                       status == ActiveAppointmentStatus.Pending
                           ? AppText.body1(
-                              pendingLabel,
+                            serviceType == ServiceType.DogGrooming
+                                ? groomingPendingLabel
+                                : pendingLabel,
                               color: colors.pink,
                             )
                           : Container(),
@@ -260,7 +267,9 @@ class ActiveAppointmentItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(4),
               ),
               child: Text(
-                bookLabel,
+                serviceType == ServiceType.DogGrooming
+                    ? "Pay Now"
+                    : bookLabel,
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -271,11 +280,11 @@ class ActiveAppointmentItem extends StatelessWidget {
           ),
         ),
         Visibility(
-          visible: showBooking!,
+          visible: showBooking! && serviceType != ServiceType.DogGrooming,
           child: verticalSpaceSmall,
         ),
         Visibility(
-          visible: showBooking!,
+          visible: showBooking! && serviceType != ServiceType.DogGrooming,
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 5),
             child: AppText.caption(

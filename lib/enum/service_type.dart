@@ -1,1 +1,1 @@
-enum ServiceType { DogRunning, DogTraining }
+enum ServiceType { DogRunning, DogTraining, DogGrooming }
