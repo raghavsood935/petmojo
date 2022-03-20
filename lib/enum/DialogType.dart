@@ -3,4 +3,5 @@ enum DialogType {
   LoadingDialog,
   LocationDialog,
   ExitAppDialog,
+  SuccessDialog,
 }

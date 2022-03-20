@@ -49,6 +49,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/camera.svg
   SvgGenImage get camera => const SvgGenImage('assets/images/camera.svg');
 
+  /// File path: assets/images/certificate.png
+  AssetGenImage get certificate =>
+      const AssetGenImage('assets/images/certificate.png');
+
   /// File path: assets/images/chat.svg
   SvgGenImage get chat => const SvgGenImage('assets/images/chat.svg');
 
@@ -63,6 +67,10 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/crown.png
   AssetGenImage get crown => const AssetGenImage('assets/images/crown.png');
+
+  /// File path: assets/images/dog_grooming_icon.png
+  AssetGenImage get dogGroomingIcon =>
+      const AssetGenImage('assets/images/dog_grooming_icon.png');
 
   /// File path: assets/images/dog_pic_one.png
   AssetGenImage get dogPicOne =>
@@ -772,6 +780,10 @@ class $AssetsImagesServicePageImagesGen {
   /// File path: assets/images/service_page_images/appointments.png
   AssetGenImage get appointments =>
       const AssetGenImage('assets/images/service_page_images/appointments.png');
+
+  /// File path: assets/images/service_page_images/dog_grooming.png
+  AssetGenImage get dogGrooming =>
+      const AssetGenImage('assets/images/service_page_images/dog_grooming.png');
 
   /// File path: assets/images/service_page_images/dog_traning.png
   AssetGenImage get dogTraning =>

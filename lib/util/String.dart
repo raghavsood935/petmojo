@@ -594,6 +594,7 @@ String dogTrainingTitle = "Dog Training";
 // Dog Grooming
 String groomingFirstPageTitle = "Book Dog Grooming";
 String groomingSecondPageTitle = "Book Dog Grooming";
+String groomingThirdPageTitle = "Order Summary";
 
 // Dog Grooming
 

@@ -12,6 +12,8 @@ import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
+import 'package:tamely/enum/BottomSheetType.dart';
+import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/enum/dog_grooming_package.dart';
 import 'package:tamely/enum/dog_training_package.dart';
 import 'package:tamely/enum/no_of_runs.dart';
@@ -31,11 +33,12 @@ import 'package:tamely/util/location_helper.dart';
 import 'package:tamely/util/utils.dart';
 import 'DgBookarun/dg_bookarun_view.dart';
 import 'DgBookingdetails/dg_bookingdetails_view.dart';
+import 'DgBookingOrderSummary/dg_booking_ordersummary_view.dart';
 
 class DGDogGroomingBookingViewModel extends FormViewModel {
   final log = getLogger('DogRunningBookingView');
   final _navigationService = locator<NavigationService>();
-
+    final _dialogService = locator<DialogService>();
   Future<void> init() async {
     print('init');
     await requestLocation();
@@ -71,16 +74,20 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
   List<bool> _currentStep = [
     true,
     false,
+    false
   ];
   List<Widget> _pages = [
     DGBookARunView(),
     DGBookingDetailsView(),
+    DGBookingOrderSummaryView()
   ];
   List<String> _titles = [
     groomingFirstPageTitle,
     groomingSecondPageTitle,
+    groomingThirdPageTitle
   ];
   List<String> _mainBtnTitles = [
+    continueButton,
     continueButton,
     payButton,
   ];
@@ -98,6 +105,11 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
     if (currentIndex == 0) {
       _navigationService.back();
     } else if (currentIndex == 1) {
+      _isValid = true;
+      controller.animateToPage(currentIndex - 1,
+          duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+    }
+    else{
       _isValid = true;
       controller.animateToPage(currentIndex - 1,
           duration: Duration(milliseconds: 500), curve: Curves.easeIn);
@@ -134,26 +146,50 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
       await requestLocation();
       _isValid = false;
       secondPageValidation("s");
-    } else if (currentIndex == 1) {
-      await bookARun();
-      if (freeWalkAvailable && selectedPlan == DogGroomingPackage.One) {
-        if (bookingId != "") {
-          await setFreePaymentDetails();
-          await setFreeWalkStatus();
-        }
-        _navigationService.back();
-        _navigationService.back();
-        _navigationService.back();
-        _navigationService.navigateTo(Routes.appointmentsView);
-      } else {
-        if (bookingId != "") {
-          _navigationService.replaceWith(
-            Routes.dTPaymentView,
-            arguments: DTPaymentViewArguments(
-                amount: amount.toInt(), bookingId: bookingId),
-          );
-        }
+    } else if(currentIndex == 1){
+      controller.animateToPage(currentIndex + 1,
+          duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+    } else if (currentIndex == 2) {
+      // await bookARun();
+      if(paymentMethodIndex==0){
+        // Pay now
+        await _dialogService.showCustomDialog(
+          variant: DialogType.SuccessDialog,
+          barrierDismissible: true,
+          title: "Payment Successful",
+          description: "Thank you! Your payment was successful and Your booking is now confirmed. Enjoy your day :)",
+          data: "ShowDialog",
+        );
+        print("Pay now successful");
       }
+      else{
+        await _dialogService.showCustomDialog(
+          variant: DialogType.SuccessDialog,
+          barrierDismissible: true,
+          title: "Pay Later",
+          description: "Thank you! You have successfully claimed to pay at the end of the service. Your booking is now confirmed. Enjoy your day :)"
+        );
+        print("pay later successful");
+      }
+      // TODO : Implement payment and actual booking
+      // if (freeWalkAvailable && selectedPlan == DogGroomingPackage.One) {
+      //   if (bookingId != "") {
+      //     await setFreePaymentDetails();
+      //     await setFreeWalkStatus();
+      //   }
+      //   _navigationService.back();
+      //   _navigationService.back();
+      //   _navigationService.back();
+      //   _navigationService.navigateTo(Routes.appointmentsView);
+      // } else {
+      //   if (bookingId != "") {
+      //     _navigationService.replaceWith(
+      //       Routes.dTPaymentView,
+      //       arguments: DTPaymentViewArguments(
+      //           amount: amount.toInt(), bookingId: bookingId),
+      //     );
+      //   }
+      // }
     }
     notifyListeners();
   }
@@ -225,16 +261,19 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
 
   // Select Package
 
-  String _description = "Free";
+  String _description = "Bath and brush";
   String get description => _description;
 
-  double _subTotal = 0;
+  String _subtitle = "For general hygiene and healthy looking coat";
+  String get subtitle => _subtitle;
+
+  double _subTotal = 1200;
   double get subTotal => _subTotal;
 
-  double _discount = 0;
+  double _discount = 251;
   double get discount => _discount;
 
-  double _amount = 0;
+  double _amount = 749;
   double get amount => _amount;
 
   int _frequency = 1;
@@ -257,9 +296,10 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
 
   void selectPlan(DogGroomingPackage? value) {
     selectedPlan = value;
-    if (selectedPlan == DogTrainingPackage.One) {
+    if (selectedPlan == DogGroomingPackage.One) {
       _isValid = true;
       _description = "Bath and Brush";
+      _subtitle = firstGroomingSubtitleOne;
       _amount = 749;
       _frequency = 1;
       _isOfferValid = false;
@@ -267,9 +307,10 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
       _doneMultiply = false;
       _subTotal = 1200;
       _discount = 251;
-    } else if (selectedPlan == DogTrainingPackage.Two) {
+    } else if (selectedPlan == DogGroomingPackage.Two) {
       _isValid = true;
       _description = "Haircut and Styling";
+      _subtitle = twoGroomingSubtitleOne;
       _subTotal = 1400;
       _amount = 949;
       _discount = 251;
@@ -277,9 +318,10 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
       _isOfferValid = false;
       _isOfferAvailable = true;
       _doneMultiply = false;
-    } else if (selectedPlan == DogTrainingPackage.Three) {
+    } else if (selectedPlan == DogGroomingPackage.Three) {
       _isValid = true;
       _description = "Bath and Full Haircut";
+      _subtitle = threeGroomingSubtitleOne;
       _subTotal = 2500;
       _amount = 1499;
       _discount = 1000;
@@ -312,6 +354,16 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
   bool get isCouponProcessing => _isCouponProcessing;
 
   Future<void> applyCoupon() async {
+    // Dummy code apply
+    int? reducedAmountInt = 10;
+            double? reducedAmountDouble = 10.toDouble();
+            _isOfferValid = true;
+            _promoCode = "TESTCOUPON";
+            _savedAmount = reducedAmountDouble;
+            _amount = amount - reducedAmountDouble;
+    notifyListeners();
+    return;
+
     notifyListeners();
     String? couponCode = promoCodeController.text;
     if (couponCode != "") {
@@ -1277,7 +1329,19 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
     _loading = false;
     notifyListeners();
   }
+  int _paymentMethodIndex = 0;
+  int get paymentMethodIndex => _paymentMethodIndex;
 
+  void selectPaymentMethod(int selectedPaymentMethodIndex){
+    _paymentMethodIndex = selectedPaymentMethodIndex;
+    if(selectedPaymentMethodIndex==0){
+      _mainBtnTitles[2] = payButton;
+    }
+    else{
+      _mainBtnTitles[2] = continueButton;
+    }
+    notifyListeners();
+  }
   @override
   void setFormStatus() {}
 }
