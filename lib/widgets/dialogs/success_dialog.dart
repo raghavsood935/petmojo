@@ -19,11 +19,10 @@ class _SuccessDialogState extends State<SuccessDialog> {
   void initState() {
     super.initState();
   }
-
+  int _givenRating = 5;
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-
     return WillPopScope(
         child: GestureDetector(
           onTap: () {
@@ -88,7 +87,7 @@ class _SuccessDialogState extends State<SuccessDialog> {
                         SizedBox(
                           height: 10,
                         ),
-                        widget.dialogRequest.data == "ShowDialog"
+                        widget.dialogRequest.data != null
                             ? Column(
                                 children: [
                                   Padding(
@@ -108,30 +107,60 @@ class _SuccessDialogState extends State<SuccessDialog> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(
-                                        Icons.star,
-                                        color: Color(0xFFFD799A),
-                                        size: 19,
+                                      GestureDetector(
+                                        onTap : () => setState(() {
+                                          _givenRating = 1;
+                                          widget.dialogRequest.data(1);
+                                        }),
+                                        child: Icon(
+                                          Icons.star,
+                                          color:  _givenRating >= 1 ? Color(0xFFFD799A) : Colors.grey,
+                                          size: 19,
+                                        ),
                                       ),
-                                      Icon(
-                                        Icons.star,
-                                        color: Color(0xFFFD799A),
-                                        size: 19,
+                                      GestureDetector(
+                                        onTap : () => setState(() {
+                                          _givenRating = 2;
+                                          widget.dialogRequest.data(2);
+                                        }),
+                                        child: Icon(
+                                          Icons.star,
+                                          color:  _givenRating >= 2 ? Color(0xFFFD799A) : Colors.grey,
+                                          size: 19,
+                                        ),
                                       ),
-                                      Icon(
-                                        Icons.star,
-                                        color: Color(0xFFFD799A),
-                                        size: 19,
+                                      GestureDetector(
+                                        onTap : () => setState(() {
+                                          _givenRating = 3;
+                                          widget.dialogRequest.data(3);
+                                        }),
+                                        child: Icon(
+                                          Icons.star,
+                                          color:  _givenRating >= 3 ? Color(0xFFFD799A) : Colors.grey,
+                                          size: 19,
+                                        ),
                                       ),
-                                      Icon(
-                                        Icons.star,
-                                        color: Color(0xFFFD799A),
-                                        size: 19,
+                                      GestureDetector(
+                                        onTap : () => setState(() {
+                                          _givenRating = 4;
+                                          widget.dialogRequest.data(4);
+                                        }),
+                                        child: Icon(
+                                          Icons.star,
+                                          color:  _givenRating >= 4 ? Color(0xFFFD799A) : Colors.grey,
+                                          size: 19,
+                                        ),
                                       ),
-                                      Icon(
-                                        Icons.star,
-                                        color: Color(0xFFFD799A),
-                                        size: 19,
+                                      GestureDetector(
+                                        onTap : () => setState(() {
+                                          _givenRating = 5;
+                                          widget.dialogRequest.data(5);
+                                        }),
+                                        child: Icon(
+                                          Icons.star,
+                                          color:  _givenRating >= 5 ? Color(0xFFFD799A) : Colors.grey,
+                                          size: 19,
+                                        ),
                                       ),
                                     ],
                                   ),

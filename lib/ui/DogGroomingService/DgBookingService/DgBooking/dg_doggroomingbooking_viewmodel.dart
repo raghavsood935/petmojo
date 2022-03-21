@@ -139,6 +139,14 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
   bool _loading = false;
   bool get loading => _loading;
 
+  int _givenRating = 5;
+  int get givenRating => _givenRating;
+
+  void changeRating(int rating) {
+    _givenRating = rating;
+    notifyListeners();
+  }
+
   Future onMainButtonPressed() async {
     if (currentIndex == 0) {
       controller.animateToPage(currentIndex + 1,
@@ -158,7 +166,7 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
           barrierDismissible: true,
           title: "Payment Successful",
           description: "Thank you! Your payment was successful and Your booking is now confirmed. Enjoy your day :)",
-          data: "ShowDialog",
+          data: changeRating,
         );
         print("Pay now successful");
       }
