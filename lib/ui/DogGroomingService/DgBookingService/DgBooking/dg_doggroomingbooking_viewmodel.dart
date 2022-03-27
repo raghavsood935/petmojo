@@ -22,6 +22,7 @@ import 'package:tamely/models/coupon_response.dart';
 import 'package:tamely/models/get_free_training_response.dart';
 import 'package:tamely/models/get_free_walk_response.dart';
 import 'package:tamely/models/get_pet_details_response.dart';
+import 'package:tamely/models/params/book_a_grooming_body.dart';
 import 'package:tamely/models/params/book_a_run_body.dart';
 import 'package:tamely/models/params/book_a_training_body.dart';
 import 'package:tamely/models/params/coupon_body.dart';
@@ -155,10 +156,11 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
       _isValid = false;
       secondPageValidation("s");
     } else if(currentIndex == 1){
+      bookARun();
       controller.animateToPage(currentIndex + 1,
           duration: Duration(milliseconds: 500), curve: Curves.easeIn);
     } else if (currentIndex == 2) {
-      // await bookARun();
+      
       if(paymentMethodIndex==0){
         // Pay now
         await _dialogService.showCustomDialog(
@@ -344,7 +346,7 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
 
   // -- Offers
 
-  bool _isOfferAvailable = false;
+  bool _isOfferAvailable = true;
   bool get isOfferAvailable => _isOfferAvailable;
 
   bool _isOfferValid = false;
@@ -363,17 +365,19 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
 
   Future<void> applyCoupon() async {
     // Dummy code apply
-    int? reducedAmountInt = 10;
-            double? reducedAmountDouble = 10.toDouble();
-            _isOfferValid = true;
-            _promoCode = "TESTCOUPON";
-            _savedAmount = reducedAmountDouble;
-            _amount = amount - reducedAmountDouble;
+    String? couponCode = promoCodeController.text;
+    if(couponCode.toUpperCase() == "PAWSOMEOFFER"){
+      int? reducedAmountInt = _subTotal~/10;
+      double? reducedAmountDouble = _subTotal/10;
+      _isOfferValid = true;
+      _promoCode = couponCode.toUpperCase();
+      _savedAmount = reducedAmountDouble;
+      _amount = amount - reducedAmountDouble;
     notifyListeners();
     return;
-
+    }
     notifyListeners();
-    String? couponCode = promoCodeController.text;
+    couponCode = promoCodeController.text;
     if (couponCode != "") {
       _isCouponProcessing = true;
       try {
@@ -646,32 +650,32 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
       }
       if (noOfDogs == 1) {
         myPets[0].selected = true;
-        PetDetailsTrainingBody one =
-            PetDetailsTrainingBody(myPets[0].petId!, "Medium");
+        PetDetailsGroomingBody one =
+            PetDetailsGroomingBody(myPets[0].petId!, "Medium");
         _petDetailsBody.add(one);
       } else if (noOfDogs == 2) {
         myPets[0].selected = true;
-        PetDetailsTrainingBody one =
-            PetDetailsTrainingBody(myPets[0].petId!, "Medium");
+        PetDetailsGroomingBody one =
+            PetDetailsGroomingBody(myPets[0].petId!, "Medium");
         _petDetailsBody.add(one);
         if (numberOfPets == 1) {
-          PetDetailsTrainingBody one =
-              PetDetailsTrainingBody("111111111111111111111111", "Medium");
+          PetDetailsGroomingBody one =
+              PetDetailsGroomingBody("111111111111111111111111", "Medium");
           _petDetailsBody.add(one);
         } else if (numberOfPets >= 2) {
           myPets[1].selected = true;
-          PetDetailsTrainingBody one =
-              PetDetailsTrainingBody(myPets[1].petId!, "Medium");
+          PetDetailsGroomingBody one =
+              PetDetailsGroomingBody(myPets[1].petId!, "Medium");
           _petDetailsBody.add(one);
         }
       }
     } else if (!hasPets) {
-      PetDetailsTrainingBody one =
-          PetDetailsTrainingBody("111111111111111111111111", "Medium");
+      PetDetailsGroomingBody one =
+          PetDetailsGroomingBody("111111111111111111111111", "Medium");
       _petDetailsBody.add(one);
       if (noOfDogs == 2) {
-        PetDetailsTrainingBody two =
-            PetDetailsTrainingBody("111111111111111111111111", "Medium");
+        PetDetailsGroomingBody two =
+            PetDetailsGroomingBody("111111111111111111111111", "Medium");
         _petDetailsBody.add(two);
       }
     }
@@ -688,8 +692,8 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
   int _numberOfPets = 0;
   int get numberOfPets => _numberOfPets;
 
-  List<PetDetailsTrainingBody> _petDetailsBody = [];
-  List<PetDetailsTrainingBody> get petDetailsBody => _petDetailsBody;
+  List<PetDetailsGroomingBody> _petDetailsBody = [];
+  List<PetDetailsGroomingBody> get petDetailsBody => _petDetailsBody;
 
   void selectPet(index) {
     if (noOfDogs == 1) {
@@ -698,21 +702,21 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
       }
       _petDetailsBody.clear();
       myPets[index].selected = true;
-      PetDetailsTrainingBody one =
-          PetDetailsTrainingBody(myPets[index].petId!, "Medium");
+      PetDetailsGroomingBody one =
+          PetDetailsGroomingBody(myPets[index].petId!, "Medium");
       _petDetailsBody.add(one);
     }
     if (noOfDogs == 2) {
       if (petDetailsBody.length == 0) {
-        PetDetailsTrainingBody one =
-            PetDetailsTrainingBody(myPets[index].petId!, "Medium");
+        PetDetailsGroomingBody one =
+            PetDetailsGroomingBody(myPets[index].petId!, "Medium");
         myPets[index].selected = true;
         _petDetailsBody.add(one);
       } else if (petDetailsBody.length == 1) {
         for (var each in petDetailsBody) {
           if (each.petId != myPets[index].petId!) {
-            PetDetailsTrainingBody one =
-                PetDetailsTrainingBody(myPets[index].petId!, "Medium");
+            PetDetailsGroomingBody one =
+                PetDetailsGroomingBody(myPets[index].petId!, "Medium");
             myPets[index].selected = true;
             _petDetailsBody.add(one);
             break;
@@ -724,13 +728,13 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
         }
         _petDetailsBody.clear();
         myPets[index].selected = true;
-        PetDetailsTrainingBody one =
-            PetDetailsTrainingBody(myPets[index].petId!, "Medium");
+        PetDetailsGroomingBody one =
+            PetDetailsGroomingBody(myPets[index].petId!, "Medium");
         _petDetailsBody.add(one);
       }
       if (numberOfPets == 1) {
-        PetDetailsTrainingBody one =
-            PetDetailsTrainingBody("111111111111111111111111", "Medium");
+        PetDetailsGroomingBody one =
+            PetDetailsGroomingBody("111111111111111111111111", "Medium");
         _petDetailsBody.add(one);
       }
     }
@@ -1294,8 +1298,8 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
     //
 
     // empty
-    PetRunningLocationTrainingBody petRunningLocationBody =
-        PetRunningLocationTrainingBody(
+    PetRunningLocationGroomingBody petRunningLocationBody =
+        PetRunningLocationGroomingBody(
       addressLineOneController.text,
       addressLineTwoController.text,
       addressLineThreeController.text,
@@ -1306,23 +1310,24 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
     );
 
     //
-    PackageTrainingBody packageBody =
-        PackageTrainingBody(_description, _amount.toString(), _frequency);
+    PackageGroomingBody packageBody =
+        PackageGroomingBody(_description, _amount.toString());
 
+    PetGroomingTimeGroomingBody sessionDetails = PetGroomingTimeGroomingBody(weekDayTiming);
     //
     try {
       if (await Util.checkInternetConnectivity()) {
-        BookATrainingBody bookATrainingBody = BookATrainingBody(
+        BookAGroomingBody bookAGroomingBody = BookAGroomingBody(
           noOfDogs,
           petDetailsBody,
           petRunningLocationBody,
           phoneController.text,
           startDateTimeStamp,
-          weekDayTiming,
+          sessionDetails,
           packageBody,
         );
         BaseResponse<BookARunResponse> result = await runBusyFuture(
-            _tamelyApi.bookATraining(bookATrainingBody),
+            _tamelyApi.bookAGrooming(bookAGroomingBody),
             throwException: true);
         if (result.data != null) {
           _bookingId = result.data!.bookingId!;

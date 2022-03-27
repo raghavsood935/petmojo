@@ -68,6 +68,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/crown.png
   AssetGenImage get crown => const AssetGenImage('assets/images/crown.png');
 
+  /// File path: assets/images/dog_grooming_circle.png
+  AssetGenImage get dogGroomingCircle =>
+      const AssetGenImage('assets/images/dog_grooming_circle.png');
+
   /// File path: assets/images/dog_grooming_icon.png
   AssetGenImage get dogGroomingIcon =>
       const AssetGenImage('assets/images/dog_grooming_icon.png');

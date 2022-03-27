@@ -54,6 +54,7 @@ import 'package:tamely/models/notification_response.dart';
 import 'package:tamely/models/common_response.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/models/params/apple_signin_body.dart';
+import 'package:tamely/models/params/book_a_grooming_body.dart';
 import 'package:tamely/models/params/book_a_training_body.dart';
 import 'package:tamely/models/params/comment_new/add_comment_body.dart';
 import 'package:tamely/models/params/confirm_relation_request_body.dart';
@@ -1771,6 +1772,24 @@ class TamelyApi {
     try {
       response = await getApiClient(true, true)
           .setPaymentDetailsTraining(setPaymentDetailsBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // 3 - Grooming flow
+
+  // -- Booking A Grooming
+  Future<BaseResponse<BookARunResponse>> bookAGrooming(
+      BookAGroomingBody bookAGroomingBody) async {
+    log.d("googleLogin called");
+    BookARunResponse response;
+    try {
+      response =
+          await getApiClient(true, true).bookAGrooming(bookAGroomingBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()

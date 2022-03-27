@@ -48,6 +48,7 @@ import 'package:tamely/models/list_of_profiles_foy_you.dart';
 import 'package:tamely/models/list_of_relations.dart';
 import 'package:tamely/models/notification_response.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
+import 'package:tamely/models/params/book_a_grooming_body.dart';
 import 'package:tamely/models/params/book_a_training_body.dart';
 import 'package:tamely/models/params/change_bio_avatar_body.dart';
 import 'package:tamely/models/params/comment_new/add_comment_body.dart';
@@ -232,6 +233,14 @@ class Apis {
   static const String setPaymentDetailsTraining =
       '/service/postTrainingPayment';
 
+  // Booking Appointments -- Dog grooming
+  static const String bookAGrooming = '/serviceBooking/bookDogGroomingService';
+  static const String generateOrderIdGrooming =
+      '/serviceBooking/generateOrderId';
+  static const String payLaterGrooming = '/service/paylatertGrooming';
+  static const String setPaymentDetailsGrooming =
+      '/service/postGroomingPayment';
+
   //community
   // ---> Groups
   static const String getGroupDetails = '/community/getGroupDetails';
@@ -317,7 +326,7 @@ class Apis {
 }
 
 // @RestApi(baseUrl: "https://tamely.herokuapp.com/api/")
-@RestApi(baseUrl: "http://3.14.68.70:9000/api/")
+@RestApi(baseUrl: "https://6xdmb7fadb.execute-api.ap-south-1.amazonaws.com/production/api/")
 abstract class ApiClient {
   factory ApiClient(Dio dio, {String baseUrl}) = _ApiClient;
 
@@ -762,6 +771,13 @@ abstract class ApiClient {
   @PATCH(Apis.setPaymentDetailsTraining)
   Future<SendDataResponse> setPaymentDetailsTraining(
       @Body() SetPaymentDetailsBody setPaymentDetailsBody);
+
+  // Booking Appointments -- Dog Grooming
+
+  // -- Booking a grooming
+  @POST(Apis.bookAGrooming)
+  Future<BookARunResponse> bookAGrooming(
+      @Body() BookAGroomingBody bookAGroomingBody);
 
   // My Bookings Flow
 

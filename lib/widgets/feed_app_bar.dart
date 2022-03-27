@@ -23,10 +23,7 @@ class FeedAppBar extends ViewModelWidget<DashboardViewModel>
         ),
         onPressed: () => Scaffold.of(context).openDrawer(),
       ),
-      title: ProfileSelectionAppBar(
-        listOfProfiles: model.listOfProfiles,
-        initialState: model.initialState,
-      ),
+      title: Text(model.controller.toString()),
       titleSpacing: 0,
       centerTitle: true,
       actions: <Widget>[

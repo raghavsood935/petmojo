@@ -113,6 +113,16 @@ class DGBookingOrderSummaryView
                 AppText.body("₹"+model.discount.toInt().toString()+"/-"),
               ],),
             ),
+            model.savedAmount>0 ? Container(
+              padding: EdgeInsets.all(8),
+              color: Color(0xFFCAE9CF),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                AppText.body("Coupon Discount"),
+                AppText.body("₹"+model.savedAmount.toInt().toString()+"/-"),
+              ],),
+            ): SizedBox(),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(

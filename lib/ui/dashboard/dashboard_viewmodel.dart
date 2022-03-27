@@ -195,6 +195,7 @@ class DashboardViewModel extends FutureViewModel<void>
           "",
           "",
           true,
+          _userName,
         ),
       );
       if (!isHuman) {
@@ -218,7 +219,9 @@ class DashboardViewModel extends FutureViewModel<void>
               petResponse.detailsResponse!.avatar ?? emptyProfileImgUrl,
               petResponse.detailsResponse!.Id!,
               petResponse.detailsResponse!.token!,
-              false),
+              false,
+              petResponse.detailsResponse!.name?? ""
+              ),
         );
       }
 
@@ -341,6 +344,7 @@ class ProfileSelectBarItem {
   String id;
   String token;
   bool isHuman;
+  String profileName;
 
-  ProfileSelectBarItem(this.avatar, this.id, this.token, this.isHuman);
+  ProfileSelectBarItem(this.avatar, this.id, this.token, this.isHuman, this.profileName);
 }
