@@ -8,6 +8,7 @@ import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:tamely/app/app.router.dart';
+import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/models/get_payment_details_response.dart';
 import 'package:tamely/models/params/get_payment_details_body.dart';
 import 'package:tamely/models/params/set_payment_details_body.dart';
@@ -75,7 +76,6 @@ class DGPaymentViewModel extends FutureViewModel<void>
   }
 
   void setPaymentDetails() async {
-    print("hi");
     try {
       if (await Util.checkInternetConnectivity()) {
         SetPaymentDetailsBody setPaymentDetailsBody = SetPaymentDetailsBody(
@@ -83,7 +83,7 @@ class DGPaymentViewModel extends FutureViewModel<void>
             getPaymentDetailsResponse.orderId!,
             getPaymentDetailsResponse.amount!);
         BaseResponse<SendDataResponse> result = await runBusyFuture(
-            _tamelyApi.setPaymentDetailsTraining(setPaymentDetailsBody),
+            _tamelyApi.setPaymentDetailsGrooming(setPaymentDetailsBody),
             throwException: true);
         notifyListeners();
       } else {
@@ -152,15 +152,47 @@ class DGPaymentViewModel extends FutureViewModel<void>
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    final _dialogService = locator<DialogService>();
     print("I print: Success");
     _paymentCompleted = true;
     _paymentFailed = false;
     notifyListeners();
+    _dialogService.showCustomDialog(
+          variant: DialogType.SuccessDialog,
+          barrierDismissible: true,
+          title: "Payment Successful",
+          description: "Thank you! Your payment was successful and your booking is now confirmed. Enjoy your day :)",
+          data: toMyBookings,
+        );
+        print("pay later successful");
     setPaymentDetails();
     notifyListeners();
     // Do something when payment succeeds
   }
 
+  // Delete this
+  // void _handlePaymentError(PaymentFailureResponse response) {
+  //   final _dialogService = locator<DialogService>();
+  //   print("I print: Success");
+  //   _paymentCompleted = true;
+  //   _paymentFailed = false;
+  //   notifyListeners();
+  //   _dialogService.showCustomDialog(
+  //         variant: DialogType.SuccessDialog,
+  //         barrierDismissible: true,
+  //         title: "Payment Successful",
+  //         description: "Thank you! Your payment was successful and your booking is now confirmed. Enjoy your day :)",
+  //         data: toMyBookings,
+  //       );
+  //       print("pay later successful");
+  //   setPaymentDetails();
+  //   notifyListeners();
+  //   // Do something when payment succeeds
+  // }
+
+
+
+  // Uncomment this.
   void _handlePaymentError(PaymentFailureResponse response) {
     print("I print: Failure");
     _paymentCompleted = false;

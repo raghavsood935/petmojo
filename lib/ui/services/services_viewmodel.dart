@@ -18,15 +18,21 @@ class ServicesViewModel extends BaseModel {
   List<ServicesModel> _listOfServices = [
     ServicesModel(
       title: "Dog Running",
-      imgPath: dogWalkingImgPath,
+      imgPath: "assets/images/dog_walking.png",
       isHigDemand: true,
-      bgColor: Color(0xFFFEF8E8),
+      bgColor: Color(0xFFFEDFDD),
     ),
     ServicesModel(
       title: "Dog Training",
       imgPath: dogTranningImgPath,
       isHigDemand: true,
-      bgColor: Color(0xFFFDF2EE),
+      bgColor: Color(0xFFFEDFDD),
+    ),
+    ServicesModel(
+      title: "Grooming",
+      imgPath: grommingImgPath,
+      isHigDemand: false,
+      bgColor: Color(0xFFFEDFDD),
     ),
   ];
 
@@ -35,13 +41,13 @@ class ServicesViewModel extends BaseModel {
       title: "Pet Boarding",
       imgPath: petBoardingImgPath,
       isHigDemand: false,
-      bgColor: Color(0xFFFFEFE7),
+      bgColor: Color(0xFFFEDFDD),
     ),
     ServicesModel(
-      title: "Grooming",
-      imgPath: grommingImgPath,
+      title: "Vet Consultation",
+      imgPath: vetConsultationImgPath,
       isHigDemand: false,
-      bgColor: Color(0xFFFFF5E4),
+      bgColor: Color(0xFFFEDFDD),
     ),
   ];
 

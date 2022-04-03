@@ -26,6 +26,7 @@ import 'package:tamely/models/params/book_a_grooming_body.dart';
 import 'package:tamely/models/params/book_a_run_body.dart';
 import 'package:tamely/models/params/book_a_training_body.dart';
 import 'package:tamely/models/params/coupon_body.dart';
+import 'package:tamely/models/params/get_payment_details_body.dart';
 import 'package:tamely/models/params/set_payment_details_body.dart';
 import 'package:tamely/models/send_data_response.dart';
 import 'package:tamely/services/user_service.dart';
@@ -163,45 +164,61 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
       
       if(paymentMethodIndex==0){
         // Pay now
-        await _dialogService.showCustomDialog(
-          variant: DialogType.SuccessDialog,
-          barrierDismissible: true,
-          title: "Payment Successful",
-          description: "Thank you! Your payment was successful and Your booking is now confirmed. Enjoy your day :)",
-          data: changeRating,
-        );
-        print("Pay now successful");
+        if (bookingId != "") {
+          _navigationService.replaceWith(
+            Routes.dGPaymentView,
+            arguments: DGPaymentViewArguments(
+                amount: amount.toInt(), bookingId: bookingId),
+          );
+        }
+        else{
+          
+          snackBarService.showSnackbar(
+            message: "Please wait for the booking to be confirmed",
+          );
+          return;
+        }
       }
       else{
-        await _dialogService.showCustomDialog(
+        try {
+      if (await Util.checkInternetConnectivity()) {
+        GetPaymentDetailsBody getPaymentDetailsBody = GetPaymentDetailsBody(
+            amount.toInt().toString(),
+            bookingId,
+            );
+            print(getPaymentDetailsBody.toJson());
+        BaseResponse<SendDataResponse> result = await runBusyFuture(
+            _tamelyApi.payLaterGrooming(getPaymentDetailsBody),
+            throwException: true);
+            if(result.data!=null && result.data!.success==true){
+               await _dialogService.showCustomDialog(
           variant: DialogType.SuccessDialog,
           barrierDismissible: true,
           title: "Pay Later",
-          description: "Thank you! You have successfully claimed to pay at the end of the service. Your booking is now confirmed. Enjoy your day :)"
+          description: "Thank you! You have successfully claimed to pay at the end of the service. Your booking is now confirmed. Enjoy your day :)",
+          data: toMyBookings
         );
         print("pay later successful");
+            }
+        notifyListeners();
+      } else {
+        snackBarService.showSnackbar(message: "No Internet connection");
       }
-      // TODO : Implement payment and actual booking
-      // if (freeWalkAvailable && selectedPlan == DogGroomingPackage.One) {
-      //   if (bookingId != "") {
-      //     await setFreePaymentDetails();
-      //     await setFreeWalkStatus();
-      //   }
-      //   _navigationService.back();
-      //   _navigationService.back();
-      //   _navigationService.back();
-      //   _navigationService.navigateTo(Routes.appointmentsView);
-      // } else {
-      //   if (bookingId != "") {
-      //     _navigationService.replaceWith(
-      //       Routes.dTPaymentView,
-      //       arguments: DTPaymentViewArguments(
-      //           amount: amount.toInt(), bookingId: bookingId),
-      //     );
-      //   }
-      // }
+    } on ServerError catch (e) {
+      log.e(e.toString());
     }
     notifyListeners();
+      }
+    }
+    notifyListeners();
+  }
+
+   void toMyBookings() async {
+    _navigationService.back();
+    _navigationService.back();
+    _navigationService.back();
+    _navigationService.back();
+    _navigationService.navigateTo(Routes.appointmentsView);
   }
 
   Future<void> setFreePaymentDetails() async {

@@ -9,6 +9,7 @@ import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/enum/selectedStart.dart';
 import 'package:tamely/enum/walkNumber.dart';
 import 'package:tamely/models/get_appointment_details_response.dart';
+import 'package:tamely/models/get_grooming_appointment_details_response.dart';
 import 'package:tamely/models/get_scroll_status_response.dart';
 import 'package:tamely/models/get_training_appointment_details_response.dart';
 import 'package:tamely/models/get_training_scroll_status_response.dart';
@@ -55,7 +56,6 @@ class DGAppointmentDetailsViewModel extends FutureViewModel<void>
 
   int _bookingStatus = 0;
   int _serviceStatus = 0;
-
   int _numberOfPets = 1;
 
   String _amount = "";
@@ -82,6 +82,29 @@ class DGAppointmentDetailsViewModel extends FutureViewModel<void>
       ),
     );
   }
+  // Service name
+  String _description = "Bath and brush";
+  String get description => _description;
+  
+  // Tagline of service
+  String _subtitle = "For general hygiene and a healthy looking coat";
+  String get subtitle => _subtitle;
+
+  // Slot time
+  String _weekDayTiming = "08AM - 10AM";
+  String get weekDayTiming => _weekDayTiming;
+
+  // text controller inputlineone
+  TextEditingController _addressLineOneController = TextEditingController();
+  TextEditingController get addressLineOneController =>
+      _addressLineOneController;
+  
+  // text controller inputlinetwo
+  TextEditingController _addressLineTwoController = TextEditingController();
+  TextEditingController get addressLineTwoController =>
+      _addressLineTwoController;
+
+
 
   List<String> _dogs = ["", ""];
   List<String> _dogIds = ["", ""];
@@ -245,7 +268,7 @@ class DGAppointmentDetailsViewModel extends FutureViewModel<void>
   //
   void sessionSelected(session) {
     print(session);
-    getScrollStatus(session);
+    // getScrollStatus(session);
     notifyListeners();
   }
 
@@ -256,9 +279,9 @@ class DGAppointmentDetailsViewModel extends FutureViewModel<void>
         _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
         GetAppointmentDetailsBody registerBody =
             GetAppointmentDetailsBody(bookingId);
-        BaseResponse<GetTrainingAppointmentDetailsResponse> result =
+        BaseResponse<GetGroomingAppointmentDetailsResponse> result =
             await runBusyFuture(
-                _tamelyApi.getTrainingAppointmentDetails(registerBody),
+                _tamelyApi.getGroomingAppointmentDetails(registerBody),
                 throwException: true);
         if (result.data != null) {
           _serviceStatus = result.data!.serviceStatus!;
@@ -310,6 +333,19 @@ class DGAppointmentDetailsViewModel extends FutureViewModel<void>
 
           _appointmentId = result.data!.appointmentId!;
 
+          _weekDayTiming = result.data!.bookingDetails!.sessionDetails!.sessionTime ?? "08AM - 10AM";
+          _description = result.data!.bookingDetails!.package!.subscriptionType ?? "Bath and brush";
+          if(_description.contains("brush")){
+            _subtitle = "For general hygiene and a healthy looking coat.";
+          }
+          else if(_description.contains("Styling")){
+            _subtitle = "For full haircut and complete styling";
+          }
+          else{
+            _subtitle = "Complete hygiene and styling";
+          }
+          _addressLineOneController.text = result.data!.bookingDetails!.petRunningLocation!.addressLine1!;
+          _addressLineTwoController.text = result.data!.bookingDetails!.petRunningLocation!.addressLine2!;
           _numberOfPets = result.data!.bookingDetails!.numberOfPets!;
 
           List<PetDetailsResponse>? petNames = result.data!.petDetails;
@@ -341,8 +377,9 @@ class DGAppointmentDetailsViewModel extends FutureViewModel<void>
 
           _subscriptionType =
               result.data!.bookingDetails!.package!.subscriptionType!;
-          _numberOfSessions =
-              result.data!.bookingDetails!.package!.numberOfSessions!;
+          // _numberOfSessions =
+              // result.data!.bookingDetails!.package!.numberOfSessions!;
+              _numberOfSessions = 1;
           notifyListeners();
 
           try {

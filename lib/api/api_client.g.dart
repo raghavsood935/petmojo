@@ -8,8 +8,7 @@ part of 'api_client.dart';
 
 class _ApiClient implements ApiClient {
   _ApiClient(this._dio, {this.baseUrl}) {
-    baseUrl ??=
-        'https://6xdmb7fadb.execute-api.ap-south-1.amazonaws.com/production/api/';
+    baseUrl ??= 'http://3.14.68.70:9000/api/';
   }
 
   final Dio _dio;
@@ -1813,6 +1812,41 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<SendDataResponse> setPaymentDetailsGrooming(
+      setPaymentDetailsBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(setPaymentDetailsBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<SendDataResponse>(
+            Options(method: 'PATCH', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/service/postGroomingPayment',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = SendDataResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<SendDataResponse> payLaterGrooming(getPaymentDetailsBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(getPaymentDetailsBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<SendDataResponse>(
+            Options(method: 'PATCH', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/service/paylatertGrooming',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = SendDataResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<HasAppointmentsResponse> hasAppointments() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -2068,6 +2102,25 @@ class _ApiClient implements ApiClient {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = GetTrainingAppointmentDetailsResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<GetGroomingAppointmentDetailsResponse> getGroomingAppointmentDetails(
+      getAppointmentDetailsBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(getAppointmentDetailsBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetGroomingAppointmentDetailsResponse>(Options(
+                method: 'POST', headers: _headers, extra: _extra)
+            .compose(
+                _dio.options, '/serviceBooking/getGroomingAppointmentDetails',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GetGroomingAppointmentDetailsResponse.fromJson(_result.data!);
     return value;
   }
 

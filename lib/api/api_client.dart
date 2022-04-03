@@ -24,6 +24,7 @@ import 'package:tamely/models/get_blogs_model.dart';
 import 'package:tamely/models/get_bookmarks_model.dart';
 import 'package:tamely/models/get_free_training_response.dart';
 import 'package:tamely/models/get_free_walk_response.dart';
+import 'package:tamely/models/get_grooming_appointment_details_response.dart';
 import 'package:tamely/models/get_payment_details_response.dart';
 import 'package:tamely/models/get_training_appointment_details_response.dart';
 import 'package:tamely/models/get_training_report_response.dart';
@@ -320,13 +321,17 @@ class Apis {
       '/serviceBooking/getscrollSessionstatus';
   static const String getTrainingReport = '/serviceBooking/getTrainingReport';
 
+  // -- Dog grooming
+  static const String getGroomingAppointmentDetails =
+      '/serviceBooking/getGroomingAppointmentDetails';
+
   // -- Offers
   static const String getCouponAmount = '/serviceBooking/Verifycoupon';
   static const String setUsedCoupon = '/serviceBooking/MarkCoupon';
 }
 
 // @RestApi(baseUrl: "https://tamely.herokuapp.com/api/")
-@RestApi(baseUrl: "https://6xdmb7fadb.execute-api.ap-south-1.amazonaws.com/production/api/")
+@RestApi(baseUrl: "http://3.14.68.70:9000/api/")
 abstract class ApiClient {
   factory ApiClient(Dio dio, {String baseUrl}) = _ApiClient;
 
@@ -779,6 +784,16 @@ abstract class ApiClient {
   Future<BookARunResponse> bookAGrooming(
       @Body() BookAGroomingBody bookAGroomingBody);
 
+  // -- Set Payment details grooming
+  @PATCH(Apis.setPaymentDetailsGrooming)
+  Future<SendDataResponse> setPaymentDetailsGrooming(
+      @Body() SetPaymentDetailsBody setPaymentDetailsBody);
+
+  // -- Pay later Dog grooming
+  @PATCH(Apis.payLaterGrooming)
+  Future<SendDataResponse> payLaterGrooming(
+      @Body() GetPaymentDetailsBody getPaymentDetailsBody);
+
   // My Bookings Flow
 
   // -- Check has Appointments (Working)
@@ -854,6 +869,11 @@ abstract class ApiClient {
   // -- Get Appointment Details Training (Working)
   @POST(Apis.getTrainingAppointmentDetails)
   Future<GetTrainingAppointmentDetailsResponse> getTrainingAppointmentDetails(
+      @Body() GetAppointmentDetailsBody getAppointmentDetailsBody);
+
+  // -- Get Appointment Details Grooming
+  @POST(Apis.getGroomingAppointmentDetails)
+  Future<GetGroomingAppointmentDetailsResponse> getGroomingAppointmentDetails(
       @Body() GetAppointmentDetailsBody getAppointmentDetailsBody);
 
   // -- Change Appointment Status Training (Not using it)

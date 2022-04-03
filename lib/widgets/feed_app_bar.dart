@@ -23,10 +23,29 @@ class FeedAppBar extends ViewModelWidget<DashboardViewModel>
         ),
         onPressed: () => Scaffold.of(context).openDrawer(),
       ),
-      title: Text(model.controller.toString()),
+      // title : ProfileSelectionAppBar(listOfProfiles: model.listOfProfiles, initialState: model.initialState,),
+      // title: Text(model.),
       titleSpacing: 0,
       centerTitle: true,
       actions: <Widget>[
+        Container(
+          width: 50,
+          height: 50,
+          child: Stack(
+            children: [
+              Positioned(
+                top: 0,
+                bottom: 0,
+                right: 0,
+                left: 0,
+                child: IconButton(
+                  onPressed: model.onMyBookingsPressed,
+                  icon: Image.asset(
+                    "assets/images/bag.png",
+                  ),
+                ),
+              ),
+            ])),
         Container(
           width: 50,
           height: 50,

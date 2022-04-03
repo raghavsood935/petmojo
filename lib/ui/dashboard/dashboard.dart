@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/app/app.router.dart';
 import 'package:tamely/ui/community/community_view.dart';
 import 'package:tamely/ui/dashboard/dashboard_viewmodel.dart';
 import 'package:tamely/ui/feed/feed_view.dart';
@@ -361,9 +364,15 @@ class _DashboardState extends State<Dashboard> {
                   items: _getBottomNavBarItems(model),
                   currentIndex: index,
                   onTap: (int x) {
+                    if(x==3){
+                      // open my bookings
+                      final _navigationService = locator<NavigationService>();
+                      _navigationService.navigateTo(Routes.appointmentsView);
+                    }
+                    else{
                     setState(() {
                       index = x;
-                    });
+                    });}
                   },
                 ),
                 backgroundColor: colors.white,

@@ -214,7 +214,7 @@ class ActiveAppointmentItem extends StatelessWidget {
                           ),
                           horizontalSpaceTiny,
                           AppText.body1(
-                            "$upcomingLabel : $dateAndTime!",
+                            "$upcomingLabel : $dateAndTime",
                           ),
                         ],
                       ),

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/widgets/app_text.dart';
 
 class SuccessDialog extends StatefulWidget {
   final DialogRequest dialogRequest;
@@ -87,107 +89,115 @@ class _SuccessDialogState extends State<SuccessDialog> {
                         SizedBox(
                           height: 10,
                         ),
-                        widget.dialogRequest.data != null
-                            ? Column(
-                                children: [
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.only(bottom: 10.0),
-                                    child: Text(
-                                      "Let us know how we're doing!"
-                                          .toUpperCase(),
-                                      textAlign: TextAlign.center,
-                                      style:
-                                          theme.textTheme.subtitle2?.copyWith(
-                                        fontSize: 14,
-                                        color: Color(0xFFFD799A),
-                                      ),
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      GestureDetector(
-                                        onTap : () => setState(() {
-                                          _givenRating = 1;
-                                          widget.dialogRequest.data(1);
-                                        }),
-                                        child: Icon(
-                                          Icons.star,
-                                          color:  _givenRating >= 1 ? Color(0xFFFD799A) : Colors.grey,
-                                          size: 19,
-                                        ),
-                                      ),
-                                      GestureDetector(
-                                        onTap : () => setState(() {
-                                          _givenRating = 2;
-                                          widget.dialogRequest.data(2);
-                                        }),
-                                        child: Icon(
-                                          Icons.star,
-                                          color:  _givenRating >= 2 ? Color(0xFFFD799A) : Colors.grey,
-                                          size: 19,
-                                        ),
-                                      ),
-                                      GestureDetector(
-                                        onTap : () => setState(() {
-                                          _givenRating = 3;
-                                          widget.dialogRequest.data(3);
-                                        }),
-                                        child: Icon(
-                                          Icons.star,
-                                          color:  _givenRating >= 3 ? Color(0xFFFD799A) : Colors.grey,
-                                          size: 19,
-                                        ),
-                                      ),
-                                      GestureDetector(
-                                        onTap : () => setState(() {
-                                          _givenRating = 4;
-                                          widget.dialogRequest.data(4);
-                                        }),
-                                        child: Icon(
-                                          Icons.star,
-                                          color:  _givenRating >= 4 ? Color(0xFFFD799A) : Colors.grey,
-                                          size: 19,
-                                        ),
-                                      ),
-                                      GestureDetector(
-                                        onTap : () => setState(() {
-                                          _givenRating = 5;
-                                          widget.dialogRequest.data(5);
-                                        }),
-                                        child: Icon(
-                                          Icons.star,
-                                          color:  _givenRating >= 5 ? Color(0xFFFD799A) : Colors.grey,
-                                          size: 19,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  // Button for "Check Invoice"
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10.0),
-                                    child: TextButton(
-                                      onPressed: () {
-                                        // TODO : Implement actual invoice opening
-                                      },
-                                      style: TextButton.styleFrom(
-                                        backgroundColor: Color(0xFFFD799A),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                      ),
-                                      child: Text(
-                                        "Check Invoice",
-                                        style: theme.textTheme.button?.copyWith(
-                                            fontSize: 14, color: Colors.white),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              )
-                            : SizedBox(),
+                        GestureDetector(
+                          onTap: (){
+                            widget.dialogRequest.data();
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            child: AppText.body1("GO TO MY BOOKINGS", color: Color(0xFFFD799A)),),
+                        ),
+                        // widget.dialogRequest.data != null
+                        //     ? Column(
+                        //         children: [
+                        //           Padding(
+                        //             padding:
+                        //                 const EdgeInsets.only(bottom: 10.0),
+                        //             child: Text(
+                        //               "Let us know how we're doing!"
+                        //                   .toUpperCase(),
+                        //               textAlign: TextAlign.center,
+                        //               style:
+                        //                   theme.textTheme.subtitle2?.copyWith(
+                        //                 fontSize: 14,
+                        //                 color: Color(0xFFFD799A),
+                        //               ),
+                        //             ),
+                        //           ),
+                        //           Row(
+                        //             mainAxisAlignment: MainAxisAlignment.center,
+                        //             children: [
+                        //               GestureDetector(
+                        //                 onTap : () => setState(() {
+                        //                   _givenRating = 1;
+                        //                   widget.dialogRequest.data(1);
+                        //                 }),
+                        //                 child: Icon(
+                        //                   Icons.star,
+                        //                   color:  _givenRating >= 1 ? Color(0xFFFD799A) : Colors.grey,
+                        //                   size: 19,
+                        //                 ),
+                        //               ),
+                        //               GestureDetector(
+                        //                 onTap : () => setState(() {
+                        //                   _givenRating = 2;
+                        //                   widget.dialogRequest.data(2);
+                        //                 }),
+                        //                 child: Icon(
+                        //                   Icons.star,
+                        //                   color:  _givenRating >= 2 ? Color(0xFFFD799A) : Colors.grey,
+                        //                   size: 19,
+                        //                 ),
+                        //               ),
+                        //               GestureDetector(
+                        //                 onTap : () => setState(() {
+                        //                   _givenRating = 3;
+                        //                   widget.dialogRequest.data(3);
+                        //                 }),
+                        //                 child: Icon(
+                        //                   Icons.star,
+                        //                   color:  _givenRating >= 3 ? Color(0xFFFD799A) : Colors.grey,
+                        //                   size: 19,
+                        //                 ),
+                        //               ),
+                        //               GestureDetector(
+                        //                 onTap : () => setState(() {
+                        //                   _givenRating = 4;
+                        //                   widget.dialogRequest.data(4);
+                        //                 }),
+                        //                 child: Icon(
+                        //                   Icons.star,
+                        //                   color:  _givenRating >= 4 ? Color(0xFFFD799A) : Colors.grey,
+                        //                   size: 19,
+                        //                 ),
+                        //               ),
+                        //               GestureDetector(
+                        //                 onTap : () => setState(() {
+                        //                   _givenRating = 5;
+                        //                   widget.dialogRequest.data(5);
+                        //                 }),
+                        //                 child: Icon(
+                        //                   Icons.star,
+                        //                   color:  _givenRating >= 5 ? Color(0xFFFD799A) : Colors.grey,
+                        //                   size: 19,
+                        //                 ),
+                        //               ),
+                        //             ],
+                        //           ),
+                        //           // Button for "Check Invoice"
+                        //           Padding(
+                        //             padding: const EdgeInsets.only(top: 10.0),
+                        //             child: TextButton(
+                        //               onPressed: () {
+                        //                 // TODO : Implement actual invoice opening
+                        //               },
+                        //               style: TextButton.styleFrom(
+                        //                 backgroundColor: Color(0xFFFD799A),
+                        //                 shape: RoundedRectangleBorder(
+                        //                   borderRadius:
+                        //                       BorderRadius.circular(10),
+                        //                 ),
+                        //               ),
+                        //               child: Text(
+                        //                 "Check Invoice",
+                        //                 style: theme.textTheme.button?.copyWith(
+                        //                     fontSize: 14, color: Colors.white),
+                        //               ),
+                        //             ),
+                        //           )
+                        //         ],
+                        //       )
+                        //     : SizedBox(),
                       ],
                     ),
                   ),

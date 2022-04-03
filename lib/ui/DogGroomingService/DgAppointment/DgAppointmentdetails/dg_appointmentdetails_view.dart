@@ -11,6 +11,7 @@ import 'package:tamely/widgets/app_input_field.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/custom_circle_avatar.dart';
 import 'dg_appointmentdetails_viewmodel.dart';
+import 'package:intl/intl.dart';
 
 class DGAppointmentDetailsView extends StatelessWidget {
   const DGAppointmentDetailsView({Key? key, required this.appointmentId})
@@ -55,19 +56,59 @@ class DGAppointmentDetailsView extends StatelessWidget {
                 verticalSpaceRegular,
 
                 // Division 1 - Package Name
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    AppText.body2(
-                      model.subscriptionType,
+                Container(
+                    padding: EdgeInsets.all(20),
+                    margin: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: colors.kcLightGreyColor,
+                        width: 1,
+                      ),
                     ),
-                    horizontalSpaceTiny,
-                    AppText.caption(
-                      "(${model.numberOfSessions} sessions)",
-                      color: colors.kcCaptionGreyColor,
-                    ),
-                  ],
-                ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CircleAvatar(
+                          child: Image.asset(
+                              "assets/images/dog_grooming_icon.png"),
+                          backgroundColor: Color(0xffFAC9D7),
+                        ),
+                        horizontalSpaceSmall,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            verticalSpaceTiny,
+                            AppText.body2(model.description),
+                            AppText.caption(model.subtitle),
+                            verticalSpaceSmall,
+                            Row(
+                              children: [
+                                AppText.captionBold("Date: "),
+                                AppText.caption(
+                                  DateFormat("dd/MM/yyyy")
+                                      .format(model.startDate),
+                                ),
+                                horizontalSpaceTiny,
+                                AppText.captionBold("Time: "),
+                                AppText.caption(model.weekDayTiming),
+                              ],
+                            ),
+                            verticalSpaceSmall,
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                AppText.captionBold("Address: "),
+                                AppText.caption(
+                                    model.addressLineOneController.text + ","),
+                              ],
+                            ),
+                            AppText.caption(model.addressLineTwoController.text)
+                          ],
+                        )
+                      ],
+                    )),
                 verticalSpaceRegular,
 
                 //Division 2 - service completed, service rejected
@@ -109,62 +150,7 @@ class DGAppointmentDetailsView extends StatelessWidget {
                   ),
                 ),
 
-                // Division 3 - Session Number
-                Container(
-                  height: 30,
-                  width: screenWidth(context),
-                  color: colors.primaryLight,
-                  padding: EdgeInsets.only(
-                    top: 10.0,
-                    left: 25.0,
-                    right: 25.0,
-                  ),
-                  child: AppText.body2(
-                    "Session Number",
-                    color: colors.black,
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-                Container(
-                  height: 90,
-                  color: colors.primaryLight,
-                  padding: EdgeInsets.only(
-                    top: 9.0,
-                    bottom: 10.0,
-                    left: 25.0,
-                    right: 25.0,
-                  ),
-                  child: ListView.separated(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: model.numberOfSessions,
-                    itemBuilder: (BuildContext context, int index) {
-                      return GestureDetector(
-                        onTap: () => model.onSessionNumberTapped(index + 1),
-                        child: Container(
-                          padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                          child: Center(
-                            child: AppText.body2(
-                              "${index + 1}",
-                              color: model.currentSession == index + 1
-                                  ? colors.white
-                                  : colors.black,
-                            ),
-                          ),
-                          decoration: BoxDecoration(
-                            color: model.currentSession == index + 1
-                                ? colors.primary
-                                : Colors.transparent,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) =>
-                        spacedDividerSmall,
-                  ),
-                ),
-                verticalSpaceSmall,
+               
 
                 //Division 4 - Booking details
                 Padding(
@@ -181,7 +167,7 @@ class DGAppointmentDetailsView extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: Column(
                           children: [
-                            model.dogs.length == 1
+                            model.dogs.length < 2 || model.dogs[1] == ""
                                 ? Column(
                                     children: [
                                       BookingItem(
@@ -232,9 +218,9 @@ class DGAppointmentDetailsView extends StatelessWidget {
                             // ),
                             verticalSpaceRegular,
                             BookingItem(
-                              detailName: "Session Report",
+                              detailName: "Invoice",
                               detailValue: model.showReportOne
-                                  ? "See my report"
+                                  ? "See my invoice"
                                   : "Upcoming",
                               clickable: model.showReportOne ? true : false,
                               onTapped: model.toReport,
