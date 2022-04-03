@@ -559,8 +559,10 @@ class FreeTraining extends StatelessWidget {
               SizedBox(
                 width: 10,
               ),
-              Image(
-                image: AssetImage("assets/images/free-training-image.png"),
+              Expanded(
+                child: Image(
+                  image: AssetImage("assets/images/free-training-image.png"),
+                ),
               )
             ],
           )),
