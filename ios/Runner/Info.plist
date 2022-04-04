@@ -1,51 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-	<dict>
-		<key>CFBundleDevelopmentRegion</key>
-		<string>$(DEVELOPMENT_LANGUAGE)</string>
-		<key>CFBundleExecutable</key>
-		<string>$(EXECUTABLE_NAME)</string>
-		<key>CFBundleIdentifier</key>
-		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-		<key>CFBundleInfoDictionaryVersion</key>
-		<string>6.0</string>
-		<key>CFBundleName</key>
-		<string>Petmojo</string>
-		<key>CFBundlePackageType</key>
-		<string>APPL</string>
-		<key>CFBundleShortVersionString</key>
-		<string>$(FLUTTER_BUILD_NAME)</string>
-		<key>CFBundleSignature</key>
-		<string>????</string>
-		<key>CFBundleVersion</key>
-		<string>$(FLUTTER_BUILD_NUMBER)</string>
-		<key>LSRequiresIPhoneOS</key>
-		<true/>
-		<key>UILaunchStoryboardName</key>
-		<string>LaunchScreen</string>
-		<key>UIMainStoryboardFile</key>
-		<string>Main</string>
-		<key>NSLocationWhenInUseUsageDescription</key>
-        <string>This app needs access to location when open.</string>
-        <key>NSLocationAlwaysUsageDescription</key>
-        <string>This app needs access to location when in the background.</string>
-		<key>UISupportedInterfaceOrientations</key>
-		<array>
-			<string>UIInterfaceOrientationPortrait</string>
-			<string>UIInterfaceOrientationLandscapeLeft</string>
-			<string>UIInterfaceOrientationLandscapeRight</string>
-		</array>
-		<key>UISupportedInterfaceOrientations~ipad</key>
-		<array>
-			<string>UIInterfaceOrientationPortrait</string>
-			<string>UIInterfaceOrientationPortraitUpsideDown</string>
-			<string>UIInterfaceOrientationLandscapeLeft</string>
-			<string>UIInterfaceOrientationLandscapeRight</string>
-		</array>
-		<key>UIViewControllerBasedStatusBarAppearance</key>
-		<false/>
-		<key>UIStatusBarHidden</key>
-		<false/>
-	</dict>
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Petmojo</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.183984006291-k2it4hja49jj4iaqfmn9c981au1sjkgj</string>
+				<string>fb1022579671806775</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookAppID</key>
+	<string>1022579671806775</string>
+	<key>FacebookDisplayName</key>
+	<string>PetMojo</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Media access is required to take photos for making posts and updating profile picture.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera access is required so you can post photos and also edit your profile picture.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location is required for our service providers to reach you, and to locate the pet community near you.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Microphone access is required to post videos (with sound) on Petmojo platform.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Photos access is required inorder to setup your profile photo.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UIStatusBarHidden</key>
+	<false/>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+</dict>
 </plist>

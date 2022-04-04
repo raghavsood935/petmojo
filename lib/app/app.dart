@@ -3,6 +3,11 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/services/user_service.dart';
+import 'package:tamely/ui/DogGroomingService/DgAppointment/DgAppointmentdetails/dg_appointmentdetails_view.dart';
+import 'package:tamely/ui/DogGroomingService/DgAppointment/DgReportcard/dg_reportcard_view.dart';
+import 'package:tamely/ui/DogGroomingService/DgBookingService/DgBooking/dg_doggroomingbooking_view.dart';
+import 'package:tamely/ui/DogGroomingService/DgBookingService/DgOpening/dg_opening_view.dart';
+import 'package:tamely/ui/DogGroomingService/DgBookingService/DgPayment/dg_payment_view.dart';
 import 'package:tamely/ui/DogRunningService/DrAppointment/DrAppointmentdetails/dr_appointmentdetails_view.dart';
 import 'package:tamely/ui/DogRunningService/DrAppointment/DrLivemap/dr_livemap_view.dart';
 import 'package:tamely/ui/DogRunningService/DrAppointment/DrReportcard/dr_reportcard_view.dart';
@@ -194,6 +199,18 @@ import '../ui/wallet/wallet_view.dart';
     // At DogTrainingService / DtAppointment
     CupertinoRoute(page: DTAppointmentDetailsView), // (New)
     CupertinoRoute(page: DTReportCardView), // (New)
+
+
+    // 3 - Dog grooming service
+    // At DogGroomingService / DgBookingService
+    CupertinoRoute(page: DGDogGroomingBookingView), // (New)
+    CupertinoRoute(page: DGOpening),
+    CupertinoRoute(page: DGPaymentView),
+
+    // My Appointment
+    // At DogGroomingService / DgAppointment
+    CupertinoRoute(page: DGAppointmentDetailsView), // (New)
+    CupertinoRoute(page: DGReportCardView), // (New)
   ],
   dependencies: [
     LazySingleton(classType: NavigationService),

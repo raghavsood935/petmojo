@@ -18,6 +18,18 @@ class DTOpening extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                //back button
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      child: Icon(Icons.arrow_back_ios),
+                    ),
+                  ),
+                ),
                 verticalSpaceRegular,
                 // Heading
                 Container(

@@ -102,7 +102,7 @@ class _TamelyAppState extends State<TamelyApp> {
       //   return LoginView();
     } else {
       return Dashboard(
-        initialPageState: 3,
+        initialPageState: 0,
         isNeedToUpdateProfile: true,
         isHuman: true,
         petToken: "",

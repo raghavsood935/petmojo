@@ -12,6 +12,8 @@ class MyAppointmentsResponse with _$MyAppointmentsResponse {
         List<DogRunningAppointmentListResponse>? dogRunningAppointmentsList,
     @JsonKey(name: "Traininglist")
         List<DogTrainingAppointmentListResponse>? dogTrainingAppointmentsList,
+    @JsonKey(name: "Groominglist")
+        List<DogGroomingAppointmentListResponse>? dogGroomingAppointmentsList,
   }) = _MyAppointmentsResponse;
 
   factory MyAppointmentsResponse.fromJson(Map<String, dynamic> json) =>
@@ -38,6 +40,34 @@ class DogTrainingAppointmentListResponse
   factory DogTrainingAppointmentListResponse.fromJson(
           Map<String, dynamic> json) =>
       _$DogTrainingAppointmentListResponseFromJson(json);
+}
+
+@freezed
+class DogGroomingAppointmentListResponse
+    with _$DogGroomingAppointmentListResponse {
+  DogGroomingAppointmentListResponse._();
+
+  factory DogGroomingAppointmentListResponse({
+    @JsonKey(name: "_id") String? appointmentId,
+    @JsonKey(name: "petDetails") List<PetDetailsResponse>? petDetails,
+    @JsonKey(name: "bookingStatus") int? bookingStatus,
+    @JsonKey(name: "serviceStatus") int? serviceStatus,
+    @JsonKey(name: "isRated") bool? isRated,
+    @JsonKey(name: "serviceType") int? serviceType,
+    @JsonKey(name: "User") String? userId,
+    @JsonKey(name: "DogGroomingbookingDetails")
+        DogGroomingBookingDetailsResponse? bookingDetails,
+    @JsonKey(name: "amount") int? amount,
+    @JsonKey(name: "createdAt") String? createdAt,
+    @JsonKey(name: "updatedAt") String? updatedAt,
+    @JsonKey(name: "__v") int? v,
+    @JsonKey(name: "ServiceProvider") UserDetailsResponse? user,
+    @JsonKey(name: "isReorderDone") bool? isReorderDone,
+  }) = _DogGroomingAppointmentListResponse;
+
+  factory DogGroomingAppointmentListResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$DogGroomingAppointmentListResponseFromJson(json);
 }
 
 @freezed
@@ -91,6 +121,69 @@ class DogTrainingBookingDetailsResponse
   factory DogTrainingBookingDetailsResponse.fromJson(
           Map<String, dynamic> json) =>
       _$DogTrainingBookingDetailsResponseFromJson(json);
+}
+
+@freezed
+class DogGroomingBookingDetailsResponse
+    with _$DogGroomingBookingDetailsResponse {
+  DogGroomingBookingDetailsResponse._();
+
+  factory DogGroomingBookingDetailsResponse({
+    @JsonKey(name: "_id") String? bookingId,
+    @JsonKey(name: "sessionDetails") DogGroomingSessionDetailsResponse? sessionDetails,
+    @JsonKey(name: "paymentDetails") DogGroomingPaymentDetailsResponse? paymentDetails,
+    @JsonKey(name: "numberOfPets") int? numberOfPets,
+    @JsonKey(name: "package") DogGroomingPackageDetailsResponse? package,
+    @JsonKey(name: "startDate") String? startDate,
+  }) = _DogGroomingBookingDetailsResponse;
+
+  factory DogGroomingBookingDetailsResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$DogGroomingBookingDetailsResponseFromJson(json);
+}
+
+@freezed
+class DogGroomingSessionDetailsResponse
+    with _$DogGroomingSessionDetailsResponse {
+  DogGroomingSessionDetailsResponse._();
+
+  factory DogGroomingSessionDetailsResponse({
+    @JsonKey(name: "sessionStatus") int? sessionStatus,
+    @JsonKey(name: "sessionTime") String? sessionTime,
+  }) = _DogGroomingSessionDetailsResponse;
+
+  factory DogGroomingSessionDetailsResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$DogGroomingSessionDetailsResponseFromJson(json);
+}
+
+@freezed
+class DogGroomingPaymentDetailsResponse with _$DogGroomingPaymentDetailsResponse {
+  DogGroomingPaymentDetailsResponse._();
+
+  factory DogGroomingPaymentDetailsResponse({
+    @JsonKey(name: "status") int? paymentStatus,
+    @JsonKey(name: "amount") int? amount,
+    @JsonKey(name: "transactionId") String? transactionId,
+  }) = _DogGroomingPaymentDetailsResponse;
+
+  factory DogGroomingPaymentDetailsResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$DogGroomingPaymentDetailsResponseFromJson(json);
+}
+
+@freezed
+class DogGroomingPackageDetailsResponse with _$DogGroomingPackageDetailsResponse {
+  DogGroomingPackageDetailsResponse._();
+
+  factory DogGroomingPackageDetailsResponse({
+    @JsonKey(name: "description") String? description,
+    @JsonKey(name: "amount") int? amount,
+  }) = _DogGroomingPackageDetailsResponse;
+
+  factory DogGroomingPackageDetailsResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$DogGroomingPackageDetailsResponseFromJson(json);
 }
 
 @freezed

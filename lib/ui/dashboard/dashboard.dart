@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/app/app.router.dart';
 import 'package:tamely/ui/community/community_view.dart';
 import 'package:tamely/ui/dashboard/dashboard_viewmodel.dart';
 import 'package:tamely/ui/feed/feed_view.dart';
@@ -18,6 +21,7 @@ import 'package:tamely/widgets/custom_circle_avatar.dart';
 import 'package:tamely/widgets/feed_app_bar.dart';
 import 'package:tamely/widgets/follow_static_btn.dart';
 import 'package:tamely/widgets/main_btn.dart';
+import 'package:tamely/widgets/profile_selection_bottom_navbar.dart';
 
 class Dashboard extends StatefulWidget {
   Dashboard({
@@ -53,7 +57,7 @@ class _DashboardState extends State<Dashboard> {
 
   List<Widget> _buildScreens(BuildContext context, DashboardViewModel model) {
     return [
-      FeedView(
+      ServicesView(
         menuScreenContext: context,
         hideStatus: model.hideNavBar,
         onScreenHideButtonPressed: () {
@@ -74,7 +78,7 @@ class _DashboardState extends State<Dashboard> {
           model.hideNavBar = !model.hideNavBar;
         },
       ),
-      ServicesView(
+      FeedView(
         menuScreenContext: context,
         hideStatus: model.hideNavBar,
         onScreenHideButtonPressed: () {
@@ -241,63 +245,48 @@ class _DashboardState extends State<Dashboard> {
     ];
   }
 
-  List<BottomNavigationBarItem> _bottomNavBarItems = [
+  List<BottomNavigationBarItem> _getBottomNavBarItems(model) {
+    return [
     BottomNavigationBarItem(
-      icon: SvgPicture.asset(
-        "assets/images/home.svg",
-      ),
-      activeIcon: SvgPicture.asset(
-        "assets/images/home.svg",
-        color: colors.primary,
-      ),
-      label: "Feed",
+      icon: Icon(Icons.home, size:24,),
+      activeIcon: Icon(Icons.home, size:24, color: colors.primary,),
+      label: "Home",
       backgroundColor: colors.white,
     ),
     BottomNavigationBarItem(
-      icon: SvgPicture.asset(
-        "assets/images/community.svg",
-      ),
-      activeIcon: SvgPicture.asset(
-        "assets/images/community.svg",
+      icon: Icon(Icons.people, size:24,),
+      activeIcon: Icon(Icons.people, size:24,
         color: colors.primary,
       ),
       label: "Community",
       backgroundColor: colors.white,
     ),
     BottomNavigationBarItem(
-      icon: SvgPicture.asset(
-        "assets/images/explore.svg",
-      ),
-      activeIcon: SvgPicture.asset(
-        "assets/images/explore.svg",
+      icon: Icon(Icons.explore, size:24,),
+      activeIcon: Icon(Icons.explore, size:24,
         color: colors.primary,
       ),
       label: "For you",
       backgroundColor: colors.white,
     ),
     BottomNavigationBarItem(
-      icon: SvgPicture.asset(
-        "assets/images/services.svg",
-      ),
-      activeIcon: SvgPicture.asset(
-        "assets/images/services.svg",
+      icon: Icon(Icons.calendar_today, size:24,),
+      activeIcon: Icon(Icons.calendar_today, size:24,
         color: colors.primary,
       ),
-      label: "Services",
+      label: "Bookings",
       backgroundColor: colors.white,
     ),
     BottomNavigationBarItem(
-      icon: SvgPicture.asset(
-        "assets/images/community.svg",
-      ),
-      activeIcon: SvgPicture.asset(
-        "assets/images/community.svg",
-        color: colors.primary,
+      icon: ProfileSelectionBottomNavbar(
+        listOfProfiles: model.listOfProfiles,
+        initialState: model.initialState,
       ),
       label: "Profile",
       backgroundColor: colors.white,
     ),
   ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -372,12 +361,18 @@ class _DashboardState extends State<Dashboard> {
                   unselectedItemColor: colors.kcMediumGreyColor,
                   unselectedLabelStyle:
                       TextStyle(color: colors.kcMediumGreyColor, fontSize: 12),
-                  items: _bottomNavBarItems,
+                  items: _getBottomNavBarItems(model),
                   currentIndex: index,
                   onTap: (int x) {
+                    if(x==3){
+                      // open my bookings
+                      final _navigationService = locator<NavigationService>();
+                      _navigationService.navigateTo(Routes.appointmentsView);
+                    }
+                    else{
                     setState(() {
                       index = x;
-                    });
+                    });}
                   },
                 ),
                 backgroundColor: colors.white,

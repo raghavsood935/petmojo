@@ -66,7 +66,7 @@ class StartUpViewModel extends FutureViewModel<void> implements Initialisable {
         _destinationRoute = Routes.dashboard;
         _destinationArguments = DashboardArguments(
           isNeedToUpdateProfile: true,
-          initialPageState: 3,
+          initialPageState: 0,
           isHuman: true,
           petID: "",
           petToken: "",

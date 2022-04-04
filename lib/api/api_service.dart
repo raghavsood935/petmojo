@@ -28,6 +28,7 @@ import 'package:tamely/models/get_blogs_model.dart';
 import 'package:tamely/models/get_bookmarks_model.dart';
 import 'package:tamely/models/get_free_training_response.dart';
 import 'package:tamely/models/get_free_walk_response.dart';
+import 'package:tamely/models/get_grooming_appointment_details_response.dart';
 import 'package:tamely/models/get_payment_details_response.dart';
 import 'package:tamely/models/get_training_appointment_details_response.dart';
 import 'package:tamely/models/get_training_report_response.dart';
@@ -54,6 +55,7 @@ import 'package:tamely/models/notification_response.dart';
 import 'package:tamely/models/common_response.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/models/params/apple_signin_body.dart';
+import 'package:tamely/models/params/book_a_grooming_body.dart';
 import 'package:tamely/models/params/book_a_training_body.dart';
 import 'package:tamely/models/params/comment_new/add_comment_body.dart';
 import 'package:tamely/models/params/confirm_relation_request_body.dart';
@@ -1595,6 +1597,22 @@ class TamelyApi {
     return BaseResponse()..data = response;
   }
 
+  // ---> Delete From Favourites
+  Future<BaseResponse<EditResponse>> deleteFromFavourites(
+      ProductIdCommonBody productIdCommonBody, bool isHuman,
+      {String petToken = ""}) async {
+    EditResponse response;
+    try {
+      response = await getApiClient(true, isHuman, animalToken: petToken)
+          .deleteFromFavourites(productIdCommonBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
   // ---> Get List Of Favourite Products
   Future<BaseResponse<FavProductListResponse>> getFavouriteDetails(bool isHuman,
       {String petToken = ""}) async {
@@ -1755,6 +1773,56 @@ class TamelyApi {
     try {
       response = await getApiClient(true, true)
           .setPaymentDetailsTraining(setPaymentDetailsBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // 3 - Grooming flow
+
+  // -- Booking A Grooming
+  Future<BaseResponse<BookARunResponse>> bookAGrooming(
+      BookAGroomingBody bookAGroomingBody) async {
+    log.d("googleLogin called");
+    BookARunResponse response;
+    try {
+      response =
+          await getApiClient(true, true).bookAGrooming(bookAGroomingBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Set Payment details Grooming
+  Future<BaseResponse<SendDataResponse>> setPaymentDetailsGrooming(
+      SetPaymentDetailsBody setPaymentDetailsBody) async {
+    log.d("googleLogin called");
+    SendDataResponse response;
+    try {
+      response = await getApiClient(true, true)
+          .setPaymentDetailsGrooming(setPaymentDetailsBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Pay later
+  Future<BaseResponse<SendDataResponse>> payLaterGrooming(
+      GetPaymentDetailsBody getPaymentDetailsBody) async {
+    log.d("googleLogin called");
+    SendDataResponse response;
+    try {
+      response = await getApiClient(true, true)
+          .payLaterGrooming(getPaymentDetailsBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()
@@ -2076,4 +2144,22 @@ class TamelyApi {
     }
     return BaseResponse()..data = response;
   }
+
+  // -- Get Appointment Details Grooming
+  Future<BaseResponse<GetGroomingAppointmentDetailsResponse>>
+      getGroomingAppointmentDetails(
+          GetAppointmentDetailsBody getAppointmentDetailsBody) async {
+    print("2");
+    GetGroomingAppointmentDetailsResponse response;
+    try {
+      response = await getApiClient(true, true)
+          .getGroomingAppointmentDetails(getAppointmentDetailsBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
 }
+

@@ -32,6 +32,15 @@ class $AssetsImagesGen {
   $AssetsImagesBackgroundsGen get backgrounds =>
       const $AssetsImagesBackgroundsGen();
 
+  /// File path: assets/images/bag-2.svg
+  SvgGenImage get bag2 => const SvgGenImage('assets/images/bag-2.svg');
+
+  /// File path: assets/images/bag.png
+  AssetGenImage get bagPng => const AssetGenImage('assets/images/bag.png');
+
+  /// File path: assets/images/bag.svg
+  SvgGenImage get bagSvg => const SvgGenImage('assets/images/bag.svg');
+
   /// File path: assets/images/bookings.svg
   SvgGenImage get bookings => const SvgGenImage('assets/images/bookings.svg');
 
@@ -49,6 +58,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/camera.svg
   SvgGenImage get camera => const SvgGenImage('assets/images/camera.svg');
 
+  /// File path: assets/images/certificate.png
+  AssetGenImage get certificate =>
+      const AssetGenImage('assets/images/certificate.png');
+
   /// File path: assets/images/chat.svg
   SvgGenImage get chat => const SvgGenImage('assets/images/chat.svg');
 
@@ -64,6 +77,18 @@ class $AssetsImagesGen {
   /// File path: assets/images/crown.png
   AssetGenImage get crown => const AssetGenImage('assets/images/crown.png');
 
+  /// File path: assets/images/delivery_truck.png
+  AssetGenImage get deliveryTruck =>
+      const AssetGenImage('assets/images/delivery_truck.png');
+
+  /// File path: assets/images/dog_grooming_circle.png
+  AssetGenImage get dogGroomingCircle =>
+      const AssetGenImage('assets/images/dog_grooming_circle.png');
+
+  /// File path: assets/images/dog_grooming_icon.png
+  AssetGenImage get dogGroomingIcon =>
+      const AssetGenImage('assets/images/dog_grooming_icon.png');
+
   /// File path: assets/images/dog_pic_one.png
   AssetGenImage get dogPicOne =>
       const AssetGenImage('assets/images/dog_pic_one.png');
@@ -71,6 +96,14 @@ class $AssetsImagesGen {
   /// File path: assets/images/dog_running.png
   AssetGenImage get dogRunning =>
       const AssetGenImage('assets/images/dog_running.png');
+
+  /// File path: assets/images/dog_walking.png
+  AssetGenImage get dogWalking =>
+      const AssetGenImage('assets/images/dog_walking.png');
+
+  /// File path: assets/images/dog_walking_free.png
+  AssetGenImage get dogWalkingFree =>
+      const AssetGenImage('assets/images/dog_walking_free.png');
 
   /// File path: assets/images/drawer.svg
   SvgGenImage get drawer => const SvgGenImage('assets/images/drawer.svg');
@@ -97,6 +130,10 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/feedback.svg
   SvgGenImage get feedback => const SvgGenImage('assets/images/feedback.svg');
+
+  /// File path: assets/images/free-training-image.png
+  AssetGenImage get freeTrainingImage =>
+      const AssetGenImage('assets/images/free-training-image.png');
 
   /// File path: assets/images/free_session.png
   AssetGenImage get freeSession =>
@@ -292,6 +329,18 @@ class $AssetsImagesGen {
   /// File path: assets/images/tamely_logo.png
   AssetGenImage get tamelyLogo =>
       const AssetGenImage('assets/images/tamely_logo.png');
+
+  /// File path: assets/images/testimony_1.png
+  AssetGenImage get testimony1 =>
+      const AssetGenImage('assets/images/testimony_1.png');
+
+  /// File path: assets/images/testimony_2.png
+  AssetGenImage get testimony2 =>
+      const AssetGenImage('assets/images/testimony_2.png');
+
+  /// File path: assets/images/testimony_3.png
+  AssetGenImage get testimony3 =>
+      const AssetGenImage('assets/images/testimony_3.png');
 
   /// File path: assets/images/wallet.svg
   SvgGenImage get wallet => const SvgGenImage('assets/images/wallet.svg');
@@ -772,6 +821,10 @@ class $AssetsImagesServicePageImagesGen {
   /// File path: assets/images/service_page_images/appointments.png
   AssetGenImage get appointments =>
       const AssetGenImage('assets/images/service_page_images/appointments.png');
+
+  /// File path: assets/images/service_page_images/dog_grooming.png
+  AssetGenImage get dogGrooming =>
+      const AssetGenImage('assets/images/service_page_images/dog_grooming.png');
 
   /// File path: assets/images/service_page_images/dog_traning.png
   AssetGenImage get dogTraning =>
