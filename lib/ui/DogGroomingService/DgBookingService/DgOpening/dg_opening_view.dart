@@ -92,11 +92,12 @@ class DGOpening extends StatelessWidget {
                   child: Image.asset(
                       "assets/images/service_opening/opening_people.png"),
                 ),
-                //
-                Container(
-                  height: 30,
-                  child: Image.asset(
-                      "assets/images/service_opening/opening_training_fifth_text.png"),
+                Expanded(
+                  child: Container(
+                    height: 30,
+                    child: Image.asset(
+                        "assets/images/service_opening/opening_training_fifth_text.png"),
+                  ),
                 ),
                 verticalSpaceTiny,
                 verticalSpaceTiny,

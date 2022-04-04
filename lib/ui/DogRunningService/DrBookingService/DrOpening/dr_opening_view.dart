@@ -17,7 +17,6 @@ class DROpening extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Column(
-              
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 //back button
@@ -89,11 +88,12 @@ class DROpening extends StatelessWidget {
                   child: Image.asset(
                       "assets/images/service_opening/opening_people.png"),
                 ),
-                //
-                Container(
-                  height: 30,
-                  child: Image.asset(
-                      "assets/images/service_opening/opening_training_fifth_text.png"),
+                Expanded(
+                  child: Container(
+                    height: 30,
+                    child: Image.asset(
+                        "assets/images/service_opening/opening_training_fifth_text.png"),
+                  ),
                 ),
                 verticalSpaceTiny,
                 verticalSpace(80),

@@ -99,88 +99,28 @@ class ServicesView extends StatelessWidget {
               verticalSpaceTiny,
               Row(
                 children: [
-                  GestureDetector(
-                    onTap: () => model.goToECommercePage(),
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      margin: EdgeInsets.only(left: 20),
-                      width: screenWidthPercentage(context, percentage: 0.43),
-                      height: screenWidthPercentage(context, percentage: 0.45),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: Colors.black38)
-                          // color: Color(0XFFFEDFDD),
-                          ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              SizedBox(width: 40),
-                              Icon(
-                                Icons.flash_on_sharp,
-                                color: Colors.yellow,
-                                size: 11,
-                              ),
-                              AppText.tiny(
-                                "High Demand   ",
-                                color: colors.black,
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Column(
-                                children: [
-                                  AppText.body("45 mins"),
-                                  AppText.bodyBold("Doorstep"),
-                                  AppText.bodyBold("Delivery"),
-                                ],
-                              ),
-                              Expanded(
-                                  child: Image(
-                                image: AssetImage(
-                                    "assets/images/delivery_truck.png"),
-                              ))
-                            ],
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                color: colors.primary),
-                            child: AppText.caption(
-                              "Shop Now",
-                              color: colors.white,
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => model.goToECommercePage(),
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        margin: EdgeInsets.only(left: 20),
+                        width: double.infinity,
+                        height:
+                            screenWidthPercentage(context, percentage: 0.45),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(color: Colors.black38)
+                            // color: Color(0XFFFEDFDD),
                             ),
-                            padding: EdgeInsets.all(5),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 20),
-                  GestureDetector(
-                    onTap: () => model.onServiceTap(3),
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      width: screenWidthPercentage(context, percentage: 0.42),
-                      height: screenWidthPercentage(context, percentage: 0.45),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: Color(0XFFFEDFDD),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Visibility(
-                            visible:
-                                model.listOfServices[2].isHigDemand ?? true,
-                            child: Row(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
+                                SizedBox(width: 40),
                                 Icon(
                                   Icons.flash_on_sharp,
                                   color: Colors.yellow,
@@ -192,20 +132,87 @@ class ServicesView extends StatelessWidget {
                                 ),
                               ],
                             ),
-                          ),
-                          Image.asset(
-                            model.listOfServices[2].imgPath ?? "",
-                            colorBlendMode: BlendMode.darken,
-                            color: model.listOfServices[2].bgColor,
-                            height: screenWidthPercentage(context,
-                                percentage: 0.28),
-                          ),
-                          AppText.bodyBold(model.listOfServices[2].title ?? ""),
-                        ],
+                            Row(
+                              children: [
+                                Column(
+                                  children: [
+                                    AppText.body("45 mins"),
+                                    AppText.bodyBold("Doorstep"),
+                                    AppText.bodyBold("Delivery"),
+                                  ],
+                                ),
+                                Expanded(
+                                    child: Image(
+                                  image: AssetImage(
+                                      "assets/images/delivery_truck.png"),
+                                ))
+                              ],
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4),
+                                  color: colors.primary),
+                              child: AppText.caption(
+                                "Shop Now",
+                                color: colors.white,
+                              ),
+                              padding: EdgeInsets.all(5),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
                   SizedBox(width: 20),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => model.onServiceTap(3),
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        margin: EdgeInsets.only(right: 20),
+                        width: double.infinity,
+                        height:
+                            screenWidthPercentage(context, percentage: 0.45),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: Color(0XFFFEDFDD),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Visibility(
+                              visible:
+                                  model.listOfServices[2].isHigDemand ?? true,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Icon(
+                                    Icons.flash_on_sharp,
+                                    color: Colors.yellow,
+                                    size: 11,
+                                  ),
+                                  AppText.tiny(
+                                    "High Demand   ",
+                                    color: colors.black,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Image.asset(
+                              model.listOfServices[2].imgPath ?? "",
+                              colorBlendMode: BlendMode.darken,
+                              color: model.listOfServices[2].bgColor,
+                              height: screenWidthPercentage(context,
+                                  percentage: 0.28),
+                            ),
+                            AppText.bodyBold(
+                                model.listOfServices[2].title ?? ""),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
               verticalSpaceMedium,

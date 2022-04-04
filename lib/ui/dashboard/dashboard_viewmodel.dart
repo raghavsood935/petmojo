@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 import 'package:new_version/new_version.dart';
@@ -20,6 +22,8 @@ import 'package:flutter/material.dart';
 import 'package:tamely/models/params/get_relation_requests_body.dart';
 import 'package:tamely/services/user_service.dart';
 import 'package:tamely/util/ImageConstant.dart';
+import 'package:tamely/util/String.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DashboardViewModel extends FutureViewModel<void>
     implements Initialisable {
@@ -220,8 +224,7 @@ class DashboardViewModel extends FutureViewModel<void>
               petResponse.detailsResponse!.Id!,
               petResponse.detailsResponse!.token!,
               false,
-              petResponse.detailsResponse!.name?? ""
-              ),
+              petResponse.detailsResponse!.name ?? ""),
         );
       }
 
@@ -337,6 +340,27 @@ class DashboardViewModel extends FutureViewModel<void>
     }
     return false;
   }
+
+  void openWhatsapp() async {
+    String whatsappNumber = helpWhatsappNumber;
+    String messageToSend = whatsappMessageText;
+    String androidUrl =
+        "whatsapp://send?phone=$whatsappNumber&text=$messageToSend";
+    String iosUrl = "https://wa.me/$whatsappNumber?text=$messageToSend";
+    if (Platform.isIOS) {
+      if (await canLaunch(iosUrl)) {
+        await launch(iosUrl);
+      } else {
+        _snackBarService.showSnackbar(message: "Could not open whatsapp");
+      }
+    } else {
+      if (await canLaunch(androidUrl)) {
+        await launch(androidUrl);
+      } else {
+        _snackBarService.showSnackbar(message: "Could not open whatsapp");
+      }
+    }
+  }
 }
 
 class ProfileSelectBarItem {
@@ -346,5 +370,6 @@ class ProfileSelectBarItem {
   bool isHuman;
   String profileName;
 
-  ProfileSelectBarItem(this.avatar, this.id, this.token, this.isHuman, this.profileName);
+  ProfileSelectBarItem(
+      this.avatar, this.id, this.token, this.isHuman, this.profileName);
 }
