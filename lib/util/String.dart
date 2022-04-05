@@ -673,5 +673,5 @@ String groomingTimingsSix = "4pm-6pm";
 String groomingTimingsSeven = "6pm-8pm";
 String groomingTimingsEight = "8pm-10pm";
 
-String helpWhatsappNumber = "+911111111111";
-String whatsappMessageText = "Hello";
+String helpWhatsappNumber = "+919009004473";
+String whatsappMessageText = "";
