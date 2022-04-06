@@ -46,14 +46,27 @@ class _ProfileSelectionBottomNavbarState
       return (SizedBox(height: 30));
     }
     return GestureDetector(
-      onLongPress: () {
+      onLongPress: () async {
         print(widget.listOfProfiles[0].profileName);
         print(widget.listOfProfiles[1].profileName);
-        _bottomSheetService.showCustomSheet(
+        var result = await _bottomSheetService.showCustomSheet(
           variant: BottomSheetType.BasicListOfOptionsBottomSheet,
           title: "YO",
           description: "Des",
-          customData: [widget.listOfProfiles[0].profileName, widget.listOfProfiles[1].profileName],
+          customData: widget.listOfProfiles,
+          data: widget.initialState,
+        );
+
+        int x = result!.data;
+        navigationService.replaceWith(
+          Routes.dashboard,
+          arguments: DashboardArguments(
+              isNeedToUpdateProfile: true,
+              initialPageState: 0,
+              isHuman: widget.listOfProfiles[x].isHuman,
+              petID: widget.listOfProfiles[x].id,
+              petToken: widget.listOfProfiles[x].token,
+              initialState: x),
         );
       },
       child: Stack(
@@ -89,7 +102,7 @@ class _ProfileSelectionBottomNavbarState
           alignment: Alignment.center,
           decoration: BoxDecoration(
               color:
-                  x == widget.initialState ? Colors.white : Colors.transparent,
+              x == widget.initialState ? Colors.white : Colors.transparent,
               shape: BoxShape.circle),
           child: CustomCircularAvatar(
             radius: 33,

@@ -163,7 +163,7 @@ class ServicesView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(width: 20),
+                  SizedBox(width: 12),
                   Expanded(
                     child: GestureDetector(
                       onTap: () => model.onServiceTap(3),
