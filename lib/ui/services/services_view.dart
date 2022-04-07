@@ -611,7 +611,7 @@ class FreeWalk extends StatelessWidget {
                     height: 5,
                   ),
                   TextButton(
-                      onPressed: () => model.onServiceTap(1),
+                      onPressed: () => model.onServiceTap(0),
                       child: AppText.bodyBold(
                         "Book FREE Trial",
                         color: colors.white,
