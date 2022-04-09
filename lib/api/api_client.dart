@@ -9,6 +9,7 @@ import 'package:tamely/models/book_a_run_response.dart';
 import 'package:tamely/models/bookmark_response.dart';
 import 'package:tamely/models/comment_added_response.dart';
 import 'package:tamely/models/common_response.dart';
+import 'package:tamely/models/coupon_response.dart';
 import 'package:tamely/models/create_post_response.dart';
 import 'package:tamely/models/e-commerce/fav_product_list_response.dart';
 import 'package:tamely/models/e-commerce/product_details_by_id_response.dart';
@@ -23,6 +24,7 @@ import 'package:tamely/models/get_blogs_model.dart';
 import 'package:tamely/models/get_bookmarks_model.dart';
 import 'package:tamely/models/get_free_training_response.dart';
 import 'package:tamely/models/get_free_walk_response.dart';
+import 'package:tamely/models/get_grooming_appointment_details_response.dart';
 import 'package:tamely/models/get_payment_details_response.dart';
 import 'package:tamely/models/get_training_appointment_details_response.dart';
 import 'package:tamely/models/get_training_report_response.dart';
@@ -47,11 +49,13 @@ import 'package:tamely/models/list_of_profiles_foy_you.dart';
 import 'package:tamely/models/list_of_relations.dart';
 import 'package:tamely/models/notification_response.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
+import 'package:tamely/models/params/book_a_grooming_body.dart';
 import 'package:tamely/models/params/book_a_training_body.dart';
 import 'package:tamely/models/params/change_bio_avatar_body.dart';
 import 'package:tamely/models/params/comment_new/add_comment_body.dart';
 import 'package:tamely/models/params/confirm_relation_request_body.dart';
 import 'package:tamely/models/params/counter_body.dart';
+import 'package:tamely/models/params/coupon_body.dart';
 import 'package:tamely/models/params/create_animal_profile_body.dart';
 import 'package:tamely/models/params/create_animal_profile_new_body.dart';
 import 'package:tamely/models/params/create_post_body.dart';
@@ -230,6 +234,14 @@ class Apis {
   static const String setPaymentDetailsTraining =
       '/service/postTrainingPayment';
 
+  // Booking Appointments -- Dog grooming
+  static const String bookAGrooming = '/serviceBooking/bookDogGroomingService';
+  static const String generateOrderIdGrooming =
+      '/serviceBooking/generateOrderId';
+  static const String payLaterGrooming = '/service/paylatertGrooming';
+  static const String setPaymentDetailsGrooming =
+      '/service/postGroomingPayment';
+
   //community
   // ---> Groups
   static const String getGroupDetails = '/community/getGroupDetails';
@@ -273,6 +285,7 @@ class Apis {
   static const String addToCart = '/product/addToCart';
   static const String getCartDetails = '/product/getCartDetails';
   static const String addToFavourites = '/product/addToFavourites';
+  static const String deleteFromFavourites = '/product/deleteFromFavourite';
   static const String getFavouriteDetails = '/product/getFavouriteDetails';
 
   // My Bookings Flow
@@ -307,10 +320,18 @@ class Apis {
   static const String getTrainingScrollStatus =
       '/serviceBooking/getscrollSessionstatus';
   static const String getTrainingReport = '/serviceBooking/getTrainingReport';
+
+  // -- Dog grooming
+  static const String getGroomingAppointmentDetails =
+      '/serviceBooking/getGroomingAppointmentDetails';
+
+  // -- Offers
+  static const String getCouponAmount = '/serviceBooking/Verifycoupon';
+  static const String setUsedCoupon = '/serviceBooking/MarkCoupon';
 }
 
 // @RestApi(baseUrl: "https://tamely.herokuapp.com/api/")
-@RestApi(baseUrl: "http://3.14.68.70:9000/api/")
+@RestApi(baseUrl: "https://6xdmb7fadb.execute-api.ap-south-1.amazonaws.com/production/api/")
 abstract class ApiClient {
   factory ApiClient(Dio dio, {String baseUrl}) = _ApiClient;
 
@@ -699,6 +720,11 @@ abstract class ApiClient {
   Future<EditResponse> addToFavourites(
       @Body() ProductIdCommonBody productIdCommonBody);
 
+  // ---> Delete From Favourites
+  @POST(Apis.deleteFromFavourites)
+  Future<EditResponse> deleteFromFavourites(
+      @Body() ProductIdCommonBody productIdCommonBody);
+
   // ---> Get List Of Favourite Products
   @POST(Apis.getFavouriteDetails)
   Future<FavProductListResponse> getFavouriteDetails();
@@ -750,6 +776,23 @@ abstract class ApiClient {
   @PATCH(Apis.setPaymentDetailsTraining)
   Future<SendDataResponse> setPaymentDetailsTraining(
       @Body() SetPaymentDetailsBody setPaymentDetailsBody);
+
+  // Booking Appointments -- Dog Grooming
+
+  // -- Booking a grooming
+  @POST(Apis.bookAGrooming)
+  Future<BookARunResponse> bookAGrooming(
+      @Body() BookAGroomingBody bookAGroomingBody);
+
+  // -- Set Payment details grooming
+  @PATCH(Apis.setPaymentDetailsGrooming)
+  Future<SendDataResponse> setPaymentDetailsGrooming(
+      @Body() SetPaymentDetailsBody setPaymentDetailsBody);
+
+  // -- Pay later Dog grooming
+  @PATCH(Apis.payLaterGrooming)
+  Future<SendDataResponse> payLaterGrooming(
+      @Body() GetPaymentDetailsBody getPaymentDetailsBody);
 
   // My Bookings Flow
 
@@ -828,6 +871,11 @@ abstract class ApiClient {
   Future<GetTrainingAppointmentDetailsResponse> getTrainingAppointmentDetails(
       @Body() GetAppointmentDetailsBody getAppointmentDetailsBody);
 
+  // -- Get Appointment Details Grooming
+  @POST(Apis.getGroomingAppointmentDetails)
+  Future<GetGroomingAppointmentDetailsResponse> getGroomingAppointmentDetails(
+      @Body() GetAppointmentDetailsBody getAppointmentDetailsBody);
+
   // -- Change Appointment Status Training (Not using it)
   @POST(Apis.changeTrainingAppointmentStatus)
   Future<SendDataResponse> changeTrainingAppointmentStatus(
@@ -842,4 +890,12 @@ abstract class ApiClient {
   @POST(Apis.getTrainingReport)
   Future<GetTrainingReportResponse> getTrainingReport(
       @Body() GetTrainingReportBody getTrainingReportBody);
+
+  // -- Get Coupon Amount
+  @POST(Apis.getCouponAmount)
+  Future<CouponResponse> getCouponAmount(@Body() CouponBody couponBody);
+
+  // -- Set Used Coupon
+  @POST(Apis.setUsedCoupon)
+  Future<SendDataResponse> setUsedCoupon(@Body() CouponBody couponBody);
 }

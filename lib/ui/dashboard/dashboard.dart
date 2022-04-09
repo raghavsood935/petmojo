@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/app/app.router.dart';
 import 'package:tamely/ui/community/community_view.dart';
 import 'package:tamely/ui/dashboard/dashboard_viewmodel.dart';
 import 'package:tamely/ui/feed/feed_view.dart';
@@ -18,6 +21,7 @@ import 'package:tamely/widgets/custom_circle_avatar.dart';
 import 'package:tamely/widgets/feed_app_bar.dart';
 import 'package:tamely/widgets/follow_static_btn.dart';
 import 'package:tamely/widgets/main_btn.dart';
+import 'package:tamely/widgets/profile_selection_bottom_navbar.dart';
 
 class Dashboard extends StatefulWidget {
   Dashboard({
@@ -28,6 +32,7 @@ class Dashboard extends StatefulWidget {
     required this.petID,
     required this.petToken,
     required this.initialState,
+    this.checkUpdate,
   }) : super(key: key);
 
   final int initialState;
@@ -37,15 +42,22 @@ class Dashboard extends StatefulWidget {
   final String petID;
   final String petToken;
   final int initialPageState;
+  final bool? checkUpdate;
 
   @override
-  State<Dashboard> createState() => _DashboardState();
+  State<Dashboard> createState() => _DashboardState(initialPageState);
 }
 
 class _DashboardState extends State<Dashboard> {
+  int index = 0;
+
+  _DashboardState(int i) {
+    index = i;
+  }
+
   List<Widget> _buildScreens(BuildContext context, DashboardViewModel model) {
     return [
-      FeedView(
+      ServicesView(
         menuScreenContext: context,
         hideStatus: model.hideNavBar,
         onScreenHideButtonPressed: () {
@@ -66,7 +78,7 @@ class _DashboardState extends State<Dashboard> {
           model.hideNavBar = !model.hideNavBar;
         },
       ),
-      ServicesView(
+      FeedView(
         menuScreenContext: context,
         hideStatus: model.hideNavBar,
         onScreenHideButtonPressed: () {
@@ -233,18 +245,85 @@ class _DashboardState extends State<Dashboard> {
     ];
   }
 
+  List<BottomNavigationBarItem> _getBottomNavBarItems(model) {
+    return [
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.home,
+          size: 24,
+        ),
+        activeIcon: Icon(
+          Icons.home,
+          size: 24,
+          color: colors.primary,
+        ),
+        label: "Home",
+        backgroundColor: colors.white,
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.people,
+          size: 24,
+        ),
+        activeIcon: Icon(
+          Icons.people,
+          size: 24,
+          color: colors.primary,
+        ),
+        label: "Community",
+        backgroundColor: colors.white,
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.explore,
+          size: 24,
+        ),
+        activeIcon: Icon(
+          Icons.explore,
+          size: 24,
+          color: colors.primary,
+        ),
+        label: "For you",
+        backgroundColor: colors.white,
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.calendar_today,
+          size: 24,
+        ),
+        activeIcon: Icon(
+          Icons.calendar_today,
+          size: 24,
+          color: colors.primary,
+        ),
+        label: "Bookings",
+        backgroundColor: colors.white,
+      ),
+      BottomNavigationBarItem(
+        icon: ProfileSelectionBottomNavbar(
+          listOfProfiles: model.listOfProfiles,
+          initialState: model.initialState,
+        ),
+        label: "Profile",
+        backgroundColor: colors.white,
+      ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<DashboardViewModel>.reactive(
       viewModelBuilder: () => DashboardViewModel(),
       onModelReady: (model) => model
           .init(
+        context,
         widget.initialState,
         widget.isNeedToUpdateProfile,
         widget.isHuman,
         widget.petID,
         widget.petToken,
         widget.initialPageState,
+        widget.checkUpdate,
       )
           .whenComplete(() {
         setState(() {});
@@ -265,12 +344,14 @@ class _DashboardState extends State<Dashboard> {
                         verticalSpaceSmall,
                         MainButtonWidget(
                             onMainButtonTapped: () => model.init(
+                                  context,
                                   widget.initialState,
                                   widget.isNeedToUpdateProfile,
                                   widget.isHuman,
                                   widget.petID,
                                   widget.petToken,
                                   widget.initialPageState,
+                                  widget.checkUpdate,
                                 ),
                             mainButtonTitle: "RETRY"),
                       ],
@@ -290,29 +371,66 @@ class _DashboardState extends State<Dashboard> {
                         children: _buildDrawerScreens(context, model)),
                   ),
                 ),
-                body: PersistentTabView.custom(
-                  context,
-                  controller: model.controller,
-                  screens: _buildScreens(context, model),
-                  confineInSafeArea: true,
-                  itemCount: 5,
-                  handleAndroidBackButtonPress: true,
-                  stateManagement: true,
-                  hideNavigationBar: model.hideNavBar,
-                  screenTransitionAnimation: ScreenTransitionAnimation(
-                    animateTabTransition: true,
-                    curve: Curves.easeIn,
-                    duration: Duration(milliseconds: 100),
-                  ),
-                  customWidget: CustomNavBarWidget(
-                    items: _navBarsItems(),
-                    onItemSelected: (index) {
-                      model.controllerIndex(index);
-                    },
-                    selectedIndex: model.controller.index,
-                  ),
+                floatingActionButton: index == 0
+                    ? FloatingActionButton(
+                        onPressed: () {
+                          model.openWhatsapp();
+                        },
+                        child: Image(
+                            image:
+                                AssetImage("assets/images/whatsapp_icon.png"),
+                            height: 40),
+                      )
+                    : null,
+                body: _buildScreens(context, model)[index],
+                bottomNavigationBar: BottomNavigationBar(
+                  elevation: 8.0,
+                  type: BottomNavigationBarType.fixed,
+                  backgroundColor: colors.white,
+                  // selectedLabelStyle: TextStyle(color: colors.primary),
+                  showSelectedLabels: true,
+                  showUnselectedLabels: true,
+                  selectedItemColor: colors.primary,
+                  unselectedItemColor: colors.kcMediumGreyColor,
+                  unselectedLabelStyle:
+                      TextStyle(color: colors.kcMediumGreyColor, fontSize: 12),
+                  items: _getBottomNavBarItems(model),
+                  currentIndex: index,
+                  onTap: (int x) {
+                    if (x == 3) {
+                      // open my bookings
+                      final _navigationService = locator<NavigationService>();
+                      _navigationService.navigateTo(Routes.appointmentsView);
+                    } else {
+                      setState(() {
+                        index = x;
+                      });
+                    }
+                  },
                 ),
                 backgroundColor: colors.white,
+                // body: PersistentTabView.custom(
+                //   context,
+                //   controller: model.controller,
+                //   screens: _buildScreens(context, model),
+                //   confineInSafeArea: true,
+                //   itemCount: 5,
+                //   handleAndroidBackButtonPress: true,
+                //   stateManagement: true,
+                //   hideNavigationBar: model.hideNavBar,
+                //   screenTransitionAnimation: ScreenTransitionAnimation(
+                //     animateTabTransition: true,
+                //     curve: Curves.easeIn,
+                //     duration: Duration(milliseconds: 100),
+                //   ),
+                //   customWidget: CustomNavBarWidget(
+                //     items: _navBarsItems(),
+                //     onItemSelected: (index) {
+                //       model.controllerIndex(index);
+                //     },
+                //     selectedIndex: model.controller.index,
+                //   ),
+                // ),
               ),
       ),
     );
@@ -421,37 +539,41 @@ class DrawerWidget extends ViewModelWidget<DashboardViewModel> {
   Widget build(BuildContext context, DashboardViewModel viewModel) {
     return GestureDetector(
       onTap: onTap,
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SvgPicture.asset(
-                  iconUrl,
-                  height: 20,
-                  width: 20,
-                ),
-                horizontalSpaceSmall,
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppText.body(
-                      title,
-                      color: colors.kcPrimaryTextColor,
-                    ),
-                    verticalSpaceTiny,
-                    AppText.caption(subTitle),
-                  ],
-                ),
-              ],
+      child: Container(
+        color: Colors.transparent,
+        width: double.maxFinite,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SvgPicture.asset(
+                    iconUrl,
+                    height: 20,
+                    width: 20,
+                  ),
+                  horizontalSpaceSmall,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppText.body(
+                        title,
+                        color: colors.kcPrimaryTextColor,
+                      ),
+                      verticalSpaceTiny,
+                      AppText.caption(subTitle),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-          Divider(
-            color: colors.kcMediumGreyColor,
-          ),
-        ],
+            Divider(
+              color: colors.kcMediumGreyColor,
+            ),
+          ],
+        ),
       ),
     );
   }

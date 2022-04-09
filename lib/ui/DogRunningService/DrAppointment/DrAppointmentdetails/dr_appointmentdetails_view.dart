@@ -1,4 +1,3 @@
-import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked.dart';
@@ -10,6 +9,7 @@ import 'package:tamely/widgets/app_input_field.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/custom_circle_avatar.dart';
 import 'dr_appointmentdetails_viewmodel.dart';
+import 'package:tamely/widgets/custom_date_picker.dart';
 
 class DRAppointmentDetailsView extends StatelessWidget {
   const DRAppointmentDetailsView({Key? key, required this.appointmentId})
@@ -365,10 +365,11 @@ class DRAppointmentDetailsView extends StatelessWidget {
                   children: [
                     Container(
                       color: colors.primaryLight,
-                      child: DatePicker(
+                      child: CustomDatePicker(
                         model.startDate,
                         initialSelectedDate: model.initialDate,
                         daysCount: model.numberOfDays,
+                        customscrollcontroller: model.scrollController,
                         inactiveDates: model.daysOff,
                         selectionColor: colors.primary,
                         selectedTextColor: Colors.white,
@@ -390,6 +391,7 @@ class DRAppointmentDetailsView extends StatelessWidget {
                           walkTime: model.walkOneTime,
                           showLive: model.showLiveOne,
                           showUpcoming: model.showUpcomingOne,
+                          showNa: model.showNaOne,
                           showReport: model.showReportOne,
                           onTapped: model.showLiveOne
                               ? model.toLiveMapOne
@@ -405,6 +407,7 @@ class DRAppointmentDetailsView extends StatelessWidget {
                               walkTime: model.walkOneTime,
                               showLive: model.showLiveOne,
                               showUpcoming: model.showUpcomingOne,
+                              showNa: model.showNaOne,
                               showReport: model.showReportOne,
                               onTapped: model.showLiveOne
                                   ? model.toLiveMapOne
@@ -419,6 +422,7 @@ class DRAppointmentDetailsView extends StatelessWidget {
                               walkTime: model.walkTwoTime,
                               showLive: model.showLiveTwo,
                               showUpcoming: model.showUpcomingTwo,
+                              showNa: model.showNaTwo,
                               showReport: model.showReportTwo,
                               onTapped: model.showLiveTwo
                                   ? model.toLiveMapTwo
@@ -774,6 +778,7 @@ class WalkItem extends StatelessWidget {
       this.walkTime,
       this.showLive,
       this.showUpcoming,
+      this.showNa,
       this.showReport,
       this.onTapped})
       : super(key: key);
@@ -781,6 +786,7 @@ class WalkItem extends StatelessWidget {
   final String? walkTime;
   final bool? showLive;
   final bool? showUpcoming;
+  final bool? showNa;
   final bool? showReport;
   final void Function()? onTapped;
 
@@ -811,6 +817,15 @@ class WalkItem extends StatelessWidget {
         showUpcoming!
             ? AppText.body1(
                 upcomingWalkLabel,
+                color: colors.kcCaptionGreyColor,
+              )
+            : Container(
+                height: 0,
+                width: 0,
+              ),
+        showNa!
+            ? AppText.body1(
+                naWalkLabel,
                 color: colors.kcCaptionGreyColor,
               )
             : Container(

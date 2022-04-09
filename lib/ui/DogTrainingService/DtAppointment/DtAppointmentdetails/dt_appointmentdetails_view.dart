@@ -172,6 +172,7 @@ class DTAppointmentDetailsView extends StatelessWidget {
                   child: ExpansionTile(
                     iconColor: colors.black,
                     collapsedIconColor: colors.black,
+                    initiallyExpanded: true,
                     title: AppText.body2(
                       bookingDetailsTitle,
                     ),

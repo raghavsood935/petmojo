@@ -36,24 +36,24 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
 
   // dummy values
 
-  // List<ActiveAppointmentClass> _activeAppointments = [
-  //   ActiveAppointmentClass(
-  //     serviceType: ServiceType.DogRunning,
-  //     userName: "Joeylene Rivera",
-  //     userPicture:
-  //         "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg",
-  //     dogs: [
-  //       "Gracy",
-  //       "Tom",
-  //     ],
-  //     serviceName: dogWalkingTitle,
-  //     subscriptionType: "(Monthly, 1/day)",
-  //     dateAndTime: "24 Jan 2021 - 6-7PM",
-  //     status: ActiveAppointmentStatus.Pending,
-  //     showReorder: false,
-  //     showBooking: false,
-  //     bookingId: "1234",
-  //   ),
+  List<ActiveAppointmentClass> _activeAppointments = [
+    // ActiveAppointmentClass(
+    //   serviceType: ServiceType.DogRunning,
+    //   userName: "Joeylene Rivera",
+    //   userPicture:
+    //       "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg",
+    //   dogs: [
+    //     "Gracy",
+    //     "Tom",
+    //   ],
+    //   serviceName: dogWalkingTitle,
+    //   subscriptionType: "(Monthly, 1/day)",
+    //   dateAndTime: "24 Jan 2021 - 6-7PM",
+    //   status: ActiveAppointmentStatus.Pending,
+    //   showReorder: false,
+    //   showBooking: false,
+    //   bookingId: "1234",
+    // ),
   //   ActiveAppointmentClass(
   //     serviceType: ServiceType.DogTraining,
   //     userName: "Joeylene Rivera",
@@ -70,7 +70,24 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
   //     showBooking: false,
   //     bookingId: "1234",
   //   ),
-  // ];
+  // ActiveAppointmentClass(
+  //   serviceType: ServiceType.DogGrooming,
+  //   dogs: [
+  //     "Gracy",
+  //   ],
+  //   showBooking: true,
+  //   showReorder: false,
+  //   appointmentId: "A1111",
+  //   bookingId: "B1111",
+  //   subscriptionType: "One time",
+  //   dateAndTime: "24 Jan 2021",
+  //   status: ActiveAppointmentStatus.Pending,
+  //   serviceName: "Bath and Brush",
+  //   userName: "Joeylene Rivera",
+  //   userPicture:
+  //       "https://i.picsum.photos/id/696/200/300.jpg?hmac=Ukxvga_1GYxgfAqzwDhBPfVta6-hJKUhayVlI1yMIdk"
+  // )
+  ];
 
   void toBooking(index) async {
     ServiceType? serviceType = activeAppointments[index].serviceType;
@@ -82,10 +99,19 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
       _navigationService.navigateTo(
         Routes.dTDogTrainingBookingView,
       );
+    } else if(serviceType == ServiceType.DogGrooming){
+      _navigationService.replaceWith(
+            Routes.dGPaymentView,
+            arguments: DGPaymentViewArguments(
+                amount: activeAppointments[index].amount!, bookingId: activeAppointments[index].bookingId!),
+          );
     }
   }
 
-  List<ActiveAppointmentClass> _activeAppointments = [];
+  // List<ActiveAppointmentClass> _activeAppointments = [
+    
+  // ];
+
 
   List<ActiveAppointmentClass> get activeAppointments => _activeAppointments;
 
@@ -102,8 +128,14 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
         Routes.dTAppointmentDetailsView,
         arguments: DTAppointmentDetailsViewArguments(appointmentId: bookingId!),
       );
+    } else if(serviceType == ServiceType.DogGrooming){
+      await _navigationService.navigateTo(
+        Routes.dGAppointmentDetailsView,
+        arguments: DGAppointmentDetailsViewArguments(appointmentId: bookingId!),
+      );
     }
     getActiveAppointments();
+    
   }
 
   final _tamelyApi = locator<TamelyApi>();
@@ -166,7 +198,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
     try {
       if (await Util.checkInternetConnectivity()) {
         _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
-        _activeAppointments.clear();
+        // _activeAppointments.clear();
 
         // Booked Appointments
         BaseResponse<MyAppointmentsResponse> resultTwo = await runBusyFuture(
@@ -219,7 +251,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             bool? isReorderDone = each.isReorderDone;
             String? subscriptionType =
                 each.bookingDetails!.package!.subscriptionType;
-            if (numberOfDaysLeft! <= 3 &&
+            if (numberOfDaysLeft! <= 5 &&
                 subscriptionType != "Free" &&
                 isReorderDone == false) {
               newAppointment.showReorder = true;
@@ -285,7 +317,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             bool? isReorderDone = each.isReorderDone;
             String? subscriptionType =
                 each.bookingDetails!.package!.subscriptionType;
-            if (numberOfDaysLeft! <= 3 &&
+            if (numberOfDaysLeft! <= 5 &&
                 subscriptionType != "Free" &&
                 isReorderDone == false) {
               newAppointment.showReorder = true;
@@ -301,6 +333,91 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             }
 
             _activeAppointments.add(newAppointment);
+            
+          }
+
+          // Dog grooming 
+          List<DogGroomingAppointmentListResponse>? dogGroomingAppointments =
+              resultTwo.data!.dogGroomingAppointmentsList;
+          for (var each in dogGroomingAppointments!) {
+            if(each.bookingDetails!.paymentDetails!.paymentStatus==0){
+              // Status 0 is payment not done
+              // Dont show it in bookings
+              continue;
+            }
+            ActiveAppointmentClass newAppointment =
+                ActiveAppointmentClass(dogs: []);
+            newAppointment.appointmentId = each.appointmentId;
+            newAppointment.bookingId = each.bookingDetails!.bookingId;
+
+            try {
+              newAppointment.userName = each.user!.fullName!;
+            } catch (e) {
+              newAppointment.userName = "Dog Runner";
+            }
+
+            newAppointment.userPicture =
+                "https://dogexpress.in/wp-content/uploads/2021/10/What-Dog-Walking-Services-Should-You-Choose-In-The-US.jpg";
+
+            newAppointment.serviceType = ServiceType.DogGrooming;
+            newAppointment.serviceName = each.bookingDetails!.package!.description;
+            newAppointment.amount = each.bookingDetails!.paymentDetails!.amount;
+            // newAppointment.subscriptionType =
+            //     "(${each.bookingDetails!.package!.subscriptionType} , ${each.bookingDetails!.package!.numberOfSessions}/day )";
+
+            var formatter = new DateFormat('dd-MMM-yyyy');
+
+            String? dateDummyString = each.bookingDetails!.startDate;
+            String timeString = each.bookingDetails!.sessionDetails!.sessionTime!;
+            DateTime dummyDate = DateTime.parse(dateDummyString!);
+            dateDummyString = formatter.format(dummyDate);
+            newAppointment.dateAndTime = dateDummyString+"\n"+timeString;
+
+            List<PetDetailsResponse>? petDetails = each.petDetails;
+            for (var one in petDetails!) {
+              newAppointment.dogs.add(one.petName!);
+            }
+            if (each.bookingStatus == 0) {
+              newAppointment.status = ActiveAppointmentStatus.Pending;
+            } else if (each.bookingStatus == 1) {
+              newAppointment.status = ActiveAppointmentStatus.Accepted;
+            }
+            newAppointment.showReorder = false;
+            newAppointment.showBooking = false;
+            bool isPaid = false;
+            int paymentStatus = each.bookingDetails!.paymentDetails!.paymentStatus ?? 0;
+            if(paymentStatus == 1){
+              isPaid = true;
+            }
+            if(paymentStatus == 2){
+              isPaid = false;
+            }
+            // Use showBooking parameter to show Pay Now
+
+            newAppointment.showBooking = !isPaid;
+
+            // Days Left
+            // int? numberOfDaysLeft = each.sessionsLeft;
+            // bool? isReorderDone = each.isReorderDone;
+            // String? subscriptionType =
+            //     each.bookingDetails!.package!.subscriptionType;
+            // if (numberOfDaysLeft! <= 5 &&
+            //     subscriptionType != "Free" &&
+            //     isReorderDone == false) {
+            //   newAppointment.showReorder = true;
+            // } else {
+            //   newAppointment.showReorder = false;
+            // }
+
+            // Free Walk
+            // if (subscriptionType == "Free") {
+            //   newAppointment.showBooking = true;
+            // } else {
+            //   newAppointment.showBooking = false;
+            // }
+
+            _activeAppointments.add(newAppointment);
+            print('adding to ${_activeAppointments}');
           }
           notifyListeners();
         }
@@ -356,7 +473,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             bool? isReorderDone = each.isReorderDone;
             String? subscriptionType =
                 each.bookingDetails!.package!.subscriptionType;
-            if (numberOfDaysLeft! <= 3 &&
+            if (numberOfDaysLeft! <= 5 &&
                 subscriptionType != "Free" &&
                 isReorderDone == false) {
               newAppointment.showReorder = true;
@@ -422,7 +539,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             bool? isReorderDone = each.isReorderDone;
             String? subscriptionType =
                 each.bookingDetails!.package!.subscriptionType;
-            if (numberOfDaysLeft! <= 3 &&
+            if (numberOfDaysLeft! <= 5 &&
                 subscriptionType != "Free" &&
                 isReorderDone == false) {
               newAppointment.showReorder = true;
@@ -470,6 +587,7 @@ class ActiveAppointmentClass {
   bool? showReorder;
   bool? showBooking;
   ActiveAppointmentStatus? status;
+  int? amount;
   ActiveAppointmentClass({
     this.serviceType,
     this.appointmentId,
@@ -483,5 +601,6 @@ class ActiveAppointmentClass {
     this.status,
     this.showReorder,
     this.showBooking,
+    this.amount,
   });
 }

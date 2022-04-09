@@ -113,10 +113,7 @@ class DRBookARunView extends ViewModelWidget<DRDogRunningBookingViewModel> {
                         onTaped: () => model.selectPlan(DogRunningPackage.One),
                         title: perWalkTitle,
                         subtitleOne: perWalkSubtitleOne,
-                        subtitleTwo: perWalkSubtitleTwo,
                         rateOld: perWalkRateOld,
-                        rateNew: perWalkRateNew,
-                        rateLabel: perWalkRateLabel,
                       )
                     : Container(),
                 verticalSpaceMedium,
@@ -178,64 +175,23 @@ class DRBookARunView extends ViewModelWidget<DRDogRunningBookingViewModel> {
                   AppInputField(
                     hint: "Enter Promo Code",
                     controller: model.promoCodeController,
-                    onChanged: model.promoCodeValidation,
+                    trailing: model.isCouponProcessing
+                        ? Transform.scale(
+                            scale: 0.6,
+                            child: CircularProgressIndicator(
+                              color: colors.primary,
+                            ),
+                          )
+                        : Icon(
+                            Icons.arrow_forward_rounded,
+                            color: colors.primary,
+                          ),
+                    trailingTapped: model.applyCoupon,
                     isBoxBorder: true,
                     textInputType: TextInputType.name,
                     textCapitalization: TextCapitalization.none,
                   ),
                   verticalSpaceTiny,
-                  model.selectedPlan == DogRunningPackage.Four
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AppText.body2(
-                                  "PAWSOMEOFFER",
-                                  color: colors.primary,
-                                ),
-                                AppText.body2("Flat INR 600 off"),
-                              ],
-                            ),
-                            GestureDetector(
-                              onTap: model.useOfferOne,
-                              child: AppText.body2(
-                                "USE",
-                                color: colors.primary,
-                              ),
-                            ),
-                          ],
-                        )
-                      : Container(),
-                  model.selectedPlan == DogRunningPackage.Five
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AppText.body2(
-                                  "PAWSOMEOFFER1K",
-                                  color: colors.primary,
-                                ),
-                                AppText.body2("Flat INR 1100 off"),
-                              ],
-                            ),
-                            GestureDetector(
-                              onTap: model.useOfferTwo,
-                              child: AppText.body2(
-                                "USE",
-                                color: colors.primary,
-                              ),
-                            ),
-                          ],
-                        )
-                      : Container(),
-                  model.selectedPlan == DogRunningPackage.Four ||
-                          model.selectedPlan == DogRunningPackage.Five
-                      ? verticalSpaceMedium
-                      : Container(),
                 ],
               ),
             ),
@@ -299,25 +255,17 @@ class FreePackageItem extends StatelessWidget {
     Key? key,
     this.title,
     this.subtitleOne,
-    this.subtitleTwo,
-    this.rateLabel,
-    this.value,
-    this.selectedValue,
-    this.onTaped,
-    this.rateOld,
-    this.rateNew,
-    this.onSeeMoreTaped,
+    this.value, //
+    this.selectedValue, //
+    this.onTaped, //
+    this.rateOld, //
   }) : super(key: key);
   final String? title;
   final String? subtitleOne;
-  final String? subtitleTwo;
   final String? rateOld;
-  final String? rateNew;
-  final String? rateLabel;
   final DogRunningPackage? value;
   final DogRunningPackage? selectedValue;
   final void Function()? onTaped;
-  final void Function()? onSeeMoreTaped;
 
   @override
   Widget build(BuildContext context) {
@@ -361,7 +309,7 @@ class FreePackageItem extends StatelessWidget {
                   ),
                   verticalSpaceTiny,
                   AppText.caption(
-                    subtitleTwo!,
+                    "",
                     color: selectedValue == value
                         ? colors.white
                         : colors.kcCaptionGreyColor,
@@ -372,10 +320,9 @@ class FreePackageItem extends StatelessWidget {
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AppText.body2(
-                    rateNew!,
+                    rateOld!,
                     color:
                         selectedValue == value ? colors.white : colors.primary,
                   ),

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoder/geocoder.dart';
@@ -15,17 +16,20 @@ import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/dog_training_package.dart';
 import 'package:tamely/enum/no_of_runs.dart';
 import 'package:tamely/models/book_a_run_response.dart';
+import 'package:tamely/models/coupon_response.dart';
 import 'package:tamely/models/get_free_training_response.dart';
 import 'package:tamely/models/get_free_walk_response.dart';
 import 'package:tamely/models/get_pet_details_response.dart';
 import 'package:tamely/models/params/book_a_run_body.dart';
 import 'package:tamely/models/params/book_a_training_body.dart';
+import 'package:tamely/models/params/coupon_body.dart';
 import 'package:tamely/models/params/set_payment_details_body.dart';
 import 'package:tamely/models/send_data_response.dart';
 import 'package:tamely/services/user_service.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/location_helper.dart';
 import 'package:tamely/util/utils.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'DtBookarun/dt_bookarun_view.dart';
 import 'DtBookingdetails/dt_bookingdetails_view.dart';
 
@@ -133,7 +137,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       secondPageValidation("s");
     } else if (currentIndex == 1) {
       await bookARun();
-      if (freeWalkAvailable) {
+      if (freeWalkAvailable && selectedPlan == DogTrainingPackage.One) {
         if (bookingId != "") {
           await setFreePaymentDetails();
           await setFreeWalkStatus();
@@ -193,7 +197,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _amount = 9588;
       // save
       _discount = 1200;
-      _frequency = 16;
+      _frequency = 12;
       _dayFrequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = true;
@@ -280,61 +284,53 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _frequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = false;
+      _doneMultiply = false;
       _subTotal = 0;
       _discount = 0;
     } else if (selectedPlan == DogTrainingPackage.Two) {
       _isValid = true;
       _description = "Puppy Training";
-      // old rate
       _subTotal = 10788;
-      // new rate
       _amount = 9588;
-      // save
       _discount = 1200;
-      _frequency = 16;
+      _frequency = 12;
       _isOfferValid = false;
       _isOfferAvailable = true;
+      _doneMultiply = false;
     } else if (selectedPlan == DogTrainingPackage.Three) {
       _isValid = true;
       _description = "Basic Obedience & Behavioural Training";
-      // old rate
       _subTotal = 21576;
-      // new rate
       _amount = 18000;
-      // save
       _discount = 3576;
       _frequency = 24;
       _isOfferValid = false;
       _isOfferAvailable = true;
+      _doneMultiply = false;
     } else if (selectedPlan == DogTrainingPackage.Four) {
       _isValid = true;
       _description = "Advanced Obedience Behavioural and Guarding Training";
-      // old rate
       _subTotal = 32364;
-      // new rate
       _amount = 25560;
-      // save
       _discount = 6804;
       _frequency = 36;
       _isOfferValid = false;
       _isOfferAvailable = true;
+      _doneMultiply = false;
     } else if (selectedPlan == DogTrainingPackage.Five) {
       _isValid = true;
       _description =
           "Elite STAGE SHOW Obedience, Behavioural, Guarding and Intellect Training";
-      // old rate
       _subTotal = 43152;
-      // new rate
       _amount = 32640;
-      // save
       _discount = 10512;
       _frequency = 48;
       _isOfferValid = false;
       _isOfferAvailable = true;
+      _doneMultiply = false;
     }
     setFirstPageValid();
     notifyListeners();
-    promoCodeValidation("value");
   }
 
   // -- Offers
@@ -353,76 +349,59 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
 
   TextEditingController promoCodeController = TextEditingController();
 
-  void promoCodeValidation(String? value) {
-    if (promoCodeController.text == "Discount5%") {
-      _isOfferValid = true;
-      _promoCode = "Discount5%";
-      _savedAmount = (amount * 0.05);
-      _amount = amount - (amount * 0.05);
-      String dummySaved = savedAmount.toStringAsFixed(2);
-      _savedAmount = double.parse(dummySaved);
-    } else if (promoCodeController.text == "Discount10%") {
-      _isOfferValid = true;
-      _promoCode = "Discount10%";
-      _savedAmount = (amount * 0.10);
-      _amount = amount - (amount * 0.10);
-      String dummySaved = savedAmount.toStringAsFixed(2);
-      _savedAmount = double.parse(dummySaved);
-    } else if (promoCodeController.text == "Discount15%") {
-      _isOfferValid = true;
-      _promoCode = "Discount15%";
-      _savedAmount = (amount * 0.15);
-      _amount = amount - (amount * 0.15);
-      String dummySaved = savedAmount.toStringAsFixed(2);
-      _savedAmount = double.parse(dummySaved);
-    } else if (promoCodeController.text == "Discount20%") {
-      _isOfferValid = true;
-      _promoCode = "Discount20%";
-      _savedAmount = (amount * 0.20);
-      _amount = amount - (amount * 0.20);
-      String dummySaved = savedAmount.toStringAsFixed(2);
-      _savedAmount = double.parse(dummySaved);
-    } else if (promoCodeController.text == "Discount25%") {
-      _isOfferValid = true;
-      _promoCode = "Discount20%";
-      _savedAmount = (amount * 0.20);
-      _amount = amount - (amount * 0.20);
-      String dummySaved = savedAmount.toStringAsFixed(2);
-      _savedAmount = double.parse(dummySaved);
-    } else if (promoCodeController.text == "Discount30%") {
-      _isOfferValid = true;
-      _promoCode = "Discount30%";
-      _savedAmount = (amount * 0.30);
-      _amount = amount - (amount * 0.30);
-      String dummySaved = savedAmount.toStringAsFixed(2);
-      _savedAmount = double.parse(dummySaved);
-    } else if (promoCodeController.text == "Discount35%") {
-      _isOfferValid = true;
-      _promoCode = "Discount35%";
-      _savedAmount = (amount * 0.35);
-      _amount = amount - (amount * 0.35);
-      String dummySaved = savedAmount.toStringAsFixed(2);
-      _savedAmount = double.parse(dummySaved);
-    } else if (promoCodeController.text == "Freetesting0") {
-      _isOfferValid = true;
-      _promoCode = "Freetesting0";
-      _savedAmount = amount - 1.0;
-      _amount = 1.0;
-      String dummySaved = savedAmount.toStringAsFixed(2);
-      _savedAmount = double.parse(dummySaved);
-    }
+  bool _isCouponProcessing = false;
+  bool get isCouponProcessing => _isCouponProcessing;
 
+  Future<void> applyCoupon() async {
     notifyListeners();
+    String? couponCode = promoCodeController.text;
+    if (couponCode != "") {
+      _isCouponProcessing = true;
+      try {
+        if (await Util.checkInternetConnectivity()) {
+          CouponBody couponBody = CouponBody(couponCode);
+          BaseResponse<CouponResponse> result = await runBusyFuture(
+              _tamelyApi.getCouponAmount(couponBody),
+              throwException: true);
+          try {
+            int? reducedAmountInt = result.data!.amount;
+            double? reducedAmountDouble = reducedAmountInt!.toDouble();
+            _isOfferValid = true;
+            _promoCode = couponCode;
+            _savedAmount = reducedAmountDouble;
+            _amount = amount - reducedAmountDouble;
+            twoPets();
+            notifyListeners();
+          } catch (e) {
+            snackBarService.showSnackbar(message: "Invalid Promo Code");
+            _isCouponProcessing = false;
+            notifyListeners();
+          }
+        } else {
+          snackBarService.showSnackbar(message: "No Internet connection");
+        }
+      } on ServerError catch (e) {
+        _isCouponProcessing = false;
+        log.e(e.toString());
+      }
+    } else {
+      snackBarService.showSnackbar(message: "Enter a Promo Code");
+    }
   }
 
-  void useOfferOne() {
-    _isOfferValid = true;
-    _promoCode = "PAWSOMEOFFER";
-    _savedAmount = (amount * 0.10);
-    _amount = amount - (amount * 0.10);
-    String dummySaved = savedAmount.toStringAsFixed(2);
-    _savedAmount = double.parse(dummySaved);
-    notifyListeners();
+  Future<void> saveAppliedCoupon() async {
+    try {
+      if (await Util.checkInternetConnectivity()) {
+        CouponBody couponBody = CouponBody(promoCode);
+        BaseResponse<SendDataResponse> result = await runBusyFuture(
+            _tamelyApi.setUsedCoupon(couponBody),
+            throwException: true);
+      } else {
+        snackBarService.showSnackbar(message: "No Internet connection");
+      }
+    } on ServerError catch (e) {
+      log.e(e.toString());
+    }
   }
 
   void setFirstPageValid() {
@@ -465,18 +444,49 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       lastDate: lastDate,
     );
     if (picked != null) {
-      print(picked);
       tc.text = "${picked.day}-${picked.month}-${picked.year}";
-      _pickedDate = picked;
-      _isDatePicked = true;
-      notifyListeners();
-      secondPageValidation('d');
+      if (selectedPlan != DogTrainingPackage.One) {
+        if (picked.weekday != 7) {
+          _pickedDate = picked;
+          _isDatePicked = true;
+          notifyListeners();
+          secondPageValidation('d');
+        } else {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text("Sunday is Funday!"),
+                content: Text(
+                    "We do not provide services on sundays. Please select a different start date."),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text("Ok"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  )
+                ],
+              );
+            },
+          );
+          _pickedDate = picked;
+          _isDatePicked = false;
+          notifyListeners();
+          secondPageValidation('d');
+        }
+      } else {
+        _pickedDate = picked;
+        _isDatePicked = true;
+        notifyListeners();
+        secondPageValidation('d');
+      }
     }
   }
 
   void secondPageValidation(String? value) {
     _isValid = true;
-    if (addressLineOneController.text == "") {
+    if (addressLineTwoController.text == "") {
       print("1");
       _isValid = false;
     } else {
@@ -488,7 +498,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
         _isValid = true;
       }
     }
-    if (addressLineTwoController.text == "") {
+    if (addressLineOneController.text == "") {
       print("4");
       _isValid = false;
     }
@@ -546,7 +556,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       await getAddress(Coordinates(location.latitude, location.longitude))
           .then((value) {
         _address = value;
-        addressLineOneController.text = address;
+        addressLineTwoController.text = address;
         _lat = location.latitude;
         _long = location.longitude;
         secondPageValidation('s');
@@ -581,6 +591,9 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   int _noOfDogs = 1;
   int get noOfDogs => _noOfDogs;
 
+  bool _doneMultiply = false;
+  bool get doneMultiply => _doneMultiply;
+
   void selectRun(NoOfRuns? value) {
     selectedRun = value;
     if (selectedRun == NoOfRuns.One) {
@@ -588,12 +601,51 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     } else if (selectedRun == NoOfRuns.Two) {
       _noOfDogs = 2;
     }
+    setDefaultPets();
+    twoPets();
     notifyListeners();
+  }
+
+  void twoPets() {
+    if (noOfDogs == 2) {
+      _amount = amount * 2;
+      _savedAmount = savedAmount * 2;
+      _doneMultiply = true;
+    } else if (noOfDogs == 1 && doneMultiply) {
+      _amount = amount / 2;
+      _savedAmount = savedAmount / 2;
+      _doneMultiply = false;
+    }
+    notifyListeners();
+  }
+
+  void setDefaultPets() {
+    _petDetailsBody.clear();
     if (hasPets) {
       for (var pet in myPets) {
         pet.selected = false;
       }
-      _petDetailsBody.clear();
+      if (noOfDogs == 1) {
+        myPets[0].selected = true;
+        PetDetailsTrainingBody one =
+            PetDetailsTrainingBody(myPets[0].petId!, "Medium");
+        _petDetailsBody.add(one);
+      } else if (noOfDogs == 2) {
+        myPets[0].selected = true;
+        PetDetailsTrainingBody one =
+            PetDetailsTrainingBody(myPets[0].petId!, "Medium");
+        _petDetailsBody.add(one);
+        if (numberOfPets == 1) {
+          PetDetailsTrainingBody one =
+              PetDetailsTrainingBody("111111111111111111111111", "Medium");
+          _petDetailsBody.add(one);
+        } else if (numberOfPets >= 2) {
+          myPets[1].selected = true;
+          PetDetailsTrainingBody one =
+              PetDetailsTrainingBody(myPets[1].petId!, "Medium");
+          _petDetailsBody.add(one);
+        }
+      }
     } else if (!hasPets) {
       PetDetailsTrainingBody one =
           PetDetailsTrainingBody("111111111111111111111111", "Medium");
@@ -614,6 +666,9 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   List<PetsClass> _myPets = [];
   List<PetsClass> get myPets => _myPets;
 
+  int _numberOfPets = 0;
+  int get numberOfPets => _numberOfPets;
+
   List<PetDetailsTrainingBody> _petDetailsBody = [];
   List<PetDetailsTrainingBody> get petDetailsBody => _petDetailsBody;
 
@@ -627,15 +682,23 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       PetDetailsTrainingBody one =
           PetDetailsTrainingBody(myPets[index].petId!, "Medium");
       _petDetailsBody.add(one);
-      print("this $petDetailsBody");
     }
     if (noOfDogs == 2) {
-      if (petDetailsBody.length == 0 || petDetailsBody.length == 1) {
-        myPets[index].selected = true;
+      if (petDetailsBody.length == 0) {
         PetDetailsTrainingBody one =
             PetDetailsTrainingBody(myPets[index].petId!, "Medium");
+        myPets[index].selected = true;
         _petDetailsBody.add(one);
-        print("this $petDetailsBody");
+      } else if (petDetailsBody.length == 1) {
+        for (var each in petDetailsBody) {
+          if (each.petId != myPets[index].petId!) {
+            PetDetailsTrainingBody one =
+                PetDetailsTrainingBody(myPets[index].petId!, "Medium");
+            myPets[index].selected = true;
+            _petDetailsBody.add(one);
+            break;
+          }
+        }
       } else if (petDetailsBody.length == 2) {
         for (var pet in myPets) {
           pet.selected = false;
@@ -645,7 +708,11 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
         PetDetailsTrainingBody one =
             PetDetailsTrainingBody(myPets[index].petId!, "Medium");
         _petDetailsBody.add(one);
-        print("this $petDetailsBody");
+      }
+      if (numberOfPets == 1) {
+        PetDetailsTrainingBody one =
+            PetDetailsTrainingBody("111111111111111111111111", "Medium");
+        _petDetailsBody.add(one);
       }
     }
     setFirstPageValid();
@@ -1124,11 +1191,11 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
             );
             _myPets.add(petsClass);
           }
+          _numberOfPets = myPets.length;
         } else if (petsList.length == 0) {
           _hasPets = false;
-          selectRun(selectedRun);
         }
-
+        selectRun(selectedRun);
         notifyListeners();
       } else {
         snackBarService.showSnackbar(message: "No Internet connection");
@@ -1202,6 +1269,28 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     }
     _loading = false;
     notifyListeners();
+  }
+
+  void openWhatsapp() async {
+    final _snackBarService = locator<SnackbarService>();
+    String whatsappNumber = helpWhatsappNumber;
+    String messageToSend = whatsappMessageText;
+    String androidUrl =
+        "whatsapp://send?phone=$whatsappNumber&text=$messageToSend";
+    String iosUrl = "https://wa.me/$whatsappNumber?text=$messageToSend";
+    if (Platform.isIOS) {
+      if (await canLaunch(iosUrl)) {
+        await launch(iosUrl);
+      } else {
+        _snackBarService.showSnackbar(message: "Could not open whatsapp");
+      }
+    } else {
+      if (await canLaunch(androidUrl)) {
+        await launch(androidUrl);
+      } else {
+        _snackBarService.showSnackbar(message: "Could not open whatsapp");
+      }
+    }
   }
 
   @override

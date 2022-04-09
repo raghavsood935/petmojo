@@ -26,11 +26,14 @@ class _$MyAppointmentsResponseTearOff {
       {@JsonKey(name: "serviceList")
           List<DogRunningAppointmentListResponse>? dogRunningAppointmentsList,
       @JsonKey(name: "Traininglist")
-          List<DogTrainingAppointmentListResponse>?
-              dogTrainingAppointmentsList}) {
+          List<DogTrainingAppointmentListResponse>? dogTrainingAppointmentsList,
+      @JsonKey(name: "Groominglist")
+          List<DogGroomingAppointmentListResponse>?
+              dogGroomingAppointmentsList}) {
     return _MyAppointmentsResponse(
       dogRunningAppointmentsList: dogRunningAppointmentsList,
       dogTrainingAppointmentsList: dogTrainingAppointmentsList,
+      dogGroomingAppointmentsList: dogGroomingAppointmentsList,
     );
   }
 
@@ -50,6 +53,9 @@ mixin _$MyAppointmentsResponse {
   @JsonKey(name: "Traininglist")
   List<DogTrainingAppointmentListResponse>? get dogTrainingAppointmentsList =>
       throw _privateConstructorUsedError;
+  @JsonKey(name: "Groominglist")
+  List<DogGroomingAppointmentListResponse>? get dogGroomingAppointmentsList =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -66,8 +72,10 @@ abstract class $MyAppointmentsResponseCopyWith<$Res> {
       {@JsonKey(name: "serviceList")
           List<DogRunningAppointmentListResponse>? dogRunningAppointmentsList,
       @JsonKey(name: "Traininglist")
-          List<DogTrainingAppointmentListResponse>?
-              dogTrainingAppointmentsList});
+          List<DogTrainingAppointmentListResponse>? dogTrainingAppointmentsList,
+      @JsonKey(name: "Groominglist")
+          List<DogGroomingAppointmentListResponse>?
+              dogGroomingAppointmentsList});
 }
 
 /// @nodoc
@@ -83,6 +91,7 @@ class _$MyAppointmentsResponseCopyWithImpl<$Res>
   $Res call({
     Object? dogRunningAppointmentsList = freezed,
     Object? dogTrainingAppointmentsList = freezed,
+    Object? dogGroomingAppointmentsList = freezed,
   }) {
     return _then(_value.copyWith(
       dogRunningAppointmentsList: dogRunningAppointmentsList == freezed
@@ -93,6 +102,10 @@ class _$MyAppointmentsResponseCopyWithImpl<$Res>
           ? _value.dogTrainingAppointmentsList
           : dogTrainingAppointmentsList // ignore: cast_nullable_to_non_nullable
               as List<DogTrainingAppointmentListResponse>?,
+      dogGroomingAppointmentsList: dogGroomingAppointmentsList == freezed
+          ? _value.dogGroomingAppointmentsList
+          : dogGroomingAppointmentsList // ignore: cast_nullable_to_non_nullable
+              as List<DogGroomingAppointmentListResponse>?,
     ));
   }
 }
@@ -108,8 +121,10 @@ abstract class _$MyAppointmentsResponseCopyWith<$Res>
       {@JsonKey(name: "serviceList")
           List<DogRunningAppointmentListResponse>? dogRunningAppointmentsList,
       @JsonKey(name: "Traininglist")
-          List<DogTrainingAppointmentListResponse>?
-              dogTrainingAppointmentsList});
+          List<DogTrainingAppointmentListResponse>? dogTrainingAppointmentsList,
+      @JsonKey(name: "Groominglist")
+          List<DogGroomingAppointmentListResponse>?
+              dogGroomingAppointmentsList});
 }
 
 /// @nodoc
@@ -127,6 +142,7 @@ class __$MyAppointmentsResponseCopyWithImpl<$Res>
   $Res call({
     Object? dogRunningAppointmentsList = freezed,
     Object? dogTrainingAppointmentsList = freezed,
+    Object? dogGroomingAppointmentsList = freezed,
   }) {
     return _then(_MyAppointmentsResponse(
       dogRunningAppointmentsList: dogRunningAppointmentsList == freezed
@@ -137,6 +153,10 @@ class __$MyAppointmentsResponseCopyWithImpl<$Res>
           ? _value.dogTrainingAppointmentsList
           : dogTrainingAppointmentsList // ignore: cast_nullable_to_non_nullable
               as List<DogTrainingAppointmentListResponse>?,
+      dogGroomingAppointmentsList: dogGroomingAppointmentsList == freezed
+          ? _value.dogGroomingAppointmentsList
+          : dogGroomingAppointmentsList // ignore: cast_nullable_to_non_nullable
+              as List<DogGroomingAppointmentListResponse>?,
     ));
   }
 }
@@ -146,7 +166,8 @@ class __$MyAppointmentsResponseCopyWithImpl<$Res>
 class _$_MyAppointmentsResponse extends _MyAppointmentsResponse {
   _$_MyAppointmentsResponse(
       {@JsonKey(name: "serviceList") this.dogRunningAppointmentsList,
-      @JsonKey(name: "Traininglist") this.dogTrainingAppointmentsList})
+      @JsonKey(name: "Traininglist") this.dogTrainingAppointmentsList,
+      @JsonKey(name: "Groominglist") this.dogGroomingAppointmentsList})
       : super._();
 
   factory _$_MyAppointmentsResponse.fromJson(Map<String, dynamic> json) =>
@@ -158,10 +179,13 @@ class _$_MyAppointmentsResponse extends _MyAppointmentsResponse {
   @override
   @JsonKey(name: "Traininglist")
   final List<DogTrainingAppointmentListResponse>? dogTrainingAppointmentsList;
+  @override
+  @JsonKey(name: "Groominglist")
+  final List<DogGroomingAppointmentListResponse>? dogGroomingAppointmentsList;
 
   @override
   String toString() {
-    return 'MyAppointmentsResponse(dogRunningAppointmentsList: $dogRunningAppointmentsList, dogTrainingAppointmentsList: $dogTrainingAppointmentsList)';
+    return 'MyAppointmentsResponse(dogRunningAppointmentsList: $dogRunningAppointmentsList, dogTrainingAppointmentsList: $dogTrainingAppointmentsList, dogGroomingAppointmentsList: $dogGroomingAppointmentsList)';
   }
 
   @override
@@ -173,14 +197,18 @@ class _$_MyAppointmentsResponse extends _MyAppointmentsResponse {
                 other.dogRunningAppointmentsList, dogRunningAppointmentsList) &&
             const DeepCollectionEquality().equals(
                 other.dogTrainingAppointmentsList,
-                dogTrainingAppointmentsList));
+                dogTrainingAppointmentsList) &&
+            const DeepCollectionEquality().equals(
+                other.dogGroomingAppointmentsList,
+                dogGroomingAppointmentsList));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(dogRunningAppointmentsList),
-      const DeepCollectionEquality().hash(dogTrainingAppointmentsList));
+      const DeepCollectionEquality().hash(dogTrainingAppointmentsList),
+      const DeepCollectionEquality().hash(dogGroomingAppointmentsList));
 
   @JsonKey(ignore: true)
   @override
@@ -199,8 +227,10 @@ abstract class _MyAppointmentsResponse extends MyAppointmentsResponse {
       {@JsonKey(name: "serviceList")
           List<DogRunningAppointmentListResponse>? dogRunningAppointmentsList,
       @JsonKey(name: "Traininglist")
-          List<DogTrainingAppointmentListResponse>?
-              dogTrainingAppointmentsList}) = _$_MyAppointmentsResponse;
+          List<DogTrainingAppointmentListResponse>? dogTrainingAppointmentsList,
+      @JsonKey(name: "Groominglist")
+          List<DogGroomingAppointmentListResponse>?
+              dogGroomingAppointmentsList}) = _$_MyAppointmentsResponse;
   _MyAppointmentsResponse._() : super._();
 
   factory _MyAppointmentsResponse.fromJson(Map<String, dynamic> json) =
@@ -212,6 +242,9 @@ abstract class _MyAppointmentsResponse extends MyAppointmentsResponse {
   @override
   @JsonKey(name: "Traininglist")
   List<DogTrainingAppointmentListResponse>? get dogTrainingAppointmentsList;
+  @override
+  @JsonKey(name: "Groominglist")
+  List<DogGroomingAppointmentListResponse>? get dogGroomingAppointmentsList;
   @override
   @JsonKey(ignore: true)
   _$MyAppointmentsResponseCopyWith<_MyAppointmentsResponse> get copyWith =>
@@ -643,6 +676,614 @@ abstract class _DogTrainingAppointmentListResponse
   @JsonKey(ignore: true)
   _$DogTrainingAppointmentListResponseCopyWith<
           _DogTrainingAppointmentListResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+DogGroomingAppointmentListResponse _$DogGroomingAppointmentListResponseFromJson(
+    Map<String, dynamic> json) {
+  return _DogGroomingAppointmentListResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$DogGroomingAppointmentListResponseTearOff {
+  const _$DogGroomingAppointmentListResponseTearOff();
+
+  _DogGroomingAppointmentListResponse call(
+      {@JsonKey(name: "_id")
+          String? appointmentId,
+      @JsonKey(name: "petDetails")
+          List<PetDetailsResponse>? petDetails,
+      @JsonKey(name: "bookingStatus")
+          int? bookingStatus,
+      @JsonKey(name: "serviceStatus")
+          int? serviceStatus,
+      @JsonKey(name: "isRated")
+          bool? isRated,
+      @JsonKey(name: "serviceType")
+          int? serviceType,
+      @JsonKey(name: "User")
+          String? userId,
+      @JsonKey(name: "DogGroomingbookingDetails")
+          DogGroomingBookingDetailsResponse? bookingDetails,
+      @JsonKey(name: "amount")
+          int? amount,
+      @JsonKey(name: "createdAt")
+          String? createdAt,
+      @JsonKey(name: "updatedAt")
+          String? updatedAt,
+      @JsonKey(name: "__v")
+          int? v,
+      @JsonKey(name: "ServiceProvider")
+          UserDetailsResponse? user,
+      @JsonKey(name: "isReorderDone")
+          bool? isReorderDone}) {
+    return _DogGroomingAppointmentListResponse(
+      appointmentId: appointmentId,
+      petDetails: petDetails,
+      bookingStatus: bookingStatus,
+      serviceStatus: serviceStatus,
+      isRated: isRated,
+      serviceType: serviceType,
+      userId: userId,
+      bookingDetails: bookingDetails,
+      amount: amount,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      v: v,
+      user: user,
+      isReorderDone: isReorderDone,
+    );
+  }
+
+  DogGroomingAppointmentListResponse fromJson(Map<String, Object?> json) {
+    return DogGroomingAppointmentListResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $DogGroomingAppointmentListResponse =
+    _$DogGroomingAppointmentListResponseTearOff();
+
+/// @nodoc
+mixin _$DogGroomingAppointmentListResponse {
+  @JsonKey(name: "_id")
+  String? get appointmentId => throw _privateConstructorUsedError;
+  @JsonKey(name: "petDetails")
+  List<PetDetailsResponse>? get petDetails =>
+      throw _privateConstructorUsedError;
+  @JsonKey(name: "bookingStatus")
+  int? get bookingStatus => throw _privateConstructorUsedError;
+  @JsonKey(name: "serviceStatus")
+  int? get serviceStatus => throw _privateConstructorUsedError;
+  @JsonKey(name: "isRated")
+  bool? get isRated => throw _privateConstructorUsedError;
+  @JsonKey(name: "serviceType")
+  int? get serviceType => throw _privateConstructorUsedError;
+  @JsonKey(name: "User")
+  String? get userId => throw _privateConstructorUsedError;
+  @JsonKey(name: "DogGroomingbookingDetails")
+  DogGroomingBookingDetailsResponse? get bookingDetails =>
+      throw _privateConstructorUsedError;
+  @JsonKey(name: "amount")
+  int? get amount => throw _privateConstructorUsedError;
+  @JsonKey(name: "createdAt")
+  String? get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: "updatedAt")
+  String? get updatedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: "__v")
+  int? get v => throw _privateConstructorUsedError;
+  @JsonKey(name: "ServiceProvider")
+  UserDetailsResponse? get user => throw _privateConstructorUsedError;
+  @JsonKey(name: "isReorderDone")
+  bool? get isReorderDone => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $DogGroomingAppointmentListResponseCopyWith<
+          DogGroomingAppointmentListResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DogGroomingAppointmentListResponseCopyWith<$Res> {
+  factory $DogGroomingAppointmentListResponseCopyWith(
+          DogGroomingAppointmentListResponse value,
+          $Res Function(DogGroomingAppointmentListResponse) then) =
+      _$DogGroomingAppointmentListResponseCopyWithImpl<$Res>;
+  $Res call(
+      {@JsonKey(name: "_id")
+          String? appointmentId,
+      @JsonKey(name: "petDetails")
+          List<PetDetailsResponse>? petDetails,
+      @JsonKey(name: "bookingStatus")
+          int? bookingStatus,
+      @JsonKey(name: "serviceStatus")
+          int? serviceStatus,
+      @JsonKey(name: "isRated")
+          bool? isRated,
+      @JsonKey(name: "serviceType")
+          int? serviceType,
+      @JsonKey(name: "User")
+          String? userId,
+      @JsonKey(name: "DogGroomingbookingDetails")
+          DogGroomingBookingDetailsResponse? bookingDetails,
+      @JsonKey(name: "amount")
+          int? amount,
+      @JsonKey(name: "createdAt")
+          String? createdAt,
+      @JsonKey(name: "updatedAt")
+          String? updatedAt,
+      @JsonKey(name: "__v")
+          int? v,
+      @JsonKey(name: "ServiceProvider")
+          UserDetailsResponse? user,
+      @JsonKey(name: "isReorderDone")
+          bool? isReorderDone});
+
+  $DogGroomingBookingDetailsResponseCopyWith<$Res>? get bookingDetails;
+  $UserDetailsResponseCopyWith<$Res>? get user;
+}
+
+/// @nodoc
+class _$DogGroomingAppointmentListResponseCopyWithImpl<$Res>
+    implements $DogGroomingAppointmentListResponseCopyWith<$Res> {
+  _$DogGroomingAppointmentListResponseCopyWithImpl(this._value, this._then);
+
+  final DogGroomingAppointmentListResponse _value;
+  // ignore: unused_field
+  final $Res Function(DogGroomingAppointmentListResponse) _then;
+
+  @override
+  $Res call({
+    Object? appointmentId = freezed,
+    Object? petDetails = freezed,
+    Object? bookingStatus = freezed,
+    Object? serviceStatus = freezed,
+    Object? isRated = freezed,
+    Object? serviceType = freezed,
+    Object? userId = freezed,
+    Object? bookingDetails = freezed,
+    Object? amount = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? v = freezed,
+    Object? user = freezed,
+    Object? isReorderDone = freezed,
+  }) {
+    return _then(_value.copyWith(
+      appointmentId: appointmentId == freezed
+          ? _value.appointmentId
+          : appointmentId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      petDetails: petDetails == freezed
+          ? _value.petDetails
+          : petDetails // ignore: cast_nullable_to_non_nullable
+              as List<PetDetailsResponse>?,
+      bookingStatus: bookingStatus == freezed
+          ? _value.bookingStatus
+          : bookingStatus // ignore: cast_nullable_to_non_nullable
+              as int?,
+      serviceStatus: serviceStatus == freezed
+          ? _value.serviceStatus
+          : serviceStatus // ignore: cast_nullable_to_non_nullable
+              as int?,
+      isRated: isRated == freezed
+          ? _value.isRated
+          : isRated // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      serviceType: serviceType == freezed
+          ? _value.serviceType
+          : serviceType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bookingDetails: bookingDetails == freezed
+          ? _value.bookingDetails
+          : bookingDetails // ignore: cast_nullable_to_non_nullable
+              as DogGroomingBookingDetailsResponse?,
+      amount: amount == freezed
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      v: v == freezed
+          ? _value.v
+          : v // ignore: cast_nullable_to_non_nullable
+              as int?,
+      user: user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserDetailsResponse?,
+      isReorderDone: isReorderDone == freezed
+          ? _value.isReorderDone
+          : isReorderDone // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ));
+  }
+
+  @override
+  $DogGroomingBookingDetailsResponseCopyWith<$Res>? get bookingDetails {
+    if (_value.bookingDetails == null) {
+      return null;
+    }
+
+    return $DogGroomingBookingDetailsResponseCopyWith<$Res>(
+        _value.bookingDetails!, (value) {
+      return _then(_value.copyWith(bookingDetails: value));
+    });
+  }
+
+  @override
+  $UserDetailsResponseCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserDetailsResponseCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value));
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$DogGroomingAppointmentListResponseCopyWith<$Res>
+    implements $DogGroomingAppointmentListResponseCopyWith<$Res> {
+  factory _$DogGroomingAppointmentListResponseCopyWith(
+          _DogGroomingAppointmentListResponse value,
+          $Res Function(_DogGroomingAppointmentListResponse) then) =
+      __$DogGroomingAppointmentListResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {@JsonKey(name: "_id")
+          String? appointmentId,
+      @JsonKey(name: "petDetails")
+          List<PetDetailsResponse>? petDetails,
+      @JsonKey(name: "bookingStatus")
+          int? bookingStatus,
+      @JsonKey(name: "serviceStatus")
+          int? serviceStatus,
+      @JsonKey(name: "isRated")
+          bool? isRated,
+      @JsonKey(name: "serviceType")
+          int? serviceType,
+      @JsonKey(name: "User")
+          String? userId,
+      @JsonKey(name: "DogGroomingbookingDetails")
+          DogGroomingBookingDetailsResponse? bookingDetails,
+      @JsonKey(name: "amount")
+          int? amount,
+      @JsonKey(name: "createdAt")
+          String? createdAt,
+      @JsonKey(name: "updatedAt")
+          String? updatedAt,
+      @JsonKey(name: "__v")
+          int? v,
+      @JsonKey(name: "ServiceProvider")
+          UserDetailsResponse? user,
+      @JsonKey(name: "isReorderDone")
+          bool? isReorderDone});
+
+  @override
+  $DogGroomingBookingDetailsResponseCopyWith<$Res>? get bookingDetails;
+  @override
+  $UserDetailsResponseCopyWith<$Res>? get user;
+}
+
+/// @nodoc
+class __$DogGroomingAppointmentListResponseCopyWithImpl<$Res>
+    extends _$DogGroomingAppointmentListResponseCopyWithImpl<$Res>
+    implements _$DogGroomingAppointmentListResponseCopyWith<$Res> {
+  __$DogGroomingAppointmentListResponseCopyWithImpl(
+      _DogGroomingAppointmentListResponse _value,
+      $Res Function(_DogGroomingAppointmentListResponse) _then)
+      : super(_value, (v) => _then(v as _DogGroomingAppointmentListResponse));
+
+  @override
+  _DogGroomingAppointmentListResponse get _value =>
+      super._value as _DogGroomingAppointmentListResponse;
+
+  @override
+  $Res call({
+    Object? appointmentId = freezed,
+    Object? petDetails = freezed,
+    Object? bookingStatus = freezed,
+    Object? serviceStatus = freezed,
+    Object? isRated = freezed,
+    Object? serviceType = freezed,
+    Object? userId = freezed,
+    Object? bookingDetails = freezed,
+    Object? amount = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? v = freezed,
+    Object? user = freezed,
+    Object? isReorderDone = freezed,
+  }) {
+    return _then(_DogGroomingAppointmentListResponse(
+      appointmentId: appointmentId == freezed
+          ? _value.appointmentId
+          : appointmentId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      petDetails: petDetails == freezed
+          ? _value.petDetails
+          : petDetails // ignore: cast_nullable_to_non_nullable
+              as List<PetDetailsResponse>?,
+      bookingStatus: bookingStatus == freezed
+          ? _value.bookingStatus
+          : bookingStatus // ignore: cast_nullable_to_non_nullable
+              as int?,
+      serviceStatus: serviceStatus == freezed
+          ? _value.serviceStatus
+          : serviceStatus // ignore: cast_nullable_to_non_nullable
+              as int?,
+      isRated: isRated == freezed
+          ? _value.isRated
+          : isRated // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      serviceType: serviceType == freezed
+          ? _value.serviceType
+          : serviceType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bookingDetails: bookingDetails == freezed
+          ? _value.bookingDetails
+          : bookingDetails // ignore: cast_nullable_to_non_nullable
+              as DogGroomingBookingDetailsResponse?,
+      amount: amount == freezed
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      v: v == freezed
+          ? _value.v
+          : v // ignore: cast_nullable_to_non_nullable
+              as int?,
+      user: user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserDetailsResponse?,
+      isReorderDone: isReorderDone == freezed
+          ? _value.isReorderDone
+          : isReorderDone // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_DogGroomingAppointmentListResponse
+    extends _DogGroomingAppointmentListResponse {
+  _$_DogGroomingAppointmentListResponse(
+      {@JsonKey(name: "_id") this.appointmentId,
+      @JsonKey(name: "petDetails") this.petDetails,
+      @JsonKey(name: "bookingStatus") this.bookingStatus,
+      @JsonKey(name: "serviceStatus") this.serviceStatus,
+      @JsonKey(name: "isRated") this.isRated,
+      @JsonKey(name: "serviceType") this.serviceType,
+      @JsonKey(name: "User") this.userId,
+      @JsonKey(name: "DogGroomingbookingDetails") this.bookingDetails,
+      @JsonKey(name: "amount") this.amount,
+      @JsonKey(name: "createdAt") this.createdAt,
+      @JsonKey(name: "updatedAt") this.updatedAt,
+      @JsonKey(name: "__v") this.v,
+      @JsonKey(name: "ServiceProvider") this.user,
+      @JsonKey(name: "isReorderDone") this.isReorderDone})
+      : super._();
+
+  factory _$_DogGroomingAppointmentListResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$$_DogGroomingAppointmentListResponseFromJson(json);
+
+  @override
+  @JsonKey(name: "_id")
+  final String? appointmentId;
+  @override
+  @JsonKey(name: "petDetails")
+  final List<PetDetailsResponse>? petDetails;
+  @override
+  @JsonKey(name: "bookingStatus")
+  final int? bookingStatus;
+  @override
+  @JsonKey(name: "serviceStatus")
+  final int? serviceStatus;
+  @override
+  @JsonKey(name: "isRated")
+  final bool? isRated;
+  @override
+  @JsonKey(name: "serviceType")
+  final int? serviceType;
+  @override
+  @JsonKey(name: "User")
+  final String? userId;
+  @override
+  @JsonKey(name: "DogGroomingbookingDetails")
+  final DogGroomingBookingDetailsResponse? bookingDetails;
+  @override
+  @JsonKey(name: "amount")
+  final int? amount;
+  @override
+  @JsonKey(name: "createdAt")
+  final String? createdAt;
+  @override
+  @JsonKey(name: "updatedAt")
+  final String? updatedAt;
+  @override
+  @JsonKey(name: "__v")
+  final int? v;
+  @override
+  @JsonKey(name: "ServiceProvider")
+  final UserDetailsResponse? user;
+  @override
+  @JsonKey(name: "isReorderDone")
+  final bool? isReorderDone;
+
+  @override
+  String toString() {
+    return 'DogGroomingAppointmentListResponse(appointmentId: $appointmentId, petDetails: $petDetails, bookingStatus: $bookingStatus, serviceStatus: $serviceStatus, isRated: $isRated, serviceType: $serviceType, userId: $userId, bookingDetails: $bookingDetails, amount: $amount, createdAt: $createdAt, updatedAt: $updatedAt, v: $v, user: $user, isReorderDone: $isReorderDone)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _DogGroomingAppointmentListResponse &&
+            const DeepCollectionEquality()
+                .equals(other.appointmentId, appointmentId) &&
+            const DeepCollectionEquality()
+                .equals(other.petDetails, petDetails) &&
+            const DeepCollectionEquality()
+                .equals(other.bookingStatus, bookingStatus) &&
+            const DeepCollectionEquality()
+                .equals(other.serviceStatus, serviceStatus) &&
+            const DeepCollectionEquality().equals(other.isRated, isRated) &&
+            const DeepCollectionEquality()
+                .equals(other.serviceType, serviceType) &&
+            const DeepCollectionEquality().equals(other.userId, userId) &&
+            const DeepCollectionEquality()
+                .equals(other.bookingDetails, bookingDetails) &&
+            const DeepCollectionEquality().equals(other.amount, amount) &&
+            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
+            const DeepCollectionEquality().equals(other.updatedAt, updatedAt) &&
+            const DeepCollectionEquality().equals(other.v, v) &&
+            const DeepCollectionEquality().equals(other.user, user) &&
+            const DeepCollectionEquality()
+                .equals(other.isReorderDone, isReorderDone));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(appointmentId),
+      const DeepCollectionEquality().hash(petDetails),
+      const DeepCollectionEquality().hash(bookingStatus),
+      const DeepCollectionEquality().hash(serviceStatus),
+      const DeepCollectionEquality().hash(isRated),
+      const DeepCollectionEquality().hash(serviceType),
+      const DeepCollectionEquality().hash(userId),
+      const DeepCollectionEquality().hash(bookingDetails),
+      const DeepCollectionEquality().hash(amount),
+      const DeepCollectionEquality().hash(createdAt),
+      const DeepCollectionEquality().hash(updatedAt),
+      const DeepCollectionEquality().hash(v),
+      const DeepCollectionEquality().hash(user),
+      const DeepCollectionEquality().hash(isReorderDone));
+
+  @JsonKey(ignore: true)
+  @override
+  _$DogGroomingAppointmentListResponseCopyWith<
+          _DogGroomingAppointmentListResponse>
+      get copyWith => __$DogGroomingAppointmentListResponseCopyWithImpl<
+          _DogGroomingAppointmentListResponse>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_DogGroomingAppointmentListResponseToJson(this);
+  }
+}
+
+abstract class _DogGroomingAppointmentListResponse
+    extends DogGroomingAppointmentListResponse {
+  factory _DogGroomingAppointmentListResponse(
+      {@JsonKey(name: "_id")
+          String? appointmentId,
+      @JsonKey(name: "petDetails")
+          List<PetDetailsResponse>? petDetails,
+      @JsonKey(name: "bookingStatus")
+          int? bookingStatus,
+      @JsonKey(name: "serviceStatus")
+          int? serviceStatus,
+      @JsonKey(name: "isRated")
+          bool? isRated,
+      @JsonKey(name: "serviceType")
+          int? serviceType,
+      @JsonKey(name: "User")
+          String? userId,
+      @JsonKey(name: "DogGroomingbookingDetails")
+          DogGroomingBookingDetailsResponse? bookingDetails,
+      @JsonKey(name: "amount")
+          int? amount,
+      @JsonKey(name: "createdAt")
+          String? createdAt,
+      @JsonKey(name: "updatedAt")
+          String? updatedAt,
+      @JsonKey(name: "__v")
+          int? v,
+      @JsonKey(name: "ServiceProvider")
+          UserDetailsResponse? user,
+      @JsonKey(name: "isReorderDone")
+          bool? isReorderDone}) = _$_DogGroomingAppointmentListResponse;
+  _DogGroomingAppointmentListResponse._() : super._();
+
+  factory _DogGroomingAppointmentListResponse.fromJson(
+          Map<String, dynamic> json) =
+      _$_DogGroomingAppointmentListResponse.fromJson;
+
+  @override
+  @JsonKey(name: "_id")
+  String? get appointmentId;
+  @override
+  @JsonKey(name: "petDetails")
+  List<PetDetailsResponse>? get petDetails;
+  @override
+  @JsonKey(name: "bookingStatus")
+  int? get bookingStatus;
+  @override
+  @JsonKey(name: "serviceStatus")
+  int? get serviceStatus;
+  @override
+  @JsonKey(name: "isRated")
+  bool? get isRated;
+  @override
+  @JsonKey(name: "serviceType")
+  int? get serviceType;
+  @override
+  @JsonKey(name: "User")
+  String? get userId;
+  @override
+  @JsonKey(name: "DogGroomingbookingDetails")
+  DogGroomingBookingDetailsResponse? get bookingDetails;
+  @override
+  @JsonKey(name: "amount")
+  int? get amount;
+  @override
+  @JsonKey(name: "createdAt")
+  String? get createdAt;
+  @override
+  @JsonKey(name: "updatedAt")
+  String? get updatedAt;
+  @override
+  @JsonKey(name: "__v")
+  int? get v;
+  @override
+  @JsonKey(name: "ServiceProvider")
+  UserDetailsResponse? get user;
+  @override
+  @JsonKey(name: "isReorderDone")
+  bool? get isReorderDone;
+  @override
+  @JsonKey(ignore: true)
+  _$DogGroomingAppointmentListResponseCopyWith<
+          _DogGroomingAppointmentListResponse>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -1550,6 +2191,1017 @@ abstract class _DogTrainingBookingDetailsResponse
   @JsonKey(ignore: true)
   _$DogTrainingBookingDetailsResponseCopyWith<
           _DogTrainingBookingDetailsResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+DogGroomingBookingDetailsResponse _$DogGroomingBookingDetailsResponseFromJson(
+    Map<String, dynamic> json) {
+  return _DogGroomingBookingDetailsResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$DogGroomingBookingDetailsResponseTearOff {
+  const _$DogGroomingBookingDetailsResponseTearOff();
+
+  _DogGroomingBookingDetailsResponse call(
+      {@JsonKey(name: "_id")
+          String? bookingId,
+      @JsonKey(name: "sessionDetails")
+          DogGroomingSessionDetailsResponse? sessionDetails,
+      @JsonKey(name: "paymentDetails")
+          DogGroomingPaymentDetailsResponse? paymentDetails,
+      @JsonKey(name: "numberOfPets")
+          int? numberOfPets,
+      @JsonKey(name: "package")
+          DogGroomingPackageDetailsResponse? package,
+      @JsonKey(name: "startDate")
+          String? startDate}) {
+    return _DogGroomingBookingDetailsResponse(
+      bookingId: bookingId,
+      sessionDetails: sessionDetails,
+      paymentDetails: paymentDetails,
+      numberOfPets: numberOfPets,
+      package: package,
+      startDate: startDate,
+    );
+  }
+
+  DogGroomingBookingDetailsResponse fromJson(Map<String, Object?> json) {
+    return DogGroomingBookingDetailsResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $DogGroomingBookingDetailsResponse =
+    _$DogGroomingBookingDetailsResponseTearOff();
+
+/// @nodoc
+mixin _$DogGroomingBookingDetailsResponse {
+  @JsonKey(name: "_id")
+  String? get bookingId => throw _privateConstructorUsedError;
+  @JsonKey(name: "sessionDetails")
+  DogGroomingSessionDetailsResponse? get sessionDetails =>
+      throw _privateConstructorUsedError;
+  @JsonKey(name: "paymentDetails")
+  DogGroomingPaymentDetailsResponse? get paymentDetails =>
+      throw _privateConstructorUsedError;
+  @JsonKey(name: "numberOfPets")
+  int? get numberOfPets => throw _privateConstructorUsedError;
+  @JsonKey(name: "package")
+  DogGroomingPackageDetailsResponse? get package =>
+      throw _privateConstructorUsedError;
+  @JsonKey(name: "startDate")
+  String? get startDate => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $DogGroomingBookingDetailsResponseCopyWith<DogGroomingBookingDetailsResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DogGroomingBookingDetailsResponseCopyWith<$Res> {
+  factory $DogGroomingBookingDetailsResponseCopyWith(
+          DogGroomingBookingDetailsResponse value,
+          $Res Function(DogGroomingBookingDetailsResponse) then) =
+      _$DogGroomingBookingDetailsResponseCopyWithImpl<$Res>;
+  $Res call(
+      {@JsonKey(name: "_id")
+          String? bookingId,
+      @JsonKey(name: "sessionDetails")
+          DogGroomingSessionDetailsResponse? sessionDetails,
+      @JsonKey(name: "paymentDetails")
+          DogGroomingPaymentDetailsResponse? paymentDetails,
+      @JsonKey(name: "numberOfPets")
+          int? numberOfPets,
+      @JsonKey(name: "package")
+          DogGroomingPackageDetailsResponse? package,
+      @JsonKey(name: "startDate")
+          String? startDate});
+
+  $DogGroomingSessionDetailsResponseCopyWith<$Res>? get sessionDetails;
+  $DogGroomingPaymentDetailsResponseCopyWith<$Res>? get paymentDetails;
+  $DogGroomingPackageDetailsResponseCopyWith<$Res>? get package;
+}
+
+/// @nodoc
+class _$DogGroomingBookingDetailsResponseCopyWithImpl<$Res>
+    implements $DogGroomingBookingDetailsResponseCopyWith<$Res> {
+  _$DogGroomingBookingDetailsResponseCopyWithImpl(this._value, this._then);
+
+  final DogGroomingBookingDetailsResponse _value;
+  // ignore: unused_field
+  final $Res Function(DogGroomingBookingDetailsResponse) _then;
+
+  @override
+  $Res call({
+    Object? bookingId = freezed,
+    Object? sessionDetails = freezed,
+    Object? paymentDetails = freezed,
+    Object? numberOfPets = freezed,
+    Object? package = freezed,
+    Object? startDate = freezed,
+  }) {
+    return _then(_value.copyWith(
+      bookingId: bookingId == freezed
+          ? _value.bookingId
+          : bookingId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      sessionDetails: sessionDetails == freezed
+          ? _value.sessionDetails
+          : sessionDetails // ignore: cast_nullable_to_non_nullable
+              as DogGroomingSessionDetailsResponse?,
+      paymentDetails: paymentDetails == freezed
+          ? _value.paymentDetails
+          : paymentDetails // ignore: cast_nullable_to_non_nullable
+              as DogGroomingPaymentDetailsResponse?,
+      numberOfPets: numberOfPets == freezed
+          ? _value.numberOfPets
+          : numberOfPets // ignore: cast_nullable_to_non_nullable
+              as int?,
+      package: package == freezed
+          ? _value.package
+          : package // ignore: cast_nullable_to_non_nullable
+              as DogGroomingPackageDetailsResponse?,
+      startDate: startDate == freezed
+          ? _value.startDate
+          : startDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+
+  @override
+  $DogGroomingSessionDetailsResponseCopyWith<$Res>? get sessionDetails {
+    if (_value.sessionDetails == null) {
+      return null;
+    }
+
+    return $DogGroomingSessionDetailsResponseCopyWith<$Res>(
+        _value.sessionDetails!, (value) {
+      return _then(_value.copyWith(sessionDetails: value));
+    });
+  }
+
+  @override
+  $DogGroomingPaymentDetailsResponseCopyWith<$Res>? get paymentDetails {
+    if (_value.paymentDetails == null) {
+      return null;
+    }
+
+    return $DogGroomingPaymentDetailsResponseCopyWith<$Res>(
+        _value.paymentDetails!, (value) {
+      return _then(_value.copyWith(paymentDetails: value));
+    });
+  }
+
+  @override
+  $DogGroomingPackageDetailsResponseCopyWith<$Res>? get package {
+    if (_value.package == null) {
+      return null;
+    }
+
+    return $DogGroomingPackageDetailsResponseCopyWith<$Res>(_value.package!,
+        (value) {
+      return _then(_value.copyWith(package: value));
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$DogGroomingBookingDetailsResponseCopyWith<$Res>
+    implements $DogGroomingBookingDetailsResponseCopyWith<$Res> {
+  factory _$DogGroomingBookingDetailsResponseCopyWith(
+          _DogGroomingBookingDetailsResponse value,
+          $Res Function(_DogGroomingBookingDetailsResponse) then) =
+      __$DogGroomingBookingDetailsResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {@JsonKey(name: "_id")
+          String? bookingId,
+      @JsonKey(name: "sessionDetails")
+          DogGroomingSessionDetailsResponse? sessionDetails,
+      @JsonKey(name: "paymentDetails")
+          DogGroomingPaymentDetailsResponse? paymentDetails,
+      @JsonKey(name: "numberOfPets")
+          int? numberOfPets,
+      @JsonKey(name: "package")
+          DogGroomingPackageDetailsResponse? package,
+      @JsonKey(name: "startDate")
+          String? startDate});
+
+  @override
+  $DogGroomingSessionDetailsResponseCopyWith<$Res>? get sessionDetails;
+  @override
+  $DogGroomingPaymentDetailsResponseCopyWith<$Res>? get paymentDetails;
+  @override
+  $DogGroomingPackageDetailsResponseCopyWith<$Res>? get package;
+}
+
+/// @nodoc
+class __$DogGroomingBookingDetailsResponseCopyWithImpl<$Res>
+    extends _$DogGroomingBookingDetailsResponseCopyWithImpl<$Res>
+    implements _$DogGroomingBookingDetailsResponseCopyWith<$Res> {
+  __$DogGroomingBookingDetailsResponseCopyWithImpl(
+      _DogGroomingBookingDetailsResponse _value,
+      $Res Function(_DogGroomingBookingDetailsResponse) _then)
+      : super(_value, (v) => _then(v as _DogGroomingBookingDetailsResponse));
+
+  @override
+  _DogGroomingBookingDetailsResponse get _value =>
+      super._value as _DogGroomingBookingDetailsResponse;
+
+  @override
+  $Res call({
+    Object? bookingId = freezed,
+    Object? sessionDetails = freezed,
+    Object? paymentDetails = freezed,
+    Object? numberOfPets = freezed,
+    Object? package = freezed,
+    Object? startDate = freezed,
+  }) {
+    return _then(_DogGroomingBookingDetailsResponse(
+      bookingId: bookingId == freezed
+          ? _value.bookingId
+          : bookingId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      sessionDetails: sessionDetails == freezed
+          ? _value.sessionDetails
+          : sessionDetails // ignore: cast_nullable_to_non_nullable
+              as DogGroomingSessionDetailsResponse?,
+      paymentDetails: paymentDetails == freezed
+          ? _value.paymentDetails
+          : paymentDetails // ignore: cast_nullable_to_non_nullable
+              as DogGroomingPaymentDetailsResponse?,
+      numberOfPets: numberOfPets == freezed
+          ? _value.numberOfPets
+          : numberOfPets // ignore: cast_nullable_to_non_nullable
+              as int?,
+      package: package == freezed
+          ? _value.package
+          : package // ignore: cast_nullable_to_non_nullable
+              as DogGroomingPackageDetailsResponse?,
+      startDate: startDate == freezed
+          ? _value.startDate
+          : startDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_DogGroomingBookingDetailsResponse
+    extends _DogGroomingBookingDetailsResponse {
+  _$_DogGroomingBookingDetailsResponse(
+      {@JsonKey(name: "_id") this.bookingId,
+      @JsonKey(name: "sessionDetails") this.sessionDetails,
+      @JsonKey(name: "paymentDetails") this.paymentDetails,
+      @JsonKey(name: "numberOfPets") this.numberOfPets,
+      @JsonKey(name: "package") this.package,
+      @JsonKey(name: "startDate") this.startDate})
+      : super._();
+
+  factory _$_DogGroomingBookingDetailsResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$$_DogGroomingBookingDetailsResponseFromJson(json);
+
+  @override
+  @JsonKey(name: "_id")
+  final String? bookingId;
+  @override
+  @JsonKey(name: "sessionDetails")
+  final DogGroomingSessionDetailsResponse? sessionDetails;
+  @override
+  @JsonKey(name: "paymentDetails")
+  final DogGroomingPaymentDetailsResponse? paymentDetails;
+  @override
+  @JsonKey(name: "numberOfPets")
+  final int? numberOfPets;
+  @override
+  @JsonKey(name: "package")
+  final DogGroomingPackageDetailsResponse? package;
+  @override
+  @JsonKey(name: "startDate")
+  final String? startDate;
+
+  @override
+  String toString() {
+    return 'DogGroomingBookingDetailsResponse(bookingId: $bookingId, sessionDetails: $sessionDetails, paymentDetails: $paymentDetails, numberOfPets: $numberOfPets, package: $package, startDate: $startDate)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _DogGroomingBookingDetailsResponse &&
+            const DeepCollectionEquality().equals(other.bookingId, bookingId) &&
+            const DeepCollectionEquality()
+                .equals(other.sessionDetails, sessionDetails) &&
+            const DeepCollectionEquality()
+                .equals(other.paymentDetails, paymentDetails) &&
+            const DeepCollectionEquality()
+                .equals(other.numberOfPets, numberOfPets) &&
+            const DeepCollectionEquality().equals(other.package, package) &&
+            const DeepCollectionEquality().equals(other.startDate, startDate));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(bookingId),
+      const DeepCollectionEquality().hash(sessionDetails),
+      const DeepCollectionEquality().hash(paymentDetails),
+      const DeepCollectionEquality().hash(numberOfPets),
+      const DeepCollectionEquality().hash(package),
+      const DeepCollectionEquality().hash(startDate));
+
+  @JsonKey(ignore: true)
+  @override
+  _$DogGroomingBookingDetailsResponseCopyWith<
+          _DogGroomingBookingDetailsResponse>
+      get copyWith => __$DogGroomingBookingDetailsResponseCopyWithImpl<
+          _DogGroomingBookingDetailsResponse>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_DogGroomingBookingDetailsResponseToJson(this);
+  }
+}
+
+abstract class _DogGroomingBookingDetailsResponse
+    extends DogGroomingBookingDetailsResponse {
+  factory _DogGroomingBookingDetailsResponse(
+      {@JsonKey(name: "_id")
+          String? bookingId,
+      @JsonKey(name: "sessionDetails")
+          DogGroomingSessionDetailsResponse? sessionDetails,
+      @JsonKey(name: "paymentDetails")
+          DogGroomingPaymentDetailsResponse? paymentDetails,
+      @JsonKey(name: "numberOfPets")
+          int? numberOfPets,
+      @JsonKey(name: "package")
+          DogGroomingPackageDetailsResponse? package,
+      @JsonKey(name: "startDate")
+          String? startDate}) = _$_DogGroomingBookingDetailsResponse;
+  _DogGroomingBookingDetailsResponse._() : super._();
+
+  factory _DogGroomingBookingDetailsResponse.fromJson(
+          Map<String, dynamic> json) =
+      _$_DogGroomingBookingDetailsResponse.fromJson;
+
+  @override
+  @JsonKey(name: "_id")
+  String? get bookingId;
+  @override
+  @JsonKey(name: "sessionDetails")
+  DogGroomingSessionDetailsResponse? get sessionDetails;
+  @override
+  @JsonKey(name: "paymentDetails")
+  DogGroomingPaymentDetailsResponse? get paymentDetails;
+  @override
+  @JsonKey(name: "numberOfPets")
+  int? get numberOfPets;
+  @override
+  @JsonKey(name: "package")
+  DogGroomingPackageDetailsResponse? get package;
+  @override
+  @JsonKey(name: "startDate")
+  String? get startDate;
+  @override
+  @JsonKey(ignore: true)
+  _$DogGroomingBookingDetailsResponseCopyWith<
+          _DogGroomingBookingDetailsResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+DogGroomingSessionDetailsResponse _$DogGroomingSessionDetailsResponseFromJson(
+    Map<String, dynamic> json) {
+  return _DogGroomingSessionDetailsResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$DogGroomingSessionDetailsResponseTearOff {
+  const _$DogGroomingSessionDetailsResponseTearOff();
+
+  _DogGroomingSessionDetailsResponse call(
+      {@JsonKey(name: "sessionStatus") int? sessionStatus,
+      @JsonKey(name: "sessionTime") String? sessionTime}) {
+    return _DogGroomingSessionDetailsResponse(
+      sessionStatus: sessionStatus,
+      sessionTime: sessionTime,
+    );
+  }
+
+  DogGroomingSessionDetailsResponse fromJson(Map<String, Object?> json) {
+    return DogGroomingSessionDetailsResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $DogGroomingSessionDetailsResponse =
+    _$DogGroomingSessionDetailsResponseTearOff();
+
+/// @nodoc
+mixin _$DogGroomingSessionDetailsResponse {
+  @JsonKey(name: "sessionStatus")
+  int? get sessionStatus => throw _privateConstructorUsedError;
+  @JsonKey(name: "sessionTime")
+  String? get sessionTime => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $DogGroomingSessionDetailsResponseCopyWith<DogGroomingSessionDetailsResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DogGroomingSessionDetailsResponseCopyWith<$Res> {
+  factory $DogGroomingSessionDetailsResponseCopyWith(
+          DogGroomingSessionDetailsResponse value,
+          $Res Function(DogGroomingSessionDetailsResponse) then) =
+      _$DogGroomingSessionDetailsResponseCopyWithImpl<$Res>;
+  $Res call(
+      {@JsonKey(name: "sessionStatus") int? sessionStatus,
+      @JsonKey(name: "sessionTime") String? sessionTime});
+}
+
+/// @nodoc
+class _$DogGroomingSessionDetailsResponseCopyWithImpl<$Res>
+    implements $DogGroomingSessionDetailsResponseCopyWith<$Res> {
+  _$DogGroomingSessionDetailsResponseCopyWithImpl(this._value, this._then);
+
+  final DogGroomingSessionDetailsResponse _value;
+  // ignore: unused_field
+  final $Res Function(DogGroomingSessionDetailsResponse) _then;
+
+  @override
+  $Res call({
+    Object? sessionStatus = freezed,
+    Object? sessionTime = freezed,
+  }) {
+    return _then(_value.copyWith(
+      sessionStatus: sessionStatus == freezed
+          ? _value.sessionStatus
+          : sessionStatus // ignore: cast_nullable_to_non_nullable
+              as int?,
+      sessionTime: sessionTime == freezed
+          ? _value.sessionTime
+          : sessionTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$DogGroomingSessionDetailsResponseCopyWith<$Res>
+    implements $DogGroomingSessionDetailsResponseCopyWith<$Res> {
+  factory _$DogGroomingSessionDetailsResponseCopyWith(
+          _DogGroomingSessionDetailsResponse value,
+          $Res Function(_DogGroomingSessionDetailsResponse) then) =
+      __$DogGroomingSessionDetailsResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {@JsonKey(name: "sessionStatus") int? sessionStatus,
+      @JsonKey(name: "sessionTime") String? sessionTime});
+}
+
+/// @nodoc
+class __$DogGroomingSessionDetailsResponseCopyWithImpl<$Res>
+    extends _$DogGroomingSessionDetailsResponseCopyWithImpl<$Res>
+    implements _$DogGroomingSessionDetailsResponseCopyWith<$Res> {
+  __$DogGroomingSessionDetailsResponseCopyWithImpl(
+      _DogGroomingSessionDetailsResponse _value,
+      $Res Function(_DogGroomingSessionDetailsResponse) _then)
+      : super(_value, (v) => _then(v as _DogGroomingSessionDetailsResponse));
+
+  @override
+  _DogGroomingSessionDetailsResponse get _value =>
+      super._value as _DogGroomingSessionDetailsResponse;
+
+  @override
+  $Res call({
+    Object? sessionStatus = freezed,
+    Object? sessionTime = freezed,
+  }) {
+    return _then(_DogGroomingSessionDetailsResponse(
+      sessionStatus: sessionStatus == freezed
+          ? _value.sessionStatus
+          : sessionStatus // ignore: cast_nullable_to_non_nullable
+              as int?,
+      sessionTime: sessionTime == freezed
+          ? _value.sessionTime
+          : sessionTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_DogGroomingSessionDetailsResponse
+    extends _DogGroomingSessionDetailsResponse {
+  _$_DogGroomingSessionDetailsResponse(
+      {@JsonKey(name: "sessionStatus") this.sessionStatus,
+      @JsonKey(name: "sessionTime") this.sessionTime})
+      : super._();
+
+  factory _$_DogGroomingSessionDetailsResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$$_DogGroomingSessionDetailsResponseFromJson(json);
+
+  @override
+  @JsonKey(name: "sessionStatus")
+  final int? sessionStatus;
+  @override
+  @JsonKey(name: "sessionTime")
+  final String? sessionTime;
+
+  @override
+  String toString() {
+    return 'DogGroomingSessionDetailsResponse(sessionStatus: $sessionStatus, sessionTime: $sessionTime)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _DogGroomingSessionDetailsResponse &&
+            const DeepCollectionEquality()
+                .equals(other.sessionStatus, sessionStatus) &&
+            const DeepCollectionEquality()
+                .equals(other.sessionTime, sessionTime));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(sessionStatus),
+      const DeepCollectionEquality().hash(sessionTime));
+
+  @JsonKey(ignore: true)
+  @override
+  _$DogGroomingSessionDetailsResponseCopyWith<
+          _DogGroomingSessionDetailsResponse>
+      get copyWith => __$DogGroomingSessionDetailsResponseCopyWithImpl<
+          _DogGroomingSessionDetailsResponse>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_DogGroomingSessionDetailsResponseToJson(this);
+  }
+}
+
+abstract class _DogGroomingSessionDetailsResponse
+    extends DogGroomingSessionDetailsResponse {
+  factory _DogGroomingSessionDetailsResponse(
+          {@JsonKey(name: "sessionStatus") int? sessionStatus,
+          @JsonKey(name: "sessionTime") String? sessionTime}) =
+      _$_DogGroomingSessionDetailsResponse;
+  _DogGroomingSessionDetailsResponse._() : super._();
+
+  factory _DogGroomingSessionDetailsResponse.fromJson(
+          Map<String, dynamic> json) =
+      _$_DogGroomingSessionDetailsResponse.fromJson;
+
+  @override
+  @JsonKey(name: "sessionStatus")
+  int? get sessionStatus;
+  @override
+  @JsonKey(name: "sessionTime")
+  String? get sessionTime;
+  @override
+  @JsonKey(ignore: true)
+  _$DogGroomingSessionDetailsResponseCopyWith<
+          _DogGroomingSessionDetailsResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+DogGroomingPaymentDetailsResponse _$DogGroomingPaymentDetailsResponseFromJson(
+    Map<String, dynamic> json) {
+  return _DogGroomingPaymentDetailsResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$DogGroomingPaymentDetailsResponseTearOff {
+  const _$DogGroomingPaymentDetailsResponseTearOff();
+
+  _DogGroomingPaymentDetailsResponse call(
+      {@JsonKey(name: "status") int? paymentStatus,
+      @JsonKey(name: "amount") int? amount,
+      @JsonKey(name: "transactionId") String? transactionId}) {
+    return _DogGroomingPaymentDetailsResponse(
+      paymentStatus: paymentStatus,
+      amount: amount,
+      transactionId: transactionId,
+    );
+  }
+
+  DogGroomingPaymentDetailsResponse fromJson(Map<String, Object?> json) {
+    return DogGroomingPaymentDetailsResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $DogGroomingPaymentDetailsResponse =
+    _$DogGroomingPaymentDetailsResponseTearOff();
+
+/// @nodoc
+mixin _$DogGroomingPaymentDetailsResponse {
+  @JsonKey(name: "status")
+  int? get paymentStatus => throw _privateConstructorUsedError;
+  @JsonKey(name: "amount")
+  int? get amount => throw _privateConstructorUsedError;
+  @JsonKey(name: "transactionId")
+  String? get transactionId => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $DogGroomingPaymentDetailsResponseCopyWith<DogGroomingPaymentDetailsResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DogGroomingPaymentDetailsResponseCopyWith<$Res> {
+  factory $DogGroomingPaymentDetailsResponseCopyWith(
+          DogGroomingPaymentDetailsResponse value,
+          $Res Function(DogGroomingPaymentDetailsResponse) then) =
+      _$DogGroomingPaymentDetailsResponseCopyWithImpl<$Res>;
+  $Res call(
+      {@JsonKey(name: "status") int? paymentStatus,
+      @JsonKey(name: "amount") int? amount,
+      @JsonKey(name: "transactionId") String? transactionId});
+}
+
+/// @nodoc
+class _$DogGroomingPaymentDetailsResponseCopyWithImpl<$Res>
+    implements $DogGroomingPaymentDetailsResponseCopyWith<$Res> {
+  _$DogGroomingPaymentDetailsResponseCopyWithImpl(this._value, this._then);
+
+  final DogGroomingPaymentDetailsResponse _value;
+  // ignore: unused_field
+  final $Res Function(DogGroomingPaymentDetailsResponse) _then;
+
+  @override
+  $Res call({
+    Object? paymentStatus = freezed,
+    Object? amount = freezed,
+    Object? transactionId = freezed,
+  }) {
+    return _then(_value.copyWith(
+      paymentStatus: paymentStatus == freezed
+          ? _value.paymentStatus
+          : paymentStatus // ignore: cast_nullable_to_non_nullable
+              as int?,
+      amount: amount == freezed
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      transactionId: transactionId == freezed
+          ? _value.transactionId
+          : transactionId // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$DogGroomingPaymentDetailsResponseCopyWith<$Res>
+    implements $DogGroomingPaymentDetailsResponseCopyWith<$Res> {
+  factory _$DogGroomingPaymentDetailsResponseCopyWith(
+          _DogGroomingPaymentDetailsResponse value,
+          $Res Function(_DogGroomingPaymentDetailsResponse) then) =
+      __$DogGroomingPaymentDetailsResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {@JsonKey(name: "status") int? paymentStatus,
+      @JsonKey(name: "amount") int? amount,
+      @JsonKey(name: "transactionId") String? transactionId});
+}
+
+/// @nodoc
+class __$DogGroomingPaymentDetailsResponseCopyWithImpl<$Res>
+    extends _$DogGroomingPaymentDetailsResponseCopyWithImpl<$Res>
+    implements _$DogGroomingPaymentDetailsResponseCopyWith<$Res> {
+  __$DogGroomingPaymentDetailsResponseCopyWithImpl(
+      _DogGroomingPaymentDetailsResponse _value,
+      $Res Function(_DogGroomingPaymentDetailsResponse) _then)
+      : super(_value, (v) => _then(v as _DogGroomingPaymentDetailsResponse));
+
+  @override
+  _DogGroomingPaymentDetailsResponse get _value =>
+      super._value as _DogGroomingPaymentDetailsResponse;
+
+  @override
+  $Res call({
+    Object? paymentStatus = freezed,
+    Object? amount = freezed,
+    Object? transactionId = freezed,
+  }) {
+    return _then(_DogGroomingPaymentDetailsResponse(
+      paymentStatus: paymentStatus == freezed
+          ? _value.paymentStatus
+          : paymentStatus // ignore: cast_nullable_to_non_nullable
+              as int?,
+      amount: amount == freezed
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      transactionId: transactionId == freezed
+          ? _value.transactionId
+          : transactionId // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_DogGroomingPaymentDetailsResponse
+    extends _DogGroomingPaymentDetailsResponse {
+  _$_DogGroomingPaymentDetailsResponse(
+      {@JsonKey(name: "status") this.paymentStatus,
+      @JsonKey(name: "amount") this.amount,
+      @JsonKey(name: "transactionId") this.transactionId})
+      : super._();
+
+  factory _$_DogGroomingPaymentDetailsResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$$_DogGroomingPaymentDetailsResponseFromJson(json);
+
+  @override
+  @JsonKey(name: "status")
+  final int? paymentStatus;
+  @override
+  @JsonKey(name: "amount")
+  final int? amount;
+  @override
+  @JsonKey(name: "transactionId")
+  final String? transactionId;
+
+  @override
+  String toString() {
+    return 'DogGroomingPaymentDetailsResponse(paymentStatus: $paymentStatus, amount: $amount, transactionId: $transactionId)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _DogGroomingPaymentDetailsResponse &&
+            const DeepCollectionEquality()
+                .equals(other.paymentStatus, paymentStatus) &&
+            const DeepCollectionEquality().equals(other.amount, amount) &&
+            const DeepCollectionEquality()
+                .equals(other.transactionId, transactionId));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(paymentStatus),
+      const DeepCollectionEquality().hash(amount),
+      const DeepCollectionEquality().hash(transactionId));
+
+  @JsonKey(ignore: true)
+  @override
+  _$DogGroomingPaymentDetailsResponseCopyWith<
+          _DogGroomingPaymentDetailsResponse>
+      get copyWith => __$DogGroomingPaymentDetailsResponseCopyWithImpl<
+          _DogGroomingPaymentDetailsResponse>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_DogGroomingPaymentDetailsResponseToJson(this);
+  }
+}
+
+abstract class _DogGroomingPaymentDetailsResponse
+    extends DogGroomingPaymentDetailsResponse {
+  factory _DogGroomingPaymentDetailsResponse(
+          {@JsonKey(name: "status") int? paymentStatus,
+          @JsonKey(name: "amount") int? amount,
+          @JsonKey(name: "transactionId") String? transactionId}) =
+      _$_DogGroomingPaymentDetailsResponse;
+  _DogGroomingPaymentDetailsResponse._() : super._();
+
+  factory _DogGroomingPaymentDetailsResponse.fromJson(
+          Map<String, dynamic> json) =
+      _$_DogGroomingPaymentDetailsResponse.fromJson;
+
+  @override
+  @JsonKey(name: "status")
+  int? get paymentStatus;
+  @override
+  @JsonKey(name: "amount")
+  int? get amount;
+  @override
+  @JsonKey(name: "transactionId")
+  String? get transactionId;
+  @override
+  @JsonKey(ignore: true)
+  _$DogGroomingPaymentDetailsResponseCopyWith<
+          _DogGroomingPaymentDetailsResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+DogGroomingPackageDetailsResponse _$DogGroomingPackageDetailsResponseFromJson(
+    Map<String, dynamic> json) {
+  return _DogGroomingPackageDetailsResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$DogGroomingPackageDetailsResponseTearOff {
+  const _$DogGroomingPackageDetailsResponseTearOff();
+
+  _DogGroomingPackageDetailsResponse call(
+      {@JsonKey(name: "description") String? description,
+      @JsonKey(name: "amount") int? amount}) {
+    return _DogGroomingPackageDetailsResponse(
+      description: description,
+      amount: amount,
+    );
+  }
+
+  DogGroomingPackageDetailsResponse fromJson(Map<String, Object?> json) {
+    return DogGroomingPackageDetailsResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $DogGroomingPackageDetailsResponse =
+    _$DogGroomingPackageDetailsResponseTearOff();
+
+/// @nodoc
+mixin _$DogGroomingPackageDetailsResponse {
+  @JsonKey(name: "description")
+  String? get description => throw _privateConstructorUsedError;
+  @JsonKey(name: "amount")
+  int? get amount => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $DogGroomingPackageDetailsResponseCopyWith<DogGroomingPackageDetailsResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DogGroomingPackageDetailsResponseCopyWith<$Res> {
+  factory $DogGroomingPackageDetailsResponseCopyWith(
+          DogGroomingPackageDetailsResponse value,
+          $Res Function(DogGroomingPackageDetailsResponse) then) =
+      _$DogGroomingPackageDetailsResponseCopyWithImpl<$Res>;
+  $Res call(
+      {@JsonKey(name: "description") String? description,
+      @JsonKey(name: "amount") int? amount});
+}
+
+/// @nodoc
+class _$DogGroomingPackageDetailsResponseCopyWithImpl<$Res>
+    implements $DogGroomingPackageDetailsResponseCopyWith<$Res> {
+  _$DogGroomingPackageDetailsResponseCopyWithImpl(this._value, this._then);
+
+  final DogGroomingPackageDetailsResponse _value;
+  // ignore: unused_field
+  final $Res Function(DogGroomingPackageDetailsResponse) _then;
+
+  @override
+  $Res call({
+    Object? description = freezed,
+    Object? amount = freezed,
+  }) {
+    return _then(_value.copyWith(
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      amount: amount == freezed
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$DogGroomingPackageDetailsResponseCopyWith<$Res>
+    implements $DogGroomingPackageDetailsResponseCopyWith<$Res> {
+  factory _$DogGroomingPackageDetailsResponseCopyWith(
+          _DogGroomingPackageDetailsResponse value,
+          $Res Function(_DogGroomingPackageDetailsResponse) then) =
+      __$DogGroomingPackageDetailsResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {@JsonKey(name: "description") String? description,
+      @JsonKey(name: "amount") int? amount});
+}
+
+/// @nodoc
+class __$DogGroomingPackageDetailsResponseCopyWithImpl<$Res>
+    extends _$DogGroomingPackageDetailsResponseCopyWithImpl<$Res>
+    implements _$DogGroomingPackageDetailsResponseCopyWith<$Res> {
+  __$DogGroomingPackageDetailsResponseCopyWithImpl(
+      _DogGroomingPackageDetailsResponse _value,
+      $Res Function(_DogGroomingPackageDetailsResponse) _then)
+      : super(_value, (v) => _then(v as _DogGroomingPackageDetailsResponse));
+
+  @override
+  _DogGroomingPackageDetailsResponse get _value =>
+      super._value as _DogGroomingPackageDetailsResponse;
+
+  @override
+  $Res call({
+    Object? description = freezed,
+    Object? amount = freezed,
+  }) {
+    return _then(_DogGroomingPackageDetailsResponse(
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      amount: amount == freezed
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_DogGroomingPackageDetailsResponse
+    extends _DogGroomingPackageDetailsResponse {
+  _$_DogGroomingPackageDetailsResponse(
+      {@JsonKey(name: "description") this.description,
+      @JsonKey(name: "amount") this.amount})
+      : super._();
+
+  factory _$_DogGroomingPackageDetailsResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$$_DogGroomingPackageDetailsResponseFromJson(json);
+
+  @override
+  @JsonKey(name: "description")
+  final String? description;
+  @override
+  @JsonKey(name: "amount")
+  final int? amount;
+
+  @override
+  String toString() {
+    return 'DogGroomingPackageDetailsResponse(description: $description, amount: $amount)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _DogGroomingPackageDetailsResponse &&
+            const DeepCollectionEquality()
+                .equals(other.description, description) &&
+            const DeepCollectionEquality().equals(other.amount, amount));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(description),
+      const DeepCollectionEquality().hash(amount));
+
+  @JsonKey(ignore: true)
+  @override
+  _$DogGroomingPackageDetailsResponseCopyWith<
+          _DogGroomingPackageDetailsResponse>
+      get copyWith => __$DogGroomingPackageDetailsResponseCopyWithImpl<
+          _DogGroomingPackageDetailsResponse>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_DogGroomingPackageDetailsResponseToJson(this);
+  }
+}
+
+abstract class _DogGroomingPackageDetailsResponse
+    extends DogGroomingPackageDetailsResponse {
+  factory _DogGroomingPackageDetailsResponse(
+          {@JsonKey(name: "description") String? description,
+          @JsonKey(name: "amount") int? amount}) =
+      _$_DogGroomingPackageDetailsResponse;
+  _DogGroomingPackageDetailsResponse._() : super._();
+
+  factory _DogGroomingPackageDetailsResponse.fromJson(
+          Map<String, dynamic> json) =
+      _$_DogGroomingPackageDetailsResponse.fromJson;
+
+  @override
+  @JsonKey(name: "description")
+  String? get description;
+  @override
+  @JsonKey(name: "amount")
+  int? get amount;
+  @override
+  @JsonKey(ignore: true)
+  _$DogGroomingPackageDetailsResponseCopyWith<
+          _DogGroomingPackageDetailsResponse>
       get copyWith => throw _privateConstructorUsedError;
 }
 

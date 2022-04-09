@@ -214,7 +214,7 @@ class CreateAnimalViewModel extends FormViewModel {
             servicePetValue = model.servicePet ?? false;
             spayedPetValue = model.spayed ?? false;
             // _dialogService.completeDialog(DialogResponse(confirmed: true));
-            // checkBreedAvailable(model.animalType ?? "");
+            checkBreedAvailable((model.animalType ?? "").toLowerCase());
 
             if (model.location != null) {
               if ((model.location!.coordinates ?? []).length == 2) {
@@ -616,12 +616,11 @@ class CreateAnimalViewModel extends FormViewModel {
       variant: BottomSheetType.SelectBreedBottomSheet,
       title: "Select breed",
       customData: listOfAnimalBreed,
+      data: tc.text,
     );
     if (result != null) {
       if (result.confirmed) {
-        tc.text = result.data
-            .toString()
-            .substring(0, result.data.toString().length - 1);
+        tc.text = result.data.toString();
         notifyListeners();
       }
     }

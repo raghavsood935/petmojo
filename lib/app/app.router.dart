@@ -19,6 +19,11 @@ import '../models/feed_post_response.dart';
 import '../models/get_animals_by_location_response.dart';
 import '../models/get_blogs_model.dart';
 import '../models/my_animal_model.dart';
+import '../ui/DogGroomingService/DgAppointment/DgAppointmentdetails/dg_appointmentdetails_view.dart';
+import '../ui/DogGroomingService/DgAppointment/DgReportcard/dg_reportcard_view.dart';
+import '../ui/DogGroomingService/DgBookingService/DgBooking/dg_doggroomingbooking_view.dart';
+import '../ui/DogGroomingService/DgBookingService/DgOpening/dg_opening_view.dart';
+import '../ui/DogGroomingService/DgBookingService/DgPayment/dg_payment_view.dart';
 import '../ui/DogRunningService/DrAppointment/DrAppointmentdetails/dr_appointmentdetails_view.dart';
 import '../ui/DogRunningService/DrAppointment/DrLivemap/dr_livemap_view.dart';
 import '../ui/DogRunningService/DrAppointment/DrReportcard/dr_reportcard_view.dart';
@@ -185,6 +190,12 @@ class Routes {
   static const String dTPaymentView = '/d-tpayment-view';
   static const String dTAppointmentDetailsView = '/d-tappointment-details-view';
   static const String dTReportCardView = '/d-treport-card-view';
+  static const String dGDogGroomingBookingView =
+      '/d-gdog-grooming-booking-view';
+  static const String dGOpening = '/d-gOpening';
+  static const String dGPaymentView = '/d-gpayment-view';
+  static const String dGAppointmentDetailsView = '/d-gappointment-details-view';
+  static const String dGReportCardView = '/d-greport-card-view';
   static const all = <String>{
     startupView,
     dummyDevelopmentScreen,
@@ -264,6 +275,11 @@ class Routes {
     dTPaymentView,
     dTAppointmentDetailsView,
     dTReportCardView,
+    dGDogGroomingBookingView,
+    dGOpening,
+    dGPaymentView,
+    dGAppointmentDetailsView,
+    dGReportCardView,
   };
 }
 
@@ -355,6 +371,11 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.dTPaymentView, page: DTPaymentView),
     RouteDef(Routes.dTAppointmentDetailsView, page: DTAppointmentDetailsView),
     RouteDef(Routes.dTReportCardView, page: DTReportCardView),
+    RouteDef(Routes.dGDogGroomingBookingView, page: DGDogGroomingBookingView),
+    RouteDef(Routes.dGOpening, page: DGOpening),
+    RouteDef(Routes.dGPaymentView, page: DGPaymentView),
+    RouteDef(Routes.dGAppointmentDetailsView, page: DGAppointmentDetailsView),
+    RouteDef(Routes.dGReportCardView, page: DGReportCardView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -411,6 +432,7 @@ class StackedRouter extends RouterBase {
           petID: args.petID,
           petToken: args.petToken,
           initialState: args.initialState,
+          checkUpdate: args.checkUpdate,
         ),
         settings: data,
       );
@@ -1069,6 +1091,50 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    DGDogGroomingBookingView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const DGDogGroomingBookingView(),
+        settings: data,
+      );
+    },
+    DGOpening: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const DGOpening(),
+        settings: data,
+      );
+    },
+    DGPaymentView: (data) {
+      var args = data.getArgs<DGPaymentViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => DGPaymentView(
+          key: args.key,
+          amount: args.amount,
+          bookingId: args.bookingId,
+        ),
+        settings: data,
+      );
+    },
+    DGAppointmentDetailsView: (data) {
+      var args = data.getArgs<DGAppointmentDetailsViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => DGAppointmentDetailsView(
+          key: args.key,
+          appointmentId: args.appointmentId,
+        ),
+        settings: data,
+      );
+    },
+    DGReportCardView: (data) {
+      var args = data.getArgs<DGReportCardViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => DGReportCardView(
+          key: args.key,
+          appointmentId: args.appointmentId,
+          sessionNo: args.sessionNo,
+        ),
+        settings: data,
+      );
+    },
   };
 }
 
@@ -1105,6 +1171,7 @@ class DashboardArguments {
   final String petID;
   final String petToken;
   final int initialState;
+  final bool? checkUpdate;
   DashboardArguments(
       {this.key,
       required this.initialPageState,
@@ -1112,7 +1179,8 @@ class DashboardArguments {
       required this.isHuman,
       required this.petID,
       required this.petToken,
-      required this.initialState});
+      required this.initialState,
+      this.checkUpdate});
 }
 
 /// SignUpView arguments holder class
@@ -1534,5 +1602,30 @@ class DTReportCardViewArguments {
   final String appointmentId;
   final int sessionNo;
   DTReportCardViewArguments(
+      {this.key, required this.appointmentId, required this.sessionNo});
+}
+
+/// DGPaymentView arguments holder class
+class DGPaymentViewArguments {
+  final Key? key;
+  final int amount;
+  final String bookingId;
+  DGPaymentViewArguments(
+      {this.key, required this.amount, required this.bookingId});
+}
+
+/// DGAppointmentDetailsView arguments holder class
+class DGAppointmentDetailsViewArguments {
+  final Key? key;
+  final String appointmentId;
+  DGAppointmentDetailsViewArguments({this.key, required this.appointmentId});
+}
+
+/// DGReportCardView arguments holder class
+class DGReportCardViewArguments {
+  final Key? key;
+  final String appointmentId;
+  final int sessionNo;
+  DGReportCardViewArguments(
       {this.key, required this.appointmentId, required this.sessionNo});
 }

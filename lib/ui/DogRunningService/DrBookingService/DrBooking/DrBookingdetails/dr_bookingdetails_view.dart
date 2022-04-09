@@ -173,7 +173,7 @@ class DRBookingDetailsView
                 verticalSpaceSmall,
                 AppInputField(
                   hint: addressLineOneHint,
-                  controller: model.addressLineOneController,
+                  controller: model.addressLineTwoController,
                   onChanged: model.secondPageValidation,
                   isBoxBorder: true,
                   suffix: GestureDetector(
@@ -194,7 +194,7 @@ class DRBookingDetailsView
                 verticalSpaceSmall,
                 AppInputField(
                   hint: addressLineTwoHint,
-                  controller: model.addressLineTwoController,
+                  controller: model.addressLineOneController,
                   onChanged: model.secondPageValidation,
                   isBoxBorder: true,
                   textInputType: TextInputType.name,

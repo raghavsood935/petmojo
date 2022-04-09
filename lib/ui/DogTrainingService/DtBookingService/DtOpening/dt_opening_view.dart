@@ -18,6 +18,18 @@ class DTOpening extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                //back button
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      child: Icon(Icons.arrow_back_ios),
+                    ),
+                  ),
+                ),
                 verticalSpaceRegular,
                 // Heading
                 Container(
@@ -80,11 +92,12 @@ class DTOpening extends StatelessWidget {
                   child: Image.asset(
                       "assets/images/service_opening/opening_people.png"),
                 ),
-                //
-                Container(
-                  height: 30,
-                  child: Image.asset(
-                      "assets/images/service_opening/opening_training_fifth_text.png"),
+                Expanded(
+                  child: Container(
+                    height: 30,
+                    child: Image.asset(
+                        "assets/images/service_opening/opening_training_fifth_text.png"),
+                  ),
                 ),
                 verticalSpaceTiny,
                 verticalSpaceTiny,

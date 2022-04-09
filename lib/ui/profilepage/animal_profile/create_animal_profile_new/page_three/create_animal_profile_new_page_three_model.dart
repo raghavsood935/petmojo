@@ -152,12 +152,12 @@ class CreateAnimalProfileNewPageThreeViewModel extends BaseModel {
       variant: BottomSheetType.SelectBreedBottomSheet,
       title: "Select breed",
       customData: listOfAnimalBreed,
+      data:breedController.text,
     );
     if (result != null) {
       if (result.confirmed) {
         breedController.text = result.data
-            .toString()
-            .substring(0, result.data.toString().length - 1);
+            .toString();
         notifyListeners();
       }
     }

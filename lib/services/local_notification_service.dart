@@ -16,19 +16,19 @@ class LocalNotificationService {
             AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel);
 
-    await FirebaseMessaging.instance
-        .setForegroundNotificationPresentationOptions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
+    // await FirebaseMessaging.instance
+    //     .setForegroundNotificationPresentationOptions(
+    //   alert: true,
+    //   badge: true,
+    //   sound: true,
+    // );
 
     final InitializationSettings initializationSettings =
         InitializationSettings(
             android: AndroidInitializationSettings("@mipmap/ic_launcher"));
 
-    _notificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: (String? route) async {});
+    // _notificationsPlugin.initialize(initializationSettings,
+    //     onSelectNotification: (String? route) async {});
   }
 
   static Future _notificationDetails(RemoteMessage message) async {
