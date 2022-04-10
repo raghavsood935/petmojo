@@ -4,21 +4,69 @@ import 'package:tamely/ui/services/services_viewmodel.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/util/Color.dart';
 
-class ServicesPreviewSliding extends StatelessWidget {
+class ServicesPreviewSliding extends StatefulWidget {
   final ServicesViewModel model;
+
   const ServicesPreviewSliding({required this.model, Key? key})
       : super(key: key);
 
   @override
+  State<ServicesPreviewSliding> createState() => _ServicesPreviewSlidingState();
+}
+
+class _ServicesPreviewSlidingState extends State<ServicesPreviewSliding> {
+  int _current = 0;
+  final CarouselController _controller = CarouselController();
+  List<Widget> serviceItems = [];
+  @override
+  void initState() {
+    serviceItems = [
+      FreeTraining(model: widget.model),
+      FreeWalk(model: widget.model)
+    ];
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return CarouselSlider(
-        options: CarouselOptions(
-          viewportFraction: 1.0,
-          autoPlayInterval: Duration(seconds: 8),
-          height: 200,
-          autoPlay: true,
+    return Column(
+      children: [
+        CarouselSlider(
+          carouselController: _controller,
+          options: CarouselOptions(
+            viewportFraction: 1.0,
+            autoPlayInterval: Duration(seconds: 6),
+            height: 200,
+            autoPlay: true,
+            onPageChanged: (index, reason) {
+              setState(() {
+                _current = index;
+              });
+            },
+          ),
+          items: serviceItems,
         ),
-        items: [FreeTraining(model: model), FreeWalk(model: model)]);
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: serviceItems.asMap().entries.map((entry) {
+            return GestureDetector(
+              onTap: () => _controller.animateToPage(entry.key),
+              child: Container(
+                width: 8.0,
+                height: 8.0,
+                margin: EdgeInsets.symmetric(vertical: 6.0, horizontal: 2.0),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: (Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black)
+                        .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+              ),
+            );
+          }).toList(),
+        ),
+      ],
+    );
   }
 }
 
