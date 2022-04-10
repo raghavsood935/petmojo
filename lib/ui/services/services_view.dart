@@ -8,6 +8,7 @@ import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/play_btn.dart';
 
 class ServicesView extends StatelessWidget {
   final BuildContext menuScreenContext;
@@ -252,6 +253,11 @@ class ServicesView extends StatelessWidget {
                     enlargeCenterPage: true,
                   ),
                 ),
+              ),
+              verticalSpaceRegular,
+              GestureDetector(
+                child: VideoItem(),
+                onTap: model.goToVideosPage,
               ),
               verticalSpaceRegular,
               Padding(

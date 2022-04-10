@@ -106,6 +106,9 @@ class ServicesViewModel extends BaseModel {
   void goToECommercePage() {
     // _navigationService.navigateTo(Routes.eCommerceMainView);
   }
+  void goToVideosPage() {
+    _navigationService.navigateTo(Routes.videosSectionView);
+  }
 }
 
 class ServicesModel {

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/String.dart';
@@ -54,23 +55,23 @@ class AppointmentsView extends StatelessWidget {
                   visible: !model.hasAppointments,
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 25),
-                    child: Center(
-                      child: Column(
-                        children: [
-                          verticalSpaceLarge,
-                          verticalSpaceLarge,
-                          verticalSpaceLarge,
-                          Container(
-                            height: 77,
-                            width: 77,
-                            child: Image.asset(
-                              "assets/images/service_page_images/appointments.png",
-                            ),
-                          ),
-                          verticalSpaceRegular,
-                          AppText.headingThree(noAppointmentsTitle),
-                        ],
-                      ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        verticalSpaceLarge,
+                        verticalSpaceLarge,
+                        SvgPicture.asset(
+                          "assets/images/service_page_images/empty bag.svg",
+                        ),
+                        verticalSpaceSmall,
+                        AppText.title("You haven't booked in a while."),
+                        verticalSpaceSmall,
+                        AppText.body(
+                          "We are missing you!",
+                          color: colors.primary,
+                        ),
+                      ],
                     ),
                   ),
                 ),

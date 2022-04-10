@@ -193,22 +193,19 @@ class DGBookARunView extends ViewModelWidget<DGDogGroomingBookingViewModel> {
 
             Container(
               margin: EdgeInsets.all(10),
-              child: Row(
+              child: Stack(
                 children: [
-                  Expanded(
-                      flex: 3,
-                      child: Image(
-                          image: AssetImage(
-                              'assets/images/service_page_images/dog_grooming.png'))),
-                  Expanded(
-                      flex: 3,
-                      child: Text(
-                        dogGroomingProductDescription,
-                        style: body1BoldStyle.copyWith(
-                          color: Color(0xffff7597),
-                        ),
-                        textAlign: TextAlign.center,
-                      ))
+                  Image.asset(
+                      'assets/images/service_page_images/groomin_shampoo.png'),
+                  Positioned(
+                    bottom: 15,
+                    left: 55,
+                    right: 30,
+                    child: AppText.bodyBold(
+                      dogGroomingProductDescription,
+                      textAlign: TextAlign.center,
+                    ),
+                  )
                 ],
               ),
               decoration: BoxDecoration(

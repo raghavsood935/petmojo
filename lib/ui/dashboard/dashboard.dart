@@ -314,7 +314,7 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<DashboardViewModel>.reactive(
       viewModelBuilder: () => DashboardViewModel(),
-      onModelReady: (model) => model
+      onModelReady: (model) async => await model
           .init(
         context,
         widget.initialState,
