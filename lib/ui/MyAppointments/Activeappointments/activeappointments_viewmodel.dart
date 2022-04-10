@@ -54,39 +54,39 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
     //   showBooking: false,
     //   bookingId: "1234",
     // ),
-  //   ActiveAppointmentClass(
-  //     serviceType: ServiceType.DogTraining,
-  //     userName: "Joeylene Rivera",
-  //     userPicture:
-  //         "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg",
-  //     dogs: [
-  //       "Gracy",
-  //     ],
-  //     serviceName: dogTrainingTitle,
-  //     subscriptionType: "(Monthly, 1/day)",
-  //     dateAndTime: "24 Jan 2021 - 6-7PM",
-  //     status: ActiveAppointmentStatus.Accepted,
-  //     showReorder: false,
-  //     showBooking: false,
-  //     bookingId: "1234",
-  //   ),
-  // ActiveAppointmentClass(
-  //   serviceType: ServiceType.DogGrooming,
-  //   dogs: [
-  //     "Gracy",
-  //   ],
-  //   showBooking: true,
-  //   showReorder: false,
-  //   appointmentId: "A1111",
-  //   bookingId: "B1111",
-  //   subscriptionType: "One time",
-  //   dateAndTime: "24 Jan 2021",
-  //   status: ActiveAppointmentStatus.Pending,
-  //   serviceName: "Bath and Brush",
-  //   userName: "Joeylene Rivera",
-  //   userPicture:
-  //       "https://i.picsum.photos/id/696/200/300.jpg?hmac=Ukxvga_1GYxgfAqzwDhBPfVta6-hJKUhayVlI1yMIdk"
-  // )
+    //   ActiveAppointmentClass(
+    //     serviceType: ServiceType.DogTraining,
+    //     userName: "Joeylene Rivera",
+    //     userPicture:
+    //         "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg",
+    //     dogs: [
+    //       "Gracy",
+    //     ],
+    //     serviceName: dogTrainingTitle,
+    //     subscriptionType: "(Monthly, 1/day)",
+    //     dateAndTime: "24 Jan 2021 - 6-7PM",
+    //     status: ActiveAppointmentStatus.Accepted,
+    //     showReorder: false,
+    //     showBooking: false,
+    //     bookingId: "1234",
+    //   ),
+    // ActiveAppointmentClass(
+    //   serviceType: ServiceType.DogGrooming,
+    //   dogs: [
+    //     "Gracy",
+    //   ],
+    //   showBooking: true,
+    //   showReorder: false,
+    //   appointmentId: "A1111",
+    //   bookingId: "B1111",
+    //   subscriptionType: "One time",
+    //   dateAndTime: "24 Jan 2021",
+    //   status: ActiveAppointmentStatus.Pending,
+    //   serviceName: "Bath and Brush",
+    //   userName: "Joeylene Rivera",
+    //   userPicture:
+    //       "https://i.picsum.photos/id/696/200/300.jpg?hmac=Ukxvga_1GYxgfAqzwDhBPfVta6-hJKUhayVlI1yMIdk"
+    // )
   ];
 
   void toBooking(index) async {
@@ -99,19 +99,19 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
       _navigationService.navigateTo(
         Routes.dTDogTrainingBookingView,
       );
-    } else if(serviceType == ServiceType.DogGrooming){
+    } else if (serviceType == ServiceType.DogGrooming) {
       _navigationService.replaceWith(
-            Routes.dGPaymentView,
-            arguments: DGPaymentViewArguments(
-                amount: activeAppointments[index].amount!, bookingId: activeAppointments[index].bookingId!),
-          );
+        Routes.dGPaymentView,
+        arguments: DGPaymentViewArguments(
+            amount: activeAppointments[index].amount!,
+            bookingId: activeAppointments[index].bookingId!),
+      );
     }
   }
 
   // List<ActiveAppointmentClass> _activeAppointments = [
-    
-  // ];
 
+  // ];
 
   List<ActiveAppointmentClass> get activeAppointments => _activeAppointments;
 
@@ -128,14 +128,13 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
         Routes.dTAppointmentDetailsView,
         arguments: DTAppointmentDetailsViewArguments(appointmentId: bookingId!),
       );
-    } else if(serviceType == ServiceType.DogGrooming){
+    } else if (serviceType == ServiceType.DogGrooming) {
       await _navigationService.navigateTo(
         Routes.dGAppointmentDetailsView,
         arguments: DGAppointmentDetailsViewArguments(appointmentId: bookingId!),
       );
     }
     getActiveAppointments();
-    
   }
 
   final _tamelyApi = locator<TamelyApi>();
@@ -198,7 +197,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
     try {
       if (await Util.checkInternetConnectivity()) {
         _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
-        // _activeAppointments.clear();
+        _activeAppointments.clear();
 
         // Booked Appointments
         BaseResponse<MyAppointmentsResponse> resultTwo = await runBusyFuture(
@@ -333,14 +332,13 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             }
 
             _activeAppointments.add(newAppointment);
-            
           }
 
-          // Dog grooming 
+          // Dog grooming
           List<DogGroomingAppointmentListResponse>? dogGroomingAppointments =
               resultTwo.data!.dogGroomingAppointmentsList;
           for (var each in dogGroomingAppointments!) {
-            if(each.bookingDetails!.paymentDetails!.paymentStatus==0){
+            if (each.bookingDetails!.paymentDetails!.paymentStatus == 0) {
               // Status 0 is payment not done
               // Dont show it in bookings
               continue;
@@ -360,7 +358,8 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
                 "https://dogexpress.in/wp-content/uploads/2021/10/What-Dog-Walking-Services-Should-You-Choose-In-The-US.jpg";
 
             newAppointment.serviceType = ServiceType.DogGrooming;
-            newAppointment.serviceName = each.bookingDetails!.package!.description;
+            newAppointment.serviceName =
+                each.bookingDetails!.package!.description;
             newAppointment.amount = each.bookingDetails!.paymentDetails!.amount;
             // newAppointment.subscriptionType =
             //     "(${each.bookingDetails!.package!.subscriptionType} , ${each.bookingDetails!.package!.numberOfSessions}/day )";
@@ -368,10 +367,11 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             var formatter = new DateFormat('dd-MMM-yyyy');
 
             String? dateDummyString = each.bookingDetails!.startDate;
-            String timeString = each.bookingDetails!.sessionDetails!.sessionTime!;
+            String timeString =
+                each.bookingDetails!.sessionDetails!.sessionTime!;
             DateTime dummyDate = DateTime.parse(dateDummyString!);
             dateDummyString = formatter.format(dummyDate);
-            newAppointment.dateAndTime = dateDummyString+"\n"+timeString;
+            newAppointment.dateAndTime = dateDummyString + "\n" + timeString;
 
             List<PetDetailsResponse>? petDetails = each.petDetails;
             for (var one in petDetails!) {
@@ -385,11 +385,12 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             newAppointment.showReorder = false;
             newAppointment.showBooking = false;
             bool isPaid = false;
-            int paymentStatus = each.bookingDetails!.paymentDetails!.paymentStatus ?? 0;
-            if(paymentStatus == 1){
+            int paymentStatus =
+                each.bookingDetails!.paymentDetails!.paymentStatus ?? 0;
+            if (paymentStatus == 1) {
               isPaid = true;
             }
-            if(paymentStatus == 2){
+            if (paymentStatus == 2) {
               isPaid = false;
             }
             // Use showBooking parameter to show Pay Now

@@ -76,6 +76,7 @@ import 'package:tamely/ui/profilepage/completed_profile/follow_people_action_vie
 import 'package:tamely/ui/profilepage/count_info/list_of_followings_view.dart';
 import 'package:tamely/ui/profilepage/create_animal_profile/create_animal_page_viewe.dart';
 import 'package:tamely/ui/profilepage/profile_view.dart';
+import 'package:tamely/ui/services/videos_page/videos_page_view.dart';
 import 'package:tamely/ui/signup/signup_view.dart';
 import 'package:tamely/ui/startup/startup_view.dart';
 import 'package:tamely/widgets/full_screen_image.dart';
@@ -170,6 +171,7 @@ import '../ui/wallet/wallet_view.dart';
 
     // Services
     CupertinoRoute(page: AppointmentsView), // (Edit)
+    CupertinoRoute(page: VideosSectionView),
 
     // 1 - Dog Running service
 
@@ -199,7 +201,6 @@ import '../ui/wallet/wallet_view.dart';
     // At DogTrainingService / DtAppointment
     CupertinoRoute(page: DTAppointmentDetailsView), // (New)
     CupertinoRoute(page: DTReportCardView), // (New)
-
 
     // 3 - Dog grooming service
     // At DogGroomingService / DgBookingService

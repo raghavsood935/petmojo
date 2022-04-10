@@ -221,7 +221,7 @@ class _ProfileViewState extends State<ProfileView> {
                                             AppText.body1(
                                                 "${model.listOfMyAnimals.length}"),
                                             horizontalSpaceTiny,
-                                            AppText.body1("animal",
+                                            AppText.body1("pet",
                                                 color:
                                                     colors.kcMediumGreyColor),
                                           ],
@@ -393,7 +393,7 @@ class _ProfileViewState extends State<ProfileView> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              AppText.body("My Animals"),
+                              AppText.body("My Pets"),
                               IconButton(
                                 icon: Icon(model.isMyAnimalsVisibile
                                     ? Icons.arrow_drop_up

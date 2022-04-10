@@ -153,8 +153,8 @@ class DashboardViewModel extends FutureViewModel<void>
     if (checkUpdate ?? false) {
       _checkVersion(context);
     }
-    _controller = PersistentTabController(initialIndex: initialPageState);
-    fetchUserDetail(
+
+    await fetchUserDetail(
       initalState,
       isNeedToUpdateProfile,
       isHuman,
@@ -162,6 +162,7 @@ class DashboardViewModel extends FutureViewModel<void>
       petToken,
       initialPageState,
     );
+    _controller = PersistentTabController(initialIndex: initialPageState);
   }
 
   Future fetchUserDetail(

@@ -102,7 +102,7 @@ class _ProfileSelectionBottomNavbarState
           alignment: Alignment.center,
           decoration: BoxDecoration(
               color:
-              x == widget.initialState ? Colors.white : Colors.transparent,
+                  x == widget.initialState ? Colors.white : Colors.transparent,
               shape: BoxShape.circle),
           child: CustomCircularAvatar(
             radius: 33,

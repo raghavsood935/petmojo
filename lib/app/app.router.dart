@@ -97,6 +97,7 @@ import '../ui/profilepage/completed_profile/follow_people_action_view.dart';
 import '../ui/profilepage/count_info/list_of_followings_view.dart';
 import '../ui/profilepage/create_animal_profile/create_animal_page_viewe.dart';
 import '../ui/profilepage/profile_view.dart';
+import '../ui/services/videos_page/videos_page_view.dart';
 import '../ui/settings/settings_animal_view.dart';
 import '../ui/settings/settings_human_view.dart';
 import '../ui/signup/signup_view.dart';
@@ -176,6 +177,7 @@ class Routes {
   static const String walletView = '/wallet-view';
   static const String notificationMainView = '/notification-main-view';
   static const String appointmentsView = '/appointments-view';
+  static const String videosSectionView = '/videos-section-view';
   static const String dRDogRunningBookingView = '/d-rdog-running-booking-view';
   static const String locationPicker = '/location-picker';
   static const String dROpening = '/d-rOpening';
@@ -262,6 +264,7 @@ class Routes {
     walletView,
     notificationMainView,
     appointmentsView,
+    videosSectionView,
     dRDogRunningBookingView,
     locationPicker,
     dROpening,
@@ -358,6 +361,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.walletView, page: WalletView),
     RouteDef(Routes.notificationMainView, page: NotificationMainView),
     RouteDef(Routes.appointmentsView, page: AppointmentsView),
+    RouteDef(Routes.videosSectionView, page: VideosSectionView),
     RouteDef(Routes.dRDogRunningBookingView, page: DRDogRunningBookingView),
     RouteDef(Routes.locationPicker, page: LocationPicker),
     RouteDef(Routes.dROpening, page: DROpening),
@@ -972,6 +976,12 @@ class StackedRouter extends RouterBase {
     AppointmentsView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const AppointmentsView(),
+        settings: data,
+      );
+    },
+    VideosSectionView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const VideosSectionView(),
         settings: data,
       );
     },
