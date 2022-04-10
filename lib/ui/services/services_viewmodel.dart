@@ -29,7 +29,7 @@ class ServicesViewModel extends BaseModel {
       bgColor: Color(0xFFFEDFDD),
     ),
     ServicesModel(
-      title: "Grooming",
+      title: "Pet Grooming",
       imgPath: grommingImgPath,
       isHigDemand: false,
       bgColor: Color(0xFFFEDFDD),
