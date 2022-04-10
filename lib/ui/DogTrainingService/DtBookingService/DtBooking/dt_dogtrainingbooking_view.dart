@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
@@ -15,6 +18,8 @@ class DTDogTrainingBookingView extends StatefulWidget {
 }
 
 class _DTDogTrainingBookingViewState extends State<DTDogTrainingBookingView> {
+  final _dialogService = locator<DialogService>();
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<DTDogTrainingBookingViewModel>.reactive(
@@ -22,6 +27,12 @@ class _DTDogTrainingBookingViewState extends State<DTDogTrainingBookingView> {
         await model.getPets();
         await model.getFreeWalkStatus();
         model.checkValid();
+        _dialogService.showCustomDialog(
+          variant: DialogType.TrainingOfferDialog,
+          barrierDismissible: true,
+          title: "You are eligible for our special offer",
+          description: "Select a package and get upto 50% off!",
+        );
       },
       onDispose: (model) {
         model.dispose();

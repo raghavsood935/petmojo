@@ -593,8 +593,8 @@ String fiveTrainingSeeSeventeen = "Instruction Heal";
 String dogTrainingTitle = "Dog Training";
 
 // Dog Grooming
-String groomingFirstPageTitle = "Book Dog Grooming";
-String groomingSecondPageTitle = "Book Dog Grooming";
+String groomingFirstPageTitle = "Book Pet Grooming";
+String groomingSecondPageTitle = "Book Pet Grooming";
 String groomingThirdPageTitle = "Order Summary";
 
 // Dog Grooming
@@ -604,8 +604,8 @@ String groomingThirdPageTitle = "Order Summary";
 String bookAGroomingSubtitle =
     "Almost there! Select which package your pet needs. Call us on 9009004473 if any query.";
 
-String firstPageGroomingTitle = "Book Dog Grooming";
-String secondPageGroomingTitle = "Book Dog Grooming";
+String firstPageGroomingTitle = "Book Pet Grooming";
+String secondPageGroomingTitle = "Book Pet Grooming";
 String groomingTimeTitle = "Grooming time";
 
 String firstGroomingTitle = "Bath and brush";
@@ -661,7 +661,7 @@ String threeGroomingSeeTwelve = "Shaving and Hairstyling";
 String dogGroomingProductDescription =
     "Our grooming products are carefully selected to care for your pet’s skin coat and are non allergenic.";
 // My Appointments
-String dogGroomingTitle = "Dog Grooming";
+String dogGroomingTitle = "Pet Grooming";
 String groomingDetailsSubtitle = "Where do you want the grooming session?";
 
 String groomingTimingsOne = "6am-8am";

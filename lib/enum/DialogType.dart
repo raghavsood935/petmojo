@@ -4,4 +4,7 @@ enum DialogType {
   LocationDialog,
   ExitAppDialog,
   SuccessDialog,
+  TrainingOfferDialog,
+  WalkingOfferDialog,
+  GroomingOfferDialog
 }
