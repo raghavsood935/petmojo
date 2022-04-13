@@ -22,7 +22,8 @@ class _ServicesPreviewSlidingState extends State<ServicesPreviewSliding> {
   void initState() {
     serviceItems = [
       FreeTraining(model: widget.model),
-      FreeWalk(model: widget.model)
+      FreeWalk(model: widget.model),
+      FreeGrooming(model: widget.model),
     ];
     super.initState();
   }
@@ -186,6 +187,68 @@ class FreeTraining extends StatelessWidget {
               Expanded(
                 child: Image(
                   image: AssetImage("assets/images/free-training-image.png"),
+                ),
+              )
+            ],
+          )),
+    );
+  }
+}
+
+class FreeGrooming extends StatelessWidget {
+  final ServicesViewModel model;
+  const FreeGrooming({
+    required this.model,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => model.onServiceTap(0),
+      child: Container(
+          margin: EdgeInsets.fromLTRB(20, 20, 20, 10),
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.black38,
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText.bodyBig("Click here to get your"),
+                  AppText.bodyBig(
+                    "Dog Grooming",
+                    color: colors.primary,
+                  ),
+                  AppText.bodyBig("session today!"),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  TextButton(
+                      onPressed: () => model.onServiceTap(0),
+                      child: AppText.bodyBold(
+                        "Book Now!",
+                        color: colors.white,
+                      ),
+                      style: TextButton.styleFrom(
+                        backgroundColor: colors.primary,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 6,
+                        ),
+                      )),
+                ],
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: Image(
+                  image: AssetImage("assets/images/pet_grooming_sliding.png"),
                 ),
               )
             ],
