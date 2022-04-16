@@ -133,7 +133,7 @@ class DTPaymentViewModel extends FutureViewModel<void>
 
   void openCheckout() async {
     var options = {
-      'key': 'rzp_live_nW3NeCWRb24E5y',
+      'key': 'rzp_live_ztSkXyNvulc0CE',
       'amount': getPaymentDetailsResponse.amount,
       'name': '',
       'order_id': getPaymentDetailsResponse.orderId,

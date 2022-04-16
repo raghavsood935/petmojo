@@ -133,7 +133,7 @@ class DGPaymentViewModel extends FutureViewModel<void>
 
   void openCheckout() async {
     var options = {
-      'key': 'rzp_live_nW3NeCWRb24E5y',
+      'key': 'rzp_live_ztSkXyNvulc0CE',
       'amount': getPaymentDetailsResponse.amount,
       'name': '',
       'order_id': getPaymentDetailsResponse.orderId,
@@ -158,13 +158,14 @@ class DGPaymentViewModel extends FutureViewModel<void>
     _paymentFailed = false;
     notifyListeners();
     _dialogService.showCustomDialog(
-          variant: DialogType.SuccessDialog,
-          barrierDismissible: true,
-          title: "Payment Successful",
-          description: "Thank you! Your payment was successful and your booking is now confirmed. Enjoy your day :)",
-          data: toMyBookings,
-        );
-        print("pay later successful");
+      variant: DialogType.SuccessDialog,
+      barrierDismissible: true,
+      title: "Payment Successful",
+      description:
+          "Thank you! Your payment was successful and your booking is now confirmed. Enjoy your day :)",
+      data: toMyBookings,
+    );
+    print("pay later successful");
     setPaymentDetails();
     notifyListeners();
     // Do something when payment succeeds
@@ -189,8 +190,6 @@ class DGPaymentViewModel extends FutureViewModel<void>
   //   notifyListeners();
   //   // Do something when payment succeeds
   // }
-
-
 
   // Uncomment this.
   void _handlePaymentError(PaymentFailureResponse response) {
