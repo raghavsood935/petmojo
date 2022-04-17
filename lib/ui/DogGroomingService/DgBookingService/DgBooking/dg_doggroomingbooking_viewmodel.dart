@@ -43,6 +43,7 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
   final log = getLogger('DogRunningBookingView');
   final _navigationService = locator<NavigationService>();
   final _dialogService = locator<DialogService>();
+  final _snackbarSerice = locator<SnackbarService>();
   Future<void> init() async {
     print('init');
     await requestLocation();
@@ -290,7 +291,7 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
   double _subTotal = 1200;
   double get subTotal => _subTotal;
 
-  double _discount = 251;
+  double _discount = 451;
   double get discount => _discount;
 
   double _amount = 749;
@@ -326,14 +327,14 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
       _isOfferAvailable = false;
       _doneMultiply = false;
       _subTotal = 1200;
-      _discount = 251;
+      _discount = 451;
     } else if (selectedPlan == DogGroomingPackage.Two) {
       _isValid = true;
       _description = "Haircut and Styling";
       _subtitle = twoGroomingSubtitleOne;
       _subTotal = 1400;
       _amount = 949;
-      _discount = 251;
+      _discount = 451;
       _frequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = true;
@@ -344,12 +345,13 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
       _subtitle = threeGroomingSubtitleOne;
       _subTotal = 2500;
       _amount = 1499;
-      _discount = 1000;
+      _discount = 1001;
       _frequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = true;
       _doneMultiply = false;
     }
+    twoPets();
     setFirstPageValid();
     notifyListeners();
   }
@@ -643,10 +645,14 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
     if (noOfDogs == 2) {
       _amount = amount * 2;
       _savedAmount = savedAmount * 2;
+      _discount = discount * 2;
+      _subTotal = subTotal * 2;
       _doneMultiply = true;
     } else if (noOfDogs == 1 && doneMultiply) {
       _amount = amount / 2;
       _savedAmount = savedAmount / 2;
+      _discount = discount / 2;
+      _subTotal = subTotal / 2;
       _doneMultiply = false;
     }
     notifyListeners();

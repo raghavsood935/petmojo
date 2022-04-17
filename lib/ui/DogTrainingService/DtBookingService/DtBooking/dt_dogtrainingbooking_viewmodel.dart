@@ -329,6 +329,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _isOfferAvailable = true;
       _doneMultiply = false;
     }
+    twoPets();
     setFirstPageValid();
     notifyListeners();
   }
@@ -610,10 +611,14 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     if (noOfDogs == 2) {
       _amount = amount * 2;
       _savedAmount = savedAmount * 2;
+      _discount = discount * 2;
+      _subTotal = subTotal * 2;
       _doneMultiply = true;
     } else if (noOfDogs == 1 && doneMultiply) {
       _amount = amount / 2;
       _savedAmount = savedAmount / 2;
+      _discount = discount / 2;
+      _subTotal = subTotal / 2;
       _doneMultiply = false;
     }
     notifyListeners();

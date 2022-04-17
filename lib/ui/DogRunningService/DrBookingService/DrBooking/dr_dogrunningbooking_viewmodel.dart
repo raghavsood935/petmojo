@@ -312,6 +312,7 @@ class DRDogRunningBookingViewModel extends FormViewModel {
       _subTotal = 10600;
       _discount = 2100;
     }
+    twoPets();
     setFirstPageValid();
     notifyListeners();
   }
@@ -602,10 +603,14 @@ class DRDogRunningBookingViewModel extends FormViewModel {
     if (noOfDogs == 2) {
       _amount = amount * 2;
       _savedAmount = savedAmount * 2;
+      _discount = discount * 2;
+      _subTotal = subTotal * 2;
       _doneMultiply = true;
     } else if (noOfDogs == 1 && doneMultiply) {
       _amount = amount / 2;
       _savedAmount = savedAmount / 2;
+      _discount = discount / 2;
+      _subTotal = subTotal / 2;
       _doneMultiply = false;
     }
     notifyListeners();
@@ -1275,25 +1280,23 @@ class DRDogRunningBookingViewModel extends FormViewModel {
     notifyListeners();
   }
 
-  void openWhatsapp() async{
+  void openWhatsapp() async {
     final _snackBarService = locator<SnackbarService>();
     String whatsappNumber = helpWhatsappNumber;
     String messageToSend = whatsappMessageText;
-    String androidUrl = "whatsapp://send?phone=$whatsappNumber&text=$messageToSend";
+    String androidUrl =
+        "whatsapp://send?phone=$whatsappNumber&text=$messageToSend";
     String iosUrl = "https://wa.me/$whatsappNumber?text=$messageToSend";
-    if(Platform.isIOS){
-      if(await canLaunch(iosUrl)){
+    if (Platform.isIOS) {
+      if (await canLaunch(iosUrl)) {
         await launch(iosUrl);
-      }
-      else{
+      } else {
         _snackBarService.showSnackbar(message: "Could not open whatsapp");
       }
-    }
-    else{
-      if(await canLaunch(androidUrl)){
+    } else {
+      if (await canLaunch(androidUrl)) {
         await launch(androidUrl);
-      }
-      else{
+      } else {
         _snackBarService.showSnackbar(message: "Could not open whatsapp");
       }
     }

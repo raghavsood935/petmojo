@@ -250,11 +250,11 @@ class ServicesView extends StatelessWidget {
                 ),
               ),
               verticalSpaceRegular,
-              GestureDetector(
-                child: VideoItem(),
-                onTap: model.goToVideosPage,
-              ),
-              verticalSpaceRegular,
+              // GestureDetector(
+              //   child: VideoItem(),
+              //   onTap: model.goToVideosPage,
+              // ),
+              // verticalSpaceRegular,
               Padding(
                 padding: commonPaddding,
                 child: AppText.body1("Upcoming Services"),
