@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
@@ -15,6 +18,8 @@ class DTDogTrainingBookingView extends StatefulWidget {
 }
 
 class _DTDogTrainingBookingViewState extends State<DTDogTrainingBookingView> {
+  final _dialogService = locator<DialogService>();
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<DTDogTrainingBookingViewModel>.reactive(
@@ -22,6 +27,12 @@ class _DTDogTrainingBookingViewState extends State<DTDogTrainingBookingView> {
         await model.getPets();
         await model.getFreeWalkStatus();
         model.checkValid();
+        _dialogService.showCustomDialog(
+          variant: DialogType.TrainingOfferDialog,
+          barrierDismissible: true,
+          title: "You are eligible for our special offer",
+          description: "Select a package and get upto 50% off!",
+        );
       },
       onDispose: (model) {
         model.dispose();
@@ -129,26 +140,52 @@ class _DTDogTrainingBookingViewState extends State<DTDogTrainingBookingView> {
                       SystemChannels.textInput.invokeMethod('TextInput.hide');
                     }
                   : null,
-              child: Container(
-                width: double.infinity,
-                height: 50,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color:
-                      model.isValid ? colors.primary : colors.kcLightGreyColor,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: model.loading
-                    ? CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation(Colors.white),
-                      )
-                    : Text(
-                        model.mainBtnTitles[model.currentIndex],
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      width: double.infinity,
+                      height: 50,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: model.isValid
+                            ? colors.primary
+                            : colors.kcLightGreyColor,
+                        borderRadius: BorderRadius.circular(4),
                       ),
+                      child: model.loading
+                          ? CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation(Colors.white),
+                            )
+                          : Text(
+                              model.mainBtnTitles[model.currentIndex],
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14),
+                            ),
+                    ),
+                  ),
+                  horizontalSpaceSmall,
+                  GestureDetector(
+                    onTap: () {
+                      model.openWhatsapp();
+                    },
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      padding: EdgeInsets.all(4),
+                      // rounded grey border
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: colors.kcLightGreyColor),
+                      ),
+                      child: Image(
+                        image: AssetImage("assets/images/whatsapp_icon.png"),
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
           ),

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoder/geocoder.dart';
@@ -33,6 +34,7 @@ import 'package:tamely/services/user_service.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/location_helper.dart';
 import 'package:tamely/util/utils.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'DgBookarun/dg_bookarun_view.dart';
 import 'DgBookingdetails/dg_bookingdetails_view.dart';
 import 'DgBookingOrderSummary/dg_booking_ordersummary_view.dart';
@@ -40,7 +42,8 @@ import 'DgBookingOrderSummary/dg_booking_ordersummary_view.dart';
 class DGDogGroomingBookingViewModel extends FormViewModel {
   final log = getLogger('DogRunningBookingView');
   final _navigationService = locator<NavigationService>();
-    final _dialogService = locator<DialogService>();
+  final _dialogService = locator<DialogService>();
+  final _snackbarSerice = locator<SnackbarService>();
   Future<void> init() async {
     print('init');
     await requestLocation();
@@ -73,11 +76,7 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
   final snackBarService = locator<SnackbarService>();
   final _tamelyApi = locator<TamelyApi>();
 
-  List<bool> _currentStep = [
-    true,
-    false,
-    false
-  ];
+  List<bool> _currentStep = [true, false, false];
   List<Widget> _pages = [
     DGBookARunView(),
     DGBookingDetailsView(),
@@ -110,8 +109,7 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
       _isValid = true;
       controller.animateToPage(currentIndex - 1,
           duration: Duration(milliseconds: 500), curve: Curves.easeIn);
-    }
-    else{
+    } else {
       _isValid = true;
       controller.animateToPage(currentIndex - 1,
           duration: Duration(milliseconds: 500), curve: Curves.easeIn);
@@ -156,13 +154,12 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
       await requestLocation();
       _isValid = false;
       secondPageValidation("s");
-    } else if(currentIndex == 1){
+    } else if (currentIndex == 1) {
       bookARun();
       controller.animateToPage(currentIndex + 1,
           duration: Duration(milliseconds: 500), curve: Curves.easeIn);
     } else if (currentIndex == 2) {
-      
-      if(paymentMethodIndex==0){
+      if (paymentMethodIndex == 0) {
         // Pay now
         if (bookingId != "") {
           _navigationService.replaceWith(
@@ -170,50 +167,47 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
             arguments: DGPaymentViewArguments(
                 amount: amount.toInt(), bookingId: bookingId),
           );
-        }
-        else{
-          
+        } else {
           snackBarService.showSnackbar(
             message: "Please wait for the booking to be confirmed",
           );
           return;
         }
-      }
-      else{
+      } else {
         try {
-      if (await Util.checkInternetConnectivity()) {
-        GetPaymentDetailsBody getPaymentDetailsBody = GetPaymentDetailsBody(
-            amount.toInt().toString(),
-            bookingId,
+          if (await Util.checkInternetConnectivity()) {
+            GetPaymentDetailsBody getPaymentDetailsBody = GetPaymentDetailsBody(
+              amount.toInt().toString(),
+              bookingId,
             );
             print(getPaymentDetailsBody.toJson());
-        BaseResponse<SendDataResponse> result = await runBusyFuture(
-            _tamelyApi.payLaterGrooming(getPaymentDetailsBody),
-            throwException: true);
-            if(result.data!=null && result.data!.success==true){
-               await _dialogService.showCustomDialog(
-          variant: DialogType.SuccessDialog,
-          barrierDismissible: true,
-          title: "Pay Later",
-          description: "Thank you! You have successfully claimed to pay at the end of the service. Your booking is now confirmed. Enjoy your day :)",
-          data: toMyBookings
-        );
-        print("pay later successful");
+            BaseResponse<SendDataResponse> result = await runBusyFuture(
+                _tamelyApi.payLaterGrooming(getPaymentDetailsBody),
+                throwException: true);
+            if (result.data != null && result.data!.success == true) {
+              await _dialogService.showCustomDialog(
+                  variant: DialogType.SuccessDialog,
+                  barrierDismissible: true,
+                  title: "Pay Later",
+                  description:
+                      "Thank you! You have successfully claimed to pay at the end of the service. Your booking is now confirmed. Enjoy your day :)",
+                  data: toMyBookings);
+              print("pay later successful");
             }
+            notifyListeners();
+          } else {
+            snackBarService.showSnackbar(message: "No Internet connection");
+          }
+        } on ServerError catch (e) {
+          log.e(e.toString());
+        }
         notifyListeners();
-      } else {
-        snackBarService.showSnackbar(message: "No Internet connection");
-      }
-    } on ServerError catch (e) {
-      log.e(e.toString());
-    }
-    notifyListeners();
       }
     }
     notifyListeners();
   }
 
-   void toMyBookings() async {
+  void toMyBookings() async {
     _navigationService.back();
     _navigationService.back();
     _navigationService.back();
@@ -297,7 +291,7 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
   double _subTotal = 1200;
   double get subTotal => _subTotal;
 
-  double _discount = 251;
+  double _discount = 451;
   double get discount => _discount;
 
   double _amount = 749;
@@ -333,14 +327,14 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
       _isOfferAvailable = false;
       _doneMultiply = false;
       _subTotal = 1200;
-      _discount = 251;
+      _discount = 451;
     } else if (selectedPlan == DogGroomingPackage.Two) {
       _isValid = true;
       _description = "Haircut and Styling";
       _subtitle = twoGroomingSubtitleOne;
       _subTotal = 1400;
       _amount = 949;
-      _discount = 251;
+      _discount = 451;
       _frequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = true;
@@ -351,12 +345,13 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
       _subtitle = threeGroomingSubtitleOne;
       _subTotal = 2500;
       _amount = 1499;
-      _discount = 1000;
+      _discount = 1001;
       _frequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = true;
       _doneMultiply = false;
-    } 
+    }
+    twoPets();
     setFirstPageValid();
     notifyListeners();
   }
@@ -383,15 +378,15 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
   Future<void> applyCoupon() async {
     // Dummy code apply
     String? couponCode = promoCodeController.text;
-    if(couponCode.toUpperCase() == "PAWSOMEOFFER"){
-      int? reducedAmountInt = _subTotal~/10;
-      double? reducedAmountDouble = _subTotal/10;
+    if (couponCode.toUpperCase() == "PAWSOMEOFFER") {
+      int? reducedAmountInt = _subTotal ~/ 10;
+      double? reducedAmountDouble = _subTotal / 10;
       _isOfferValid = true;
       _promoCode = couponCode.toUpperCase();
       _savedAmount = reducedAmountDouble;
       _amount = amount - reducedAmountDouble;
-    notifyListeners();
-    return;
+      notifyListeners();
+      return;
     }
     notifyListeners();
     couponCode = promoCodeController.text;
@@ -650,10 +645,14 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
     if (noOfDogs == 2) {
       _amount = amount * 2;
       _savedAmount = savedAmount * 2;
+      _discount = discount * 2;
+      _subTotal = subTotal * 2;
       _doneMultiply = true;
     } else if (noOfDogs == 1 && doneMultiply) {
       _amount = amount / 2;
       _savedAmount = savedAmount / 2;
+      _discount = discount / 2;
+      _subTotal = subTotal / 2;
       _doneMultiply = false;
     }
     notifyListeners();
@@ -1087,7 +1086,7 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
     notifyListeners();
     secondPageValidation('s');
   }
-  
+
   void setSelectedWeekday6() {
     _weekDayTiming = groomingTimingsSix;
     _selectedWeekdayOne = false;
@@ -1129,8 +1128,6 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
     notifyListeners();
     secondPageValidation('s');
   }
-
-  
 
   // -- Timings - Weekends
 
@@ -1330,7 +1327,8 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
     PackageGroomingBody packageBody =
         PackageGroomingBody(_description, _amount.toString());
 
-    PetGroomingTimeGroomingBody sessionDetails = PetGroomingTimeGroomingBody(weekDayTiming);
+    PetGroomingTimeGroomingBody sessionDetails =
+        PetGroomingTimeGroomingBody(weekDayTiming);
     //
     try {
       if (await Util.checkInternetConnectivity()) {
@@ -1359,19 +1357,42 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
     _loading = false;
     notifyListeners();
   }
+
   int _paymentMethodIndex = 0;
   int get paymentMethodIndex => _paymentMethodIndex;
 
-  void selectPaymentMethod(int selectedPaymentMethodIndex){
+  void selectPaymentMethod(int selectedPaymentMethodIndex) {
     _paymentMethodIndex = selectedPaymentMethodIndex;
-    if(selectedPaymentMethodIndex==0){
+    if (selectedPaymentMethodIndex == 0) {
       _mainBtnTitles[2] = payButton;
-    }
-    else{
+    } else {
       _mainBtnTitles[2] = continueButton;
     }
     notifyListeners();
   }
+
+  void openWhatsapp() async {
+    final _snackBarService = locator<SnackbarService>();
+    String whatsappNumber = helpWhatsappNumber;
+    String messageToSend = whatsappMessageText;
+    String androidUrl =
+        "whatsapp://send?phone=$whatsappNumber&text=$messageToSend";
+    String iosUrl = "https://wa.me/$whatsappNumber?text=$messageToSend";
+    if (Platform.isIOS) {
+      if (await canLaunch(iosUrl)) {
+        await launch(iosUrl);
+      } else {
+        _snackBarService.showSnackbar(message: "Could not open whatsapp");
+      }
+    } else {
+      if (await canLaunch(androidUrl)) {
+        await launch(androidUrl);
+      } else {
+        _snackBarService.showSnackbar(message: "Could not open whatsapp");
+      }
+    }
+  }
+
   @override
   void setFormStatus() {}
 }

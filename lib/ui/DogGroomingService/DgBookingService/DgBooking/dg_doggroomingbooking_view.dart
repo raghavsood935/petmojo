@@ -122,34 +122,61 @@ class _DGDogGroomingBookingViewState extends State<DGDogGroomingBookingView> {
           child: Container(
             color: colors.white,
             padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10.0),
-            child: GestureDetector(
-              onTap: model.isValid
-                  ? () {
-                      model.onMainButtonPressed();
-                      SystemChannels.textInput.invokeMethod('TextInput.hide');
-                    }
-                  : null,
-              child: Container(
-                width: double.infinity,
-                height: 50,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color:
-                      model.isValid ? colors.primary : colors.kcLightGreyColor,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: model.loading
-                    ? CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation(Colors.white),
-                      )
-                    : Text(
-                        model.mainBtnTitles[model.currentIndex],
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14),
+            child: Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: model.isValid
+                        ? () {
+                            model.onMainButtonPressed();
+                            SystemChannels.textInput
+                                .invokeMethod('TextInput.hide');
+                          }
+                        : null,
+                    child: Container(
+                      width: double.infinity,
+                      height: 50,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: model.isValid
+                            ? colors.primary
+                            : colors.kcLightGreyColor,
+                        borderRadius: BorderRadius.circular(4),
                       ),
-              ),
+                      child: model.loading
+                          ? CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation(Colors.white),
+                            )
+                          : Text(
+                              model.mainBtnTitles[model.currentIndex],
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14),
+                            ),
+                    ),
+                  ),
+                ),
+                horizontalSpaceSmall,
+                GestureDetector(
+                  onTap: () {
+                    model.openWhatsapp();
+                  },
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    padding: EdgeInsets.all(4),
+                    // rounded grey border
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: colors.kcLightGreyColor),
+                    ),
+                    child: Image(
+                      image: AssetImage("assets/images/whatsapp_icon.png"),
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
         ),

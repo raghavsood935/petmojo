@@ -8,6 +8,8 @@ import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/play_btn.dart';
+import 'package:tamely/widgets/services_preview_sliding.dart';
 
 class ServicesView extends StatelessWidget {
   final BuildContext menuScreenContext;
@@ -72,13 +74,7 @@ class ServicesView extends StatelessWidget {
                   ],
                 ),
               ),
-              CarouselSlider(
-                  options: CarouselOptions(
-                    viewportFraction: 1.0,
-                    height: 200,
-                    autoPlay: true,
-                  ),
-                  items: [FreeTraining(model: model), FreeWalk(model: model)]),
+              ServicesPreviewSliding(model: model),
               verticalSpaceRegular,
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -99,88 +95,28 @@ class ServicesView extends StatelessWidget {
               verticalSpaceTiny,
               Row(
                 children: [
-                  GestureDetector(
-                    onTap: () => model.goToECommercePage(),
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      margin: EdgeInsets.only(left: 20),
-                      width: screenWidthPercentage(context, percentage: 0.43),
-                      height: screenWidthPercentage(context, percentage: 0.45),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: Colors.black38)
-                          // color: Color(0XFFFEDFDD),
-                          ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              SizedBox(width: 40),
-                              Icon(
-                                Icons.flash_on_sharp,
-                                color: Colors.yellow,
-                                size: 11,
-                              ),
-                              AppText.tiny(
-                                "High Demand   ",
-                                color: colors.black,
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Column(
-                                children: [
-                                  AppText.body("45 mins"),
-                                  AppText.bodyBold("Doorstep"),
-                                  AppText.bodyBold("Delivery"),
-                                ],
-                              ),
-                              Expanded(
-                                  child: Image(
-                                image: AssetImage(
-                                    "assets/images/delivery_truck.png"),
-                              ))
-                            ],
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                color: colors.primary),
-                            child: AppText.caption(
-                              "Shop Now",
-                              color: colors.white,
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => model.goToECommercePage(),
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        margin: EdgeInsets.only(left: 20),
+                        width: double.infinity,
+                        height:
+                            screenWidthPercentage(context, percentage: 0.45),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(color: Colors.black38)
+                            // color: Color(0XFFFEDFDD),
                             ),
-                            padding: EdgeInsets.all(5),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 20),
-                  GestureDetector(
-                    onTap: () => model.onServiceTap(3),
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      width: screenWidthPercentage(context, percentage: 0.42),
-                      height: screenWidthPercentage(context, percentage: 0.45),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: Color(0XFFFEDFDD),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Visibility(
-                            visible:
-                                model.listOfServices[2].isHigDemand ?? true,
-                            child: Row(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
+                                SizedBox(width: 40),
                                 Icon(
                                   Icons.flash_on_sharp,
                                   color: Colors.yellow,
@@ -192,20 +128,87 @@ class ServicesView extends StatelessWidget {
                                 ),
                               ],
                             ),
-                          ),
-                          Image.asset(
-                            model.listOfServices[2].imgPath ?? "",
-                            colorBlendMode: BlendMode.darken,
-                            color: model.listOfServices[2].bgColor,
-                            height: screenWidthPercentage(context,
-                                percentage: 0.28),
-                          ),
-                          AppText.bodyBold(model.listOfServices[2].title ?? ""),
-                        ],
+                            Row(
+                              children: [
+                                Column(
+                                  children: [
+                                    AppText.body("45 mins"),
+                                    AppText.bodyBold("Doorstep"),
+                                    AppText.bodyBold("Delivery"),
+                                  ],
+                                ),
+                                Expanded(
+                                    child: Image(
+                                  image: AssetImage(
+                                      "assets/images/delivery_truck.png"),
+                                ))
+                              ],
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4),
+                                  color: colors.primary),
+                              child: AppText.caption(
+                                "Shop Now",
+                                color: colors.white,
+                              ),
+                              padding: EdgeInsets.all(5),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                  SizedBox(width: 20),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => model.onServiceTap(3),
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        margin: EdgeInsets.only(right: 20),
+                        width: double.infinity,
+                        height:
+                            screenWidthPercentage(context, percentage: 0.45),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: Color(0XFFFEDFDD),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Visibility(
+                              visible:
+                                  model.listOfServices[2].isHigDemand ?? true,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Icon(
+                                    Icons.flash_on_sharp,
+                                    color: Colors.yellow,
+                                    size: 11,
+                                  ),
+                                  AppText.tiny(
+                                    "High Demand   ",
+                                    color: colors.black,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Image.asset(
+                              model.listOfServices[2].imgPath ?? "",
+                              colorBlendMode: BlendMode.darken,
+                              color: model.listOfServices[2].bgColor,
+                              height: screenWidthPercentage(context,
+                                  percentage: 0.28),
+                            ),
+                            AppText.bodyBold(
+                                model.listOfServices[2].title ?? ""),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
               verticalSpaceMedium,
@@ -247,6 +250,11 @@ class ServicesView extends StatelessWidget {
                 ),
               ),
               verticalSpaceRegular,
+              // GestureDetector(
+              //   child: VideoItem(),
+              //   onTap: model.goToVideosPage,
+              // ),
+              // verticalSpaceRegular,
               Padding(
                 padding: commonPaddding,
                 child: AppText.body1("Upcoming Services"),
@@ -267,13 +275,7 @@ class ServicesView extends StatelessWidget {
                 ),
               ),
               verticalSpaceTiny,
-              CarouselSlider(
-                  options: CarouselOptions(
-                    viewportFraction: 1.0,
-                    height: 200,
-                    autoPlay: true,
-                  ),
-                  items: [FreeTraining(model: model), FreeWalk(model: model)]),
+              ServicesPreviewSliding(model: model),
               // Padding(
               //   padding:
               //       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
@@ -505,129 +507,5 @@ class _TestimonialState extends State<Testimonial> {
             AppText.caption(widget.customerReview),
           ],
         ));
-  }
-}
-
-class FreeTraining extends StatelessWidget {
-  final ServicesViewModel model;
-  const FreeTraining({
-    required this.model,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => model.onServiceTap(1),
-      child: Container(
-          margin: EdgeInsets.fromLTRB(20, 20, 20, 10),
-          padding: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.black38,
-            ),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText.bodyBig("Click here to get your"),
-                  AppText.bodyBig(
-                    "Free Dog Training",
-                    color: colors.primary,
-                  ),
-                  AppText.bodyBig("Trial today!"),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  TextButton(
-                      onPressed: () => model.onServiceTap(1),
-                      child: AppText.bodyBold(
-                        "Book FREE Trial",
-                        color: colors.white,
-                      ),
-                      style: TextButton.styleFrom(
-                        backgroundColor: colors.primary,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 6,
-                        ),
-                      )),
-                ],
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: Image(
-                  image: AssetImage("assets/images/free-training-image.png"),
-                ),
-              )
-            ],
-          )),
-    );
-  }
-}
-
-class FreeWalk extends StatelessWidget {
-  final ServicesViewModel model;
-  const FreeWalk({
-    required this.model,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => model.onServiceTap(0),
-      child: Container(
-          margin: EdgeInsets.fromLTRB(20, 20, 20, 10),
-          padding: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.black38,
-            ),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText.bodyBig("Click here to get your"),
-                  AppText.bodyBig(
-                    "Free Dog Walking",
-                    color: colors.primary,
-                  ),
-                  AppText.bodyBig("Trial today!"),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  TextButton(
-                      onPressed: () => model.onServiceTap(1),
-                      child: AppText.bodyBold(
-                        "Book FREE Trial",
-                        color: colors.white,
-                      ),
-                      style: TextButton.styleFrom(
-                        backgroundColor: colors.primary,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 6,
-                        ),
-                      )),
-                ],
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: Image(
-                  image: AssetImage("assets/images/dog_walking_free.png"),
-                ),
-              )
-            ],
-          )),
-    );
   }
 }

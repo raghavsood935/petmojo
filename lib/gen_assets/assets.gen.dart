@@ -345,6 +345,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/wallet.svg
   SvgGenImage get wallet => const SvgGenImage('assets/images/wallet.svg');
 
+  /// File path: assets/images/whatsapp_icon.png
+  AssetGenImage get whatsappIcon =>
+      const AssetGenImage('assets/images/whatsapp_icon.png');
+
   /// File path: assets/images/workflow_banner1.png
   AssetGenImage get workflowBanner1 =>
       const AssetGenImage('assets/images/workflow_banner1.png');
@@ -837,6 +841,10 @@ class $AssetsImagesServicePageImagesGen {
   /// File path: assets/images/service_page_images/doorstep_deliivery.png
   AssetGenImage get doorstepDeliivery => const AssetGenImage(
       'assets/images/service_page_images/doorstep_deliivery.png');
+
+  /// File path: assets/images/service_page_images/empty bag.svg
+  SvgGenImage get emptyBag =>
+      const SvgGenImage('assets/images/service_page_images/empty bag.svg');
 
   /// File path: assets/images/service_page_images/grooming.png
   AssetGenImage get grooming =>

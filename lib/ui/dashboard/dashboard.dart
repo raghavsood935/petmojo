@@ -247,52 +247,74 @@ class _DashboardState extends State<Dashboard> {
 
   List<BottomNavigationBarItem> _getBottomNavBarItems(model) {
     return [
-    BottomNavigationBarItem(
-      icon: Icon(Icons.home, size:24,),
-      activeIcon: Icon(Icons.home, size:24, color: colors.primary,),
-      label: "Home",
-      backgroundColor: colors.white,
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.people, size:24,),
-      activeIcon: Icon(Icons.people, size:24,
-        color: colors.primary,
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.home,
+          size: 24,
+        ),
+        activeIcon: Icon(
+          Icons.home,
+          size: 24,
+          color: colors.primary,
+        ),
+        label: "Home",
+        backgroundColor: colors.white,
       ),
-      label: "Community",
-      backgroundColor: colors.white,
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.explore, size:24,),
-      activeIcon: Icon(Icons.explore, size:24,
-        color: colors.primary,
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.people,
+          size: 24,
+        ),
+        activeIcon: Icon(
+          Icons.people,
+          size: 24,
+          color: colors.primary,
+        ),
+        label: "Community",
+        backgroundColor: colors.white,
       ),
-      label: "For you",
-      backgroundColor: colors.white,
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.calendar_today, size:24,),
-      activeIcon: Icon(Icons.calendar_today, size:24,
-        color: colors.primary,
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.explore,
+          size: 24,
+        ),
+        activeIcon: Icon(
+          Icons.explore,
+          size: 24,
+          color: colors.primary,
+        ),
+        label: "For you",
+        backgroundColor: colors.white,
       ),
-      label: "Bookings",
-      backgroundColor: colors.white,
-    ),
-    BottomNavigationBarItem(
-      icon: ProfileSelectionBottomNavbar(
-        listOfProfiles: model.listOfProfiles,
-        initialState: model.initialState,
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.calendar_today,
+          size: 24,
+        ),
+        activeIcon: Icon(
+          Icons.calendar_today,
+          size: 24,
+          color: colors.primary,
+        ),
+        label: "Bookings",
+        backgroundColor: colors.white,
       ),
-      label: "Profile",
-      backgroundColor: colors.white,
-    ),
-  ];
+      BottomNavigationBarItem(
+        icon: ProfileSelectionBottomNavbar(
+          listOfProfiles: model.listOfProfiles,
+          initialState: model.initialState,
+        ),
+        label: "Profile",
+        backgroundColor: colors.white,
+      ),
+    ];
   }
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<DashboardViewModel>.reactive(
       viewModelBuilder: () => DashboardViewModel(),
-      onModelReady: (model) => model
+      onModelReady: (model) async => await model
           .init(
         context,
         widget.initialState,
@@ -349,6 +371,17 @@ class _DashboardState extends State<Dashboard> {
                         children: _buildDrawerScreens(context, model)),
                   ),
                 ),
+                floatingActionButton: index == 0
+                    ? FloatingActionButton(
+                        onPressed: () {
+                          model.openWhatsapp();
+                        },
+                        child: Image(
+                            image:
+                                AssetImage("assets/images/whatsapp_icon.png"),
+                            height: 40),
+                      )
+                    : null,
                 body: _buildScreens(context, model)[index],
                 bottomNavigationBar: BottomNavigationBar(
                   elevation: 8.0,
@@ -364,15 +397,15 @@ class _DashboardState extends State<Dashboard> {
                   items: _getBottomNavBarItems(model),
                   currentIndex: index,
                   onTap: (int x) {
-                    if(x==3){
+                    if (x == 3) {
                       // open my bookings
                       final _navigationService = locator<NavigationService>();
                       _navigationService.navigateTo(Routes.appointmentsView);
+                    } else {
+                      setState(() {
+                        index = x;
+                      });
                     }
-                    else{
-                    setState(() {
-                      index = x;
-                    });}
                   },
                 ),
                 backgroundColor: colors.white,

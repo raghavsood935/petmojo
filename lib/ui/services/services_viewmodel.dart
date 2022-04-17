@@ -29,7 +29,7 @@ class ServicesViewModel extends BaseModel {
       bgColor: Color(0xFFFEDFDD),
     ),
     ServicesModel(
-      title: "Grooming",
+      title: "Pet Grooming",
       imgPath: grommingImgPath,
       isHigDemand: false,
       bgColor: Color(0xFFFEDFDD),
@@ -105,6 +105,9 @@ class ServicesViewModel extends BaseModel {
 
   void goToECommercePage() {
     // _navigationService.navigateTo(Routes.eCommerceMainView);
+  }
+  void goToVideosPage() {
+    _navigationService.navigateTo(Routes.videosSectionView);
   }
 }
 

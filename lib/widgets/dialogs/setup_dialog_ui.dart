@@ -5,6 +5,7 @@ import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/widgets/dialogs/exit_app_dialog_ui.dart';
 import 'package:tamely/widgets/dialogs/image_pop_dailog_view.dart';
 import 'package:tamely/widgets/dialogs/success_dialog.dart';
+import 'package:tamely/widgets/dialogs/training_offer_dialog.dart';
 import 'package:tamely/widgets/fullscreen_loading_indicator.dart';
 
 import 'basic_dialog.dart';
@@ -38,6 +39,12 @@ void setupDialogUi() {
           child: SuccessDialog(
             dialogRequest: dialogRequest,
             onDialogTap: completer,
+          ),
+        ),
+    DialogType.TrainingOfferDialog: (context, dialogRequest, completer) =>
+        Dialog(
+          child: TrainingOfferDialog(
+            dialogRequest: dialogRequest,
           ),
         ),
   };

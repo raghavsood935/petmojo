@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoder/geocoder.dart';
@@ -28,6 +29,7 @@ import 'package:tamely/services/user_service.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/location_helper.dart';
 import 'package:tamely/util/utils.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'DtBookarun/dt_bookarun_view.dart';
 import 'DtBookingdetails/dt_bookingdetails_view.dart';
 
@@ -327,6 +329,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _isOfferAvailable = true;
       _doneMultiply = false;
     }
+    twoPets();
     setFirstPageValid();
     notifyListeners();
   }
@@ -608,10 +611,14 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     if (noOfDogs == 2) {
       _amount = amount * 2;
       _savedAmount = savedAmount * 2;
+      _discount = discount * 2;
+      _subTotal = subTotal * 2;
       _doneMultiply = true;
     } else if (noOfDogs == 1 && doneMultiply) {
       _amount = amount / 2;
       _savedAmount = savedAmount / 2;
+      _discount = discount / 2;
+      _subTotal = subTotal / 2;
       _doneMultiply = false;
     }
     notifyListeners();
@@ -1267,6 +1274,28 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     }
     _loading = false;
     notifyListeners();
+  }
+
+  void openWhatsapp() async {
+    final _snackBarService = locator<SnackbarService>();
+    String whatsappNumber = helpWhatsappNumber;
+    String messageToSend = whatsappMessageText;
+    String androidUrl =
+        "whatsapp://send?phone=$whatsappNumber&text=$messageToSend";
+    String iosUrl = "https://wa.me/$whatsappNumber?text=$messageToSend";
+    if (Platform.isIOS) {
+      if (await canLaunch(iosUrl)) {
+        await launch(iosUrl);
+      } else {
+        _snackBarService.showSnackbar(message: "Could not open whatsapp");
+      }
+    } else {
+      if (await canLaunch(androidUrl)) {
+        await launch(androidUrl);
+      } else {
+        _snackBarService.showSnackbar(message: "Could not open whatsapp");
+      }
+    }
   }
 
   @override
