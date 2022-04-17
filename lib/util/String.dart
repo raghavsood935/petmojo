@@ -625,9 +625,9 @@ String firstGroomingRateNew = "₹749/-";
 String twoGroomingRateNew = "₹949/-";
 String threeGroomingRateNew = "₹1,499/-";
 
-String firstGroomingRateLabel = "(You save 251)";
-String twoGroomingRateLabel = "(You save 251)";
-String threeGroomingRateLabel = "(You save 1,000)";
+String firstGroomingRateLabel = "(You save 451)";
+String twoGroomingRateLabel = "(You save 451)";
+String threeGroomingRateLabel = "(You save 1,001)";
 
 // See more
 
