@@ -13,6 +13,7 @@ import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
+import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/enum/dog_training_package.dart';
 import 'package:tamely/enum/no_of_runs.dart';
 import 'package:tamely/models/book_a_run_response.dart';
@@ -36,6 +37,7 @@ import 'DtBookingdetails/dt_bookingdetails_view.dart';
 class DTDogTrainingBookingViewModel extends FormViewModel {
   final log = getLogger('DogRunningBookingView');
   final _navigationService = locator<NavigationService>();
+  final _dialogService = locator<DialogService>();
 
   Future<void> init() async {
     print('init');
@@ -1295,6 +1297,42 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       } else {
         _snackBarService.showSnackbar(message: "Could not open whatsapp");
       }
+    }
+  }
+
+  Future showSpecialOfferDialog() async {
+    var result = await _dialogService.showCustomDialog(
+      variant: DialogType.TrainingOfferDialog,
+      barrierDismissible: true,
+      takesInput: true,
+      title: "You are eligible for our special offer",
+      description: "Select a package and get upto 50% off!",
+    );
+
+    if (result!.confirmed) {
+      switch (result.data) {
+        case 2:
+          {
+            selectPlan(DogTrainingPackage.Two);
+            break;
+          }
+        case 3:
+          {
+            selectPlan(DogTrainingPackage.Three);
+            break;
+          }
+        case 4:
+          {
+            selectPlan(DogTrainingPackage.Four);
+            break;
+          }
+        case 5:
+          {
+            selectPlan(DogTrainingPackage.Five);
+            break;
+          }
+      }
+      notifyListeners();
     }
   }
 

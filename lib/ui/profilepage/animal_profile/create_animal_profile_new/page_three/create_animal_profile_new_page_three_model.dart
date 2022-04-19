@@ -84,7 +84,7 @@ class CreateAnimalProfileNewPageThreeViewModel extends BaseModel {
         Routes.dashboard,
         arguments: DashboardArguments(
           isNeedToUpdateProfile: true,
-          initialPageState: 3,
+          initialPageState: 0,
           isHuman: true,
           petID: "",
           petToken: "",
@@ -152,12 +152,11 @@ class CreateAnimalProfileNewPageThreeViewModel extends BaseModel {
       variant: BottomSheetType.SelectBreedBottomSheet,
       title: "Select breed",
       customData: listOfAnimalBreed,
-      data:breedController.text,
+      data: breedController.text,
     );
     if (result != null) {
       if (result.confirmed) {
-        breedController.text = result.data
-            .toString();
+        breedController.text = result.data.toString();
         notifyListeners();
       }
     }
