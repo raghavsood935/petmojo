@@ -509,8 +509,8 @@ String fiveTrainingTitle =
     "Elite STAGE SHOW Obedience, Behavioural, Guarding and Intellect Training";
 
 String freeTrainingSubtitleOne = "30 Mins";
-String twoTrainingSubtitleOne = "16 Sessions";
-String threeTrainingSubtitleOne = "26 Sessions";
+String twoTrainingSubtitleOne = "12 Sessions";
+String threeTrainingSubtitleOne = "24 Sessions";
 String fourTrainingSubtitleOne = "36 Sessions";
 String fiveTrainingSubtitleOne = "48 Sessions";
 
