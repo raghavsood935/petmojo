@@ -45,6 +45,7 @@ void setupDialogUi() {
         Dialog(
           child: TrainingOfferDialog(
             dialogRequest: dialogRequest,
+            onDialogTap: completer,
           ),
         ),
   };

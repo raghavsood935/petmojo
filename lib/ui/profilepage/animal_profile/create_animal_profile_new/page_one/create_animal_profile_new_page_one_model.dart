@@ -77,7 +77,7 @@ class CreateAnimalProfileNewPageOneViewModel extends BaseModel {
       Routes.dashboard,
       arguments: DashboardArguments(
         isNeedToUpdateProfile: true,
-        initialPageState: 3,
+        initialPageState: 0,
         isHuman: true,
         petID: "",
         petToken: "",

@@ -18,8 +18,6 @@ class DTDogTrainingBookingView extends StatefulWidget {
 }
 
 class _DTDogTrainingBookingViewState extends State<DTDogTrainingBookingView> {
-  final _dialogService = locator<DialogService>();
-
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<DTDogTrainingBookingViewModel>.reactive(
@@ -27,12 +25,7 @@ class _DTDogTrainingBookingViewState extends State<DTDogTrainingBookingView> {
         await model.getPets();
         await model.getFreeWalkStatus();
         model.checkValid();
-        _dialogService.showCustomDialog(
-          variant: DialogType.TrainingOfferDialog,
-          barrierDismissible: true,
-          title: "You are eligible for our special offer",
-          description: "Select a package and get upto 50% off!",
-        );
+        await model.showSpecialOfferDialog();
       },
       onDispose: (model) {
         model.dispose();
