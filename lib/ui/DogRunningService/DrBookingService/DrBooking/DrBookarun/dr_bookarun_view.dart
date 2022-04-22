@@ -160,8 +160,53 @@ class DRBookARunView extends ViewModelWidget<DRDogRunningBookingViewModel> {
                     walkSeeSix
                   ],
                 ),
+                verticalSpaceMedium,
+                PackageItem(
+                  value: DogRunningPackage.Six,
+                  selectedValue: model.selectedPlan,
+                  onTaped: () => model.selectPlan(DogRunningPackage.Six),
+                  seeMoreSelectedValue: model.seeMoreSelectedPlan,
+                  onSeeMoreTaped: () =>
+                      model.selectSeeMore(DogRunningPackage.Six),
+                  title: threeMonthOnceTitle,
+                  subtitleOne: threeMonthOnceSubtitleOne,
+                  subtitleTwo: threeMonthOnceSubtitleTwo,
+                  rateOld: threeMonthOnceRateOld,
+                  rateNew: threeMonthOnceRateNew,
+                  rateLabel: threeMonthOnceRateLabel,
+                  seeMoreList: [
+                    walkSeeOne,
+                    walkSeeTwo,
+                    walkSeeThree,
+                    walkSeeFour
+                  ],
+                ),
+                verticalSpaceMedium,
+                PackageItem(
+                  value: DogRunningPackage.Seven,
+                  selectedValue: model.selectedPlan,
+                  onTaped: () => model.selectPlan(DogRunningPackage.Seven),
+                  seeMoreSelectedValue: model.seeMoreSelectedPlan,
+                  onSeeMoreTaped: () =>
+                      model.selectSeeMore(DogRunningPackage.Seven),
+                  title: threeMonthTwiceTitle,
+                  subtitleOne: threeMonthTwiceSubtitleOne,
+                  subtitleTwo: threeMonthTwiceSubtitleTwo,
+                  rateOld: threeMonthTwiceRateOld,
+                  rateNew: threeMonthTwiceRateNew,
+                  rateLabel: threeMonthTwiceRateLabel,
+                  seeMoreList: [
+                    walkSeeOne,
+                    walkSeeTwo,
+                    walkSeeThree,
+                    walkSeeFour,
+                    walkSeeFive,
+                    walkSeeSix
+                  ],
+                ),
               ],
             ),
+
             verticalSpaceMedium,
 
             // offers
