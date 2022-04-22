@@ -230,26 +230,38 @@ String acceptedAnimalsSubtext = "Dogs - all sizes";
 String perWalkTitle = "FREE trial session";
 String perMonthOnceTitle = "Monthly Dog Walking - Once a Day";
 String perMonthTwiceTitle = "Monthly Dog Walking - Twice a Day";
+String threeMonthOnceTitle = "3 Months Dog Walking - Once a Day";
+String threeMonthTwiceTitle = "3 Months Dog Walking - Twice a Day";
 
 String perWalkSubtitleOne = "30 mins walk";
 String perMonthOnceSubtitleOne = "30 mins walk each";
 String perMonthTwiceSubtitleOne = "30 mins walk each";
+String threeMonthOnceSubtitleOne = "30 mins walk each";
+String threeMonthTwiceSubtitleOne = "30 mins walk each";
 
 String perWalkSubtitleTwo = "";
 String perMonthOnceSubtitleTwo = "Weekly one off";
 String perMonthTwiceSubtitleTwo = "Weekly one off";
+String threeMonthOnceSubtitleTwo = "Weekly one off";
+String threeMonthTwiceSubtitleTwo = "Weekly one off";
 
 String perWalkRateOld = "FREE";
-String perMonthOnceRateOld = "₹5,500/-";
-String perMonthTwiceRateOld = "Rs.₹10,600/-";
+String perMonthOnceRateOld = "₹6,499/-";
+String perMonthTwiceRateOld = "Rs.₹12,999/-";
+String threeMonthOnceRateOld = "Rs.₹19,497/-";
+String threeMonthTwiceRateOld = "Rs.₹38,997/-";
 
 String perWalkRateNew = "FREE";
-String perMonthOnceRateNew = "₹4,500/-";
-String perMonthTwiceRateNew = "₹8,500/-";
+String perMonthOnceRateNew = "₹3,400/-";
+String perMonthTwiceRateNew = "₹5,400/-";
+String threeMonthOnceRateNew = "₹10,200/-";
+String threeMonthTwiceRateNew = "₹16,200/-";
 
 String perWalkRateLabel = "";
-String perMonthOnceRateLabel = "(You save 1,000)";
-String perMonthTwiceRateLabel = "(You save 2,100)";
+String perMonthOnceRateLabel = "(You save 3,199)";
+String perMonthTwiceRateLabel = "(You save 7,999)";
+String threeMonthOnceRateLabel = "(You save 8,997)";
+String threeMonthTwiceRateLabel = "(You save 23,997)";
 
 // See more
 

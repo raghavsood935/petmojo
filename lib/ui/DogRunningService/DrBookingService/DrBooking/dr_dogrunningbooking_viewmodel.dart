@@ -292,25 +292,47 @@ class DRDogRunningBookingViewModel extends FormViewModel {
     } else if (selectedPlan == DogRunningPackage.Four) {
       _isValid = true;
       _description = "Monthly";
-      _amount = 4500;
+      _amount = 3400;
       _frequency = 30;
       _dayFrequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = true;
       _doneMultiply = false;
-      _subTotal = 5500;
-      _discount = 1000;
+      _subTotal = 6499;
+      _discount = 3199;
     } else if (selectedPlan == DogRunningPackage.Five) {
       _isValid = true;
       _description = "Monthly";
-      _amount = 8500;
+      _amount = 5400;
       _frequency = 30;
       _dayFrequency = 2;
       _isOfferValid = false;
       _isOfferAvailable = true;
       _doneMultiply = false;
-      _subTotal = 10600;
-      _discount = 2100;
+      _subTotal = 12990;
+      _discount = 7999;
+    } else if (selectedPlan == DogRunningPackage.Six) {
+      _isValid = true;
+      _description = "3 Months";
+      _amount = 10200;
+      _frequency = 90;
+      _dayFrequency = 1;
+      _isOfferValid = false;
+      _isOfferAvailable = true;
+      _doneMultiply = false;
+      _subTotal = 19497;
+      _discount = 8977;
+    } else if (selectedPlan == DogRunningPackage.Seven) {
+      _isValid = true;
+      _description = "3 Months";
+      _amount = 16200;
+      _frequency = 90;
+      _dayFrequency = 2;
+      _isOfferValid = false;
+      _isOfferAvailable = true;
+      _doneMultiply = false;
+      _subTotal = 38997;
+      _discount = 23997;
     }
     twoPets();
     setFirstPageValid();
