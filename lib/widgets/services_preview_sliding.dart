@@ -204,7 +204,7 @@ class FreeGrooming extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => model.onServiceTap(0),
+      onTap: () => model.onServiceTap(3),
       child: Container(
           margin: EdgeInsets.fromLTRB(20, 20, 20, 10),
           padding: EdgeInsets.all(20),
@@ -229,7 +229,7 @@ class FreeGrooming extends StatelessWidget {
                     height: 5,
                   ),
                   TextButton(
-                      onPressed: () => model.onServiceTap(0),
+                      onPressed: () => model.onServiceTap(3),
                       child: AppText.bodyBold(
                         "Book Now!",
                         color: colors.white,

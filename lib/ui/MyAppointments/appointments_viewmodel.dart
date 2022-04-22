@@ -6,14 +6,14 @@ import 'package:tamely/models/has_appointments_response.dart';
 import 'package:tamely/models/my_appointments_response.dart';
 import 'package:tamely/models/params/get_data_body.dart';
 import 'package:tamely/services/user_service.dart';
+import 'package:tamely/ui/services/services_viewmodel.dart';
 import 'package:tamely/util/utils.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 
-class AppointmentsViewModel extends FutureViewModel<void>
-    implements Initialisable {
+class AppointmentsViewModel extends ServicesViewModel {
   final log = getLogger('SelectServiceViewModel');
   final _navigationService = locator<NavigationService>();
 
@@ -37,9 +37,8 @@ class AppointmentsViewModel extends FutureViewModel<void>
       if (await Util.checkInternetConnectivity()) {
         _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
 
-        BaseResponse<HasAppointmentsResponse> resultOne = await runBusyFuture(
-            _tamelyApi.hasAppointments(),
-            throwException: true);
+        BaseResponse<HasAppointmentsResponse> resultOne =
+            await _tamelyApi.hasAppointments();
 
         if (resultOne.data != null) {
           _hasAppointments = resultOne.data!.hasAppointments!;
@@ -53,11 +52,5 @@ class AppointmentsViewModel extends FutureViewModel<void>
     } on ServerError catch (e) {
       log.e(e.toString());
     }
-  }
-
-  @override
-  Future<void> futureToRun() async {
-    getActiveAppointments();
-    log.d("futureToRun");
   }
 }
