@@ -40,7 +40,7 @@ class ServicesView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    AppText.caption("24/7 Petmojo "),
+                    AppText.caption("24/7 Petmojo"),
                     AppText.captionBold(
                       "Trust & verification",
                       color: colors.primary,
