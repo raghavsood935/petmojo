@@ -42,7 +42,11 @@ class ActiveAppointmentsView extends StatelessWidget {
                       onReorderTapped: () => model.reorderARun(index),
                       showBooking: model.activeAppointments[index].showBooking,
                       onBookingTapped: () => model.toBooking(index),
-                      serviceType: model.activeAppointments[index].serviceType ?? ServiceType.DogRunning,
+                      serviceType:
+                          model.activeAppointments[index].serviceType ??
+                              ServiceType.DogRunning,
+                      upcomingOrOngoing:
+                          model.activeAppointments[index].upcomingOrOngoing,
                     );
                   },
                   separatorBuilder: (BuildContext context, int index) =>
@@ -73,7 +77,8 @@ class ActiveAppointmentItem extends StatelessWidget {
     this.onReorderTapped,
     this.showBooking,
     this.onBookingTapped,
-    this.serviceType=ServiceType.DogRunning,
+    this.serviceType = ServiceType.DogRunning,
+    this.upcomingOrOngoing,
   }) : super(key: key);
   final String? userName;
   final String? userPicture;
@@ -88,6 +93,7 @@ class ActiveAppointmentItem extends StatelessWidget {
   final void Function()? onReorderTapped;
   final void Function()? onBookingTapped;
   final ServiceType serviceType;
+  final String? upcomingOrOngoing;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -198,9 +204,9 @@ class ActiveAppointmentItem extends StatelessWidget {
                       ),
                       status == ActiveAppointmentStatus.Pending
                           ? AppText.body1(
-                            serviceType == ServiceType.DogGrooming
-                                ? groomingPendingLabel
-                                : pendingLabel,
+                              serviceType == ServiceType.DogGrooming
+                                  ? groomingPendingLabel
+                                  : pendingLabel,
                               color: colors.pink,
                             )
                           : Container(),
@@ -213,9 +219,17 @@ class ActiveAppointmentItem extends StatelessWidget {
                             size: 20,
                           ),
                           horizontalSpaceTiny,
-                          AppText.body1(
-                            "$upcomingLabel : $dateAndTime",
-                          ),
+                          status == ActiveAppointmentStatus.Accepted
+                              ? upcomingOrOngoing == "Upcoming"
+                                  ? AppText.body1(
+                                      "Upcoming : $dateAndTime",
+                                    )
+                                  : AppText.body1(
+                                      "Ongoing",
+                                    )
+                              : AppText.body1(
+                                  "Waiting",
+                                ),
                         ],
                       ),
                     ],
@@ -267,9 +281,7 @@ class ActiveAppointmentItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(4),
               ),
               child: Text(
-                serviceType == ServiceType.DogGrooming
-                    ? "Pay Now"
-                    : bookLabel,
+                serviceType == ServiceType.DogGrooming ? "Pay Now" : bookLabel,
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
