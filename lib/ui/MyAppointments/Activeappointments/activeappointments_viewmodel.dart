@@ -34,6 +34,8 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
     notifyListeners();
   }
 
+  String ongoingOrUpcoming = upcomingLabel;
+
   // dummy values
 
   List<ActiveAppointmentClass> _activeAppointments = [
@@ -235,6 +237,12 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             dateDummyString = formatter.format(dummyDate);
             newAppointment.dateAndTime = dateDummyString;
 
+            if (dummyDate.isAfter(DateTime.now())) {
+              newAppointment.upcomingOrOngoing = "Upcoming";
+            } else {
+              newAppointment.upcomingOrOngoing = "Ongoing";
+            }
+
             List<PetDetailsResponse>? petDetails = each.petDetails;
             for (var one in petDetails!) {
               newAppointment.dogs.add(one.petName!);
@@ -300,6 +308,12 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             DateTime dummyDate = DateTime.parse(dateDummyString!);
             dateDummyString = formatter.format(dummyDate);
             newAppointment.dateAndTime = dateDummyString;
+
+            if (dummyDate.isAfter(DateTime.now())) {
+              newAppointment.upcomingOrOngoing = "Upcoming";
+            } else {
+              newAppointment.upcomingOrOngoing = "Ongoing";
+            }
 
             List<PetDetailsResponse>? petDetails = each.petDetails;
             for (var one in petDetails!) {
@@ -372,6 +386,12 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             DateTime dummyDate = DateTime.parse(dateDummyString!);
             dateDummyString = formatter.format(dummyDate);
             newAppointment.dateAndTime = dateDummyString + "\n" + timeString;
+
+            if (dummyDate.isAfter(DateTime.now())) {
+              newAppointment.upcomingOrOngoing = "Upcoming";
+            } else {
+              newAppointment.upcomingOrOngoing = "Ongoing";
+            }
 
             List<PetDetailsResponse>? petDetails = each.petDetails;
             for (var one in petDetails!) {
@@ -459,6 +479,12 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             dateDummyString = formatter.format(dummyDate);
             newAppointment.dateAndTime = dateDummyString;
 
+            if (dummyDate.isAfter(DateTime.now())) {
+              newAppointment.upcomingOrOngoing = "Upcoming";
+            } else {
+              newAppointment.upcomingOrOngoing = "Ongoing";
+            }
+
             List<PetDetailsResponse>? petDetails = each.petDetails;
             for (var one in petDetails!) {
               newAppointment.dogs.add(one.petName!);
@@ -488,7 +514,6 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             } else {
               newAppointment.showBooking = false;
             }
-
             _activeAppointments.add(newAppointment);
           }
 
@@ -525,6 +550,12 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             dateDummyString = formatter.format(dummyDate);
             newAppointment.dateAndTime = dateDummyString;
 
+            if (dummyDate.isAfter(DateTime.now())) {
+              newAppointment.upcomingOrOngoing = "Upcoming";
+            } else {
+              newAppointment.upcomingOrOngoing = "Ongoing";
+            }
+
             List<PetDetailsResponse>? petDetails = each.petDetails;
             for (var one in petDetails!) {
               newAppointment.dogs.add(one.petName!);
@@ -554,7 +585,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             } else {
               newAppointment.showBooking = false;
             }
-
+            print(newAppointment.toString());
             _activeAppointments.add(newAppointment);
           }
           notifyListeners();
@@ -585,10 +616,12 @@ class ActiveAppointmentClass {
   List<String> dogs;
   String? subscriptionType;
   String? dateAndTime;
+
   bool? showReorder;
   bool? showBooking;
   ActiveAppointmentStatus? status;
   int? amount;
+  String? upcomingOrOngoing;
   ActiveAppointmentClass({
     this.serviceType,
     this.appointmentId,
@@ -603,5 +636,6 @@ class ActiveAppointmentClass {
     this.showReorder,
     this.showBooking,
     this.amount,
+    this.upcomingOrOngoing,
   });
 }
