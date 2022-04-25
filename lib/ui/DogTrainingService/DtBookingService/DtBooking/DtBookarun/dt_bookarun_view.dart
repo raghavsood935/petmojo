@@ -526,6 +526,27 @@ class PackageItem extends StatelessWidget {
                           ],
                         ),
                       ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: GestureDetector(
+                          onTap: onSeeMoreTaped,
+                          child: Text(
+                            seeMoreSelectedValue == value
+                                ? "See less"
+                                : "See more",
+                            style: TextStyle(
+                              color: selectedValue == value
+                                  ? colors.white
+                                  : colors.primary,
+                              fontSize: 14,
+                              decoration: TextDecoration.underline,
+                              decorationColor: selectedValue == value
+                                  ? colors.white
+                                  : colors.primary,
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -556,24 +577,27 @@ class PackageItem extends StatelessWidget {
                             : colors.kcCaptionGreyColor,
                       ),
                       verticalSpaceRegular,
-                      GestureDetector(
-                        onTap: onSeeMoreTaped,
-                        child: Text(
-                          seeMoreSelectedValue == value
-                              ? "See less"
-                              : "See more",
-                          style: TextStyle(
-                            color: selectedValue == value
-                                ? colors.white
-                                : colors.primary,
-                            fontSize: 14,
-                            decoration: TextDecoration.underline,
-                            decorationColor: selectedValue == value
-                                ? colors.white
-                                : colors.primary,
-                          ),
-                        ),
-                      ),
+                      // Align(
+                      //   alignment: Alignment.centerLeft,
+                      //   child: GestureDetector(
+                      //     onTap: onSeeMoreTaped,
+                      //     child: Text(
+                      //       seeMoreSelectedValue == value
+                      //           ? "See less"
+                      //           : "See more",
+                      //       style: TextStyle(
+                      //         color: selectedValue == value
+                      //             ? colors.white
+                      //             : colors.primary,
+                      //         fontSize: 14,
+                      //         decoration: TextDecoration.underline,
+                      //         decorationColor: selectedValue == value
+                      //             ? colors.white
+                      //             : colors.primary,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

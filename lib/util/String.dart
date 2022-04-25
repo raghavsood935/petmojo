@@ -46,7 +46,7 @@ String shortBioLabel = "Short Bio";
 String shortBioHint = "We would love to know more about you!";
 
 String passwordLabel = "Password";
-String passwordHint = "Create Password";
+String passwordHint = "Password";
 
 String resetPasswordButton = "Reset Password";
 String signUpButton = "SIGN UP";
@@ -539,14 +539,14 @@ String fourTrainingRateOld = "₹32,364/-";
 String fiveTrainingRateOld = "₹43,152/-";
 
 String freeTrainingRateNew = "FREE";
-String twoTrainingRateNew = "₹9,588/-";
-String threeTrainingRateNew = "₹18,000/-";
+String twoTrainingRateNew = "₹9,800/-";
+String threeTrainingRateNew = "₹17,200/-";
 String fourTrainingRateNew = "₹25,560/-";
 String fiveTrainingRateNew = "₹32,640/-";
 
 String freeTrainingRateLabel = "";
-String twoTrainingRateLabel = "(You save 1,200)";
-String threeTrainingRateLabel = "(You save 3,576)";
+String twoTrainingRateLabel = "(You save 988)";
+String threeTrainingRateLabel = "(You save 4,376)";
 String fourTrainingRateLabel = "(You save 6,804)";
 String fiveTrainingRateLabel = "(You save 10,512)";
 

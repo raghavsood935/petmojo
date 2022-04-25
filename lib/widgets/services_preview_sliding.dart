@@ -80,7 +80,7 @@ class FreeWalk extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => model.onServiceTap(0),
+      onTap: () => model.onSlideServiceTap(0),
       child: Container(
           margin: EdgeInsets.fromLTRB(20, 20, 20, 10),
           padding: EdgeInsets.all(20),
@@ -92,37 +92,44 @@ class FreeWalk extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText.bodyBig("Click here to get your"),
-                  AppText.bodyBig(
-                    "Free Dog Walking",
-                    color: colors.primary,
-                  ),
-                  AppText.bodyBig("Trial today!"),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  TextButton(
-                      onPressed: () => model.onServiceTap(0),
-                      child: AppText.bodyBold(
-                        "Book FREE Trial",
-                        color: colors.white,
-                      ),
-                      style: TextButton.styleFrom(
-                        backgroundColor: colors.primary,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 6,
-                        ),
-                      )),
-                ],
-              ),
-              SizedBox(
-                width: 10,
-              ),
               Expanded(
+                flex: 1,
+                child: FittedBox(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppText.title("Click here to get your"),
+                      AppText.titleBold(
+                        "Free Dog Walking",
+                        color: colors.primary,
+                      ),
+                      AppText.title("Trial today!"),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      TextButton(
+                          onPressed: () => model.onSlideServiceTap(0),
+                          child: AppText.bodyBold(
+                            "Book FREE Trial",
+                            color: colors.white,
+                          ),
+                          style: TextButton.styleFrom(
+                            backgroundColor: colors.primary,
+                            elevation: 8,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 6,
+                            ),
+                          )),
+                    ],
+                  ),
+                ),
+              ),
+              // SizedBox(
+              //   width: 10,
+              // ),
+              Expanded(
+                flex: 1,
                 child: Image(
                   image: AssetImage("assets/images/dog_walking_free.png"),
                 ),
@@ -142,7 +149,7 @@ class FreeTraining extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => model.onServiceTap(1),
+      onTap: () => model.onSlideServiceTap(1),
       child: Container(
           margin: EdgeInsets.fromLTRB(20, 20, 20, 10),
           padding: EdgeInsets.all(20),
@@ -154,37 +161,45 @@ class FreeTraining extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText.bodyBig("Click here to get your"),
-                  AppText.bodyBig(
-                    "Free Dog Training",
-                    color: colors.primary,
-                  ),
-                  AppText.bodyBig("Trial today!"),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  TextButton(
-                      onPressed: () => model.onServiceTap(1),
-                      child: AppText.bodyBold(
-                        "Book FREE Trial",
-                        color: colors.white,
-                      ),
-                      style: TextButton.styleFrom(
-                        backgroundColor: colors.primary,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 6,
-                        ),
-                      )),
-                ],
-              ),
-              SizedBox(
-                width: 10,
-              ),
               Expanded(
+                flex: 1,
+                child: FittedBox(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppText.title("Click here to get your"),
+                      AppText.titleBold(
+                        "Free Dog Training",
+                        color: colors.primary,
+                      ),
+                      AppText.title("Trial today!"),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      TextButton(
+                          onPressed: () => model.onSlideServiceTap(1),
+                          child: AppText.bodyBold(
+                            "Book FREE Trial",
+                            color: colors.white,
+                          ),
+                          style: TextButton.styleFrom(
+                            backgroundColor: colors.primary,
+                            // shadowColor: Colors.black,
+                            elevation: 8,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 6,
+                            ),
+                          )),
+                    ],
+                  ),
+                ),
+              ),
+              // SizedBox(
+              //   width: 10,
+              // ),
+              Expanded(
+                flex: 1,
                 child: Image(
                   image: AssetImage("assets/images/free-training-image.png"),
                 ),
@@ -204,7 +219,7 @@ class FreeGrooming extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => model.onServiceTap(3),
+      onTap: () => model.onSlideServiceTap(3),
       child: Container(
           margin: EdgeInsets.fromLTRB(20, 20, 20, 10),
           padding: EdgeInsets.all(20),
@@ -216,37 +231,44 @@ class FreeGrooming extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText.bodyBig("Click here to get your"),
-                  AppText.bodyBig(
-                    "Dog Grooming",
-                    color: colors.primary,
-                  ),
-                  AppText.bodyBig("session today!"),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  TextButton(
-                      onPressed: () => model.onServiceTap(3),
-                      child: AppText.bodyBold(
-                        "Book Now!",
-                        color: colors.white,
-                      ),
-                      style: TextButton.styleFrom(
-                        backgroundColor: colors.primary,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 6,
-                        ),
-                      )),
-                ],
-              ),
-              SizedBox(
-                width: 10,
-              ),
               Expanded(
+                flex: 1,
+                child: FittedBox(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppText.title("Click here to get your"),
+                      AppText.titleBold(
+                        "Dog Grooming",
+                        color: colors.primary,
+                      ),
+                      AppText.title("session today!"),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      TextButton(
+                          onPressed: () => model.onSlideServiceTap(3),
+                          child: AppText.bodyBold(
+                            "Book Now!",
+                            color: colors.white,
+                          ),
+                          style: TextButton.styleFrom(
+                            backgroundColor: colors.primary,
+                            elevation: 8,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 6,
+                            ),
+                          )),
+                    ],
+                  ),
+                ),
+              ),
+              // SizedBox(
+              //   width: 10,
+              // ),
+              Expanded(
+                flex: 1,
                 child: Image(
                   image: AssetImage("assets/images/pet_grooming_sliding.png"),
                 ),

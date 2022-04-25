@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 
@@ -95,160 +96,210 @@ class _TrainingOfferDialogState extends State<TrainingOfferDialog> {
                             scrollDirection: Axis.vertical,
                             child: Column(
                               children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    widget.onDialogTap(DialogResponse(
-                                        confirmed: true, data: 2));
-                                  },
+                                Center(
                                   child: Container(
-                                      padding: EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                          color: Color(0xFFFFCE9E),
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          border:
-                                              Border.all(color: Colors.grey)),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          AppText.bodyBold("Puppy Training"),
-                                          Column(
-                                            children: [
-                                              Text(
-                                                "₹10.788",
-                                                style: theme.textTheme.caption
-                                                    ?.copyWith(
-                                                  fontSize: 14,
-                                                  decoration: TextDecoration
-                                                      .lineThrough,
-                                                  color: Color(0xFF00031D),
+                                    child: Material(
+                                      child: InkWell(
+                                        onTap: () {
+                                          widget.onDialogTap(DialogResponse(
+                                              confirmed: true, data: 2));
+                                        },
+                                        child: Container(
+                                            padding: EdgeInsets.all(10),
+                                            decoration: BoxDecoration(
+                                                // color: Color(0xFFFFCE9E),
+                                                borderRadius:
+                                                    BorderRadius.circular(4),
+                                                border: Border.all(
+                                                    color: Colors.grey)),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                AppText.bodyBold(
+                                                    "Puppy Training"),
+                                                Column(
+                                                  children: [
+                                                    Text(
+                                                      "₹10,788",
+                                                      style: theme
+                                                          .textTheme.caption
+                                                          ?.copyWith(
+                                                        fontSize: 14,
+                                                        decoration:
+                                                            TextDecoration
+                                                                .lineThrough,
+                                                        color:
+                                                            Color(0xFF00031D),
+                                                      ),
+                                                    ),
+                                                    AppText.bodyBig("₹9,800"),
+                                                  ],
                                                 ),
-                                              ),
-                                              AppText.bodyBig("₹9,588"),
-                                            ],
-                                          ),
-                                        ],
-                                      )),
+                                              ],
+                                            )),
+                                      ),
+                                      color: Colors.transparent,
+                                    ),
+                                    color: Color(0xFFFFCE9E),
+                                  ),
                                 ),
                                 verticalSpaceSmall,
-                                GestureDetector(
-                                  onTap: () {
-                                    widget.onDialogTap(DialogResponse(
-                                        confirmed: true, data: 3));
-                                  },
+                                Center(
                                   child: Container(
-                                      padding: EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                          color: Color(0xFFFFCE9E),
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          border:
-                                              Border.all(color: Colors.grey)),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          AppText.bodyBold("Basic Obedience"),
-                                          Column(
-                                            children: [
-                                              Text(
-                                                "₹21,576",
-                                                style: theme.textTheme.caption
-                                                    ?.copyWith(
-                                                  fontSize: 14,
-                                                  decoration: TextDecoration
-                                                      .lineThrough,
-                                                  color: Color(0xFF00031D),
+                                    child: Material(
+                                      child: InkWell(
+                                        onTap: () {
+                                          widget.onDialogTap(DialogResponse(
+                                              confirmed: true, data: 3));
+                                        },
+                                        child: Container(
+                                            padding: EdgeInsets.all(10),
+                                            decoration: BoxDecoration(
+                                                // color: Color(0xFFFFCE9E),
+                                                borderRadius:
+                                                    BorderRadius.circular(4),
+                                                border: Border.all(
+                                                    color: Colors.grey)),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                AppText.bodyBold(
+                                                    "Basic Obedience"),
+                                                Column(
+                                                  children: [
+                                                    Text(
+                                                      "₹21,576",
+                                                      style: theme
+                                                          .textTheme.caption
+                                                          ?.copyWith(
+                                                        fontSize: 14,
+                                                        decoration:
+                                                            TextDecoration
+                                                                .lineThrough,
+                                                        color:
+                                                            Color(0xFF00031D),
+                                                      ),
+                                                    ),
+                                                    AppText.bodyBig("₹17,200"),
+                                                  ],
                                                 ),
-                                              ),
-                                              AppText.bodyBig("₹18,000"),
-                                            ],
-                                          ),
-                                        ],
-                                      )),
+                                              ],
+                                            )),
+                                      ),
+                                      color: Colors.transparent,
+                                    ),
+                                    color: Color(0xFFFFCE9E),
+                                  ),
                                 ),
                                 verticalSpaceSmall,
-                                GestureDetector(
-                                  onTap: () {
-                                    widget.onDialogTap(DialogResponse(
-                                        confirmed: true, data: 4));
-                                  },
+                                Center(
                                   child: Container(
-                                      padding: EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                          color: Color(0xFFFFCE9E),
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          border:
-                                              Border.all(color: Colors.grey)),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: AppText.bodyBold(
-                                                "Advance Obedience, Behavioural and Guarding Training"),
-                                          ),
-                                          horizontalSpaceSmall,
-                                          Column(
-                                            children: [
-                                              Text(
-                                                "₹32,364",
-                                                style: theme.textTheme.caption
-                                                    ?.copyWith(
-                                                  fontSize: 14,
-                                                  decoration: TextDecoration
-                                                      .lineThrough,
-                                                  color: Color(0xFF00031D),
+                                    child: Material(
+                                      child: InkWell(
+                                        onTap: () {
+                                          widget.onDialogTap(DialogResponse(
+                                              confirmed: true, data: 4));
+                                        },
+                                        child: Container(
+                                            padding: EdgeInsets.all(10),
+                                            decoration: BoxDecoration(
+                                                // color: Color(0xFFFFCE9E),
+                                                borderRadius:
+                                                    BorderRadius.circular(4),
+                                                border: Border.all(
+                                                    color: Colors.grey)),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  child: AppText.bodyBold(
+                                                      "Advance Obedience, Behavioural and Guarding Training"),
                                                 ),
-                                              ),
-                                              AppText.bodyBig("₹25,560"),
-                                            ],
-                                          ),
-                                        ],
-                                      )),
+                                                horizontalSpaceSmall,
+                                                Column(
+                                                  children: [
+                                                    Text(
+                                                      "₹32,364",
+                                                      style: theme
+                                                          .textTheme.caption
+                                                          ?.copyWith(
+                                                        fontSize: 14,
+                                                        decoration:
+                                                            TextDecoration
+                                                                .lineThrough,
+                                                        color:
+                                                            Color(0xFF00031D),
+                                                      ),
+                                                    ),
+                                                    AppText.bodyBig("₹25,560"),
+                                                  ],
+                                                ),
+                                              ],
+                                            )),
+                                      ),
+                                      color: Colors.transparent,
+                                    ),
+                                    color: Color(0xFFFFCE9E),
+                                  ),
                                 ),
                                 verticalSpaceSmall,
-                                GestureDetector(
-                                  onTap: () {
-                                    widget.onDialogTap(DialogResponse(
-                                        confirmed: true, data: 5));
-                                  },
+                                Center(
                                   child: Container(
-                                      padding: EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                          color: Color(0xFFFFCE9E),
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          border:
-                                              Border.all(color: Colors.grey)),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: AppText.bodyBold(
-                                                "Elite STAGE SHOW obedience"),
-                                          ),
-                                          horizontalSpaceSmall,
-                                          Column(
-                                            children: [
-                                              Text(
-                                                "₹43,152",
-                                                style: theme.textTheme.caption
-                                                    ?.copyWith(
-                                                  fontSize: 14,
-                                                  decoration: TextDecoration
-                                                      .lineThrough,
-                                                  color: Color(0xFF00031D),
+                                    child: Material(
+                                      child: InkWell(
+                                        onTap: () {
+                                          widget.onDialogTap(DialogResponse(
+                                              confirmed: true, data: 5));
+                                        },
+                                        child: Container(
+                                            padding: EdgeInsets.all(10),
+                                            decoration: BoxDecoration(
+                                                // color: Color(0xFFFFCE9E),
+                                                borderRadius:
+                                                    BorderRadius.circular(4),
+                                                border: Border.all(
+                                                    color: Colors.grey)),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  child: AppText.bodyBold(
+                                                      "Elite STAGE SHOW obedience"),
                                                 ),
-                                              ),
-                                              AppText.bodyBig("₹32,640"),
-                                            ],
-                                          ),
-                                        ],
-                                      )),
+                                                horizontalSpaceSmall,
+                                                Column(
+                                                  children: [
+                                                    Text(
+                                                      "₹43,152",
+                                                      style: theme
+                                                          .textTheme.caption
+                                                          ?.copyWith(
+                                                        fontSize: 14,
+                                                        decoration:
+                                                            TextDecoration
+                                                                .lineThrough,
+                                                        color:
+                                                            Color(0xFF00031D),
+                                                      ),
+                                                    ),
+                                                    AppText.bodyBig("₹32,640"),
+                                                  ],
+                                                ),
+                                              ],
+                                            )),
+                                      ),
+                                      color: Colors.transparent,
+                                    ),
+                                    color: Color(0xFFFFCE9E),
+                                  ),
                                 ),
                               ],
                             )),

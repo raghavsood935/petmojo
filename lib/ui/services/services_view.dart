@@ -40,12 +40,12 @@ class ServicesView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    AppText.caption("24/7 Petmojo"),
+                    AppText.captionBold("24/7 Petmojo"),
                     AppText.captionBold(
                       "Trust & verification",
                       color: colors.primary,
                     ),
-                    AppText.caption(" and "),
+                    AppText.captionBold(" and "),
                     AppText.captionBold(
                       "Support team",
                       color: colors.primary,
@@ -60,12 +60,12 @@ class ServicesView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    AppText.body1("India's most "),
+                    AppText.body1Bold("India's most "),
                     AppText.body1Bold(
                       "empathetic",
                       color: colors.green70,
                     ),
-                    AppText.body1(" and "),
+                    AppText.body1Bold(" and "),
                     AppText.body1Bold(
                       "advanced",
                       color: colors.green70,
