@@ -64,10 +64,14 @@ class PhoneAuthenticationView extends StatelessWidget
                 decoration: InputDecoration(
                   labelText: "Phone number",
                   labelStyle: TextStyle(color: colors.black),
-                  hintText: "Enter your Phone number",
-                  prefix: AppText.body(
+                  hintText: "201-555-0123",
+                  hintStyle: TextStyle(
+                    color: colors.kcGreyBackground,
+                    fontSize: 14,
+                  ),
+                  prefix: AppText.body1(
                     "+91  ",
-                    color: colors.kcCaptionGreyColor,
+                    color: colors.kcMediumGreyColor,
                   ),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: colors.primary, width: 2),
@@ -79,7 +83,7 @@ class PhoneAuthenticationView extends StatelessWidget
                     borderSide: BorderSide(color: colors.primary, width: 2),
                   ),
                 ),
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.phone,
                 maxLength: 10,
               ),
             ),

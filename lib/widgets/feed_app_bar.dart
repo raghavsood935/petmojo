@@ -29,10 +29,9 @@ class FeedAppBar extends ViewModelWidget<DashboardViewModel>
       centerTitle: true,
       actions: <Widget>[
         Container(
-          width: 50,
-          height: 50,
-          child: Stack(
-            children: [
+            width: 50,
+            height: 50,
+            child: Stack(children: [
               Positioned(
                 top: 0,
                 bottom: 0,
@@ -42,6 +41,7 @@ class FeedAppBar extends ViewModelWidget<DashboardViewModel>
                   onPressed: model.onMyBookingsPressed,
                   icon: Image.asset(
                     "assets/images/bag.png",
+                    // color: colors.black,
                   ),
                 ),
               ),

@@ -87,6 +87,42 @@ class ServicesViewModel extends BaseModel {
     }
   }
 
+  Future onSlideServiceTap(int index) async {
+    switch (index) {
+      case 0:
+        {
+          _navigationService.navigateTo(
+            Routes.dRDogRunningBookingView,
+          );
+          break;
+        }
+      case 1:
+        {
+          _navigationService.navigateTo(
+            Routes.dTDogTrainingBookingView,
+          );
+          break;
+        }
+      case 2:
+        {
+          _navigationService.navigateTo(
+            Routes.dummyDevelopmentScreen,
+            arguments: DummyDevelopmentScreenArguments(
+              title: petBoardingTitle,
+            ),
+          );
+          break;
+        }
+      case 3:
+        {
+          _navigationService.navigateTo(
+            Routes.dGDogGroomingBookingView,
+          );
+          break;
+        }
+    }
+  }
+
   String get location => this._location;
 
   int get noOfAppointments => this._noOfAppointments;
