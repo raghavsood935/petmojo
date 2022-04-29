@@ -137,7 +137,7 @@ class DGPaymentViewModel extends FutureViewModel<void>
       'amount': getPaymentDetailsResponse.amount,
       'name': '',
       'order_id': getPaymentDetailsResponse.orderId,
-      'description': 'Tamely Dog Training',
+      'description': 'Petmojo Dog Grooming',
       'retry': {
         'enabled': true,
         'max_count': 2,
