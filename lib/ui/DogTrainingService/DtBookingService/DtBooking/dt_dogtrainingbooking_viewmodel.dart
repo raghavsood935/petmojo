@@ -1306,7 +1306,8 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       barrierDismissible: true,
       takesInput: true,
       title: "You are eligible for our special offer",
-      description: "Select a package and get upto 50% off!",
+      // description: "Select a package and get upto 50% off!",
+      description: "Select a package in the next screen for Discounted pricing",
     );
 
     if (result!.confirmed) {

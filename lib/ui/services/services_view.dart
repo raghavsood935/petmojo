@@ -99,7 +99,7 @@ class ServicesView extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () => model.goToECommercePage(),
                       child: Container(
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(5),
                         margin: EdgeInsets.only(left: 20),
                         width: double.infinity,
                         height:
@@ -109,6 +109,68 @@ class ServicesView extends StatelessWidget {
                             border: Border.all(color: Colors.black38)
                             // color: Color(0XFFFEDFDD),
                             ),
+                        // child: Stack(
+                        //   children: [
+                        //     Positioned(
+                        //       right: 0,
+                        //       child: Row(
+                        //         mainAxisAlignment: MainAxisAlignment.end,
+                        //         children: [
+                        //           Icon(
+                        //             Icons.flash_on_sharp,
+                        //             color: Colors.yellow,
+                        //             size: 11,
+                        //           ),
+                        //           AppText.tiny(
+                        //             "High Demand   ",
+                        //             color: colors.black,
+                        //           ),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //     Positioned(
+                        //       left: 0,
+                        //       child: Image.asset(
+                        //           "assets/images/e-commerce-logo-title.png"),
+                        //     ),
+                        //     Positioned(
+                        //       right: 0,
+                        //       top: 15,
+                        //       child: Image.asset("assets/images/pet_tag.png"),
+                        //     ),
+                        //     Positioned(
+                        //       left: 0,
+                        //       top: 60,
+                        //       child: AppText.bodyBold(
+                        //         "GPS Tracker",
+                        //         color: colors.primary,
+                        //       ),
+                        //     ),
+                        //     Positioned(
+                        //       left: 0,
+                        //       top: 75,
+                        //       child: AppText.caption(
+                        //         "for\nDogs & Cats",
+                        //       ),
+                        //     ),
+                        //     Positioned(
+                        //       left: 0,
+                        //       right: 0,
+                        //       bottom: 5,
+                        //       child: Container(
+                        //         padding:EdgeInsets.(vertical:10,horizontal:5),
+                        //         decoration: BoxDecoration(
+                        //           color: colors.primary,
+                        //           borderRadius: BorderRadius.circular(10),
+                        //         ),
+                        //         child:AppText.bodyBold(
+                        //           "Pre-Book Now",
+                        //           color: colors.white,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,

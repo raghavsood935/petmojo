@@ -22,42 +22,42 @@ class DTBookARunView extends ViewModelWidget<DTDogTrainingBookingViewModel> {
             verticalSpaceSmall,
 
             // Number of pets
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AppText.body2(noOfPetsLabel),
-                verticalSpaceSmall,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Radio<NoOfRuns>(
-                          value: NoOfRuns.One,
-                          groupValue: model.selectedRun,
-                          onChanged: (value) => model.selectRun(value),
-                          activeColor: colors.primary,
-                        ),
-                        AppText.body1("1"),
-                      ],
-                    ),
-                    horizontalSpaceLarge,
-                    Row(
-                      children: [
-                        Radio<NoOfRuns>(
-                          value: NoOfRuns.Two,
-                          groupValue: model.selectedRun,
-                          onChanged: (value) => model.selectRun(value),
-                          activeColor: colors.primary,
-                        ),
-                        AppText.body1("2"),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            verticalSpaceTiny,
+            // Column(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: [
+            //     AppText.body2(noOfPetsLabel),
+            //     verticalSpaceSmall,
+            //     Row(
+            //       mainAxisAlignment: MainAxisAlignment.start,
+            //       children: [
+            //         Row(
+            //           children: [
+            //             Radio<NoOfRuns>(
+            //               value: NoOfRuns.One,
+            //               groupValue: model.selectedRun,
+            //               onChanged: (value) => model.selectRun(value),
+            //               activeColor: colors.primary,
+            //             ),
+            //             AppText.body1("1"),
+            //           ],
+            //         ),
+            //         horizontalSpaceLarge,
+            //         Row(
+            //           children: [
+            //             Radio<NoOfRuns>(
+            //               value: NoOfRuns.Two,
+            //               groupValue: model.selectedRun,
+            //               onChanged: (value) => model.selectRun(value),
+            //               activeColor: colors.primary,
+            //             ),
+            //             AppText.body1("2"),
+            //           ],
+            //         ),
+            //       ],
+            //     ),
+            //   ],
+            // ),
+            // verticalSpaceTiny,
 
             // Choose pet
             Visibility(
@@ -69,7 +69,7 @@ class DTBookARunView extends ViewModelWidget<DTDogTrainingBookingViewModel> {
                   AppText.body2(choosePetLabel),
                   verticalSpaceMedium,
                   Container(
-                    height: 90,
+                    height: 110,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
@@ -86,7 +86,7 @@ class DTBookARunView extends ViewModelWidget<DTDogTrainingBookingViewModel> {
                           horizontalSpaceRegular,
                     ),
                   ),
-                  verticalSpaceMedium,
+                  verticalSpaceSmall,
                 ],
               ),
             ),
@@ -363,7 +363,8 @@ class FreePackageItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CircleAvatar(
-              child: Image.asset("assets/images/free_session.png"),
+              child: Image.asset("assets/images/free_training_img.png"),
+              backgroundColor: Colors.transparent,
             ),
             horizontalSpaceSmall,
             Expanded(
@@ -657,28 +658,42 @@ class RunnerItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTapped,
-      child: Container(
-        width: 90,
-        decoration: BoxDecoration(
-          color: colors.white,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: selected! ? colors.primary : colors.kcLightGreyColor,
-            width: selected! ? 1.5 : 1,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            width: 90,
+            decoration: BoxDecoration(
+              color: selected! ? Color(0xFFFEDFDD) : colors.white,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: colors.primary,
+                width: selected! ? 1.5 : 1,
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                verticalSpaceSmall,
+                CircleAvatar(
+                  child: Image.asset("assets/images/dummy_dog_profile.png"),
+                ),
+                AppText.body1(
+                  name!,
+                  textAlign: TextAlign.center,
+                ),
+                verticalSpaceSmall,
+              ],
+            ),
           ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            CircleAvatar(
-              child: Image.asset("assets/images/dummy_dog_profile.png"),
-            ),
-            AppText.body1(
-              name!,
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
+          verticalSpaceSmall,
+          CircleAvatar(
+            radius: 5,
+            backgroundColor:
+                selected! ? colors.primary : colors.kcLightGreyColor,
+          ),
+        ],
       ),
     );
   }

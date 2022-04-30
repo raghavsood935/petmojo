@@ -31,32 +31,36 @@ class AppointmentsView extends StatelessWidget {
                   ? EdgeInsets.symmetric(horizontal: 25)
                   : EdgeInsets.zero,
               child: model.hasAppointments
-                  ? DefaultTabController(
-                      length: 2,
-                      child: Flexible(
-                        child: Scaffold(
-                          backgroundColor: colors.white,
-                          appBar: TabBar(
-                            labelColor: colors.primary,
-                            unselectedLabelColor: colors.kcCaptionGreyColor,
-                            tabs: [
-                              Tab(
-                                text: activeAppointmentsTitle,
+                  ? Column(
+                    children: [
+                      DefaultTabController(
+                          length: 2,
+                          child: Flexible(
+                            child: Scaffold(
+                              backgroundColor: colors.white,
+                              appBar: TabBar(
+                                labelColor: colors.primary,
+                                unselectedLabelColor: colors.kcCaptionGreyColor,
+                                tabs: [
+                                  Tab(
+                                    text: activeAppointmentsTitle,
+                                  ),
+                                  Tab(
+                                    text: pastAppointmentsTitle,
+                                  ),
+                                ],
                               ),
-                              Tab(
-                                text: pastAppointmentsTitle,
+                              body: TabBarView(
+                                children: [
+                                  ActiveAppointmentsView(),
+                                  PastAppointmentsView(),
+                                ],
                               ),
-                            ],
-                          ),
-                          body: TabBarView(
-                            children: [
-                              ActiveAppointmentsView(),
-                              PastAppointmentsView(),
-                            ],
+                            ),
                           ),
                         ),
-                      ),
-                    )
+                    ],
+                  )
                   : SingleChildScrollView(
                       physics: ScrollPhysics(),
                       child: Column(
