@@ -142,12 +142,26 @@ class _LocationPickerState extends State<LocationPicker> {
             ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            getLatLang();
-          },
-          tooltip: 'Increment',
-          child: const Icon(Icons.check),
+        floatingActionButton: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              onPressed: () {
+                _determinePosition();
+              },
+              tooltip: 'Current Location',
+              child: const Icon(Icons.my_location),
+            ),
+            verticalSpaceRegular,
+            FloatingActionButton(
+              onPressed: () {
+                getLatLang();
+              },
+              tooltip: 'Increment',
+              child: const Icon(Icons.check),
+            ),
+            verticalSpaceRegular,
+          ],
         ),
       ),
     );

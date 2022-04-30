@@ -512,13 +512,13 @@ String firstPageTitle = "Select Package";
 String secondPageTitle = "Book Dog Training";
 String trainingTimeTitle = "Training time ";
 
-String freeTrainingTitle = "FREE Demo Session";
+String freeTrainingTitle = "Demo Session";
 String twoTrainingTitle = "Puppy Training";
 String threeTrainingTitle = "Basic Obedience & Behavioural Training";
 String fourTrainingTitle =
     "Advanced Obedience Behavioural and Guarding Training";
 String fiveTrainingTitle =
-    "Elite STAGE SHOW Obedience, Behavioural, Guarding and Intellect Training";
+    "Ultra Premium Obedience, Behavioural, Guarding and Intellect Training";
 
 String freeTrainingSubtitleOne = "30 Mins";
 String twoTrainingSubtitleOne = "12 Sessions";
@@ -527,7 +527,7 @@ String fourTrainingSubtitleOne = "36 Sessions";
 String fiveTrainingSubtitleOne = "48 Sessions";
 
 String freeTrainingSubtitleTwo = "FREE Assessment";
-String twoTrainingSubtitleTwo = "<5 months";
+String twoTrainingSubtitleTwo = "";
 String threeTrainingSubtitleTwo = "";
 String fourTrainingSubtitleTwo = "";
 String fiveTrainingSubtitleTwo = "";
@@ -539,14 +539,14 @@ String fourTrainingRateOld = "₹32,364/-";
 String fiveTrainingRateOld = "₹43,152/-";
 
 String freeTrainingRateNew = "FREE";
-String twoTrainingRateNew = "₹9,800/-";
-String threeTrainingRateNew = "₹17,200/-";
+String twoTrainingRateNew = "₹9,588/-";
+String threeTrainingRateNew = "₹18,000/-";
 String fourTrainingRateNew = "₹25,560/-";
 String fiveTrainingRateNew = "₹32,640/-";
 
 String freeTrainingRateLabel = "";
-String twoTrainingRateLabel = "(You save 988)";
-String threeTrainingRateLabel = "(You save 4,376)";
+String twoTrainingRateLabel = "(You save 1200)";
+String threeTrainingRateLabel = "(You save 3,576)";
 String fourTrainingRateLabel = "(You save 6,804)";
 String fiveTrainingRateLabel = "(You save 10,512)";
 
@@ -600,6 +600,27 @@ String fiveTrainingSeeFourteen = "Instruction Handshake";
 String fiveTrainingSeeFifteen = "Instruction Sit";
 String fiveTrainingSeeSixteen = "Instruction Down";
 String fiveTrainingSeeSeventeen = "Instruction Heal";
+
+// See more bonus materials
+
+String twoTrainingBonusOne = "Instruction Sit";
+String twoTrainingBonusTwo = "Instruction Down";
+String twoTrainingBonusThree = "Instruction Stay";
+
+String threeTrainingBonusOne = "Excessive Barking Correction";
+String threeTrainingBonusTwo = "Overexcitement Correction";
+String threeTrainingBonusThree = "Socialization with other Dog";
+String threeTrainingBonusFour = "Socialization with other humans";
+
+String fourTrainingBonusOne = "Excessive Barking Correction";
+String fourTrainingBonusTwo = "Overexcitement Correction";
+String fourTrainingBonusThree = "Socialization with other Dog";
+String fourTrainingBonusFour = "Socialization with other humans";
+
+String fiveTrainingBonusOne = "Excessive Barking Correction";
+String fiveTrainingBonusTwo = "Overexcitement Correction";
+String fiveTrainingBonusThree = "Socialization with other Dog";
+String fiveTrainingBonusFour = "Socialization with other humans";
 
 // My Appointments
 String dogTrainingTitle = "Dog Training";

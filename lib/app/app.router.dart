@@ -52,6 +52,7 @@ import '../ui/dummy_development_screen.dart';
 import '../ui/e_commerce/cart/cart_view.dart';
 import '../ui/e_commerce/cart/cart_view_model.dart';
 import '../ui/e_commerce/check_out_page/check_out_view.dart';
+import '../ui/e_commerce/gps_tracker/gps_tracker_view.dart';
 import '../ui/e_commerce/main_page/e_commerce_main_view.dart';
 import '../ui/e_commerce/order_detail_page/order_detail_view.dart';
 import '../ui/e_commerce/product_bookings/bookings_main_view.dart';
@@ -168,6 +169,7 @@ class Routes {
   static const String checkOutView = '/check-out-view';
   static const String orderDetailPage = '/order-detail-page';
   static const String productBookingsMainView = '/product-bookings-main-view';
+  static const String gPSTrackerPageView = '/g-ps-tracker-page-view';
   static const String settingsHumanView = '/settings-human-view';
   static const String settingsAnimalView = '/settings-animal-view';
   static const String feedbackView = '/feedback-view';
@@ -255,6 +257,7 @@ class Routes {
     checkOutView,
     orderDetailPage,
     productBookingsMainView,
+    gPSTrackerPageView,
     settingsHumanView,
     settingsAnimalView,
     feedbackView,
@@ -352,6 +355,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.checkOutView, page: CheckOutView),
     RouteDef(Routes.orderDetailPage, page: OrderDetailPage),
     RouteDef(Routes.productBookingsMainView, page: ProductBookingsMainView),
+    RouteDef(Routes.gPSTrackerPageView, page: GPSTrackerPageView),
     RouteDef(Routes.settingsHumanView, page: SettingsHumanView),
     RouteDef(Routes.settingsAnimalView, page: SettingsAnimalView),
     RouteDef(Routes.feedbackView, page: FeedbackView),
@@ -915,6 +919,12 @@ class StackedRouter extends RouterBase {
     ProductBookingsMainView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const ProductBookingsMainView(),
+        settings: data,
+      );
+    },
+    GPSTrackerPageView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const GPSTrackerPageView(),
         settings: data,
       );
     },

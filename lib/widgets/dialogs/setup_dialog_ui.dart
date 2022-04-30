@@ -3,6 +3,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/widgets/dialogs/exit_app_dialog_ui.dart';
+import 'package:tamely/widgets/dialogs/gps_waitlist_dialog.dart';
 import 'package:tamely/widgets/dialogs/image_pop_dailog_view.dart';
 import 'package:tamely/widgets/dialogs/success_dialog.dart';
 import 'package:tamely/widgets/dialogs/training_offer_dialog.dart';
@@ -44,6 +45,12 @@ void setupDialogUi() {
     DialogType.TrainingOfferDialog: (context, dialogRequest, completer) =>
         Dialog(
           child: TrainingOfferDialog(
+            dialogRequest: dialogRequest,
+            onDialogTap: completer,
+          ),
+        ),
+    DialogType.GPSWaitlistDialog: (context, dialogRequest, completer) => Dialog(
+          child: GPSWaitlistDialog(
             dialogRequest: dialogRequest,
             onDialogTap: completer,
           ),
