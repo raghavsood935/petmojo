@@ -62,47 +62,47 @@ class DTBookingDetailsView
             ),
             verticalSpaceMedium,
 
-            // Timings
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AppText.body2(trainingTimeTitle),
-                verticalSpaceRegular,
-                Wrap(
-                  spacing: 10.0,
-                  runSpacing: 10.0,
-                  children: [
-                    TimingItems(
-                      timing: timingsOne,
-                      selected: model.selectedWeekdayOne,
-                      onTapped: model.setSelectedWeekday1,
-                    ),
-                    TimingItems(
-                      timing: timingsTwo,
-                      selected: model.selectedWeekdayTwo,
-                      onTapped: model.setSelectedWeekday2,
-                    ),
-                    TimingItems(
-                      timing: timingsThree,
-                      selected: model.selectedWeekdayThree,
-                      onTapped: model.setSelectedWeekday3,
-                    ),
-                    TimingItems(
-                      timing: timingsFour,
-                      selected: model.selectedWeekdayFour,
-                      onTapped: model.setSelectedWeekday4,
-                    ),
-                    TimingItems(
-                      timing: timingsFive,
-                      selected: model.selectedWeekdayFive,
-                      onTapped: model.setSelectedWeekday5,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            verticalSpaceMedium,
-            verticalSpaceTiny,
+            // // Timings
+            // Column(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: [
+            //     AppText.body2(trainingTimeTitle),
+            //     verticalSpaceRegular,
+            //     Wrap(
+            //       spacing: 10.0,
+            //       runSpacing: 10.0,
+            //       children: [
+            //         TimingItems(
+            //           timing: timingsOne,
+            //           selected: model.selectedWeekdayOne,
+            //           onTapped: model.setSelectedWeekday1,
+            //         ),
+            //         TimingItems(
+            //           timing: timingsTwo,
+            //           selected: model.selectedWeekdayTwo,
+            //           onTapped: model.setSelectedWeekday2,
+            //         ),
+            //         TimingItems(
+            //           timing: timingsThree,
+            //           selected: model.selectedWeekdayThree,
+            //           onTapped: model.setSelectedWeekday3,
+            //         ),
+            //         TimingItems(
+            //           timing: timingsFour,
+            //           selected: model.selectedWeekdayFour,
+            //           onTapped: model.setSelectedWeekday4,
+            //         ),
+            //         TimingItems(
+            //           timing: timingsFive,
+            //           selected: model.selectedWeekdayFive,
+            //           onTapped: model.setSelectedWeekday5,
+            //         ),
+            //       ],
+            //     ),
+            //   ],
+            // ),
+            // verticalSpaceMedium,
+            // verticalSpaceTiny,
 
             // Address
             Column(

@@ -141,7 +141,9 @@ class ServicesViewModel extends BaseModel {
 
   void goToECommercePage() {
     // _navigationService.navigateTo(Routes.eCommerceMainView);
+    // _navigationService.navigateTo(Routes.gPSTrackerPageView);
   }
+
   void goToVideosPage() {
     _navigationService.navigateTo(Routes.videosSectionView);
   }

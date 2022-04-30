@@ -109,115 +109,128 @@ class ServicesView extends StatelessWidget {
                             border: Border.all(color: Colors.black38)
                             // color: Color(0XFFFEDFDD),
                             ),
-                        // child: Stack(
-                        //   children: [
-                        //     Positioned(
-                        //       right: 0,
-                        //       child: Row(
-                        //         mainAxisAlignment: MainAxisAlignment.end,
-                        //         children: [
-                        //           Icon(
-                        //             Icons.flash_on_sharp,
-                        //             color: Colors.yellow,
-                        //             size: 11,
-                        //           ),
-                        //           AppText.tiny(
-                        //             "High Demand   ",
-                        //             color: colors.black,
-                        //           ),
-                        //         ],
-                        //       ),
-                        //     ),
-                        //     Positioned(
-                        //       left: 0,
-                        //       child: Image.asset(
-                        //           "assets/images/e-commerce-logo-title.png"),
-                        //     ),
-                        //     Positioned(
-                        //       right: 0,
-                        //       top: 15,
-                        //       child: Image.asset("assets/images/pet_tag.png"),
-                        //     ),
-                        //     Positioned(
-                        //       left: 0,
-                        //       top: 60,
-                        //       child: AppText.bodyBold(
-                        //         "GPS Tracker",
-                        //         color: colors.primary,
-                        //       ),
-                        //     ),
-                        //     Positioned(
-                        //       left: 0,
-                        //       top: 75,
-                        //       child: AppText.caption(
-                        //         "for\nDogs & Cats",
-                        //       ),
-                        //     ),
-                        //     Positioned(
-                        //       left: 0,
-                        //       right: 0,
-                        //       bottom: 5,
-                        //       child: Container(
-                        //         padding:EdgeInsets.(vertical:10,horizontal:5),
-                        //         decoration: BoxDecoration(
-                        //           color: colors.primary,
-                        //           borderRadius: BorderRadius.circular(10),
-                        //         ),
-                        //         child:AppText.bodyBold(
-                        //           "Pre-Book Now",
-                        //           color: colors.white,
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        child: Stack(
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                SizedBox(width: 40),
-                                Icon(
-                                  Icons.flash_on_sharp,
-                                  color: Colors.yellow,
-                                  size: 11,
-                                ),
-                                AppText.tiny(
-                                  "High Demand   ",
-                                  color: colors.black,
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Column(
-                                  children: [
-                                    AppText.body("45 mins"),
-                                    AppText.bodyBold("Doorstep"),
-                                    AppText.bodyBold("Delivery"),
-                                  ],
-                                ),
-                                Expanded(
-                                    child: Image(
-                                  image: AssetImage(
-                                      "assets/images/delivery_truck.png"),
-                                ))
-                              ],
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4),
-                                  color: colors.primary),
-                              child: AppText.caption(
-                                "Shop Now",
-                                color: colors.white,
+                            Positioned(
+                              right: 0,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Icon(
+                                    Icons.flash_on_sharp,
+                                    color: Colors.yellow,
+                                    size: 11,
+                                  ),
+                                  AppText.tiny(
+                                    "High Demand   ",
+                                    color: colors.black,
+                                  ),
+                                ],
                               ),
-                              padding: EdgeInsets.all(5),
-                            )
+                            ),
+                            Positioned(
+                              left: 10,
+                              top: 25,
+                              child: Image.asset("assets/images/petmojo.png"),
+                            ),
+                            Positioned(
+                              right: 0,
+                              top: 15,
+                              child: Image.asset(
+                                "assets/images/pet_tag.png",
+                                scale: 1.5,
+                              ),
+                            ),
+                            Positioned(
+                              left: 10,
+                              top: 50,
+                              child: AppText.bodyBold(
+                                "GPS Tracker",
+                                color: colors.primary,
+                              ),
+                            ),
+                            Positioned(
+                              left: 10,
+                              top: 65,
+                              child: AppText.caption(
+                                "for\nDogs & Cats",
+                              ),
+                            ),
+                            Positioned(
+                              right: -20,
+                              bottom: 20,
+                              child: Image.asset(
+                                "assets/images/cat_for_tracker.png",
+                                // scale: 1.5,
+                              ),
+                            ),
+                            Positioned(
+                              left: 5,
+                              right: 5,
+                              bottom: 5,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 5),
+                                decoration: BoxDecoration(
+                                  color: colors.primary,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: AppText.body1Bold(
+                                  "Pre-Book Now",
+                                  color: colors.white,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
+                        // child: Column(
+                        //   crossAxisAlignment: CrossAxisAlignment.center,
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     Row(
+                        //       mainAxisAlignment: MainAxisAlignment.end,
+                        //       children: [
+                        //         SizedBox(width: 40),
+                        //         Icon(
+                        //           Icons.flash_on_sharp,
+                        //           color: Colors.yellow,
+                        //           size: 11,
+                        //         ),
+                        //         AppText.tiny(
+                        //           "High Demand   ",
+                        //           color: colors.black,
+                        //         ),
+                        //       ],
+                        //     ),
+                        //     Row(
+                        //       children: [
+                        //         Column(
+                        //           children: [
+                        //             AppText.body("45 mins"),
+                        //             AppText.bodyBold("Doorstep"),
+                        //             AppText.bodyBold("Delivery"),
+                        //           ],
+                        //         ),
+                        //         Expanded(
+                        //             child: Image(
+                        //           image: AssetImage(
+                        //               "assets/images/delivery_truck.png"),
+                        //         ))
+                        //       ],
+                        //     ),
+                        //     Container(
+                        //       decoration: BoxDecoration(
+                        //           borderRadius: BorderRadius.circular(4),
+                        //           color: colors.primary),
+                        //       child: AppText.caption(
+                        //         "Shop Now",
+                        //         color: colors.white,
+                        //       ),
+                        //       padding: EdgeInsets.all(5),
+                        //     )
+                        //   ],
+                        // ),
                       ),
                     ),
                   ),

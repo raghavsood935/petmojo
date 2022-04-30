@@ -32,6 +32,7 @@ import 'package:tamely/ui/dashboard/dashboard.dart';
 import 'package:tamely/ui/dummy_development_screen.dart';
 import 'package:tamely/ui/e_commerce/cart/cart_view.dart';
 import 'package:tamely/ui/e_commerce/check_out_page/check_out_view.dart';
+import 'package:tamely/ui/e_commerce/gps_tracker/gps_tracker_view.dart';
 import 'package:tamely/ui/e_commerce/main_page/e_commerce_main_view.dart';
 import 'package:tamely/ui/e_commerce/order_detail_page/order_detail_view.dart';
 import 'package:tamely/ui/e_commerce/product_bookings/bookings_main_view.dart';
@@ -158,6 +159,7 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: CheckOutView),
     CupertinoRoute(page: OrderDetailPage),
     CupertinoRoute(page: ProductBookingsMainView),
+    CupertinoRoute(page: GPSTrackerPageView),
 
     // dashboard routes
     CupertinoRoute(page: SettingsHumanView),

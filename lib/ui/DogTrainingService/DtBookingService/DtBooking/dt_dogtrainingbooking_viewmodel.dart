@@ -137,6 +137,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       await requestLocation();
       _isValid = false;
       secondPageValidation("s");
+      setSelectedWeekday1();
     } else if (currentIndex == 1) {
       await bookARun();
       if (freeWalkAvailable && selectedPlan == DogTrainingPackage.One) {
@@ -322,7 +323,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     } else if (selectedPlan == DogTrainingPackage.Five) {
       _isValid = true;
       _description =
-          "Elite STAGE SHOW Obedience, Behavioural, Guarding and Intellect Training";
+          "Ultra Premium Obedience, Behavioural, Guarding and Intellect Training";
       _subTotal = 43152;
       _amount = 32640;
       _discount = 10512;
@@ -513,14 +514,14 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _isValid = false;
       print("this is shit: $isValid");
     }
-    if (_selectedWeekdayOne == false &&
-        _selectedWeekdayTwo == false &&
-        _selectedWeekdayThree == false &&
-        _selectedWeekdayFour == false &&
-        _selectedWeekdayFive == false) {
-      _isValid = false;
-      print("this is shit: $isValid");
-    }
+    // if (_selectedWeekdayOne == false &&
+    //     _selectedWeekdayTwo == false &&
+    //     _selectedWeekdayThree == false &&
+    //     _selectedWeekdayFour == false &&
+    //     _selectedWeekdayFive == false) {
+    //   _isValid = false;
+    //   print("this is shit: $isValid");
+    // }
     notifyListeners();
   }
 
@@ -1334,6 +1335,14 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
           }
       }
       notifyListeners();
+    }
+  }
+
+  Future callCS() async {
+    try {
+      launch("tel://9009004473");
+    } catch (e) {
+      snackBarService.showSnackbar(message: "Could not call 9009004473");
     }
   }
 
