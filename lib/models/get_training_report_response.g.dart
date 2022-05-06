@@ -32,6 +32,7 @@ _$_GetTrainingReportDetailsResponse
           rating: json['rating'] as int?,
           duration: json['time'] as int?,
           picture: json['picture'] as String?,
+          video: json['video'] as String?,
           time: json['createdAt'] as int?,
         );
 
@@ -42,6 +43,7 @@ Map<String, dynamic> _$$_GetTrainingReportDetailsResponseToJson(
       'rating': instance.rating,
       'time': instance.duration,
       'picture': instance.picture,
+      'video': instance.video,
       'createdAt': instance.time,
     };
 

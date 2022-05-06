@@ -25,6 +25,7 @@ class GetTrainingReportDetailsResponse with _$GetTrainingReportDetailsResponse {
     @JsonKey(name: "rating") int? rating,
     @JsonKey(name: "time") int? duration,
     @JsonKey(name: "picture") String? picture,
+    @JsonKey(name: "video") String? video,
     @JsonKey(name: "createdAt") int? time,
   }) = _GetTrainingReportDetailsResponse;
 
