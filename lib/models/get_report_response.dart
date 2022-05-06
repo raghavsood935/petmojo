@@ -8,7 +8,7 @@ class GetReportResponse with _$GetReportResponse {
   GetReportResponse._();
 
   factory GetReportResponse({
-    @JsonKey(name: "distance") String? distance,
+    @JsonKey(name: "distance") double? distance,
     @JsonKey(name: "time") int? time,
     @JsonKey(name: "rating") int? rating,
     @JsonKey(name: "reperate") List<GetPeeAndPooResponse>? repeat,

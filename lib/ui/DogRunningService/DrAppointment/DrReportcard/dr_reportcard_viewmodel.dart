@@ -3,14 +3,17 @@ import 'package:intl/intl.dart';
 import 'package:tamely/api/api_service.dart';
 import 'package:tamely/api/base_response.dart';
 import 'package:tamely/api/server_error.dart';
+import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/enum/selectedStart.dart';
 import 'package:tamely/enum/walkNumber.dart';
 import 'package:tamely/models/get_report_response.dart';
 import 'package:tamely/models/params/get_runone_report_body.dart';
 import 'package:tamely/models/params/get_runtwo_report_body.dart';
+import 'package:tamely/models/params/get_s3_url_body.dart';
 import 'package:tamely/models/params/set_runone_rating_body.dart';
 import 'package:tamely/models/params/set_runtwo_rating_body.dart';
 import 'package:tamely/models/send_data_response.dart';
+import 'package:tamely/models/url_response.dart';
 import 'package:tamely/util/utils.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -23,6 +26,7 @@ class DRReportCardViewModel extends FutureViewModel<void>
   final _navigationService = locator<NavigationService>();
   final _tamelyApi = locator<TamelyApi>();
   final _snackBarService = locator<SnackbarService>();
+  final _dialogService = locator<DialogService>();
 
   int noOfDogs;
   List<String> dogs;
@@ -160,7 +164,7 @@ class DRReportCardViewModel extends FutureViewModel<void>
             _tamelyApi.getRunOneReport(getReportOneBody),
             throwException: true);
         if (resultOne.data != null) {
-          _distance = resultOne.data!.distance!;
+          _distance = resultOne.data!.distance!.toString();
           _timeTook = resultOne.data!.time!;
           _rating = resultOne.data!.rating!;
           if (rating > 0) {
@@ -168,8 +172,13 @@ class DRReportCardViewModel extends FutureViewModel<void>
           } else if (rating == 0) {
             _gotRating = false;
           }
-          _dogPicture = resultOne.data!.dogPicture!;
-          _mapPicture = resultOne.data!.mapPicture!;
+          if (resultOne.data!.dogPicture != null) {
+            await getS3Url(resultOne.data!.dogPicture ?? "");
+          }
+          if (resultOne.data!.mapPicture != null) {
+            await getMapS3Url(resultOne.data!.mapPicture ?? "");
+          }
+          notifyListeners();
 
           List<GetPeeAndPooResponse> peeAndPoo = resultOne.data!.repeat!;
           _dogPee.clear();
@@ -180,6 +189,52 @@ class DRReportCardViewModel extends FutureViewModel<void>
           }
         }
         notifyListeners();
+      } else {
+        _snackBarService.showSnackbar(message: "No Internet connection");
+      }
+    } on ServerError catch (e) {
+      log.e(e.toString());
+    }
+    notifyListeners();
+  }
+
+  Future<void> getS3Url(String awsKey) async {
+    try {
+      if (await Util.checkInternetConnectivity()) {
+        _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
+        GetS3UrlBody getRunOneReportBody = GetS3UrlBody(awsKey);
+        BaseResponse<UrlResponse> result = await runBusyFuture(
+            _tamelyApi.getS3Url(getRunOneReportBody),
+            throwException: true);
+        if (result.data != null) {
+          print("Picture url is ${result.data!.url}");
+          _dogPicture = result.data!.url!;
+        }
+        notifyListeners();
+        _dialogService.completeDialog(DialogResponse(confirmed: true));
+      } else {
+        _snackBarService.showSnackbar(message: "No Internet connection");
+      }
+    } on ServerError catch (e) {
+      log.e(e.toString());
+    }
+    notifyListeners();
+  }
+
+  Future<void> getMapS3Url(String awsKey) async {
+    try {
+      if (await Util.checkInternetConnectivity()) {
+        _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
+        GetS3UrlBody getRunOneReportBody = GetS3UrlBody(awsKey);
+        BaseResponse<UrlResponse> result = await runBusyFuture(
+            _tamelyApi.getS3Url(getRunOneReportBody),
+            throwException: true);
+        if (result.data != null) {
+          print("Map Picture url is ${result.data!.url}");
+          _mapPicture = result.data!.url!;
+        }
+        notifyListeners();
+        _dialogService.completeDialog(DialogResponse(confirmed: true));
       } else {
         _snackBarService.showSnackbar(message: "No Internet connection");
       }
@@ -203,7 +258,7 @@ class DRReportCardViewModel extends FutureViewModel<void>
             _tamelyApi.getRunTwoReport(getReportTwoBody),
             throwException: true);
         if (resultOne.data != null) {
-          _distance = resultOne.data!.distance!;
+          _distance = resultOne.data!.distance!.toString();
           _timeTook = resultOne.data!.time!;
           _rating = resultOne.data!.rating!;
           if (rating > 0) {
