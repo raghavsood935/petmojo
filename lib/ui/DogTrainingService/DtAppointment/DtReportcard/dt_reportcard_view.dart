@@ -9,6 +9,7 @@ import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
+import 'package:video_player/video_player.dart';
 
 import 'dt_reportcard_viewmodel.dart';
 
@@ -121,7 +122,39 @@ class DTReportCardView extends StatelessWidget {
                       margin: const EdgeInsets.symmetric(
                           horizontal: 5, vertical: 5),
                       color: colors.primaryLight,
-                      child: Image.network(model.dogPicture),
+                      child: model.isVideoAvailable
+                          ? Container(
+                              height: 300,
+                              width: double.infinity,
+                              child: model.videoController!.value.isInitialized
+                                  ? Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                          child: AspectRatio(
+                                            aspectRatio: model.videoController!
+                                                .value.aspectRatio,
+                                            child: VideoPlayer(
+                                                model.videoController!),
+                                          ),
+                                        ),
+                                        FloatingActionButton(
+                                          onPressed: () {
+                                            model.pauseOrPlay();
+                                          },
+                                          child: Icon(
+                                            model.videoController!.value
+                                                    .isPlaying
+                                                ? Icons.pause
+                                                : Icons.play_arrow,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : Container(),
+                            )
+                          : Image.network(model.dogPicture),
                     ),
                   ),
                   verticalSpaceRegular,

@@ -67,6 +67,7 @@ import 'package:tamely/models/params/edit_animal_profile_main_details_body.dart'
 import 'package:tamely/models/params/edit_animal_type_body.dart';
 import 'package:tamely/models/params/feedback_body.dart';
 import 'package:tamely/models/params/fetch_list_of_following_body.dart';
+import 'package:tamely/models/params/get_s3_url_body.dart';
 import 'package:tamely/models/params/get_training_scroll_status_body.dart';
 import 'package:tamely/models/params/get_animal_by_location_body.dart';
 import 'package:tamely/models/params/get_guardians_body.dart';
@@ -106,6 +107,7 @@ import 'package:tamely/models/params/groups/create_group_body.dart';
 import 'package:tamely/models/params/groups/update_group_hashtags_body.dart';
 import 'package:tamely/models/params/groups/invite_people_group_body.dart';
 import 'package:tamely/models/reorder_a_run_response.dart';
+import 'package:tamely/models/url_response.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
 import 'package:tamely/models/user_response_models.dart';
 import 'package:tamely/models/get_appointment_details_response.dart';
@@ -328,10 +330,15 @@ class Apis {
   // -- Offers
   static const String getCouponAmount = '/serviceBooking/Verifycoupon';
   static const String setUsedCoupon = '/serviceBooking/MarkCoupon';
+
+  static const String getS3Url = "/s3/getImage";
+  static const String getS3VideoUrl = "s3/getVideo";
 }
 
 // @RestApi(baseUrl: "https://tamely.herokuapp.com/api/")
-@RestApi(baseUrl: "https://6xdmb7fadb.execute-api.ap-south-1.amazonaws.com/production/api/")
+@RestApi(
+    baseUrl:
+        "https://6xdmb7fadb.execute-api.ap-south-1.amazonaws.com/production/api/")
 abstract class ApiClient {
   factory ApiClient(Dio dio, {String baseUrl}) = _ApiClient;
 
@@ -898,4 +905,12 @@ abstract class ApiClient {
   // -- Set Used Coupon
   @POST(Apis.setUsedCoupon)
   Future<SendDataResponse> setUsedCoupon(@Body() CouponBody couponBody);
+
+// -- Get s3 url from server
+  @POST(Apis.getS3Url)
+  Future<UrlResponse> getS3Url(@Body() GetS3UrlBody getUrlBody);
+
+  // -- Get s3 video url from server
+  @POST(Apis.getS3VideoUrl)
+  Future<UrlResponse> getS3VideoUrl(@Body() GetS3UrlBody getUrlBody);
 }

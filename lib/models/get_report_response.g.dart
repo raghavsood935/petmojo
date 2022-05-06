@@ -8,7 +8,7 @@ part of 'get_report_response.dart';
 
 _$_GetReportResponse _$$_GetReportResponseFromJson(Map<String, dynamic> json) =>
     _$_GetReportResponse(
-      distance: json['distance'] as String?,
+      distance: (json['distance'] as num?)?.toDouble(),
       time: json['time'] as int?,
       rating: json['rating'] as int?,
       repeat: (json['reperate'] as List<dynamic>?)

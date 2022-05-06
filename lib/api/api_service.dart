@@ -72,6 +72,7 @@ import 'package:tamely/models/params/edit_animal_profile_main_details_body.dart'
 import 'package:tamely/models/params/edit_animal_type_body.dart';
 import 'package:tamely/models/params/feedback_body.dart';
 import 'package:tamely/models/params/fetch_list_of_following_body.dart';
+import 'package:tamely/models/params/get_s3_url_body.dart';
 import 'package:tamely/models/params/get_training_scroll_status_body.dart';
 import 'package:tamely/models/params/get_animal_by_location_body.dart';
 import 'package:tamely/models/params/get_guardians_body.dart';
@@ -112,6 +113,7 @@ import 'package:tamely/models/params/update_token_body.dart';
 import 'package:tamely/models/params/verify_mobile_otp_body.dart';
 import 'package:tamely/models/profile_details_by_id_response.dart';
 import 'package:tamely/models/reorder_a_run_response.dart';
+import 'package:tamely/models/url_response.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
 import 'package:tamely/models/user_response_models.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
@@ -2161,5 +2163,32 @@ class TamelyApi {
     }
     return BaseResponse()..data = response;
   }
-}
 
+// -- Get S3 Url
+  Future<BaseResponse<UrlResponse>> getS3Url(GetS3UrlBody getS3UrlBody) async {
+    UrlResponse response;
+    try {
+      response = await getApiClient(true, true).getS3Url(getS3UrlBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Get S3 Video Url
+
+  Future<BaseResponse<UrlResponse>> getS3VideoUrl(
+      GetS3UrlBody getS3UrlBody) async {
+    UrlResponse response;
+    try {
+      response = await getApiClient(true, true).getS3VideoUrl(getS3UrlBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+}

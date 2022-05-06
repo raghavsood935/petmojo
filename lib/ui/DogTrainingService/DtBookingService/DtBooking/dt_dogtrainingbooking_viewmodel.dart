@@ -1253,6 +1253,8 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     //
     try {
       if (await Util.checkInternetConnectivity()) {
+        _noOfDogs = petDetailsBody.length;
+        print('assigning size as ${petDetailsBody.length}');
         BookATrainingBody bookATrainingBody = BookATrainingBody(
           noOfDogs,
           petDetailsBody,
