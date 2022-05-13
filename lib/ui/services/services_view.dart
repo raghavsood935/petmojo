@@ -8,6 +8,7 @@ import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/live_ongoing_widget.dart';
 import 'package:tamely/widgets/play_btn.dart';
 import 'package:tamely/widgets/services_preview_sliding.dart';
 
@@ -26,6 +27,7 @@ class ServicesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ServicesViewModel>.reactive(
       viewModelBuilder: () => ServicesViewModel(),
+      onModelReady: (model) async => await model.init(),
       builder: (context, model, child) => Scaffold(
         body: SafeArea(
           child: ListView(
@@ -74,7 +76,11 @@ class ServicesView extends StatelessWidget {
                   ],
                 ),
               ),
-              ServicesPreviewSliding(model: model),
+              model.isOngoingSessionPresent
+                  ? model.ongoingSessionType == 1
+                      ? OngoingTraining(model: model)
+                      : OngoingWalking(model: model)
+                  : ServicesPreviewSliding(model: model),
               verticalSpaceRegular,
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -184,53 +190,6 @@ class ServicesView extends StatelessWidget {
                             ),
                           ],
                         ),
-                        // child: Column(
-                        //   crossAxisAlignment: CrossAxisAlignment.center,
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //     Row(
-                        //       mainAxisAlignment: MainAxisAlignment.end,
-                        //       children: [
-                        //         SizedBox(width: 40),
-                        //         Icon(
-                        //           Icons.flash_on_sharp,
-                        //           color: Colors.yellow,
-                        //           size: 11,
-                        //         ),
-                        //         AppText.tiny(
-                        //           "High Demand   ",
-                        //           color: colors.black,
-                        //         ),
-                        //       ],
-                        //     ),
-                        //     Row(
-                        //       children: [
-                        //         Column(
-                        //           children: [
-                        //             AppText.body("45 mins"),
-                        //             AppText.bodyBold("Doorstep"),
-                        //             AppText.bodyBold("Delivery"),
-                        //           ],
-                        //         ),
-                        //         Expanded(
-                        //             child: Image(
-                        //           image: AssetImage(
-                        //               "assets/images/delivery_truck.png"),
-                        //         ))
-                        //       ],
-                        //     ),
-                        //     Container(
-                        //       decoration: BoxDecoration(
-                        //           borderRadius: BorderRadius.circular(4),
-                        //           color: colors.primary),
-                        //       child: AppText.caption(
-                        //         "Shop Now",
-                        //         color: colors.white,
-                        //       ),
-                        //       padding: EdgeInsets.all(5),
-                        //     )
-                        //   ],
-                        // ),
                       ),
                     ),
                   ),

@@ -91,6 +91,11 @@ _$_NotificationDataResponse _$$_NotificationDataResponseFromJson(
       postId: json['postId'] as String?,
       image: json['image'] as String?,
       message: json['message'] as String?,
+      body: json['body'] as String?,
+      textOnCTA: json['textOnCTA'] as String?,
+      actionOnCTA: json['actionOnCTA'] as String?,
+      icon: json['icon'] as String?,
+      valueForCTA: json['valueForCTA'] as String?,
     );
 
 Map<String, dynamic> _$$_NotificationDataResponseToJson(
@@ -99,4 +104,9 @@ Map<String, dynamic> _$$_NotificationDataResponseToJson(
       'postId': instance.postId,
       'image': instance.image,
       'message': instance.message,
+      'body': instance.body,
+      'textOnCTA': instance.textOnCTA,
+      'actionOnCTA': instance.actionOnCTA,
+      'icon': instance.icon,
+      'valueForCTA': instance.valueForCTA,
     };

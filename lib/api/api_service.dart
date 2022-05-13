@@ -113,6 +113,7 @@ import 'package:tamely/models/params/update_token_body.dart';
 import 'package:tamely/models/params/verify_mobile_otp_body.dart';
 import 'package:tamely/models/profile_details_by_id_response.dart';
 import 'package:tamely/models/reorder_a_run_response.dart';
+import 'package:tamely/models/session_tracker_response.dart';
 import 'package:tamely/models/url_response.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
 import 'package:tamely/models/user_response_models.dart';
@@ -2184,6 +2185,19 @@ class TamelyApi {
     UrlResponse response;
     try {
       response = await getApiClient(true, true).getS3VideoUrl(getS3UrlBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+// -- Get session tracker response
+
+  Future<BaseResponse<SessionTrackerResponse>> sessionTracker() async {
+    SessionTrackerResponse response;
+    try {
+      response = await getApiClient(true, true).sessionTracker();
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()

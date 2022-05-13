@@ -121,6 +121,7 @@ dependencies:
   #for payment
   razorpay_flutter: ^1.2.7
   new_version: ^0.3.0
+  blinking_text: ^1.0.2
 
 flutter_icons:
   image_path: assets/images/logo.png

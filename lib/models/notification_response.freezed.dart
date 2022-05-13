@@ -969,11 +969,21 @@ class _$NotificationDataResponseTearOff {
   _NotificationDataResponse call(
       {@JsonKey(name: "postId") String? postId,
       @JsonKey(name: "image") String? image,
-      @JsonKey(name: "message") String? message}) {
+      @JsonKey(name: "message") String? message,
+      @JsonKey(name: "body") String? body,
+      @JsonKey(name: "textOnCTA") String? textOnCTA,
+      @JsonKey(name: "actionOnCTA") String? actionOnCTA,
+      @JsonKey(name: "icon") String? icon,
+      @JsonKey(name: "valueForCTA") String? valueForCTA}) {
     return _NotificationDataResponse(
       postId: postId,
       image: image,
       message: message,
+      body: body,
+      textOnCTA: textOnCTA,
+      actionOnCTA: actionOnCTA,
+      icon: icon,
+      valueForCTA: valueForCTA,
     );
   }
 
@@ -993,6 +1003,16 @@ mixin _$NotificationDataResponse {
   String? get image => throw _privateConstructorUsedError;
   @JsonKey(name: "message")
   String? get message => throw _privateConstructorUsedError;
+  @JsonKey(name: "body")
+  String? get body => throw _privateConstructorUsedError;
+  @JsonKey(name: "textOnCTA")
+  String? get textOnCTA => throw _privateConstructorUsedError;
+  @JsonKey(name: "actionOnCTA")
+  String? get actionOnCTA => throw _privateConstructorUsedError;
+  @JsonKey(name: "icon")
+  String? get icon => throw _privateConstructorUsedError;
+  @JsonKey(name: "valueForCTA")
+  String? get valueForCTA => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1008,7 +1028,12 @@ abstract class $NotificationDataResponseCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "postId") String? postId,
       @JsonKey(name: "image") String? image,
-      @JsonKey(name: "message") String? message});
+      @JsonKey(name: "message") String? message,
+      @JsonKey(name: "body") String? body,
+      @JsonKey(name: "textOnCTA") String? textOnCTA,
+      @JsonKey(name: "actionOnCTA") String? actionOnCTA,
+      @JsonKey(name: "icon") String? icon,
+      @JsonKey(name: "valueForCTA") String? valueForCTA});
 }
 
 /// @nodoc
@@ -1025,6 +1050,11 @@ class _$NotificationDataResponseCopyWithImpl<$Res>
     Object? postId = freezed,
     Object? image = freezed,
     Object? message = freezed,
+    Object? body = freezed,
+    Object? textOnCTA = freezed,
+    Object? actionOnCTA = freezed,
+    Object? icon = freezed,
+    Object? valueForCTA = freezed,
   }) {
     return _then(_value.copyWith(
       postId: postId == freezed
@@ -1038,6 +1068,26 @@ class _$NotificationDataResponseCopyWithImpl<$Res>
       message: message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      body: body == freezed
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
+              as String?,
+      textOnCTA: textOnCTA == freezed
+          ? _value.textOnCTA
+          : textOnCTA // ignore: cast_nullable_to_non_nullable
+              as String?,
+      actionOnCTA: actionOnCTA == freezed
+          ? _value.actionOnCTA
+          : actionOnCTA // ignore: cast_nullable_to_non_nullable
+              as String?,
+      icon: icon == freezed
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as String?,
+      valueForCTA: valueForCTA == freezed
+          ? _value.valueForCTA
+          : valueForCTA // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -1053,7 +1103,12 @@ abstract class _$NotificationDataResponseCopyWith<$Res>
   $Res call(
       {@JsonKey(name: "postId") String? postId,
       @JsonKey(name: "image") String? image,
-      @JsonKey(name: "message") String? message});
+      @JsonKey(name: "message") String? message,
+      @JsonKey(name: "body") String? body,
+      @JsonKey(name: "textOnCTA") String? textOnCTA,
+      @JsonKey(name: "actionOnCTA") String? actionOnCTA,
+      @JsonKey(name: "icon") String? icon,
+      @JsonKey(name: "valueForCTA") String? valueForCTA});
 }
 
 /// @nodoc
@@ -1073,6 +1128,11 @@ class __$NotificationDataResponseCopyWithImpl<$Res>
     Object? postId = freezed,
     Object? image = freezed,
     Object? message = freezed,
+    Object? body = freezed,
+    Object? textOnCTA = freezed,
+    Object? actionOnCTA = freezed,
+    Object? icon = freezed,
+    Object? valueForCTA = freezed,
   }) {
     return _then(_NotificationDataResponse(
       postId: postId == freezed
@@ -1087,6 +1147,26 @@ class __$NotificationDataResponseCopyWithImpl<$Res>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
+      body: body == freezed
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
+              as String?,
+      textOnCTA: textOnCTA == freezed
+          ? _value.textOnCTA
+          : textOnCTA // ignore: cast_nullable_to_non_nullable
+              as String?,
+      actionOnCTA: actionOnCTA == freezed
+          ? _value.actionOnCTA
+          : actionOnCTA // ignore: cast_nullable_to_non_nullable
+              as String?,
+      icon: icon == freezed
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as String?,
+      valueForCTA: valueForCTA == freezed
+          ? _value.valueForCTA
+          : valueForCTA // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -1097,7 +1177,12 @@ class _$_NotificationDataResponse extends _NotificationDataResponse {
   _$_NotificationDataResponse(
       {@JsonKey(name: "postId") this.postId,
       @JsonKey(name: "image") this.image,
-      @JsonKey(name: "message") this.message})
+      @JsonKey(name: "message") this.message,
+      @JsonKey(name: "body") this.body,
+      @JsonKey(name: "textOnCTA") this.textOnCTA,
+      @JsonKey(name: "actionOnCTA") this.actionOnCTA,
+      @JsonKey(name: "icon") this.icon,
+      @JsonKey(name: "valueForCTA") this.valueForCTA})
       : super._();
 
   factory _$_NotificationDataResponse.fromJson(Map<String, dynamic> json) =>
@@ -1112,10 +1197,25 @@ class _$_NotificationDataResponse extends _NotificationDataResponse {
   @override
   @JsonKey(name: "message")
   final String? message;
+  @override
+  @JsonKey(name: "body")
+  final String? body;
+  @override
+  @JsonKey(name: "textOnCTA")
+  final String? textOnCTA;
+  @override
+  @JsonKey(name: "actionOnCTA")
+  final String? actionOnCTA;
+  @override
+  @JsonKey(name: "icon")
+  final String? icon;
+  @override
+  @JsonKey(name: "valueForCTA")
+  final String? valueForCTA;
 
   @override
   String toString() {
-    return 'NotificationDataResponse(postId: $postId, image: $image, message: $message)';
+    return 'NotificationDataResponse(postId: $postId, image: $image, message: $message, body: $body, textOnCTA: $textOnCTA, actionOnCTA: $actionOnCTA, icon: $icon, valueForCTA: $valueForCTA)';
   }
 
   @override
@@ -1125,7 +1225,14 @@ class _$_NotificationDataResponse extends _NotificationDataResponse {
             other is _NotificationDataResponse &&
             const DeepCollectionEquality().equals(other.postId, postId) &&
             const DeepCollectionEquality().equals(other.image, image) &&
-            const DeepCollectionEquality().equals(other.message, message));
+            const DeepCollectionEquality().equals(other.message, message) &&
+            const DeepCollectionEquality().equals(other.body, body) &&
+            const DeepCollectionEquality().equals(other.textOnCTA, textOnCTA) &&
+            const DeepCollectionEquality()
+                .equals(other.actionOnCTA, actionOnCTA) &&
+            const DeepCollectionEquality().equals(other.icon, icon) &&
+            const DeepCollectionEquality()
+                .equals(other.valueForCTA, valueForCTA));
   }
 
   @override
@@ -1133,7 +1240,12 @@ class _$_NotificationDataResponse extends _NotificationDataResponse {
       runtimeType,
       const DeepCollectionEquality().hash(postId),
       const DeepCollectionEquality().hash(image),
-      const DeepCollectionEquality().hash(message));
+      const DeepCollectionEquality().hash(message),
+      const DeepCollectionEquality().hash(body),
+      const DeepCollectionEquality().hash(textOnCTA),
+      const DeepCollectionEquality().hash(actionOnCTA),
+      const DeepCollectionEquality().hash(icon),
+      const DeepCollectionEquality().hash(valueForCTA));
 
   @JsonKey(ignore: true)
   @override
@@ -1149,9 +1261,15 @@ class _$_NotificationDataResponse extends _NotificationDataResponse {
 
 abstract class _NotificationDataResponse extends NotificationDataResponse {
   factory _NotificationDataResponse(
-      {@JsonKey(name: "postId") String? postId,
-      @JsonKey(name: "image") String? image,
-      @JsonKey(name: "message") String? message}) = _$_NotificationDataResponse;
+          {@JsonKey(name: "postId") String? postId,
+          @JsonKey(name: "image") String? image,
+          @JsonKey(name: "message") String? message,
+          @JsonKey(name: "body") String? body,
+          @JsonKey(name: "textOnCTA") String? textOnCTA,
+          @JsonKey(name: "actionOnCTA") String? actionOnCTA,
+          @JsonKey(name: "icon") String? icon,
+          @JsonKey(name: "valueForCTA") String? valueForCTA}) =
+      _$_NotificationDataResponse;
   _NotificationDataResponse._() : super._();
 
   factory _NotificationDataResponse.fromJson(Map<String, dynamic> json) =
@@ -1166,6 +1284,21 @@ abstract class _NotificationDataResponse extends NotificationDataResponse {
   @override
   @JsonKey(name: "message")
   String? get message;
+  @override
+  @JsonKey(name: "body")
+  String? get body;
+  @override
+  @JsonKey(name: "textOnCTA")
+  String? get textOnCTA;
+  @override
+  @JsonKey(name: "actionOnCTA")
+  String? get actionOnCTA;
+  @override
+  @JsonKey(name: "icon")
+  String? get icon;
+  @override
+  @JsonKey(name: "valueForCTA")
+  String? get valueForCTA;
   @override
   @JsonKey(ignore: true)
   _$NotificationDataResponseCopyWith<_NotificationDataResponse> get copyWith =>
