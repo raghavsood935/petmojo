@@ -178,7 +178,7 @@ class Routes {
   static const String helpView = '/help-view';
   static const String walletView = '/wallet-view';
   static const String notificationMainView = '/notification-main-view';
-  static const String appointmentsView = '/appointments-view';
+  static const String   appointmentsView = '/appointments-view';
   static const String videosSectionView = '/videos-section-view';
   static const String dRDogRunningBookingView = '/d-rdog-running-booking-view';
   static const String locationPicker = '/location-picker';
