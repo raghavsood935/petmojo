@@ -43,7 +43,9 @@ class AppointmentsViewModel extends ServicesViewModel {
         if (resultOne.data != null) {
           _hasAppointments = resultOne.data!.hasAppointments!;
         }
+
         notifyListeners();
+
 
         _dialogService.completeDialog(DialogResponse(confirmed: true));
       } else {

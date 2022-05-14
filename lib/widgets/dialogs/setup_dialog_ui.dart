@@ -44,7 +44,9 @@ void setupDialogUi() {
         ),
     DialogType.TrainingOfferDialog: (context, dialogRequest, completer) =>
         Dialog(
-          child: TrainingOfferDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0))),
+          child:  TrainingOfferDialog(
             dialogRequest: dialogRequest,
             onDialogTap: completer,
           ),

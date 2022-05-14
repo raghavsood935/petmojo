@@ -1,6 +1,13 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:tamely/ui/DogRunningService/DrBookingService/DrBooking/dr_dogrunningbooking_view.dart';
+import 'package:tamely/ui/bookings/bookings_view.dart';
 import 'package:tamely/util/global_methods.dart';
+
+import '../ui/DogGroomingService/DgAppointment/DgAppointmentdetails/dg_appointmentdetails_view.dart';
 
 class LocalNotificationService {
   static final FlutterLocalNotificationsPlugin _notificationsPlugin =
@@ -23,21 +30,26 @@ class LocalNotificationService {
     //   sound: true,
     // );
 
-    final InitializationSettings initializationSettings =
-        InitializationSettings(
-            android: AndroidInitializationSettings("@mipmap/ic_launcher"));
-
+    // final InitializationSettings initializationSettings =
+    //     InitializationSettings(
+    //         android: AndroidInitializationSettings("@mipmap/ic_launcher"));
+    //
     // _notificationsPlugin.initialize(initializationSettings,
-    //     onSelectNotification: (String? route) async {});
+    //     onSelectNotification: (payload) async {
+    //   print("payloads");
+    //   print(payload);
+    //   Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DGAppointmentDetailsView(appointmentId: '',)));
+    //
+    //     });
   }
 
   static Future _notificationDetails(RemoteMessage message) async {
-    final bigPicturePath =
-        await GlobalMethods.linkToFilePath(message.data["image"], "bigImage");
-    final styleInformation = BigPictureStyleInformation(
-      FilePathAndroidBitmap(bigPicturePath),
-      largeIcon: FilePathAndroidBitmap(bigPicturePath),
-    );
+    // final bigPicturePath =
+    //     await GlobalMethods.linkToFilePath(message.data["image"], "bigImage");
+    // final styleInformation = BigPictureStyleInformation(
+    //   FilePathAndroidBitmap(bigPicturePath),
+    //   largeIcon: FilePathAndroidBitmap(bigPicturePath),
+    // );
 
     NotificationDetails notificationDetails = NotificationDetails(
       android: AndroidNotificationDetails(
@@ -47,11 +59,10 @@ class LocalNotificationService {
         importance: Importance.max,
         priority: Priority.max,
         channelShowBadge: true,
-        largeIcon: FilePathAndroidBitmap(bigPicturePath),
+        // largeIcon: FilePathAndroidBitmap(bigPicturePath),
         styleInformation: BigTextStyleInformation(""),
       ),
     );
-
     return notificationDetails;
   }
 
@@ -61,10 +72,10 @@ class LocalNotificationService {
 
       await _notificationsPlugin.show(
         id,
-        message.data["title"],
-        message.data["body"],
+        message.notification!.title,
+        message.notification!.body,
         await _notificationDetails(message),
-        payload: message.data["route"],
+        payload:message.data['screenName'],
       );
     } on Exception catch (e) {
       print(e);

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/popUpNotifications/User%20Training%20Pop%20ups/liveTraining.dart';
 import 'package:tamely/ui/services/services_viewmodel.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ImageConstant.dart';
@@ -74,6 +75,7 @@ class ServicesView extends StatelessWidget {
                   ],
                 ),
               ),
+              // liveTraining(title: "Training Ongoing!", description: "Our trusted trainer is taking good care of your"),
               ServicesPreviewSliding(model: model),
               verticalSpaceRegular,
               Padding(

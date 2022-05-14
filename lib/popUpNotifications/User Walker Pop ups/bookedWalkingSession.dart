@@ -1,27 +1,28 @@
 import 'package:confetti/confetti.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/util/Color.dart';
-import 'package:tamely/util/ImageConstant.dart';
-import 'package:tamely/util/ui_helpers.dart';
-import 'package:tamely/widgets/app_text.dart';
 
-class TrainingOfferDialog extends StatefulWidget {
+import '../../util/ImageConstant.dart';
+import '../../util/ui_helpers.dart';
+import '../../widgets/app_text.dart';
+
+
+class bookedWalkingSession extends StatefulWidget {
   final DialogRequest dialogRequest;
   final Function(DialogResponse) onDialogTap;
 
-  const TrainingOfferDialog({
+  const bookedWalkingSession({
     Key? key,
     required this.dialogRequest,
     required this.onDialogTap,
   }) : super(key: key);
 
   @override
-  _TrainingOfferDialogState createState() => _TrainingOfferDialogState();
+  State<bookedWalkingSession> createState() => _bookedWalkingSessionState();
 }
 
-class _TrainingOfferDialogState extends State<TrainingOfferDialog> {
+class _bookedWalkingSessionState extends State<bookedWalkingSession> {
   @override
   void initState() {
     super.initState();
@@ -29,7 +30,6 @@ class _TrainingOfferDialogState extends State<TrainingOfferDialog> {
   }
 
   late ConfettiController _confettiController = ConfettiController();
-
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -117,8 +117,8 @@ class _TrainingOfferDialogState extends State<TrainingOfferDialog> {
                   Container(
                     margin: EdgeInsets.fromLTRB(0, 10, 10, 0),
                     child: Align(
-                        alignment:Alignment.topRight,
-                        child: Icon(Icons.close,size: 20,color: Color(0xFFC3C3C3),),
+                      alignment:Alignment.topRight,
+                      child: Icon(Icons.close,size: 20,color: Color(0xFFC3C3C3),),
                     ),
                   ),
                   // Positioned(
@@ -208,7 +208,7 @@ class _TrainingOfferDialogState extends State<TrainingOfferDialog> {
                                 color: colors.primary,
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: AppText.titleBold("Avail Discount",
+                              child: AppText.titleBold("My Bookings",
                                   color: colors.white),
                             ),
                           ),
@@ -232,3 +232,4 @@ class _TrainingOfferDialogState extends State<TrainingOfferDialog> {
     );
   }
 }
+
