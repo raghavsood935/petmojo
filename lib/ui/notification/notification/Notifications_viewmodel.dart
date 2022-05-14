@@ -1,6 +1,7 @@
 import 'package:tamely/api/api_service.dart';
 import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/redirect_state.dart';
 import 'package:tamely/models/notification_response.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
@@ -29,7 +30,6 @@ class NotificationViewModel extends FutureViewModel<void>
 
     getNotification();
   }
-
 
   Future getNotification() async {
     isLoading = true;
@@ -78,7 +78,13 @@ class NotificationViewModel extends FutureViewModel<void>
     notifyListeners();
   }
 
-  void onNotificationPressed() {}
+  void onNotificationPressed(NotificationResponse notification) async {
+    if (notification.notificationDataResponse!.actionOnCTA != "MYBOOKINGS") {
+      await _navigationService.navigateTo(
+        Routes.appointmentsView,
+      );
+    }
+  }
 
   void onChatPressed() {}
 }
