@@ -53,8 +53,12 @@ class PhoneAuthenticationViewModel extends FormViewModel {
       }
     } else {
       _snackBarService.showSnackbar(
-          message: "Please enter a valid mobile number");
+          message: "",
+        title: "Hello there",
+      );
+
     }
+
   }
 
   @override

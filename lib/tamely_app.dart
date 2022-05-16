@@ -14,6 +14,9 @@ import 'package:tamely/ui/DogGroomingService/DgAppointment/DgAppointmentdetails/
 import 'package:tamely/ui/DogRunningService/DrAppointment/DrAppointmentdetails/dr_appointmentdetails_view.dart';
 import 'package:tamely/ui/DogRunningService/DrAppointment/DrLivemap/dr_livemap_view.dart';
 import 'package:tamely/ui/DogRunningService/DrAppointment/DrReportcard/dr_reportcard_view.dart';
+import 'package:tamely/ui/DogTrainingService/DtAppointment/DtAppointmentdetails/dt_appointmentdetails_view.dart';
+import 'package:tamely/ui/DogTrainingService/DtAppointment/DtReportcard/dt_reportcard_view.dart';
+import 'package:tamely/ui/DogTrainingService/DtAppointment/DtReportcard/dt_reportcard_viewmodel.dart';
 import 'package:tamely/ui/MyAppointments/appointments_view.dart';
 import 'package:tamely/ui/dashboard/dashboard.dart';
 import 'package:tamely/ui/startup/startup_view.dart';
@@ -54,6 +57,8 @@ class _TamelyAppState extends State<TamelyApp> {
 
         _notificationsPlugin.initialize(initializationSettings,
             onSelectNotification: (screenName) async {
+            print("entered function");
+            print(message.data);
 
 
               //Based on screenName redirect to a particular screen
@@ -84,28 +89,39 @@ class _TamelyAppState extends State<TamelyApp> {
 
 
                   //Parameters required for the screen
+
                   var appointmentId=message.data['appointmentId'];
 
-                  var noOfDogs=message.data['noOfDogs'];
+                  if(message.data['date']
+                  !=""){
+                    print("no entry");
+                    var noOfDogs=message.data['noOfDogs'];
 
-                  List<String> dogs=[];
-                  String dogName=message.data['dogs'];
-                  dogs.add(dogName);
+                    List<String> dogs=[];
+                    String dogName=message.data['dogs'];
+                    dogs.add(dogName);
 
-                  var date = message.data['date'];
-                  int newDate=int.parse(date);
-                  final DateTime timeStamp = DateTime.fromMillisecondsSinceEpoch(newDate * 1000);
+                    var date = message.data['date'];
+                    int newDate=int.parse(date);
+                    final DateTime timeStamp = DateTime.fromMillisecondsSinceEpoch(newDate * 1000);
 
-                  var walkNumber;
-                  if(message.data['walkNumber']=="one"){
-                    walkNumber=WalkNumber.One;
+                    var walkNumber;
+                    if(message.data['walkNumber']=="one"){
+                      walkNumber=WalkNumber.One;
+                    }
+                    else if(message.data['walkNumber']=="two"){
+                      walkNumber=WalkNumber.Two;
+                    }
+
+                    //Navigate to DRReportCardView
+                    Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DRReportCardView(appointmentId: appointmentId, dogs: dogs, walkNumber: walkNumber, date: timeStamp, noOfDogs: int.parse(noOfDogs),)));
                   }
-                  else if(message.data['walkNumber']=="two"){
-                    walkNumber=WalkNumber.Two;
-                  }
+                  else{
 
-                  //Navigate to DRReportCardView
-                  Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DRReportCardView(appointmentId: appointmentId, dogs: dogs, walkNumber: walkNumber, date: timeStamp, noOfDogs: int.parse(noOfDogs),)));
+                    var sessionNo=int.parse(message.data['sessionNo']);
+
+                    Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DTReportCardView(appointmentId: appointmentId, sessionNo: sessionNo,)));
+                  }
                 }
                 break;
 
@@ -118,10 +134,17 @@ class _TamelyAppState extends State<TamelyApp> {
                 case "appointmentDetails":{
 
                   //Parameters for the screen
-                  var appointmentId=message.data['appointmentId'];
+                  var appointmentId=message.data['bookingDetailsId'];
+                  if(message.data['bookingDetailsId']==null){
 
-                  //Navigate to DRAppointmentDetailsView
-                  Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DRAppointmentDetailsView(appointmentId: appointmentId)));
+                    //Navigate to DRAppointmentDetailsView
+                    Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DRAppointmentDetailsView(appointmentId: appointmentId)));
+                  }
+                  else{
+                    var dogTrainingBookingDetailsId=message.data["DogTrainingbookingDetailsId"];
+                    Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DTAppointmentDetailsView(appointmentId: dogTrainingBookingDetailsId)));
+                  }
+
                 }
                 break;
                 default:{
