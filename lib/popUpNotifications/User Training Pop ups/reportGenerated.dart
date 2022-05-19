@@ -6,21 +6,21 @@ import '../../util/ImageConstant.dart';
 import '../../util/ui_helpers.dart';
 import '../../widgets/app_text.dart';
 
-class reportGenerated extends StatefulWidget {
+class ReportGenerated extends StatefulWidget {
   final DialogRequest dialogRequest;
   final Function(DialogResponse) onDialogTap;
 
-  const reportGenerated({
+  const ReportGenerated({
     Key? key,
     required this.dialogRequest,
     required this.onDialogTap,
   }) : super(key: key);
 
   @override
-  State<reportGenerated> createState() => _reportGeneratedState();
+  State<ReportGenerated> createState() => _ReportGeneratedState();
 }
 
-class _reportGeneratedState extends State<reportGenerated> {
+class _ReportGeneratedState extends State<ReportGenerated> {
   @override
   void initState() {
     super.initState();
@@ -41,7 +41,7 @@ class _reportGeneratedState extends State<reportGenerated> {
               }
             },
             child: ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: 250),
+              constraints: BoxConstraints(maxHeight: 240),
               child: Stack(
                 children: [
                   Positioned(

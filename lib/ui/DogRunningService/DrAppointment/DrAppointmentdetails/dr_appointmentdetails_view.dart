@@ -701,21 +701,34 @@ class DRAppointmentDetailsView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         GestureDetector(
-                          onTap: model.toChat,
+                          onTap: model.callCS,
                           child: Container(
                             width: double.infinity,
                             height: 50,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                              color: colors.primary,
+                              color: Color(0xffDBFFE5),
                               borderRadius: BorderRadius.circular(50),
                             ),
-                            child: Text(
-                              openChatLabel,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                // phone icon
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: Icon(
+                                    Icons.phone,
+                                    color: Color(0xff168C22),
+                                  ),
+                                ),
+                                Text(
+                                  "Call Us Now",
+                                  style: TextStyle(
+                                      color: Color(0xff168C22),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14),
+                                ),
+                              ],
                             ),
                           ),
                         ),

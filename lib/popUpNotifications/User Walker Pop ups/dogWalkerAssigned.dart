@@ -8,21 +8,21 @@ import '../../util/ui_helpers.dart';
 import '../../widgets/app_text.dart';
 
 
-class dogWalkerAssigned extends StatefulWidget {
+class DogWalkerAssigned extends StatefulWidget {
   final DialogRequest dialogRequest;
   final Function(DialogResponse) onDialogTap;
 
-  const dogWalkerAssigned({
+  const DogWalkerAssigned({
     Key? key,
     required this.dialogRequest,
     required this.onDialogTap,
   }) : super(key: key);
 
   @override
-  State<dogWalkerAssigned> createState() => _dogWalkerAssignedState();
+  State<DogWalkerAssigned> createState() => _DogWalkerAssignedState();
 }
 
-class _dogWalkerAssignedState extends State<dogWalkerAssigned> {
+class _DogWalkerAssignedState extends State<DogWalkerAssigned> {
   @override
   void initState() {
     super.initState();
@@ -43,7 +43,7 @@ class _dogWalkerAssignedState extends State<dogWalkerAssigned> {
               }
             },
             child: ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: 250),
+              constraints: BoxConstraints(maxHeight: 240),
               child: Stack(
                 children: [
                   Positioned(

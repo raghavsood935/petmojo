@@ -8,21 +8,21 @@ import '../../util/ui_helpers.dart';
 import '../../widgets/app_text.dart';
 
 
-class bookedWalkingSession extends StatefulWidget {
+class BookedWalkingSession extends StatefulWidget {
   final DialogRequest dialogRequest;
   final Function(DialogResponse) onDialogTap;
 
-  const bookedWalkingSession({
+  const BookedWalkingSession({
     Key? key,
     required this.dialogRequest,
     required this.onDialogTap,
   }) : super(key: key);
 
   @override
-  State<bookedWalkingSession> createState() => _bookedWalkingSessionState();
+  State<BookedWalkingSession> createState() => _BookedWalkingSessionState();
 }
 
-class _bookedWalkingSessionState extends State<bookedWalkingSession> {
+class _BookedWalkingSessionState extends State<BookedWalkingSession> {
   @override
   void initState() {
     super.initState();
@@ -43,7 +43,7 @@ class _bookedWalkingSessionState extends State<bookedWalkingSession> {
               }
             },
             child: ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: 250),
+              constraints: BoxConstraints(maxHeight: 240),
               child: Stack(
                 children: [
                   Positioned(

@@ -128,9 +128,13 @@ class ActiveAppointmentItem extends StatelessWidget {
                     radius: 53.0 / 2,
                     backgroundColor: colors.primaryLight,
                     child: Image.asset(
-                      serviceType == ServiceType.DogGrooming
-                          ? "assets/images/dog_grooming_circle.png"
-                          : "assets/images/dog_running.png",
+                        (status==ActiveAppointmentStatus.Pending)
+                            ? "assets/images/delay.png"
+                            : (serviceType==ServiceType.DogGrooming)
+                            ? "assets/images/dog_grooming_circle.png"
+                            :(serviceType==ServiceType.DogRunning)
+                            ? "assets/images/dog_running.png"
+                            : "assets/images/dog_training.png"
                     ),
                   ),
                   horizontalSpaceRegular,

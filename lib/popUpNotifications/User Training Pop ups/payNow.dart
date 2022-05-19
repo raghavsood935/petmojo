@@ -6,21 +6,21 @@ import '../../util/ImageConstant.dart';
 import '../../util/ui_helpers.dart';
 import '../../widgets/app_text.dart';
 
-class payNow extends StatefulWidget {
+class PayNow extends StatefulWidget {
   final DialogRequest dialogRequest;
   final Function(DialogResponse) onDialogTap;
 
-  const payNow({
+  const PayNow({
     Key? key,
     required this.dialogRequest,
     required this.onDialogTap,
   }) : super(key: key);
 
   @override
-  State<payNow> createState() => _payNowState();
+  State<PayNow> createState() => _PayNowState();
 }
 
-class _payNowState extends State<payNow> {
+class _PayNowState extends State<PayNow> {
   @override
   void initState() {
     super.initState();
@@ -41,7 +41,7 @@ class _payNowState extends State<payNow> {
               }
             },
             child: ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: 250),
+              constraints: BoxConstraints(maxHeight: 240),
               child: Stack(
                 children: [
                   Positioned(

@@ -418,7 +418,6 @@ class FreePackageItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTaped,
       child: Container(
-        height: 100.0,
         margin: EdgeInsets.symmetric(horizontal: 5.0),
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
         decoration: new BoxDecoration(
@@ -647,145 +646,236 @@ class PackageItem extends StatelessWidget {
                     ],
                   ),
                 ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        rateOld!,
-                        style: TextStyle(
-                          fontSize: 14,
-                          decoration: TextDecoration.lineThrough,
-                          color: selectedValue == value
-                              ? colors.white
-                              : colors.black,
-                        ),
-                      ),
-                      AppText.body2(
-                        rateNew!,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      rateOld!,
+                      style: TextStyle(
+                        fontSize: 14,
+                        decoration: TextDecoration.lineThrough,
                         color: selectedValue == value
                             ? colors.white
-                            : colors.primary,
+                            : colors.black,
                       ),
-                      AppText.caption(
-                        rateLabel!,
-                        color: selectedValue == value
-                            ? colors.white
-                            : colors.kcCaptionGreyColor,
-                      ),
-                      verticalSpaceRegular,
-                      // Align(
-                      //   alignment: Alignment.centerLeft,
-                      //   child: GestureDetector(
-                      //     onTap: onSeeMoreTaped,
-                      //     child: Text(
-                      //       seeMoreSelectedValue == value
-                      //           ? "See less"
-                      //           : "See more",
-                      //       style: TextStyle(
-                      //         color: selectedValue == value
-                      //             ? colors.white
-                      //             : colors.primary,
-                      //         fontSize: 14,
-                      //         decoration: TextDecoration.underline,
-                      //         decorationColor: selectedValue == value
-                      //             ? colors.white
-                      //             : colors.primary,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                    ],
-                  ),
+                    ),
+                    AppText.body2(
+                      rateNew!,
+                      color: selectedValue == value
+                          ? colors.white
+                          : colors.primary,
+                    ),
+                    AppText.caption(
+                      rateLabel!,
+                      color: selectedValue == value
+                          ? colors.white
+                          : colors.kcCaptionGreyColor,
+                    ),
+                    verticalSpaceRegular,
+                    // Align(
+                    //   alignment: Alignment.centerLeft,
+                    //   child: GestureDetector(
+                    //     onTap: onSeeMoreTaped,
+                    //     child: Text(
+                    //       seeMoreSelectedValue == value
+                    //           ? "See less"
+                    //           : "See more",
+                    //       style: TextStyle(
+                    //         color: selectedValue == value
+                    //             ? colors.white
+                    //             : colors.primary,
+                    //         fontSize: 14,
+                    //         decoration: TextDecoration.underline,
+                    //         decorationColor: selectedValue == value
+                    //             ? colors.white
+                    //             : colors.primary,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                  ],
                 ),
               ],
             ),
             seeMoreSelectedValue == value ? verticalSpaceRegular : Container(),
             // See more
             seeMoreSelectedValue == value
-                ? Column(
-                    children: [
-                      Wrap(
-                        children: seeMoreList!
-                            .map(
-                              (item) => Row(
-                                children: [
-                                  Icon(
-                                    Icons.check_rounded,
-                                    color: selectedValue == value
-                                        ? colors.white
-                                        : colors.primary,
-                                  ),
-                                  horizontalSpaceTiny,
-                                  AppText.caption(
-                                    item,
+                ? SingleChildScrollView(
+                  child: Column(
+                      children: [
+                        Container(
+                          margin:EdgeInsets.only(bottom: 5),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Wrap(
+                                  direction: Axis.vertical,
+                                  children: seeMoreList!
+                                      .take(seeMoreList!.length ~/ 2)
+                                      .map(
+                                        (item) => Row(
+                                      children: [
+                                        Icon(Icons.check_rounded,
+                                          color: selectedValue == value
+                                              ? colors.white
+                                              : colors.primary,
+
+                                        ),
+                                        horizontalSpaceTiny,
+                                        AppText.caption(
+                                          item,
+                                          color: selectedValue == value
+                                              ? colors.white
+                                              : colors.kcCaptionGreyColor,
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                      .toList()
+                                      .cast<Widget>(),
+                                ),
+                              ),
+                              Expanded(
+                                child: Wrap(
+                                  direction: Axis.vertical,
+                                  children: seeMoreList!
+                                      .skip(seeMoreList!.length ~/ 2 )
+                                      .map(
+                                        (item) => Row(
+                                      children: [
+                                        Icon(
+                                          Icons.check_rounded,
+                                          color:selectedValue == value
+                                              ? colors.white
+                                              : colors.primary,
+
+                                        ),
+                                        horizontalSpaceTiny,
+                                        AppText.caption(
+                                          item,
+                                          color: selectedValue == value
+                                              ? colors.white
+                                              : colors.kcCaptionGreyColor,
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                      .toList()
+                                      .cast<Widget>(),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        seeMoreCheckList == null
+                            ? SizedBox()
+                            : Expanded(
+                          flex: 0,
+                              child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: AppText.captionBold(
+                                    "Bonus Material : ",
                                     color: selectedValue == value
                                         ? colors.white
                                         : colors.kcCaptionGreyColor,
                                   ),
-                                ],
-                              ),
-                            )
-                            .toList()
-                            .cast<Widget>(),
-                      ),
-                      seeMoreCheckList == null
-                          ? SizedBox()
-                          : Align(
-                              alignment: Alignment.centerLeft,
-                              child: AppText.caption(
-                                "Bonus Material : ",
-                                color: selectedValue == value
-                                    ? colors.white
-                                    : colors.kcCaptionGreyColor,
-                              ),
+                                ),
                             ),
-                      Wrap(
-                        children: seeMoreCheckList!
-                            .map(
-                              (item) => Padding(
+
+                        Container(
+                          margin: EdgeInsets.only(top: 5),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Column(
+
+                                  children: seeMoreCheckList!
+                                      .take(seeMoreCheckList!.length ~/ 2)
+                                      .map(
+                                        (item) => Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 5),
+                                          child: Row(
+                                      children: [
+                                          Icon(Icons.check_rounded,
+                                              color: Color(0xff8adb53)),
+                                          horizontalSpaceTiny,
+                                          Expanded(
+                                            child: AppText.caption(
+                                              item,
+                                              color: selectedValue == value
+                                                  ? colors.white
+                                                  : colors.primary,
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                        ),
+                                  )
+                                      .toList()
+                                      .cast<Widget>(),
+                                ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  children: seeMoreCheckList!
+                                      .skip(seeMoreCheckList!.length ~/ 2)
+                                      .map(
+                                        (item) => Padding(
+                                          padding: EdgeInsets.symmetric(vertical: 5),
+                                          child: Row(
+                                      children: [
+                                          Icon(
+                                            Icons.check_rounded,
+                                            color: Color(0xff8adb53),
+                                          ),
+                                          horizontalSpaceTiny,
+                                          Expanded(
+                                            child: AppText.caption(
+                                              item,
+                                              color: selectedValue == value
+                                                  ? colors.white
+                                                  : colors.primary,
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                        ),
+                                  )
+                                      .toList()
+                                      .cast<Widget>(),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        hasCertificate == null
+                            ? SizedBox()
+                            : Padding(
                                 padding: EdgeInsets.symmetric(
                                   vertical: 5,
                                   horizontal: 10,
                                 ),
                                 child: Row(
                                   children: [
-                                    Image.asset("assets/images/green_tick.png"),
-                                    horizontalSpaceSmall,
+                                    Image.asset("assets/images/certificate1.png"),
                                     AppText.caption(
-                                      item,
+                                      "Advanced Training Certificate Provided",
                                       color: selectedValue == value
                                           ? colors.white
                                           : colors.primary,
-                                    ),
+                                    )
                                   ],
                                 ),
                               ),
-                            )
-                            .toList()
-                            .cast<Widget>(),
-                      ),
-                      hasCertificate == null
-                          ? SizedBox()
-                          : Padding(
-                              padding: EdgeInsets.symmetric(
-                                vertical: 5,
-                                horizontal: 10,
-                              ),
-                              child: Row(
-                                children: [
-                                  Image.asset("assets/images/certificate1.png"),
-                                  AppText.caption(
-                                    "Advanced Training Certificate Provided",
-                                    color: selectedValue == value
-                                        ? colors.white
-                                        : colors.primary,
-                                  )
-                                ],
-                              ),
-                            ),
-                    ],
-                  )
+                      ],
+                    ),
+                )
                 : Container(),
           ],
         ),

@@ -26,6 +26,7 @@ import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/walkStatus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DRAppointmentDetailsViewModel extends FutureViewModel<void>
     implements Initialisable {
@@ -674,6 +675,14 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
   }
 
   void toChat() {}
+
+  Future callCS() async {
+    try {
+      launch("tel://9009004473");
+    } catch (e) {
+      snackBarService.showSnackbar(message: "Could not call 9009004473");
+    }
+  }
 
   @override
   Future<void> futureToRun() async {

@@ -73,7 +73,7 @@ String dogTranningImgPath = "assets/images/service_page_images/dog_traning.png";
 String doorStepDeliveryImgPath =
     "assets/images/service_page_images/doorstep_deliivery.png";
 String grommingImgPath = "assets/images/service_page_images/grooming.png";
-String petBoardingImgPath =
+String  petBoardingImgPath =
     "assets/images/service_page_images/pet_boarding.png";
 String vetConsultationImgPath =
     "assets/images/service_page_images/vet_consultation.png";

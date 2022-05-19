@@ -138,6 +138,15 @@ class DTBookingDetailsView
                 verticalSpaceSmall,
                 AppInputField(
                   hint: addressLineTwoHint,
+                  fillColor: (model.isValid!=true)?Color(0xFFEDF9F3):Colors.white,
+                  trailing: (model.isValid!=true)?Container(
+                    margin: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(50)
+                    ),
+                    child: Icon(Icons.check,color: Colors.white,),
+                  ):Container(),
                   controller: model.addressLineOneController,
                   onChanged: model.secondPageValidation,
                   isBoxBorder: true,
@@ -164,6 +173,15 @@ class DTBookingDetailsView
                 ),
                 verticalSpaceSmall,
                 AppInputField(
+                  fillColor: (model.isValid!=true)?Color(0xFFEDF9F3):Colors.white,
+                  trailing: (model.isValid!=true)?Container(
+                    margin: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(50)
+                    ),
+                    child: Icon(Icons.check,color: Colors.white,),
+                  ):Container(),
                   hint: phoneVerificationHint,
                   controller: model.phoneController,
                   onChanged: model.secondPageValidation,
@@ -173,6 +191,29 @@ class DTBookingDetailsView
                   maxLength: 10,
                 ),
                 verticalSpaceTiny,
+
+                //Added recently
+                AppText.body2("Offers Available!! 🎉🎉🎉🎁🎁🎁"),
+                verticalSpaceRegular,
+                AppInputField(
+                  hint: "Enter Promo Code",
+                  controller: model.promoCodeController,
+                  trailing: model.isCouponProcessing
+                      ? Transform.scale(
+                    scale: 0.6,
+                    child: CircularProgressIndicator(
+                      color: colors.primary,
+                    ),
+                  )
+                      : Icon(
+                    Icons.arrow_forward_rounded,
+                    color: colors.primary,
+                  ),
+                  trailingTapped: model.applyCoupon,
+                  isBoxBorder: true,
+                  textInputType: TextInputType.name,
+                  textCapitalization: TextCapitalization.none,
+                ),
               ],
             ),
 

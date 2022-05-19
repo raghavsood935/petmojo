@@ -57,10 +57,6 @@ class _TamelyAppState extends State<TamelyApp> {
 
         _notificationsPlugin.initialize(initializationSettings,
             onSelectNotification: (screenName) async {
-            print("entered function");
-            print(message.data);
-
-
               //Based on screenName redirect to a particular screen
               switch(screenName){
 
@@ -83,18 +79,17 @@ class _TamelyAppState extends State<TamelyApp> {
                   //Navigate to DRLiveMapView()
                   Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DRLiveMapView(appointmentId:appointmentId, walkNumber: walkNumber, serviceProviderId: serviceProviderId, userId: userId,)));
                 }
+
                 break;
 
                 case "seeReport":{
 
 
-                  //Parameters required for the screen
-
+                  //common Parameter
                   var appointmentId=message.data['appointmentId'];
 
-                  if(message.data['date']
-                  !=""){
-                    print("no entry");
+                  //For Dog Running
+                  if(message.data['date']!=""){
                     var noOfDogs=message.data['noOfDogs'];
 
                     List<String> dogs=[];
@@ -116,13 +111,16 @@ class _TamelyAppState extends State<TamelyApp> {
                     //Navigate to DRReportCardView
                     Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DRReportCardView(appointmentId: appointmentId, dogs: dogs, walkNumber: walkNumber, date: timeStamp, noOfDogs: int.parse(noOfDogs),)));
                   }
+                  //For Dog Training
                   else{
 
                     var sessionNo=int.parse(message.data['sessionNo']);
 
+                    //Navigate to DTReportCardView
                     Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DTReportCardView(appointmentId: appointmentId, sessionNo: sessionNo,)));
                   }
                 }
+
                 break;
 
                 case "myBookings":{
@@ -130,23 +128,32 @@ class _TamelyAppState extends State<TamelyApp> {
                   //Navigate to AppointmentsView
                   Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>AppointmentsView()));
                 }
+
                 break;
+
                 case "appointmentDetails":{
 
-                  //Parameters for the screen
+                  //common Parameter
                   var appointmentId=message.data['bookingDetailsId'];
+
+                  //For Dog Running
                   if(message.data['bookingDetailsId']==null){
 
                     //Navigate to DRAppointmentDetailsView
                     Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DRAppointmentDetailsView(appointmentId: appointmentId)));
                   }
+                  //For Dog Training
                   else{
                     var dogTrainingBookingDetailsId=message.data["DogTrainingbookingDetailsId"];
                     Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DTAppointmentDetailsView(appointmentId: dogTrainingBookingDetailsId)));
                   }
 
                 }
+
                 break;
+
+
+                //Default Case
                 default:{
 
                   //Default Navigate to HomePage
