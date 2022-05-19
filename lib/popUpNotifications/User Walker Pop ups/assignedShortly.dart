@@ -8,21 +8,21 @@ import '../../util/ui_helpers.dart';
 import '../../widgets/app_text.dart';
 
 
-class assignedShortly extends StatefulWidget {
+class AssignedShortly extends StatefulWidget {
   final DialogRequest dialogRequest;
   final Function(DialogResponse) onDialogTap;
 
-  const assignedShortly({
+  const AssignedShortly({
     Key? key,
     required this.dialogRequest,
     required this.onDialogTap,
   }) : super(key: key);
 
   @override
-  State<assignedShortly> createState() => _assignedShortlyState();
+  State<AssignedShortly> createState() => _AssignedShortlyState();
 }
 
-class _assignedShortlyState extends State<assignedShortly> {
+class _AssignedShortlyState extends State<AssignedShortly> {
   @override
   void initState() {
     super.initState();
@@ -43,7 +43,7 @@ class _assignedShortlyState extends State<assignedShortly> {
               }
             },
             child: ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: 250),
+              constraints: BoxConstraints(maxHeight: 240),
               child: Stack(
                 children: [
                   Positioned(

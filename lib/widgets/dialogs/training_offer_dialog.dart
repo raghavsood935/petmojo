@@ -43,7 +43,7 @@ class _TrainingOfferDialogState extends State<TrainingOfferDialog> {
               }
             },
             child: ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: 250),
+              constraints: BoxConstraints(maxHeight: 240),
               child: Stack(
                 children: [
                   Positioned(
@@ -197,20 +197,14 @@ class _TrainingOfferDialogState extends State<TrainingOfferDialog> {
                           onTap: () {
                             widget.onDialogTap(DialogResponse(confirmed: false));
                           },
-                          child: GestureDetector(
-                            onTap: () {
-                              widget
-                                  .onDialogTap(DialogResponse(confirmed: false));
-                            },
-                            child: Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color: colors.primary,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: AppText.titleBold("Avail Discount",
-                                  color: colors.white),
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: colors.primary,
+                              borderRadius: BorderRadius.circular(10),
                             ),
+                            child: AppText.titleBold("Avail Discount",
+                                color: colors.white),
                           ),
                         ),
                       ],

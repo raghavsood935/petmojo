@@ -59,7 +59,7 @@ class LoginView extends StatelessWidget with $LoginView {
                       color:
                           model.emailFocus ? colors.primary : Color(0xFFABB3BB),
                     ),
-                    horizontalSpaceRegular,
+                    horizontalSpaceRegularPlus,
                     Expanded(
                       child: FocusScope(
                         child: Focus(
@@ -108,13 +108,15 @@ class LoginView extends StatelessWidget with $LoginView {
                     ),
                     horizontalSpaceRegular,
                     Expanded(
-                      child: FocusScope(
-                        child: Focus(
-                          onFocusChange: model.onPasswordFocusChanges,
-                          child: AppPasswordInputField(
-                            hint: passwordHint,
-                            controller: passwordController,
-                            noNeedBorder: true,
+                      child: Container(
+                        child: FocusScope(
+                          child: Focus(
+                            onFocusChange: model.onPasswordFocusChanges,
+                              child: AppPasswordInputField(
+                              hint: passwordHint,
+                              controller: passwordController,
+                              noNeedBorder: true,
+                            ),
                           ),
                         ),
                       ),

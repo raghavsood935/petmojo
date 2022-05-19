@@ -6,21 +6,21 @@ import '../../util/ImageConstant.dart';
 import '../../util/ui_helpers.dart';
 import '../../widgets/app_text.dart';
 
-class dogTrainerAssigned extends StatefulWidget {
+class DogTrainerAssigned extends StatefulWidget {
   final DialogRequest dialogRequest;
   final Function(DialogResponse) onDialogTap;
 
-  const dogTrainerAssigned({
+  const DogTrainerAssigned({
     Key? key,
     required this.dialogRequest,
     required this.onDialogTap,
   }) : super(key: key);
 
   @override
-  State<dogTrainerAssigned> createState() => _dogTrainerAssignedState();
+  State<DogTrainerAssigned> createState() => _DogTrainerAssignedState();
 }
 
-class _dogTrainerAssignedState extends State<dogTrainerAssigned> {
+class _DogTrainerAssignedState extends State<DogTrainerAssigned> {
   @override
   void initState() {
     super.initState();
@@ -41,7 +41,7 @@ class _dogTrainerAssignedState extends State<dogTrainerAssigned> {
               }
             },
             child: ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: 250),
+              constraints: BoxConstraints(maxHeight: 240),
               child: Stack(
                 children: [
                   Positioned(

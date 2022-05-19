@@ -6,21 +6,21 @@ import '../../util/ImageConstant.dart';
 import '../../util/ui_helpers.dart';
 import '../../widgets/app_text.dart';
 
-class paymentSuccessful extends StatefulWidget {
+class PaymentSuccessful extends StatefulWidget {
   final DialogRequest dialogRequest;
   final Function(DialogResponse) onDialogTap;
 
-  const paymentSuccessful({
+  const PaymentSuccessful({
     Key? key,
     required this.dialogRequest,
     required this.onDialogTap,
   }) : super(key: key);
 
   @override
-  State<paymentSuccessful> createState() => _paymentSuccessfulState();
+  State<PaymentSuccessful> createState() => _PaymentSuccessfulState();
 }
 
-class _paymentSuccessfulState extends State<paymentSuccessful> {
+class _PaymentSuccessfulState extends State<PaymentSuccessful> {
   @override
   void initState() {
     super.initState();
@@ -41,7 +41,7 @@ class _paymentSuccessfulState extends State<paymentSuccessful> {
               }
             },
             child: ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: 250),
+              constraints: BoxConstraints(maxHeight: 240),
               child: Stack(
                 children: [
                   Positioned(

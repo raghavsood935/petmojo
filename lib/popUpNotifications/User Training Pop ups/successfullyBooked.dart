@@ -6,21 +6,21 @@ import '../../util/ImageConstant.dart';
 import '../../util/ui_helpers.dart';
 import '../../widgets/app_text.dart';
 
-class successfullyBooked extends StatefulWidget {
+class SuccessfullyBooked extends StatefulWidget {
   final DialogRequest dialogRequest;
   final Function(DialogResponse) onDialogTap;
 
-  const successfullyBooked({
+  const SuccessfullyBooked({
     Key? key,
     required this.dialogRequest,
     required this.onDialogTap,
   }) : super(key: key);
 
   @override
-  State<successfullyBooked> createState() => _successfullyBookedState();
+  State<SuccessfullyBooked> createState() => _SuccessfullyBookedState();
 }
 
-class _successfullyBookedState extends State<successfullyBooked> {
+class _SuccessfullyBookedState extends State<SuccessfullyBooked> {
   @override
   void initState() {
     super.initState();
@@ -41,7 +41,7 @@ class _successfullyBookedState extends State<successfullyBooked> {
               }
             },
             child: ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: 250),
+              constraints: BoxConstraints(maxHeight: 240),
               child: Stack(
                 children: [
                   Positioned(

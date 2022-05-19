@@ -179,8 +179,6 @@ class TamelyApi {
 
     if (isAuth) {
       if (isHuman) {
-        print("@@@@@@@@@@@@@@");
-        print(_sharedPreferenceServices.authToken);
         dio.options.headers["authorization"] =
             "${_sharedPreferenceServices.authToken}";
         dio.options.headers["type"] = "User";

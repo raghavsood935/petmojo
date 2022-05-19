@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:tamely/util/Color.dart';
@@ -17,9 +18,21 @@ class ConfirmOtpPhoneView extends StatelessWidget with $ConfirmOtpPhoneView {
   ConfirmOtpPhoneView({Key? key, required this.phoneNumber}) : super(key: key);
 
   String phoneNumber;
+  
+  String resendOtp(){
+    Future.delayed(const Duration(), () => SystemChannels.textInput.invokeMethod('TextInput.hide'));
+    return "RESEND OTP";
+  }
+  String resendOtpIn(model){
+    // Future.delayed(const Duration(), () => SystemChannels.textInput.invokeMethod('TextInput.hide'));
+    return "RESEND OTP in ${model.timerCount}";
+  }
 
   @override
   Widget build(BuildContext context) {
+
+    Future.delayed(const Duration(), () => SystemChannels.textInput.invokeMethod('TextInput.hide'));
+
     return ViewModelBuilder<ConfirmOtpPhoneViewModel>.reactive(
       viewModelBuilder: () => ConfirmOtpPhoneViewModel(),
       onModelReady: (model) => model.startTimer(),
@@ -84,8 +97,8 @@ class ConfirmOtpPhoneView extends StatelessWidget with $ConfirmOtpPhoneView {
               verticalSpaceRegular,
               AppText.body1Bold(
                 model.timerCount == 0
-                    ? "RESEND OTP"
-                    : "RESEND OTP in ${model.timerCount}",
+                    ? resendOtp()
+                    : resendOtpIn(model),
                 textAlign: TextAlign.center,
               ),
               verticalSpaceTiny,

@@ -229,6 +229,29 @@ class DRBookingDetailsView
                   maxLength: 10,
                 ),
                 verticalSpaceTiny,
+
+                //Added recently
+                AppText.body2("Offers Available!! 🎉🎉🎉🎁🎁🎁"),
+                verticalSpaceRegular,
+                AppInputField(
+                  hint: "Enter Promo Code",
+                  controller: model.promoCodeController,
+                  trailing: model.isCouponProcessing
+                      ? Transform.scale(
+                    scale: 0.6,
+                    child: CircularProgressIndicator(
+                      color: colors.primary,
+                    ),
+                  )
+                      : Icon(
+                    Icons.arrow_forward_rounded,
+                    color: colors.primary,
+                  ),
+                  trailingTapped: model.applyCoupon,
+                  isBoxBorder: true,
+                  textInputType: TextInputType.name,
+                  textCapitalization: TextCapitalization.none,
+                ),
               ],
             ),
 

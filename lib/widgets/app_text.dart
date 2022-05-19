@@ -64,6 +64,12 @@ class AppText extends StatelessWidget {
       Color color = colors.kcPrimaryTextColor})
       : style = tinyStyle.copyWith(color: color);
 
+  AppText.tinyPlus(this.text,
+      {this.textAlign,
+        this.isSingleLined,
+        Color color = colors.kcPrimaryTextColor})
+      : style = tinyStyle.copyWith(color: color);
+
   AppText.body1(this.text,
       {this.textAlign,
       this.isSingleLined,

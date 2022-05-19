@@ -8,21 +8,21 @@ import '../../util/ui_helpers.dart';
 import '../../widgets/app_text.dart';
 
 
-class liveWalking extends StatefulWidget {
+class LiveWalking extends StatefulWidget {
   final String title;
   final String description;
 
-  const liveWalking({
+  const LiveWalking({
     Key? key,
     required this.title,
     required this.description,
   }) : super(key: key);
 
   @override
-  State<liveWalking> createState() => _liveWalkingState();
+  State<LiveWalking> createState() => _LiveWalkingState();
 }
 
-class _liveWalkingState extends State<liveWalking> {
+class _LiveWalkingState extends State<LiveWalking> {
 
   @override
   void initState() {
