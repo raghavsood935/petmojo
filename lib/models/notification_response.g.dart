@@ -96,6 +96,15 @@ _$_NotificationDataResponse _$$_NotificationDataResponseFromJson(
       actionOnCTA: json['actionOnCTA'] as String?,
       icon: json['icon'] as String?,
       valueForCTA: json['valueForCTA'] as String?,
+      walkNo: json['walkNumber'] as String?,
+      serviceProviderId: json['serviceProviderId'] as String?,
+      userId: json['userId'] as String?,
+      appointmentId: json['appointmentId'] as String?,
+      bookingDetailsId: json['bookingDetailsId'] as String?,
+      sessionNo: json['sessionNo'] as int?,
+      dogs: (json['dogs'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      noOfDogs: json['noOfDogs'] as int?,
+      date: json['date'] as int?,
     );
 
 Map<String, dynamic> _$$_NotificationDataResponseToJson(
@@ -109,4 +118,13 @@ Map<String, dynamic> _$$_NotificationDataResponseToJson(
       'actionOnCTA': instance.actionOnCTA,
       'icon': instance.icon,
       'valueForCTA': instance.valueForCTA,
+      'walkNumber': instance.walkNo,
+      'serviceProviderId': instance.serviceProviderId,
+      'userId': instance.userId,
+      'appointmentId': instance.appointmentId,
+      'bookingDetailsId': instance.bookingDetailsId,
+      'sessionNo': instance.sessionNo,
+      'dogs': instance.dogs,
+      'noOfDogs': instance.noOfDogs,
+      'date': instance.date,
     };

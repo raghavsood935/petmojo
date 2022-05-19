@@ -3,10 +3,12 @@ import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/redirect_state.dart';
+import 'package:tamely/enum/walkNumber.dart';
 import 'package:tamely/models/notification_response.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class NotificationViewModel extends FutureViewModel<void>
     implements Initialisable {
@@ -79,12 +81,67 @@ class NotificationViewModel extends FutureViewModel<void>
   }
 
   void onNotificationPressed(NotificationResponse notification) async {
-    if (notification.notificationDataResponse!.actionOnCTA != "MYBOOKINGS") {
+    if (notification.notificationDataResponse!.actionOnCTA == "MYBOOKINGS") {
       await _navigationService.navigateTo(
         Routes.appointmentsView,
       );
+    } else if (notification.notificationDataResponse!.actionOnCTA == "DRLIVE") {
+      WalkNumber walkNo = notification.notificationDataResponse!.walkNo == "one"
+          ? WalkNumber.One
+          : WalkNumber.Two;
+      await _navigationService.navigateTo(Routes.dRLiveMapView,
+          arguments: DRLiveMapViewArguments(
+            walkNumber: notification.notificationDataResponse!.walkNo == "one"
+                ? WalkNumber.One
+                : WalkNumber.Two,
+            serviceProviderId:
+                notification.notificationDataResponse!.serviceProviderId ?? "",
+            userId: notification.notificationDataResponse!.userId ?? "",
+            appointmentId:
+                notification.notificationDataResponse!.appointmentId ?? "",
+          ));
+    } else if (notification.notificationDataResponse!.actionOnCTA ==
+        "PHONECALL") {
+      String phoneNumber =
+          "tel:${notification.notificationDataResponse!.valueForCTA}";
+      print("Calling $phoneNumber");
+      await launch("tel:$phoneNumber");
+    } else if (notification.notificationDataResponse!.actionOnCTA ==
+        "DRREPORT") {
+      print(notification.notificationDataResponse!.walkNo);
+      WalkNumber walkNumber =
+          notification.notificationDataResponse!.walkNo == "one"
+              ? WalkNumber.One
+              : WalkNumber.Two;
+      print("Setting walk number : ${walkNumber.toString()}");
+      DateTime walkDate = DateTime.fromMillisecondsSinceEpoch(
+          notification.notificationDataResponse!.date ?? 0);
+      await _navigationService.navigateTo(Routes.dRReportCardView,
+          arguments: DRReportCardViewArguments(
+              noOfDogs: notification.notificationDataResponse!.noOfDogs ?? 1,
+              walkNumber: walkNumber,
+              appointmentId:
+                  notification.notificationDataResponse!.appointmentId ?? "",
+              dogs: notification.notificationDataResponse!.dogs ?? [],
+              date: walkDate));
+    } else if (notification.notificationDataResponse!.actionOnCTA == "DTLIVE") {
+      await _navigationService.navigateTo(Routes.dTAppointmentDetailsView,
+          arguments: DTAppointmentDetailsViewArguments(
+              appointmentId:
+                  notification.notificationDataResponse!.bookingDetailsId ??
+                      ""));
+    } else if (notification.notificationDataResponse!.actionOnCTA ==
+        "DTREPORT") {
+      await _navigationService.navigateTo(Routes.dTReportCardView,
+          arguments: DTReportCardViewArguments(
+            appointmentId:
+                notification.notificationDataResponse!.bookingDetailsId ?? "",
+            sessionNo: notification.notificationDataResponse!.sessionNo ?? 1,
+          ));
     }
   }
+
+  void onNotificationIconPressed() {}
 
   void onChatPressed() {}
 }
