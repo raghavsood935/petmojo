@@ -22,6 +22,7 @@ class AppInputField extends StatelessWidget {
   final void Function(String?)? onChanged;
   final int? maxLength;
   final bool isBoxBorder;
+  final Color? fillColor;
 
   final boxBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(5),
@@ -51,6 +52,7 @@ class AppInputField extends StatelessWidget {
     this.maxLength,
     this.isBoxBorder = false,
     this.suffix,
+    this.fillColor,
   }) : super(key: key);
 
   @override
@@ -69,6 +71,8 @@ class AppInputField extends StatelessWidget {
         maxLines: null,
         autofocus: autoFocus,
         decoration: InputDecoration(
+          filled: true,
+          fillColor: fillColor,
           suffix: suffix,
           hintText: hint,
           labelText: label,

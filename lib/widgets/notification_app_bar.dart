@@ -27,7 +27,7 @@ class NotificationAppBar extends ViewModelWidget<NotificationViewModel>
                         onPressed: () => Navigator.pop(context)),
                     Spacer(),
                     IconButton(
-                      onPressed: model.onNotificationPressed,
+                      onPressed: model.onNotificationIconPressed,
                       icon: SvgPicture.asset(
                         "assets/images/notification.svg",
                       ),

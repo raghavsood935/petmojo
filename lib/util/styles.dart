@@ -74,6 +74,11 @@ const TextStyle tinyStyle = TextStyle(
   fontWeight: FontWeight.normal,
 );
 
+const TextStyle tinyPlusStyle = TextStyle(
+  fontSize: 11,
+  fontWeight: FontWeight.normal,
+);
+
 const TextStyle body1Style = TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.normal,

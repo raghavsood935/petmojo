@@ -252,16 +252,16 @@ String threeMonthOnceRateOld = "Rs.₹19,497/-";
 String threeMonthTwiceRateOld = "Rs.₹38,997/-";
 
 String perWalkRateNew = "FREE";
-String perMonthOnceRateNew = "₹3,400/-";
-String perMonthTwiceRateNew = "₹5,400/-";
-String threeMonthOnceRateNew = "₹10,200/-";
-String threeMonthTwiceRateNew = "₹16,200/-";
+String perMonthOnceRateNew = "₹3,800/-";
+String perMonthTwiceRateNew = "₹6,100/-";
+String threeMonthOnceRateNew = "₹10,400/-";
+String threeMonthTwiceRateNew = "₹17,700/-";
 
 String perWalkRateLabel = "";
-String perMonthOnceRateLabel = "(You save 3,199)";
-String perMonthTwiceRateLabel = "(You save 7,999)";
-String threeMonthOnceRateLabel = "(You save 8,997)";
-String threeMonthTwiceRateLabel = "(You save 23,997)";
+String perMonthOnceRateLabel = "(You save 2,699)";
+String perMonthTwiceRateLabel = "(You save 6,899)";
+String threeMonthOnceRateLabel = "(You save 9,097)";
+String threeMonthTwiceRateLabel = "(You save 21,297)";
 
 // See more
 
@@ -434,6 +434,7 @@ String specialInstructions = "Special instructions";
 // --  Buttons
 
 String openChatLabel = "Open Chat";
+String callTrainer = "Call Trainer";
 String bookAgain = "Book Again";
 String submitButton = "Submit";
 
@@ -539,14 +540,14 @@ String fourTrainingRateOld = "₹32,364/-";
 String fiveTrainingRateOld = "₹43,152/-";
 
 String freeTrainingRateNew = "FREE";
-String twoTrainingRateNew = "₹9,588/-";
-String threeTrainingRateNew = "₹18,000/-";
+String twoTrainingRateNew = "₹9,800/-";
+String threeTrainingRateNew = "₹17,200/-";
 String fourTrainingRateNew = "₹25,560/-";
 String fiveTrainingRateNew = "₹32,640/-";
 
 String freeTrainingRateLabel = "";
-String twoTrainingRateLabel = "(You save 1200)";
-String threeTrainingRateLabel = "(You save 3,576)";
+String twoTrainingRateLabel = "(You save 988)";
+String threeTrainingRateLabel = "(You save 4,376)";
 String fourTrainingRateLabel = "(You save 6,804)";
 String fiveTrainingRateLabel = "(You save 10,512)";
 
@@ -554,8 +555,8 @@ String fiveTrainingRateLabel = "(You save 10,512)";
 
 String twoTrainingSeeOne = "Biting Calibration";
 String twoTrainingSeeTwo = "Potty Training";
-String twoTrainingSeeThree = "Socialization with other Dogs";
-String twoTrainingSeeFour = "Socialization with other humans";
+String twoTrainingSeeThree = "Socialization with other\nDogs";
+String twoTrainingSeeFour = "Socialization with other\nhumans";
 String twoTrainingSeeFive = "Puppy-proofing your home";
 String twoTrainingSeeSix = "Leash Walking";
 
@@ -585,7 +586,7 @@ String fourTrainingSeeThirteen = "Instruction No";
 
 String fiveTrainingSeeOne = "Instruction Salute";
 String fiveTrainingSeeTwo = "Instruction Rollover";
-String fiveTrainingSeeThree = "Counting 1-5 (Breed and Intelligence dependent)";
+String fiveTrainingSeeThree = "Counting 1-5 (Breed and \n Intelligence dependent)";
 String fiveTrainingSeeFour = "Without Leash Walking";
 String fiveTrainingSeeFive = "Instruction Eat/Don't Eat";
 String fiveTrainingSeeSix = "Instruction Fetch";

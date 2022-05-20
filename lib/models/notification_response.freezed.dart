@@ -969,11 +969,39 @@ class _$NotificationDataResponseTearOff {
   _NotificationDataResponse call(
       {@JsonKey(name: "postId") String? postId,
       @JsonKey(name: "image") String? image,
-      @JsonKey(name: "message") String? message}) {
+      @JsonKey(name: "message") String? message,
+      @JsonKey(name: "body") String? body,
+      @JsonKey(name: "textOnCTA") String? textOnCTA,
+      @JsonKey(name: "actionOnCTA") String? actionOnCTA,
+      @JsonKey(name: "icon") String? icon,
+      @JsonKey(name: "valueForCTA") String? valueForCTA,
+      @JsonKey(name: "walkNumber") String? walkNo,
+      @JsonKey(name: "serviceProviderId") String? serviceProviderId,
+      @JsonKey(name: "userId") String? userId,
+      @JsonKey(name: "appointmentId") String? appointmentId,
+      @JsonKey(name: "bookingDetailsId") String? bookingDetailsId,
+      @JsonKey(name: "sessionNo") int? sessionNo,
+      @JsonKey(name: "dogs") List<String>? dogs,
+      @JsonKey(name: "noOfDogs") int? noOfDogs,
+      @JsonKey(name: "date") int? date}) {
     return _NotificationDataResponse(
       postId: postId,
       image: image,
       message: message,
+      body: body,
+      textOnCTA: textOnCTA,
+      actionOnCTA: actionOnCTA,
+      icon: icon,
+      valueForCTA: valueForCTA,
+      walkNo: walkNo,
+      serviceProviderId: serviceProviderId,
+      userId: userId,
+      appointmentId: appointmentId,
+      bookingDetailsId: bookingDetailsId,
+      sessionNo: sessionNo,
+      dogs: dogs,
+      noOfDogs: noOfDogs,
+      date: date,
     );
   }
 
@@ -993,6 +1021,34 @@ mixin _$NotificationDataResponse {
   String? get image => throw _privateConstructorUsedError;
   @JsonKey(name: "message")
   String? get message => throw _privateConstructorUsedError;
+  @JsonKey(name: "body")
+  String? get body => throw _privateConstructorUsedError;
+  @JsonKey(name: "textOnCTA")
+  String? get textOnCTA => throw _privateConstructorUsedError;
+  @JsonKey(name: "actionOnCTA")
+  String? get actionOnCTA => throw _privateConstructorUsedError;
+  @JsonKey(name: "icon")
+  String? get icon => throw _privateConstructorUsedError;
+  @JsonKey(name: "valueForCTA")
+  String? get valueForCTA => throw _privateConstructorUsedError;
+  @JsonKey(name: "walkNumber")
+  String? get walkNo => throw _privateConstructorUsedError;
+  @JsonKey(name: "serviceProviderId")
+  String? get serviceProviderId => throw _privateConstructorUsedError;
+  @JsonKey(name: "userId")
+  String? get userId => throw _privateConstructorUsedError;
+  @JsonKey(name: "appointmentId")
+  String? get appointmentId => throw _privateConstructorUsedError;
+  @JsonKey(name: "bookingDetailsId")
+  String? get bookingDetailsId => throw _privateConstructorUsedError;
+  @JsonKey(name: "sessionNo")
+  int? get sessionNo => throw _privateConstructorUsedError;
+  @JsonKey(name: "dogs")
+  List<String>? get dogs => throw _privateConstructorUsedError;
+  @JsonKey(name: "noOfDogs")
+  int? get noOfDogs => throw _privateConstructorUsedError;
+  @JsonKey(name: "date")
+  int? get date => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1008,7 +1064,21 @@ abstract class $NotificationDataResponseCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "postId") String? postId,
       @JsonKey(name: "image") String? image,
-      @JsonKey(name: "message") String? message});
+      @JsonKey(name: "message") String? message,
+      @JsonKey(name: "body") String? body,
+      @JsonKey(name: "textOnCTA") String? textOnCTA,
+      @JsonKey(name: "actionOnCTA") String? actionOnCTA,
+      @JsonKey(name: "icon") String? icon,
+      @JsonKey(name: "valueForCTA") String? valueForCTA,
+      @JsonKey(name: "walkNumber") String? walkNo,
+      @JsonKey(name: "serviceProviderId") String? serviceProviderId,
+      @JsonKey(name: "userId") String? userId,
+      @JsonKey(name: "appointmentId") String? appointmentId,
+      @JsonKey(name: "bookingDetailsId") String? bookingDetailsId,
+      @JsonKey(name: "sessionNo") int? sessionNo,
+      @JsonKey(name: "dogs") List<String>? dogs,
+      @JsonKey(name: "noOfDogs") int? noOfDogs,
+      @JsonKey(name: "date") int? date});
 }
 
 /// @nodoc
@@ -1025,6 +1095,20 @@ class _$NotificationDataResponseCopyWithImpl<$Res>
     Object? postId = freezed,
     Object? image = freezed,
     Object? message = freezed,
+    Object? body = freezed,
+    Object? textOnCTA = freezed,
+    Object? actionOnCTA = freezed,
+    Object? icon = freezed,
+    Object? valueForCTA = freezed,
+    Object? walkNo = freezed,
+    Object? serviceProviderId = freezed,
+    Object? userId = freezed,
+    Object? appointmentId = freezed,
+    Object? bookingDetailsId = freezed,
+    Object? sessionNo = freezed,
+    Object? dogs = freezed,
+    Object? noOfDogs = freezed,
+    Object? date = freezed,
   }) {
     return _then(_value.copyWith(
       postId: postId == freezed
@@ -1039,6 +1123,62 @@ class _$NotificationDataResponseCopyWithImpl<$Res>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
+      body: body == freezed
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
+              as String?,
+      textOnCTA: textOnCTA == freezed
+          ? _value.textOnCTA
+          : textOnCTA // ignore: cast_nullable_to_non_nullable
+              as String?,
+      actionOnCTA: actionOnCTA == freezed
+          ? _value.actionOnCTA
+          : actionOnCTA // ignore: cast_nullable_to_non_nullable
+              as String?,
+      icon: icon == freezed
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as String?,
+      valueForCTA: valueForCTA == freezed
+          ? _value.valueForCTA
+          : valueForCTA // ignore: cast_nullable_to_non_nullable
+              as String?,
+      walkNo: walkNo == freezed
+          ? _value.walkNo
+          : walkNo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      serviceProviderId: serviceProviderId == freezed
+          ? _value.serviceProviderId
+          : serviceProviderId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      appointmentId: appointmentId == freezed
+          ? _value.appointmentId
+          : appointmentId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bookingDetailsId: bookingDetailsId == freezed
+          ? _value.bookingDetailsId
+          : bookingDetailsId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      sessionNo: sessionNo == freezed
+          ? _value.sessionNo
+          : sessionNo // ignore: cast_nullable_to_non_nullable
+              as int?,
+      dogs: dogs == freezed
+          ? _value.dogs
+          : dogs // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      noOfDogs: noOfDogs == freezed
+          ? _value.noOfDogs
+          : noOfDogs // ignore: cast_nullable_to_non_nullable
+              as int?,
+      date: date == freezed
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -1053,7 +1193,21 @@ abstract class _$NotificationDataResponseCopyWith<$Res>
   $Res call(
       {@JsonKey(name: "postId") String? postId,
       @JsonKey(name: "image") String? image,
-      @JsonKey(name: "message") String? message});
+      @JsonKey(name: "message") String? message,
+      @JsonKey(name: "body") String? body,
+      @JsonKey(name: "textOnCTA") String? textOnCTA,
+      @JsonKey(name: "actionOnCTA") String? actionOnCTA,
+      @JsonKey(name: "icon") String? icon,
+      @JsonKey(name: "valueForCTA") String? valueForCTA,
+      @JsonKey(name: "walkNumber") String? walkNo,
+      @JsonKey(name: "serviceProviderId") String? serviceProviderId,
+      @JsonKey(name: "userId") String? userId,
+      @JsonKey(name: "appointmentId") String? appointmentId,
+      @JsonKey(name: "bookingDetailsId") String? bookingDetailsId,
+      @JsonKey(name: "sessionNo") int? sessionNo,
+      @JsonKey(name: "dogs") List<String>? dogs,
+      @JsonKey(name: "noOfDogs") int? noOfDogs,
+      @JsonKey(name: "date") int? date});
 }
 
 /// @nodoc
@@ -1073,6 +1227,20 @@ class __$NotificationDataResponseCopyWithImpl<$Res>
     Object? postId = freezed,
     Object? image = freezed,
     Object? message = freezed,
+    Object? body = freezed,
+    Object? textOnCTA = freezed,
+    Object? actionOnCTA = freezed,
+    Object? icon = freezed,
+    Object? valueForCTA = freezed,
+    Object? walkNo = freezed,
+    Object? serviceProviderId = freezed,
+    Object? userId = freezed,
+    Object? appointmentId = freezed,
+    Object? bookingDetailsId = freezed,
+    Object? sessionNo = freezed,
+    Object? dogs = freezed,
+    Object? noOfDogs = freezed,
+    Object? date = freezed,
   }) {
     return _then(_NotificationDataResponse(
       postId: postId == freezed
@@ -1087,6 +1255,62 @@ class __$NotificationDataResponseCopyWithImpl<$Res>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
+      body: body == freezed
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
+              as String?,
+      textOnCTA: textOnCTA == freezed
+          ? _value.textOnCTA
+          : textOnCTA // ignore: cast_nullable_to_non_nullable
+              as String?,
+      actionOnCTA: actionOnCTA == freezed
+          ? _value.actionOnCTA
+          : actionOnCTA // ignore: cast_nullable_to_non_nullable
+              as String?,
+      icon: icon == freezed
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as String?,
+      valueForCTA: valueForCTA == freezed
+          ? _value.valueForCTA
+          : valueForCTA // ignore: cast_nullable_to_non_nullable
+              as String?,
+      walkNo: walkNo == freezed
+          ? _value.walkNo
+          : walkNo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      serviceProviderId: serviceProviderId == freezed
+          ? _value.serviceProviderId
+          : serviceProviderId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      appointmentId: appointmentId == freezed
+          ? _value.appointmentId
+          : appointmentId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bookingDetailsId: bookingDetailsId == freezed
+          ? _value.bookingDetailsId
+          : bookingDetailsId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      sessionNo: sessionNo == freezed
+          ? _value.sessionNo
+          : sessionNo // ignore: cast_nullable_to_non_nullable
+              as int?,
+      dogs: dogs == freezed
+          ? _value.dogs
+          : dogs // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      noOfDogs: noOfDogs == freezed
+          ? _value.noOfDogs
+          : noOfDogs // ignore: cast_nullable_to_non_nullable
+              as int?,
+      date: date == freezed
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -1097,7 +1321,21 @@ class _$_NotificationDataResponse extends _NotificationDataResponse {
   _$_NotificationDataResponse(
       {@JsonKey(name: "postId") this.postId,
       @JsonKey(name: "image") this.image,
-      @JsonKey(name: "message") this.message})
+      @JsonKey(name: "message") this.message,
+      @JsonKey(name: "body") this.body,
+      @JsonKey(name: "textOnCTA") this.textOnCTA,
+      @JsonKey(name: "actionOnCTA") this.actionOnCTA,
+      @JsonKey(name: "icon") this.icon,
+      @JsonKey(name: "valueForCTA") this.valueForCTA,
+      @JsonKey(name: "walkNumber") this.walkNo,
+      @JsonKey(name: "serviceProviderId") this.serviceProviderId,
+      @JsonKey(name: "userId") this.userId,
+      @JsonKey(name: "appointmentId") this.appointmentId,
+      @JsonKey(name: "bookingDetailsId") this.bookingDetailsId,
+      @JsonKey(name: "sessionNo") this.sessionNo,
+      @JsonKey(name: "dogs") this.dogs,
+      @JsonKey(name: "noOfDogs") this.noOfDogs,
+      @JsonKey(name: "date") this.date})
       : super._();
 
   factory _$_NotificationDataResponse.fromJson(Map<String, dynamic> json) =>
@@ -1112,10 +1350,52 @@ class _$_NotificationDataResponse extends _NotificationDataResponse {
   @override
   @JsonKey(name: "message")
   final String? message;
+  @override
+  @JsonKey(name: "body")
+  final String? body;
+  @override
+  @JsonKey(name: "textOnCTA")
+  final String? textOnCTA;
+  @override
+  @JsonKey(name: "actionOnCTA")
+  final String? actionOnCTA;
+  @override
+  @JsonKey(name: "icon")
+  final String? icon;
+  @override
+  @JsonKey(name: "valueForCTA")
+  final String? valueForCTA;
+  @override
+  @JsonKey(name: "walkNumber")
+  final String? walkNo;
+  @override
+  @JsonKey(name: "serviceProviderId")
+  final String? serviceProviderId;
+  @override
+  @JsonKey(name: "userId")
+  final String? userId;
+  @override
+  @JsonKey(name: "appointmentId")
+  final String? appointmentId;
+  @override
+  @JsonKey(name: "bookingDetailsId")
+  final String? bookingDetailsId;
+  @override
+  @JsonKey(name: "sessionNo")
+  final int? sessionNo;
+  @override
+  @JsonKey(name: "dogs")
+  final List<String>? dogs;
+  @override
+  @JsonKey(name: "noOfDogs")
+  final int? noOfDogs;
+  @override
+  @JsonKey(name: "date")
+  final int? date;
 
   @override
   String toString() {
-    return 'NotificationDataResponse(postId: $postId, image: $image, message: $message)';
+    return 'NotificationDataResponse(postId: $postId, image: $image, message: $message, body: $body, textOnCTA: $textOnCTA, actionOnCTA: $actionOnCTA, icon: $icon, valueForCTA: $valueForCTA, walkNo: $walkNo, serviceProviderId: $serviceProviderId, userId: $userId, appointmentId: $appointmentId, bookingDetailsId: $bookingDetailsId, sessionNo: $sessionNo, dogs: $dogs, noOfDogs: $noOfDogs, date: $date)';
   }
 
   @override
@@ -1125,7 +1405,26 @@ class _$_NotificationDataResponse extends _NotificationDataResponse {
             other is _NotificationDataResponse &&
             const DeepCollectionEquality().equals(other.postId, postId) &&
             const DeepCollectionEquality().equals(other.image, image) &&
-            const DeepCollectionEquality().equals(other.message, message));
+            const DeepCollectionEquality().equals(other.message, message) &&
+            const DeepCollectionEquality().equals(other.body, body) &&
+            const DeepCollectionEquality().equals(other.textOnCTA, textOnCTA) &&
+            const DeepCollectionEquality()
+                .equals(other.actionOnCTA, actionOnCTA) &&
+            const DeepCollectionEquality().equals(other.icon, icon) &&
+            const DeepCollectionEquality()
+                .equals(other.valueForCTA, valueForCTA) &&
+            const DeepCollectionEquality().equals(other.walkNo, walkNo) &&
+            const DeepCollectionEquality()
+                .equals(other.serviceProviderId, serviceProviderId) &&
+            const DeepCollectionEquality().equals(other.userId, userId) &&
+            const DeepCollectionEquality()
+                .equals(other.appointmentId, appointmentId) &&
+            const DeepCollectionEquality()
+                .equals(other.bookingDetailsId, bookingDetailsId) &&
+            const DeepCollectionEquality().equals(other.sessionNo, sessionNo) &&
+            const DeepCollectionEquality().equals(other.dogs, dogs) &&
+            const DeepCollectionEquality().equals(other.noOfDogs, noOfDogs) &&
+            const DeepCollectionEquality().equals(other.date, date));
   }
 
   @override
@@ -1133,7 +1432,21 @@ class _$_NotificationDataResponse extends _NotificationDataResponse {
       runtimeType,
       const DeepCollectionEquality().hash(postId),
       const DeepCollectionEquality().hash(image),
-      const DeepCollectionEquality().hash(message));
+      const DeepCollectionEquality().hash(message),
+      const DeepCollectionEquality().hash(body),
+      const DeepCollectionEquality().hash(textOnCTA),
+      const DeepCollectionEquality().hash(actionOnCTA),
+      const DeepCollectionEquality().hash(icon),
+      const DeepCollectionEquality().hash(valueForCTA),
+      const DeepCollectionEquality().hash(walkNo),
+      const DeepCollectionEquality().hash(serviceProviderId),
+      const DeepCollectionEquality().hash(userId),
+      const DeepCollectionEquality().hash(appointmentId),
+      const DeepCollectionEquality().hash(bookingDetailsId),
+      const DeepCollectionEquality().hash(sessionNo),
+      const DeepCollectionEquality().hash(dogs),
+      const DeepCollectionEquality().hash(noOfDogs),
+      const DeepCollectionEquality().hash(date));
 
   @JsonKey(ignore: true)
   @override
@@ -1151,7 +1464,21 @@ abstract class _NotificationDataResponse extends NotificationDataResponse {
   factory _NotificationDataResponse(
       {@JsonKey(name: "postId") String? postId,
       @JsonKey(name: "image") String? image,
-      @JsonKey(name: "message") String? message}) = _$_NotificationDataResponse;
+      @JsonKey(name: "message") String? message,
+      @JsonKey(name: "body") String? body,
+      @JsonKey(name: "textOnCTA") String? textOnCTA,
+      @JsonKey(name: "actionOnCTA") String? actionOnCTA,
+      @JsonKey(name: "icon") String? icon,
+      @JsonKey(name: "valueForCTA") String? valueForCTA,
+      @JsonKey(name: "walkNumber") String? walkNo,
+      @JsonKey(name: "serviceProviderId") String? serviceProviderId,
+      @JsonKey(name: "userId") String? userId,
+      @JsonKey(name: "appointmentId") String? appointmentId,
+      @JsonKey(name: "bookingDetailsId") String? bookingDetailsId,
+      @JsonKey(name: "sessionNo") int? sessionNo,
+      @JsonKey(name: "dogs") List<String>? dogs,
+      @JsonKey(name: "noOfDogs") int? noOfDogs,
+      @JsonKey(name: "date") int? date}) = _$_NotificationDataResponse;
   _NotificationDataResponse._() : super._();
 
   factory _NotificationDataResponse.fromJson(Map<String, dynamic> json) =
@@ -1166,6 +1493,48 @@ abstract class _NotificationDataResponse extends NotificationDataResponse {
   @override
   @JsonKey(name: "message")
   String? get message;
+  @override
+  @JsonKey(name: "body")
+  String? get body;
+  @override
+  @JsonKey(name: "textOnCTA")
+  String? get textOnCTA;
+  @override
+  @JsonKey(name: "actionOnCTA")
+  String? get actionOnCTA;
+  @override
+  @JsonKey(name: "icon")
+  String? get icon;
+  @override
+  @JsonKey(name: "valueForCTA")
+  String? get valueForCTA;
+  @override
+  @JsonKey(name: "walkNumber")
+  String? get walkNo;
+  @override
+  @JsonKey(name: "serviceProviderId")
+  String? get serviceProviderId;
+  @override
+  @JsonKey(name: "userId")
+  String? get userId;
+  @override
+  @JsonKey(name: "appointmentId")
+  String? get appointmentId;
+  @override
+  @JsonKey(name: "bookingDetailsId")
+  String? get bookingDetailsId;
+  @override
+  @JsonKey(name: "sessionNo")
+  int? get sessionNo;
+  @override
+  @JsonKey(name: "dogs")
+  List<String>? get dogs;
+  @override
+  @JsonKey(name: "noOfDogs")
+  int? get noOfDogs;
+  @override
+  @JsonKey(name: "date")
+  int? get date;
   @override
   @JsonKey(ignore: true)
   _$NotificationDataResponseCopyWith<_NotificationDataResponse> get copyWith =>

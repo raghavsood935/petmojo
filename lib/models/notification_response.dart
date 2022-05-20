@@ -73,6 +73,20 @@ class NotificationDataResponse with _$NotificationDataResponse {
     @JsonKey(name: "postId") String? postId,
     @JsonKey(name: "image") String? image,
     @JsonKey(name: "message") String? message,
+    @JsonKey(name: "body") String? body,
+    @JsonKey(name: "textOnCTA") String? textOnCTA,
+    @JsonKey(name: "actionOnCTA") String? actionOnCTA,
+    @JsonKey(name: "icon") String? icon,
+    @JsonKey(name: "valueForCTA") String? valueForCTA,
+    @JsonKey(name: "walkNumber") String? walkNo,
+    @JsonKey(name: "serviceProviderId") String? serviceProviderId,
+    @JsonKey(name: "userId") String? userId,
+    @JsonKey(name: "appointmentId") String? appointmentId,
+    @JsonKey(name: "bookingDetailsId") String? bookingDetailsId,
+    @JsonKey(name: "sessionNo") int? sessionNo,
+    @JsonKey(name: "dogs") List<String>? dogs,
+    @JsonKey(name: "noOfDogs") int? noOfDogs,
+    @JsonKey(name: "date") int? date,
   }) = _NotificationDataResponse;
 
   factory NotificationDataResponse.fromJson(Map<String, dynamic> json) =>

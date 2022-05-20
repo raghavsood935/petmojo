@@ -107,6 +107,7 @@ import 'package:tamely/models/params/groups/create_group_body.dart';
 import 'package:tamely/models/params/groups/update_group_hashtags_body.dart';
 import 'package:tamely/models/params/groups/invite_people_group_body.dart';
 import 'package:tamely/models/reorder_a_run_response.dart';
+import 'package:tamely/models/session_tracker_response.dart';
 import 'package:tamely/models/url_response.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
 import 'package:tamely/models/user_response_models.dart';
@@ -333,6 +334,8 @@ class Apis {
 
   static const String getS3Url = "/s3/getImage";
   static const String getS3VideoUrl = "s3/getVideo";
+
+  static const String sessionTracker = "user/sessionTrackerById";
 }
 
 // @RestApi(baseUrl: "https://tamely.herokuapp.com/api/")
@@ -913,4 +916,8 @@ abstract class ApiClient {
   // -- Get s3 video url from server
   @POST(Apis.getS3VideoUrl)
   Future<UrlResponse> getS3VideoUrl(@Body() GetS3UrlBody getUrlBody);
+
+  // -- Get ongoing session tracking
+  @POST(Apis.sessionTracker)
+  Future<SessionTrackerResponse> sessionTracker();
 }

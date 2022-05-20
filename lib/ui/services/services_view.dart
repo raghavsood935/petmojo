@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/popUpNotifications/User%20Training%20Pop%20ups/liveTraining.dart';
 import 'package:tamely/ui/services/services_viewmodel.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
+import 'package:tamely/widgets/live_ongoing_widget.dart';
 import 'package:tamely/widgets/play_btn.dart';
 import 'package:tamely/widgets/services_preview_sliding.dart';
 
@@ -26,6 +28,7 @@ class ServicesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ServicesViewModel>.reactive(
       viewModelBuilder: () => ServicesViewModel(),
+      onModelReady: (model) async => await model.init(),
       builder: (context, model, child) => Scaffold(
         body: SafeArea(
           child: ListView(
@@ -74,7 +77,11 @@ class ServicesView extends StatelessWidget {
                   ],
                 ),
               ),
-              ServicesPreviewSliding(model: model),
+              model.isOngoingSessionPresent
+                  ? model.ongoingSessionType == 1
+                      ? OngoingTraining(model: model)
+                      : OngoingWalking(model: model)
+                  : ServicesPreviewSliding(model: model),
               verticalSpaceRegular,
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -119,7 +126,7 @@ class ServicesView extends StatelessWidget {
                                   Icon(
                                     Icons.flash_on_sharp,
                                     color: Colors.yellow,
-                                    size: 11,
+                                    size: 20,
                                   ),
                                   AppText.tiny(
                                     "High Demand   ",
@@ -134,11 +141,14 @@ class ServicesView extends StatelessWidget {
                               child: Image.asset("assets/images/petmojo.png"),
                             ),
                             Positioned(
-                              right: 0,
-                              top: 15,
-                              child: Image.asset(
-                                "assets/images/pet_tag.png",
-                                scale: 1.5,
+                              right: -5,
+                              top: 25,
+                              child: Transform.scale(
+                                scale: 1.2,
+                                child: Image.asset(
+                                  "assets/images/pet_tag.png",
+                                  // scale: 1.5,
+                                ),
                               ),
                             ),
                             Positioned(
@@ -157,18 +167,22 @@ class ServicesView extends StatelessWidget {
                               ),
                             ),
                             Positioned(
-                              right: -20,
-                              bottom: 20,
-                              child: Image.asset(
-                                "assets/images/cat_for_tracker.png",
-                                // scale: 1.5,
+                              right: 15,
+                              bottom: 30,
+                              child: Transform.scale(
+                                scale: 1.3,
+                                child: Image.asset(
+                                  "assets/images/cat_for_tracker.png",
+                                  // scale: 1.5,
+                                ),
                               ),
                             ),
                             Positioned(
-                              left: 5,
-                              right: 5,
+                              left: 25,
+                              // right: 5,
                               bottom: 5,
                               child: Container(
+                                margin: EdgeInsets.symmetric(horizontal: 20),
                                 padding: EdgeInsets.symmetric(
                                     vertical: 5, horizontal: 5),
                                 decoration: BoxDecoration(
@@ -184,53 +198,6 @@ class ServicesView extends StatelessWidget {
                             ),
                           ],
                         ),
-                        // child: Column(
-                        //   crossAxisAlignment: CrossAxisAlignment.center,
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //     Row(
-                        //       mainAxisAlignment: MainAxisAlignment.end,
-                        //       children: [
-                        //         SizedBox(width: 40),
-                        //         Icon(
-                        //           Icons.flash_on_sharp,
-                        //           color: Colors.yellow,
-                        //           size: 11,
-                        //         ),
-                        //         AppText.tiny(
-                        //           "High Demand   ",
-                        //           color: colors.black,
-                        //         ),
-                        //       ],
-                        //     ),
-                        //     Row(
-                        //       children: [
-                        //         Column(
-                        //           children: [
-                        //             AppText.body("45 mins"),
-                        //             AppText.bodyBold("Doorstep"),
-                        //             AppText.bodyBold("Delivery"),
-                        //           ],
-                        //         ),
-                        //         Expanded(
-                        //             child: Image(
-                        //           image: AssetImage(
-                        //               "assets/images/delivery_truck.png"),
-                        //         ))
-                        //       ],
-                        //     ),
-                        //     Container(
-                        //       decoration: BoxDecoration(
-                        //           borderRadius: BorderRadius.circular(4),
-                        //           color: colors.primary),
-                        //       child: AppText.caption(
-                        //         "Shop Now",
-                        //         color: colors.white,
-                        //       ),
-                        //       padding: EdgeInsets.all(5),
-                        //     )
-                        //   ],
-                        // ),
                       ),
                     ),
                   ),

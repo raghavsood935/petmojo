@@ -127,6 +127,15 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   bool _isValid = false;
   bool get isValid => _isValid;
 
+  bool _isLocationValid = false;
+  bool get isLocationValid => _isLocationValid;
+
+  bool _isAddressValid = false;
+  bool get isAddressValid => _isAddressValid;
+
+  bool _isPhoneValid = false;
+  bool get isPhoneValid => _isPhoneValid;
+
   bool _loading = false;
   bool get loading => _loading;
 
@@ -250,6 +259,18 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
 
   String _description = "Free";
   String get description => _description;
+
+  List _boxes = [
+    ['Pay Full Amount', "₹6,500/-", "Per month", false],
+    ["Monthly Billing", "₹8,700/-", "Per month", true]
+  ];
+  List get boxes => _boxes;
+
+  String _orderSummaryText1 = "Basic Obedience and Behavioral Training";
+  String get orderSummaryText1 => _orderSummaryText1;
+
+  String _orderSummaryText2 = "24 Sessions";
+  String get orderSummaryText2 => _orderSummaryText2;
 
   double _subTotal = 0;
   double get subTotal => _subTotal;
@@ -409,18 +430,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   }
 
   void setFirstPageValid() {
-    _isValid = true;
-    if (hasPets) {
-      if (noOfDogs == 1) {
-        if (petDetailsBody.length != 1) {
-          _isValid = false;
-        }
-      } else if (noOfDogs == 2) {
-        if (petDetailsBody.length != 2) {
-          _isValid = false;
-        }
-      }
-    }
+    _isValid = petDetailsBody.length > 0;
     notifyListeners();
   }
 
@@ -681,48 +691,58 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   List<PetDetailsTrainingBody> get petDetailsBody => _petDetailsBody;
 
   void selectPet(index) {
-    if (noOfDogs == 1) {
-      for (var pet in myPets) {
-        pet.selected = false;
-      }
-      _petDetailsBody.clear();
-      myPets[index].selected = true;
-      PetDetailsTrainingBody one =
-          PetDetailsTrainingBody(myPets[index].petId!, "Medium");
-      _petDetailsBody.add(one);
-    }
-    if (noOfDogs == 2) {
-      if (petDetailsBody.length == 0) {
+    // if (noOfDogs == 1) {
+    //   for (var pet in myPets) {
+    //     pet.selected = false;
+    //   }
+    //   _petDetailsBody.clear();
+    //   myPets[index].selected = true;
+    //   PetDetailsTrainingBody one =
+    //       PetDetailsTrainingBody(myPets[index].petId!, "Medium");
+    //   _petDetailsBody.add(one);
+    // }
+    // if (noOfDogs == 2) {
+    //   if (petDetailsBody.length == 0) {
+    //     PetDetailsTrainingBody one =
+    //         PetDetailsTrainingBody(myPets[index].petId!, "Medium");
+    //     myPets[index].selected = true;
+    //     _petDetailsBody.add(one);
+    //   } else if (petDetailsBody.length == 1) {
+    //     for (var each in petDetailsBody) {
+    //     if (each.petId != myPets[index].petId!) {
+    //       PetDetailsTrainingBody one =
+    //           PetDetailsTrainingBody(myPets[index].petId!, "Medium");
+    //       myPets[index].selected = true;
+    //       _petDetailsBody.add(one);
+    //       break;
+    //     }
+    //   }
+    // } else if (petDetailsBody.length == 2) {
+    //   for (var pet in myPets) {
+    //     pet.selected = false;
+    //   }
+    //     _petDetailsBody.clear();
+    //     myPets[index].selected = true;
+    //     PetDetailsTrainingBody one =
+    //         PetDetailsTrainingBody(myPets[index].petId!, "Medium");
+    //     _petDetailsBody.add(one);
+    //   }
+    //   if (numberOfPets == 1) {
+    //     PetDetailsTrainingBody one =
+    //         PetDetailsTrainingBody("111111111111111111111111", "Medium");
+    //     _petDetailsBody.add(one);
+    //   }
+    // }
+    _noOfDogs = myPets.length;
+    _petDetailsBody.clear();
+    myPets[index].selected = !(myPets[index].selected ?? false);
+    myPets.forEach((pet) {
+      if (pet.selected ?? false) {
         PetDetailsTrainingBody one =
-            PetDetailsTrainingBody(myPets[index].petId!, "Medium");
-        myPets[index].selected = true;
-        _petDetailsBody.add(one);
-      } else if (petDetailsBody.length == 1) {
-        for (var each in petDetailsBody) {
-          if (each.petId != myPets[index].petId!) {
-            PetDetailsTrainingBody one =
-                PetDetailsTrainingBody(myPets[index].petId!, "Medium");
-            myPets[index].selected = true;
-            _petDetailsBody.add(one);
-            break;
-          }
-        }
-      } else if (petDetailsBody.length == 2) {
-        for (var pet in myPets) {
-          pet.selected = false;
-        }
-        _petDetailsBody.clear();
-        myPets[index].selected = true;
-        PetDetailsTrainingBody one =
-            PetDetailsTrainingBody(myPets[index].petId!, "Medium");
+            PetDetailsTrainingBody(pet.petId!, "Medium");
         _petDetailsBody.add(one);
       }
-      if (numberOfPets == 1) {
-        PetDetailsTrainingBody one =
-            PetDetailsTrainingBody("111111111111111111111111", "Medium");
-        _petDetailsBody.add(one);
-      }
-    }
+    });
     setFirstPageValid();
     notifyListeners();
   }
@@ -1313,7 +1333,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       description: "Select a package in the next screen for Discounted pricing",
     );
 
-    if (result!.confirmed) {
+    if (result != null && result.confirmed) {
       switch (result.data) {
         case 2:
           {
@@ -1350,6 +1370,13 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
 
   @override
   void setFormStatus() {}
+
+  void createNewPet() async {
+    var result = await _navigationService.navigateTo(
+      Routes.createAnimalProfileNewPageOne,
+      arguments: CreateAnimalProfileNewPageOneArguments(isFromStart: false),
+    );
+  }
 }
 
 class PetsClass {

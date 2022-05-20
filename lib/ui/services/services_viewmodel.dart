@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:tamely/api/api_service.dart';
+import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
@@ -14,6 +16,20 @@ class ServicesViewModel extends BaseModel {
   String _appointmentType = "Pet boarding";
   final _navigationService = locator<NavigationService>();
   final _snackBarService = locator<SnackbarService>();
+  final _tamelyApi = locator<TamelyApi>();
+
+  bool _ongoingSessionPresent = false;
+  bool get isOngoingSessionPresent => _ongoingSessionPresent;
+
+  String _ongoingSessionId = "";
+  String get ongoingSessionId => _ongoingSessionId;
+
+  int _ongoingSessionType = 0;
+  int get ongoingSessionType => _ongoingSessionType;
+  // 0: No session
+  // 1: Dog training
+  // 2: Dog Walking
+  // 3: Dog Grooming
 
   List<ServicesModel> _listOfServices = [
     ServicesModel(
@@ -50,6 +66,50 @@ class ServicesViewModel extends BaseModel {
       bgColor: Color(0xFFFEDFDD),
     ),
   ];
+
+  Future init() async {
+    print("Initialising services");
+    await getSessionTracker();
+  }
+
+  Future getSessionTracker() async {
+    var result = await _tamelyApi.sessionTracker();
+    if (result.getException != null) {
+      ServerError error = result.getException as ServerError;
+      _snackBarService.showSnackbar(message: error.getErrorMessage());
+    } else if (result.data != null) {
+      _ongoingSessionPresent = result.data!.ongoing != 0;
+      if (_ongoingSessionPresent && result.data!.ongoing != null) {
+        _ongoingSessionType = result.data!.ongoing!;
+      }
+      if (_ongoingSessionPresent && result.data!.appointmentId != null) {
+        _ongoingSessionId = result.data!.appointmentId!;
+      }
+      notifyListeners();
+    }
+  }
+
+  void onLiveSnippetCTA() async {
+    if (ongoingSessionType == 1) {
+      await _navigationService.navigateTo(
+        Routes.dTAppointmentDetailsView,
+        arguments:
+            DTAppointmentDetailsViewArguments(appointmentId: ongoingSessionId),
+      );
+    } else if (ongoingSessionType == 2) {
+      await _navigationService.navigateTo(
+        Routes.dRAppointmentDetailsView,
+        arguments:
+            DRAppointmentDetailsViewArguments(appointmentId: ongoingSessionId),
+      );
+    } else if (ongoingSessionType == 3) {
+      await _navigationService.navigateTo(
+        Routes.dGAppointmentDetailsView,
+        arguments:
+            DGAppointmentDetailsViewArguments(appointmentId: ongoingSessionId),
+      );
+    }
+  }
 
   Future onServiceTap(int index) async {
     switch (index) {

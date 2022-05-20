@@ -146,6 +146,7 @@ class _LocationPickerState extends State<LocationPicker> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             FloatingActionButton(
+              heroTag: "CurrentLocation",
               onPressed: () {
                 _determinePosition();
               },
@@ -154,6 +155,7 @@ class _LocationPickerState extends State<LocationPicker> {
             ),
             verticalSpaceRegular,
             FloatingActionButton(
+              heroTag: "Next",
               onPressed: () {
                 getLatLang();
               },
