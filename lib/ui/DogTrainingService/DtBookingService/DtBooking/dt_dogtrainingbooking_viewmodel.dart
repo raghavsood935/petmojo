@@ -127,6 +127,15 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   bool _isValid = false;
   bool get isValid => _isValid;
 
+  bool _isLocationValid = false;
+  bool get isLocationValid => _isLocationValid;
+
+  bool _isAddressValid = false;
+  bool get isAddressValid => _isAddressValid;
+
+  bool _isPhoneValid = false;
+  bool get isPhoneValid => _isPhoneValid;
+
   bool _loading = false;
   bool get loading => _loading;
 
@@ -168,7 +177,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     try {
       if (await Util.checkInternetConnectivity()) {
         SetPaymentDetailsBody setPaymentDetailsBody =
-        SetPaymentDetailsBody(bookingId, "FREE RUN", 0);
+            SetPaymentDetailsBody(bookingId, "FREE RUN", 0);
         BaseResponse<SendDataResponse> result = await runBusyFuture(
             _tamelyApi.setPaymentDetailsTraining(setPaymentDetailsBody),
             throwException: true);
@@ -261,8 +270,8 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   double get subTotal => _subTotal;
 
   List _boxes = [
-    ['Pay Full Amount',"₹6,500/-","Per month",false],
-    ["Monthly Billing","₹8,700/-","Per month",true]
+    ['Pay Full Amount', "₹6,500/-", "Per month", false],
+    ["Monthly Billing", "₹8,700/-", "Per month", true]
   ];
   List get boxes => _boxes;
 
@@ -335,7 +344,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     } else if (selectedPlan == DogTrainingPackage.Five) {
       _isValid = true;
       _description =
-      "Ultra Premium Obedience, Behavioural, Guarding and Intellect Training";
+          "Ultra Premium Obedience, Behavioural, Guarding and Intellect Training";
       _subTotal = 43152;
       _amount = 32640;
       _discount = 10512;
@@ -421,18 +430,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   }
 
   void setFirstPageValid() {
-    _isValid = true;
-    if (hasPets) {
-      if (noOfDogs == 1) {
-        if (petDetailsBody.length != 1) {
-          _isValid = false;
-        }
-      } else if (noOfDogs == 2) {
-        if (petDetailsBody.length != 2) {
-          _isValid = false;
-        }
-      }
-    }
+    _isValid = petDetailsBody.length > 0;
     notifyListeners();
   }
 
@@ -441,7 +439,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   // -- start date
 
   TextEditingController datePickers =
-  TextEditingController(text: "Select Date");
+      TextEditingController(text: "Select Date");
 
   bool _isDatePicked = false;
   bool get isDatePicked => _isDatePicked;
@@ -502,6 +500,8 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
 
   void secondPageValidation(String? value) {
     _isValid = true;
+    _isPhoneValid = false;
+    _isAddressValid = true;
     if (addressLineTwoController.text == "") {
       print("1");
       _isValid = false;
@@ -517,23 +517,18 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     if (addressLineOneController.text == "") {
       print("4");
       _isValid = false;
+      _isAddressValid = false;
     }
     if (phoneController.text.length < 10) {
       print("5");
       _isValid = false;
+    } else {
+      _isPhoneValid = true;
     }
     if (!isDatePicked) {
       _isValid = false;
       print("this is shit: $isValid");
     }
-    // if (_selectedWeekdayOne == false &&
-    //     _selectedWeekdayTwo == false &&
-    //     _selectedWeekdayThree == false &&
-    //     _selectedWeekdayFour == false &&
-    //     _selectedWeekdayFive == false) {
-    //   _isValid = false;
-    //   print("this is shit: $isValid");
-    // }
     notifyListeners();
   }
 
@@ -554,6 +549,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   bool get companyAvailable => _companyAvailable;
 
   void changeAddress() async {
+    print("Navigating to location picker");
     List result = await _navigationService.navigateTo(Routes.locationPicker);
     if (result[1]) {
       setLocation(result[0]);
@@ -583,7 +579,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
 
   Future<String> getAddress(Coordinates coordinates) async {
     var address =
-    await Geocoder.local.findAddressesFromCoordinates(coordinates);
+        await Geocoder.local.findAddressesFromCoordinates(coordinates);
     print("this is subAdminArea ${address.first.subAdminArea}");
     print("this is locality ${address.first.locality}");
     if (availableArea.contains(address.first.subAdminArea) ||
@@ -648,31 +644,31 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       if (noOfDogs == 1) {
         myPets[0].selected = true;
         PetDetailsTrainingBody one =
-        PetDetailsTrainingBody(myPets[0].petId!, "Medium");
+            PetDetailsTrainingBody(myPets[0].petId!, "Medium");
         _petDetailsBody.add(one);
       } else if (noOfDogs == 2) {
         myPets[0].selected = true;
         PetDetailsTrainingBody one =
-        PetDetailsTrainingBody(myPets[0].petId!, "Medium");
+            PetDetailsTrainingBody(myPets[0].petId!, "Medium");
         _petDetailsBody.add(one);
         if (numberOfPets == 1) {
           PetDetailsTrainingBody one =
-          PetDetailsTrainingBody("111111111111111111111111", "Medium");
+              PetDetailsTrainingBody("111111111111111111111111", "Medium");
           _petDetailsBody.add(one);
         } else if (numberOfPets >= 2) {
           myPets[1].selected = true;
           PetDetailsTrainingBody one =
-          PetDetailsTrainingBody(myPets[1].petId!, "Medium");
+              PetDetailsTrainingBody(myPets[1].petId!, "Medium");
           _petDetailsBody.add(one);
         }
       }
     } else if (!hasPets) {
       PetDetailsTrainingBody one =
-      PetDetailsTrainingBody("111111111111111111111111", "Medium");
+          PetDetailsTrainingBody("111111111111111111111111", "Medium");
       _petDetailsBody.add(one);
       if (noOfDogs == 2) {
         PetDetailsTrainingBody two =
-        PetDetailsTrainingBody("111111111111111111111111", "Medium");
+            PetDetailsTrainingBody("111111111111111111111111", "Medium");
         _petDetailsBody.add(two);
       }
     }
@@ -693,49 +689,27 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   List<PetDetailsTrainingBody> get petDetailsBody => _petDetailsBody;
 
   void selectPet(index) {
-    if (noOfDogs == 1) {
-      // for (var pet in myPets) {
-      //   pet.selected = false;
-      // }
-
-      _petDetailsBody.clear();
-      myPets[index].selected = !(myPets[index].selected ?? false);
-      PetDetailsTrainingBody one =
-      PetDetailsTrainingBody(myPets[index].petId!, "Medium");
-      _petDetailsBody.add(one);
-    }
-    if (noOfDogs == 2) {
-      if (petDetailsBody.length == 0) {
+    _noOfDogs = myPets.length;
+    // if (noOfDogs == 1) {
+    //   _petDetailsBody.clear();
+    //   myPets[index].selected = !(myPets[index].selected ?? false);
+    //   PetDetailsTrainingBody one =
+    //       PetDetailsTrainingBody(myPets[index].petId!, "Medium");
+    //   _petDetailsBody.add(one);
+    //   notifyListeners();
+    // }
+    // if (noOfDogs == 2) {
+    myPets[index].selected = !(myPets[index].selected ?? false);
+    _petDetailsBody.clear();
+    myPets.forEach((thisPet) {
+      if (thisPet.selected ?? false) {
         PetDetailsTrainingBody one =
-        PetDetailsTrainingBody(myPets[index].petId!, "Medium");
-        myPets[index].selected = true;
-        _petDetailsBody.add(one);
-      } else if (petDetailsBody.length == 1) {
-        for (var each in petDetailsBody) {
-          if (each.petId != myPets[index].petId!) {
-            PetDetailsTrainingBody one =
-            PetDetailsTrainingBody(myPets[index].petId!, "Medium");
-            myPets[index].selected = true;
-            _petDetailsBody.add(one);
-            break;
-          }
-        }
-      } else if (petDetailsBody.length == 2) {
-        for (var pet in myPets) {
-          pet.selected = false;
-        }
-        _petDetailsBody.clear();
-        myPets[index].selected = true;
-        PetDetailsTrainingBody one =
-        PetDetailsTrainingBody(myPets[index].petId!, "Medium");
+            PetDetailsTrainingBody(thisPet.petId!, "Medium");
         _petDetailsBody.add(one);
       }
-      if (numberOfPets == 1) {
-        PetDetailsTrainingBody one =
-        PetDetailsTrainingBody("111111111111111111111111", "Medium");
-        _petDetailsBody.add(one);
-      }
-    }
+    });
+    notifyListeners();
+    // }
     setFirstPageValid();
     notifyListeners();
   }
@@ -1164,19 +1138,19 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     PetsClass(
       name: "Joeylene Rivera",
       imageUrl:
-      "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg",
+          "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg",
       selected: false,
     ),
     PetsClass(
       name: "Joeylene Rivera",
       imageUrl:
-      "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg",
+          "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg",
       selected: false,
     ),
     PetsClass(
       name: "Joeylene Rivera",
       imageUrl:
-      "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg",
+          "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg",
       selected: false,
     ),
   ];
@@ -1232,7 +1206,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     notifyListeners();
     //
     DateTime startDateConverted =
-    pickedDate.add(Duration(hours: 5, minutes: 30));
+        pickedDate.add(Duration(hours: 5, minutes: 30));
     print(startDateConverted);
     int startDateTimeStamp = startDateConverted.millisecondsSinceEpoch;
     print(startDateTimeStamp);
@@ -1249,7 +1223,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
 
     // empty
     PetRunningLocationTrainingBody petRunningLocationBody =
-    PetRunningLocationTrainingBody(
+        PetRunningLocationTrainingBody(
       addressLineOneController.text,
       addressLineTwoController.text,
       addressLineThreeController.text,
@@ -1261,13 +1235,12 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
 
     //
     PackageTrainingBody packageBody =
-    PackageTrainingBody(_description, _amount.toString(), _frequency);
+        PackageTrainingBody(_description, _amount.toString(), _frequency);
 
     //
     try {
       if (await Util.checkInternetConnectivity()) {
         _noOfDogs = petDetailsBody.length;
-        print('assigning size as ${petDetailsBody.length}');
         BookATrainingBody bookATrainingBody = BookATrainingBody(
           noOfDogs,
           petDetailsBody,
@@ -1364,21 +1337,6 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   @override
   void setFormStatus() {}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 class DTDogTrainingOrderSummaryModel extends FormViewModel {
   final log = getLogger('DogRunningBookingView');
@@ -1514,7 +1472,7 @@ class DTDogTrainingOrderSummaryModel extends FormViewModel {
     try {
       if (await Util.checkInternetConnectivity()) {
         SetPaymentDetailsBody setPaymentDetailsBody =
-        SetPaymentDetailsBody(bookingId, "FREE RUN", 0);
+            SetPaymentDetailsBody(bookingId, "FREE RUN", 0);
         BaseResponse<SendDataResponse> result = await runBusyFuture(
             _tamelyApi.setPaymentDetailsTraining(setPaymentDetailsBody),
             throwException: true);
@@ -1669,7 +1627,7 @@ class DTDogTrainingOrderSummaryModel extends FormViewModel {
     } else if (selectedPlan == DogTrainingPackage.Five) {
       _isValid = true;
       _description =
-      "Ultra Premium Obedience, Behavioural, Guarding and Intellect Training";
+          "Ultra Premium Obedience, Behavioural, Guarding and Intellect Training";
       _subTotal = 43152;
       _amount = 32640;
       _discount = 10512;
@@ -1775,7 +1733,7 @@ class DTDogTrainingOrderSummaryModel extends FormViewModel {
   // -- start date
 
   TextEditingController datePickers =
-  TextEditingController(text: "Select Date");
+      TextEditingController(text: "Select Date");
 
   bool _isDatePicked = false;
   bool get isDatePicked => _isDatePicked;
@@ -1917,7 +1875,7 @@ class DTDogTrainingOrderSummaryModel extends FormViewModel {
 
   Future<String> getAddress(Coordinates coordinates) async {
     var address =
-    await Geocoder.local.findAddressesFromCoordinates(coordinates);
+        await Geocoder.local.findAddressesFromCoordinates(coordinates);
     print("this is subAdminArea ${address.first.subAdminArea}");
     print("this is locality ${address.first.locality}");
     if (availableArea.contains(address.first.subAdminArea) ||
@@ -1982,31 +1940,31 @@ class DTDogTrainingOrderSummaryModel extends FormViewModel {
       if (noOfDogs == 1) {
         myPets[0].selected = true;
         PetDetailsTrainingBody one =
-        PetDetailsTrainingBody(myPets[0].petId!, "Medium");
+            PetDetailsTrainingBody(myPets[0].petId!, "Medium");
         _petDetailsBody.add(one);
       } else if (noOfDogs == 2) {
         myPets[0].selected = true;
         PetDetailsTrainingBody one =
-        PetDetailsTrainingBody(myPets[0].petId!, "Medium");
+            PetDetailsTrainingBody(myPets[0].petId!, "Medium");
         _petDetailsBody.add(one);
         if (numberOfPets == 1) {
           PetDetailsTrainingBody one =
-          PetDetailsTrainingBody("111111111111111111111111", "Medium");
+              PetDetailsTrainingBody("111111111111111111111111", "Medium");
           _petDetailsBody.add(one);
         } else if (numberOfPets >= 2) {
           myPets[1].selected = true;
           PetDetailsTrainingBody one =
-          PetDetailsTrainingBody(myPets[1].petId!, "Medium");
+              PetDetailsTrainingBody(myPets[1].petId!, "Medium");
           _petDetailsBody.add(one);
         }
       }
     } else if (!hasPets) {
       PetDetailsTrainingBody one =
-      PetDetailsTrainingBody("111111111111111111111111", "Medium");
+          PetDetailsTrainingBody("111111111111111111111111", "Medium");
       _petDetailsBody.add(one);
       if (noOfDogs == 2) {
         PetDetailsTrainingBody two =
-        PetDetailsTrainingBody("111111111111111111111111", "Medium");
+            PetDetailsTrainingBody("111111111111111111111111", "Medium");
         _petDetailsBody.add(two);
       }
     }
@@ -2035,20 +1993,20 @@ class DTDogTrainingOrderSummaryModel extends FormViewModel {
       _petDetailsBody.clear();
       myPets[index].selected = !(myPets[index].selected ?? false);
       PetDetailsTrainingBody one =
-      PetDetailsTrainingBody(myPets[index].petId!, "Medium");
+          PetDetailsTrainingBody(myPets[index].petId!, "Medium");
       _petDetailsBody.add(one);
     }
     if (noOfDogs == 2) {
       if (petDetailsBody.length == 0) {
         PetDetailsTrainingBody one =
-        PetDetailsTrainingBody(myPets[index].petId!, "Medium");
+            PetDetailsTrainingBody(myPets[index].petId!, "Medium");
         myPets[index].selected = true;
         _petDetailsBody.add(one);
       } else if (petDetailsBody.length == 1) {
         for (var each in petDetailsBody) {
           if (each.petId != myPets[index].petId!) {
             PetDetailsTrainingBody one =
-            PetDetailsTrainingBody(myPets[index].petId!, "Medium");
+                PetDetailsTrainingBody(myPets[index].petId!, "Medium");
             myPets[index].selected = true;
             _petDetailsBody.add(one);
             break;
@@ -2061,12 +2019,12 @@ class DTDogTrainingOrderSummaryModel extends FormViewModel {
         _petDetailsBody.clear();
         myPets[index].selected = true;
         PetDetailsTrainingBody one =
-        PetDetailsTrainingBody(myPets[index].petId!, "Medium");
+            PetDetailsTrainingBody(myPets[index].petId!, "Medium");
         _petDetailsBody.add(one);
       }
       if (numberOfPets == 1) {
         PetDetailsTrainingBody one =
-        PetDetailsTrainingBody("111111111111111111111111", "Medium");
+            PetDetailsTrainingBody("111111111111111111111111", "Medium");
         _petDetailsBody.add(one);
       }
     }
@@ -2498,19 +2456,19 @@ class DTDogTrainingOrderSummaryModel extends FormViewModel {
     PetsClass(
       name: "Joeylene Rivera",
       imageUrl:
-      "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg",
+          "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg",
       selected: false,
     ),
     PetsClass(
       name: "Joeylene Rivera",
       imageUrl:
-      "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg",
+          "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg",
       selected: false,
     ),
     PetsClass(
       name: "Joeylene Rivera",
       imageUrl:
-      "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg",
+          "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg",
       selected: false,
     ),
   ];
@@ -2566,7 +2524,7 @@ class DTDogTrainingOrderSummaryModel extends FormViewModel {
     notifyListeners();
     //
     DateTime startDateConverted =
-    pickedDate.add(Duration(hours: 5, minutes: 30));
+        pickedDate.add(Duration(hours: 5, minutes: 30));
     print(startDateConverted);
     int startDateTimeStamp = startDateConverted.millisecondsSinceEpoch;
     print(startDateTimeStamp);
@@ -2583,7 +2541,7 @@ class DTDogTrainingOrderSummaryModel extends FormViewModel {
 
     // empty
     PetRunningLocationTrainingBody petRunningLocationBody =
-    PetRunningLocationTrainingBody(
+        PetRunningLocationTrainingBody(
       addressLineOneController.text,
       addressLineTwoController.text,
       addressLineThreeController.text,
@@ -2595,7 +2553,7 @@ class DTDogTrainingOrderSummaryModel extends FormViewModel {
 
     //
     PackageTrainingBody packageBody =
-    PackageTrainingBody(_description, _amount.toString(), _frequency);
+        PackageTrainingBody(_description, _amount.toString(), _frequency);
 
     //
     try {
