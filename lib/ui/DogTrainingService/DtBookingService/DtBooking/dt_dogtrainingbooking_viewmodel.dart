@@ -1370,6 +1370,13 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
 
   @override
   void setFormStatus() {}
+
+  void createNewPet() async {
+    var result = await _navigationService.navigateTo(
+      Routes.createAnimalProfileNewPageOne,
+      arguments: CreateAnimalProfileNewPageOneArguments(isFromStart: false),
+    );
+  }
 }
 
 class PetsClass {

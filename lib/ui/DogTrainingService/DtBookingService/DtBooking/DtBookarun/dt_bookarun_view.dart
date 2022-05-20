@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/dog_training_package.dart';
 import 'package:tamely/enum/no_of_runs.dart';
 import 'package:stacked/stacked.dart';
@@ -60,35 +61,37 @@ class DTBookARunView extends ViewModelWidget<DTDogTrainingBookingViewModel> {
             // verticalSpaceTiny,
 
             // Choose pet
-            Visibility(
-              visible: model.hasPets,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  verticalSpaceTiny,
-                  AppText.body2(choosePetLabel),
-                  verticalSpaceMedium,
-                  Container(
-                    height: 110,
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemCount: model.myPets.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return RunnerItems(
-                          name: model.myPets[index].name,
-                          imageUrl: model.myPets[index].imageUrl,
-                          selected: model.myPets[index].selected,
-                          onTapped: () => model.selectPet(index),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                verticalSpaceTiny,
+                AppText.body2(choosePetLabel),
+                verticalSpaceMedium,
+                Container(
+                  height: 110,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemCount: model.myPets.length + 1,
+                    itemBuilder: (BuildContext context, int index) {
+                      if (index == model.myPets.length) {
+                        return NewPet(
+                          onTapped: model.createNewPet,
                         );
-                      },
-                      separatorBuilder: (BuildContext context, int index) =>
-                          horizontalSpaceRegular,
-                    ),
+                      }
+                      return RunnerItems(
+                        name: model.myPets[index].name,
+                        imageUrl: model.myPets[index].imageUrl,
+                        selected: model.myPets[index].selected,
+                        onTapped: () => model.selectPet(index),
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) =>
+                        horizontalSpaceRegular,
                   ),
-                  verticalSpaceSmall,
-                ],
-              ),
+                ),
+                verticalSpaceSmall,
+              ],
             ),
             spacedDividerTiny,
             verticalSpaceRegular,
@@ -701,10 +704,10 @@ class PackageItem extends StatelessWidget {
             // See more
             seeMoreSelectedValue == value
                 ? SingleChildScrollView(
-                  child: Column(
+                    child: Column(
                       children: [
                         Container(
-                          margin:EdgeInsets.only(bottom: 5),
+                          margin: EdgeInsets.only(bottom: 5),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -716,23 +719,23 @@ class PackageItem extends StatelessWidget {
                                       .take(seeMoreList!.length ~/ 2)
                                       .map(
                                         (item) => Row(
-                                      children: [
-                                        Icon(Icons.check_rounded,
-                                          color: selectedValue == value
-                                              ? colors.white
-                                              : colors.primary,
-
+                                          children: [
+                                            Icon(
+                                              Icons.check_rounded,
+                                              color: selectedValue == value
+                                                  ? colors.white
+                                                  : colors.primary,
+                                            ),
+                                            horizontalSpaceTiny,
+                                            AppText.caption(
+                                              item,
+                                              color: selectedValue == value
+                                                  ? colors.white
+                                                  : colors.kcCaptionGreyColor,
+                                            ),
+                                          ],
                                         ),
-                                        horizontalSpaceTiny,
-                                        AppText.caption(
-                                          item,
-                                          color: selectedValue == value
-                                              ? colors.white
-                                              : colors.kcCaptionGreyColor,
-                                        ),
-                                      ],
-                                    ),
-                                  )
+                                      )
                                       .toList()
                                       .cast<Widget>(),
                                 ),
@@ -741,27 +744,26 @@ class PackageItem extends StatelessWidget {
                                 child: Wrap(
                                   direction: Axis.vertical,
                                   children: seeMoreList!
-                                      .skip(seeMoreList!.length ~/ 2 )
+                                      .skip(seeMoreList!.length ~/ 2)
                                       .map(
                                         (item) => Row(
-                                      children: [
-                                        Icon(
-                                          Icons.check_rounded,
-                                          color:selectedValue == value
-                                              ? colors.white
-                                              : colors.primary,
-
+                                          children: [
+                                            Icon(
+                                              Icons.check_rounded,
+                                              color: selectedValue == value
+                                                  ? colors.white
+                                                  : colors.primary,
+                                            ),
+                                            horizontalSpaceTiny,
+                                            AppText.caption(
+                                              item,
+                                              color: selectedValue == value
+                                                  ? colors.white
+                                                  : colors.kcCaptionGreyColor,
+                                            ),
+                                          ],
                                         ),
-                                        horizontalSpaceTiny,
-                                        AppText.caption(
-                                          item,
-                                          color: selectedValue == value
-                                              ? colors.white
-                                              : colors.kcCaptionGreyColor,
-                                        ),
-                                      ],
-                                    ),
-                                  )
+                                      )
                                       .toList()
                                       .cast<Widget>(),
                                 ),
@@ -769,12 +771,11 @@ class PackageItem extends StatelessWidget {
                             ],
                           ),
                         ),
-
                         seeMoreCheckList == null
                             ? SizedBox()
                             : Expanded(
-                          flex: 0,
-                              child: Align(
+                                flex: 0,
+                                child: Align(
                                   alignment: Alignment.centerLeft,
                                   child: AppText.captionBold(
                                     "Bonus Material : ",
@@ -783,8 +784,7 @@ class PackageItem extends StatelessWidget {
                                         : colors.kcCaptionGreyColor,
                                   ),
                                 ),
-                            ),
-
+                              ),
                         Container(
                           margin: EdgeInsets.only(top: 5),
                           child: Row(
@@ -793,29 +793,29 @@ class PackageItem extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: Column(
-
                                   children: seeMoreCheckList!
                                       .take(seeMoreCheckList!.length ~/ 2)
                                       .map(
                                         (item) => Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 5),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 5),
                                           child: Row(
-                                      children: [
-                                          Icon(Icons.check_rounded,
-                                              color: Color(0xff8adb53)),
-                                          horizontalSpaceTiny,
-                                          Expanded(
-                                            child: AppText.caption(
-                                              item,
-                                              color: selectedValue == value
-                                                  ? colors.white
-                                                  : colors.primary,
-                                            ),
+                                            children: [
+                                              Icon(Icons.check_rounded,
+                                                  color: Color(0xff8adb53)),
+                                              horizontalSpaceTiny,
+                                              Expanded(
+                                                child: AppText.caption(
+                                                  item,
+                                                  color: selectedValue == value
+                                                      ? colors.white
+                                                      : colors.primary,
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                      ],
-                                    ),
                                         ),
-                                  )
+                                      )
                                       .toList()
                                       .cast<Widget>(),
                                 ),
@@ -826,26 +826,27 @@ class PackageItem extends StatelessWidget {
                                       .skip(seeMoreCheckList!.length ~/ 2)
                                       .map(
                                         (item) => Padding(
-                                          padding: EdgeInsets.symmetric(vertical: 5),
+                                          padding:
+                                              EdgeInsets.symmetric(vertical: 5),
                                           child: Row(
-                                      children: [
-                                          Icon(
-                                            Icons.check_rounded,
-                                            color: Color(0xff8adb53),
+                                            children: [
+                                              Icon(
+                                                Icons.check_rounded,
+                                                color: Color(0xff8adb53),
+                                              ),
+                                              horizontalSpaceTiny,
+                                              Expanded(
+                                                child: AppText.caption(
+                                                  item,
+                                                  color: selectedValue == value
+                                                      ? colors.white
+                                                      : colors.primary,
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          horizontalSpaceTiny,
-                                          Expanded(
-                                            child: AppText.caption(
-                                              item,
-                                              color: selectedValue == value
-                                                  ? colors.white
-                                                  : colors.primary,
-                                            ),
-                                          ),
-                                      ],
-                                    ),
                                         ),
-                                  )
+                                      )
                                       .toList()
                                       .cast<Widget>(),
                                 ),
@@ -853,7 +854,6 @@ class PackageItem extends StatelessWidget {
                             ],
                           ),
                         ),
-
                         hasCertificate == null
                             ? SizedBox()
                             : Padding(
@@ -863,7 +863,8 @@ class PackageItem extends StatelessWidget {
                                 ),
                                 child: Row(
                                   children: [
-                                    Image.asset("assets/images/certificate1.png"),
+                                    Image.asset(
+                                        "assets/images/certificate1.png"),
                                     AppText.caption(
                                       "Advanced Training Certificate Provided",
                                       color: selectedValue == value
@@ -875,7 +876,7 @@ class PackageItem extends StatelessWidget {
                               ),
                       ],
                     ),
-                )
+                  )
                 : Container(),
           ],
         ),
@@ -935,6 +936,69 @@ class RunnerItems extends StatelessWidget {
             radius: 5,
             backgroundColor:
                 selected! ? colors.primary : colors.kcLightGreyColor,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class NewPet extends StatelessWidget {
+  const NewPet({
+    Key? key,
+    this.onTapped,
+  }) : super(key: key);
+  final void Function()? onTapped;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTapped,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            width: 90,
+            decoration: BoxDecoration(
+              color: colors.white,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: colors.black54,
+                width: 1,
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                verticalSpaceSmall,
+                // plus icon
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  width: 30,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: colors.primary,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Icon(
+                    Icons.add,
+                    color: colors.white,
+                    size: 20,
+                  ),
+                ),
+                AppText.body1(
+                  "Add pet",
+                  textAlign: TextAlign.center,
+                ),
+                verticalSpaceSmall,
+              ],
+            ),
+          ),
+          verticalSpaceSmall,
+          CircleAvatar(
+            radius: 5,
+            backgroundColor: colors.kcLightGreyColor,
           ),
         ],
       ),
