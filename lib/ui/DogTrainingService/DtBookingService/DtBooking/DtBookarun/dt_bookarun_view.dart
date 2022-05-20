@@ -67,27 +67,30 @@ class DTBookARunView extends ViewModelWidget<DTDogTrainingBookingViewModel> {
                 verticalSpaceTiny,
                 AppText.body2(choosePetLabel),
                 verticalSpaceMedium,
-                Container(
-                  height: 110,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemCount: model.myPets.length + 1,
-                    itemBuilder: (BuildContext context, int index) {
-                      if (index == model.myPets.length) {
-                        return NewPet(
-                          onTapped: model.createNewPet,
+                Visibility(
+                  visible: (model.myPets.length>0),
+                  child: Container(
+                    height: 110,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: model.myPets.length + 1,
+                      itemBuilder: (BuildContext context, int index) {
+                        if (index == model.myPets.length) {
+                          return NewPet(
+                            onTapped: model.createNewPet,
+                          );
+                        }
+                        return RunnerItems(
+                          name: model.myPets[index].name,
+                          imageUrl: model.myPets[index].imageUrl,
+                          selected: model.myPets[index].selected,
+                          onTapped: () => model.selectPet(index),
                         );
-                      }
-                      return RunnerItems(
-                        name: model.myPets[index].name,
-                        imageUrl: model.myPets[index].imageUrl,
-                        selected: model.myPets[index].selected,
-                        onTapped: () => model.selectPet(index),
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) =>
-                        horizontalSpaceRegular,
+                      },
+                      separatorBuilder: (BuildContext context, int index) =>
+                          horizontalSpaceRegular,
+                    ),
                   ),
                 ),
                 verticalSpaceSmall,
