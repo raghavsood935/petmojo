@@ -500,6 +500,8 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
 
   void secondPageValidation(String? value) {
     _isValid = true;
+    _isPhoneValid=false;
+    _isAddressValid=true;
     if (addressLineTwoController.text == "") {
       print("1");
       _isValid = false;
@@ -515,10 +517,12 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     if (addressLineOneController.text == "") {
       print("4");
       _isValid = false;
+      _isAddressValid=false;
     }
-    if (phoneController.text.length < 10) {
+    if (phoneController.text.length ==10) {
       print("5");
       _isValid = false;
+      _isPhoneValid=true;
     }
     if (!isDatePicked) {
       _isValid = false;

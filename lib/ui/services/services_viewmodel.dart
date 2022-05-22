@@ -52,18 +52,18 @@ class ServicesViewModel extends BaseModel {
     ),
   ];
 
-  List<ServicesModel> _listOfUpcommingServices = [
-    ServicesModel(
+  List<UpcomingServicesModel> _listOfUpcommingServices = [
+    UpcomingServicesModel(
       title: "Pet Boarding",
       imgPath: petBoardingImgPath,
       isHigDemand: false,
-      bgColor: Color(0xFFFEDFDD),
+      bgColor: Color(0xFFFFFFFF),
     ),
-    ServicesModel(
+    UpcomingServicesModel(
       title: "Vet Consultation",
       imgPath: vetConsultationImgPath,
       isHigDemand: false,
-      bgColor: Color(0xFFFEDFDD),
+      bgColor: Color(0xFFFFFFFF),
     ),
   ];
 
@@ -189,7 +189,7 @@ class ServicesViewModel extends BaseModel {
 
   List<ServicesModel> get listOfServices => _listOfServices;
 
-  List<ServicesModel> get listOfUpcommingServices => _listOfUpcommingServices;
+  List<UpcomingServicesModel> get listOfUpcommingServices => _listOfUpcommingServices;
 
   get appointmentDate => this._appointmentDate;
 
@@ -216,4 +216,13 @@ class ServicesModel {
   Color? bgColor;
 
   ServicesModel({this.title, this.imgPath, this.isHigDemand, this.bgColor});
+}
+
+class UpcomingServicesModel {
+  String? title;
+  String? imgPath;
+  bool? isHigDemand;
+  Color? bgColor;
+
+  UpcomingServicesModel({this.title, this.imgPath, this.isHigDemand, this.bgColor});
 }
