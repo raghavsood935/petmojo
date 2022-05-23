@@ -160,9 +160,6 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
         _navigationService.back();
         _navigationService.navigateTo(Routes.appointmentsView);
       }
-      else if(selectedPlan == DogTrainingPackage.Three||selectedPlan == DogTrainingPackage.Four||selectedPlan == DogTrainingPackage.Five){
-        _navigationService.navigateTo(Routes.dTBookingOrderSummaryView);
-      }
       else {
         if (bookingId != "") {
           _navigationService.replaceWith(
