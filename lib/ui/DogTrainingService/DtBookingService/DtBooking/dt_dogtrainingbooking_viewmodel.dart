@@ -33,6 +33,7 @@ import 'package:tamely/util/utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'DtBookarun/dt_bookarun_view.dart';
 import 'DtBookingdetails/dt_bookingdetails_view.dart';
+import 'dt_dogtrainingbooking_view.dart';
 
 class DTDogTrainingBookingViewModel extends FormViewModel {
   final log = getLogger('DogRunningBookingView');
@@ -158,7 +159,11 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
         _navigationService.back();
         _navigationService.back();
         _navigationService.navigateTo(Routes.appointmentsView);
-      } else {
+      }
+      else if(selectedPlan == DogTrainingPackage.Three||selectedPlan == DogTrainingPackage.Four||selectedPlan == DogTrainingPackage.Five){
+        _navigationService.navigateTo(Routes.dTBookingOrderSummaryView);
+      }
+      else {
         if (bookingId != "") {
           _navigationService.replaceWith(
             Routes.dTPaymentView,
@@ -519,9 +524,11 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _isValid = false;
       _isAddressValid=false;
     }
-    if (phoneController.text.length ==10) {
+    if (phoneController.text.length <10) {
       print("5");
       _isValid = false;
+    }
+    else{
       _isPhoneValid=true;
     }
     if (!isDatePicked) {
