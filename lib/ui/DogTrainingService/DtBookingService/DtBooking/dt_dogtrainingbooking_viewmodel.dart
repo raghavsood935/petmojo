@@ -317,8 +317,8 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _isValid = true;
       _description = "Puppy Training";
       _subTotal = 10788;
-      _amount = 9588;
-      _discount = 1200;
+      _amount = 9800;
+      _discount = 988;
       _frequency = 12;
       _isOfferValid = false;
       _isOfferAvailable = true;
@@ -327,8 +327,8 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _isValid = true;
       _description = "Basic Obedience & Behavioural Training";
       _subTotal = 21576;
-      _amount = 18000;
-      _discount = 3576;
+      _amount = 17200;
+      _discount = 4376;
       _frequency = 24;
       _isOfferValid = false;
       _isOfferAvailable = true;
