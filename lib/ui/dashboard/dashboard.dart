@@ -145,11 +145,6 @@ class _DashboardState extends State<Dashboard> {
                 subTitle: bookingSubTitle,
                 iconUrl: bookingIcon,
                 onTap: model.onMyBookingsPressed),
-            // DrawerWidget(
-            //     title: settingsTitle,
-            //     subTitle: settingsSubTitle,
-            //     iconUrl: settingsIcon,
-            //     onTap: model.onSettingsPressed),
             DrawerWidget(
                 title: bookmarksTitle,
                 subTitle: bookmarksSubTitle,

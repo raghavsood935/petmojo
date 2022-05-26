@@ -1,6 +1,7 @@
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
+import 'package:tamely/services/aws_upload_service.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/services/user_service.dart';
 import 'package:tamely/ui/DogGroomingService/DgAppointment/DgAppointmentdetails/dg_appointmentdetails_view.dart';
@@ -223,6 +224,7 @@ import '../ui/wallet/wallet_view.dart';
     LazySingleton(classType: SnackbarService),
     LazySingleton(classType: UserService),
     LazySingleton(classType: TamelyApi),
+    LazySingleton(classType: CloudStorageService)
   ],
   logger: StackedLogger(),
 )

@@ -22,6 +22,7 @@ import 'package:tamely/models/get_blogs_details_model.dart';
 import 'package:tamely/models/get_blogs_like_details_model.dart';
 import 'package:tamely/models/get_blogs_model.dart';
 import 'package:tamely/models/get_bookmarks_model.dart';
+import 'package:tamely/models/get_file_upload_details_response.dart';
 import 'package:tamely/models/get_free_training_response.dart';
 import 'package:tamely/models/get_free_walk_response.dart';
 import 'package:tamely/models/get_grooming_appointment_details_response.dart';
@@ -67,6 +68,7 @@ import 'package:tamely/models/params/edit_animal_profile_main_details_body.dart'
 import 'package:tamely/models/params/edit_animal_type_body.dart';
 import 'package:tamely/models/params/feedback_body.dart';
 import 'package:tamely/models/params/fetch_list_of_following_body.dart';
+import 'package:tamely/models/params/get_file_upload_details_body.dart';
 import 'package:tamely/models/params/get_s3_url_body.dart';
 import 'package:tamely/models/params/get_training_scroll_status_body.dart';
 import 'package:tamely/models/params/get_animal_by_location_body.dart';
@@ -100,6 +102,7 @@ import 'package:tamely/models/params/set_payment_details_body.dart';
 import 'package:tamely/models/params/show_people_to_follow_body.dart';
 import 'package:tamely/models/params/social_login_body.dart';
 import 'package:tamely/models/params/update_token_body.dart';
+import 'package:tamely/models/params/upload_file_body.dart';
 import 'package:tamely/models/params/verify_mobile_otp_body.dart';
 import 'package:tamely/models/profile_details_by_id_response.dart';
 import 'package:tamely/models/params/groups/change_group_description_body.dart';
@@ -336,6 +339,8 @@ class Apis {
   static const String getS3VideoUrl = "s3/getVideo";
 
   static const String sessionTracker = "user/sessionTrackerById";
+
+  static const String getFileUploadDetails = "/s3/postImage";
 }
 
 // @RestApi(baseUrl: "https://tamely.herokuapp.com/api/")
@@ -411,8 +416,7 @@ abstract class ApiClient {
   Future<UserResponse> updateProfile(@Body() ProfileCreateBody createBody);
 
   @PUT(Apis.changeAvatar)
-  @MultiPart()
-  Future<CommonResponse> updateImage(@Part(name: 'image') File image);
+  Future<CommonResponse> updateImage(@Body() UploadFileBody updateImageBody);
 
   @GET(Apis.userProfileDetails)
   Future<UserProfileDetailsResponse> getUserProfileDetails();
@@ -920,4 +924,9 @@ abstract class ApiClient {
   // -- Get ongoing session tracking
   @POST(Apis.sessionTracker)
   Future<SessionTrackerResponse> sessionTracker();
+  // -- Get server details for video upload
+
+  @POST(Apis.getFileUploadDetails)
+  Future<GetFileUploadDetailsResponse> getFileUploadDetails(
+      @Body() GetFileUploadDetailsBody getFileUploadDetailsBody);
 }

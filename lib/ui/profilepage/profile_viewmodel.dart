@@ -17,16 +17,19 @@ import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/models/application_models.dart';
 import 'package:tamely/models/common_response.dart';
 import 'package:tamely/models/feed_post_response.dart';
+import 'package:tamely/models/get_file_upload_details_response.dart';
 import 'package:tamely/models/list_of_feed_post_response.dart';
 import 'package:tamely/models/params/get_post_by_id.dart';
 import 'package:tamely/models/params/get_profile_details_by_id_body.dart';
 import 'package:tamely/models/params/send_follow_request_body/from_request_body.dart';
 import 'package:tamely/models/params/send_follow_request_body/send_follow_request_body.dart';
 import 'package:tamely/models/params/send_follow_request_body/to_request_body.dart';
+import 'package:tamely/models/params/upload_file_body.dart';
 import 'package:tamely/models/pet_basic_details_response.dart';
 import 'package:tamely/models/profile_details_by_id_response.dart';
 import 'package:tamely/models/user_details_model.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
+import 'package:tamely/services/aws_upload_service.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/ui/profilepage/animal_profile/animal_profile_view.dart';
 import 'package:tamely/util/Color.dart';
@@ -43,6 +46,7 @@ class ProfileViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
   final _sharedPreferenceService = locator<SharedPreferencesService>();
   final _tamelyApi = locator<TamelyApi>();
+  final _uploadService = locator<CloudStorageService>();
 
   int _counter = 0;
   bool _isLoading = true;
@@ -115,15 +119,18 @@ class ProfileViewModel extends BaseViewModel {
       _snackBarService.showSnackbar(message: "Image is empty");
     }
     if (await Util.checkInternetConnectivity()) {
-      BaseResponse<CommonResponse> response =
-          await _tamelyApi.uploadImage(File(_editedImage!.path));
-      if (response.getException != null) {
-        ServerError error = response.getException as ServerError;
-        _snackBarService.showSnackbar(message: error.getErrorMessage());
-      } else if (response.data != null) {
-        avatarUrl = response.data!.avatar ?? "";
-        _profileImgUrl = response.data!.avatar ?? "";
-        notifyListeners();
+      String awsKey = await _uploadService.uploadFile(
+        file: _editedImage!,
+        fileName: _editedImage!.path.split('/').last,
+      );
+      if (awsKey != "UPLOADFAIL") {
+        UploadFileBody uploadFileBody = UploadFileBody(awsKey);
+        BaseResponse<CommonResponse> result =
+            await _tamelyApi.uploadImage(uploadFileBody);
+        _snackBarService.showSnackbar(message: "Image uploaded successfully");
+        getUserProfileDetails(true);
+      } else {
+        _snackBarService.showSnackbar(message: "Image upload failed");
       }
     } else {
       _snackBarService.showSnackbar(message: "No Internet connection");
@@ -428,7 +435,8 @@ class ProfileViewModel extends BaseViewModel {
     _Id = userDetailsModelResponse.Id ?? "";
     _fullname = userDetailsModelResponse.fullName ?? "";
     _username = userDetailsModelResponse.username ?? "";
-    _profileImgUrl = userDetailsModelResponse.avatar ?? "";
+    _profileImgUrl = await _uploadService.getUrlFromAwsKey(
+        awsKey: userDetailsModelResponse.avatar);
     _shortBio = userDetailsModelResponse.bio ?? "";
     _noOfFollowers = response.totalFollowers!;
     _noOfFollowing = response.totalFollowings!;
