@@ -380,7 +380,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   Future<void> applyCoupon() async {
     notifyListeners();
     String? couponCode = promoCodeController.text;
-    if (couponCode != "") {
+    if (couponCode != "" && _isCouponProcessing == false) {
       _isCouponProcessing = true;
       try {
         if (await Util.checkInternetConnectivity()) {
@@ -409,9 +409,10 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
         _isCouponProcessing = false;
         log.e(e.toString());
       }
-    } else {
+    } else if (couponCode == "") {
       snackBarService.showSnackbar(message: "Enter a Promo Code");
     }
+    _isCouponProcessing = false;
   }
 
   Future<void> saveAppliedCoupon() async {
@@ -500,8 +501,8 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
 
   void secondPageValidation(String? value) {
     _isValid = true;
-    _isAddressValid=true;
-    _isPhoneValid=false;
+    _isAddressValid = true;
+    _isPhoneValid = false;
     if (addressLineTwoController.text == "") {
       print("1");
       _isValid = false;
@@ -517,14 +518,13 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     if (addressLineOneController.text == "") {
       print("4");
       _isValid = false;
-      _isAddressValid=false;
+      _isAddressValid = false;
     }
     if (phoneController.text.length < 10) {
       print("5");
       _isValid = false;
-    }
-    else{
-      _isPhoneValid=true;
+    } else {
+      _isPhoneValid = true;
     }
     if (!isDatePicked) {
       _isValid = false;

@@ -24,41 +24,41 @@ class DRBookARunView extends ViewModelWidget<DRDogRunningBookingViewModel> {
             verticalSpaceSmall,
 
             // Number of pets
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AppText.body2(noOfPetsLabel),
-                verticalSpaceSmall,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Radio<NoOfRuns>(
-                          value: NoOfRuns.One,
-                          groupValue: model.selectedRun,
-                          onChanged: (value) => model.selectRun(value),
-                          activeColor: colors.primary,
-                        ),
-                        AppText.body1("1"),
-                      ],
-                    ),
-                    horizontalSpaceLarge,
-                    Row(
-                      children: [
-                        Radio<NoOfRuns>(
-                          value: NoOfRuns.Two,
-                          groupValue: model.selectedRun,
-                          onChanged: (value) => model.selectRun(value),
-                          activeColor: colors.primary,
-                        ),
-                        AppText.body1("2"),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
+            // Column(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: [
+            //     AppText.body2(noOfPetsLabel),
+            //     verticalSpaceSmall,
+            //     Row(
+            //       mainAxisAlignment: MainAxisAlignment.start,
+            //       children: [
+            //         Row(
+            //           children: [
+            //             Radio<NoOfRuns>(
+            //               value: NoOfRuns.One,
+            //               groupValue: model.selectedRun,
+            //               onChanged: (value) => model.selectRun(value),
+            //               activeColor: colors.primary,
+            //             ),
+            //             AppText.body1("1"),
+            //           ],
+            //         ),
+            //         horizontalSpaceLarge,
+            //         Row(
+            //           children: [
+            //             Radio<NoOfRuns>(
+            //               value: NoOfRuns.Two,
+            //               groupValue: model.selectedRun,
+            //               onChanged: (value) => model.selectRun(value),
+            //               activeColor: colors.primary,
+            //             ),
+            //             AppText.body1("2"),
+            //           ],
+            //         ),
+            //       ],
+            //     ),
+            //   ],
+            // ),
             verticalSpaceTiny,
 
             // Choose pet
@@ -71,12 +71,17 @@ class DRBookARunView extends ViewModelWidget<DRDogRunningBookingViewModel> {
                   AppText.body2(choosePetLabel),
                   verticalSpaceMedium,
                   Container(
-                    height: 90,
+                    height: 110,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
-                      itemCount: model.myPets.length,
+                      itemCount: model.myPets.length + 1,
                       itemBuilder: (BuildContext context, int index) {
+                        if (index == model.myPets.length) {
+                          return NewPet(
+                            onTapped: model.createNewPet,
+                          );
+                        }
                         return RunnerItems(
                           name: model.myPets[index].name,
                           imageUrl: model.myPets[index].imageUrl,
@@ -608,28 +613,105 @@ class RunnerItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTapped,
-      child: Container(
-        width: 90,
-        decoration: BoxDecoration(
-          color: colors.white,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: selected! ? colors.primary : colors.kcLightGreyColor,
-            width: selected! ? 1.5 : 1,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            width: 90,
+            decoration: BoxDecoration(
+              color: selected! ? Color(0xFFFEDFDD) : colors.white,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: colors.primary,
+                width: selected! ? 1.5 : 1,
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                verticalSpaceSmall,
+                CircleAvatar(
+                  child: Image.asset("assets/images/dummy_dog_profile.png"),
+                ),
+                AppText.body1(
+                  name!,
+                  textAlign: TextAlign.center,
+                ),
+                verticalSpaceSmall,
+              ],
+            ),
           ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            CircleAvatar(
-              child: Image.asset("assets/images/dummy_dog_profile.png"),
+          verticalSpaceSmall,
+          CircleAvatar(
+            radius: 5,
+            backgroundColor:
+                selected! ? colors.primary : colors.kcLightGreyColor,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class NewPet extends StatelessWidget {
+  const NewPet({
+    Key? key,
+    this.onTapped,
+  }) : super(key: key);
+  final void Function()? onTapped;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTapped,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            width: 90,
+            decoration: BoxDecoration(
+              color: colors.white,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: colors.black54,
+                width: 1,
+              ),
             ),
-            AppText.body1(
-              name!,
-              textAlign: TextAlign.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                verticalSpaceSmall,
+                // plus icon
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  width: 30,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: colors.primary,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Icon(
+                    Icons.add,
+                    color: colors.white,
+                    size: 20,
+                  ),
+                ),
+                AppText.body1(
+                  "Add pet",
+                  textAlign: TextAlign.center,
+                ),
+                verticalSpaceSmall,
+              ],
             ),
-          ],
-        ),
+          ),
+          verticalSpaceSmall,
+          CircleAvatar(
+            radius: 5,
+            backgroundColor: colors.kcLightGreyColor,
+          ),
+        ],
       ),
     );
   }

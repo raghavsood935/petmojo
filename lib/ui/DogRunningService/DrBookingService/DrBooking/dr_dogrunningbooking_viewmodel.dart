@@ -361,7 +361,7 @@ class DRDogRunningBookingViewModel extends FormViewModel {
   Future<void> applyCoupon() async {
     notifyListeners();
     String? couponCode = promoCodeController.text;
-    if (couponCode != "") {
+    if (couponCode != "" && isCouponProcessing == false) {
       _isCouponProcessing = true;
       try {
         if (await Util.checkInternetConnectivity()) {
@@ -390,9 +390,10 @@ class DRDogRunningBookingViewModel extends FormViewModel {
         _isCouponProcessing = false;
         log.e(e.toString());
       }
-    } else {
+    } else if (couponCode == "") {
       snackBarService.showSnackbar(message: "Enter a Promo Code");
     }
+    _isCouponProcessing = false;
   }
 
   Future<void> saveAppliedCoupon() async {
@@ -411,18 +412,7 @@ class DRDogRunningBookingViewModel extends FormViewModel {
   }
 
   void setFirstPageValid() {
-    _isValid = true;
-    if (hasPets) {
-      if (noOfDogs == 1) {
-        if (petDetailsBody.length != 1) {
-          _isValid = false;
-        }
-      } else if (noOfDogs == 2) {
-        if (petDetailsBody.length != 2) {
-          _isValid = false;
-        }
-      }
-    }
+    _isValid = petDetailsBody.length > 0;
     notifyListeners();
   }
 
@@ -688,46 +678,18 @@ class DRDogRunningBookingViewModel extends FormViewModel {
   List<PetDetailsBody> get petDetailsBody => _petDetailsBody;
 
   void selectPet(index) {
-    if (noOfDogs == 1) {
-      for (var pet in myPets) {
-        pet.selected = false;
-      }
-      _petDetailsBody.clear();
-      myPets[index].selected = true;
-      PetDetailsBody one = PetDetailsBody(myPets[index].petId!, "Medium");
-      _petDetailsBody.add(one);
-    }
-    if (noOfDogs == 2) {
-      if (petDetailsBody.length == 0) {
-        PetDetailsBody one = PetDetailsBody(myPets[index].petId!, "Medium");
-        myPets[index].selected = true;
-        _petDetailsBody.add(one);
-      } else if (petDetailsBody.length == 1) {
-        for (var each in petDetailsBody) {
-          if (each.petId != myPets[index].petId!) {
-            PetDetailsBody one = PetDetailsBody(myPets[index].petId!, "Medium");
-            myPets[index].selected = true;
-            _petDetailsBody.add(one);
-            break;
-          }
-        }
-      } else if (petDetailsBody.length == 2) {
-        for (var pet in myPets) {
-          pet.selected = false;
-        }
-        _petDetailsBody.clear();
-        myPets[index].selected = true;
-        PetDetailsBody one = PetDetailsBody(myPets[index].petId!, "Medium");
+    _noOfDogs = myPets.length;
+    _petDetailsBody.clear();
+    myPets[index].selected = !(myPets[index].selected ?? false);
+    myPets.forEach((pet) {
+      if (pet.selected ?? false) {
+        PetDetailsBody one = PetDetailsBody(pet.petId!, "Medium");
         _petDetailsBody.add(one);
       }
-      if (numberOfPets == 1) {
-        PetDetailsBody one =
-            PetDetailsBody("111111111111111111111111", "Medium");
-        _petDetailsBody.add(one);
-      }
-    }
+    });
     setFirstPageValid();
     notifyListeners();
+    return;
   }
 
   TextEditingController specialInstructionsController = TextEditingController();
@@ -1179,6 +1141,13 @@ class DRDogRunningBookingViewModel extends FormViewModel {
     }
     _previousRunners[index].selected = !_previousRunners[index].selected!;
     notifyListeners();
+  }
+
+  void createNewPet() async {
+    var result = await _navigationService.navigateTo(
+      Routes.createAnimalProfileNewPageOne,
+      arguments: CreateAnimalProfileNewPageOneArguments(isFromStart: false),
+    );
   }
 
   Future<void> getPets() async {
