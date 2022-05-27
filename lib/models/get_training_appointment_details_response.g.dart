@@ -26,6 +26,7 @@ _$_GetAppointmentDetailsResponse _$$_GetAppointmentDetailsResponseFromJson(
           ? null
           : GetTrainingBookingDetailsResponse.fromJson(
               json['DogTrainingbookingDetails'] as Map<String, dynamic>),
+      index: json['index'] as int?,
     );
 
 Map<String, dynamic> _$$_GetAppointmentDetailsResponseToJson(
@@ -40,6 +41,7 @@ Map<String, dynamic> _$$_GetAppointmentDetailsResponseToJson(
       'User': instance.userId,
       'ServiceProvider': instance.partner,
       'DogTrainingbookingDetails': instance.bookingDetails,
+      'index': instance.index,
     };
 
 _$_GetBookingDetailsResponse _$$_GetBookingDetailsResponseFromJson(

@@ -4,6 +4,7 @@ import 'package:date_picker_timeline/extra/style.dart';
 import 'package:date_picker_timeline/gestures/tap.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:tamely/widgets/custom_date_widget.dart';
 
 class CustomDatePicker extends StatefulWidget {
   /// Start Date in case user wants to show past dates
@@ -172,7 +173,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
               _currentDate != null ? _compareDate(date, _currentDate!) : false;
 
           // Return the Date Widget
-          return DateWidget(
+          return CustomDateWidget(
             date: date,
             monthTextStyle: isDeactivated
                 ? deactivatedMonthStyle
@@ -205,6 +206,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                 _currentDate = selectedDate;
               });
             },
+            isCompleted: (date.isBefore(DateTime.now()) & !isDeactivated),
+
           );
         },
       ),

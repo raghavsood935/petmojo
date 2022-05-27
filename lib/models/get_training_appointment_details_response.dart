@@ -20,6 +20,7 @@ class GetTrainingAppointmentDetailsResponse
     @JsonKey(name: "ServiceProvider") UserDetailsResponse? partner,
     @JsonKey(name: "DogTrainingbookingDetails")
         GetTrainingBookingDetailsResponse? bookingDetails,
+    @JsonKey(name: "index") int? index,
   }) = _GetAppointmentDetailsResponse;
 
   factory GetTrainingAppointmentDetailsResponse.fromJson(

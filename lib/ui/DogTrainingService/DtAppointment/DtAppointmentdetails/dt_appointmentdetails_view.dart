@@ -144,11 +144,19 @@ class DTAppointmentDetailsView extends StatelessWidget {
                         child: Container(
                           padding: EdgeInsets.only(left: 20.0, right: 20.0),
                           child: Center(
-                            child: AppText.body2(
-                              "${index + 1}",
-                              color: model.currentSession == index + 1
-                                  ? colors.white
-                                  : colors.black,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                if (model.indexToStart > index + 1)
+                                  verticalSpaceMedium,
+                                AppText.body2(
+                                  "${index + 1}",
+                                  color: model.currentSession == index + 1
+                                      ? colors.white
+                                      : colors.black,
+                                ),
+                                if (model.indexToStart > index + 1) Text("✅")
+                              ],
                             ),
                           ),
                           decoration: BoxDecoration(
