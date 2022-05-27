@@ -198,6 +198,7 @@ class DTBookingDetailsView
                 ),
                 verticalSpaceSmall,
                 AppInputField(
+                  fillColor: Colors.white,
                   hint: addressLineThreeHint,
                   controller: model.addressLineThreeController,
                   onChanged: model.secondPageValidation,

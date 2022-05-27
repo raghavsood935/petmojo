@@ -319,24 +319,18 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<CommonResponse> updateImage(image) async {
+  Future<CommonResponse> updateImage(updateImageBody) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = FormData();
-    _data.files.add(MapEntry(
-        'image',
-        MultipartFile.fromFileSync(image.path,
-            filename: image.path.split(Platform.pathSeparator).last)));
+    final _data = <String, dynamic>{};
+    _data.addAll(updateImageBody.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<CommonResponse>(Options(
-                method: 'PUT',
-                headers: _headers,
-                extra: _extra,
-                contentType: 'multipart/form-data')
-            .compose(_dio.options, '/user/avatar',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        _setStreamType<CommonResponse>(
+            Options(method: 'PUT', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/user/avatar',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CommonResponse.fromJson(_result.data!);
     return value;
   }
@@ -2261,6 +2255,24 @@ class _ApiClient implements ApiClient {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = SessionTrackerResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<GetFileUploadDetailsResponse> getFileUploadDetails(
+      getFileUploadDetailsBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(getFileUploadDetailsBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetFileUploadDetailsResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/s3/postImage',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GetFileUploadDetailsResponse.fromJson(_result.data!);
     return value;
   }
 

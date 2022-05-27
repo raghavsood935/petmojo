@@ -26,6 +26,7 @@ import 'package:tamely/models/get_blogs_details_model.dart';
 import 'package:tamely/models/get_blogs_like_details_model.dart';
 import 'package:tamely/models/get_blogs_model.dart';
 import 'package:tamely/models/get_bookmarks_model.dart';
+import 'package:tamely/models/get_file_upload_details_response.dart';
 import 'package:tamely/models/get_free_training_response.dart';
 import 'package:tamely/models/get_free_walk_response.dart';
 import 'package:tamely/models/get_grooming_appointment_details_response.dart';
@@ -72,6 +73,7 @@ import 'package:tamely/models/params/edit_animal_profile_main_details_body.dart'
 import 'package:tamely/models/params/edit_animal_type_body.dart';
 import 'package:tamely/models/params/feedback_body.dart';
 import 'package:tamely/models/params/fetch_list_of_following_body.dart';
+import 'package:tamely/models/params/get_file_upload_details_body.dart';
 import 'package:tamely/models/params/get_s3_url_body.dart';
 import 'package:tamely/models/params/get_training_scroll_status_body.dart';
 import 'package:tamely/models/params/get_animal_by_location_body.dart';
@@ -110,6 +112,7 @@ import 'package:tamely/models/params/groups/invite_people_group_body.dart';
 import 'package:tamely/models/params/social_login_body.dart';
 import 'package:tamely/models/params/change_bio_avatar_body.dart';
 import 'package:tamely/models/params/update_token_body.dart';
+import 'package:tamely/models/params/upload_file_body.dart';
 import 'package:tamely/models/params/verify_mobile_otp_body.dart';
 import 'package:tamely/models/profile_details_by_id_response.dart';
 import 'package:tamely/models/reorder_a_run_response.dart';
@@ -227,10 +230,11 @@ class TamelyApi {
     return ApiClient(formDio);
   }
 
-  Future<BaseResponse<CommonResponse>> uploadImage(File imageFile) async {
+  Future<BaseResponse<CommonResponse>> uploadImage(
+      UploadFileBody uploadFileBody) async {
     CommonResponse response;
     try {
-      response = await getMultiPartApiClient().updateImage(imageFile);
+      response = await getApiClient(true, true).updateImage(uploadFileBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()
@@ -2198,6 +2202,21 @@ class TamelyApi {
     SessionTrackerResponse response;
     try {
       response = await getApiClient(true, true).sessionTracker();
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Get Video File details training
+  Future<BaseResponse<GetFileUploadDetailsResponse>> getFileUploadDetails(
+      GetFileUploadDetailsBody getFileUploadDetailsBody) async {
+    GetFileUploadDetailsResponse response;
+    try {
+      response = await getApiClient(true, true)
+          .getFileUploadDetails(getFileUploadDetailsBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()

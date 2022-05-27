@@ -33,6 +33,7 @@ import 'package:tamely/util/utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'DtBookarun/dt_bookarun_view.dart';
 import 'DtBookingdetails/dt_bookingdetails_view.dart';
+import 'dt_dogtrainingbooking_view.dart';
 
 class DTDogTrainingBookingViewModel extends FormViewModel {
   final log = getLogger('DogRunningBookingView');
@@ -315,8 +316,8 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _isValid = true;
       _description = "Puppy Training";
       _subTotal = 10788;
-      _amount = 9588;
-      _discount = 1200;
+      _amount = 9800;
+      _discount = 988;
       _frequency = 12;
       _isOfferValid = false;
       _isOfferAvailable = true;
@@ -325,8 +326,8 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _isValid = true;
       _description = "Basic Obedience & Behavioural Training";
       _subTotal = 21576;
-      _amount = 18000;
-      _discount = 3576;
+      _amount = 17200;
+      _discount = 4376;
       _frequency = 24;
       _isOfferValid = false;
       _isOfferAvailable = true;
@@ -380,7 +381,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   Future<void> applyCoupon() async {
     notifyListeners();
     String? couponCode = promoCodeController.text;
-    if (couponCode != "") {
+    if (couponCode != "" && _isCouponProcessing == false) {
       _isCouponProcessing = true;
       try {
         if (await Util.checkInternetConnectivity()) {
@@ -409,9 +410,10 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
         _isCouponProcessing = false;
         log.e(e.toString());
       }
-    } else {
+    } else if (couponCode == "") {
       snackBarService.showSnackbar(message: "Enter a Promo Code");
     }
+    _isCouponProcessing = false;
   }
 
   Future<void> saveAppliedCoupon() async {
@@ -500,8 +502,8 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
 
   void secondPageValidation(String? value) {
     _isValid = true;
-    _isAddressValid=true;
-    _isPhoneValid=false;
+    _isPhoneValid = false;
+    _isAddressValid = true;
     if (addressLineTwoController.text == "") {
       print("1");
       _isValid = false;
@@ -517,14 +519,13 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     if (addressLineOneController.text == "") {
       print("4");
       _isValid = false;
-      _isAddressValid=false;
+      _isAddressValid = false;
     }
     if (phoneController.text.length < 10) {
       print("5");
       _isValid = false;
-    }
-    else{
-      _isPhoneValid=true;
+    } else {
+      _isPhoneValid = true;
     }
     if (!isDatePicked) {
       _isValid = false;

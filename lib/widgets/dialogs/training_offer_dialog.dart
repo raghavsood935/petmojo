@@ -34,6 +34,12 @@ class _TrainingOfferDialogState extends State<TrainingOfferDialog> {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/dialog_background.png'),
+          fit: BoxFit.fill
+        )
+      ),
       child: WillPopScope(
           child: GestureDetector(
             onTap: () {
@@ -43,58 +49,9 @@ class _TrainingOfferDialogState extends State<TrainingOfferDialog> {
               }
             },
             child: ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: 240),
+              constraints: BoxConstraints(maxHeight: 230),
               child: Stack(
                 children: [
-                  Positioned(
-                    top: 20,
-                    left: 10,
-                    child: Opacity(
-                      opacity: 0.15,
-                      child: Transform.rotate(
-                        angle: -6.5,
-                        child: Image.asset(
-                          animalFootPrintImgPath,
-                          height: 70,
-                          width: 70,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 30,
-                    right: 28,
-                    child: Opacity(
-                      opacity: 0.15,
-                      child: Transform.rotate(
-                        angle: -6.5,
-                        child: Image.asset(
-                          animalFootPrintImgPath,
-                          height: 40,
-                          width: 40,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 30,
-                    right: 50,
-                    child: Opacity(
-                      opacity: 0.15,
-                      child: Transform.rotate(
-                        angle: -6.5,
-                        child: Image.asset(
-                          animalFootPrintImgPath,
-                          height: 100,
-                          width: 100,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-
                   Align(
                     alignment: Alignment.topCenter,
                     child: Transform.translate(
@@ -149,65 +106,71 @@ class _TrainingOfferDialogState extends State<TrainingOfferDialog> {
                   //     ),
                   //   ),
                   // ),
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Color(0xffffff),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Text(
-                          "Congratulations!",
-                          style: theme.textTheme.subtitle2?.copyWith(
-                              fontSize: 20,
-                              color: Color(0xFF00031D),
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          widget.dialogRequest.title ?? "Title",
-                          style: theme.textTheme.subtitle2?.copyWith(
-                              fontSize: 14,
-                              color: colors.primary,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 7,
-                        ),
-                        Text(
-                          widget.dialogRequest.description ?? "Description",
-                          textAlign: TextAlign.center,
-                          style: theme.textTheme.subtitle2?.copyWith(
-                            fontSize: 14,
-                            color: Color(0xFF00031D),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Color(0xffffff),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 20,
                           ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        verticalSpaceSmall,
-                        GestureDetector(
-                          onTap: () {
-                            widget.onDialogTap(DialogResponse(confirmed: false));
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: colors.primary,
-                              borderRadius: BorderRadius.circular(10),
+                          Expanded(
+                            child: Text(
+                              "Congratulations!",
+                              style: theme.textTheme.subtitle2?.copyWith(
+                                  fontSize: 20,
+                                  color: Color(0xFF00031D),
+                                  fontWeight: FontWeight.bold),
                             ),
-                            child: AppText.titleBold("Avail Discount",
-                                color: colors.white),
                           ),
-                        ),
-                      ],
+
+                          Expanded(
+                            child: Text(
+                              widget.dialogRequest.title ?? "Title",
+                              style: theme.textTheme.subtitle2?.copyWith(
+                                  fontSize: 14,
+                                  color: colors.primary,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+
+                          Expanded(
+                            child: Text(
+                              widget.dialogRequest.description ?? "Description",
+                              textAlign: TextAlign.center,
+                              style: theme.textTheme.subtitle2?.copyWith(
+                                fontSize: 14,
+                                color: Color(0xFF00031D),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                print("entere");
+                                widget.onDialogTap(DialogResponse(confirmed: false));
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: colors.primary,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: AppText.titleBold("Avail Discount",
+                                    color: colors.white),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Align(

@@ -103,7 +103,7 @@ class NotificationViewModel extends FutureViewModel<void>
     } else if (notification.notificationDataResponse!.actionOnCTA ==
         "PHONECALL") {
       String phoneNumber =
-          "tel:${notification.notificationDataResponse!.valueForCTA}";
+          notification.notificationDataResponse!.valueForCTA ?? "";
       print("Calling $phoneNumber");
       await launch("tel:$phoneNumber");
     } else if (notification.notificationDataResponse!.actionOnCTA ==

@@ -17,6 +17,7 @@ import 'package:tamely/enum/redirect_state.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/models/pet_basic_details_response.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
+import 'package:tamely/services/aws_upload_service.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:flutter/material.dart';
 import 'package:tamely/models/params/get_relation_requests_body.dart';
@@ -32,6 +33,7 @@ class DashboardViewModel extends FutureViewModel<void>
   final _snackBarService = locator<SnackbarService>();
   final _tamelyApi = locator<TamelyApi>();
   final _dialogService = locator<DialogService>();
+  final _uploadService = locator<CloudStorageService>();
 
   bool _hideNavBar = false;
 
@@ -191,7 +193,8 @@ class DashboardViewModel extends FutureViewModel<void>
     } else if (response.data != null) {
       _userName = response.data!.userDetailsModel!.fullName ?? "";
       _profileName = response.data!.userDetailsModel!.username ?? "";
-      _avatarUrl = response.data!.userDetailsModel!.avatar ?? "";
+      _avatarUrl = await _uploadService.getUrlFromAwsKey(
+          awsKey: response.data!.userDetailsModel!.avatar);
       _userID = response.data!.userDetailsModel!.Id ?? "";
       _listOfProfiles.insert(
         0,

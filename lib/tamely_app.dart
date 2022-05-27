@@ -88,6 +88,7 @@ class _TamelyAppState extends State<TamelyApp> {
                   //common Parameter
                   var appointmentId=message.data['appointmentId'];
 
+
                   //For Dog Running
                   if(message.data['date']!=""){
                     var noOfDogs=message.data['noOfDogs'];
@@ -96,9 +97,11 @@ class _TamelyAppState extends State<TamelyApp> {
                     String dogName=message.data['dogs'];
                     dogs.add(dogName);
 
+
                     var date = message.data['date'];
                     int newDate=int.parse(date);
-                    final DateTime timeStamp = DateTime.fromMillisecondsSinceEpoch(newDate * 1000);
+                    final DateTime timeStamp = DateTime.fromMillisecondsSinceEpoch(newDate);
+
 
                     var walkNumber;
                     if(message.data['walkNumber']=="one"){
@@ -136,8 +139,9 @@ class _TamelyAppState extends State<TamelyApp> {
                   //common Parameter
                   var appointmentId=message.data['bookingDetailsId'];
 
+
                   //For Dog Running
-                  if(message.data['bookingDetailsId']==null){
+                  if(message.data['DogTrainingbookingDetailsId']==""){
 
                     //Navigate to DRAppointmentDetailsView
                     Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DRAppointmentDetailsView(appointmentId: appointmentId)));

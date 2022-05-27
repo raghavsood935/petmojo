@@ -12,6 +12,8 @@ import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/models/common_response.dart';
 import 'package:tamely/models/params/change_bio_avatar_body.dart';
+import 'package:tamely/models/params/upload_file_body.dart';
+import 'package:tamely/services/aws_upload_service.dart';
 import 'package:tamely/util/utils.dart';
 
 class AddDetailsProfileViewModel extends BaseViewModel {
@@ -22,6 +24,7 @@ class AddDetailsProfileViewModel extends BaseViewModel {
 
   final log = getLogger('AddDetialsProfileView');
   final _navigationService = locator<NavigationService>();
+  final _uploadService = locator<CloudStorageService>();
 
   String _blobImgPath = "assets/images/Blob.png";
 
@@ -63,13 +66,18 @@ class AddDetailsProfileViewModel extends BaseViewModel {
       _snackBarService.showSnackbar(message: "Image is empty");
     }
     if (await Util.checkInternetConnectivity()) {
-      BaseResponse<CommonResponse> response =
-          await runBusyFuture(_tamelyApi.uploadImage(File(_imageFile!.path)));
-      if (response.getException != null) {
-        ServerError error = response.getException as ServerError;
-        _snackBarService.showSnackbar(message: error.getErrorMessage());
-      } else if (response.data != null) {
-        avatarUrl = response.data!.avatar ?? "";
+      File _editedImage = File(_imageFile!.path);
+      String awsKey = await _uploadService.uploadFile(
+        file: _editedImage,
+        fileName: _editedImage.path.split('/').last,
+      );
+      if (awsKey != "UPLOADFAIL") {
+        UploadFileBody uploadFileBody = UploadFileBody(awsKey);
+        BaseResponse<CommonResponse> result =
+            await _tamelyApi.uploadImage(uploadFileBody);
+        _snackBarService.showSnackbar(message: "Image uploaded successfully");
+      } else {
+        _snackBarService.showSnackbar(message: "Image upload failed");
       }
     } else {
       _snackBarService.showSnackbar(message: "No Internet connection");

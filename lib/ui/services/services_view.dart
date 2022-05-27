@@ -181,20 +181,36 @@ class ServicesView extends StatelessWidget {
                               left: 25,
                               // right: 5,
                               bottom: 5,
-                              child: Container(
-                                margin: EdgeInsets.symmetric(horizontal: 20),
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 5, horizontal: 5),
-                                decoration: BoxDecoration(
-                                  color: colors.primary,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: AppText.body1Bold(
-                                  "Pre-Book Now",
-                                  color: colors.white,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
+                              child: TextButton(
+                                  // onPressed: () => model.onSlideServiceTap(3),
+                                onPressed: (){
+                                },
+                                  child: AppText.bodyBold(
+                                    "Pre-Book Now",
+                                    color: colors.white,
+                                  ),
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: colors.primary,
+                                    elevation: 8,
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 6,
+                                    ),
+                                  )),
+                              // child: Container(
+                              //   margin: EdgeInsets.symmetric(horizontal: 20),
+                              //   padding: EdgeInsets.symmetric(
+                              //       vertical: 5, horizontal: 5),
+                              //   decoration: BoxDecoration(
+                              //     color: colors.primary,
+                              //     borderRadius: BorderRadius.circular(10),
+                              //   ),
+                              //   child: AppText.body1Bold(
+                              //     "Pre-Book Now",
+                              //     color: colors.white,
+                              //     textAlign: TextAlign.center,
+                              //   ),
+                              // ),
                             ),
                           ],
                         ),
@@ -310,7 +326,7 @@ class ServicesView extends StatelessWidget {
                   crossAxisSpacing: 20,
                   mainAxisSpacing: 8,
                   crossAxisCount: 2,
-                  itemBuilder: (context, index) => servicesItem(
+                  itemBuilder: (context, index) => upcomingServicesItem(
                       context, model.listOfUpcommingServices[index]),
                   itemCount: model.listOfUpcommingServices.length,
                   staggeredTileBuilder: (index) => StaggeredTile.fit(1),
@@ -358,6 +374,59 @@ class ServicesView extends StatelessWidget {
       ),
     );
   }
+}
+Widget upcomingServicesItem(BuildContext context, UpcomingServicesModel model) {
+  return Container(
+    padding: EdgeInsets.all(10),
+    // width: screenWidthPercentage(context, percentage: 0.35),
+    height: screenWidthPercentage(context, percentage: 0.45),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(16),
+      color: Colors.white,
+      border: Border.all(
+          width: 1,
+          color: Colors.grey
+      ),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey,
+          blurRadius: 2.0,
+          spreadRadius: 0.0,
+          offset: Offset(0,2.0), // shadow direction: bottom right
+        )
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Visibility(
+          visible: model.isHigDemand ?? false,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Icon(
+                Icons.flash_on_sharp,
+                color: Colors.yellow,
+                size: 11,
+              ),
+              AppText.tiny(
+                "High Demand   ",
+                color: colors.black,
+              ),
+            ],
+          ),
+        ),
+        Image.asset(
+          model.imgPath ?? "",
+          colorBlendMode: BlendMode.darken,
+          color: model.bgColor,
+          height: screenWidthPercentage(context, percentage: 0.28),
+        ),
+        AppText.bodyBold(model.title ?? ""),
+      ],
+    ),
+  );
 }
 
 Widget servicesItem(BuildContext context, ServicesModel model) {
