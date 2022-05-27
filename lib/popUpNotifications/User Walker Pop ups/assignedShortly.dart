@@ -34,6 +34,12 @@ class _AssignedShortlyState extends State<AssignedShortly> {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/images/dialog_background.png'),
+              fit: BoxFit.fill
+          )
+      ),
       child: WillPopScope(
           child: GestureDetector(
             onTap: () {
@@ -46,55 +52,6 @@ class _AssignedShortlyState extends State<AssignedShortly> {
               constraints: BoxConstraints(maxHeight: 240),
               child: Stack(
                 children: [
-                  Positioned(
-                    top: 20,
-                    left: 10,
-                    child: Opacity(
-                      opacity: 0.15,
-                      child: Transform.rotate(
-                        angle: -6.5,
-                        child: Image.asset(
-                          animalFootPrintImgPath,
-                          height: 70,
-                          width: 70,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 30,
-                    right: 28,
-                    child: Opacity(
-                      opacity: 0.15,
-                      child: Transform.rotate(
-                        angle: -6.5,
-                        child: Image.asset(
-                          animalFootPrintImgPath,
-                          height: 40,
-                          width: 40,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 30,
-                    right: 50,
-                    child: Opacity(
-                      opacity: 0.15,
-                      child: Transform.rotate(
-                        angle: -6.5,
-                        child: Image.asset(
-                          animalFootPrintImgPath,
-                          height: 100,
-                          width: 100,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-
                   Align(
                     alignment: Alignment.topCenter,
                     child: Transform.translate(
