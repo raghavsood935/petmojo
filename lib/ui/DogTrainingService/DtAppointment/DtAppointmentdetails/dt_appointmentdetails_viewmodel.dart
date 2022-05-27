@@ -64,6 +64,10 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
   int _numberOfSessions = 16;
   int get numberOfSessions => _numberOfSessions;
 
+
+  int _indexToStart = 0;
+  int get indexToStart => _indexToStart;
+
   int _currentSession = 1;
   int get currentSession => _currentSession;
 
@@ -152,7 +156,7 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
     if (_walkStatusOne == WalkStatus.showReport) {
       _showLiveOne = false;
       _showUpcomingOne = false;
-      _showReportOne = true;
+      _showReportOne = false;
     } else if (_walkStatusOne == WalkStatus.showUpcoming) {
       _showLiveOne = false;
       _showUpcomingOne = true;
@@ -264,6 +268,8 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
         if (result.data != null) {
           _serviceStatus = result.data!.serviceStatus!;
           _bookingStatus = result.data!.bookingStatus!;
+          _indexToStart = result.data!.index ?? 0;
+          _currentSession = result.data!.index ?? 0;
           if (serviceStatus == 0) {
             // service not completed
             if (bookingStatus == 0) {

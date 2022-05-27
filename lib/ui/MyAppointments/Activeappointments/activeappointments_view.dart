@@ -210,7 +210,7 @@ class ActiveAppointmentItem extends StatelessWidget {
                           ? AppText.body1(
                               serviceType == ServiceType.DogGrooming
                                   ? groomingPendingLabel
-                                  : pendingLabel,
+                                  : ( serviceType == ServiceType.DogRunning)?pendingLabel:trainerPendingLabel,
                               color: colors.pink,
                             )
                           : Container(),

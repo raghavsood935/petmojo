@@ -322,7 +322,6 @@ class FreePackageItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTaped,
       child: Container(
-        height: 100.0,
         margin: EdgeInsets.symmetric(horizontal: 5.0),
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
         decoration: new BoxDecoration(

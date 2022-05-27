@@ -128,6 +128,13 @@ class DRDogRunningBookingViewModel extends FormViewModel {
   bool _isValid = false;
   bool get isValid => _isValid;
 
+
+  bool _isAddressValid = false;
+  bool get isAddressValid => _isAddressValid;
+
+  bool _isPhoneValid = false;
+  bool get isPhoneValid => _isPhoneValid;
+
   bool _loading = false;
   bool get loading => _loading;
 
@@ -292,47 +299,47 @@ class DRDogRunningBookingViewModel extends FormViewModel {
     } else if (selectedPlan == DogRunningPackage.Four) {
       _isValid = true;
       _description = "Monthly";
-      _amount = 3400;
+      _amount = 3800;
       _frequency = 30;
       _dayFrequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = true;
       _doneMultiply = false;
       _subTotal = 6499;
-      _discount = 3199;
+      _discount = 2699;
     } else if (selectedPlan == DogRunningPackage.Five) {
       _isValid = true;
       _description = "Monthly";
-      _amount = 5400;
+      _amount = 6100;
       _frequency = 30;
       _dayFrequency = 2;
       _isOfferValid = false;
       _isOfferAvailable = true;
       _doneMultiply = false;
-      _subTotal = 12990;
-      _discount = 7999;
+      _subTotal = 12999;
+      _discount = 6899;
     } else if (selectedPlan == DogRunningPackage.Six) {
       _isValid = true;
       _description = "3 Months";
-      _amount = 10200;
+      _amount = 10400;
       _frequency = 90;
       _dayFrequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = true;
       _doneMultiply = false;
       _subTotal = 19497;
-      _discount = 8977;
+      _discount = 9097;
     } else if (selectedPlan == DogRunningPackage.Seven) {
       _isValid = true;
       _description = "3 Months";
-      _amount = 16200;
+      _amount = 17700;
       _frequency = 90;
       _dayFrequency = 2;
       _isOfferValid = false;
       _isOfferAvailable = true;
       _doneMultiply = false;
       _subTotal = 38997;
-      _discount = 23997;
+      _discount = 21297;
     }
     twoPets();
     setFirstPageValid();
@@ -482,6 +489,8 @@ class DRDogRunningBookingViewModel extends FormViewModel {
 
   void secondPageValidation(String? value) {
     _isValid = true;
+    _isPhoneValid=false;
+    _isAddressValid=true;
     if (addressLineTwoController.text == "") {
       print("1");
       _isValid = false;
@@ -497,10 +506,14 @@ class DRDogRunningBookingViewModel extends FormViewModel {
     if (addressLineOneController.text == "") {
       print("4");
       _isValid = false;
+      _isAddressValid=false;
     }
     if (phoneController.text.length < 10) {
       print("5");
       _isValid = false;
+    }
+    else{
+      _isPhoneValid=true;
     }
     if (!isDatePicked) {
       _isValid = false;

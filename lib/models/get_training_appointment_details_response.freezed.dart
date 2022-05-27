@@ -40,7 +40,9 @@ class _$GetTrainingAppointmentDetailsResponseTearOff {
       @JsonKey(name: "ServiceProvider")
           UserDetailsResponse? partner,
       @JsonKey(name: "DogTrainingbookingDetails")
-          GetTrainingBookingDetailsResponse? bookingDetails}) {
+          GetTrainingBookingDetailsResponse? bookingDetails,
+      @JsonKey(name: "index")
+          int? index}) {
     return _GetAppointmentDetailsResponse(
       petDetails: petDetails,
       bookingStatus: bookingStatus,
@@ -51,6 +53,7 @@ class _$GetTrainingAppointmentDetailsResponseTearOff {
       userId: userId,
       partner: partner,
       bookingDetails: bookingDetails,
+      index: index,
     );
   }
 
@@ -85,6 +88,8 @@ mixin _$GetTrainingAppointmentDetailsResponse {
   @JsonKey(name: "DogTrainingbookingDetails")
   GetTrainingBookingDetailsResponse? get bookingDetails =>
       throw _privateConstructorUsedError;
+  @JsonKey(name: "index")
+  int? get index => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -117,7 +122,9 @@ abstract class $GetTrainingAppointmentDetailsResponseCopyWith<$Res> {
       @JsonKey(name: "ServiceProvider")
           UserDetailsResponse? partner,
       @JsonKey(name: "DogTrainingbookingDetails")
-          GetTrainingBookingDetailsResponse? bookingDetails});
+          GetTrainingBookingDetailsResponse? bookingDetails,
+      @JsonKey(name: "index")
+          int? index});
 
   $UserDetailsResponseCopyWith<$Res>? get partner;
   $GetTrainingBookingDetailsResponseCopyWith<$Res>? get bookingDetails;
@@ -143,6 +150,7 @@ class _$GetTrainingAppointmentDetailsResponseCopyWithImpl<$Res>
     Object? userId = freezed,
     Object? partner = freezed,
     Object? bookingDetails = freezed,
+    Object? index = freezed,
   }) {
     return _then(_value.copyWith(
       petDetails: petDetails == freezed
@@ -181,6 +189,10 @@ class _$GetTrainingAppointmentDetailsResponseCopyWithImpl<$Res>
           ? _value.bookingDetails
           : bookingDetails // ignore: cast_nullable_to_non_nullable
               as GetTrainingBookingDetailsResponse?,
+      index: index == freezed
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 
@@ -234,7 +246,9 @@ abstract class _$GetAppointmentDetailsResponseCopyWith<$Res>
       @JsonKey(name: "ServiceProvider")
           UserDetailsResponse? partner,
       @JsonKey(name: "DogTrainingbookingDetails")
-          GetTrainingBookingDetailsResponse? bookingDetails});
+          GetTrainingBookingDetailsResponse? bookingDetails,
+      @JsonKey(name: "index")
+          int? index});
 
   @override
   $UserDetailsResponseCopyWith<$Res>? get partner;
@@ -266,6 +280,7 @@ class __$GetAppointmentDetailsResponseCopyWithImpl<$Res>
     Object? userId = freezed,
     Object? partner = freezed,
     Object? bookingDetails = freezed,
+    Object? index = freezed,
   }) {
     return _then(_GetAppointmentDetailsResponse(
       petDetails: petDetails == freezed
@@ -304,6 +319,10 @@ class __$GetAppointmentDetailsResponseCopyWithImpl<$Res>
           ? _value.bookingDetails
           : bookingDetails // ignore: cast_nullable_to_non_nullable
               as GetTrainingBookingDetailsResponse?,
+      index: index == freezed
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -320,7 +339,8 @@ class _$_GetAppointmentDetailsResponse extends _GetAppointmentDetailsResponse {
       @JsonKey(name: "_id") this.appointmentId,
       @JsonKey(name: "User") this.userId,
       @JsonKey(name: "ServiceProvider") this.partner,
-      @JsonKey(name: "DogTrainingbookingDetails") this.bookingDetails})
+      @JsonKey(name: "DogTrainingbookingDetails") this.bookingDetails,
+      @JsonKey(name: "index") this.index})
       : super._();
 
   factory _$_GetAppointmentDetailsResponse.fromJson(
@@ -354,10 +374,13 @@ class _$_GetAppointmentDetailsResponse extends _GetAppointmentDetailsResponse {
   @override
   @JsonKey(name: "DogTrainingbookingDetails")
   final GetTrainingBookingDetailsResponse? bookingDetails;
+  @override
+  @JsonKey(name: "index")
+  final int? index;
 
   @override
   String toString() {
-    return 'GetTrainingAppointmentDetailsResponse(petDetails: $petDetails, bookingStatus: $bookingStatus, serviceStatus: $serviceStatus, hasTestimony: $hasTestimony, serviceType: $serviceType, appointmentId: $appointmentId, userId: $userId, partner: $partner, bookingDetails: $bookingDetails)';
+    return 'GetTrainingAppointmentDetailsResponse(petDetails: $petDetails, bookingStatus: $bookingStatus, serviceStatus: $serviceStatus, hasTestimony: $hasTestimony, serviceType: $serviceType, appointmentId: $appointmentId, userId: $userId, partner: $partner, bookingDetails: $bookingDetails, index: $index)';
   }
 
   @override
@@ -380,7 +403,8 @@ class _$_GetAppointmentDetailsResponse extends _GetAppointmentDetailsResponse {
             const DeepCollectionEquality().equals(other.userId, userId) &&
             const DeepCollectionEquality().equals(other.partner, partner) &&
             const DeepCollectionEquality()
-                .equals(other.bookingDetails, bookingDetails));
+                .equals(other.bookingDetails, bookingDetails) &&
+            const DeepCollectionEquality().equals(other.index, index));
   }
 
   @override
@@ -394,7 +418,8 @@ class _$_GetAppointmentDetailsResponse extends _GetAppointmentDetailsResponse {
       const DeepCollectionEquality().hash(appointmentId),
       const DeepCollectionEquality().hash(userId),
       const DeepCollectionEquality().hash(partner),
-      const DeepCollectionEquality().hash(bookingDetails));
+      const DeepCollectionEquality().hash(bookingDetails),
+      const DeepCollectionEquality().hash(index));
 
   @JsonKey(ignore: true)
   @override
@@ -411,25 +436,26 @@ class _$_GetAppointmentDetailsResponse extends _GetAppointmentDetailsResponse {
 abstract class _GetAppointmentDetailsResponse
     extends GetTrainingAppointmentDetailsResponse {
   factory _GetAppointmentDetailsResponse(
-          {@JsonKey(name: "petDetails")
-              List<PetDetailsResponse>? petDetails,
-          @JsonKey(name: "bookingStatus")
-              int? bookingStatus,
-          @JsonKey(name: "serviceStatus")
-              int? serviceStatus,
-          @JsonKey(name: "israted")
-              bool? hasTestimony,
-          @JsonKey(name: "serviceType")
-              int? serviceType,
-          @JsonKey(name: "_id")
-              String? appointmentId,
-          @JsonKey(name: "User")
-              String? userId,
-          @JsonKey(name: "ServiceProvider")
-              UserDetailsResponse? partner,
-          @JsonKey(name: "DogTrainingbookingDetails")
-              GetTrainingBookingDetailsResponse? bookingDetails}) =
-      _$_GetAppointmentDetailsResponse;
+      {@JsonKey(name: "petDetails")
+          List<PetDetailsResponse>? petDetails,
+      @JsonKey(name: "bookingStatus")
+          int? bookingStatus,
+      @JsonKey(name: "serviceStatus")
+          int? serviceStatus,
+      @JsonKey(name: "israted")
+          bool? hasTestimony,
+      @JsonKey(name: "serviceType")
+          int? serviceType,
+      @JsonKey(name: "_id")
+          String? appointmentId,
+      @JsonKey(name: "User")
+          String? userId,
+      @JsonKey(name: "ServiceProvider")
+          UserDetailsResponse? partner,
+      @JsonKey(name: "DogTrainingbookingDetails")
+          GetTrainingBookingDetailsResponse? bookingDetails,
+      @JsonKey(name: "index")
+          int? index}) = _$_GetAppointmentDetailsResponse;
   _GetAppointmentDetailsResponse._() : super._();
 
   factory _GetAppointmentDetailsResponse.fromJson(Map<String, dynamic> json) =
@@ -462,6 +488,9 @@ abstract class _GetAppointmentDetailsResponse
   @override
   @JsonKey(name: "DogTrainingbookingDetails")
   GetTrainingBookingDetailsResponse? get bookingDetails;
+  @override
+  @JsonKey(name: "index")
+  int? get index;
   @override
   @JsonKey(ignore: true)
   _$GetAppointmentDetailsResponseCopyWith<_GetAppointmentDetailsResponse>
