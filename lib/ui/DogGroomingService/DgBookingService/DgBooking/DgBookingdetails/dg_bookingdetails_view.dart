@@ -190,27 +190,84 @@ class DGBookingDetailsView
                 verticalSpaceTiny,
 
                 //Added recently
-                AppText.body2("Offers Available!! 🎉🎉🎉🎁🎁🎁"),
-                verticalSpaceRegular,
-                AppInputField(
-                  hint: "Enter Promo Code",
-                  controller: model.promoCodeController,
-                  trailing: model.isCouponProcessing
-                      ? Transform.scale(
-                    scale: 0.6,
-                    child: CircularProgressIndicator(
-                      color: colors.primary,
-                    ),
-                  )
-                      : Icon(
-                    Icons.arrow_forward_rounded,
-                    color: colors.primary,
+                Visibility(
+                  visible: !model.isOfferValid && model.isOfferAvailable,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppText.body2("Offers Available!! 🎉🎉🎉🎁🎁🎁"),
+                      verticalSpaceRegular,
+                      AppInputField(
+                        hint: "Enter Promo Code",
+                        controller: model.promoCodeController,
+                        trailing: model.isCouponProcessing
+                            ? Transform.scale(
+                          scale: 0.6,
+                          child: CircularProgressIndicator(
+                            color: colors.primary,
+                          ),
+                        )
+                            : Icon(
+                          Icons.arrow_forward_rounded,
+                          color: colors.primary,
+                        ),
+                        trailingTapped: model.applyCoupon,
+                        isBoxBorder: true,
+                        textInputType: TextInputType.name,
+                        textCapitalization: TextCapitalization.none,
+                      ),
+                      verticalSpaceTiny,
+                    ],
                   ),
-                  trailingTapped: model.applyCoupon,
-                  isBoxBorder: true,
-                  textInputType: TextInputType.name,
-                  textCapitalization: TextCapitalization.none,
                 ),
+
+
+                // Offer Done
+                Visibility(
+                  visible: model.isOfferValid && model.isOfferAvailable,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppText.body2("Offers"),
+                      verticalSpaceSmall,
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.check_circle_outline_rounded,
+                            color: colors.primary,
+                          ),
+                          horizontalSpaceSmall,
+                          Row(
+                            children: [
+                              AppText.body2(
+                                "Promo ",
+                              ),
+                              AppText.body2(
+                                " ${model.promoCode} ",
+                                color: colors.primary,
+                              ),
+                              AppText.body2(
+                                " Applied",
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      verticalSpaceSmall,
+                      Column(
+                        children: [
+                          AppText.body2("You saved"),
+                          AppText.body2(
+                            "INR ${model.savedAmount}",
+                            color: colors.primary,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+
+
               ],
             ),
 
