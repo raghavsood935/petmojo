@@ -207,9 +207,9 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       // old rate
       _subTotal = 10788;
       // new rate
-      _amount = 9588;
+      _amount = 9800;
       // save
-      _discount = 1200;
+      _discount = 988;
       _frequency = 12;
       _dayFrequency = 1;
       _isOfferValid = false;
@@ -1336,7 +1336,6 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       barrierDismissible: true,
       takesInput: true,
       title: "You are eligible for our special offer",
-      // description: "Select a package and get upto 50% off!",
       description: "Select a package in the next screen for Discounted pricing",
     );
 

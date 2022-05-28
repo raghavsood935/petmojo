@@ -24,6 +24,12 @@ class DTReportCardView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<DTReportCardViewModel>.reactive(
       viewModelBuilder: () => DTReportCardViewModel(appointmentId, sessionNo),
+      onModelReady: (model){
+        print(appointmentId);
+        print(sessionNo);
+
+        model.getReport();
+      },
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
         body: SafeArea(
@@ -189,7 +195,7 @@ class DTReportCardView extends StatelessWidget {
                         verticalSpaceSmall,
                         BookingItem(
                           detailName: "Duration",
-                          detailValue: "${model.duration}",
+                          detailValue: "${model.duration} min",
                         ),
                         verticalSpaceSmall,
                         BookingItem(

@@ -91,6 +91,7 @@ class DTReportCardViewModel extends FutureViewModel<void>
             getS3Url(resultOne.data!.details!.picture!);
           }
           _dogs.clear();
+          notifyListeners();
           List<GetPetNamesResponse> pet = resultOne.data!.pet!;
           for (var each in pet) {
             _dogs.add(each.name!);

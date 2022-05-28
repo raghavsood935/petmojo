@@ -204,13 +204,13 @@ class DRDogRunningBookingViewModel extends FormViewModel {
       selectedPlan = DogRunningPackage.Four;
       _isValid = true;
       _description = "Monthly";
-      _amount = 4500;
+      _amount = 3800;
       _frequency = 30;
       _dayFrequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = true;
-      _subTotal = 5500;
-      _discount = 1000;
+      _subTotal = 6499;
+      _discount = 2699;
     }
     setFirstPageValid();
     notifyListeners();

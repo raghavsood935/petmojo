@@ -2,6 +2,9 @@ import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/util/Color.dart';
+import '../../app/app.locator.dart';
+import '../../app/app.router.dart';
+import '../../ui/MyAppointments/appointments_view.dart';
 import '../../util/ImageConstant.dart';
 import '../../util/ui_helpers.dart';
 import '../../widgets/app_text.dart';
@@ -21,6 +24,7 @@ class PaymentSuccessful extends StatefulWidget {
 }
 
 class _PaymentSuccessfulState extends State<PaymentSuccessful> {
+  final _navigationService = locator<NavigationService>();
   @override
   void initState() {
     super.initState();
@@ -69,11 +73,15 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
                       ),
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 10, 10, 0),
-                    child: Align(
-                      alignment:Alignment.topRight,
-                      child: Icon(Icons.close,size: 20,color: Color(0xFFC3C3C3),),
+                  GestureDetector(
+                    onTap: (){
+                    },
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(0, 10, 10, 0),
+                      child: Align(
+                        alignment:Alignment.topRight,
+                        child: Icon(Icons.close,size: 20,color: Color(0xFFC3C3C3),),
+                      ),
                     ),
                   ),
                   // Positioned(
@@ -150,22 +158,23 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
                         verticalSpaceSmall,
                         GestureDetector(
                           onTap: () {
-                            widget.onDialogTap(DialogResponse(confirmed: false));
+                            // widget
+                            //     .onDialogTap(DialogResponse(confirmed: true));
+                            _navigationService.back();
+                            _navigationService.back();
+                            _navigationService.back();
+                            _navigationService.back();
+                            _navigationService.navigateTo(Routes.appointmentsView);
                           },
-                          child: GestureDetector(
-                            onTap: () {
-                              widget
-                                  .onDialogTap(DialogResponse(confirmed: false));
-                            },
-                            child: Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color: colors.primary,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: AppText.titleBold("My Bookings",
-                                  color: colors.white),
+
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: colors.primary,
+                              borderRadius: BorderRadius.circular(10),
                             ),
+                            child: AppText.titleBold("My Bookings",
+                                color: colors.white),
                           ),
                         ),
                       ],

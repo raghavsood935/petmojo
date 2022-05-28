@@ -9,6 +9,7 @@ import 'package:tamely/widgets/dialogs/success_dialog.dart';
 import 'package:tamely/widgets/dialogs/training_offer_dialog.dart';
 import 'package:tamely/widgets/fullscreen_loading_indicator.dart';
 
+import '../../popUpNotifications/User Training Pop ups/paymentSuccessful.dart';
 import 'basic_dialog.dart';
 import 'location_dialog.dart';
 
@@ -57,6 +58,12 @@ void setupDialogUi() {
             onDialogTap: completer,
           ),
         ),
+    DialogType.PaymentSuccessful: (context, dialogRequest, completer) => Dialog(
+      child: PaymentSuccessful(
+        dialogRequest: dialogRequest,
+        onDialogTap: completer,
+      ),
+    ),
   };
   dialogService.registerCustomDialogBuilders(builders);
 }
