@@ -36,7 +36,6 @@ import '../ui/DogTrainingService/DtAppointment/DtReportcard/dt_reportcard_view.d
 import '../ui/DogTrainingService/DtBookingService/DtBooking/dt_dogtrainingbooking_view.dart';
 import '../ui/DogTrainingService/DtBookingService/DtOpening/dt_opening_view.dart';
 import '../ui/DogTrainingService/DtBookingService/DtPayment/dt_payment_view.dart';
-import '../ui/MyAppointments/appointments_view.dart';
 import '../ui/bookings/bookings_view.dart';
 import '../ui/bookmarks/bookmarks_view.dart';
 import '../ui/chat/chat_view.dart';
@@ -75,6 +74,8 @@ import '../ui/groups/manage_group/members/member_view.dart';
 import '../ui/groups/trending_groups/trending_groups_view.dart';
 import '../ui/help/help_view.dart';
 import '../ui/login/login_view.dart';
+import '../ui/myActiveAppointments/appointments_view.dart';
+import '../ui/myPastAppointments/past_appointments_view.dart';
 import '../ui/newpost/newpostLocation/newpostLocation_view.dart';
 import '../ui/newpost/newpost_view.dart';
 import '../ui/notification/notification_main_page.dart';
@@ -179,6 +180,7 @@ class Routes {
   static const String walletView = '/wallet-view';
   static const String notificationMainView = '/notification-main-view';
   static const String appointmentsView = '/appointments-view';
+  static const String pastAppointmentsView = '/past-appointments-view';
   static const String videosSectionView = '/videos-section-view';
   static const String dRDogRunningBookingView = '/d-rdog-running-booking-view';
   static const String locationPicker = '/location-picker';
@@ -267,6 +269,7 @@ class Routes {
     walletView,
     notificationMainView,
     appointmentsView,
+    pastAppointmentsView,
     videosSectionView,
     dRDogRunningBookingView,
     locationPicker,
@@ -365,6 +368,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.walletView, page: WalletView),
     RouteDef(Routes.notificationMainView, page: NotificationMainView),
     RouteDef(Routes.appointmentsView, page: AppointmentsView),
+    RouteDef(Routes.pastAppointmentsView, page: MyPastAppointmentsView),
     RouteDef(Routes.videosSectionView, page: VideosSectionView),
     RouteDef(Routes.dRDogRunningBookingView, page: DRDogRunningBookingView),
     RouteDef(Routes.locationPicker, page: LocationPicker),
@@ -986,6 +990,12 @@ class StackedRouter extends RouterBase {
     AppointmentsView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const AppointmentsView(),
+        settings: data,
+      );
+    },
+    MyPastAppointmentsView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const MyPastAppointmentsView(),
         settings: data,
       );
     },
