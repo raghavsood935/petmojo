@@ -27,6 +27,7 @@ import 'package:tamely/models/params/get_post_by_id.dart';
 import 'package:tamely/models/params/send_follow_request_body/from_request_body.dart';
 import 'package:tamely/models/params/send_follow_request_body/send_follow_request_body.dart';
 import 'package:tamely/models/params/send_follow_request_body/to_request_body.dart';
+import 'package:tamely/services/aws_upload_service.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/global_methods.dart';
@@ -40,6 +41,7 @@ class AnimalProfileViewModel extends FutureViewModel {
   final _dialogService = locator<DialogService>();
   final _snackBarService = locator<SnackbarService>();
   final _sharedPreferenceService = locator<SharedPreferencesService>();
+  final _uploadService = locator<CloudStorageService>();
 
   MyAnimalModelResponse? myAnimalModelResponse;
 
@@ -161,7 +163,23 @@ class AnimalProfileViewModel extends FutureViewModel {
   }
 
   Future editAnimalProfileDetails() async {
-    _avatar = await GlobalMethods.imageToLink(_editedImage!);
+    // _avatar = await GlobalMethods.imageToLink(_editedImage!);
+    if (_editedImage == null) {
+      _snackBarService.showSnackbar(message: "Image is empty");
+      return;
+    }
+    if (await Util.checkInternetConnectivity()) {
+      String awsKey = await _uploadService.uploadFile(
+        file: _editedImage!,
+        fileName: "petAvatar.jpg",
+      );
+      if (awsKey != null && awsKey != "UPLOADFAIL") {
+        _avatar = awsKey;
+      } else {
+        _snackBarService.showSnackbar(message: "Image upload failed");
+        return;
+      }
+    }
     notifyListeners();
     try {
       EditAnimalProfileMainDetailsBody body = EditAnimalProfileMainDetailsBody(
@@ -174,6 +192,7 @@ class AnimalProfileViewModel extends FutureViewModel {
       var result = await runBusyFuture(
           _tamelyApi.editAnimalProfileMainDetails(body),
           throwException: true);
+      getAnimalDetails();
     } catch (e) {
       log.e(e);
       _snackBarService.showSnackbar(message: "$e");
@@ -315,7 +334,9 @@ class AnimalProfileViewModel extends FutureViewModel {
     _profilename = response.animalprofileModel!.username ?? "";
     _username = response.animalprofileModel!.name ?? "";
     _shortBio = response.animalprofileModel!.bio ?? "";
-    _avatar = response.animalprofileModel!.avatar ?? "";
+    _avatar = await _uploadService.getUrlFromAwsKey(
+        awsKey: response.animalprofileModel!.avatar);
+    // _avatar = response.animalprofileModel!.avatar ?? "";
     _animalBreed = response.animalprofileModel!.breed ?? "";
 
     _isUpForAdoption = response.animalprofileModel!.adoption ?? false;
@@ -376,5 +397,6 @@ class AnimalProfileViewModel extends FutureViewModel {
   Future futureToRun() {
     // TODO: implement futureToRun
     throw UnimplementedError();
+    // return (Future<void>.value());
   }
 }

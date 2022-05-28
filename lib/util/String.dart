@@ -80,7 +80,10 @@ String walletTitle = "petmojo Wallet";
 String walletSubTitle = "Add funds and redeem rewards!";
 
 String bookingTitle = "My bookings";
-String bookingSubTitle = "Check upcoming bookings or reorder";
+String bookingSubTitle = "Check my current bookings";
+
+String pastBookingTitle = "Past bookings";
+String pastBookingSubTitle = "Check my past bookings";
 
 String settingsTitle = "Settings";
 String settingsSubTitle = "Privacy, Security, Account";
@@ -587,7 +590,8 @@ String fourTrainingSeeThirteen = "Instruction No";
 
 String fiveTrainingSeeOne = "Instruction Salute";
 String fiveTrainingSeeTwo = "Instruction Rollover";
-String fiveTrainingSeeThree = "Counting 1-5 (Breed and \n Intelligence dependent)";
+String fiveTrainingSeeThree =
+    "Counting 1-5 (Breed and \n Intelligence dependent)";
 String fiveTrainingSeeFour = "Without Leash Walking";
 String fiveTrainingSeeFive = "Instruction Eat/Don't Eat";
 String fiveTrainingSeeSix = "Instruction Fetch";
