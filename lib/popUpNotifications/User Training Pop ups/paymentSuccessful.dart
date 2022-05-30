@@ -4,7 +4,6 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/util/Color.dart';
 import '../../app/app.locator.dart';
 import '../../app/app.router.dart';
-import '../../ui/MyAppointments/appointments_view.dart';
 import '../../util/ImageConstant.dart';
 import '../../util/ui_helpers.dart';
 import '../../widgets/app_text.dart';

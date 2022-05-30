@@ -2009,6 +2009,22 @@ class TamelyApi {
     return BaseResponse()..data = response;
   }
 
+
+  Future<BaseResponse<SendDataResponse>> setTrainingRating(
+      SetTrainingRatingBody setTrainingRatingBody) async {
+    print("2");
+    SendDataResponse response;
+    try {
+      response =
+      await getApiClient(true, true).setTrainingRating(setTrainingRatingBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
   // -- Set Rating Run Two
   Future<BaseResponse<SendDataResponse>> setRunTwoRating(
       SetRunTwoRatingBody setRunTwoRatingBody) async {

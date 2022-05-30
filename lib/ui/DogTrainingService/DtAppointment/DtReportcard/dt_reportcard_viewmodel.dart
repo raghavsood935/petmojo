@@ -7,6 +7,7 @@ import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/models/get_training_report_response.dart';
 import 'package:tamely/models/params/get_s3_url_body.dart';
 import 'package:tamely/models/params/get_training_report_body.dart';
+import 'package:tamely/models/params/set_runone_rating_body.dart';
 import 'package:tamely/models/url_response.dart';
 import 'package:tamely/util/utils.dart';
 import 'package:stacked/stacked.dart';
@@ -14,6 +15,9 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:video_player/video_player.dart';
+
+import '../../../../enum/selectedStart.dart';
+import '../../../../models/send_data_response.dart';
 
 class DTReportCardViewModel extends FutureViewModel<void>
     implements Initialisable {
@@ -66,6 +70,45 @@ class DTReportCardViewModel extends FutureViewModel<void>
   bool _isVideoAvailable = false;
   bool get isVideoAvailable => _isVideoAvailable;
 
+  int _rating = 0;
+  int get rating => _rating;
+
+  bool _gotRating = false;
+  bool get gotRating => _gotRating;
+
+  void starOnTaped(SelectedStar selectedStar) {
+    if (selectedStar == SelectedStar.One) {
+      _rating = 1;
+    } else if (selectedStar == SelectedStar.Two) {
+      _rating = 2;
+    } else if (selectedStar == SelectedStar.Three) {
+      _rating = 3;
+    } else if (selectedStar == SelectedStar.Four) {
+      _rating = 4;
+    } else if (selectedStar == SelectedStar.Five) {
+      _rating = 5;
+    }
+    notifyListeners();
+    setRating();
+    notifyListeners();
+  }
+
+  Future<void> setRating() async {
+    try {
+      if (await Util.checkInternetConnectivity()) {
+    SetTrainingRatingBody setTrainingRatingBody =
+    SetTrainingRatingBody(appointmentId,rating,sessionNo);
+    BaseResponse<SendDataResponse> resultOne = await runBusyFuture(
+    _tamelyApi.setTrainingRating(setTrainingRatingBody),
+    throwException: true);
+    } else {
+    _snackBarService.showSnackbar(message: "No Internet connection");
+    }
+    } on ServerError catch (e) {
+    log.e(e.toString());
+    }
+    notifyListeners();
+  }
   void getReport() async {
     print("Getting report");
     try {
@@ -79,6 +122,12 @@ class DTReportCardViewModel extends FutureViewModel<void>
         if (resultOne.data != null) {
           _duration = resultOne.data!.details!.duration!;
           _timeIntFormat = resultOne.data!.details!.time!;
+          _rating = resultOne.data!.details!.rating!;
+          if (rating > 0) {
+            _gotRating = true;
+          } else if (rating == 0) {
+            _gotRating = false;
+          }
           if (resultOne.data!.details!.video != "NULL") {
             await getS3VideoUrl(resultOne.data!.details!.video!);
             _isVideoAvailable = true;

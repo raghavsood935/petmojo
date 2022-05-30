@@ -22,3 +22,19 @@ Map<String, dynamic> _$SetRunOneRatingBodyToJson(
       'rating': instance.rating,
       'runReport1': instance.runReport1,
     };
+
+SetTrainingRatingBody _$SetTrainingRatingBodyFromJson(
+        Map<String, dynamic> json) =>
+    SetTrainingRatingBody(
+      json['bookingDetailsId'] as String,
+      json['rating'] as int,
+      json['sessionNo'] as int,
+    );
+
+Map<String, dynamic> _$SetTrainingRatingBodyToJson(
+        SetTrainingRatingBody instance) =>
+    <String, dynamic>{
+      'bookingDetailsId': instance.bookingDetailsId,
+      'rating': instance.rating,
+      'sessionNo': instance.sessionNo,
+    };

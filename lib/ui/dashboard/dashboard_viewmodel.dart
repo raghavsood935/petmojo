@@ -296,7 +296,7 @@ class DashboardViewModel extends FutureViewModel<void>
   }
 
   void onMyPastBookingsPressed() async {
-    await _navigationService.navigateTo(Routes.pastAppointmentsView);
+    await _navigationService.navigateTo(Routes.myPastAppointmentsView);
   }
 
   void onSettingsPressed() async {

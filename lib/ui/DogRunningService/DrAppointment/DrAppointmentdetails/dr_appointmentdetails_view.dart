@@ -365,7 +365,7 @@ class DRAppointmentDetailsView extends StatelessWidget {
                   children: [
                     Container(
                       color: colors.primaryLight,
-                      child: CustomDatePicker(
+                        child: CustomDatePicker(
                         model.startDate,
                         initialSelectedDate: model.initialDate,
                         daysCount: model.numberOfDays,

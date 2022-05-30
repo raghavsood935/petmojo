@@ -180,7 +180,7 @@ class Routes {
   static const String walletView = '/wallet-view';
   static const String notificationMainView = '/notification-main-view';
   static const String appointmentsView = '/appointments-view';
-  static const String pastAppointmentsView = '/past-appointments-view';
+  static const String myPastAppointmentsView = '/my-past-appointments-view';
   static const String videosSectionView = '/videos-section-view';
   static const String dRDogRunningBookingView = '/d-rdog-running-booking-view';
   static const String locationPicker = '/location-picker';
@@ -269,7 +269,7 @@ class Routes {
     walletView,
     notificationMainView,
     appointmentsView,
-    pastAppointmentsView,
+    myPastAppointmentsView,
     videosSectionView,
     dRDogRunningBookingView,
     locationPicker,
@@ -368,7 +368,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.walletView, page: WalletView),
     RouteDef(Routes.notificationMainView, page: NotificationMainView),
     RouteDef(Routes.appointmentsView, page: AppointmentsView),
-    RouteDef(Routes.pastAppointmentsView, page: MyPastAppointmentsView),
+    RouteDef(Routes.myPastAppointmentsView, page: MyPastAppointmentsView),
     RouteDef(Routes.videosSectionView, page: VideosSectionView),
     RouteDef(Routes.dRDogRunningBookingView, page: DRDogRunningBookingView),
     RouteDef(Routes.locationPicker, page: LocationPicker),
