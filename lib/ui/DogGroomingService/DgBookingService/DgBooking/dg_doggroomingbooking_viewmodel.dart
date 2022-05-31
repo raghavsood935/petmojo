@@ -142,6 +142,12 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
   int _givenRating = 5;
   int get givenRating => _givenRating;
 
+  bool _isAddressValid = false;
+  bool get isAddressValid => _isAddressValid;
+
+  bool _isPhoneValid = false;
+  bool get isPhoneValid => _isPhoneValid;
+
   void changeRating(int rating) {
     _givenRating = rating;
     notifyListeners();
@@ -291,10 +297,10 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
   double _subTotal = 1200;
   double get subTotal => _subTotal;
 
-  double _discount = 451;
+  double _discount = 351;
   double get discount => _discount;
 
-  double _amount = 749;
+  double _amount = 849;
   double get amount => _amount;
 
   int _frequency = 1;
@@ -321,20 +327,20 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
       _isValid = true;
       _description = "Bath and Brush";
       _subtitle = firstGroomingSubtitleOne;
-      _amount = 749;
+      _amount = 849;
       _frequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = false;
       _doneMultiply = false;
       _subTotal = 1200;
-      _discount = 451;
+      _discount = 351;
     } else if (selectedPlan == DogGroomingPackage.Two) {
       _isValid = true;
       _description = "Haircut and Styling";
       _subtitle = twoGroomingSubtitleOne;
       _subTotal = 1400;
-      _amount = 949;
-      _discount = 451;
+      _amount = 1249;
+      _discount = 151;
       _frequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = true;
@@ -344,8 +350,8 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
       _description = "Bath and Full Haircut";
       _subtitle = threeGroomingSubtitleOne;
       _subTotal = 2500;
-      _amount = 1499;
-      _discount = 1001;
+      _amount = 1649;
+      _discount = 851;
       _frequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = true;
@@ -521,6 +527,8 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
 
   void secondPageValidation(String? value) {
     _isValid = true;
+    _isPhoneValid = false;
+    _isAddressValid = true;
     if (addressLineTwoController.text == "") {
       print("1");
       _isValid = false;
@@ -536,10 +544,14 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
     if (addressLineOneController.text == "") {
       print("4");
       _isValid = false;
+      _isAddressValid = false;
     }
     if (phoneController.text.length < 10) {
       print("5");
       _isValid = false;
+    }
+    else{
+      _isPhoneValid=true;
     }
     if (!isDatePicked) {
       _isValid = false;

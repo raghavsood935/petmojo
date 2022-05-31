@@ -17,6 +17,7 @@ import 'package:tamely/app/app.logger.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../../enum/selectedStart.dart';
+import '../../../../models/params/set_training_rating_body.dart';
 import '../../../../models/send_data_response.dart';
 
 class DTReportCardViewModel extends FutureViewModel<void>

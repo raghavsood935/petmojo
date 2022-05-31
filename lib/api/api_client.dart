@@ -131,6 +131,8 @@ import 'package:tamely/models/send_data_response.dart';
 import 'package:tamely/models/params/book_a_run_body.dart';
 import 'package:tamely/models/params/apple_signin_body.dart';
 
+import '../models/params/set_training_rating_body.dart';
+
 part 'api_client.g.dart';
 
 ///APIs class is for api tags
@@ -348,7 +350,7 @@ class Apis {
 // @RestApi(baseUrl: "https://tamely.herokuapp.com/api/")
 @RestApi(
     baseUrl:
-        "http://3.14.68.70:9000/api")
+        "http://3.14.68.70:9000/api/")
 abstract class ApiClient {
   factory ApiClient(Dio dio, {String baseUrl}) = _ApiClient;
 

@@ -131,19 +131,52 @@ class DGBookingDetailsView
                 ),
                 verticalSpaceSmall,
                 AppInputField(
+                  readOnly: true,
                   hint: addressLineOneHint,
                   controller: model.addressLineTwoController,
                   onChanged: model.secondPageValidation,
-                  isBoxBorder: true,
-                  suffix: GestureDetector(
+                  trailing: (model.companyAvailable)
+                      ? Container(
+                    margin: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(50)),
+                    child: Icon(
+                      Icons.check,
+                      color: Colors.white,
+                    ),
+                  )
+                      : null,
+                  suffix: model.companyAvailable == false
+                      ? GestureDetector(
                     onTap: model.changeAddress,
                     child: AppText.body2(
                       "Change",
                       color: colors.primary,
                     ),
-                  ),
+                  )
+                      : null,
+                  fillColor: (model.companyAvailable
+                      ? Color(0xFFEDF9F3)
+                      : Colors.white),
+                  isBoxBorder: true,
                   textInputType: TextInputType.name,
                   textCapitalization: TextCapitalization.none,
+                ),
+                Transform(
+                  transform: Matrix4.translationValues(0, -15, 0),
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: model.companyAvailable
+                        ? GestureDetector(
+                      onTap: model.changeAddress,
+                      child: AppText.body2(
+                        "Change",
+                        color: colors.primary,
+                      ),
+                    )
+                        : null,
+                  ),
                 ),
                 verticalSpaceTiny,
                 // Address 2
@@ -153,6 +186,20 @@ class DGBookingDetailsView
                 verticalSpaceSmall,
                 AppInputField(
                   hint: addressLineTwoHint,
+                  fillColor:
+                  (model.isAddressValid) ? Color(0xFFEDF9F3) : Colors.white,
+                  trailing: (model.isAddressValid)
+                      ? Container(
+                    margin: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(50)),
+                    child: Icon(
+                      Icons.check,
+                      color: Colors.white,
+                    ),
+                  )
+                      : SizedBox(),
                   controller: model.addressLineOneController,
                   onChanged: model.secondPageValidation,
                   isBoxBorder: true,
@@ -179,6 +226,20 @@ class DGBookingDetailsView
                 ),
                 verticalSpaceSmall,
                 AppInputField(
+                  fillColor:
+                  (model.isPhoneValid) ? Color(0xFFEDF9F3) : Colors.white,
+                  trailing: (model.isPhoneValid)
+                      ? Container(
+                    margin: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(50)),
+                    child: Icon(
+                      Icons.check,
+                      color: Colors.white,
+                    ),
+                  )
+                      : SizedBox(),
                   hint: phoneVerificationHint,
                   controller: model.phoneController,
                   onChanged: model.secondPageValidation,
@@ -220,7 +281,6 @@ class DGBookingDetailsView
                     ],
                   ),
                 ),
-
 
                 // Offer Done
                 Visibility(

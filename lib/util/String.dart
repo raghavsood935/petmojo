@@ -256,15 +256,15 @@ String threeMonthTwiceRateOld = "Rs.₹38,997/-";
 
 String perWalkRateNew = "FREE";
 String perMonthOnceRateNew = "₹3,800/-";
-String perMonthTwiceRateNew = "₹6,100/-";
-String threeMonthOnceRateNew = "₹10,400/-";
-String threeMonthTwiceRateNew = "₹17,700/-";
+String perMonthTwiceRateNew = "₹6,800/-";
+String threeMonthOnceRateNew = "₹11,200/-";
+String threeMonthTwiceRateNew = "₹20,000/-";
 
 String perWalkRateLabel = "";
 String perMonthOnceRateLabel = "(You save 2,699)";
-String perMonthTwiceRateLabel = "(You save 6,899)";
-String threeMonthOnceRateLabel = "(You save 9,097)";
-String threeMonthTwiceRateLabel = "(You save 21,297)";
+String perMonthTwiceRateLabel = "(You save 6,199)";
+String threeMonthOnceRateLabel = "(You save 8,297)";
+String threeMonthTwiceRateLabel = "(You save 18,997)";
 
 // See more
 
@@ -660,13 +660,13 @@ String firstGroomingRateOld = "₹1,200/-";
 String twoGroomingRateOld = "₹1,400/-";
 String threeGroomingRateOld = "₹2500/-";
 
-String firstGroomingRateNew = "₹749/-";
-String twoGroomingRateNew = "₹949/-";
-String threeGroomingRateNew = "₹1,499/-";
+String firstGroomingRateNew = "₹849/-";
+String twoGroomingRateNew = "₹1249/-";
+String threeGroomingRateNew = "₹1,649/-";
 
-String firstGroomingRateLabel = "(You save 451)";
-String twoGroomingRateLabel = "(You save 451)";
-String threeGroomingRateLabel = "(You save 1,001)";
+String firstGroomingRateLabel = "(You save 351)";
+String twoGroomingRateLabel = "(You save 151)";
+String threeGroomingRateLabel = "(You save 851)";
 
 // See more
 

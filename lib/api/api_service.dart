@@ -138,6 +138,7 @@ import 'package:tamely/models/params/set_runtwo_rating_body.dart';
 import 'package:tamely/models/params/set_testimony_body.dart';
 import 'package:tamely/models/send_data_response.dart';
 import '../models/params/apple_signin_body.dart';
+import '../models/params/set_training_rating_body.dart';
 import 'api_client.dart';
 
 class TamelyApi {

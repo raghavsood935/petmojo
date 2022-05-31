@@ -1,24 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'set_runone_rating_body.dart';
+part of 'set_training_rating_body.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-SetRunOneRatingBody _$SetRunOneRatingBodyFromJson(Map<String, dynamic> json) =>
-    SetRunOneRatingBody(
+SetTrainingRatingBody _$SetTrainingRatingBodyFromJson(
+        Map<String, dynamic> json) =>
+    SetTrainingRatingBody(
       json['bookingDetailsId'] as String,
-      json['date'] as int,
       json['rating'] as int,
-      json['runReport1'] as bool,
+      json['sessionNo'] as int,
     );
 
-Map<String, dynamic> _$SetRunOneRatingBodyToJson(
-        SetRunOneRatingBody instance) =>
+Map<String, dynamic> _$SetTrainingRatingBodyToJson(
+        SetTrainingRatingBody instance) =>
     <String, dynamic>{
       'bookingDetailsId': instance.bookingDetailsId,
-      'date': instance.date,
       'rating': instance.rating,
-      'runReport1': instance.runReport1,
+      'sessionNo': instance.sessionNo,
     };

@@ -158,7 +158,6 @@ class DTPaymentViewModel extends FutureViewModel<void>
 
   Future<void> _handlePaymentSuccess(PaymentSuccessResponse response) async {
     final _dialogService = locator<DialogService>();
-    // DashboardViewModel dashboardObject=DashboardViewModel();
     print("I print: Success");
     _paymentCompleted = true;
     _paymentFailed = false;
@@ -171,7 +170,7 @@ class DTPaymentViewModel extends FutureViewModel<void>
       barrierDismissible: true,
       takesInput: true,
       title: "",
-      description: "Thank you, $userName! Your payment was successful and Your booking is now confirmed.Enjoy your day :)",
+      description: "Thank you, Your payment was successful and Your booking is now confirmed.Enjoy your day :)",
     );
   }
 

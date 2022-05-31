@@ -8,7 +8,7 @@ part of 'api_client.dart';
 
 class _ApiClient implements ApiClient {
   _ApiClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://a97d-2405-201-6015-b113-b404-4669-5379-bd8c.in.ngrok.io/api';
+    baseUrl ??= 'http://3.14.68.70:9000/api/';
   }
 
   final Dio _dio;
@@ -2178,8 +2178,7 @@ class _ApiClient implements ApiClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(setTrainingRatingBody.toJson());
+    final _data = setTrainingRatingBody;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<SendDataResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
