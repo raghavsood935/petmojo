@@ -68,6 +68,9 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
   int _indexToStart = 0;
   int get indexToStart => _indexToStart;
 
+  List<int> _ticks=[];
+  List<int> get Ticks =>_ticks;
+
   int _currentSession = 1;
   int get currentSession => _currentSession;
 
@@ -269,6 +272,14 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
           _bookingStatus = result.data!.bookingStatus!;
           _indexToStart = result.data!.index ?? 0;
           _currentSession = result.data!.index ?? 0;
+
+          List<trainDetailsResponse>? daysRun = result.data!.bookingDetails!.runDetails!;
+          print(daysRun);
+
+          for(var two in daysRun){
+            if(two.sessionStatus==2)
+              _ticks.add(two.sessionNo!);
+          }
           if (serviceStatus == 0) {
             // service not completed
             if (bookingStatus == 0) {

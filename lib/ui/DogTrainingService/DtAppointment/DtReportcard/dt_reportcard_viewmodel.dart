@@ -31,6 +31,15 @@ class DTReportCardViewModel extends FutureViewModel<void>
   int sessionNo;
   String appointmentId;
 
+  int _startTime = 0;
+  int get startTime => _startTime;
+
+  int _endTime = 0;
+  int get endTime => _endTime;
+
+  String startDate="";
+  String endDate="";
+
   DTReportCardViewModel(this.appointmentId, this.sessionNo);
 
   VideoPlayerController? _videoController;
@@ -124,6 +133,26 @@ class DTReportCardViewModel extends FutureViewModel<void>
           _duration = resultOne.data!.details!.duration!;
           _timeIntFormat = resultOne.data!.details!.time!;
           _rating = resultOne.data!.details!.rating!;
+          _startTime = resultOne.data!.details!.startTime!;
+          _endTime = resultOne.data!.details!.endTime!;
+
+
+          //if start time not 0, convert date from epoch to this format ex 12:45
+          //for both _startTime and _endTime
+          if(_startTime!=0){
+            startDate = DateFormat.Hms().format(DateTime.fromMillisecondsSinceEpoch(_startTime));
+            List newList=startDate.split(":");
+            newList.removeAt(2);
+            startDate=convertTo12(newList.join(":"));
+
+
+            newList=[];
+            endDate = DateFormat.Hms().format(DateTime.fromMillisecondsSinceEpoch(_endTime));
+            newList=endDate.split(":");
+            newList.removeAt(2);
+            endDate=convertTo12(newList.join(":"));
+          }
+
           if (rating > 0) {
             _gotRating = true;
           } else if (rating == 0) {
@@ -219,5 +248,13 @@ class DTReportCardViewModel extends FutureViewModel<void>
   Future<void> futureToRun() async {
     getReport();
     log.d("futureToRun");
+  }
+
+  String convertTo12(String hhMM) {
+    String amOrPm="";
+    final arr = hhMM.split(':');
+    final h = int.tryParse(arr[0]);
+    amOrPm=(h! >=12 ?"Pm":"Am");
+    return '${h! > 12 ? h % 12 : h}:${arr[1]} $amOrPm';
   }
 }

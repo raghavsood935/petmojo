@@ -34,6 +34,8 @@ _$_GetTrainingReportDetailsResponse
           picture: json['picture'] as String?,
           video: json['video'] as String?,
           time: json['createdAt'] as int?,
+          startTime: json['startTime'] as int?,
+          endTime: json['endTime'] as int?,
         );
 
 Map<String, dynamic> _$$_GetTrainingReportDetailsResponseToJson(
@@ -45,6 +47,8 @@ Map<String, dynamic> _$$_GetTrainingReportDetailsResponseToJson(
       'picture': instance.picture,
       'video': instance.video,
       'createdAt': instance.time,
+      'startTime': instance.startTime,
+      'endTime': instance.endTime,
     };
 
 _$_GetPetNamesResponse _$$_GetPetNamesResponseFromJson(

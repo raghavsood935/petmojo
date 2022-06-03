@@ -57,6 +57,9 @@ _$_GetBookingDetailsResponse _$$_GetBookingDetailsResponseFromJson(
               json['package'] as Map<String, dynamic>),
       numberOfPets: json['numberOfPets'] as int?,
       startDate: json['startDate'] as String?,
+      runDetails: (json['runDetails'] as List<dynamic>?)
+          ?.map((e) => trainDetailsResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$_GetBookingDetailsResponseToJson(
@@ -66,6 +69,7 @@ Map<String, dynamic> _$$_GetBookingDetailsResponseToJson(
       'package': instance.package,
       'numberOfPets': instance.numberOfPets,
       'startDate': instance.startDate,
+      'runDetails': instance.runDetails,
     };
 
 _$_LocationResponse _$$_LocationResponseFromJson(Map<String, dynamic> json) =>
@@ -84,6 +88,20 @@ Map<String, dynamic> _$$_LocationResponseToJson(_$_LocationResponse instance) =>
       'state': instance.state,
       'city': instance.city,
       'pinCode': instance.pinCode,
+    };
+
+_$_trainDetailsResponse _$$_trainDetailsResponseFromJson(
+        Map<String, dynamic> json) =>
+    _$_trainDetailsResponse(
+      sessionNo: json['sessionNo'] as int?,
+      sessionStatus: json['sessionStatus'] as int?,
+    );
+
+Map<String, dynamic> _$$_trainDetailsResponseToJson(
+        _$_trainDetailsResponse instance) =>
+    <String, dynamic>{
+      'sessionNo': instance.sessionNo,
+      'sessionStatus': instance.sessionStatus,
     };
 
 _$_PackageResponse _$$_PackageResponseFromJson(Map<String, dynamic> json) =>

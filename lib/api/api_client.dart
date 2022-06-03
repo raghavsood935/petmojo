@@ -350,7 +350,7 @@ class Apis {
 // @RestApi(baseUrl: "https://tamely.herokuapp.com/api/")
 @RestApi(
     baseUrl:
-        "http://3.14.68.70:9000/api/")
+    "https://6xdmb7fadb.execute-api.ap-south-1.amazonaws.com/production/api/")
 abstract class ApiClient {
   factory ApiClient(Dio dio, {String baseUrl}) = _ApiClient;
 

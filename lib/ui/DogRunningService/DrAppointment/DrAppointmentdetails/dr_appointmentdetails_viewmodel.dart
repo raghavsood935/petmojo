@@ -55,6 +55,7 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
   int _serviceStatus = 0;
 
   int _numberOfPets = 1;
+  List<DateTime> _noTickDates=[];
   List<String> _dogs = ["", ""];
   List<String> _dogIds = ["", ""];
   List<String> _dogsSize = ["", ""];
@@ -98,6 +99,7 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
   List<String> get dogs => _dogs;
   List<String> get dogIds => _dogIds;
   int get numberOfPets => _numberOfPets;
+  List<DateTime> get noTickDates => _noTickDates;
   int get serviceStatus => _serviceStatus;
   int get bookingStatus => _bookingStatus;
   List<String> get dogsSize => _dogsSize;
@@ -651,8 +653,15 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
           _daysOff.clear();
           if (_numberOfDays != 1) {
             List<DayOffResponse>? days = result.data!.bookingDetails!.daysOff;
+            List<runDetailsResponse>? daysRun = result.data!.bookingDetails!.runDetails;
+
             for (var one in days!) {
               _daysOff.add(DateTime.parse(one.off!));
+            }
+            
+            for(var two in daysRun!){
+              if(two.run2Status!=2 && two.run1Status!=2)
+                _noTickDates.add(DateTime.parse(two.runDate!));
             }
           } else if (_numberOfDays == 1) {
             for (int a = 1; a <= 6; a++) {

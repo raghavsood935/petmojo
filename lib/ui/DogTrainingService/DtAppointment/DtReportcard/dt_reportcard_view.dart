@@ -203,6 +203,16 @@ class DTReportCardView extends StatelessWidget {
                           detailValue: "${model.sessionNo}",
                         ),
                         verticalSpaceSmall,
+                        ((model.startTime!=0))?BookingItem(
+                          detailName: "Start Date",
+                          detailValue: "${model.startDate}",
+                        ):Container(),
+                        verticalSpaceSmall,
+                        (model.startTime!=0)?BookingItem(
+                          detailName: "End Date",
+                          detailValue: "${model.endDate}",
+                        ):Container(),
+                        verticalSpaceSmall,
                       ],
                     ),
                   ),

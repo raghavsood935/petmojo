@@ -465,6 +465,7 @@ Widget servicesItem(BuildContext context, ServicesModel model) {
           color: model.bgColor,
           height: screenWidthPercentage(context, percentage: 0.28),
         ),
+        (model.title=="Walking/Exercise")?AppText.bodyBold("Daily Dog"):Container(),
         AppText.bodyBold(model.title ?? ""),
       ],
     ),

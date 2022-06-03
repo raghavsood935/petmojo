@@ -155,7 +155,7 @@ class DTAppointmentDetailsView extends StatelessWidget {
                                       ? colors.white
                                       : colors.black,
                                 ),
-                                if (model.indexToStart > index + 1) Text("✅")
+                                if (isInTicks(model.Ticks,index+1)) Text("✅")
                               ],
                             ),
                           ),
@@ -382,6 +382,14 @@ class DTAppointmentDetailsView extends StatelessWidget {
       ),
       viewModelBuilder: () => DTAppointmentDetailsViewModel(appointmentId),
     );
+  }
+
+  isInTicks(List<int> ticks, int i) {
+    for(var mySessionNumber in ticks){
+      if(i==mySessionNumber)
+        return true;
+    }
+    return false;
   }
 }
 

@@ -317,7 +317,7 @@ class DRBookingDetailsView
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    AppText.titleBold("Offer Applied"),
+                    AppText.titleBold("Coupon Applied"),
                     AppText.titleBold("- ₹ ${model.savedAmount}"),
                   ],
                 ),

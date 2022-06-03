@@ -338,9 +338,9 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
       _isValid = true;
       _description = "Haircut and Styling";
       _subtitle = twoGroomingSubtitleOne;
-      _subTotal = 1400;
-      _amount = 1249;
-      _discount = 151;
+      _subTotal = 2130;
+      _amount = 1640;
+      _discount = 490;
       _frequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = true;
@@ -349,9 +349,9 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
       _isValid = true;
       _description = "Bath and Full Haircut";
       _subtitle = threeGroomingSubtitleOne;
-      _subTotal = 2500;
-      _amount = 1649;
-      _discount = 851;
+      _subTotal = 2900;
+      _amount = 2240;
+      _discount = 660;
       _frequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = true;

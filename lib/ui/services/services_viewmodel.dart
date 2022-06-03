@@ -33,7 +33,7 @@ class ServicesViewModel extends BaseModel {
 
   List<ServicesModel> _listOfServices = [
     ServicesModel(
-      title: "Dog Running",
+      title: "Walking/Exercise",
       imgPath: "assets/images/dog_walking.png",
       isHigDemand: true,
       bgColor: Color(0xFFFEDFDD),

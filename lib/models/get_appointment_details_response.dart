@@ -41,6 +41,7 @@ class GetBookingDetailsResponse with _$GetBookingDetailsResponse {
     @JsonKey(name: "run2") String? run2Time,
     @JsonKey(name: "startDate") String? startDate,
     @JsonKey(name: "dayOff") List<DayOffResponse>? daysOff,
+    @JsonKey(name: "runDetails") List<runDetailsResponse>? runDetails,
   }) = _GetBookingDetailsResponse;
 
   factory GetBookingDetailsResponse.fromJson(Map<String, dynamic> json) =>
@@ -74,6 +75,22 @@ class DayOffResponse with _$DayOffResponse {
   factory DayOffResponse.fromJson(Map<String, dynamic> json) =>
       _$DayOffResponseFromJson(json);
 }
+
+@freezed
+class runDetailsResponse with _$runDetailsResponse {
+  runDetailsResponse._();
+
+  factory runDetailsResponse({
+    @JsonKey(name: "run2Status") int? run2Status,
+    @JsonKey(name: "run1Status") int? run1Status,
+    @JsonKey(name: "runDate") String? runDate,
+  }) = _runDetailsResponse;
+
+  factory runDetailsResponse.fromJson(Map<String, dynamic> json) =>
+      _$runDetailsResponseFromJson(json);
+}
+
+
 
 @freezed
 class PetSizeResponse with _$PetSizeResponse {

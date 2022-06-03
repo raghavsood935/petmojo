@@ -11,6 +11,9 @@ class CustomDatePicker extends StatefulWidget {
   /// If not provided calendar will start from the initialSelectedDate
   final DateTime startDate;
 
+  ///
+  final List<DateTime>? noTickDates;
+
   /// Width of the selector
   final double width;
 
@@ -78,7 +81,7 @@ class CustomDatePicker extends StatefulWidget {
     this.inactiveDates,
     this.daysCount = 500,
     this.onDateChange,
-    this.locale = "en_US",
+    required this.noTickDates, this.locale = "en_US",
   }) : assert(
             activeDates == null || inactiveDates == null,
             "Can't "
@@ -206,7 +209,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                 _currentDate = selectedDate;
               });
             },
-            isCompleted: (date.isBefore(DateTime.now()) & !isDeactivated),
+            isCompleted: (date.isBefore(DateTime.now()) && !isDeactivated && !isInNoTicks(date)),
 
           );
         },
@@ -220,6 +223,14 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
     return date1.day == date2.day &&
         date1.month == date2.month &&
         date1.year == date2.year;
+  }
+
+  bool isInNoTicks(DateTime date) {
+    for(var myDate in widget.noTickDates!){
+      if(date.compareTo(myDate)==0)
+          return true;
+    }
+    return false;
   }
 }
 
