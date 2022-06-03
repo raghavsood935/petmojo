@@ -514,12 +514,15 @@ class _$GetTrainingBookingDetailsResponseTearOff {
       @JsonKey(name: "numberOfPets")
           int? numberOfPets,
       @JsonKey(name: "startDate")
-          String? startDate}) {
+          String? startDate,
+      @JsonKey(name: "runDetails")
+          List<trainDetailsResponse>? runDetails}) {
     return _GetBookingDetailsResponse(
       petRunningLocation: petRunningLocation,
       package: package,
       numberOfPets: numberOfPets,
       startDate: startDate,
+      runDetails: runDetails,
     );
   }
 
@@ -543,6 +546,9 @@ mixin _$GetTrainingBookingDetailsResponse {
   int? get numberOfPets => throw _privateConstructorUsedError;
   @JsonKey(name: "startDate")
   String? get startDate => throw _privateConstructorUsedError;
+  @JsonKey(name: "runDetails")
+  List<trainDetailsResponse>? get runDetails =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -564,7 +570,9 @@ abstract class $GetTrainingBookingDetailsResponseCopyWith<$Res> {
       @JsonKey(name: "numberOfPets")
           int? numberOfPets,
       @JsonKey(name: "startDate")
-          String? startDate});
+          String? startDate,
+      @JsonKey(name: "runDetails")
+          List<trainDetailsResponse>? runDetails});
 
   $LocationResponseCopyWith<$Res>? get petRunningLocation;
   $TrainingPackageResponseCopyWith<$Res>? get package;
@@ -585,6 +593,7 @@ class _$GetTrainingBookingDetailsResponseCopyWithImpl<$Res>
     Object? package = freezed,
     Object? numberOfPets = freezed,
     Object? startDate = freezed,
+    Object? runDetails = freezed,
   }) {
     return _then(_value.copyWith(
       petRunningLocation: petRunningLocation == freezed
@@ -603,6 +612,10 @@ class _$GetTrainingBookingDetailsResponseCopyWithImpl<$Res>
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
               as String?,
+      runDetails: runDetails == freezed
+          ? _value.runDetails
+          : runDetails // ignore: cast_nullable_to_non_nullable
+              as List<trainDetailsResponse>?,
     ));
   }
 
@@ -644,7 +657,9 @@ abstract class _$GetBookingDetailsResponseCopyWith<$Res>
       @JsonKey(name: "numberOfPets")
           int? numberOfPets,
       @JsonKey(name: "startDate")
-          String? startDate});
+          String? startDate,
+      @JsonKey(name: "runDetails")
+          List<trainDetailsResponse>? runDetails});
 
   @override
   $LocationResponseCopyWith<$Res>? get petRunningLocation;
@@ -670,6 +685,7 @@ class __$GetBookingDetailsResponseCopyWithImpl<$Res>
     Object? package = freezed,
     Object? numberOfPets = freezed,
     Object? startDate = freezed,
+    Object? runDetails = freezed,
   }) {
     return _then(_GetBookingDetailsResponse(
       petRunningLocation: petRunningLocation == freezed
@@ -688,6 +704,10 @@ class __$GetBookingDetailsResponseCopyWithImpl<$Res>
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
               as String?,
+      runDetails: runDetails == freezed
+          ? _value.runDetails
+          : runDetails // ignore: cast_nullable_to_non_nullable
+              as List<trainDetailsResponse>?,
     ));
   }
 }
@@ -699,7 +719,8 @@ class _$_GetBookingDetailsResponse extends _GetBookingDetailsResponse {
       {@JsonKey(name: "petRunningLocation") this.petRunningLocation,
       @JsonKey(name: "package") this.package,
       @JsonKey(name: "numberOfPets") this.numberOfPets,
-      @JsonKey(name: "startDate") this.startDate})
+      @JsonKey(name: "startDate") this.startDate,
+      @JsonKey(name: "runDetails") this.runDetails})
       : super._();
 
   factory _$_GetBookingDetailsResponse.fromJson(Map<String, dynamic> json) =>
@@ -717,10 +738,13 @@ class _$_GetBookingDetailsResponse extends _GetBookingDetailsResponse {
   @override
   @JsonKey(name: "startDate")
   final String? startDate;
+  @override
+  @JsonKey(name: "runDetails")
+  final List<trainDetailsResponse>? runDetails;
 
   @override
   String toString() {
-    return 'GetTrainingBookingDetailsResponse(petRunningLocation: $petRunningLocation, package: $package, numberOfPets: $numberOfPets, startDate: $startDate)';
+    return 'GetTrainingBookingDetailsResponse(petRunningLocation: $petRunningLocation, package: $package, numberOfPets: $numberOfPets, startDate: $startDate, runDetails: $runDetails)';
   }
 
   @override
@@ -733,7 +757,9 @@ class _$_GetBookingDetailsResponse extends _GetBookingDetailsResponse {
             const DeepCollectionEquality().equals(other.package, package) &&
             const DeepCollectionEquality()
                 .equals(other.numberOfPets, numberOfPets) &&
-            const DeepCollectionEquality().equals(other.startDate, startDate));
+            const DeepCollectionEquality().equals(other.startDate, startDate) &&
+            const DeepCollectionEquality()
+                .equals(other.runDetails, runDetails));
   }
 
   @override
@@ -742,7 +768,8 @@ class _$_GetBookingDetailsResponse extends _GetBookingDetailsResponse {
       const DeepCollectionEquality().hash(petRunningLocation),
       const DeepCollectionEquality().hash(package),
       const DeepCollectionEquality().hash(numberOfPets),
-      const DeepCollectionEquality().hash(startDate));
+      const DeepCollectionEquality().hash(startDate),
+      const DeepCollectionEquality().hash(runDetails));
 
   @JsonKey(ignore: true)
   @override
@@ -760,14 +787,17 @@ class _$_GetBookingDetailsResponse extends _GetBookingDetailsResponse {
 abstract class _GetBookingDetailsResponse
     extends GetTrainingBookingDetailsResponse {
   factory _GetBookingDetailsResponse(
-      {@JsonKey(name: "petRunningLocation")
-          LocationResponse? petRunningLocation,
-      @JsonKey(name: "package")
-          TrainingPackageResponse? package,
-      @JsonKey(name: "numberOfPets")
-          int? numberOfPets,
-      @JsonKey(name: "startDate")
-          String? startDate}) = _$_GetBookingDetailsResponse;
+          {@JsonKey(name: "petRunningLocation")
+              LocationResponse? petRunningLocation,
+          @JsonKey(name: "package")
+              TrainingPackageResponse? package,
+          @JsonKey(name: "numberOfPets")
+              int? numberOfPets,
+          @JsonKey(name: "startDate")
+              String? startDate,
+          @JsonKey(name: "runDetails")
+              List<trainDetailsResponse>? runDetails}) =
+      _$_GetBookingDetailsResponse;
   _GetBookingDetailsResponse._() : super._();
 
   factory _GetBookingDetailsResponse.fromJson(Map<String, dynamic> json) =
@@ -785,6 +815,9 @@ abstract class _GetBookingDetailsResponse
   @override
   @JsonKey(name: "startDate")
   String? get startDate;
+  @override
+  @JsonKey(name: "runDetails")
+  List<trainDetailsResponse>? get runDetails;
   @override
   @JsonKey(ignore: true)
   _$GetBookingDetailsResponseCopyWith<_GetBookingDetailsResponse>
@@ -1054,6 +1087,195 @@ abstract class _LocationResponse extends LocationResponse {
   @override
   @JsonKey(ignore: true)
   _$LocationResponseCopyWith<_LocationResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+trainDetailsResponse _$trainDetailsResponseFromJson(Map<String, dynamic> json) {
+  return _trainDetailsResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$trainDetailsResponseTearOff {
+  const _$trainDetailsResponseTearOff();
+
+  _trainDetailsResponse call(
+      {@JsonKey(name: "sessionNo") int? sessionNo,
+      @JsonKey(name: "sessionStatus") int? sessionStatus}) {
+    return _trainDetailsResponse(
+      sessionNo: sessionNo,
+      sessionStatus: sessionStatus,
+    );
+  }
+
+  trainDetailsResponse fromJson(Map<String, Object?> json) {
+    return trainDetailsResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $trainDetailsResponse = _$trainDetailsResponseTearOff();
+
+/// @nodoc
+mixin _$trainDetailsResponse {
+  @JsonKey(name: "sessionNo")
+  int? get sessionNo => throw _privateConstructorUsedError;
+  @JsonKey(name: "sessionStatus")
+  int? get sessionStatus => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $trainDetailsResponseCopyWith<trainDetailsResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $trainDetailsResponseCopyWith<$Res> {
+  factory $trainDetailsResponseCopyWith(trainDetailsResponse value,
+          $Res Function(trainDetailsResponse) then) =
+      _$trainDetailsResponseCopyWithImpl<$Res>;
+  $Res call(
+      {@JsonKey(name: "sessionNo") int? sessionNo,
+      @JsonKey(name: "sessionStatus") int? sessionStatus});
+}
+
+/// @nodoc
+class _$trainDetailsResponseCopyWithImpl<$Res>
+    implements $trainDetailsResponseCopyWith<$Res> {
+  _$trainDetailsResponseCopyWithImpl(this._value, this._then);
+
+  final trainDetailsResponse _value;
+  // ignore: unused_field
+  final $Res Function(trainDetailsResponse) _then;
+
+  @override
+  $Res call({
+    Object? sessionNo = freezed,
+    Object? sessionStatus = freezed,
+  }) {
+    return _then(_value.copyWith(
+      sessionNo: sessionNo == freezed
+          ? _value.sessionNo
+          : sessionNo // ignore: cast_nullable_to_non_nullable
+              as int?,
+      sessionStatus: sessionStatus == freezed
+          ? _value.sessionStatus
+          : sessionStatus // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$trainDetailsResponseCopyWith<$Res>
+    implements $trainDetailsResponseCopyWith<$Res> {
+  factory _$trainDetailsResponseCopyWith(_trainDetailsResponse value,
+          $Res Function(_trainDetailsResponse) then) =
+      __$trainDetailsResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {@JsonKey(name: "sessionNo") int? sessionNo,
+      @JsonKey(name: "sessionStatus") int? sessionStatus});
+}
+
+/// @nodoc
+class __$trainDetailsResponseCopyWithImpl<$Res>
+    extends _$trainDetailsResponseCopyWithImpl<$Res>
+    implements _$trainDetailsResponseCopyWith<$Res> {
+  __$trainDetailsResponseCopyWithImpl(
+      _trainDetailsResponse _value, $Res Function(_trainDetailsResponse) _then)
+      : super(_value, (v) => _then(v as _trainDetailsResponse));
+
+  @override
+  _trainDetailsResponse get _value => super._value as _trainDetailsResponse;
+
+  @override
+  $Res call({
+    Object? sessionNo = freezed,
+    Object? sessionStatus = freezed,
+  }) {
+    return _then(_trainDetailsResponse(
+      sessionNo: sessionNo == freezed
+          ? _value.sessionNo
+          : sessionNo // ignore: cast_nullable_to_non_nullable
+              as int?,
+      sessionStatus: sessionStatus == freezed
+          ? _value.sessionStatus
+          : sessionStatus // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_trainDetailsResponse extends _trainDetailsResponse {
+  _$_trainDetailsResponse(
+      {@JsonKey(name: "sessionNo") this.sessionNo,
+      @JsonKey(name: "sessionStatus") this.sessionStatus})
+      : super._();
+
+  factory _$_trainDetailsResponse.fromJson(Map<String, dynamic> json) =>
+      _$$_trainDetailsResponseFromJson(json);
+
+  @override
+  @JsonKey(name: "sessionNo")
+  final int? sessionNo;
+  @override
+  @JsonKey(name: "sessionStatus")
+  final int? sessionStatus;
+
+  @override
+  String toString() {
+    return 'trainDetailsResponse(sessionNo: $sessionNo, sessionStatus: $sessionStatus)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _trainDetailsResponse &&
+            const DeepCollectionEquality().equals(other.sessionNo, sessionNo) &&
+            const DeepCollectionEquality()
+                .equals(other.sessionStatus, sessionStatus));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(sessionNo),
+      const DeepCollectionEquality().hash(sessionStatus));
+
+  @JsonKey(ignore: true)
+  @override
+  _$trainDetailsResponseCopyWith<_trainDetailsResponse> get copyWith =>
+      __$trainDetailsResponseCopyWithImpl<_trainDetailsResponse>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_trainDetailsResponseToJson(this);
+  }
+}
+
+abstract class _trainDetailsResponse extends trainDetailsResponse {
+  factory _trainDetailsResponse(
+          {@JsonKey(name: "sessionNo") int? sessionNo,
+          @JsonKey(name: "sessionStatus") int? sessionStatus}) =
+      _$_trainDetailsResponse;
+  _trainDetailsResponse._() : super._();
+
+  factory _trainDetailsResponse.fromJson(Map<String, dynamic> json) =
+      _$_trainDetailsResponse.fromJson;
+
+  @override
+  @JsonKey(name: "sessionNo")
+  int? get sessionNo;
+  @override
+  @JsonKey(name: "sessionStatus")
+  int? get sessionStatus;
+  @override
+  @JsonKey(ignore: true)
+  _$trainDetailsResponseCopyWith<_trainDetailsResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

@@ -20,7 +20,7 @@ import 'package:tamely/ui/DogTrainingService/DtAppointment/DtReportcard/dt_repor
 import 'package:tamely/ui/DogTrainingService/DtBookingService/DtBooking/dt_dogtrainingbooking_view.dart';
 import 'package:tamely/ui/DogTrainingService/DtBookingService/DtOpening/dt_opening_view.dart';
 import 'package:tamely/ui/DogTrainingService/DtBookingService/DtPayment/dt_payment_view.dart';
-import 'package:tamely/ui/MyAppointments/appointments_view.dart';
+import 'package:tamely/ui/myActiveAppointments/appointments_view.dart';
 import 'package:tamely/ui/chat/chat_view.dart';
 import 'package:tamely/ui/community/community_main_view/adoption/adoption_view.dart';
 import 'package:tamely/ui/community/community_main_view/community_main_view.dart';
@@ -54,6 +54,7 @@ import 'package:tamely/ui/groups/manage_group/manage_group_view.dart';
 import 'package:tamely/ui/groups/manage_group/members/member_view.dart';
 import 'package:tamely/ui/groups/trending_groups/trending_groups_view.dart';
 import 'package:tamely/ui/login/login_view.dart';
+import 'package:tamely/ui/myPastAppointments/past_appointments_view.dart';
 import 'package:tamely/ui/newpost/newpostLocation/newpostLocation_view.dart';
 import 'package:tamely/ui/newpost/newpost_view.dart';
 import 'package:tamely/ui/notification/notification_main_page.dart';
@@ -174,6 +175,7 @@ import '../ui/wallet/wallet_view.dart';
 
     // Services
     CupertinoRoute(page: AppointmentsView), // (Edit)
+    CupertinoRoute(page: MyPastAppointmentsView),
     CupertinoRoute(page: VideosSectionView),
 
     // 1 - Dog Running service

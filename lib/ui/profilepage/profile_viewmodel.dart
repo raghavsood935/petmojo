@@ -117,6 +117,7 @@ class ProfileViewModel extends BaseViewModel {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     if (_editedImage == null) {
       _snackBarService.showSnackbar(message: "Image is empty");
+      return;
     }
     if (await Util.checkInternetConnectivity()) {
       String awsKey = await _uploadService.uploadFile(

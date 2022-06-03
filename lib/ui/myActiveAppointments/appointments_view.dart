@@ -12,7 +12,6 @@ import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/services_preview_sliding.dart';
 import 'Activeappointments/activeappointments_view.dart';
-import 'Pastappointments/pastappointments_view.dart';
 import 'appointments_viewmodel.dart';
 
 class AppointmentsView extends StatelessWidget {
@@ -32,9 +31,9 @@ class AppointmentsView extends StatelessWidget {
                   : EdgeInsets.zero,
               child: model.hasAppointments
                   ? Column(
-                    children: [
-                      DefaultTabController(
-                          length: 2,
+                      children: [
+                        DefaultTabController(
+                          length: 1,
                           child: Flexible(
                             child: Scaffold(
                               backgroundColor: colors.white,
@@ -45,22 +44,18 @@ class AppointmentsView extends StatelessWidget {
                                   Tab(
                                     text: activeAppointmentsTitle,
                                   ),
-                                  Tab(
-                                    text: pastAppointmentsTitle,
-                                  ),
                                 ],
                               ),
                               body: TabBarView(
                                 children: [
                                   ActiveAppointmentsView(),
-                                  PastAppointmentsView(),
                                 ],
                               ),
                             ),
                           ),
                         ),
-                    ],
-                  )
+                      ],
+                    )
                   : SingleChildScrollView(
                       physics: ScrollPhysics(),
                       child: Column(

@@ -333,7 +333,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             if (numberOfDaysLeft! <= 5 &&
                 subscriptionType != "Free" &&
                 isReorderDone == false) {
-              newAppointment.showReorder = true;
+              newAppointment.showReorder = false;
             } else {
               newAppointment.showReorder = false;
             }

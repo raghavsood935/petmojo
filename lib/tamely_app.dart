@@ -17,7 +17,7 @@ import 'package:tamely/ui/DogRunningService/DrAppointment/DrReportcard/dr_report
 import 'package:tamely/ui/DogTrainingService/DtAppointment/DtAppointmentdetails/dt_appointmentdetails_view.dart';
 import 'package:tamely/ui/DogTrainingService/DtAppointment/DtReportcard/dt_reportcard_view.dart';
 import 'package:tamely/ui/DogTrainingService/DtAppointment/DtReportcard/dt_reportcard_viewmodel.dart';
-import 'package:tamely/ui/MyAppointments/appointments_view.dart';
+import 'package:tamely/ui/myActiveAppointments/appointments_view.dart';
 import 'package:tamely/ui/dashboard/dashboard.dart';
 import 'package:tamely/ui/startup/startup_view.dart';
 import 'package:tamely/util/Color.dart';
@@ -86,7 +86,7 @@ class _TamelyAppState extends State<TamelyApp> {
 
 
                   //common Parameter
-                  var appointmentId=message.data['appointmentId'];
+                  var appointmentId=message.data['DogTrainingbookingDetailsId'];
 
 
                   //For Dog Running

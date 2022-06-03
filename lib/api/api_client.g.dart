@@ -2175,6 +2175,24 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<SendDataResponse> setTrainingRating(setTrainingRatingBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(setTrainingRatingBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<SendDataResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options,
+                    '/serviceBooking/giveRatingstoeachTrainingsession',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = SendDataResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<CouponResponse> getCouponAmount(couponBody) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

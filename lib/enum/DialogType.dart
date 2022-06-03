@@ -7,5 +7,6 @@ enum DialogType {
   TrainingOfferDialog,
   WalkingOfferDialog,
   GroomingOfferDialog,
-  GPSWaitlistDialog
+  GPSWaitlistDialog,
+  PaymentSuccessful
 }

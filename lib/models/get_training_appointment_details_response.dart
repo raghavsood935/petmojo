@@ -38,6 +38,7 @@ class GetTrainingBookingDetailsResponse
     @JsonKey(name: "package") TrainingPackageResponse? package,
     @JsonKey(name: "numberOfPets") int? numberOfPets,
     @JsonKey(name: "startDate") String? startDate,
+    @JsonKey(name: "runDetails") List<trainDetailsResponse>? runDetails,
   }) = _GetBookingDetailsResponse;
 
   factory GetTrainingBookingDetailsResponse.fromJson(
@@ -59,6 +60,19 @@ class LocationResponse with _$LocationResponse {
 
   factory LocationResponse.fromJson(Map<String, dynamic> json) =>
       _$LocationResponseFromJson(json);
+}
+
+@freezed
+class trainDetailsResponse with _$trainDetailsResponse {
+  trainDetailsResponse._();
+
+  factory trainDetailsResponse({
+    @JsonKey(name: "sessionNo") int? sessionNo,
+    @JsonKey(name: "sessionStatus") int? sessionStatus,
+  }) = _trainDetailsResponse;
+
+  factory trainDetailsResponse.fromJson(Map<String, dynamic> json) =>
+      _$trainDetailsResponseFromJson(json);
 }
 
 @freezed

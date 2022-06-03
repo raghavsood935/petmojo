@@ -68,6 +68,9 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
   int _indexToStart = 0;
   int get indexToStart => _indexToStart;
 
+  List<int> _ticks=[];
+  List<int> get Ticks =>_ticks;
+
   int _currentSession = 1;
   int get currentSession => _currentSession;
 
@@ -156,7 +159,7 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
     if (_walkStatusOne == WalkStatus.showReport) {
       _showLiveOne = false;
       _showUpcomingOne = false;
-      _showReportOne = false;
+      _showReportOne = true;
     } else if (_walkStatusOne == WalkStatus.showUpcoming) {
       _showLiveOne = false;
       _showUpcomingOne = true;
@@ -223,14 +226,14 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
                 throwException: true);
         if (result.data != null) {
           int? scroll = result.data!.trainingStatus;
-          print(scroll);
-          if (scroll == 0) {
+          if (scroll == 0 || scroll==3) {
             // upcoming
             _walkStatusOne = WalkStatus.showUpcoming;
           } else if (scroll == 2) {
             // Completed
             _walkStatusOne = WalkStatus.showReport;
           }
+          notifyListeners();
           walkOneStatus();
           notifyListeners();
         }
@@ -249,13 +252,12 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
 
   //
   void sessionSelected(session) {
-    print(session);
-    getScrollStatus(session);
+    getScrollStatus(_currentSession);
     notifyListeners();
   }
 
   void getAppointments() async {
-    print("4");
+
     try {
       if (await Util.checkInternetConnectivity()) {
         _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
@@ -270,6 +272,14 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
           _bookingStatus = result.data!.bookingStatus!;
           _indexToStart = result.data!.index ?? 0;
           _currentSession = result.data!.index ?? 0;
+
+          List<trainDetailsResponse>? daysRun = result.data!.bookingDetails!.runDetails!;
+          print(daysRun);
+
+          for(var two in daysRun){
+            if(two.sessionStatus==2)
+              _ticks.add(two.sessionNo!);
+          }
           if (serviceStatus == 0) {
             // service not completed
             if (bookingStatus == 0) {

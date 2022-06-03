@@ -71,7 +71,7 @@ const TextStyle overlineStyle = TextStyle(
 
 const TextStyle tinyStyle = TextStyle(
   fontSize: 8,
-  fontWeight: FontWeight.normal,
+  fontWeight: FontWeight.bold,
 );
 
 const TextStyle tinyPlusStyle = TextStyle(

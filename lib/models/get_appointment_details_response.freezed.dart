@@ -486,7 +486,8 @@ class _$GetBookingDetailsResponseTearOff {
       @JsonKey(name: "run1") String? run1Time,
       @JsonKey(name: "run2") String? run2Time,
       @JsonKey(name: "startDate") String? startDate,
-      @JsonKey(name: "dayOff") List<DayOffResponse>? daysOff}) {
+      @JsonKey(name: "dayOff") List<DayOffResponse>? daysOff,
+      @JsonKey(name: "runDetails") List<runDetailsResponse>? runDetails}) {
     return _GetBookingDetailsResponse(
       petBehaviour: petBehaviour,
       petRunningLocation: petRunningLocation,
@@ -499,6 +500,7 @@ class _$GetBookingDetailsResponseTearOff {
       run2Time: run2Time,
       startDate: startDate,
       daysOff: daysOff,
+      runDetails: runDetails,
     );
   }
 
@@ -535,6 +537,9 @@ mixin _$GetBookingDetailsResponse {
   String? get startDate => throw _privateConstructorUsedError;
   @JsonKey(name: "dayOff")
   List<DayOffResponse>? get daysOff => throw _privateConstructorUsedError;
+  @JsonKey(name: "runDetails")
+  List<runDetailsResponse>? get runDetails =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -558,7 +563,8 @@ abstract class $GetBookingDetailsResponseCopyWith<$Res> {
       @JsonKey(name: "run1") String? run1Time,
       @JsonKey(name: "run2") String? run2Time,
       @JsonKey(name: "startDate") String? startDate,
-      @JsonKey(name: "dayOff") List<DayOffResponse>? daysOff});
+      @JsonKey(name: "dayOff") List<DayOffResponse>? daysOff,
+      @JsonKey(name: "runDetails") List<runDetailsResponse>? runDetails});
 
   $PetBehaviourResponseCopyWith<$Res>? get petBehaviour;
   $LocationResponseCopyWith<$Res>? get petRunningLocation;
@@ -587,6 +593,7 @@ class _$GetBookingDetailsResponseCopyWithImpl<$Res>
     Object? run2Time = freezed,
     Object? startDate = freezed,
     Object? daysOff = freezed,
+    Object? runDetails = freezed,
   }) {
     return _then(_value.copyWith(
       petBehaviour: petBehaviour == freezed
@@ -633,6 +640,10 @@ class _$GetBookingDetailsResponseCopyWithImpl<$Res>
           ? _value.daysOff
           : daysOff // ignore: cast_nullable_to_non_nullable
               as List<DayOffResponse>?,
+      runDetails: runDetails == freezed
+          ? _value.runDetails
+          : runDetails // ignore: cast_nullable_to_non_nullable
+              as List<runDetailsResponse>?,
     ));
   }
 
@@ -688,7 +699,8 @@ abstract class _$GetBookingDetailsResponseCopyWith<$Res>
       @JsonKey(name: "run1") String? run1Time,
       @JsonKey(name: "run2") String? run2Time,
       @JsonKey(name: "startDate") String? startDate,
-      @JsonKey(name: "dayOff") List<DayOffResponse>? daysOff});
+      @JsonKey(name: "dayOff") List<DayOffResponse>? daysOff,
+      @JsonKey(name: "runDetails") List<runDetailsResponse>? runDetails});
 
   @override
   $PetBehaviourResponseCopyWith<$Res>? get petBehaviour;
@@ -723,6 +735,7 @@ class __$GetBookingDetailsResponseCopyWithImpl<$Res>
     Object? run2Time = freezed,
     Object? startDate = freezed,
     Object? daysOff = freezed,
+    Object? runDetails = freezed,
   }) {
     return _then(_GetBookingDetailsResponse(
       petBehaviour: petBehaviour == freezed
@@ -769,6 +782,10 @@ class __$GetBookingDetailsResponseCopyWithImpl<$Res>
           ? _value.daysOff
           : daysOff // ignore: cast_nullable_to_non_nullable
               as List<DayOffResponse>?,
+      runDetails: runDetails == freezed
+          ? _value.runDetails
+          : runDetails // ignore: cast_nullable_to_non_nullable
+              as List<runDetailsResponse>?,
     ));
   }
 }
@@ -787,7 +804,8 @@ class _$_GetBookingDetailsResponse extends _GetBookingDetailsResponse {
       @JsonKey(name: "run1") this.run1Time,
       @JsonKey(name: "run2") this.run2Time,
       @JsonKey(name: "startDate") this.startDate,
-      @JsonKey(name: "dayOff") this.daysOff})
+      @JsonKey(name: "dayOff") this.daysOff,
+      @JsonKey(name: "runDetails") this.runDetails})
       : super._();
 
   factory _$_GetBookingDetailsResponse.fromJson(Map<String, dynamic> json) =>
@@ -826,10 +844,13 @@ class _$_GetBookingDetailsResponse extends _GetBookingDetailsResponse {
   @override
   @JsonKey(name: "dayOff")
   final List<DayOffResponse>? daysOff;
+  @override
+  @JsonKey(name: "runDetails")
+  final List<runDetailsResponse>? runDetails;
 
   @override
   String toString() {
-    return 'GetBookingDetailsResponse(petBehaviour: $petBehaviour, petRunningLocation: $petRunningLocation, package: $package, numberOfPets: $numberOfPets, petDetails: $petDetails, specialInstructions: $specialInstructions, phone: $phone, run1Time: $run1Time, run2Time: $run2Time, startDate: $startDate, daysOff: $daysOff)';
+    return 'GetBookingDetailsResponse(petBehaviour: $petBehaviour, petRunningLocation: $petRunningLocation, package: $package, numberOfPets: $numberOfPets, petDetails: $petDetails, specialInstructions: $specialInstructions, phone: $phone, run1Time: $run1Time, run2Time: $run2Time, startDate: $startDate, daysOff: $daysOff, runDetails: $runDetails)';
   }
 
   @override
@@ -852,7 +873,9 @@ class _$_GetBookingDetailsResponse extends _GetBookingDetailsResponse {
             const DeepCollectionEquality().equals(other.run1Time, run1Time) &&
             const DeepCollectionEquality().equals(other.run2Time, run2Time) &&
             const DeepCollectionEquality().equals(other.startDate, startDate) &&
-            const DeepCollectionEquality().equals(other.daysOff, daysOff));
+            const DeepCollectionEquality().equals(other.daysOff, daysOff) &&
+            const DeepCollectionEquality()
+                .equals(other.runDetails, runDetails));
   }
 
   @override
@@ -868,7 +891,8 @@ class _$_GetBookingDetailsResponse extends _GetBookingDetailsResponse {
       const DeepCollectionEquality().hash(run1Time),
       const DeepCollectionEquality().hash(run2Time),
       const DeepCollectionEquality().hash(startDate),
-      const DeepCollectionEquality().hash(daysOff));
+      const DeepCollectionEquality().hash(daysOff),
+      const DeepCollectionEquality().hash(runDetails));
 
   @JsonKey(ignore: true)
   @override
@@ -906,7 +930,9 @@ abstract class _GetBookingDetailsResponse extends GetBookingDetailsResponse {
       @JsonKey(name: "startDate")
           String? startDate,
       @JsonKey(name: "dayOff")
-          List<DayOffResponse>? daysOff}) = _$_GetBookingDetailsResponse;
+          List<DayOffResponse>? daysOff,
+      @JsonKey(name: "runDetails")
+          List<runDetailsResponse>? runDetails}) = _$_GetBookingDetailsResponse;
   _GetBookingDetailsResponse._() : super._();
 
   factory _GetBookingDetailsResponse.fromJson(Map<String, dynamic> json) =
@@ -945,6 +971,9 @@ abstract class _GetBookingDetailsResponse extends GetBookingDetailsResponse {
   @override
   @JsonKey(name: "dayOff")
   List<DayOffResponse>? get daysOff;
+  @override
+  @JsonKey(name: "runDetails")
+  List<runDetailsResponse>? get runDetails;
   @override
   @JsonKey(ignore: true)
   _$GetBookingDetailsResponseCopyWith<_GetBookingDetailsResponse>
@@ -1368,6 +1397,220 @@ abstract class _DayOffResponse extends DayOffResponse {
   @override
   @JsonKey(ignore: true)
   _$DayOffResponseCopyWith<_DayOffResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+runDetailsResponse _$runDetailsResponseFromJson(Map<String, dynamic> json) {
+  return _runDetailsResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$runDetailsResponseTearOff {
+  const _$runDetailsResponseTearOff();
+
+  _runDetailsResponse call(
+      {@JsonKey(name: "run2Status") int? run2Status,
+      @JsonKey(name: "run1Status") int? run1Status,
+      @JsonKey(name: "runDate") String? runDate}) {
+    return _runDetailsResponse(
+      run2Status: run2Status,
+      run1Status: run1Status,
+      runDate: runDate,
+    );
+  }
+
+  runDetailsResponse fromJson(Map<String, Object?> json) {
+    return runDetailsResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $runDetailsResponse = _$runDetailsResponseTearOff();
+
+/// @nodoc
+mixin _$runDetailsResponse {
+  @JsonKey(name: "run2Status")
+  int? get run2Status => throw _privateConstructorUsedError;
+  @JsonKey(name: "run1Status")
+  int? get run1Status => throw _privateConstructorUsedError;
+  @JsonKey(name: "runDate")
+  String? get runDate => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $runDetailsResponseCopyWith<runDetailsResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $runDetailsResponseCopyWith<$Res> {
+  factory $runDetailsResponseCopyWith(
+          runDetailsResponse value, $Res Function(runDetailsResponse) then) =
+      _$runDetailsResponseCopyWithImpl<$Res>;
+  $Res call(
+      {@JsonKey(name: "run2Status") int? run2Status,
+      @JsonKey(name: "run1Status") int? run1Status,
+      @JsonKey(name: "runDate") String? runDate});
+}
+
+/// @nodoc
+class _$runDetailsResponseCopyWithImpl<$Res>
+    implements $runDetailsResponseCopyWith<$Res> {
+  _$runDetailsResponseCopyWithImpl(this._value, this._then);
+
+  final runDetailsResponse _value;
+  // ignore: unused_field
+  final $Res Function(runDetailsResponse) _then;
+
+  @override
+  $Res call({
+    Object? run2Status = freezed,
+    Object? run1Status = freezed,
+    Object? runDate = freezed,
+  }) {
+    return _then(_value.copyWith(
+      run2Status: run2Status == freezed
+          ? _value.run2Status
+          : run2Status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      run1Status: run1Status == freezed
+          ? _value.run1Status
+          : run1Status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      runDate: runDate == freezed
+          ? _value.runDate
+          : runDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$runDetailsResponseCopyWith<$Res>
+    implements $runDetailsResponseCopyWith<$Res> {
+  factory _$runDetailsResponseCopyWith(
+          _runDetailsResponse value, $Res Function(_runDetailsResponse) then) =
+      __$runDetailsResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {@JsonKey(name: "run2Status") int? run2Status,
+      @JsonKey(name: "run1Status") int? run1Status,
+      @JsonKey(name: "runDate") String? runDate});
+}
+
+/// @nodoc
+class __$runDetailsResponseCopyWithImpl<$Res>
+    extends _$runDetailsResponseCopyWithImpl<$Res>
+    implements _$runDetailsResponseCopyWith<$Res> {
+  __$runDetailsResponseCopyWithImpl(
+      _runDetailsResponse _value, $Res Function(_runDetailsResponse) _then)
+      : super(_value, (v) => _then(v as _runDetailsResponse));
+
+  @override
+  _runDetailsResponse get _value => super._value as _runDetailsResponse;
+
+  @override
+  $Res call({
+    Object? run2Status = freezed,
+    Object? run1Status = freezed,
+    Object? runDate = freezed,
+  }) {
+    return _then(_runDetailsResponse(
+      run2Status: run2Status == freezed
+          ? _value.run2Status
+          : run2Status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      run1Status: run1Status == freezed
+          ? _value.run1Status
+          : run1Status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      runDate: runDate == freezed
+          ? _value.runDate
+          : runDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_runDetailsResponse extends _runDetailsResponse {
+  _$_runDetailsResponse(
+      {@JsonKey(name: "run2Status") this.run2Status,
+      @JsonKey(name: "run1Status") this.run1Status,
+      @JsonKey(name: "runDate") this.runDate})
+      : super._();
+
+  factory _$_runDetailsResponse.fromJson(Map<String, dynamic> json) =>
+      _$$_runDetailsResponseFromJson(json);
+
+  @override
+  @JsonKey(name: "run2Status")
+  final int? run2Status;
+  @override
+  @JsonKey(name: "run1Status")
+  final int? run1Status;
+  @override
+  @JsonKey(name: "runDate")
+  final String? runDate;
+
+  @override
+  String toString() {
+    return 'runDetailsResponse(run2Status: $run2Status, run1Status: $run1Status, runDate: $runDate)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _runDetailsResponse &&
+            const DeepCollectionEquality()
+                .equals(other.run2Status, run2Status) &&
+            const DeepCollectionEquality()
+                .equals(other.run1Status, run1Status) &&
+            const DeepCollectionEquality().equals(other.runDate, runDate));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(run2Status),
+      const DeepCollectionEquality().hash(run1Status),
+      const DeepCollectionEquality().hash(runDate));
+
+  @JsonKey(ignore: true)
+  @override
+  _$runDetailsResponseCopyWith<_runDetailsResponse> get copyWith =>
+      __$runDetailsResponseCopyWithImpl<_runDetailsResponse>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_runDetailsResponseToJson(this);
+  }
+}
+
+abstract class _runDetailsResponse extends runDetailsResponse {
+  factory _runDetailsResponse(
+      {@JsonKey(name: "run2Status") int? run2Status,
+      @JsonKey(name: "run1Status") int? run1Status,
+      @JsonKey(name: "runDate") String? runDate}) = _$_runDetailsResponse;
+  _runDetailsResponse._() : super._();
+
+  factory _runDetailsResponse.fromJson(Map<String, dynamic> json) =
+      _$_runDetailsResponse.fromJson;
+
+  @override
+  @JsonKey(name: "run2Status")
+  int? get run2Status;
+  @override
+  @JsonKey(name: "run1Status")
+  int? get run1Status;
+  @override
+  @JsonKey(name: "runDate")
+  String? get runDate;
+  @override
+  @JsonKey(ignore: true)
+  _$runDetailsResponseCopyWith<_runDetailsResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

@@ -17,3 +17,6 @@ class SetRunOneRatingBody {
 
   Map<String, dynamic> toJson() => _$SetRunOneRatingBodyToJson(this);
 }
+
+
+

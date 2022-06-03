@@ -130,6 +130,9 @@ import 'package:tamely/models/params/set_testimony_body.dart';
 import 'package:tamely/models/send_data_response.dart';
 import 'package:tamely/models/params/book_a_run_body.dart';
 import 'package:tamely/models/params/apple_signin_body.dart';
+
+import '../models/params/set_training_rating_body.dart';
+
 part 'api_client.g.dart';
 
 ///APIs class is for api tags
@@ -326,6 +329,7 @@ class Apis {
   static const String getTrainingScrollStatus =
       '/serviceBooking/getscrollSessionstatus';
   static const String getTrainingReport = '/serviceBooking/getTrainingReport';
+  static const String setTrainingRating="/serviceBooking/giveRatingstoeachTrainingsession";
 
   // -- Dog grooming
   static const String getGroomingAppointmentDetails =
@@ -346,7 +350,7 @@ class Apis {
 // @RestApi(baseUrl: "https://tamely.herokuapp.com/api/")
 @RestApi(
     baseUrl:
-        "https://6xdmb7fadb.execute-api.ap-south-1.amazonaws.com/production/api/")
+    "https://6xdmb7fadb.execute-api.ap-south-1.amazonaws.com/production/api/")
 abstract class ApiClient {
   factory ApiClient(Dio dio, {String baseUrl}) = _ApiClient;
 
@@ -904,6 +908,11 @@ abstract class ApiClient {
   @POST(Apis.getTrainingReport)
   Future<GetTrainingReportResponse> getTrainingReport(
       @Body() GetTrainingReportBody getTrainingReportBody);
+
+  // -- Get Report Training (Can not check now)
+  @POST(Apis.setTrainingRating)
+  Future<SendDataResponse> setTrainingRating(
+      @Body() SetTrainingRatingBody setTrainingRatingBody);
 
   // -- Get Coupon Amount
   @POST(Apis.getCouponAmount)

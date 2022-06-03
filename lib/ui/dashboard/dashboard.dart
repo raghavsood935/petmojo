@@ -146,6 +146,11 @@ class _DashboardState extends State<Dashboard> {
                 iconUrl: bookingIcon,
                 onTap: model.onMyBookingsPressed),
             DrawerWidget(
+                title: pastBookingTitle,
+                subTitle: pastBookingSubTitle,
+                iconUrl: bookingIcon,
+                onTap: model.onMyPastBookingsPressed),
+            DrawerWidget(
                 title: bookmarksTitle,
                 subTitle: bookmarksSubTitle,
                 iconUrl: bookmarksIcon,

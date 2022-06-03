@@ -13,7 +13,10 @@ import 'package:tamely/models/params/get_payment_details_body.dart';
 import 'package:tamely/models/params/set_payment_details_body.dart';
 import 'package:tamely/models/send_data_response.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
+import 'package:tamely/ui/dashboard/dashboard_viewmodel.dart';
 import 'package:tamely/util/utils.dart';
+
+import '../../../../enum/DialogType.dart';
 
 class DRPaymentViewModel extends FutureViewModel<void>
     implements Initialisable {
@@ -112,14 +115,15 @@ class DRPaymentViewModel extends FutureViewModel<void>
   String petID = "";
   String petToken = "";
   int currentIndex = 0;
+  String userName="";
 
   Future init() async {
     CurrentProfile profile = _sharedPreferenceService.getCurrentProfile();
-
     isHuman = profile.isHuman;
     petToken = profile.petToken;
     petID = profile.petId;
     currentIndex = profile.currentIndex;
+    userName = profile.username;
     notifyListeners();
   }
 
@@ -151,7 +155,9 @@ class DRPaymentViewModel extends FutureViewModel<void>
     }
   }
 
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+  Future<void> _handlePaymentSuccess(PaymentSuccessResponse response) async {
+    final _dialogService = locator<DialogService>();
+    // DashboardViewModel dashboardObject=DashboardViewModel();
     print("I print: Success");
     _paymentCompleted = true;
     _paymentFailed = false;
@@ -159,6 +165,13 @@ class DRPaymentViewModel extends FutureViewModel<void>
     setPaymentDetails();
     notifyListeners();
     // Do something when payment succeeds
+    var result = await _dialogService.showCustomDialog(
+      variant: DialogType.PaymentSuccessful,
+      barrierDismissible: true,
+      takesInput: true,
+      title: "",
+      description: "Thank you!, Your payment was successful and Your booking is now confirmed.Enjoy your day :)",
+    );
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
