@@ -545,11 +545,11 @@ class ReportItem extends StatelessWidget {
                         size: 55.0,
                       ),
                       Icon(
-                        Icons.star,
-                        color:
-                        rating! >= 2 ? colors.primary : colors.white,
-                        size: 55.0,
-                      ),
+                          Icons.star,
+                          color:
+                          rating! >= 2 ? colors.primary : colors.white,
+                          size: 55.0,
+                        ),
                       Icon(
                         Icons.star,
                         color:

@@ -157,18 +157,18 @@ class DGPaymentViewModel extends FutureViewModel<void>
     _paymentCompleted = true;
     _paymentFailed = false;
     notifyListeners();
-    _dialogService.showCustomDialog(
-      variant: DialogType.SuccessDialog,
-      barrierDismissible: true,
-      title: "Payment Successful",
-      description:
-          "Thank you! Your payment was successful and your booking is now confirmed. Enjoy your day :)",
-      data: toMyBookings,
-    );
     print("pay later successful");
     setPaymentDetails();
     notifyListeners();
     // Do something when payment succeeds
+    _dialogService.showCustomDialog(
+      variant: DialogType.PaymentSuccessful,
+      barrierDismissible: true,
+      title: "",
+      description:
+      "Thank you!, Your payment was successful and your booking is now confirmed. Enjoy your day :)",
+      data: toMyBookings,
+    );
   }
 
   // Delete this

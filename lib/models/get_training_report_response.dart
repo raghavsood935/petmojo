@@ -27,6 +27,8 @@ class GetTrainingReportDetailsResponse with _$GetTrainingReportDetailsResponse {
     @JsonKey(name: "picture") String? picture,
     @JsonKey(name: "video") String? video,
     @JsonKey(name: "createdAt") int? time,
+    @JsonKey(name: "startTime") int? startTime,
+    @JsonKey(name: "endTime") int? endTime,
   }) = _GetTrainingReportDetailsResponse;
 
   factory GetTrainingReportDetailsResponse.fromJson(

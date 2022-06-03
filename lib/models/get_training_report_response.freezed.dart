@@ -237,7 +237,9 @@ class _$GetTrainingReportDetailsResponseTearOff {
       @JsonKey(name: "time") int? duration,
       @JsonKey(name: "picture") String? picture,
       @JsonKey(name: "video") String? video,
-      @JsonKey(name: "createdAt") int? time}) {
+      @JsonKey(name: "createdAt") int? time,
+      @JsonKey(name: "startTime") int? startTime,
+      @JsonKey(name: "endTime") int? endTime}) {
     return _GetTrainingReportDetailsResponse(
       sessionNo: sessionNo,
       rating: rating,
@@ -245,6 +247,8 @@ class _$GetTrainingReportDetailsResponseTearOff {
       picture: picture,
       video: video,
       time: time,
+      startTime: startTime,
+      endTime: endTime,
     );
   }
 
@@ -271,6 +275,10 @@ mixin _$GetTrainingReportDetailsResponse {
   String? get video => throw _privateConstructorUsedError;
   @JsonKey(name: "createdAt")
   int? get time => throw _privateConstructorUsedError;
+  @JsonKey(name: "startTime")
+  int? get startTime => throw _privateConstructorUsedError;
+  @JsonKey(name: "endTime")
+  int? get endTime => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -290,7 +298,9 @@ abstract class $GetTrainingReportDetailsResponseCopyWith<$Res> {
       @JsonKey(name: "time") int? duration,
       @JsonKey(name: "picture") String? picture,
       @JsonKey(name: "video") String? video,
-      @JsonKey(name: "createdAt") int? time});
+      @JsonKey(name: "createdAt") int? time,
+      @JsonKey(name: "startTime") int? startTime,
+      @JsonKey(name: "endTime") int? endTime});
 }
 
 /// @nodoc
@@ -310,6 +320,8 @@ class _$GetTrainingReportDetailsResponseCopyWithImpl<$Res>
     Object? picture = freezed,
     Object? video = freezed,
     Object? time = freezed,
+    Object? startTime = freezed,
+    Object? endTime = freezed,
   }) {
     return _then(_value.copyWith(
       sessionNo: sessionNo == freezed
@@ -336,6 +348,14 @@ class _$GetTrainingReportDetailsResponseCopyWithImpl<$Res>
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as int?,
+      startTime: startTime == freezed
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as int?,
+      endTime: endTime == freezed
+          ? _value.endTime
+          : endTime // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -354,7 +374,9 @@ abstract class _$GetTrainingReportDetailsResponseCopyWith<$Res>
       @JsonKey(name: "time") int? duration,
       @JsonKey(name: "picture") String? picture,
       @JsonKey(name: "video") String? video,
-      @JsonKey(name: "createdAt") int? time});
+      @JsonKey(name: "createdAt") int? time,
+      @JsonKey(name: "startTime") int? startTime,
+      @JsonKey(name: "endTime") int? endTime});
 }
 
 /// @nodoc
@@ -378,6 +400,8 @@ class __$GetTrainingReportDetailsResponseCopyWithImpl<$Res>
     Object? picture = freezed,
     Object? video = freezed,
     Object? time = freezed,
+    Object? startTime = freezed,
+    Object? endTime = freezed,
   }) {
     return _then(_GetTrainingReportDetailsResponse(
       sessionNo: sessionNo == freezed
@@ -404,6 +428,14 @@ class __$GetTrainingReportDetailsResponseCopyWithImpl<$Res>
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as int?,
+      startTime: startTime == freezed
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as int?,
+      endTime: endTime == freezed
+          ? _value.endTime
+          : endTime // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -418,7 +450,9 @@ class _$_GetTrainingReportDetailsResponse
       @JsonKey(name: "time") this.duration,
       @JsonKey(name: "picture") this.picture,
       @JsonKey(name: "video") this.video,
-      @JsonKey(name: "createdAt") this.time})
+      @JsonKey(name: "createdAt") this.time,
+      @JsonKey(name: "startTime") this.startTime,
+      @JsonKey(name: "endTime") this.endTime})
       : super._();
 
   factory _$_GetTrainingReportDetailsResponse.fromJson(
@@ -443,10 +477,16 @@ class _$_GetTrainingReportDetailsResponse
   @override
   @JsonKey(name: "createdAt")
   final int? time;
+  @override
+  @JsonKey(name: "startTime")
+  final int? startTime;
+  @override
+  @JsonKey(name: "endTime")
+  final int? endTime;
 
   @override
   String toString() {
-    return 'GetTrainingReportDetailsResponse(sessionNo: $sessionNo, rating: $rating, duration: $duration, picture: $picture, video: $video, time: $time)';
+    return 'GetTrainingReportDetailsResponse(sessionNo: $sessionNo, rating: $rating, duration: $duration, picture: $picture, video: $video, time: $time, startTime: $startTime, endTime: $endTime)';
   }
 
   @override
@@ -459,7 +499,9 @@ class _$_GetTrainingReportDetailsResponse
             const DeepCollectionEquality().equals(other.duration, duration) &&
             const DeepCollectionEquality().equals(other.picture, picture) &&
             const DeepCollectionEquality().equals(other.video, video) &&
-            const DeepCollectionEquality().equals(other.time, time));
+            const DeepCollectionEquality().equals(other.time, time) &&
+            const DeepCollectionEquality().equals(other.startTime, startTime) &&
+            const DeepCollectionEquality().equals(other.endTime, endTime));
   }
 
   @override
@@ -470,7 +512,9 @@ class _$_GetTrainingReportDetailsResponse
       const DeepCollectionEquality().hash(duration),
       const DeepCollectionEquality().hash(picture),
       const DeepCollectionEquality().hash(video),
-      const DeepCollectionEquality().hash(time));
+      const DeepCollectionEquality().hash(time),
+      const DeepCollectionEquality().hash(startTime),
+      const DeepCollectionEquality().hash(endTime));
 
   @JsonKey(ignore: true)
   @override
@@ -492,7 +536,9 @@ abstract class _GetTrainingReportDetailsResponse
           @JsonKey(name: "time") int? duration,
           @JsonKey(name: "picture") String? picture,
           @JsonKey(name: "video") String? video,
-          @JsonKey(name: "createdAt") int? time}) =
+          @JsonKey(name: "createdAt") int? time,
+          @JsonKey(name: "startTime") int? startTime,
+          @JsonKey(name: "endTime") int? endTime}) =
       _$_GetTrainingReportDetailsResponse;
   _GetTrainingReportDetailsResponse._() : super._();
 
@@ -517,6 +563,12 @@ abstract class _GetTrainingReportDetailsResponse
   @override
   @JsonKey(name: "createdAt")
   int? get time;
+  @override
+  @JsonKey(name: "startTime")
+  int? get startTime;
+  @override
+  @JsonKey(name: "endTime")
+  int? get endTime;
   @override
   @JsonKey(ignore: true)
   _$GetTrainingReportDetailsResponseCopyWith<_GetTrainingReportDetailsResponse>

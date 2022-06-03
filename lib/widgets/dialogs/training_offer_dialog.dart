@@ -155,7 +155,6 @@ class _TrainingOfferDialogState extends State<TrainingOfferDialog> {
                           Expanded(
                             child: GestureDetector(
                               onTap: () {
-                                print("entere");
                                 widget.onDialogTap(DialogResponse(confirmed: false));
                               },
                               child: Container(
