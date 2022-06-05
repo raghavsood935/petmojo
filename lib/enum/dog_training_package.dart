@@ -1,1 +1,1 @@
-enum DogTrainingPackage { One, Two, Three, Four, Five }
+enum DogTrainingPackage { One, Two, Three, Four, Five,Six }

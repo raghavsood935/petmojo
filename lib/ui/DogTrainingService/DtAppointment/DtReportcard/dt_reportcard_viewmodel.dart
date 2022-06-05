@@ -34,6 +34,12 @@ class DTReportCardViewModel extends FutureViewModel<void>
   int _startTime = 0;
   int get startTime => _startTime;
 
+  String _trainerName="Trainer";
+  String get trainerName=>_trainerName;
+
+  String _agenda="agenda";
+  String get agenda=>_agenda;
+
   int _endTime = 0;
   int get endTime => _endTime;
 
@@ -135,6 +141,8 @@ class DTReportCardViewModel extends FutureViewModel<void>
           _rating = resultOne.data!.details!.rating!;
           _startTime = resultOne.data!.details!.startTime!;
           _endTime = resultOne.data!.details!.endTime!;
+          _trainerName = resultOne.data!.details!.trainerName!;
+          _agenda = resultOne.data!.details!.agenda!;
 
 
           //if start time not 0, convert date from epoch to this format ex 12:45

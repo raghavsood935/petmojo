@@ -1,3 +1,5 @@
+import 'dart:core';
+
 String ISDARK = "";
 String APP_NAME = "tamely";
 
@@ -519,93 +521,115 @@ String trainingTimeTitle = "Training time ";
 
 String freeTrainingTitle = "Demo Session";
 String twoTrainingTitle = "Puppy Training";
-String threeTrainingTitle = "Basic Obedience & Behavioural Training";
+String threeTrainingTitle = "Basic Training";
 String fourTrainingTitle =
-    "Advanced Obedience Behavioural and Guarding Training";
+    "Intermediate Training";
 String fiveTrainingTitle =
-    "Ultra Premium Obedience, Behavioural, Guarding and Intellect Training";
+    "Advance Training";
+
+String sixTrainingTitle =
+    "Premium Training";
 
 String freeTrainingSubtitleOne = "30 Mins";
 String twoTrainingSubtitleOne = "12 Sessions";
 String threeTrainingSubtitleOne = "24 Sessions";
 String fourTrainingSubtitleOne = "36 Sessions";
 String fiveTrainingSubtitleOne = "48 Sessions";
+String sixTrainingSubtitleOne = "72 Sessions";
 
 String freeTrainingSubtitleTwo = "FREE Assessment";
 String twoTrainingSubtitleTwo = "";
 String threeTrainingSubtitleTwo = "";
 String fourTrainingSubtitleTwo = "";
 String fiveTrainingSubtitleTwo = "";
+String sixTrainingSubtitleTwo = "";
 
 String freeTrainingRateOld = "FREE";
-String twoTrainingRateOld = "₹10,788/-";
-String threeTrainingRateOld = "₹21,576/-";
-String fourTrainingRateOld = "₹32,364/-";
-String fiveTrainingRateOld = "₹43,152/-";
+String twoTrainingRateOld = "₹12,740/-";
+String threeTrainingRateOld = "₹22,360/-";
+String fourTrainingRateOld = "₹33,228/-";
+String fiveTrainingRateOld = "₹42,432/-";
+String sixTrainingRateOld = "₹70,772/-";
 
 String freeTrainingRateNew = "FREE";
 String twoTrainingRateNew = "₹9,800/-";
 String threeTrainingRateNew = "₹17,200/-";
 String fourTrainingRateNew = "₹25,560/-";
 String fiveTrainingRateNew = "₹32,640/-";
+String sixTrainingRateNew = "₹54,440/-";
 
 String freeTrainingRateLabel = "";
-String twoTrainingRateLabel = "(You save 988)";
-String threeTrainingRateLabel = "(You save 4,376)";
-String fourTrainingRateLabel = "(You save 6,804)";
-String fiveTrainingRateLabel = "(You save 10,512)";
+String twoTrainingRateLabel = "(You save 2,940)";
+String threeTrainingRateLabel = "(You save 5,160)";
+String fourTrainingRateLabel = "(You save 7,666)";
+String fiveTrainingRateLabel = "(You save 9,792)";
+String sixTrainingRateLabel = "(You save 16,332)";
 
 // See more
 
-String twoTrainingSeeOne = "Biting Calibration";
-String twoTrainingSeeTwo = "Potty Training";
-String twoTrainingSeeThree = "Socialization with other\nDogs";
-String twoTrainingSeeFour = "Socialization with other\nhumans";
-String twoTrainingSeeFive = "Puppy-proofing your home";
-String twoTrainingSeeSix = "Leash Walking";
+String twoTrainingSeeOne = "Potty Training";
+String twoTrainingSeeTwo = "Feedback Intelligence -\nNo, Good, Don't Jump";
+String twoTrainingSeeThree = "Instruction - Sit,\nInstruction - Stay,\nInstruction - Down, Instruction-\nGet up";
+String twoTrainingSeeFour = "Walking - Go, Come";
+String twoTrainingSeeFive = "Basic Socialisation";
+String twoTrainingSeeSix = "Leash Walking- Heel, Slow";
 
-String threeTrainingSeeOne = "Instruction Hi-five!";
-String threeTrainingSeeTwo = "Instruction Handshake";
-String threeTrainingSeeThree = "Instruction Sit";
-String threeTrainingSeeFour = "Instruction Heal";
-String threeTrainingSeeFive = "Leash Walking";
-String threeTrainingSeeSix = "Instruction Down";
-String threeTrainingSeeSeven = "Instruction Come";
-String threeTrainingSeeEight = "Instruction Stay";
-String threeTrainingSeeNine = "Instruction No";
+String threeTrainingSeeOne = "Play Module - Fetch &\ndrop, Spin";
+String threeTrainingSeeTwo = "Greetings - Shake Hand,\nHi-Five";
+String threeTrainingSeeThree = "Feedback Intelligence -\nNo, Good, Don't Jump,\nEat, Don't Eat, Quiet\n(No barking)";
+String threeTrainingSeeFour = "Instruction - Sit,\nInstruction - Stay,\nInstruction - Down,\nInstruction - Get up";
+String threeTrainingSeeFive = "Walking - Go, Come";
+String threeTrainingSeeSix = "Without Leash Walking -\nCome, Follow, Go";
+String threeTrainingSeeSeven = "Leash Walking - Heel,\nSlow";
+String threeTrainingSeeEight = "Basic Socialisation";
 
-String fourTrainingSeeOne = "Instruction Fetch";
-String fourTrainingSeeTwo = "Instruction Drop";
-String fourTrainingSeeThree = "Instruction Lie Down";
-String fourTrainingSeeFour = "Guarding";
-String fourTrainingSeeFive = "Instruction Hi-five!";
-String fourTrainingSeeSix = "Instruction Heal";
-String fourTrainingSeeSeven = "Leash Walking";
-String fourTrainingSeeEight = "Instruction Handshake";
-String fourTrainingSeeNine = "Instruction Sit";
-String fourTrainingSeeTen = "Instruction Down";
-String fourTrainingSeeEleven = "Instruction Come";
-String fourTrainingSeeTwelve = "Instruction Stay";
-String fourTrainingSeeThirteen = "Instruction No";
+String fourTrainingSeeOne = "Canine Misbehaviour \nCorrection- Aggression,\nSeparation Anxiety,\nExcessive Barking";
+String fourTrainingSeeTwo = "Counting- (1-5)";
+String fourTrainingSeeThree = "Lower Acrobat Module -\nCrawl, Rollover, Lie\nDown, Sleep";
+String fourTrainingSeeFour = "Play Module - Fetch &\ndrop, Spin ";
+String fourTrainingSeeFive = "Greetings - Shake\nHand, Hi-Five";
+String fourTrainingSeeSix = "Feedback Intelligence -\nNo, Good, Don't Jump,\nEat, Don't Eat, Quiet\n(No barking)";
+String fourTrainingSeeSeven = "Instruction - Sit,\nInstruction - Stay,\nInstruction - Down,\nInstruction - Get up";
+String fourTrainingSeeEight = "Walking - Go, Come";
+String fourTrainingSeeNine = "Without Leash Walking -\nCome, Follow, Go";
+String fourTrainingSeeTen = "Leash Walking - Heel,\nSlow";
+String fourTrainingSeeEleven = "Advanced Socialisation";
 
-String fiveTrainingSeeOne = "Instruction Salute";
-String fiveTrainingSeeTwo = "Instruction Rollover";
+
+String fiveTrainingSeeOne = "Greetings - Namaste\n(face down), Salute\n(with front legs up),\nShake Hand, Hi-Five";
+String fiveTrainingSeeTwo = "Counting- (1-5)";
 String fiveTrainingSeeThree =
-    "Counting 1-5 (Breed and \n Intelligence dependent)";
-String fiveTrainingSeeFour = "Without Leash Walking";
-String fiveTrainingSeeFive = "Instruction Eat/Don't Eat";
-String fiveTrainingSeeSix = "Instruction Fetch";
-String fiveTrainingSeeSeven = "Instruction Come";
-String fiveTrainingSeeEight = "Instruction Stay";
-String fiveTrainingSeeNine = "Instruction No";
-String fiveTrainingSeeTen = "Instruction Drop";
-String fiveTrainingSeeEleven = "Instruction Lie Down";
-String fiveTrainingSeeTwelve = "Guarding";
-String fiveTrainingSeeThirteen = "Instruction Hi-five!";
-String fiveTrainingSeeFourteen = "Instruction Handshake";
-String fiveTrainingSeeFifteen = "Instruction Sit";
-String fiveTrainingSeeSixteen = "Instruction Down";
-String fiveTrainingSeeSeventeen = "Instruction Heal";
+    "Hold Treat in\nNamaste position";
+String fiveTrainingSeeFour = "Lower Acrobat \nModule - Crawl,\nRollover, Lie Down,\nSleep";
+String fiveTrainingSeeFive = "Play Module -\nFetch & drop,\nSpin";
+String fiveTrainingSeeSix = "Greetings -\nShake Hand,\nHi-Five";
+String fiveTrainingSeeSeven = "Feedback Intelligence -\nNo, Good, Don't\nJump, Eat, Don't\nEat, Quiet\n(No barking)";
+String fiveTrainingSeeEight = "Instruction - Sit,\nInstruction - Stay,\nInstruction - Down,\nInstruction - Get up";
+String fiveTrainingSeeNine = "Walking - Go, Come";
+String fiveTrainingSeeTen = "Without Leash\nWalking - Come,\nFollow, Go";
+String fiveTrainingSeeEleven = "Leash Walking -\nHeel, Slow";
+String fiveTrainingSeeTwelve = "Canine Misbehaviour\nCorrection - Aggression,\nSeparation Anxiety,\nExcessive Barking";
+
+
+String sixTrainingSeeOne="Competition - Hurdle Jump,\nCone cross walk, Between \n the legs walk, Drill Walk";
+String sixTrainingSeeTwo="Theatrics - Play Dead Act,\nStatue/Freeze";
+String sixTrainingSeeThree="Guard Training - Sniff,\nSearch, Watch";
+String sixTrainingSeeFour="Advanced House Training -\n Attack, Bark for \nAttack,  Bark for \nRingbell (optional)";
+String sixTrainingSeeFive = "Greetings - Namaste\n (face down),\nSalute (with front legs up),\nShake Hand, Hi-Five";
+String sixTrainingSeeSix = "Counting- (1-5)";
+String sixTrainingSeeSeven = "Hold Treat in \nNamaste position";
+String sixTrainingSeeEight = "Lower Acrobat Module\n - Crawl,Rollover, Lie Down,\nSleep";
+String sixTrainingSeeNine = "Play Module - Fetch&\ndrop, Spin";
+String sixTrainingSeeTen = "Greetings - Shake Hand,\n Hi-Five";
+String sixTrainingSeeEleven = "Feedback Intelligence - No,\n Good,Don't Jump, \nEat, Don't Eat,\n Quiet (No barking)";
+String sixTrainingSeeTwelve = "Instruction - Sit, \nInstruction-Stay,\n Instruction - Down, \nInstruction - Get up";
+String sixTrainingSeeThirteen = "Walking - Go, Come";
+String sixTrainingSeeFourteen = "Without Leash Walking-\nCome,Follow, Go";
+String sixTrainingSeeFifteen = "Leash Walking -\nHeel, Slow";
+String sixTrainingSeeSixteen = "Advanced Socialisation";
+String sixTrainingSeeSeventeen = "Canine Misbehaviour \nCorrection- Aggression, \nSeparation Anxiety, \nExcessive Barking";
+
+
 
 // See more bonus materials
 
@@ -627,6 +651,15 @@ String fiveTrainingBonusOne = "Excessive Barking Correction";
 String fiveTrainingBonusTwo = "Overexcitement Correction";
 String fiveTrainingBonusThree = "Socialization with other Dog";
 String fiveTrainingBonusFour = "Socialization with other humans";
+
+String sixTrainingBonusOne = "Excessive Barking Correction";
+String sixTrainingBonusTwo = "Overexcitement Correction";
+String sixTrainingBonusThree = "Socialization with other Dog";
+String sixTrainingBonusFour = "Socialization with other humans";
+
+
+
+
 
 // My Appointments
 String dogTrainingTitle = "Dog Training";

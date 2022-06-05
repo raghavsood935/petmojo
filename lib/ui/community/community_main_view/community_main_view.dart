@@ -21,177 +21,180 @@ class CommunityMainView extends StatelessWidget {
     return ViewModelBuilder<CommunityMainViewModel>.reactive(
       viewModelBuilder: () => CommunityMainViewModel(),
       onModelReady: (model) => model.init(),
-      builder: (context, model, child) => Scaffold(
-        body: RefreshIndicator(
-          onRefresh: () async {
-            await model.init();
-          },
-          child: ListView(
-            children: [
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              //   child: Row(
-              //     children: [
-              //       Icon(Icons.location_on_outlined),
-              //       AppText.caption(model.location),
-              //     ],
-              //   ),
-              // ),
-              // spacedDividerTiny,
-              verticalSpaceSmall,
-              GestureDetector(
-                child: joinTamelyGroupWidget(),
-                onTap: model.goToGroupsView,
-              ),
-              verticalSpaceSmall,
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.0),
-                child: AppText.body1("Social center"),
-              ),
-              verticalSpaceTiny,
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 9.0),
-                child: GridView.builder(
-                    shrinkWrap: true,
-                    gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3),
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) => GestureDetector(
-                          child: socialCenterItem(
-                              context, model.listOfSocialCenterModel[index]),
-                          onTap: () => model.onTapMethodForSocialCenter(index),
-                        ),
-                    itemCount: model.listOfSocialCenterModel.length),
-              ),
-              spacedDividerBigTiny,
-              ListTile(
-                leading: Image.asset(blogImgPath),
-                title: AppText.body1(
-                  blogTitle,
-                  color: colors.black,
+      builder: (context, model, child) => WillPopScope(
+        onWillPop: ()=>model.onBackPressed(),
+        child: Scaffold(
+          body: RefreshIndicator(
+            onRefresh: () async {
+              await model.init();
+            },
+            child: ListView(
+              children: [
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                //   child: Row(
+                //     children: [
+                //       Icon(Icons.location_on_outlined),
+                //       AppText.caption(model.location),
+                //     ],
+                //   ),
+                // ),
+                // spacedDividerTiny,
+                verticalSpaceSmall,
+                GestureDetector(
+                  child: joinTamelyGroupWidget(),
+                  onTap: model.goToGroupsView,
                 ),
-                subtitle: AppText.caption(blogDescription),
-                trailing: Icon(Icons.arrow_forward_ios_rounded),
-                onTap: model.goToBlogs,
-              ),
-              spacedDividerBigTiny,
-              GestureDetector(
-                onTap: model.goToTrendingGroups,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-                  child: AppText.body1("Trending Groups"),
+                verticalSpaceSmall,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.0),
+                  child: AppText.body1("Social center"),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.0),
-                child: SizedBox(
-                  height: 140,
-                  child: model.isAllGroupLoading
-                      ? Center(
-                          child: CircularProgressIndicator(
-                            color: colors.primary,
+                verticalSpaceTiny,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 9.0),
+                  child: GridView.builder(
+                      shrinkWrap: true,
+                      gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3),
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) => GestureDetector(
+                            child: socialCenterItem(
+                                context, model.listOfSocialCenterModel[index]),
+                            onTap: () => model.onTapMethodForSocialCenter(index),
                           ),
-                        )
-                      : SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          physics: ScrollPhysics(),
-                          child: Row(
-                            children: [
-                              ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: model.listOfAllGroups.length,
-                                itemBuilder: (context, index) =>
-                                    TrendingGroupTile(
-                                  model: model.listOfAllGroups[index],
-                                  viewModel: model,
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: model.goToTrendingGroups,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(30.0),
-                                  child: AppText.body1Bold(
-                                    "See More\nGroups",
-                                    textAlign: TextAlign.center,
-                                    color: colors.primary,
+                      itemCount: model.listOfSocialCenterModel.length),
+                ),
+                spacedDividerBigTiny,
+                ListTile(
+                  leading: Image.asset(blogImgPath),
+                  title: AppText.body1(
+                    blogTitle,
+                    color: colors.black,
+                  ),
+                  subtitle: AppText.caption(blogDescription),
+                  trailing: Icon(Icons.arrow_forward_ios_rounded),
+                  onTap: model.goToBlogs,
+                ),
+                spacedDividerBigTiny,
+                GestureDetector(
+                  onTap: model.goToTrendingGroups,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+                    child: AppText.body1("Trending Groups"),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.0),
+                  child: SizedBox(
+                    height: 140,
+                    child: model.isAllGroupLoading
+                        ? Center(
+                            child: CircularProgressIndicator(
+                              color: colors.primary,
+                            ),
+                          )
+                        : SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            physics: ScrollPhysics(),
+                            child: Row(
+                              children: [
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: model.listOfAllGroups.length,
+                                  itemBuilder: (context, index) =>
+                                      TrendingGroupTile(
+                                    model: model.listOfAllGroups[index],
+                                    viewModel: model,
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                ),
-              ),
-              // Padding(
-              //   padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-              //   child: AppText.body1("Play buddies near me"),
-              // ),
-              // Padding(
-              //   padding: EdgeInsets.symmetric(horizontal: 15.0),
-              //   child: SizedBox(
-              //     height: 140,
-              //     child: ListView.builder(
-              //       shrinkWrap: true,
-              //       scrollDirection: Axis.horizontal,
-              //       itemCount: model.listOfPlayBuddiesNearMeModel.length,
-              //       itemBuilder: (context, index) => playBuddiesNearMeItem(
-              //           model.listOfPlayBuddiesNearMeModel[index]),
-              //     ),
-              //   ),
-              // ),
-              spacedDividerBigTiny,
-              GestureDetector(
-                onTap: model.goToBlogs,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-                  child: AppText.body1("Newly Published Blogs"),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.0),
-                child: SizedBox(
-                  height: 250,
-                  child: model.isBlogsLoading
-                      ? Center(
-                          child: CircularProgressIndicator(
-                            color: colors.primary,
-                          ),
-                        )
-                      : SingleChildScrollView(
-                          physics: ScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              ListView.separated(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: model.listOfBlogs.length,
-                                separatorBuilder: (context, index) =>
-                                    horizontalSpaceSmall,
-                                itemBuilder: (context, index) => BlogItem(
-                                  blog: model.listOfBlogs[index],
-                                  isDetailView: false,
-                                  isFromCommunity: true,
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: model.goToBlogs,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(30.0),
-                                  child: AppText.body1Bold(
-                                    "See More\nBlogs",
-                                    textAlign: TextAlign.center,
-                                    color: colors.primary,
+                                GestureDetector(
+                                  onTap: model.goToTrendingGroups,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(30.0),
+                                    child: AppText.body1Bold(
+                                      "See More\nGroups",
+                                      textAlign: TextAlign.center,
+                                      color: colors.primary,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
+                  ),
                 ),
-              ),
-            ],
+                // Padding(
+                //   padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+                //   child: AppText.body1("Play buddies near me"),
+                // ),
+                // Padding(
+                //   padding: EdgeInsets.symmetric(horizontal: 15.0),
+                //   child: SizedBox(
+                //     height: 140,
+                //     child: ListView.builder(
+                //       shrinkWrap: true,
+                //       scrollDirection: Axis.horizontal,
+                //       itemCount: model.listOfPlayBuddiesNearMeModel.length,
+                //       itemBuilder: (context, index) => playBuddiesNearMeItem(
+                //           model.listOfPlayBuddiesNearMeModel[index]),
+                //     ),
+                //   ),
+                // ),
+                spacedDividerBigTiny,
+                GestureDetector(
+                  onTap: model.goToBlogs,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+                    child: AppText.body1("Newly Published Blogs"),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.0),
+                  child: SizedBox(
+                    height: 250,
+                    child: model.isBlogsLoading
+                        ? Center(
+                            child: CircularProgressIndicator(
+                              color: colors.primary,
+                            ),
+                          )
+                        : SingleChildScrollView(
+                            physics: ScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                ListView.separated(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: model.listOfBlogs.length,
+                                  separatorBuilder: (context, index) =>
+                                      horizontalSpaceSmall,
+                                  itemBuilder: (context, index) => BlogItem(
+                                    blog: model.listOfBlogs[index],
+                                    isDetailView: false,
+                                    isFromCommunity: true,
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: model.goToBlogs,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(30.0),
+                                    child: AppText.body1Bold(
+                                      "See More\nBlogs",
+                                      textAlign: TextAlign.center,
+                                      color: colors.primary,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
