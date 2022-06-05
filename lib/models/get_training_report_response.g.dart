@@ -36,6 +36,8 @@ _$_GetTrainingReportDetailsResponse
           time: json['createdAt'] as int?,
           startTime: json['startTime'] as int?,
           endTime: json['endTime'] as int?,
+          trainerName: json['trainerName'] as String?,
+          agenda: json['agenda'] as String?,
         );
 
 Map<String, dynamic> _$$_GetTrainingReportDetailsResponseToJson(
@@ -49,6 +51,8 @@ Map<String, dynamic> _$$_GetTrainingReportDetailsResponseToJson(
       'createdAt': instance.time,
       'startTime': instance.startTime,
       'endTime': instance.endTime,
+      'trainerName': instance.trainerName,
+      'agenda': instance.agenda,
     };
 
 _$_GetPetNamesResponse _$$_GetPetNamesResponseFromJson(

@@ -85,12 +85,10 @@ class _TamelyAppState extends State<TamelyApp> {
                 case "seeReport":{
 
 
-                  //common Parameter
-                  var appointmentId=message.data['DogTrainingbookingDetailsId'];
-
 
                   //For Dog Running
                   if(message.data['date']!=""){
+                    var appointmentId=message.data['bookingDetailsId'];
                     var noOfDogs=message.data['noOfDogs'];
 
                     List<String> dogs=[];
@@ -116,6 +114,7 @@ class _TamelyAppState extends State<TamelyApp> {
                   }
                   //For Dog Training
                   else{
+                    var appointmentId=message.data['DogTrainingbookingDetailsId'];
 
                     var sessionNo=int.parse(message.data['sessionNo']);
 
@@ -183,14 +182,6 @@ class _TamelyAppState extends State<TamelyApp> {
       print(routeFromMessage);
     });
 
-    //background work app opened by the click on notification if the app is terminated
-    FirebaseMessaging.instance.getInitialMessage().then((message) {
-      if (message != null) {
-        final routeFromMessage = message.data["screenName"];
-
-        print(routeFromMessage);
-      }
-    });
   }
 
   void setupSnackBarUi() {

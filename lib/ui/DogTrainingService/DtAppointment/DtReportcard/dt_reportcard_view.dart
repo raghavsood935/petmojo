@@ -165,6 +165,16 @@ class DTReportCardView extends StatelessWidget {
                   ),
                   verticalSpaceRegular,
 
+                  Center(
+                    child: AppText.headingThree(
+                      "Session Completed Successfully!",
+                      textAlign: TextAlign.center,
+                      color: colors.primary,
+                    ),
+                  ),
+
+                  verticalSpaceRegular,
+
                   // Details
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 5.0),
@@ -187,6 +197,16 @@ class DTReportCardView extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
+                        verticalSpaceSmall,
+                        BookingItem(
+                          detailName: "Agenda",
+                          detailValue: "${model.agenda}",
+                        ),
+                        verticalSpaceSmall,
+                        BookingItem(
+                          detailName: "Trainer Name",
+                          detailValue: "${model.trainerName}",
+                        ),
                         verticalSpaceSmall,
                         BookingItem(
                           detailName: "Pet Name",
@@ -360,9 +380,13 @@ class BookingItem extends StatelessWidget {
         Expanded(child: AppText.body1(detailName!)),
         horizontalSpaceMedium,
         Expanded(
-          child: AppText.body1(
+          child: (detailName!="Agenda")?AppText.body1(
             detailValue!,
             color: colors.kcCaptionGreyColor,
+            textAlign: TextAlign.right,
+          ):AppText.body1(
+            detailValue!,
+            color: colors.primary,
             textAlign: TextAlign.right,
           ),
         ),

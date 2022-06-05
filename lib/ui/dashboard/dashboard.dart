@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -22,6 +23,15 @@ import 'package:tamely/widgets/feed_app_bar.dart';
 import 'package:tamely/widgets/follow_static_btn.dart';
 import 'package:tamely/widgets/main_btn.dart';
 import 'package:tamely/widgets/profile_selection_bottom_navbar.dart';
+
+import '../../enum/walkNumber.dart';
+import '../../tamely_app.dart';
+import '../DogRunningService/DrAppointment/DrAppointmentdetails/dr_appointmentdetails_view.dart';
+import '../DogRunningService/DrAppointment/DrLivemap/dr_livemap_view.dart';
+import '../DogRunningService/DrAppointment/DrReportcard/dr_reportcard_view.dart';
+import '../DogTrainingService/DtAppointment/DtAppointmentdetails/dt_appointmentdetails_view.dart';
+import '../DogTrainingService/DtAppointment/DtReportcard/dt_reportcard_view.dart';
+import '../myActiveAppointments/appointments_view.dart';
 
 class Dashboard extends StatefulWidget {
   Dashboard({
@@ -53,6 +63,124 @@ class _DashboardState extends State<Dashboard> {
 
   _DashboardState(int i) {
     index = i;
+  }
+  @override
+  void initState(){
+    super.initState();
+    //background work app opened by the click on notification if the app is terminated
+    FirebaseMessaging.instance.getInitialMessage().then((message){
+      var screenName = message?.data['screenName'];
+      if(message!=null){
+        switch(screenName){
+
+          case "checkLive":{
+
+            //Parameters required for the screen
+            var appointmentId=message.data['appointmentId'];
+            var userId=message.data['userId'];
+            var serviceProviderId=message.data['serviceProviderId'];
+            var walkNumber;
+            if(message.data['walkNumber']=="one"){
+              walkNumber=WalkNumber.One;
+            }
+            else if(message.data['walkNumber']=="two"){
+              walkNumber=WalkNumber.Two;
+            }
+
+
+
+            //Navigate to DRLiveMapView()
+            Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DRLiveMapView(appointmentId:appointmentId, walkNumber: walkNumber, serviceProviderId: serviceProviderId, userId: userId,)));
+          }
+
+          break;
+
+          case "seeReport":{
+
+
+
+
+
+            //For Dog Running
+            if(message.data['date']!=""){
+              print(message.data['bookingDetailsId']);
+              var appointmentId=message.data['bookingDetailsId'];
+              var noOfDogs=message.data['noOfDogs'];
+
+              List<String> dogs=[];
+              String dogName=message.data['dogs'];
+              dogs.add(dogName);
+
+
+              var date = message.data['date'];
+              int newDate=int.parse(date);
+              final DateTime timeStamp = DateTime.fromMillisecondsSinceEpoch(newDate);
+
+
+              var walkNumber;
+              if(message.data['walkNumber']=="one"){
+                walkNumber=WalkNumber.One;
+              }
+              else if(message.data['walkNumber']=="two"){
+                walkNumber=WalkNumber.Two;
+              }
+
+              //Navigate to DRReportCardView
+              Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DRReportCardView(appointmentId: appointmentId, dogs: dogs, walkNumber: walkNumber, date: timeStamp, noOfDogs: int.parse(noOfDogs),)));
+            }
+            //For Dog Training
+            else{
+              var appointmentId=message.data['DogTrainingbookingDetailsId'];
+
+              var sessionNo=int.parse(message.data['sessionNo']);
+
+              //Navigate to DTReportCardView
+              Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DTReportCardView(appointmentId: appointmentId, sessionNo: sessionNo,)));
+            }
+          }
+
+          break;
+
+          case "myBookings":{
+
+            //Navigate to AppointmentsView
+            Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>AppointmentsView()));
+          }
+
+          break;
+
+          case "appointmentDetails":{
+
+            //common Parameter
+            var appointmentId=message.data['bookingDetailsId'];
+
+
+            //For Dog Running
+            if(message.data['DogTrainingbookingDetailsId']==""){
+
+              //Navigate to DRAppointmentDetailsView
+              Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DRAppointmentDetailsView(appointmentId: appointmentId)));
+            }
+            //For Dog Training
+            else{
+              var dogTrainingBookingDetailsId=message.data["DogTrainingbookingDetailsId"];
+              Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DTAppointmentDetailsView(appointmentId: dogTrainingBookingDetailsId)));
+            }
+
+          }
+
+          break;
+
+
+        //Default Case
+          default:{
+
+            //Default Navigate to HomePage
+            Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>TamelyApp()));
+          }
+        }
+      }
+    });
   }
 
   List<Widget> _buildScreens(BuildContext context, DashboardViewModel model) {

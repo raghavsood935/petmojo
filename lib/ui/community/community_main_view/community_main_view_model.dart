@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
 import 'package:tamely/api/base_response.dart';
@@ -14,11 +15,14 @@ import 'package:tamely/ui/groups/group_info/group_info_view.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/String.dart';
 
+import '../../../enum/DialogType.dart';
+
 class CommunityMainViewModel extends BaseModel {
   final navigationService = locator<NavigationService>();
   final _sharedPrefService = locator<SharedPreferencesService>();
   final snackBarService = locator<SnackbarService>();
   final _tamelyApi = locator<TamelyApi>();
+  final _dialogService = locator<DialogService>();
 
   bool isHuman = true;
   String petId = "";
@@ -188,6 +192,20 @@ class CommunityMainViewModel extends BaseModel {
     navigationService.navigateTo(
       Routes.trendingGroups,
     );
+  }
+
+  Future<bool> onBackPressed() async {
+    var result = await _dialogService.showCustomDialog(
+      variant: DialogType.ExitAppDialog,
+    );
+
+    if (result != null) {
+      if (result.confirmed) {
+        SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+        return false;
+      }
+    }
+    return false;
   }
 }
 
