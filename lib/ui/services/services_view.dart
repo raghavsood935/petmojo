@@ -433,7 +433,7 @@ Widget servicesItem(BuildContext context, ServicesModel model) {
   return Container(
     padding: EdgeInsets.all(10),
     // width: screenWidthPercentage(context, percentage: 0.35),
-    height: screenWidthPercentage(context, percentage: 0.45),
+    height: screenWidthPercentage(context, percentage: 0.47),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(16),
       color: Color(0XFFFEDFDD),
@@ -465,8 +465,8 @@ Widget servicesItem(BuildContext context, ServicesModel model) {
           color: model.bgColor,
           height: screenWidthPercentage(context, percentage: 0.28),
         ),
-        (model.title=="Walking/Exercise")?AppText.bodyBold("Daily Dog"):Container(),
-        AppText.bodyBold(model.title ?? ""),
+        (model.title=="Walking/Exercise")?Expanded(child: AppText.bodyBold("Daily Dog")):Container(),
+        Expanded(child: AppText.bodyBold(model.title ?? ""),)
       ],
     ),
   );

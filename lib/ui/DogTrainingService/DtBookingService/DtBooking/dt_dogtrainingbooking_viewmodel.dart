@@ -205,11 +205,11 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _isValid = true;
       _description = "Puppy Training";
       // old rate
-      _subTotal = 10788;
+      _subTotal = 12740;
       // new rate
       _amount = 9800;
       // save
-      _discount = 988;
+      _discount = 2940;
       _frequency = 12;
       _dayFrequency = 1;
       _isOfferValid = false;
@@ -267,7 +267,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   ];
   List get boxes => _boxes;
 
-  String _orderSummaryText1 = "Basic Obedience and Behavioral Training";
+  String _orderSummaryText1 = "Basic Training";
   String get orderSummaryText1 => _orderSummaryText1;
 
   String _orderSummaryText2 = "24 Sessions";
@@ -315,29 +315,29 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     } else if (selectedPlan == DogTrainingPackage.Two) {
       _isValid = true;
       _description = "Puppy Training";
-      _subTotal = 10788;
+      _subTotal = 12740;
       _amount = 9800;
-      _discount = 988;
+      _discount = 2940;
       _frequency = 12;
       _isOfferValid = false;
       _isOfferAvailable = true;
       _doneMultiply = false;
     } else if (selectedPlan == DogTrainingPackage.Three) {
       _isValid = true;
-      _description = "Basic Obedience & Behavioural Training";
-      _subTotal = 21576;
+      _description = "Basic Training";
+      _subTotal = 22360;
       _amount = 17200;
-      _discount = 4376;
+      _discount = 5160;
       _frequency = 24;
       _isOfferValid = false;
       _isOfferAvailable = true;
       _doneMultiply = false;
     } else if (selectedPlan == DogTrainingPackage.Four) {
       _isValid = true;
-      _description = "Advanced Obedience Behavioural and Guarding Training";
-      _subTotal = 32364;
+      _description = "Intermediate Training";
+      _subTotal = 33228;
       _amount = 25560;
-      _discount = 6804;
+      _discount = 7666;
       _frequency = 36;
       _isOfferValid = false;
       _isOfferAvailable = true;
@@ -345,11 +345,23 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     } else if (selectedPlan == DogTrainingPackage.Five) {
       _isValid = true;
       _description =
-          "Ultra Premium Obedience, Behavioural, Guarding and Intellect Training";
-      _subTotal = 43152;
+          "Advance Training";
+      _subTotal = 42432;
       _amount = 32640;
-      _discount = 10512;
+      _discount = 9792;
       _frequency = 48;
+      _isOfferValid = false;
+      _isOfferAvailable = true;
+      _doneMultiply = false;
+    }
+    else if (selectedPlan == DogTrainingPackage.Six) {
+      _isValid = true;
+      _description =
+      "Premium Training";
+      _subTotal = 70772;
+      _amount = 54440;
+      _discount = 16332;
+      _frequency = 72;
       _isOfferValid = false;
       _isOfferAvailable = true;
       _doneMultiply = false;
