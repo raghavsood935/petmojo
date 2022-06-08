@@ -71,6 +71,9 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
   List<int> _ticks=[];
   List<int> get Ticks =>_ticks;
 
+  List<int> _warning=[];
+  List<int> get warning =>_warning;
+
   int _currentSession = 1;
   int get currentSession => _currentSession;
 
@@ -127,10 +130,12 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
   bool _showLiveOne = false;
   bool _showUpcomingOne = false;
   bool _showReportOne = false;
+  bool _showNa=false;
 
   bool get showLiveOne => _showLiveOne;
   bool get showUpcomingOne => _showUpcomingOne;
   bool get showReportOne => _showReportOne;
+  bool get showNa => _showNa;
 
   WalkStatus _walkStatusOne = WalkStatus.showUpcoming;
   WalkStatus get walkStatusOne => _walkStatusOne;
@@ -160,10 +165,24 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
       _showLiveOne = false;
       _showUpcomingOne = false;
       _showReportOne = true;
+      _showNa=false;
     } else if (_walkStatusOne == WalkStatus.showUpcoming) {
       _showLiveOne = false;
       _showUpcomingOne = true;
       _showReportOne = false;
+      _showNa=false;
+    }
+    else if(_walkStatusOne == WalkStatus.showLive){
+      _showLiveOne = true;
+      _showUpcomingOne = false;
+      _showReportOne = false;
+      _showNa=false;
+    }
+    else if(_walkStatusOne==WalkStatus.showNa){
+      _showLiveOne = false;
+      _showUpcomingOne = false;
+      _showReportOne = false;
+      _showNa=true;
     }
     notifyListeners();
   }
@@ -226,13 +245,22 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
                 throwException: true);
         if (result.data != null) {
           int? scroll = result.data!.trainingStatus;
-          if (scroll == 0 || scroll==3) {
+          if (scroll==3||scroll==4) {
             // upcoming
             _walkStatusOne = WalkStatus.showUpcoming;
           } else if (scroll == 2) {
             // Completed
             _walkStatusOne = WalkStatus.showReport;
           }
+          else if(scroll==1)
+              _walkStatusOne=WalkStatus.showLive;
+          else if(scroll==0)
+              {
+                if(session<_indexToStart)
+                  _walkStatusOne=WalkStatus.showNa;
+                else
+                  _walkStatusOne = WalkStatus.showUpcoming;
+              }
           notifyListeners();
           walkOneStatus();
           notifyListeners();
@@ -252,7 +280,7 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
 
   //
   void sessionSelected(session) {
-    getScrollStatus(_currentSession);
+    getScrollStatus(session);
     notifyListeners();
   }
 
@@ -272,11 +300,21 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
           _bookingStatus = result.data!.bookingStatus!;
           _indexToStart = result.data!.index ?? 0;
           _currentSession = result.data!.index ?? 0;
+          _numberOfSessions =
+          result.data!.bookingDetails!.package!.numberOfSessions!;
+          if(_currentSession ==0 || _indexToStart==0){
+            _indexToStart=_numberOfSessions;
+            _currentSession=_numberOfSessions;
+          }
 
           List<trainDetailsResponse>? daysRun = result.data!.bookingDetails!.runDetails!;
           print(daysRun);
 
           for(var two in daysRun){
+
+            if(two.sessionStatus==0){
+              _warning.add(two.sessionNo!);
+            }
             if(two.sessionStatus==2)
               _ticks.add(two.sessionNo!);
           }
@@ -358,8 +396,6 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
 
           _subscriptionType =
               result.data!.bookingDetails!.package!.subscriptionType!;
-          _numberOfSessions =
-              result.data!.bookingDetails!.package!.numberOfSessions!;
           notifyListeners();
 
           try {
@@ -391,7 +427,7 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
           _startDateString = formatter.format(_startDate);
           notifyListeners();
 
-          sessionSelected(1);
+          sessionSelected(indexToStart);
 
           notifyListeners();
         }

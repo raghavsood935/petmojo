@@ -276,7 +276,9 @@ class _$DogTrainingAppointmentListResponseTearOff {
       @JsonKey(name: "sessionsLeft")
           int? sessionsLeft,
       @JsonKey(name: "isReorderDone")
-          bool? isReorderDone}) {
+          bool? isReorderDone,
+      @JsonKey(name: "createdAt")
+          String? createdAt}) {
     return _DogTrainingAppointmentListResponse(
       petDetails: petDetails,
       bookingStatus: bookingStatus,
@@ -286,6 +288,7 @@ class _$DogTrainingAppointmentListResponseTearOff {
       bookingDetails: bookingDetails,
       sessionsLeft: sessionsLeft,
       isReorderDone: isReorderDone,
+      createdAt: createdAt,
     );
   }
 
@@ -318,6 +321,8 @@ mixin _$DogTrainingAppointmentListResponse {
   int? get sessionsLeft => throw _privateConstructorUsedError;
   @JsonKey(name: "isReorderDone")
   bool? get isReorderDone => throw _privateConstructorUsedError;
+  @JsonKey(name: "createdAt")
+  String? get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -348,7 +353,9 @@ abstract class $DogTrainingAppointmentListResponseCopyWith<$Res> {
       @JsonKey(name: "sessionsLeft")
           int? sessionsLeft,
       @JsonKey(name: "isReorderDone")
-          bool? isReorderDone});
+          bool? isReorderDone,
+      @JsonKey(name: "createdAt")
+          String? createdAt});
 
   $UserDetailsResponseCopyWith<$Res>? get user;
   $DogTrainingBookingDetailsResponseCopyWith<$Res>? get bookingDetails;
@@ -373,6 +380,7 @@ class _$DogTrainingAppointmentListResponseCopyWithImpl<$Res>
     Object? bookingDetails = freezed,
     Object? sessionsLeft = freezed,
     Object? isReorderDone = freezed,
+    Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
       petDetails: petDetails == freezed
@@ -407,6 +415,10 @@ class _$DogTrainingAppointmentListResponseCopyWithImpl<$Res>
           ? _value.isReorderDone
           : isReorderDone // ignore: cast_nullable_to_non_nullable
               as bool?,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 
@@ -458,7 +470,9 @@ abstract class _$DogTrainingAppointmentListResponseCopyWith<$Res>
       @JsonKey(name: "sessionsLeft")
           int? sessionsLeft,
       @JsonKey(name: "isReorderDone")
-          bool? isReorderDone});
+          bool? isReorderDone,
+      @JsonKey(name: "createdAt")
+          String? createdAt});
 
   @override
   $UserDetailsResponseCopyWith<$Res>? get user;
@@ -489,6 +503,7 @@ class __$DogTrainingAppointmentListResponseCopyWithImpl<$Res>
     Object? bookingDetails = freezed,
     Object? sessionsLeft = freezed,
     Object? isReorderDone = freezed,
+    Object? createdAt = freezed,
   }) {
     return _then(_DogTrainingAppointmentListResponse(
       petDetails: petDetails == freezed
@@ -523,6 +538,10 @@ class __$DogTrainingAppointmentListResponseCopyWithImpl<$Res>
           ? _value.isReorderDone
           : isReorderDone // ignore: cast_nullable_to_non_nullable
               as bool?,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -539,7 +558,8 @@ class _$_DogTrainingAppointmentListResponse
       @JsonKey(name: "ServiceProvider") this.user,
       @JsonKey(name: "DogTrainingbookingDetails") this.bookingDetails,
       @JsonKey(name: "sessionsLeft") this.sessionsLeft,
-      @JsonKey(name: "isReorderDone") this.isReorderDone})
+      @JsonKey(name: "isReorderDone") this.isReorderDone,
+      @JsonKey(name: "createdAt") this.createdAt})
       : super._();
 
   factory _$_DogTrainingAppointmentListResponse.fromJson(
@@ -570,10 +590,13 @@ class _$_DogTrainingAppointmentListResponse
   @override
   @JsonKey(name: "isReorderDone")
   final bool? isReorderDone;
+  @override
+  @JsonKey(name: "createdAt")
+  final String? createdAt;
 
   @override
   String toString() {
-    return 'DogTrainingAppointmentListResponse(petDetails: $petDetails, bookingStatus: $bookingStatus, serviceType: $serviceType, appointmentId: $appointmentId, user: $user, bookingDetails: $bookingDetails, sessionsLeft: $sessionsLeft, isReorderDone: $isReorderDone)';
+    return 'DogTrainingAppointmentListResponse(petDetails: $petDetails, bookingStatus: $bookingStatus, serviceType: $serviceType, appointmentId: $appointmentId, user: $user, bookingDetails: $bookingDetails, sessionsLeft: $sessionsLeft, isReorderDone: $isReorderDone, createdAt: $createdAt)';
   }
 
   @override
@@ -595,7 +618,8 @@ class _$_DogTrainingAppointmentListResponse
             const DeepCollectionEquality()
                 .equals(other.sessionsLeft, sessionsLeft) &&
             const DeepCollectionEquality()
-                .equals(other.isReorderDone, isReorderDone));
+                .equals(other.isReorderDone, isReorderDone) &&
+            const DeepCollectionEquality().equals(other.createdAt, createdAt));
   }
 
   @override
@@ -608,7 +632,8 @@ class _$_DogTrainingAppointmentListResponse
       const DeepCollectionEquality().hash(user),
       const DeepCollectionEquality().hash(bookingDetails),
       const DeepCollectionEquality().hash(sessionsLeft),
-      const DeepCollectionEquality().hash(isReorderDone));
+      const DeepCollectionEquality().hash(isReorderDone),
+      const DeepCollectionEquality().hash(createdAt));
 
   @JsonKey(ignore: true)
   @override
@@ -641,7 +666,9 @@ abstract class _DogTrainingAppointmentListResponse
       @JsonKey(name: "sessionsLeft")
           int? sessionsLeft,
       @JsonKey(name: "isReorderDone")
-          bool? isReorderDone}) = _$_DogTrainingAppointmentListResponse;
+          bool? isReorderDone,
+      @JsonKey(name: "createdAt")
+          String? createdAt}) = _$_DogTrainingAppointmentListResponse;
   _DogTrainingAppointmentListResponse._() : super._();
 
   factory _DogTrainingAppointmentListResponse.fromJson(
@@ -672,6 +699,9 @@ abstract class _DogTrainingAppointmentListResponse
   @override
   @JsonKey(name: "isReorderDone")
   bool? get isReorderDone;
+  @override
+  @JsonKey(name: "createdAt")
+  String? get createdAt;
   @override
   @JsonKey(ignore: true)
   _$DogTrainingAppointmentListResponseCopyWith<
@@ -1312,7 +1342,9 @@ class _$DogRunningAppointmentListResponseTearOff {
       @JsonKey(name: "daysLeft")
           int? daysLeft,
       @JsonKey(name: "isReorderDone")
-          bool? isReorderDone}) {
+          bool? isReorderDone,
+      @JsonKey(name: "createdAt")
+          String? createdAt}) {
     return _DogRunningAppointmentListResponse(
       petDetails: petDetails,
       bookingStatus: bookingStatus,
@@ -1322,6 +1354,7 @@ class _$DogRunningAppointmentListResponseTearOff {
       bookingDetails: bookingDetails,
       daysLeft: daysLeft,
       isReorderDone: isReorderDone,
+      createdAt: createdAt,
     );
   }
 
@@ -1354,6 +1387,8 @@ mixin _$DogRunningAppointmentListResponse {
   int? get daysLeft => throw _privateConstructorUsedError;
   @JsonKey(name: "isReorderDone")
   bool? get isReorderDone => throw _privateConstructorUsedError;
+  @JsonKey(name: "createdAt")
+  String? get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1383,7 +1418,9 @@ abstract class $DogRunningAppointmentListResponseCopyWith<$Res> {
       @JsonKey(name: "daysLeft")
           int? daysLeft,
       @JsonKey(name: "isReorderDone")
-          bool? isReorderDone});
+          bool? isReorderDone,
+      @JsonKey(name: "createdAt")
+          String? createdAt});
 
   $UserDetailsResponseCopyWith<$Res>? get user;
   $DogRunningBookingDetailsResponseCopyWith<$Res>? get bookingDetails;
@@ -1408,6 +1445,7 @@ class _$DogRunningAppointmentListResponseCopyWithImpl<$Res>
     Object? bookingDetails = freezed,
     Object? daysLeft = freezed,
     Object? isReorderDone = freezed,
+    Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
       petDetails: petDetails == freezed
@@ -1442,6 +1480,10 @@ class _$DogRunningAppointmentListResponseCopyWithImpl<$Res>
           ? _value.isReorderDone
           : isReorderDone // ignore: cast_nullable_to_non_nullable
               as bool?,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 
@@ -1493,7 +1535,9 @@ abstract class _$DogRunningAppointmentListResponseCopyWith<$Res>
       @JsonKey(name: "daysLeft")
           int? daysLeft,
       @JsonKey(name: "isReorderDone")
-          bool? isReorderDone});
+          bool? isReorderDone,
+      @JsonKey(name: "createdAt")
+          String? createdAt});
 
   @override
   $UserDetailsResponseCopyWith<$Res>? get user;
@@ -1524,6 +1568,7 @@ class __$DogRunningAppointmentListResponseCopyWithImpl<$Res>
     Object? bookingDetails = freezed,
     Object? daysLeft = freezed,
     Object? isReorderDone = freezed,
+    Object? createdAt = freezed,
   }) {
     return _then(_DogRunningAppointmentListResponse(
       petDetails: petDetails == freezed
@@ -1558,6 +1603,10 @@ class __$DogRunningAppointmentListResponseCopyWithImpl<$Res>
           ? _value.isReorderDone
           : isReorderDone // ignore: cast_nullable_to_non_nullable
               as bool?,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -1574,7 +1623,8 @@ class _$_DogRunningAppointmentListResponse
       @JsonKey(name: "ServiceProvider") this.user,
       @JsonKey(name: "bookingDetails") this.bookingDetails,
       @JsonKey(name: "daysLeft") this.daysLeft,
-      @JsonKey(name: "isReorderDone") this.isReorderDone})
+      @JsonKey(name: "isReorderDone") this.isReorderDone,
+      @JsonKey(name: "createdAt") this.createdAt})
       : super._();
 
   factory _$_DogRunningAppointmentListResponse.fromJson(
@@ -1605,10 +1655,13 @@ class _$_DogRunningAppointmentListResponse
   @override
   @JsonKey(name: "isReorderDone")
   final bool? isReorderDone;
+  @override
+  @JsonKey(name: "createdAt")
+  final String? createdAt;
 
   @override
   String toString() {
-    return 'DogRunningAppointmentListResponse(petDetails: $petDetails, bookingStatus: $bookingStatus, serviceType: $serviceType, appointmentId: $appointmentId, user: $user, bookingDetails: $bookingDetails, daysLeft: $daysLeft, isReorderDone: $isReorderDone)';
+    return 'DogRunningAppointmentListResponse(petDetails: $petDetails, bookingStatus: $bookingStatus, serviceType: $serviceType, appointmentId: $appointmentId, user: $user, bookingDetails: $bookingDetails, daysLeft: $daysLeft, isReorderDone: $isReorderDone, createdAt: $createdAt)';
   }
 
   @override
@@ -1629,7 +1682,8 @@ class _$_DogRunningAppointmentListResponse
                 .equals(other.bookingDetails, bookingDetails) &&
             const DeepCollectionEquality().equals(other.daysLeft, daysLeft) &&
             const DeepCollectionEquality()
-                .equals(other.isReorderDone, isReorderDone));
+                .equals(other.isReorderDone, isReorderDone) &&
+            const DeepCollectionEquality().equals(other.createdAt, createdAt));
   }
 
   @override
@@ -1642,7 +1696,8 @@ class _$_DogRunningAppointmentListResponse
       const DeepCollectionEquality().hash(user),
       const DeepCollectionEquality().hash(bookingDetails),
       const DeepCollectionEquality().hash(daysLeft),
-      const DeepCollectionEquality().hash(isReorderDone));
+      const DeepCollectionEquality().hash(isReorderDone),
+      const DeepCollectionEquality().hash(createdAt));
 
   @JsonKey(ignore: true)
   @override
@@ -1675,7 +1730,9 @@ abstract class _DogRunningAppointmentListResponse
       @JsonKey(name: "daysLeft")
           int? daysLeft,
       @JsonKey(name: "isReorderDone")
-          bool? isReorderDone}) = _$_DogRunningAppointmentListResponse;
+          bool? isReorderDone,
+      @JsonKey(name: "createdAt")
+          String? createdAt}) = _$_DogRunningAppointmentListResponse;
   _DogRunningAppointmentListResponse._() : super._();
 
   factory _DogRunningAppointmentListResponse.fromJson(
@@ -1706,6 +1763,9 @@ abstract class _DogRunningAppointmentListResponse
   @override
   @JsonKey(name: "isReorderDone")
   bool? get isReorderDone;
+  @override
+  @JsonKey(name: "createdAt")
+  String? get createdAt;
   @override
   @JsonKey(ignore: true)
   _$DogRunningAppointmentListResponseCopyWith<

@@ -204,21 +204,21 @@ class DRBookingDetailsView
                   textInputType: TextInputType.name,
                   textCapitalization: TextCapitalization.none,
                 ),
-                // AppInputField(
-                //   hint: addressLineOneHint,
-                //   controller: model.addressLineTwoController,
-                //   onChanged: model.secondPageValidation,
-                //   isBoxBorder: true,
-                //   suffix: GestureDetector(
-                //     onTap: model.changeAddress,
-                //     child: AppText.body2(
-                //       "Change",
-                //       color: colors.primary,
-                //     ),
-                //   ),
-                //   textInputType: TextInputType.name,
-                //   textCapitalization: TextCapitalization.none,
-                // ),
+                Transform(
+                  transform: Matrix4.translationValues(0, -15, 0),
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: model.companyAvailable
+                        ? GestureDetector(
+                      onTap: model.changeAddress,
+                      child: AppText.body2(
+                        "Change",
+                        color: colors.primary,
+                      ),
+                    )
+                        : null,
+                  ),
+                ),
                 verticalSpaceTiny,
                 // Address 2
                 AppText.body1(

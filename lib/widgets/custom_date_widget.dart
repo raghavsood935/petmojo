@@ -17,6 +17,7 @@ class CustomDateWidget extends StatelessWidget {
   final DateSelectionCallback? onDateSelected;
   final String? locale;
   final bool? isCompleted;
+  final bool attentionIcons;
 
   CustomDateWidget({
     required this.date,
@@ -28,6 +29,7 @@ class CustomDateWidget extends StatelessWidget {
     this.onDateSelected,
     this.locale,
     this.isCompleted,
+    required this.attentionIcons,
   });
 
   @override
@@ -54,16 +56,13 @@ class CustomDateWidget extends StatelessWidget {
               Text(date.day.toString(), // Date
                   style: dateTextStyle),
               isCompleted ?? false
-                  ? Expanded(child: Container(
-                  decoration: BoxDecoration(
-                color: Colors.green,
-                borderRadius: BorderRadius.circular(5)
-              ), child: Icon(Icons.check,color: Colors.white,size: 20,)))
-                  : Text(
+                  ? Expanded(child: Text("✅"))
+                  : (attentionIcons!=true)?Text(
                   new DateFormat("MMM", locale)
                       .format(date)
                       .toUpperCase(), // WeekDay
-                  style: dayTextStyle)
+                  style: dayTextStyle):Expanded(child:Text("⚠"),
+              ),
             ],
           ),
         ),

@@ -36,6 +36,8 @@ class ActiveAppointmentsView extends StatelessWidget {
                       subscriptionType:
                           model.activeAppointments[index].subscriptionType,
                       dateAndTime: model.activeAppointments[index].dateAndTime,
+                      bookedDate:model.activeAppointments[index].bookedDate,
+                      bookedTime:model.activeAppointments[index].bookedTime,
                       status: model.activeAppointments[index].status,
                       onTapped: () => model.toAppointmentDetails(index),
                       showReorder: model.activeAppointments[index].showReorder,
@@ -78,7 +80,7 @@ class ActiveAppointmentItem extends StatelessWidget {
     this.showBooking,
     this.onBookingTapped,
     this.serviceType = ServiceType.DogRunning,
-    this.upcomingOrOngoing,
+    this.upcomingOrOngoing, this.bookedDate,this.bookedTime
   }) : super(key: key);
   final String? userName;
   final String? userPicture;
@@ -86,6 +88,8 @@ class ActiveAppointmentItem extends StatelessWidget {
   final List<String>? dogs;
   final String? subscriptionType;
   final String? dateAndTime;
+  final String? bookedDate;
+  final String? bookedTime;
   final ActiveAppointmentStatus? status;
   final void Function()? onTapped;
   final bool? showReorder;
@@ -215,6 +219,18 @@ class ActiveAppointmentItem extends StatelessWidget {
                             )
                           : Container(),
                       verticalSpaceTiny,
+                      AppText.body1(
+                        // DateTime.parse(dateAndTime!).isAfter(DateTime.now())
+                        //     ? "Booking date: $dateAndTime"
+                            "Booking Date: $bookedDate",
+                      ),
+                      verticalSpaceTiny,
+                      AppText.body1(
+                        // DateTime.parse(dateAndTime!).isAfter(DateTime.now())
+                        //     ? "Booking date: $dateAndTime"
+                        "Booking Time: $bookedTime",
+                      ),
+                      verticalSpaceTiny,
                       Row(
                         children: [
                           Icon(
@@ -228,12 +244,16 @@ class ActiveAppointmentItem extends StatelessWidget {
                                   ? AppText.body1(
                                       "Upcoming : $dateAndTime",
                                     )
-                                  : AppText.body1(
+                                  : (subscriptionType!="Free")?AppText.body1(
                                       "Ongoing",
-                                    )
-                              : AppText.body1(
+                                    ):AppText.body1(
+                            "Free Trial",
+                          )
+                              : (subscriptionType!="Free")?AppText.body1(
                                   "Waiting",
-                                ),
+                                ):AppText.body1(
+                            "Free Trial",
+                          ),
                         ],
                       ),
                     ],
@@ -248,7 +268,7 @@ class ActiveAppointmentItem extends StatelessWidget {
           child: verticalSpaceRegular,
         ),
         Visibility(
-          visible: showReorder!,
+          visible: showReorder! && status == ActiveAppointmentStatus.Accepted,
           child: GestureDetector(
             onTap: onReorderTapped,
             child: Container(
@@ -261,7 +281,7 @@ class ActiveAppointmentItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(4),
               ),
               child: Text(
-                reorderLabel,
+    (serviceType == ServiceType.DogRunning)?reorderLabel:"Upgrade",
                 style: TextStyle(
                   color: colors.green70,
                   fontWeight: FontWeight.bold,

@@ -20,6 +20,9 @@ class DTAppointmentDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<DTAppointmentDetailsViewModel>.reactive(
+        onModelReady: (model) async {
+          model.getAppointments();
+        },
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
         body: SafeArea(
@@ -155,7 +158,7 @@ class DTAppointmentDetailsView extends StatelessWidget {
                                       ? colors.white
                                       : colors.black,
                                 ),
-                                if (isInTicks(model.Ticks,index+1)) Text("✅")
+                                if (index+1<model.indexToStart)((isInTicks(model.Ticks,index+1))?Text("✅"):(isInWarning(model.warning,index+1))?Text("⚠"):Text("")),
                               ],
                             ),
                           ),
@@ -243,7 +246,7 @@ class DTAppointmentDetailsView extends StatelessWidget {
                               detailName: "Session Report",
                               detailValue: model.showReportOne
                                   ? "See my report"
-                                  : "Upcoming",
+                                    : (model.showUpcomingOne)?"Upcoming":(model.showNa)?"Na":"Ongoing",
                               clickable: model.showReportOne ? true : false,
                               onTapped: model.toReport,
                             ),
@@ -385,6 +388,13 @@ class DTAppointmentDetailsView extends StatelessWidget {
   }
 
   isInTicks(List<int> ticks, int i) {
+    for(var mySessionNumber in ticks){
+      if(i==mySessionNumber)
+        return true;
+    }
+    return false;
+  }
+  isInWarning(List<int> ticks, int i) {
     for(var mySessionNumber in ticks){
       if(i==mySessionNumber)
         return true;

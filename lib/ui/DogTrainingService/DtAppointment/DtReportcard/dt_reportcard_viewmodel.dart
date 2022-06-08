@@ -258,11 +258,11 @@ class DTReportCardViewModel extends FutureViewModel<void>
     log.d("futureToRun");
   }
 
-  String convertTo12(String hhMM) {
+    String convertTo12(String hhMM) {
     String amOrPm="";
     final arr = hhMM.split(':');
     final h = int.tryParse(arr[0]);
-    amOrPm=(h! >=12 ?"Pm":"Am");
+    amOrPm=(h! >=12 ?"PM":"AM");
     return '${h! > 12 ? h % 12 : h}:${arr[1]} $amOrPm';
   }
 }
