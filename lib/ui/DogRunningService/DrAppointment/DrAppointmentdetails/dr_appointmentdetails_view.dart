@@ -376,6 +376,7 @@ class DRAppointmentDetailsView extends StatelessWidget {
                         deactivatedColor: colors.kcLightGreyColor,
                         onDateChange: model.dateSelected,
                           noTickDates: model.noTickDates,
+                          attentionIcons: model.attentionIcons,
                       ),
                     ),
                     const Divider(color: Colors.blueGrey, height: 5.0),

@@ -4,6 +4,7 @@ import 'package:date_picker_timeline/extra/style.dart';
 import 'package:date_picker_timeline/gestures/tap.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:tamely/widgets/custom_date_widget.dart';
 
 class CustomDatePicker extends StatefulWidget {
@@ -11,8 +12,12 @@ class CustomDatePicker extends StatefulWidget {
   /// If not provided calendar will start from the initialSelectedDate
   final DateTime startDate;
 
-  ///
+  /// dates where no ticks
   final List<DateTime>? noTickDates;
+
+
+  /// dates where warning icon
+  final List<DateTime>? attentionIcons;
 
   /// Width of the selector
   final double width;
@@ -81,6 +86,7 @@ class CustomDatePicker extends StatefulWidget {
     this.inactiveDates,
     this.daysCount = 500,
     this.onDateChange,
+        required this.attentionIcons,
     required this.noTickDates, this.locale = "en_US",
   }) : assert(
             activeDates == null || inactiveDates == null,
@@ -210,6 +216,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
               });
             },
             isCompleted: (date.isBefore(DateTime.now()) && !isDeactivated && !isInNoTicks(date)),
+            attentionIcons: (date.isBefore(returnNow(DateTime.now())) && !isDeactivated && isInAttentionIcons(date)),
 
           );
         },
@@ -225,10 +232,25 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
         date1.year == date2.year;
   }
 
+  DateTime returnNow(DateTime nowDate){
+    final DateTime now = nowDate;
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    final String formatted = formatter.format(now);
+    return DateTime.parse(formatted);
+  }
+
+
+  bool isInAttentionIcons(DateTime date) {
+    for(var myDate in widget.attentionIcons!){
+      if(date.compareTo(myDate)==0)
+          return true;
+    }
+    return false;
+  }
   bool isInNoTicks(DateTime date) {
     for(var myDate in widget.noTickDates!){
       if(date.compareTo(myDate)==0)
-          return true;
+        return true;
     }
     return false;
   }
