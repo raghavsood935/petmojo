@@ -36,7 +36,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
           children: [
             verticalSpaceSmall,
             Padding(
-              padding: commonPaddding,
+              padding: commonPadding,
               child: Row(
                 children: [
                   AppText.bodyBold(bookingDummyModel.userProfileName),
@@ -47,7 +47,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
             ),
             verticalSpaceSmall,
             Padding(
-              padding: commonPaddding,
+              padding: commonPadding,
               child: Row(
                 children: [
                   AppText.body1("for "),
@@ -57,7 +57,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
             ),
             verticalSpaceSmall,
             Padding(
-              padding: commonPaddding,
+              padding: commonPadding,
               child: AppText.body1(
                 "We will deliver at your doorstep within 45 mins",
                 color: Color(0xFF999999),
@@ -93,7 +93,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
             ),
             verticalSpaceRegular,
             Padding(
-              padding: commonPaddding,
+              padding: commonPadding,
               child: Row(
                 children: [
                   Expanded(
@@ -114,7 +114,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
             ),
             verticalSpaceRegular,
             Padding(
-              padding: commonPaddding,
+              padding: commonPadding,
               child: Row(
                 children: [
                   Expanded(
@@ -135,7 +135,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
             ),
             verticalSpaceRegular,
             Padding(
-              padding: commonPaddding,
+              padding: commonPadding,
               child: Row(
                 children: [
                   Expanded(
@@ -156,7 +156,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
             ),
             verticalSpaceRegular,
             Padding(
-              padding: commonPaddding,
+              padding: commonPadding,
               child: Row(
                 children: [
                   Expanded(
@@ -177,7 +177,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
             ),
             verticalSpaceRegular,
             Padding(
-              padding: commonPaddding,
+              padding: commonPadding,
               child: Row(
                 children: [
                   Expanded(
@@ -198,7 +198,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
             ),
             verticalSpaceRegular,
             Padding(
-              padding: commonPaddding,
+              padding: commonPadding,
               child: Row(
                 children: [
                   Expanded(
@@ -219,7 +219,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
             ),
             verticalSpaceRegular,
             Padding(
-              padding: commonPaddding,
+              padding: commonPadding,
               child: Row(
                 children: [
                   Expanded(
@@ -242,7 +242,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
             spacedDividerSmall,
             verticalSpaceSmall,
             Padding(
-              padding: commonPaddding,
+              padding: commonPadding,
               child: AppText.caption("Order Summary"),
             ),
             Container(
@@ -281,11 +281,11 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
             ),
             spacedDividerSmall,
             Padding(
-              padding: commonPaddding,
+              padding: commonPadding,
               child: AppText.captionBold("Booking Address"),
             ),
             Padding(
-              padding: commonPaddding,
+              padding: commonPadding,
               child: AppText.caption("T-129 Emaeral Hills, Gurgaon 122018"),
             ),
             spacedDividerSmall,
@@ -304,7 +304,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                 borderRadius: BorderRadius.circular(10),
               ),
               padding: EdgeInsets.all(20),
-              margin: commonPaddding,
+              margin: commonPadding,
               child: Center(
                 child: AppText.body1Bold(
                   "REORDER",

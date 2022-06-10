@@ -138,6 +138,7 @@ import 'package:tamely/models/params/set_runtwo_rating_body.dart';
 import 'package:tamely/models/params/set_testimony_body.dart';
 import 'package:tamely/models/send_data_response.dart';
 import '../models/params/apple_signin_body.dart';
+import '../models/params/gps_tracking_wait_list_body.dart';
 import '../models/params/set_training_rating_body.dart';
 import 'api_client.dart';
 
@@ -1839,6 +1840,22 @@ class TamelyApi {
     return BaseResponse()..data = response;
   }
 
+  // Booking GPS Tracker -- GPS Tracker
+  Future<BaseResponse<SendDataResponse>> gpsTrackingWaitList(
+      GpsTrackingWaitListBody gpsTrackingWaitListBody) async {
+    log.d("googleLogin called");
+    SendDataResponse response;
+    try {
+      response = await getApiClient(true, true)
+          .gpsTrackingWaitList(gpsTrackingWaitListBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
   // My Bookings Flow
 
   // -- Get active appointments
@@ -2010,14 +2027,13 @@ class TamelyApi {
     return BaseResponse()..data = response;
   }
 
-
   Future<BaseResponse<SendDataResponse>> setTrainingRating(
       SetTrainingRatingBody setTrainingRatingBody) async {
     print("2");
     SendDataResponse response;
     try {
-      response =
-      await getApiClient(true, true).setTrainingRating(setTrainingRatingBody);
+      response = await getApiClient(true, true)
+          .setTrainingRating(setTrainingRatingBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()

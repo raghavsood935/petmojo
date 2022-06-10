@@ -131,6 +131,7 @@ import 'package:tamely/models/send_data_response.dart';
 import 'package:tamely/models/params/book_a_run_body.dart';
 import 'package:tamely/models/params/apple_signin_body.dart';
 
+import '../models/params/gps_tracking_wait_list_body.dart';
 import '../models/params/set_training_rating_body.dart';
 
 part 'api_client.g.dart';
@@ -251,6 +252,9 @@ class Apis {
   static const String setPaymentDetailsGrooming =
       '/service/postGroomingPayment';
 
+  // Booking GPS Tracker -- GPS Tracker
+  static const String gpsTrackingWaitList = '/serviceBooking/preBookingService';
+
   //community
   // ---> Groups
   static const String getGroupDetails = '/community/getGroupDetails';
@@ -329,7 +333,8 @@ class Apis {
   static const String getTrainingScrollStatus =
       '/serviceBooking/getscrollSessionstatus';
   static const String getTrainingReport = '/serviceBooking/getTrainingReport';
-  static const String setTrainingRating="/serviceBooking/giveRatingstoeachTrainingsession";
+  static const String setTrainingRating =
+      "/serviceBooking/giveRatingstoeachTrainingsession";
 
   // -- Dog grooming
   static const String getGroomingAppointmentDetails =
@@ -350,7 +355,10 @@ class Apis {
 // @RestApi(baseUrl: "https://tamely.herokuapp.com/api/")
 @RestApi(
     baseUrl:
-    "https://6xdmb7fadb.execute-api.ap-south-1.amazonaws.com/production/api/")
+        "https://6xdmb7fadb.execute-api.ap-south-1.amazonaws.com/production/api/")
+// @RestApi(
+//     baseUrl:
+//         "https://a2c7-2405-201-6015-b113-f818-e6b5-d602-f603.in.ngrok.io/api/")
 abstract class ApiClient {
   factory ApiClient(Dio dio, {String baseUrl}) = _ApiClient;
 
@@ -811,6 +819,11 @@ abstract class ApiClient {
   @PATCH(Apis.payLaterGrooming)
   Future<SendDataResponse> payLaterGrooming(
       @Body() GetPaymentDetailsBody getPaymentDetailsBody);
+
+  // Booking GPS Tracker -- GPS Tracker
+  @POST(Apis.gpsTrackingWaitList)
+  Future<SendDataResponse> gpsTrackingWaitList(
+      @Body() GpsTrackingWaitListBody gpsTrackingWaitListBody);
 
   // My Bookings Flow
 

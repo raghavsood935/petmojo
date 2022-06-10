@@ -128,7 +128,6 @@ class DRDogRunningBookingViewModel extends FormViewModel {
   bool _isValid = false;
   bool get isValid => _isValid;
 
-
   bool _isAddressValid = false;
   bool get isAddressValid => _isAddressValid;
 
@@ -489,8 +488,8 @@ class DRDogRunningBookingViewModel extends FormViewModel {
 
   void secondPageValidation(String? value) {
     _isValid = true;
-    _isPhoneValid=false;
-    _isAddressValid=true;
+    _isPhoneValid = false;
+    _isAddressValid = true;
     if (addressLineTwoController.text == "") {
       print("1");
       _isValid = false;
@@ -506,18 +505,17 @@ class DRDogRunningBookingViewModel extends FormViewModel {
     if (addressLineOneController.text == "") {
       print("4");
       _isValid = false;
-      _isAddressValid=false;
+      _isAddressValid = false;
     }
     if (phoneController.text.length < 10) {
       print("5");
       _isValid = false;
-    }
-    else{
-      _isPhoneValid=true;
+    } else {
+      _isPhoneValid = true;
     }
     if (!isDatePicked) {
       _isValid = false;
-      print("this is shit: $isValid");
+      print("this is : $isValid");
     }
     if (_selectedWeekdayOne == false &&
         _selectedWeekdayTwo == false &&
@@ -525,7 +523,7 @@ class DRDogRunningBookingViewModel extends FormViewModel {
         _selectedWeekdayFour == false &&
         _selectedWeekdayFive == false) {
       _isValid = false;
-      print("this is shit: $isValid");
+      print("this is : $isValid");
     }
     if (dayFrequency == 2) {
       if (_selectedWeekendOne == false &&

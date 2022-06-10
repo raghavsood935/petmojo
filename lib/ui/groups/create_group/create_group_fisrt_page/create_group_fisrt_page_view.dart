@@ -41,7 +41,7 @@ class _CreateGroupFirstViewState extends State<CreateGroupFirstView> {
                 isFromEdit: false,
               ),
               Padding(
-                padding: commonPaddding,
+                padding: commonPadding,
                 child: Column(
                   children: [
                     SizedBox(

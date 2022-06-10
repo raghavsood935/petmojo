@@ -65,7 +65,7 @@ class _BlogDetailsPageViewState extends State<BlogDetailsPageView> {
                             ),
                             verticalSpaceSmall,
                             Padding(
-                              padding: commonPaddding,
+                              padding: commonPadding,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [

@@ -136,7 +136,7 @@ class _ECommerceMainTabViewState extends State<ECommerceMainTabView> {
 }
 
 Widget subTitleWidget(String title) => Padding(
-      padding: commonPaddding,
+      padding: commonPadding,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

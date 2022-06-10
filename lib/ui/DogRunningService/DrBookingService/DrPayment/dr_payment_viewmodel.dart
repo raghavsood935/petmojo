@@ -115,7 +115,7 @@ class DRPaymentViewModel extends FutureViewModel<void>
   String petID = "";
   String petToken = "";
   int currentIndex = 0;
-  String userName="";
+  String userName = "";
 
   Future init() async {
     CurrentProfile profile = _sharedPreferenceService.getCurrentProfile();
@@ -170,7 +170,8 @@ class DRPaymentViewModel extends FutureViewModel<void>
       barrierDismissible: true,
       takesInput: true,
       title: "",
-      description: "Thank you!, Your payment was successful and Your booking is now confirmed.Enjoy your day :)",
+      description:
+          "Thank you!, Your payment was successful and Your booking is now confirmed.Enjoy your day :)",
     );
   }
 

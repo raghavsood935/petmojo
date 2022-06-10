@@ -74,7 +74,7 @@ class _CreateAnimalProfileNewPageThreeState
                   GestureDetector(
                     onTap: model.onBack,
                     child: Padding(
-                      padding: commonPaddding,
+                      padding: commonPadding,
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: AppText.body1Bold(
@@ -88,7 +88,7 @@ class _CreateAnimalProfileNewPageThreeState
                   Image.asset("assets/images/on_boarding/create_pet_logo.png"),
                   verticalSpaceLarge,
                   Padding(
-                    padding: commonPaddding,
+                    padding: commonPadding,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -250,7 +250,7 @@ class _CreateAnimalProfileNewPageThreeState
           bottomSheet: SizedBox(
             height: 100,
             child: Padding(
-              padding: commonPaddding,
+              padding: commonPadding,
               child: Column(
                 children: [
                   GestureDetector(

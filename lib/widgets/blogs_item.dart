@@ -51,7 +51,7 @@ class _BlogItemState extends State<BlogItem> {
                 ? EdgeInsets.zero
                 : (widget.isFromCommunity ?? false)
                     ? EdgeInsets.zero
-                    : commonPaddding,
+                    : commonPadding,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -70,7 +70,7 @@ class _BlogItemState extends State<BlogItem> {
                 verticalSpaceSmall,
                 Padding(
                   padding:
-                      widget.isDetailView ? commonPaddding : EdgeInsets.zero,
+                      widget.isDetailView ? commonPadding : EdgeInsets.zero,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

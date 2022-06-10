@@ -34,17 +34,17 @@ class DTReportCardViewModel extends FutureViewModel<void>
   int _startTime = 0;
   int get startTime => _startTime;
 
-  String _trainerName="Trainer";
-  String get trainerName=>_trainerName;
+  String _trainerName = "Trainer";
+  String get trainerName => _trainerName;
 
-  String _agenda="agenda";
-  String get agenda=>_agenda;
+  String _agenda = "agenda";
+  String get agenda => _agenda;
 
   int _endTime = 0;
   int get endTime => _endTime;
 
-  String startDate="";
-  String endDate="";
+  String startDate = "";
+  String endDate = "";
 
   DTReportCardViewModel(this.appointmentId, this.sessionNo);
 
@@ -112,19 +112,20 @@ class DTReportCardViewModel extends FutureViewModel<void>
   Future<void> setRating() async {
     try {
       if (await Util.checkInternetConnectivity()) {
-    SetTrainingRatingBody setTrainingRatingBody =
-    SetTrainingRatingBody(appointmentId,rating,sessionNo);
-    BaseResponse<SendDataResponse> resultOne = await runBusyFuture(
-    _tamelyApi.setTrainingRating(setTrainingRatingBody),
-    throwException: true);
-    } else {
-    _snackBarService.showSnackbar(message: "No Internet connection");
-    }
+        SetTrainingRatingBody setTrainingRatingBody =
+            SetTrainingRatingBody(appointmentId, rating, sessionNo);
+        BaseResponse<SendDataResponse> resultOne = await runBusyFuture(
+            _tamelyApi.setTrainingRating(setTrainingRatingBody),
+            throwException: true);
+      } else {
+        _snackBarService.showSnackbar(message: "No Internet connection");
+      }
     } on ServerError catch (e) {
-    log.e(e.toString());
+      log.e(e.toString());
     }
     notifyListeners();
   }
+
   void getReport() async {
     print("Getting report");
     try {
@@ -144,21 +145,21 @@ class DTReportCardViewModel extends FutureViewModel<void>
           _trainerName = resultOne.data!.details!.trainerName!;
           _agenda = resultOne.data!.details!.agenda!;
 
-
           //if start time not 0, convert date from epoch to this format ex 12:45
           //for both _startTime and _endTime
-          if(_startTime!=0){
-            startDate = DateFormat.Hms().format(DateTime.fromMillisecondsSinceEpoch(_startTime));
-            List newList=startDate.split(":");
+          if (_startTime != 0) {
+            startDate = DateFormat.Hms()
+                .format(DateTime.fromMillisecondsSinceEpoch(_startTime));
+            List newList = startDate.split(":");
             newList.removeAt(2);
-            startDate=convertTo12(newList.join(":"));
+            startDate = convertTo12(newList.join(":"));
 
-
-            newList=[];
-            endDate = DateFormat.Hms().format(DateTime.fromMillisecondsSinceEpoch(_endTime));
-            newList=endDate.split(":");
+            newList = [];
+            endDate = DateFormat.Hms()
+                .format(DateTime.fromMillisecondsSinceEpoch(_endTime));
+            newList = endDate.split(":");
             newList.removeAt(2);
-            endDate=convertTo12(newList.join(":"));
+            endDate = convertTo12(newList.join(":"));
           }
 
           if (rating > 0) {
@@ -259,10 +260,10 @@ class DTReportCardViewModel extends FutureViewModel<void>
   }
 
   String convertTo12(String hhMM) {
-    String amOrPm="";
+    String amOrPm = "";
     final arr = hhMM.split(':');
     final h = int.tryParse(arr[0]);
-    amOrPm=(h! >=12 ?"Pm":"Am");
-    return '${h! > 12 ? h % 12 : h}:${arr[1]} $amOrPm';
+    amOrPm = (h! >= 12 ? "Pm" : "Am");
+    return '${h > 12 ? h % 12 : h}:${arr[1]} $amOrPm';
   }
 }

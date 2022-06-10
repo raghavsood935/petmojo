@@ -195,7 +195,7 @@ class AuthenticationLayout extends StatelessWidget {
                       vertical: 8,
                       horizontal: 10,
                     ),
-                    padding: commonPaddding.copyWith(top: 12, bottom: 12),
+                    padding: commonPadding.copyWith(top: 12, bottom: 12),
                     decoration: BoxDecoration(
                       color: Color(0xFFFEF5F7),
                       borderRadius: BorderRadius.circular(5.6),
@@ -223,7 +223,7 @@ class AuthenticationLayout extends StatelessWidget {
                         vertical: 8,
                         horizontal: 10,
                       ),
-                      padding: commonPaddding.copyWith(top: 12, bottom: 12),
+                      padding: commonPadding.copyWith(top: 12, bottom: 12),
                       decoration: BoxDecoration(
                         color: Color(0xFF000000),
                         borderRadius: BorderRadius.circular(5.6),
