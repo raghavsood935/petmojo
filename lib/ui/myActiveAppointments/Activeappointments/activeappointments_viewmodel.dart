@@ -227,15 +227,16 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             newAppointment.serviceType = ServiceType.DogRunning;
             newAppointment.serviceName = dogWalkingTitle;
 
-            // newAppointment.subscriptionType =
-            //     "(${each.bookingDetails!.package!.subscriptionType} , ${each.bookingDetails!.package!.numberOfTimes}/day )";
-            newAppointment.subscriptionType=each.bookingDetails!.package!.subscriptionType;
+            newAppointment.subscriptionType =
+            "(${each.bookingDetails!.package!.numberOfDays==30?"1 Month":"3 Month"} , ${(each.bookingDetails!.package!.numberOfTimes==1)?"Once a day":(each.bookingDetails!.package!.numberOfTimes==2)?"Twice a day":"Thrice a day"})";
+            // newAppointment.subscriptionType=each.bookingDetails!.package!.subscriptionType;
 
             var formatter = new DateFormat('dd-MMM-yyyy');
 
             String? dateDummyString = each.bookingDetails!.startDate;
             String myDate  = DateTime.parse(each.createdAt!).add(Duration(hours: 5,minutes: 30)).toString();
             newAppointment.bookedDate=myDate.split(" ")[0];
+            newAppointment.lastDate=each.lastDate!;
             String time=myDate.split(" ")[1];
             List newList=time.split(":");
             newList.removeAt(2);
@@ -245,6 +246,9 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             // DateTime dummyDate = DateTime.parse(dateDummyString!);
             // dateDummyString = formatter.format(dummyDate);
             newAppointment.dateAndTime = dateDummyString;
+            newAppointment.run1Time=each.bookingDetails!.run1Time;
+            newAppointment.run2Time=each.bookingDetails!.run2Time;
+
 
 
             if (DateTime.parse(dateDummyString!).isAfter(returnNow(DateTime.now()))) {
@@ -268,6 +272,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             bool? isReorderDone = each.isReorderDone;
             String? subscriptionType =
                 each.bookingDetails!.package!.subscriptionType;
+            newAppointment.packageSubscriptionType=subscriptionType;
             if (numberOfDaysLeft! <= 5 &&
                 subscriptionType != "Free" &&
                 isReorderDone == false) {
@@ -308,10 +313,15 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
 
             newAppointment.serviceType = ServiceType.DogTraining;
             newAppointment.serviceName = dogTrainingTitle;
-
-            // newAppointment.subscriptionType =
-            //     "(${each.bookingDetails!.package!.subscriptionType} , ${each.bookingDetails!.package!.numberOfSessions}/day )";
-            newAppointment.subscriptionType=each.bookingDetails!.package!.subscriptionType;
+            if(each.sessionsCompleted!=null){
+              newAppointment.subscriptionType =
+              "(${each.bookingDetails!.package!.subscriptionType} , ${each.sessionsCompleted}/${each.bookingDetails!.package!.numberOfSessions})";
+            }
+            else{
+              newAppointment.subscriptionType =
+              "(${each.bookingDetails!.package!.subscriptionType} , ${each.bookingDetails!.package!.numberOfSessions} Sessions)";
+            }
+            // newAppointment.subscriptionType=each.bookingDetails!.package!.subscriptionType;
 
             var formatter = new DateFormat('dd-MMM-yyyy');
 
@@ -348,9 +358,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             bool? isReorderDone = each.isReorderDone;
             String? subscriptionType =
                 each.bookingDetails!.package!.subscriptionType;
-            print("sessions left");
-            print(newAppointment.bookedTime);
-            print(numberOfDaysLeft);
+            newAppointment.packageSubscriptionType=subscriptionType;
             if (numberOfDaysLeft! <= 5 &&
                 subscriptionType != "Free" &&
                 isReorderDone == false) {
@@ -395,16 +403,16 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
 
             newAppointment.serviceType = ServiceType.DogGrooming;
             newAppointment.serviceName =
-                each.bookingDetails!.package!.description;
+                dogGroomingTitle;
             newAppointment.amount = each.bookingDetails!.paymentDetails!.amount;
-            // newAppointment.subscriptionType =
-            //     "(${each.bookingDetails!.package!.subscriptionType} , ${each.bookingDetails!.package!.numberOfSessions}/day )";
+            newAppointment.subscriptionType =each.bookingDetails!.package!.description;
 
             var formatter = new DateFormat('dd-MMM-yyyy');
 
             String? dateDummyString = each.bookingDetails!.startDate;
             String timeString =
                 each.bookingDetails!.sessionDetails!.sessionTime!;
+            newAppointment.sessionTime=timeString;
             String myDate  = DateTime.parse(each.createdAt!).add(Duration(hours: 5,minutes: 30)).toString();
             newAppointment.bookedDate=myDate.split(" ")[0];
             String time=myDate.split(" ")[1];
@@ -449,8 +457,9 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             // Days Left
             // int? numberOfDaysLeft = each.sessionsLeft;
             // bool? isReorderDone = each.isReorderDone;
-            // String? subscriptionType =
-            //     each.bookingDetails!.package!.subscriptionType;
+            String? subscriptionType =
+                each.bookingDetails!.package!.description;
+            newAppointment.packageSubscriptionType=subscriptionType;
             // if (numberOfDaysLeft! <= 5 &&
             //     subscriptionType != "Free" &&
             //     isReorderDone == false) {
@@ -497,14 +506,16 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
 
             newAppointment.serviceType = ServiceType.DogRunning;
             newAppointment.serviceName = dogWalkingTitle;
+            newAppointment.subscriptionType =
+            "(${each.bookingDetails!.package!.numberOfDays==30?"1 Month":"3 Month"} , ${(each.bookingDetails!.package!.numberOfTimes==1)?"Once a day":(each.bookingDetails!.package!.numberOfTimes==2)?"Twice a day":"Thrice a day"})";
 
-            // newAppointment.subscriptionType =
-            //     "(${each.bookingDetails!.package!.subscriptionType} , ${each.bookingDetails!.package!.numberOfTimes}/day )";
+            newAppointment.run1Time=each.bookingDetails!.run1Time;
+            newAppointment.run2Time=each.bookingDetails!.run2Time;
 
-            newAppointment.subscriptionType=each.bookingDetails!.package!.subscriptionType;
+            // newAppointment.subscriptionType=each.bookingDetails!.package!.subscriptionType;
 
             var formatter = new DateFormat('dd-MMM-yyyy');
-
+            newAppointment.lastDate=each.lastDate!;
             String? dateDummyString = each.bookingDetails!.startDate;
             String myDate  = DateTime.parse(each.createdAt!).add(Duration(hours: 5,minutes: 30)).toString();
             newAppointment.bookedDate=myDate.split(" ")[0];
@@ -534,9 +545,11 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
 
             // Days Left
             int? numberOfDaysLeft = each.daysLeft;
+
             bool? isReorderDone = each.isReorderDone;
             String? subscriptionType =
                 each.bookingDetails!.package!.subscriptionType;
+            newAppointment.packageSubscriptionType=subscriptionType;
             if (numberOfDaysLeft! <= 5 &&
                 subscriptionType != "Free" &&
                 isReorderDone == false) {
@@ -577,9 +590,14 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             newAppointment.serviceType = ServiceType.DogTraining;
             newAppointment.serviceName = dogTrainingTitle;
 
-            // newAppointment.subscriptionType =
-            //     "(${each.bookingDetails!.package!.subscriptionType} , ${each.bookingDetails!.package!.numberOfSessions}/day )";
-            newAppointment.subscriptionType=each.bookingDetails!.package!.subscriptionType;
+            if(each.sessionsCompleted!=null){
+              newAppointment.subscriptionType =
+              "(${each.bookingDetails!.package!.subscriptionType} , ${each.sessionsCompleted}/${each.bookingDetails!.package!.numberOfSessions})";
+            }
+            else{
+              newAppointment.subscriptionType =
+              "(${each.bookingDetails!.package!.subscriptionType} , ${each.bookingDetails!.package!.numberOfSessions} Sessions)";
+            }
 
             var formatter = new DateFormat('dd-MMM-yyyy');
 
@@ -615,15 +633,11 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             bool? isReorderDone = each.isReorderDone;
             String? subscriptionType =
                 each.bookingDetails!.package!.subscriptionType;
-            print("sessions left");
-            print(newAppointment.bookedTime);
-            print(numberOfDaysLeft);
+            newAppointment.packageSubscriptionType=subscriptionType;
+
             if (numberOfDaysLeft! <= 5 &&
                 subscriptionType != "Free" &&
                 isReorderDone == false) {
-              print("sessions left");
-              print(newAppointment.bookedTime);
-              print(numberOfDaysLeft);
               newAppointment.showReorder = true;
             } else {
               newAppointment.showReorder = false;
@@ -680,9 +694,14 @@ class ActiveAppointmentClass {
   String? serviceName;
   List<String> dogs;
   String? subscriptionType;
+  String? packageSubscriptionType;
   String? dateAndTime;
+  String? run1Time;
+  String? run2Time;
   String? bookedDate;
   String? bookedTime;
+  String? lastDate;
+  String? sessionTime;
 
   bool? showReorder;
   bool? showBooking;
@@ -698,6 +717,7 @@ class ActiveAppointmentClass {
     this.serviceName,
     required this.dogs,
     this.subscriptionType,
+    this.packageSubscriptionType,
     this.dateAndTime,
     this.bookedDate,
     this.bookedTime,
@@ -706,5 +726,9 @@ class ActiveAppointmentClass {
     this.showBooking,
     this.amount,
     this.upcomingOrOngoing,
+    this.run1Time,
+    this.run2Time,
+    this.lastDate,
+    this.sessionTime,
   });
 }

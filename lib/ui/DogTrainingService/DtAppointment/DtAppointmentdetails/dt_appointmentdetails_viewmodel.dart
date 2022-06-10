@@ -298,8 +298,8 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
         if (result.data != null) {
           _serviceStatus = result.data!.serviceStatus!;
           _bookingStatus = result.data!.bookingStatus!;
-          _indexToStart = result.data!.index ?? 0;
-          _currentSession = result.data!.index ?? 0;
+          _indexToStart = result.data!.index!;
+          _currentSession = result.data!.index!;
           _numberOfSessions =
           result.data!.bookingDetails!.package!.numberOfSessions!;
           if(_currentSession ==0 || _indexToStart==0){
@@ -308,15 +308,16 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
           }
 
           List<trainDetailsResponse>? daysRun = result.data!.bookingDetails!.runDetails!;
-          print(daysRun);
 
           for(var two in daysRun){
 
             if(two.sessionStatus==0){
               _warning.add(two.sessionNo!);
             }
-            if(two.sessionStatus==2)
+            if(two.sessionStatus==2){
               _ticks.add(two.sessionNo!);
+            }
+
           }
           if (serviceStatus == 0) {
             // service not completed

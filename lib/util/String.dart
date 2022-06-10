@@ -465,9 +465,9 @@ String pastAppointmentsTitle = "Past";
 
 // -- Active
 
-String pendingLabel = "Dog runner will be \n assigned shortly";
-String trainerPendingLabel = "Dog trainer will be \n assigned shortly";
-String groomingPendingLabel = "Dog groomer will be \n assigned shortly";
+String pendingLabel = "Dog runner will be assigned shortly";
+String trainerPendingLabel = "Dog trainer will be assigned shortly";
+String groomingPendingLabel = "Dog groomer will be assigned shortly";
 String upcomingLabel = "Upcoming";
 String confirmedLabel = "Confirmed";
 String reorderLabel = "Renew Soon";
@@ -733,7 +733,7 @@ String threeGroomingSeeTwelve = "Shaving and Hairstyling";
 String dogGroomingProductDescription =
     "Our grooming products are carefully selected to care for your pet’s skin coat and are non allergenic.";
 // My Appointments
-String dogGroomingTitle = "Pet Grooming";
+String dogGroomingTitle = "Dog Grooming";
 String groomingDetailsSubtitle = "Where do you want the grooming session?";
 
 String groomingTimingsOne = "6am-8am";
