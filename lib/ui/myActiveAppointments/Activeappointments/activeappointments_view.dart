@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/enum/activeAppointmentStatus.dart';
 import 'package:tamely/enum/service_type.dart';
@@ -33,8 +34,10 @@ class ActiveAppointmentsView extends StatelessWidget {
                       userPicture: model.activeAppointments[index].userPicture,
                       serviceName: model.activeAppointments[index].serviceName,
                       dogs: model.activeAppointments[index].dogs,
+                      lastDate:model.activeAppointments[index].lastDate,
                       subscriptionType:
                           model.activeAppointments[index].subscriptionType,
+                      packageSubscriptionType:model.activeAppointments[index].packageSubscriptionType,
                       dateAndTime: model.activeAppointments[index].dateAndTime,
                       bookedDate:model.activeAppointments[index].bookedDate,
                       bookedTime:model.activeAppointments[index].bookedTime,
@@ -49,6 +52,9 @@ class ActiveAppointmentsView extends StatelessWidget {
                               ServiceType.DogRunning,
                       upcomingOrOngoing:
                           model.activeAppointments[index].upcomingOrOngoing,
+                      run1Time:model.activeAppointments[index].run1Time,
+                      run2Time:model.activeAppointments[index].run2Time,
+                      sessionTime:model.activeAppointments[index].sessionTime,
                     );
                   },
                   separatorBuilder: (BuildContext context, int index) =>
@@ -77,16 +83,21 @@ class ActiveAppointmentItem extends StatelessWidget {
     this.userName,
     this.showReorder,
     this.onReorderTapped,
+    this.run1Time,
+    this.run2Time,
     this.showBooking,
     this.onBookingTapped,
     this.serviceType = ServiceType.DogRunning,
-    this.upcomingOrOngoing, this.bookedDate,this.bookedTime
+    this.upcomingOrOngoing, this.bookedDate,this.bookedTime, this.packageSubscriptionType, this.lastDate, this.sessionTime,
   }) : super(key: key);
   final String? userName;
   final String? userPicture;
   final String? serviceName;
+  final String? lastDate;
+  final String? sessionTime;
   final List<String>? dogs;
   final String? subscriptionType;
+  final String? packageSubscriptionType;
   final String? dateAndTime;
   final String? bookedDate;
   final String? bookedTime;
@@ -98,6 +109,8 @@ class ActiveAppointmentItem extends StatelessWidget {
   final void Function()? onBookingTapped;
   final ServiceType serviceType;
   final String? upcomingOrOngoing;
+  final String? run1Time;
+  final String? run2Time;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -142,121 +155,163 @@ class ActiveAppointmentItem extends StatelessWidget {
                     ),
                   ),
                   horizontalSpaceRegular,
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          AppText.body1(
-                            serviceName!,
-                          ),
-                          horizontalSpaceMedium,
-                          Visibility(
-                            visible: status == ActiveAppointmentStatus.Accepted,
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 8),
-                              decoration: BoxDecoration(
-                                color: colors.green10,
-                                borderRadius: BorderRadius.circular(100),
-                              ),
-                              child: AppText.overline(
-                                confirmedLabel,
-                                color: colors.green70,
+                  Flexible(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            AppText.body1(
+                              serviceName!,
+                            ),
+                            horizontalSpaceMedium,
+                            Visibility(
+                              visible: status == ActiveAppointmentStatus.Accepted,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 8),
+                                decoration: BoxDecoration(
+                                  color: colors.green10,
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                                child: AppText.overline(
+                                  confirmedLabel,
+                                  color: colors.green70,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      verticalSpaceTiny,
-                      Row(
-                        children: [
-                          AppText.body1(
-                            "for ",
-                            color: colors.kcCaptionGreyColor,
-                          ),
-                          dogs!.length == 1
-                              ? AppText.body1(
-                                  "${dogs![0]}",
-                                )
-                              : Row(
-                                  children: [
-                                    AppText.body1(
-                                      "${dogs![0]}",
-                                    ),
-                                    AppText.body1(
-                                      "  &  ",
-                                      color: colors.kcCaptionGreyColor,
-                                    ),
-                                    AppText.body1(
-                                      "${dogs![1]}",
-                                    ),
-                                  ],
+                          ],
+                        ),
+                        verticalSpaceTiny,
+                        Container(
+                          width: MediaQuery.of(context).size.width*0.579,
+                          child:Row(
+                            children: [
+                              Flexible(
+                                child: AppText.body1(
+                                  (packageSubscriptionType!="Free")?subscriptionType!:"FREE Demo Session",
+                                  color: colors.primary,
                                 ),
-                          status == ActiveAppointmentStatus.Accepted
-                              ? Row(
-                                  children: [
-                                    AppText.body1(
-                                      " with ",
-                                      color: colors.kcCaptionGreyColor,
-                                    ),
-                                    AppText.body1(
-                                      userName!,
-                                    )
-                                  ],
-                                )
-                              : Container(),
-                        ],
-                      ),
-                      status == ActiveAppointmentStatus.Pending
-                          ? AppText.body1(
-                              serviceType == ServiceType.DogGrooming
-                                  ? groomingPendingLabel
-                                  : ( serviceType == ServiceType.DogRunning)?pendingLabel:trainerPendingLabel,
-                              color: colors.pink,
+                              ),
+                            ],
+                          ),
+                        ),
+                        verticalSpaceTiny,
+                        Row(
+                          children: [
+                            AppText.body1(
+                              "for ",
+                              color: colors.kcCaptionGreyColor,
+                            ),
+                            dogs!.length == 1
+                                ? AppText.body1(
+                              "${dogs![0]}",
                             )
-                          : Container(),
-                      verticalSpaceTiny,
-                      AppText.body1(
-                        // DateTime.parse(dateAndTime!).isAfter(DateTime.now())
-                        //     ? "Booking date: $dateAndTime"
-                            "Booking Date: $bookedDate",
-                      ),
-                      verticalSpaceTiny,
-                      AppText.body1(
-                        // DateTime.parse(dateAndTime!).isAfter(DateTime.now())
-                        //     ? "Booking date: $dateAndTime"
-                        "Booking Time: $bookedTime",
-                      ),
-                      verticalSpaceTiny,
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.access_time_outlined,
-                            color: colors.primary,
-                            size: 20,
-                          ),
-                          horizontalSpaceTiny,
-                          status == ActiveAppointmentStatus.Accepted
-                              ? upcomingOrOngoing == "Upcoming"
-                                  ? AppText.body1(
-                                      "Upcoming : $dateAndTime",
-                                    )
-                                  : (subscriptionType!="Free")?AppText.body1(
-                                      "Ongoing",
+                                : Row(
+                              children: [
+                                AppText.body1(
+                                  "${dogs![0]}",
+                                ),
+                                AppText.body1(
+                                  "  &  ",
+                                  color: colors.kcCaptionGreyColor,
+                                ),
+                                AppText.body1(
+                                  "${dogs![1]}",
+                                ),
+                              ],
+                            ),
+                            status == ActiveAppointmentStatus.Accepted
+                                ? Row(
+                              children: [
+                                AppText.body1(
+                                  " with ",
+                                  color: colors.kcCaptionGreyColor,
+                                ),
+                                AppText.body1(
+                                  userName!,
+                                )
+                              ],
+                            )
+                                : Container(),
+                          ],
+                        ),
+                        status == ActiveAppointmentStatus.Pending
+                            ? Container(
+                          width: MediaQuery.of(context).size.width*0.579,
+                              child: Row(
+                                children: [
+                                  Flexible(
+                                    child: AppText.body1(
+                                      serviceType == ServiceType.DogGrooming
+                                          ? groomingPendingLabel
+                                          : ( serviceType == ServiceType.DogRunning)?pendingLabel:trainerPendingLabel,
+                                      color: colors.pink,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            )
+                            :Container(),
+                        verticalSpaceTiny,
+                        // AppText.body1(
+                        //   // DateTime.parse(dateAndTime!).isAfter(DateTime.now())
+                        //   //     ? "Booking date: $dateAndTime"
+                        //       "Booking Date: $bookedDate",
+                        // ),
+                        // verticalSpaceTiny,
+                        // AppText.body1(
+                        //   // DateTime.parse(dateAndTime!).isAfter(DateTime.now())
+                        //   //     ? "Booking date: $dateAndTime"
+                        //   "Booking Time: $bookedTime",
+                        // ),
+                        verticalSpaceTiny,
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.access_time_outlined,
+                              color: colors.primary,
+                              size: 20,
+                            ),
+                            horizontalSpaceTiny,
+                            Container(
+                              width: MediaQuery.of(context).size.width*0.5,
+                              child: Row(
+                                children: [
+                                  Flexible(
+                                    child: status == ActiveAppointmentStatus.Accepted
+                                        ? upcomingOrOngoing == "Upcoming"
+                                        ? (serviceType==ServiceType.DogRunning)?AppText.body1(
+                                      "Upcoming : ${DateFormat.yMMMEd().format(DateTime.parse(dateAndTime!))}\n${run2Time==""?run1Time:"$run1Time & $run2Time"}",
+                                    ):(serviceType==ServiceType.DogGrooming)?AppText.body1(
+                                      "Upcoming : ${DateFormat.yMMMEd().format(DateTime.parse(dateAndTime!))}\n$sessionTime",
                                     ):AppText.body1(
-                            "Free Trial",
-                          )
-                              : (subscriptionType!="Free")?AppText.body1(
-                                  "Waiting",
-                                ):AppText.body1(
-                            "Free Trial",
-                          ),
-                        ],
-                      ),
-                    ],
+                                      "Upcoming : ${DateFormat.yMMMEd().format(DateTime.parse(dateAndTime!))}",
+                                    )
+                                        : (serviceType==ServiceType.DogRunning)?AppText.body1(
+                                      "Ongoing : Last-${DateFormat.yMMMEd().format(DateTime.parse(lastDate!))}\n${run2Time==""?run1Time:"$run1Time & $run2Time"}",
+                                    ):(serviceType==ServiceType.DogGrooming)?AppText.body1(
+                                      "Ongoing : $sessionTime",
+                                    ):AppText.body1(
+                                      "Ongoing",
+                                    )
+                                        :(serviceType==ServiceType.DogRunning)?AppText.body1(
+                                      "Waiting : ${DateFormat.yMMMEd().format(DateTime.parse(dateAndTime!))}\n${run2Time==""?run1Time:"$run1Time & $run2Time"}",
+                                    ):(serviceType==ServiceType.DogGrooming)?AppText.body1(
+                                      "Waiting : ${DateFormat.yMMMEd().format(DateTime.parse(dateAndTime!))}\n$sessionTime",
+                                    ):AppText.body1(
+                                      "Waiting : ${DateFormat.yMMMEd().format(DateTime.parse(dateAndTime!))}",
+                                    ),
+                                  ),
+                                ],
+                              )
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

@@ -36,6 +36,7 @@ class DogTrainingAppointmentListResponse
     @JsonKey(name: "sessionsLeft") int? sessionsLeft,
     @JsonKey(name: "isReorderDone") bool? isReorderDone,
     @JsonKey(name: "createdAt") String? createdAt,
+    @JsonKey(name: "sessionsCompleted") int? sessionsCompleted,
   }) = _DogTrainingAppointmentListResponse;
 
   factory DogTrainingAppointmentListResponse.fromJson(
@@ -87,6 +88,7 @@ class DogRunningAppointmentListResponse
     @JsonKey(name: "daysLeft") int? daysLeft,
     @JsonKey(name: "isReorderDone") bool? isReorderDone,
     @JsonKey(name: "createdAt") String? createdAt,
+    @JsonKey(name: "lastDate") String? lastDate,
   }) = _DogRunningAppointmentListResponse;
 
   factory DogRunningAppointmentListResponse.fromJson(

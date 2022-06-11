@@ -116,7 +116,7 @@ class DTAppointmentDetailsView extends StatelessWidget {
                 Container(
                   height: 30,
                   width: screenWidth(context),
-                  color: colors.primaryLight,
+                  color: colors.white,
                   padding: EdgeInsets.only(
                     top: 10.0,
                     left: 25.0,
@@ -130,7 +130,7 @@ class DTAppointmentDetailsView extends StatelessWidget {
                 ),
                 Container(
                   height: 90,
-                  color: colors.primaryLight,
+                  color: colors.white,
                   padding: EdgeInsets.only(
                     top: 9.0,
                     bottom: 10.0,
@@ -165,7 +165,7 @@ class DTAppointmentDetailsView extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: model.currentSession == index + 1
                                 ? colors.primary
-                                : Colors.transparent,
+                                : ((index+1<model.indexToStart) && (isInTicks(model.Ticks,index+1)||isInWarning(model.warning,index+1)))?Color(0xFFFACAD7):Colors.transparent,
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),

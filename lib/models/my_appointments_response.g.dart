@@ -52,6 +52,7 @@ _$_DogTrainingAppointmentListResponse
           sessionsLeft: json['sessionsLeft'] as int?,
           isReorderDone: json['isReorderDone'] as bool?,
           createdAt: json['createdAt'] as String?,
+          sessionsCompleted: json['sessionsCompleted'] as int?,
         );
 
 Map<String, dynamic> _$$_DogTrainingAppointmentListResponseToJson(
@@ -66,6 +67,7 @@ Map<String, dynamic> _$$_DogTrainingAppointmentListResponseToJson(
       'sessionsLeft': instance.sessionsLeft,
       'isReorderDone': instance.isReorderDone,
       'createdAt': instance.createdAt,
+      'sessionsCompleted': instance.sessionsCompleted,
     };
 
 _$_DogGroomingAppointmentListResponse
@@ -136,6 +138,7 @@ _$_DogRunningAppointmentListResponse
           daysLeft: json['daysLeft'] as int?,
           isReorderDone: json['isReorderDone'] as bool?,
           createdAt: json['createdAt'] as String?,
+          lastDate: json['lastDate'] as String?,
         );
 
 Map<String, dynamic> _$$_DogRunningAppointmentListResponseToJson(
@@ -150,6 +153,7 @@ Map<String, dynamic> _$$_DogRunningAppointmentListResponseToJson(
       'daysLeft': instance.daysLeft,
       'isReorderDone': instance.isReorderDone,
       'createdAt': instance.createdAt,
+      'lastDate': instance.lastDate,
     };
 
 _$_UserDetailsResponse _$$_UserDetailsResponseFromJson(
