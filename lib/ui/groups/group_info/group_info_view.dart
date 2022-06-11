@@ -174,7 +174,7 @@ class GroupInfoView extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: commonPaddding,
+                          padding: commonPadding,
                           child: SingleChildScrollView(
                             physics: ScrollPhysics(),
                             child: Column(

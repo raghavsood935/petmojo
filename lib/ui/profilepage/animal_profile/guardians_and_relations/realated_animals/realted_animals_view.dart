@@ -100,7 +100,7 @@ class _RelatedAnimalsViewState extends State<RelatedAnimalsView> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
-                  padding: commonPaddding,
+                  padding: commonPadding,
                   child: AppText.body1Bold("Relations"),
                 ),
               ),

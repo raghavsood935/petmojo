@@ -84,7 +84,7 @@ class _CreateAnimalProfileNewPageOneState
                   Image.asset("assets/images/on_boarding/create_pet_logo.png"),
                   verticalSpaceLarge,
                   Padding(
-                    padding: commonPaddding,
+                    padding: commonPadding,
                     child: Column(
                       children: [
                         Row(
@@ -205,7 +205,7 @@ class _CreateAnimalProfileNewPageOneState
           bottomSheet: SizedBox(
             height: 100,
             child: Padding(
-              padding: commonPaddding,
+              padding: commonPadding,
               child: Column(
                 children: [
                   GestureDetector(

@@ -198,7 +198,7 @@ class _CommentsBottomSheetState extends State<CommentsBottomSheet> {
 
 Widget commentTile(CommentResponse comment) {
   return ListTile(
-    contentPadding: commonPaddding,
+    contentPadding: commonPadding,
     title: GlobalMethods.checkProfileType(comment.authorType ?? "")
         ? AppText.body1Bold(
             comment.authorDetailsResponse!.first.username ?? "-",

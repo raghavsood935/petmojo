@@ -35,7 +35,7 @@ class _RelationsTileState extends State<RelationsTile> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: commonPaddding,
+      padding: commonPadding,
       child: Column(
         children: [
           ListTile(

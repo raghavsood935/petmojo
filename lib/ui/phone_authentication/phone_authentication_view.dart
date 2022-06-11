@@ -49,7 +49,7 @@ class PhoneAuthenticationView extends StatelessWidget
               ),
             ),
             Padding(
-              padding: commonPaddding,
+              padding: commonPadding,
               child: AppText.titleBold(
                 "Create your account",
                 textAlign: TextAlign.center,
@@ -57,7 +57,7 @@ class PhoneAuthenticationView extends StatelessWidget
             ),
             verticalSpace(35),
             Padding(
-              padding: commonPaddding,
+              padding: commonPadding,
               child: TextField(
                 controller: model.phonenumberTC,
                 autofocus: true,

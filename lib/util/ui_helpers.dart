@@ -34,8 +34,8 @@ PreferredSizeWidget commonAppBar(BuildContext context, String title) => AppBar(
       ),
     );
 
-//common paddning
-const EdgeInsets commonPaddding = EdgeInsets.symmetric(horizontal: 20);
+//common padding
+const EdgeInsets commonPadding = EdgeInsets.symmetric(horizontal: 20);
 
 //box decorations
 BoxDecoration borderBoxOutline = BoxDecoration(

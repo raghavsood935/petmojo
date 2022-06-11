@@ -18,20 +18,22 @@ class ConfirmOtpPhoneView extends StatelessWidget with $ConfirmOtpPhoneView {
   ConfirmOtpPhoneView({Key? key, required this.phoneNumber}) : super(key: key);
 
   String phoneNumber;
-  
-  String resendOtp(){
-    Future.delayed(const Duration(), () => SystemChannels.textInput.invokeMethod('TextInput.hide'));
+
+  String resendOtp() {
+    Future.delayed(const Duration(),
+        () => SystemChannels.textInput.invokeMethod('TextInput.hide'));
     return "RESEND OTP";
   }
-  String resendOtpIn(model){
+
+  String resendOtpIn(model) {
     // Future.delayed(const Duration(), () => SystemChannels.textInput.invokeMethod('TextInput.hide'));
     return "RESEND OTP in ${model.timerCount}";
   }
 
   @override
   Widget build(BuildContext context) {
-
-    Future.delayed(const Duration(), () => SystemChannels.textInput.invokeMethod('TextInput.hide'));
+    Future.delayed(const Duration(),
+        () => SystemChannels.textInput.invokeMethod('TextInput.hide'));
 
     return ViewModelBuilder<ConfirmOtpPhoneViewModel>.reactive(
       viewModelBuilder: () => ConfirmOtpPhoneViewModel(),
@@ -64,7 +66,7 @@ class ConfirmOtpPhoneView extends StatelessWidget with $ConfirmOtpPhoneView {
               ),
               verticalSpace(35),
               Padding(
-                padding: commonPaddding,
+                padding: commonPadding,
                 child: AppText.body1(
                   "OTP has been sent to your phone number +91-$phoneNumber",
                   textAlign: TextAlign.center,
@@ -72,7 +74,7 @@ class ConfirmOtpPhoneView extends StatelessWidget with $ConfirmOtpPhoneView {
               ),
               verticalSpaceRegular,
               Padding(
-                padding: commonPaddding,
+                padding: commonPadding,
                 child: TextField(
                   controller: model.otpTC,
                   autofocus: true,
@@ -96,9 +98,7 @@ class ConfirmOtpPhoneView extends StatelessWidget with $ConfirmOtpPhoneView {
               ),
               verticalSpaceRegular,
               AppText.body1Bold(
-                model.timerCount == 0
-                    ? resendOtp()
-                    : resendOtpIn(model),
+                model.timerCount == 0 ? resendOtp() : resendOtpIn(model),
                 textAlign: TextAlign.center,
               ),
               verticalSpaceTiny,

@@ -73,7 +73,7 @@ class _CreateAnimalProfileNewPageTwoState
                   ),
                   // verticalSpaceRegular,
                   Padding(
-                    padding: commonPaddding,
+                    padding: commonPadding,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -144,7 +144,7 @@ class _CreateAnimalProfileNewPageTwoState
           bottomSheet: SizedBox(
             height: 100,
             child: Padding(
-              padding: commonPaddding,
+              padding: commonPadding,
               child: Column(
                 children: [
                   GestureDetector(

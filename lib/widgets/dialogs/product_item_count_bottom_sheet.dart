@@ -117,7 +117,7 @@ class _ProductItemCountBottomSheetState
                 borderRadius: BorderRadius.circular(10),
               ),
               padding: EdgeInsets.all(20),
-              margin: commonPaddding,
+              margin: commonPadding,
               child: Center(
                 child: AppText.body1Bold(
                   "Checkout",

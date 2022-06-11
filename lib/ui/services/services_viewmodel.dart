@@ -180,6 +180,13 @@ class ServicesViewModel extends BaseModel {
           );
           break;
         }
+      case 4:
+        {
+          _navigationService.navigateTo(
+            Routes.gPSTrackerPageView,
+          );
+          break;
+        }
     }
   }
 
@@ -189,7 +196,8 @@ class ServicesViewModel extends BaseModel {
 
   List<ServicesModel> get listOfServices => _listOfServices;
 
-  List<UpcomingServicesModel> get listOfUpcommingServices => _listOfUpcommingServices;
+  List<UpcomingServicesModel> get listOfUpcommingServices =>
+      _listOfUpcommingServices;
 
   get appointmentDate => this._appointmentDate;
 
@@ -200,8 +208,7 @@ class ServicesViewModel extends BaseModel {
   }
 
   void goToECommercePage() {
-    // _navigationService.navigateTo(Routes.eCommerceMainView);
-    // _navigationService.navigateTo(Routes.gPSTrackerPageView);
+    _navigationService.navigateTo(Routes.gPSTrackerPageView);
   }
 
   void goToVideosPage() {
@@ -224,5 +231,6 @@ class UpcomingServicesModel {
   bool? isHigDemand;
   Color? bgColor;
 
-  UpcomingServicesModel({this.title, this.imgPath, this.isHigDemand, this.bgColor});
+  UpcomingServicesModel(
+      {this.title, this.imgPath, this.isHigDemand, this.bgColor});
 }

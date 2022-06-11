@@ -14,7 +14,7 @@ class VideoItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 60,
-      margin: commonPaddding,
+      margin: commonPadding,
       padding: EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
         color: Color(0xFFCEE3E6),

@@ -63,7 +63,7 @@ class _CartViewState extends State<CartView> {
                         ListView.builder(
                           physics: ScrollPhysics(),
                           shrinkWrap: true,
-                          padding: commonPaddding,
+                          padding: commonPadding,
                           itemCount: model.listOfItems.length,
                           itemBuilder: (context, index) => Container(
                             padding: EdgeInsets.all(10),
@@ -261,7 +261,7 @@ class _CartViewState extends State<CartView> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     padding: EdgeInsets.all(20),
-                    margin: commonPaddding,
+                    margin: commonPadding,
                     child: Center(
                       child: AppText.body1Bold(
                         "Checkout",

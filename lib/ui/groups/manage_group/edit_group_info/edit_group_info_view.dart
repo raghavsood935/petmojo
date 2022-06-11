@@ -41,7 +41,7 @@ class _EditGroupBasicInfoState extends State<EditGroupBasicInfo> {
       builder: (context, model, child) => Scaffold(
         appBar: commonAppBar(context, "Edit group info"),
         body: Padding(
-          padding: commonPaddding,
+          padding: commonPadding,
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
