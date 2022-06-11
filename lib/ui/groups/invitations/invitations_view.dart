@@ -104,7 +104,7 @@ class _InvitationListTileState extends State<InvitationListTile> {
         Visibility(
           visible: !isReacted,
           child: Padding(
-            padding: commonPaddding,
+            padding: commonPadding,
             child: Row(
               children: [
                 Expanded(

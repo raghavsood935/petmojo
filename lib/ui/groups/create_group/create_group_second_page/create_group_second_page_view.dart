@@ -47,7 +47,7 @@ class _CreateGroupSecondViewState extends State<CreateGroupSecondView> {
               isFromEdit: widget.isFromEditView,
             ),
             Padding(
-              padding: commonPaddding,
+              padding: commonPadding,
               child: Column(
                 children: [
                   WithTitleItem(

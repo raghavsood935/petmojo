@@ -20,7 +20,7 @@ class RequestsView extends StatelessWidget {
       viewModelBuilder: () => RequestsViewModel(),
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => Padding(
-        padding: commonPaddding,
+        padding: commonPadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

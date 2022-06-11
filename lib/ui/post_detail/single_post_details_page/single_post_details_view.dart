@@ -107,7 +107,7 @@ class _SinglePostDetailsViewState extends State<SinglePostDetailsView> {
                   ),
                 ),
                 Padding(
-                  padding: commonPaddding,
+                  padding: commonPadding,
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: AppText.caption(

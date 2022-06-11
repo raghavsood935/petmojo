@@ -58,7 +58,7 @@ class ServicesView extends StatelessWidget {
               ),
               verticalSpaceSmall,
               Padding(
-                padding: commonPaddding,
+                padding: commonPadding,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
@@ -182,9 +182,9 @@ class ServicesView extends StatelessWidget {
                               // right: 5,
                               bottom: 5,
                               child: TextButton(
-                                  // onPressed: () => model.onSlideServiceTap(3),
-                                onPressed: (){
-                                },
+                                  onPressed: () => model.onSlideServiceTap(4),
+                                  // onPressed: (){
+                                  // },
                                   child: AppText.bodyBold(
                                     "Pre-Book Now",
                                     color: colors.white,
@@ -314,7 +314,7 @@ class ServicesView extends StatelessWidget {
               // ),
               // verticalSpaceRegular,
               Padding(
-                padding: commonPaddding,
+                padding: commonPadding,
                 child: AppText.body1("Upcoming Services"),
               ),
               verticalSpaceRegular,
@@ -375,6 +375,7 @@ class ServicesView extends StatelessWidget {
     );
   }
 }
+
 Widget upcomingServicesItem(BuildContext context, UpcomingServicesModel model) {
   return Container(
     padding: EdgeInsets.all(10),
@@ -383,16 +384,13 @@ Widget upcomingServicesItem(BuildContext context, UpcomingServicesModel model) {
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(16),
       color: Colors.white,
-      border: Border.all(
-          width: 1,
-          color: Colors.grey
-      ),
+      border: Border.all(width: 1, color: Colors.grey),
       boxShadow: [
         BoxShadow(
           color: Colors.grey,
           blurRadius: 2.0,
           spreadRadius: 0.0,
-          offset: Offset(0,2.0), // shadow direction: bottom right
+          offset: Offset(0, 2.0), // shadow direction: bottom right
         )
       ],
     ),
@@ -465,8 +463,12 @@ Widget servicesItem(BuildContext context, ServicesModel model) {
           color: model.bgColor,
           height: screenWidthPercentage(context, percentage: 0.28),
         ),
-        (model.title=="Walking/Exercise")?Expanded(child: AppText.bodyBold("Daily Dog")):Container(),
-        Expanded(child: AppText.bodyBold(model.title ?? ""),)
+        (model.title == "Walking/Exercise")
+            ? Expanded(child: AppText.bodyBold("Daily Dog"))
+            : Container(),
+        Expanded(
+          child: AppText.bodyBold(model.title ?? ""),
+        )
       ],
     ),
   );

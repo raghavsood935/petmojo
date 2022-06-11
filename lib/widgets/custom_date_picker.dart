@@ -202,7 +202,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
             width: widget.width,
             locale: widget.locale,
             selectionColor:
-                isSelected ? widget.selectionColor : Colors.transparent,
+            isSelected ? widget.selectionColor :((date.isBefore(DateTime.now()) && !isDeactivated) )?Color(0xFFFACAD7): Colors.transparent,
             onDateSelected: (selectedDate) {
               // Don't notify listener if date is deactivated
               if (isDeactivated) return;

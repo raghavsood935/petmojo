@@ -141,7 +141,7 @@ class _GuardiansViewState extends State<GuardiansView> {
           Visibility(
               visible: model.searchTC.text.isEmpty,
               child: Padding(
-                  padding: commonPaddding,
+                  padding: commonPadding,
                   child: AppText.body1Bold("Guardians"))),
           Visibility(
             visible: model.searchTC.text.isEmpty,

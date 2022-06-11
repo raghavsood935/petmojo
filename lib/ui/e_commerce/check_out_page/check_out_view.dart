@@ -28,7 +28,7 @@ class _CheckOutViewState extends State<CheckOutView> {
     return Scaffold(
       appBar: commonAppBar(context, "Order Summary"),
       body: Padding(
-        padding: commonPaddding,
+        padding: commonPadding,
         child: SingleChildScrollView(
           physics: ScrollPhysics(),
           child: Column(
@@ -297,7 +297,7 @@ class _CheckOutViewState extends State<CheckOutView> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 padding: EdgeInsets.all(20),
-                margin: commonPaddding,
+                margin: commonPadding,
                 child: Center(
                   child: AppText.body1Bold(
                     "Checkout",

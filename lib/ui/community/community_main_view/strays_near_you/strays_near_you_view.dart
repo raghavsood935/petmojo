@@ -34,7 +34,7 @@ class _StraysNearYouViewState extends State<StraysNearYouView> {
         description: strayDescription,
         innerWidgets: [
           Padding(
-            padding: commonPaddding,
+            padding: commonPadding,
             child: Row(
               children: [
                 Icon(Icons.location_on_outlined),

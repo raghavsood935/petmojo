@@ -55,7 +55,7 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
         backgroundColor: colors.white,
         body: SafeArea(
           child: SingleChildScrollView(
-            padding: commonPaddding,
+            padding: commonPadding,
             physics: ScrollPhysics(),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -245,7 +245,7 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
           child: Container(
             width: double.infinity,
             height: 60,
-            margin: commonPaddding,
+            margin: commonPadding,
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: model.isValid ? colors.primary : colors.kcLightGreyColor,

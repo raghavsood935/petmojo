@@ -151,7 +151,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               ),
               verticalSpaceRegular,
               Padding(
-                padding: commonPaddding,
+                padding: commonPadding,
                 child: Row(
                   children: [
                     AppText.titleBold(
@@ -183,7 +183,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               ),
               verticalSpaceSmall,
               Padding(
-                padding: commonPaddding,
+                padding: commonPadding,
                 child: AppText.titleBold(
                   widget.dummyProductModel.name ?? "",
                   textAlign: TextAlign.start,
@@ -192,7 +192,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               ),
               verticalSpaceRegular,
               Padding(
-                padding: commonPaddding,
+                padding: commonPadding,
                 child: Row(
                   children: [
                     staticStarWidget(
@@ -286,7 +286,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               spacedDividerSmall,
               verticalSpaceSmall,
               Container(
-                margin: commonPaddding,
+                margin: commonPadding,
                 padding: EdgeInsets.all(20),
                 width: double.maxFinite,
                 decoration: BoxDecoration(
@@ -424,7 +424,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               subTitleWidget("Customer reviews"),
               verticalSpaceSmall,
               Padding(
-                padding: commonPaddding,
+                padding: commonPadding,
                 child: Row(
                   children: [
                     Icon(
@@ -440,7 +440,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               ),
               verticalSpaceSmall,
               Container(
-                margin: commonPaddding,
+                margin: commonPadding,
                 padding: EdgeInsets.all(20),
                 width: double.maxFinite,
                 decoration: BoxDecoration(
@@ -473,7 +473,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               verticalSpaceSmall,
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10),
-                margin: commonPaddding,
+                margin: commonPadding,
                 decoration: BoxDecoration(
                   color: colors.white,
                   border: Border.all(color: colors.black, width: 1),
@@ -493,12 +493,12 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               ),
               verticalSpaceSmall,
               Padding(
-                padding: commonPaddding,
+                padding: commonPadding,
                 child: AppText.bodyBold("Give ratings"),
               ),
               verticalSpaceTiny,
               Padding(
-                padding: commonPaddding,
+                padding: commonPadding,
                 child: staticStarWidget(1, true),
               ),
               verticalSpaceSmall,

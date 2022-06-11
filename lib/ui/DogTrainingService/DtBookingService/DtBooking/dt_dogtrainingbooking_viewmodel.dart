@@ -344,8 +344,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _doneMultiply = false;
     } else if (selectedPlan == DogTrainingPackage.Five) {
       _isValid = true;
-      _description =
-          "Advance Training";
+      _description = "Advance Training";
       _subTotal = 42432;
       _amount = 32640;
       _discount = 9792;
@@ -353,11 +352,9 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _isOfferValid = false;
       _isOfferAvailable = true;
       _doneMultiply = false;
-    }
-    else if (selectedPlan == DogTrainingPackage.Six) {
+    } else if (selectedPlan == DogTrainingPackage.Six) {
       _isValid = true;
-      _description =
-      "Premium Training";
+      _description = "Premium Training";
       _subTotal = 70772;
       _amount = 54440;
       _discount = 16332;
@@ -541,7 +538,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     }
     if (!isDatePicked) {
       _isValid = false;
-      print("this is shit: $isValid");
+      print("this is : $isValid");
     }
     // if (_selectedWeekdayOne == false &&
     //     _selectedWeekdayTwo == false &&
@@ -549,7 +546,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     //     _selectedWeekdayFour == false &&
     //     _selectedWeekdayFive == false) {
     //   _isValid = false;
-    //   print("this is shit: $isValid");
+    //   print("this is : $isValid");
     // }
     notifyListeners();
   }

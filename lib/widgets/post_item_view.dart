@@ -55,7 +55,7 @@ class _PostItemViewState extends State<PostItemView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: commonPaddding,
+            padding: commonPadding,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -310,7 +310,7 @@ class _PostItemViewState extends State<PostItemView> {
           ),
           verticalSpaceTiny,
           Padding(
-            padding: commonPaddding,
+            padding: commonPadding,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
