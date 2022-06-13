@@ -84,7 +84,7 @@ class DTBookARunView extends ViewModelWidget<DTDogTrainingBookingViewModel> {
                         return RunnerItems(
                           name: model.myPets[index].name,
                           imageUrl: model.myPets[index].imageUrl,
-                          selected: model.myPets[index].selected,
+                            selected: model.myPets[index].selected,
                           onTapped: () => model.selectPet(index),
                         );
                       },

@@ -56,6 +56,8 @@ class DTPaymentViewModel extends FutureViewModel<void>
   void getPaymentDetails() async {
     try {
       if (await Util.checkInternetConnectivity()) {
+        print("fnal call ");
+        print(amount);
         GetPaymentDetailsBody getPaymentDetailsBody =
             GetPaymentDetailsBody(amount.toString(), bookingId);
         BaseResponse<GetPaymentDetailsResponse> result = await runBusyFuture(

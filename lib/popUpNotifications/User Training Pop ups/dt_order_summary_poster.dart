@@ -47,7 +47,7 @@ class _OrderSummaryPosterState extends State<OrderSummaryPoster> {
       height: 100,
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('assets/images/paws_background_long.png'),
+            image: AssetImage('assets/images/dialog_background.png'),
             fit: BoxFit.fill
         ),
           border: Border.all(
