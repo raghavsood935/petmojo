@@ -1,16 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
-import 'package:tamely/popUpNotifications/User%20Training%20Pop%20ups/liveTraining.dart';
 import 'package:tamely/ui/services/services_viewmodel.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/live_ongoing_widget.dart';
-import 'package:tamely/widgets/play_btn.dart';
 import 'package:tamely/widgets/services_preview_sliding.dart';
 
 class ServicesView extends StatelessWidget {
@@ -313,7 +310,7 @@ class ServicesView extends StatelessWidget {
               // ),
               // verticalSpaceRegular,
               Padding(
-                padding: commonPaddding,
+                padding: EdgeInsets.symmetric(horizontal: 20),
                 child: AppText.body1("Upcoming Services"),
               ),
               verticalSpaceRegular,
@@ -335,7 +332,7 @@ class ServicesView extends StatelessWidget {
               ServicesPreviewSliding(model: model),
               verticalSpaceSmall,
               Padding(
-                padding: commonPaddding,
+                padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
