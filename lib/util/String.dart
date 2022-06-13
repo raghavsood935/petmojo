@@ -561,7 +561,7 @@ String sixTrainingRateNew = "₹54,440/-";
 String freeTrainingRateLabel = "";
 String twoTrainingRateLabel = "(You save 2,940)";
 String threeTrainingRateLabel = "(You save 5,160)";
-String fourTrainingRateLabel = "(You save 7,666)";
+String fourTrainingRateLabel = "(You save 7,668)";
 String fiveTrainingRateLabel = "(You save 9,792)";
 String sixTrainingRateLabel = "(You save 16,332)";
 

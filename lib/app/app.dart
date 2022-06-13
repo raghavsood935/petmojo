@@ -202,10 +202,12 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: DTOpening), // (New)
     CupertinoRoute(page: DTPaymentView), // (New)
 
+
     // My Appointment
     // At DogTrainingService / DtAppointment
     CupertinoRoute(page: DTAppointmentDetailsView), // (New)
     CupertinoRoute(page: DTReportCardView), // (New)
+    CupertinoRoute(page: DTPlanSelectionView), // (New)// (New)
 
     // 3 - Dog grooming service
     // At DogGroomingService / DgBookingService

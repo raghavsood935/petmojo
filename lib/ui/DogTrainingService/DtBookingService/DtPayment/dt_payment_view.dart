@@ -14,6 +14,8 @@ class DTPaymentView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("flow going");
+    print(amount);
     return ViewModelBuilder<DTPaymentViewModel>.reactive(
       onModelReady: (model) {
         model.startState();

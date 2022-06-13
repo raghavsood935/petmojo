@@ -108,10 +108,10 @@ class DRAppointmentDetailsView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      AppText.body2(
-                        "Rs ${model.amount}",
-                        color: colors.kcCaptionGreyColor,
-                      ),
+                      // AppText.body2(
+                      //   "Rs ${model.amount}",
+                      //   color: colors.kcCaptionGreyColor,
+                      // ),
                     ],
                   ),
                 ),
@@ -142,14 +142,14 @@ class DRAppointmentDetailsView extends StatelessWidget {
                               ),
                             ),
                             horizontalSpaceRegular,
-                            CircleAvatar(
-                              backgroundColor: colors.primaryLight,
-                              radius: 30 / 2,
-                              child: SvgPicture.asset(
-                                "assets/images/chat.svg",
-                                color: colors.primary,
-                              ),
-                            ),
+                            // CircleAvatar(
+                            //   backgroundColor: colors.primaryLight,
+                            //   radius: 30 / 2,
+                            //   child: SvgPicture.asset(
+                            //     "assets/images/chat.svg",
+                            //     color: colors.primary,
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),

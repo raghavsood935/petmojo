@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
+import '../enum/dog_training_package.dart';
 import '../enum/walkNumber.dart';
 import '../models/application_models.dart';
 import '../models/e-commerce/product_response.dart';
@@ -196,6 +197,7 @@ class Routes {
   static const String dTPaymentView = '/d-tpayment-view';
   static const String dTAppointmentDetailsView = '/d-tappointment-details-view';
   static const String dTReportCardView = '/d-treport-card-view';
+  static const String dTPlanSelectionView = '/d-tplan-selection-view';
   static const String dGDogGroomingBookingView =
       '/d-gdog-grooming-booking-view';
   static const String dGOpening = '/d-gOpening';
@@ -284,6 +286,7 @@ class Routes {
     dTPaymentView,
     dTAppointmentDetailsView,
     dTReportCardView,
+    dTPlanSelectionView,
     dGDogGroomingBookingView,
     dGOpening,
     dGPaymentView,
@@ -383,6 +386,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.dTPaymentView, page: DTPaymentView),
     RouteDef(Routes.dTAppointmentDetailsView, page: DTAppointmentDetailsView),
     RouteDef(Routes.dTReportCardView, page: DTReportCardView),
+    RouteDef(Routes.dTPlanSelectionView, page: DTPlanSelectionView),
     RouteDef(Routes.dGDogGroomingBookingView, page: DGDogGroomingBookingView),
     RouteDef(Routes.dGOpening, page: DGOpening),
     RouteDef(Routes.dGPaymentView, page: DGPaymentView),
@@ -1121,6 +1125,27 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    DTPlanSelectionView: (data) {
+      var args = data.getArgs<DTPlanSelectionViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => DTPlanSelectionView(
+          key: args.key,
+          address1: args.address1,
+          address2: args.address2,
+          subTotal: args.subTotal,
+          youSave: args.youSave,
+          totalPrice: args.totalPrice,
+          savedAmount: args.savedAmount,
+          date: args.date,
+          value: args.value,
+          offerValid: args.offerValid,
+          OfferAvailaible: args.OfferAvailaible,
+          time: args.time,
+          bookingId: args.bookingId,
+        ),
+        settings: data,
+      );
+    },
     DGDogGroomingBookingView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const DGDogGroomingBookingView(),
@@ -1633,6 +1658,37 @@ class DTReportCardViewArguments {
   final int sessionNo;
   DTReportCardViewArguments(
       {this.key, required this.appointmentId, required this.sessionNo});
+}
+
+/// DTPlanSelectionView arguments holder class
+class DTPlanSelectionViewArguments {
+  final Key? key;
+  final String address1;
+  final String address2;
+  final double subTotal;
+  final double youSave;
+  final double totalPrice;
+  final double savedAmount;
+  final DateTime date;
+  final DogTrainingPackage? value;
+  final bool offerValid;
+  final bool OfferAvailaible;
+  final String time;
+  final String bookingId;
+  DTPlanSelectionViewArguments(
+      {this.key,
+      required this.address1,
+      required this.address2,
+      required this.subTotal,
+      required this.youSave,
+      required this.totalPrice,
+      required this.savedAmount,
+      required this.date,
+      required this.value,
+      required this.offerValid,
+      required this.OfferAvailaible,
+      required this.time,
+      required this.bookingId});
 }
 
 /// DGPaymentView arguments holder class
