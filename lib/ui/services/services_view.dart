@@ -35,49 +35,49 @@ class ServicesView extends StatelessWidget {
             physics: ScrollPhysics(),
             shrinkWrap: true,
             children: [
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                width: double.maxFinite,
-                color: Color(0xFFFFF9FB),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    AppText.captionBold("24/7 Petmojo"),
-                    AppText.captionBold(
-                      "Trust & verification",
-                      color: colors.primary,
-                    ),
-                    AppText.captionBold(" and "),
-                    AppText.captionBold(
-                      "Support team",
-                      color: colors.primary,
-                    ),
-                  ],
-                ),
-              ),
-              verticalSpaceSmall,
-              Padding(
-                padding: commonPadding,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    AppText.body1Bold("India's most "),
-                    AppText.body1Bold(
-                      "empathetic",
-                      color: colors.green70,
-                    ),
-                    AppText.body1Bold(" and "),
-                    AppText.body1Bold(
-                      "advanced",
-                      color: colors.green70,
-                    ),
-                    AppText.body1(" services"),
-                  ],
-                ),
-              ),
-              model.isOngoingSessionPresent
+              // Container(
+              //   padding: EdgeInsets.symmetric(vertical: 10),
+              //   width: double.maxFinite,
+              //   color: Color(0xFFFFF9FB),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     mainAxisSize: MainAxisSize.max,
+              //     children: [
+              //       AppText.captionBold("24/7 Petmojo"),
+              //       AppText.captionBold(
+              //         "Trust & verification",
+              //         color: colors.primary,
+              //       ),
+              //       AppText.captionBold(" and "),
+              //       AppText.captionBold(
+              //         "Support team",
+              //         color: colors.primary,
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // verticalSpaceSmall,
+              // Padding(
+              //   padding: commonPaddding,
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     mainAxisSize: MainAxisSize.max,
+              //     children: [
+              //       AppText.body1Bold("India's most "),
+              //       AppText.body1Bold(
+              //         "empathetic",
+              //         color: colors.green70,
+              //       ),
+              //       AppText.body1Bold(" and "),
+              //       AppText.body1Bold(
+              //         "advanced",
+              //         color: colors.green70,
+              //       ),
+              //       AppText.body1(" services"),
+              //     ],
+              //   ),
+              // ),
+              model.ongoingSessionPresent
                   ? model.ongoingSessionType == 1
                       ? OngoingTraining(model: model)
                       : OngoingWalking(model: model)
@@ -182,9 +182,8 @@ class ServicesView extends StatelessWidget {
                               // right: 5,
                               bottom: 5,
                               child: TextButton(
-                                  onPressed: () => model.onSlideServiceTap(4),
-                                  // onPressed: (){
-                                  // },
+                                  // onPressed: () => model.onSlideServiceTap(3),
+                                  onPressed: () {},
                                   child: AppText.bodyBold(
                                     "Pre-Book Now",
                                     color: colors.white,
@@ -314,7 +313,7 @@ class ServicesView extends StatelessWidget {
               // ),
               // verticalSpaceRegular,
               Padding(
-                padding: commonPadding,
+                padding: commonPaddding,
                 child: AppText.body1("Upcoming Services"),
               ),
               verticalSpaceRegular,
@@ -334,6 +333,27 @@ class ServicesView extends StatelessWidget {
               ),
               verticalSpaceTiny,
               ServicesPreviewSliding(model: model),
+              verticalSpaceSmall,
+              Padding(
+                padding: commonPaddding,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    AppText.body1Bold("India's most "),
+                    AppText.body1Bold(
+                      "empathetic",
+                      color: colors.green70,
+                    ),
+                    AppText.body1Bold(" and "),
+                    AppText.body1Bold(
+                      "advanced",
+                      color: colors.green70,
+                    ),
+                    AppText.body1(" services"),
+                  ],
+                ),
+              ),
               // Padding(
               //   padding:
               //       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
