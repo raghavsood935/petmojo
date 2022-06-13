@@ -202,7 +202,7 @@ class _DTDogTrainingBookingViewState extends State<DTDogTrainingBookingView> {
 
 class DTPlanSelectionView extends StatefulWidget {
   DTPlanSelectionView({Key? key,required this.address1,required this.address2,required this.subTotal,required this.youSave,required this.totalPrice,required this.savedAmount,
-    required this.date,required this.value,required this.offerValid,required this.OfferAvailaible,required this.time,required this.bookingId}) : super(key: key);
+    required this.date,required this.value,required this.offerValid,required this.OfferAvailaible,required this.time,required this.bookingId,required this.noOfPetsSelected}) : super(key: key);
   String address1;
   String address2;
   double subTotal;
@@ -215,6 +215,7 @@ class DTPlanSelectionView extends StatefulWidget {
    bool OfferAvailaible;
    String time;
    String bookingId;
+   int noOfPetsSelected;
 
   @override
   State<DTPlanSelectionView> createState() =>
@@ -259,71 +260,8 @@ class _DTPlanSelectionViewState extends State<DTPlanSelectionView> {
           ),
           centerTitle: true,
           actions: <Widget>[
-            // Container(
-            //     width: 50,
-            //     height: 50,
-            //     child: Stack(children: [
-            //       Positioned(
-            //         top: 0,
-            //         bottom: 0,
-            //         right: 0,
-            //         left: 0,
-            //         child: IconButton(
-            //           // onPressed: model.onMyBookingsPressed,
-            //           icon: Image.asset(
-            //             "assets/images/bag.png",
-            //             // color: colors.black,
-            //           ), onPressed: model.onMyBookingsPressed,
-            //         ),
-            //       ),
-            //     ])),
-            // Container(
-            //   width: 50,
-            //   height: 50,
-            //   child: Stack(
-            //     children: [
-            //       Positioned(
-            //         top: 0,
-            //         bottom: 0,
-            //         right: 0,
-            //         left: 0,
-            //         child: IconButton(
-            //           // onPressed: model.onNotificationPressed,
-            //           icon: SvgPicture.asset(
-            //             "assets/images/notification.svg",
-            //           ), onPressed: () {  },
-            //         ),
-            //       ),
-            //       Positioned(
-            //         top: 10,
-            //         left: 10,
-            //         child: Visibility(
-            //           // visible: (model.notificationCount +
-            //           //     model.requestNotificationCount) >
-            //           //     0,
-            //           child: CircleAvatar(
-            //             radius: 8,
-            //             backgroundColor: colors.red,
-            //             child: AppText.tiny(
-            //               "1",
-            //               // "${(model.notificationCount + model.requestNotificationCount)}",
-            //               color: colors.white,
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-            // IconButton(
-            //   onPressed: model.onChatPressed,
-            //   icon: SvgPicture.asset(
-            //     "assets/images/chat.svg",
-            //   ),
-            // ),
           ],
-          // elevation: 1.5,
-          // brightness: Brightness.light,
+
           backgroundColor: Colors.white,
           backwardsCompatibility: false,
         ),
@@ -434,7 +372,7 @@ class _DTPlanSelectionViewState extends State<DTPlanSelectionView> {
               ),
 
               (model.selected==0)?OrderSummary(subTotal: widget.subTotal.toInt(), youSave: widget.youSave.toInt(), totalPrice: widget.totalPrice.toInt(),model:model,savedAmount:widget.savedAmount.toInt(),offerAvailaible: widget.OfferAvailaible,offerValid: widget.offerValid,):
-                  OrderSummary(subTotal: 8900*model.noOfMonths.toInt(), youSave: 0, totalPrice: 8900*model.noOfMonths.toInt()-widget.savedAmount.toInt(),model: model,savedAmount:widget.savedAmount.toInt(),offerAvailaible: widget.OfferAvailaible,offerValid: widget.offerValid),
+                  OrderSummary(subTotal: 8900*model.noOfMonths.toInt()*widget.noOfPetsSelected, youSave: 0, totalPrice: 8900*model.noOfMonths.toInt()*widget.noOfPetsSelected-widget.savedAmount.toInt(),model: model,savedAmount:widget.savedAmount.toInt(),offerAvailaible: widget.OfferAvailaible,offerValid: widget.offerValid),
 
 
               verticalSpaceSmall,
@@ -447,7 +385,7 @@ class _DTPlanSelectionViewState extends State<DTPlanSelectionView> {
               verticalSpaceSmall,
               GestureDetector(
                 onTap: (){
-                  int amount =(model.selected==0)?widget.totalPrice.toInt()-model.savedAmount.toInt():8900*model.noOfMonths.toInt()-model.savedAmount.toInt();
+                  int amount =(model.selected==0)?widget.totalPrice.toInt()-model.savedAmount.toInt():8900;
                   model.onMainButtonPressed2(amount,widget.bookingId);
                   SystemChannels.textInput.invokeMethod('TextInput.hide');
                 },

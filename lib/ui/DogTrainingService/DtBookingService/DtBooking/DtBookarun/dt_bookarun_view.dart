@@ -76,17 +76,17 @@ class DTBookARunView extends ViewModelWidget<DTDogTrainingBookingViewModel> {
                       shrinkWrap: true,
                       itemCount: model.myPets.length + 1,
                       itemBuilder: (BuildContext context, int index) {
-                        if (index == model.myPets.length) {
+                        if (index == model.myPets.length && model.myPets.length<2) {
                           return NewPet(
                             onTapped: model.createNewPet,
                           );
                         }
-                        return RunnerItems(
+                        return (index<2)?RunnerItems(
                           name: model.myPets[index].name,
                           imageUrl: model.myPets[index].imageUrl,
                             selected: model.myPets[index].selected,
                           onTapped: () => model.selectPet(index),
-                        );
+                        ):Container();
                       },
                       separatorBuilder: (BuildContext context, int index) =>
                           horizontalSpaceRegular,
