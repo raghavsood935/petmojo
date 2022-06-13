@@ -689,7 +689,7 @@ class DRDogRunningBookingViewModel extends FormViewModel {
   List<PetDetailsBody> get petDetailsBody => _petDetailsBody;
 
   void selectPet(index) {
-    _noOfDogs = myPets.length;
+    //_noOfDogs = myPets.length;
     _petDetailsBody.clear();
     myPets[index].selected = !(myPets[index].selected ?? false);
     myPets.forEach((pet) {
