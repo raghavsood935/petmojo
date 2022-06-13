@@ -397,7 +397,12 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
               }
             } else if (scroll[0].walkStatus == 1) {
               // Started
-              _walkStatusOne = WalkStatus.showLive;
+              if(date.isBefore(now)){
+                _walkStatusOne = WalkStatus.showNa;
+              }
+              else{
+                _walkStatusOne = WalkStatus.showLive;
+              }
             } else if (scroll[0].walkStatus == 2) {
               // Completed
               _walkStatusOne = WalkStatus.showReport;
@@ -418,7 +423,12 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
               }
             } else if (scroll[0].walkStatus == 1) {
               // Started
-              _walkStatusOne = WalkStatus.showLive;
+              if(date.isBefore(now)){
+                _walkStatusOne = WalkStatus.showNa;
+              }
+              else{
+                _walkStatusOne = WalkStatus.showLive;
+              }
             } else if (scroll[0].walkStatus == 2) {
               // Completed
               _walkStatusOne = WalkStatus.showReport;
@@ -437,7 +447,12 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
               }
             } else if (scroll[1].walkStatus == 1) {
               // Started
-              _walkStatusTwo = WalkStatus.showLive;
+              if(date.isBefore(now)){
+                _walkStatusOne = WalkStatus.showNa;
+              }
+              else{
+                _walkStatusOne = WalkStatus.showLive;
+              }
             } else if (scroll[1].walkStatus == 2) {
               // Completed
               _walkStatusTwo = WalkStatus.showReport;
@@ -662,11 +677,20 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
             }
 
             for(var two in daysRun!){
-              if(two.run2Status==0 && two.run1Status==0){
+              // if(two.run2Status!=2 || two.run1Status!=2){
+              //   _attentionIcons.add(DateTime.parse(two.runDate!));
+              // }
+              // if(two.run2Status!=2 && two.run1Status!=2)
+              //   _noTickDates.add(DateTime.parse(two.runDate!));
+              if(_numberOfWalk==1 && two.run1Status!=2){
                 _attentionIcons.add(DateTime.parse(two.runDate!));
-              }
-              if(two.run2Status!=2 && two.run1Status!=2)
                 _noTickDates.add(DateTime.parse(two.runDate!));
+
+              }
+              else if(_numberOfWalk==2 && ((two.run2Status!=2 || two.run1Status!=2) && (two.run2Status!=1 || two.run1Status!=1))){
+                _attentionIcons.add(DateTime.parse(two.runDate!));
+                _noTickDates.add(DateTime.parse(two.runDate!));
+              }
             }
 
           } else if (_numberOfDays == 1) {

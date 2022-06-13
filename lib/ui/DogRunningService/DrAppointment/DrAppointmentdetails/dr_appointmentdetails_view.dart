@@ -108,10 +108,10 @@ class DRAppointmentDetailsView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      AppText.body2(
-                        "Rs ${model.amount}",
-                        color: colors.kcCaptionGreyColor,
-                      ),
+                      // AppText.body2(
+                      //   "Rs ${model.amount}",
+                      //   color: colors.kcCaptionGreyColor,
+                      // ),
                     ],
                   ),
                 ),
@@ -142,14 +142,14 @@ class DRAppointmentDetailsView extends StatelessWidget {
                               ),
                             ),
                             horizontalSpaceRegular,
-                            CircleAvatar(
-                              backgroundColor: colors.primaryLight,
-                              radius: 30 / 2,
-                              child: SvgPicture.asset(
-                                "assets/images/chat.svg",
-                                color: colors.primary,
-                              ),
-                            ),
+                            // CircleAvatar(
+                            //   backgroundColor: colors.primaryLight,
+                            //   radius: 30 / 2,
+                            //   child: SvgPicture.asset(
+                            //     "assets/images/chat.svg",
+                            //     color: colors.primary,
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),
@@ -365,7 +365,7 @@ class DRAppointmentDetailsView extends StatelessWidget {
                   children: [
                     Container(
                       color: colors.primaryLight,
-                        child: CustomDatePicker(
+                      child: CustomDatePicker(
                         model.startDate,
                         initialSelectedDate: model.initialDate,
                         daysCount: model.numberOfDays,
@@ -375,8 +375,8 @@ class DRAppointmentDetailsView extends StatelessWidget {
                         selectedTextColor: Colors.white,
                         deactivatedColor: colors.kcLightGreyColor,
                         onDateChange: model.dateSelected,
-                          noTickDates: model.noTickDates,
-                          attentionIcons: model.attentionIcons,
+                        noTickDates: model.noTickDates,
+                        attentionIcons: model.attentionIcons,
                       ),
                     ),
                     const Divider(color: Colors.blueGrey, height: 5.0),
@@ -454,7 +454,7 @@ class DRAppointmentDetailsView extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: Column(
                           children: [
-                            model.dogs.length == 1
+                            model.numberOfPets == 1
                                 ? Column(
                                     children: [
                                       BookingItem(

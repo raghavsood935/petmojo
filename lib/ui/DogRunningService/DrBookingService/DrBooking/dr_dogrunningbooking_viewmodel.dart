@@ -623,13 +623,31 @@ class DRDogRunningBookingViewModel extends FormViewModel {
   }
 
   void twoPets() {
-    if (noOfDogs == 2) {
+  //   if (noOfDogs == 2) {
+  //     _amount = amount * 2;
+  //     _savedAmount = savedAmount * 2;
+  //     _discount = discount * 2;
+  //     _subTotal = subTotal * 2;
+  //     _doneMultiply = true;
+  //   } else if (noOfDogs == 1 && doneMultiply) {
+  //     _amount = amount / 2;
+  //     _savedAmount = savedAmount / 2;
+  //     _discount = discount / 2;
+  //     _subTotal = subTotal / 2;
+  //     _doneMultiply = false;
+  //   }
+  //   notifyListeners();
+
+    // (noOfDogs == 2 )||
+    if ( (myPets[0].selected==true && myPets[1].selected==true) && !_doneMultiply ) {
       _amount = amount * 2;
       _savedAmount = savedAmount * 2;
       _discount = discount * 2;
       _subTotal = subTotal * 2;
       _doneMultiply = true;
-    } else if (noOfDogs == 1 && doneMultiply) {
+    }
+    // (noOfDogs == 1) && donemultiply
+    else if (((myPets[0].selected==true && myPets[1].selected==false) || (myPets[0].selected==false && myPets[1].selected==true)) && _doneMultiply) {
       _amount = amount / 2;
       _savedAmount = savedAmount / 2;
       _discount = discount / 2;
@@ -689,7 +707,7 @@ class DRDogRunningBookingViewModel extends FormViewModel {
   List<PetDetailsBody> get petDetailsBody => _petDetailsBody;
 
   void selectPet(index) {
-    _noOfDogs = myPets.length;
+    //_noOfDogs = myPets.length;
     _petDetailsBody.clear();
     myPets[index].selected = !(myPets[index].selected ?? false);
     myPets.forEach((pet) {
@@ -698,6 +716,7 @@ class DRDogRunningBookingViewModel extends FormViewModel {
         _petDetailsBody.add(one);
       }
     });
+    twoPets();
     setFirstPageValid();
     notifyListeners();
     return;

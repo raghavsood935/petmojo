@@ -1,15 +1,19 @@
 import 'package:flutter/cupertino.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:stacked/stacked.dart';
 import 'package:tamely/api/api_service.dart';
 import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
+import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
-import 'package:tamely/shared/base_viewmodel.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/String.dart';
+import '../../api/base_response.dart';
+import '../../models/session_tracker_response.dart';
+import '../../util/utils.dart';
 
-class ServicesViewModel extends BaseModel {
+class ServicesViewModel extends FutureViewModel {
+  final log = getLogger('ServicesViewModel');
   String _location = "T-129 Emerald Hills Gurugram...";
   int _noOfAppointments = 3;
   String _appointmentDate = "14 Oct 2021";
@@ -19,14 +23,13 @@ class ServicesViewModel extends BaseModel {
   final _tamelyApi = locator<TamelyApi>();
 
   bool _ongoingSessionPresent = false;
-  bool get isOngoingSessionPresent => _ongoingSessionPresent;
+  bool get ongoingSessionPresent => _ongoingSessionPresent;
 
   String _ongoingSessionId = "";
   String get ongoingSessionId => _ongoingSessionId;
 
   int _ongoingSessionType = 0;
   int get ongoingSessionType => _ongoingSessionType;
-  // 0: No session
   // 1: Dog training
   // 2: Dog Walking
   // 3: Dog Grooming
@@ -69,24 +72,28 @@ class ServicesViewModel extends BaseModel {
 
   Future init() async {
     print("Initialising services");
-    await getSessionTracker();
+    getSessionTracker();
   }
 
-  Future getSessionTracker() async {
-    var result = await _tamelyApi.sessionTracker();
-    if (result.getException != null) {
-      ServerError error = result.getException as ServerError;
-      _snackBarService.showSnackbar(message: error.getErrorMessage());
-    } else if (result.data != null) {
-      _ongoingSessionPresent = result.data!.ongoing != 0;
-      if (_ongoingSessionPresent && result.data!.ongoing != null) {
-        _ongoingSessionType = result.data!.ongoing!;
+  void getSessionTracker() async {
+    try {
+      if (await Util.checkInternetConnectivity()) {
+        BaseResponse<SessionTrackerResponse> result = await runBusyFuture(
+            _tamelyApi.sessionTracker(),
+            throwException: true);
+        _ongoingSessionPresent = result.data!.success!;
+        if (ongoingSessionPresent) {
+          _ongoingSessionType = result.data!.ongoing!;
+          _ongoingSessionId = result.data!.appointmentId!;
+        }
+        notifyListeners();
+      } else {
+        _snackBarService.showSnackbar(message: "No Internet connection");
       }
-      if (_ongoingSessionPresent && result.data!.appointmentId != null) {
-        _ongoingSessionId = result.data!.appointmentId!;
-      }
-      notifyListeners();
+    } on ServerError catch (e) {
+      log.e(e.toString());
     }
+    notifyListeners();
   }
 
   void onLiveSnippetCTA() async {
@@ -180,13 +187,6 @@ class ServicesViewModel extends BaseModel {
           );
           break;
         }
-      case 4:
-        {
-          _navigationService.navigateTo(
-            Routes.gPSTrackerPageView,
-          );
-          break;
-        }
     }
   }
 
@@ -208,11 +208,18 @@ class ServicesViewModel extends BaseModel {
   }
 
   void goToECommercePage() {
-    _navigationService.navigateTo(Routes.gPSTrackerPageView);
+    // _navigationService.navigateTo(Routes.eCommerceMainView);
+    // _navigationService.navigateTo(Routes.gPSTrackerPageView);
   }
 
   void goToVideosPage() {
     _navigationService.navigateTo(Routes.videosSectionView);
+  }
+
+  @override
+  Future futureToRun() {
+    // TODO: implement futureToRun
+    throw UnimplementedError();
   }
 }
 
