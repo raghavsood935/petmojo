@@ -31,6 +31,8 @@ import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/walkStatus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../enum/dog_training_journey.dart';
+
 class DTAppointmentDetailsViewModel extends FutureViewModel<void>
     implements Initialisable {
   final log = getLogger('AppointmentDetailsViewModel');
@@ -64,18 +66,45 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
   int _numberOfSessions = 16;
   int get numberOfSessions => _numberOfSessions;
 
-
   int _indexToStart = 0;
   int get indexToStart => _indexToStart;
 
-  List<int> _ticks=[];
-  List<int> get Ticks =>_ticks;
+  List<int> _ticks = [];
+  List<int> get Ticks => _ticks;
 
-  List<int> _warning=[];
-  List<int> get warning =>_warning;
+  List<int> _warning = [];
+  List<int> get warning => _warning;
 
   int _currentSession = 1;
   int get currentSession => _currentSession;
+
+  DogTrainingJourney _currentJourney = DogTrainingJourney.PackageOne;
+  DogTrainingJourney get currentJourney => _currentJourney;
+
+  // pac - 1 : 12 S - Unlocked when booked.
+  // pac - 2 : 12 S - Unlocks after 12.
+  // pac - 3 : 12 S - Unlocks after 24.
+  // pac - 4 : 12 S - Unlocks after 36.
+  // pac - 5 : 24 S - Unlocks after 48.
+  // Cer     : 72 S - End.
+
+  void setJourneyState() {
+    if (currentSession >= 1 && currentSession <= 12) {
+      _currentJourney = DogTrainingJourney.PackageOne;
+    } else if (currentSession >= 13 && currentSession <= 24) {
+      _currentJourney = DogTrainingJourney.PackageTwo;
+    } else if (currentSession >= 25 && currentSession <= 36) {
+      _currentJourney = DogTrainingJourney.PackageThree;
+    } else if (currentSession >= 37 && currentSession <= 48) {
+      _currentJourney = DogTrainingJourney.PackageFour;
+    } else if (currentSession >= 49 && currentSession <= 72) {
+      _currentJourney = DogTrainingJourney.PackageFive;
+    } else if (currentSession == 72) {
+      //?? What will be the index
+      _currentJourney = DogTrainingJourney.PackageSix;
+    }
+    notifyListeners();
+  }
 
   void onSessionNumberTapped(int session) {
     _currentSession = session;
@@ -130,7 +159,7 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
   bool _showLiveOne = false;
   bool _showUpcomingOne = false;
   bool _showReportOne = false;
-  bool _showNa=false;
+  bool _showNa = false;
 
   bool get showLiveOne => _showLiveOne;
   bool get showUpcomingOne => _showUpcomingOne;
@@ -165,24 +194,22 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
       _showLiveOne = false;
       _showUpcomingOne = false;
       _showReportOne = true;
-      _showNa=false;
+      _showNa = false;
     } else if (_walkStatusOne == WalkStatus.showUpcoming) {
       _showLiveOne = false;
       _showUpcomingOne = true;
       _showReportOne = false;
-      _showNa=false;
-    }
-    else if(_walkStatusOne == WalkStatus.showLive){
+      _showNa = false;
+    } else if (_walkStatusOne == WalkStatus.showLive) {
       _showLiveOne = true;
       _showUpcomingOne = false;
       _showReportOne = false;
-      _showNa=false;
-    }
-    else if(_walkStatusOne==WalkStatus.showNa){
+      _showNa = false;
+    } else if (_walkStatusOne == WalkStatus.showNa) {
       _showLiveOne = false;
       _showUpcomingOne = false;
       _showReportOne = false;
-      _showNa=true;
+      _showNa = true;
     }
     notifyListeners();
   }
@@ -245,22 +272,20 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
                 throwException: true);
         if (result.data != null) {
           int? scroll = result.data!.trainingStatus;
-          if (scroll==3||scroll==4) {
+          if (scroll == 3 || scroll == 4) {
             // upcoming
             _walkStatusOne = WalkStatus.showUpcoming;
           } else if (scroll == 2) {
             // Completed
             _walkStatusOne = WalkStatus.showReport;
+          } else if (scroll == 1)
+            _walkStatusOne = WalkStatus.showLive;
+          else if (scroll == 0) {
+            if (session < _indexToStart)
+              _walkStatusOne = WalkStatus.showNa;
+            else
+              _walkStatusOne = WalkStatus.showUpcoming;
           }
-          else if(scroll==1)
-              _walkStatusOne=WalkStatus.showLive;
-          else if(scroll==0)
-              {
-                if(session<_indexToStart)
-                  _walkStatusOne=WalkStatus.showNa;
-                else
-                  _walkStatusOne = WalkStatus.showUpcoming;
-              }
           notifyListeners();
           walkOneStatus();
           notifyListeners();
@@ -285,7 +310,6 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
   }
 
   void getAppointments() async {
-
     try {
       if (await Util.checkInternetConnectivity()) {
         _dialogService.showCustomDialog(variant: DialogType.LoadingDialog);
@@ -301,23 +325,22 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
           _indexToStart = result.data!.index!;
           _currentSession = result.data!.index!;
           _numberOfSessions =
-          result.data!.bookingDetails!.package!.numberOfSessions!;
-          if(_currentSession ==0 || _indexToStart==0){
-            _indexToStart=_numberOfSessions;
-            _currentSession=_numberOfSessions;
+              result.data!.bookingDetails!.package!.numberOfSessions!;
+          if (_currentSession == 0 || _indexToStart == 0) {
+            _indexToStart = _numberOfSessions;
+            _currentSession = _numberOfSessions;
           }
 
-          List<trainDetailsResponse>? daysRun = result.data!.bookingDetails!.runDetails!;
+          List<trainDetailsResponse>? daysRun =
+              result.data!.bookingDetails!.runDetails!;
 
-          for(var two in daysRun){
-
-            if(two.sessionStatus==0){
+          for (var two in daysRun) {
+            if (two.sessionStatus == 0) {
               _warning.add(two.sessionNo!);
             }
-            if(two.sessionStatus==2){
+            if (two.sessionStatus == 2) {
               _ticks.add(two.sessionNo!);
             }
-
           }
           if (serviceStatus == 0) {
             // service not completed
