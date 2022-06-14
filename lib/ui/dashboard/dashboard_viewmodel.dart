@@ -14,6 +14,7 @@ import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/enum/redirect_state.dart';
+import 'package:tamely/enum/service_type.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/models/pet_basic_details_response.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
@@ -61,6 +62,16 @@ class DashboardViewModel extends FutureViewModel<void>
 
   int _notificationCount = 0;
   int get notificationCount => _notificationCount;
+
+  int _noOfAppointments=0;
+  int get noOfAppointments=>_noOfAppointments;
+
+  int _serviceType=0;
+  int get serviceType=>_serviceType;
+
+  String _bookingId="";
+  String get bookingId=>_bookingId;
+
 
   int _requestNotificationCount = 0;
   int get requestNotificationCount => _requestNotificationCount;
@@ -152,6 +163,8 @@ class DashboardViewModel extends FutureViewModel<void>
     int initialPageState,
     bool? checkUpdate,
   ) async {
+
+
     if (checkUpdate ?? false) {
       _checkVersion(context);
     }
@@ -164,6 +177,7 @@ class DashboardViewModel extends FutureViewModel<void>
       petToken,
       initialPageState,
     );
+    notifyListeners();
     _controller = PersistentTabController(initialIndex: initialPageState);
   }
 
@@ -193,6 +207,10 @@ class DashboardViewModel extends FutureViewModel<void>
     } else if (response.data != null) {
       _userName = response.data!.userDetailsModel!.fullName ?? "";
       _profileName = response.data!.userDetailsModel!.username ?? "";
+      _profileName = response.data!.userDetailsModel!.username ?? "";
+      _noOfAppointments = response.data!.noOfAppointments!;
+      _bookingId = response.data!.bookingId!;
+      _serviceType = response.data!.serviceType!;
       _avatarUrl = await _uploadService.getUrlFromAwsKey(
           awsKey: response.data!.userDetailsModel!.avatar);
       _userID = response.data!.userDetailsModel!.Id ?? "";
@@ -315,6 +333,28 @@ class DashboardViewModel extends FutureViewModel<void>
         .whenComplete(() {
       getNotificationCount();
     });
+  }
+
+  void toAppointmentDetails(String bookId,int servType) async {
+    String? bookingId = bookId;
+    ServiceType? serviceTypes = ServiceType.values[servType];
+
+    if (serviceTypes == ServiceType.DogRunning) {
+      await _navigationService.navigateTo(
+        Routes.dRAppointmentDetailsView,
+        arguments: DRAppointmentDetailsViewArguments(appointmentId: bookingId!),
+      );
+    } else if (serviceTypes == ServiceType.DogTraining) {
+      await _navigationService.navigateTo(
+        Routes.dTAppointmentDetailsView,
+        arguments: DTAppointmentDetailsViewArguments(appointmentId: bookingId!),
+      );
+    } else if (serviceTypes == ServiceType.DogGrooming) {
+      await _navigationService.navigateTo(
+        Routes.dGAppointmentDetailsView,
+        arguments: DGAppointmentDetailsViewArguments(appointmentId: bookingId!),
+      );
+    }
   }
 
   void onChatPressed() {}

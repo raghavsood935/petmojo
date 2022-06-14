@@ -190,7 +190,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       if(selectedPlan != DogTrainingPackage.One && selectedPlan != DogTrainingPackage.Two && selectedPlan != DogTrainingPackage.Six){
         flag=1;
         await Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DTPlanSelectionView(address1:addressLineOneController.text,address2:addressLineTwoController.text,subTotal:subTotal,youSave:discount,totalPrice:amount,savedAmount:savedAmount,
-            date: pickedDate,value: selectedPlan,offerValid:_isOfferValid,OfferAvailaible:_isOfferAvailable,time:time,bookingId: bookingId,noOfPetsSelected: noOfPetsSelected,)));
+            date: pickedDate,value: selectedPlan,offerValid:_isOfferValid,OfferAvailaible:_isOfferAvailable,time:weekDayTiming,bookingId: bookingId,noOfPetsSelected: noOfPetsSelected,)));
       }
       else{
 
@@ -520,13 +520,15 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
               _tamelyApi.getCouponAmount(couponBody),
               throwException: true);
           try {
+            print("ENTERED HERE");
             int? reducedAmountInt = result.data!.amount;
             double? reducedAmountDouble = reducedAmountInt!.toDouble();
+            print("gekl");
             _isOfferValid = true;
             _promoCode = couponCode;
             _savedAmount = reducedAmountDouble;
             _amount = amount - reducedAmountDouble;
-            twoPets();
+            // twoPets();
             notifyListeners();
           } catch (e) {
             snackBarService.showSnackbar(message: "Invalid Promo Code");

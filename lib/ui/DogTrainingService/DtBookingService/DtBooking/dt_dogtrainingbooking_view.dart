@@ -372,7 +372,7 @@ class _DTPlanSelectionViewState extends State<DTPlanSelectionView> {
               ),
 
               (model.selected==0)?OrderSummary(subTotal: widget.subTotal.toInt(), youSave: widget.youSave.toInt(), totalPrice: widget.totalPrice.toInt(),model:model,savedAmount:widget.savedAmount.toInt(),offerAvailaible: widget.OfferAvailaible,offerValid: widget.offerValid,):
-                  OrderSummary(subTotal: 8900*model.noOfMonths.toInt()*widget.noOfPetsSelected, youSave: 0, totalPrice: 8900*model.noOfMonths.toInt()*widget.noOfPetsSelected-widget.savedAmount.toInt(),model: model,savedAmount:widget.savedAmount.toInt(),offerAvailaible: widget.OfferAvailaible,offerValid: widget.offerValid),
+                  OrderSummary(subTotal: widget.subTotal.toInt(), youSave: widget.subTotal.toInt()-(8900*model.noOfMonths.toInt()*widget.noOfPetsSelected-widget.savedAmount.toInt()), totalPrice: 8900*model.noOfMonths.toInt()*widget.noOfPetsSelected-widget.savedAmount.toInt(),model: model,savedAmount:widget.savedAmount.toInt(),offerAvailaible: widget.OfferAvailaible,offerValid: widget.offerValid),
 
 
               verticalSpaceSmall,
@@ -381,10 +381,10 @@ class _DTPlanSelectionViewState extends State<DTPlanSelectionView> {
               Visibility(
                   visible: (!widget.offerValid && widget.OfferAvailaible) && model.secondOffer,
                   child: OrderSummaryPoster(title: "We are mission-driven not money-driven", description: "100% Refund available",byline:"NO QUESTIONS ASKED")),
-
-              verticalSpaceSmall,
+              ((!widget.offerValid && widget.OfferAvailaible) && model.secondOffer)?verticalSpaceSmall:verticalSpaceLarge,
               GestureDetector(
                 onTap: (){
+                  // *model.noOfMonths.toInt()*widget.noOfPetsSelected-model.savedAmount.toInt()
                   int amount =(model.selected==0)?widget.totalPrice.toInt()-model.savedAmount.toInt():8900;
                   model.onMainButtonPressed2(amount,widget.bookingId);
                   SystemChannels.textInput.invokeMethod('TextInput.hide');
