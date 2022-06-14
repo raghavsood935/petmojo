@@ -1,15 +1,9 @@
-import 'package:date_picker_timeline/date_picker_timeline.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked.dart';
-import 'package:tamely/enum/selectedStart.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
-import 'package:tamely/widgets/app_input_field.dart';
 import 'package:tamely/widgets/app_text.dart';
-import 'package:tamely/widgets/custom_circle_avatar.dart';
 import 'dt_appointmentdetails_viewmodel.dart';
 
 class DTAppointmentDetailsView extends StatelessWidget {
@@ -20,9 +14,9 @@ class DTAppointmentDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<DTAppointmentDetailsViewModel>.reactive(
-        onModelReady: (model) async {
-          model.getAppointments();
-        },
+      onModelReady: (model) async {
+        model.getAppointments();
+      },
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
         body: SafeArea(
@@ -158,14 +152,24 @@ class DTAppointmentDetailsView extends StatelessWidget {
                                       ? colors.white
                                       : colors.black,
                                 ),
-                                if (index+1<model.indexToStart)((isInTicks(model.Ticks,index+1))?Text("✅"):(isInWarning(model.warning,index+1))?Text("⚠"):Text("")),
+                                if (index + 1 < model.indexToStart)
+                                  ((isInTicks(model.Ticks, index + 1))
+                                      ? Text("✅")
+                                      : (isInWarning(model.warning, index + 1))
+                                          ? Text("⚠")
+                                          : Text("")),
                               ],
                             ),
                           ),
                           decoration: BoxDecoration(
                             color: model.currentSession == index + 1
                                 ? colors.primary
-                                : ((index+1<model.indexToStart) && (isInTicks(model.Ticks,index+1)||isInWarning(model.warning,index+1)))?Color(0xFFFACAD7):Colors.transparent,
+                                : ((index + 1 < model.indexToStart) &&
+                                        (isInTicks(model.Ticks, index + 1) ||
+                                            isInWarning(
+                                                model.warning, index + 1)))
+                                    ? Color(0xFFFACAD7)
+                                    : Colors.transparent,
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
@@ -246,7 +250,11 @@ class DTAppointmentDetailsView extends StatelessWidget {
                               detailName: "Session Report",
                               detailValue: model.showReportOne
                                   ? "See my report"
-                                    : (model.showUpcomingOne)?"Upcoming":(model.showNa)?"Na":"Ongoing",
+                                  : (model.showUpcomingOne)
+                                      ? "Upcoming"
+                                      : (model.showNa)
+                                          ? "Na"
+                                          : "Ongoing",
                               clickable: model.showReportOne ? true : false,
                               onTapped: model.toReport,
                             ),
@@ -293,6 +301,8 @@ class DTAppointmentDetailsView extends StatelessWidget {
                   thickness: 5.0,
                 ),
                 verticalSpaceMedium,
+
+                // Here
 
                 // buttons
 
@@ -388,16 +398,15 @@ class DTAppointmentDetailsView extends StatelessWidget {
   }
 
   isInTicks(List<int> ticks, int i) {
-    for(var mySessionNumber in ticks){
-      if(i==mySessionNumber)
-        return true;
+    for (var mySessionNumber in ticks) {
+      if (i == mySessionNumber) return true;
     }
     return false;
   }
+
   isInWarning(List<int> ticks, int i) {
-    for(var mySessionNumber in ticks){
-      if(i==mySessionNumber)
-        return true;
+    for (var mySessionNumber in ticks) {
+      if (i == mySessionNumber) return true;
     }
     return false;
   }

@@ -207,9 +207,8 @@ class ServicesViewModel extends FutureViewModel {
     _navigationService.navigateTo(Routes.appointmentsView);
   }
 
-  void goToECommercePage() {
-    // _navigationService.navigateTo(Routes.eCommerceMainView);
-    // _navigationService.navigateTo(Routes.gPSTrackerPageView);
+  void goToGpsTrackingBooking() {
+    _navigationService.navigateTo(Routes.gPSTrackerPageView);
   }
 
   void goToVideosPage() {
