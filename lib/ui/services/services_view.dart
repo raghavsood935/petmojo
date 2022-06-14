@@ -101,7 +101,7 @@ class ServicesView extends StatelessWidget {
                 children: [
                   Expanded(
                     child: GestureDetector(
-                      onTap: () => model.goToECommercePage(),
+                      onTap: () => model.goToGpsTrackingBooking(),
                       child: Container(
                         padding: EdgeInsets.all(5),
                         margin: EdgeInsets.only(left: 20),

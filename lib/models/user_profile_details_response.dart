@@ -16,6 +16,9 @@ class UserProfileDetailsResponse with _$UserProfileDetailsResponse {
     @JsonKey(name: "totalFollowings") int? totalFollowings,
     @JsonKey(name: "totalLikes") int? totalLikes,
     @JsonKey(name: "totalPosts") int? totalPosts,
+    @JsonKey(name: "noOfAppointments") int? noOfAppointments,
+    @JsonKey(name: "bookingId") String? bookingId,
+    @JsonKey(name: "serviceType") int? serviceType,
   }) = _UserProfileDetailsResponse;
 
   factory UserProfileDetailsResponse.fromJson(Map<String, dynamic> json) =>
