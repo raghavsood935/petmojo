@@ -32,13 +32,22 @@ class _$UserProfileDetailsResponseTearOff {
       @JsonKey(name: "totalLikes")
           int? totalLikes,
       @JsonKey(name: "totalPosts")
-          int? totalPosts}) {
+          int? totalPosts,
+      @JsonKey(name: "noOfAppointments")
+          int? noOfAppointments,
+      @JsonKey(name: "bookingId")
+          String? bookingId,
+      @JsonKey(name: "serviceType")
+          int? serviceType}) {
     return _UserProfileDetailsResponse(
       userDetailsModel: userDetailsModel,
       totalFollowers: totalFollowers,
       totalFollowings: totalFollowings,
       totalLikes: totalLikes,
       totalPosts: totalPosts,
+      noOfAppointments: noOfAppointments,
+      bookingId: bookingId,
+      serviceType: serviceType,
     );
   }
 
@@ -63,6 +72,12 @@ mixin _$UserProfileDetailsResponse {
   int? get totalLikes => throw _privateConstructorUsedError;
   @JsonKey(name: "totalPosts")
   int? get totalPosts => throw _privateConstructorUsedError;
+  @JsonKey(name: "noOfAppointments")
+  int? get noOfAppointments => throw _privateConstructorUsedError;
+  @JsonKey(name: "bookingId")
+  String? get bookingId => throw _privateConstructorUsedError;
+  @JsonKey(name: "serviceType")
+  int? get serviceType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -85,7 +100,13 @@ abstract class $UserProfileDetailsResponseCopyWith<$Res> {
       @JsonKey(name: "totalLikes")
           int? totalLikes,
       @JsonKey(name: "totalPosts")
-          int? totalPosts});
+          int? totalPosts,
+      @JsonKey(name: "noOfAppointments")
+          int? noOfAppointments,
+      @JsonKey(name: "bookingId")
+          String? bookingId,
+      @JsonKey(name: "serviceType")
+          int? serviceType});
 
   $UserDetailsModelResponseCopyWith<$Res>? get userDetailsModel;
 }
@@ -106,6 +127,9 @@ class _$UserProfileDetailsResponseCopyWithImpl<$Res>
     Object? totalFollowings = freezed,
     Object? totalLikes = freezed,
     Object? totalPosts = freezed,
+    Object? noOfAppointments = freezed,
+    Object? bookingId = freezed,
+    Object? serviceType = freezed,
   }) {
     return _then(_value.copyWith(
       userDetailsModel: userDetailsModel == freezed
@@ -127,6 +151,18 @@ class _$UserProfileDetailsResponseCopyWithImpl<$Res>
       totalPosts: totalPosts == freezed
           ? _value.totalPosts
           : totalPosts // ignore: cast_nullable_to_non_nullable
+              as int?,
+      noOfAppointments: noOfAppointments == freezed
+          ? _value.noOfAppointments
+          : noOfAppointments // ignore: cast_nullable_to_non_nullable
+              as int?,
+      bookingId: bookingId == freezed
+          ? _value.bookingId
+          : bookingId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      serviceType: serviceType == freezed
+          ? _value.serviceType
+          : serviceType // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
   }
@@ -162,7 +198,13 @@ abstract class _$UserProfileDetailsResponseCopyWith<$Res>
       @JsonKey(name: "totalLikes")
           int? totalLikes,
       @JsonKey(name: "totalPosts")
-          int? totalPosts});
+          int? totalPosts,
+      @JsonKey(name: "noOfAppointments")
+          int? noOfAppointments,
+      @JsonKey(name: "bookingId")
+          String? bookingId,
+      @JsonKey(name: "serviceType")
+          int? serviceType});
 
   @override
   $UserDetailsModelResponseCopyWith<$Res>? get userDetailsModel;
@@ -187,6 +229,9 @@ class __$UserProfileDetailsResponseCopyWithImpl<$Res>
     Object? totalFollowings = freezed,
     Object? totalLikes = freezed,
     Object? totalPosts = freezed,
+    Object? noOfAppointments = freezed,
+    Object? bookingId = freezed,
+    Object? serviceType = freezed,
   }) {
     return _then(_UserProfileDetailsResponse(
       userDetailsModel: userDetailsModel == freezed
@@ -209,6 +254,18 @@ class __$UserProfileDetailsResponseCopyWithImpl<$Res>
           ? _value.totalPosts
           : totalPosts // ignore: cast_nullable_to_non_nullable
               as int?,
+      noOfAppointments: noOfAppointments == freezed
+          ? _value.noOfAppointments
+          : noOfAppointments // ignore: cast_nullable_to_non_nullable
+              as int?,
+      bookingId: bookingId == freezed
+          ? _value.bookingId
+          : bookingId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      serviceType: serviceType == freezed
+          ? _value.serviceType
+          : serviceType // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -221,7 +278,10 @@ class _$_UserProfileDetailsResponse extends _UserProfileDetailsResponse {
       @JsonKey(name: "totalFollowers") this.totalFollowers,
       @JsonKey(name: "totalFollowings") this.totalFollowings,
       @JsonKey(name: "totalLikes") this.totalLikes,
-      @JsonKey(name: "totalPosts") this.totalPosts})
+      @JsonKey(name: "totalPosts") this.totalPosts,
+      @JsonKey(name: "noOfAppointments") this.noOfAppointments,
+      @JsonKey(name: "bookingId") this.bookingId,
+      @JsonKey(name: "serviceType") this.serviceType})
       : super._();
 
   factory _$_UserProfileDetailsResponse.fromJson(Map<String, dynamic> json) =>
@@ -242,10 +302,19 @@ class _$_UserProfileDetailsResponse extends _UserProfileDetailsResponse {
   @override
   @JsonKey(name: "totalPosts")
   final int? totalPosts;
+  @override
+  @JsonKey(name: "noOfAppointments")
+  final int? noOfAppointments;
+  @override
+  @JsonKey(name: "bookingId")
+  final String? bookingId;
+  @override
+  @JsonKey(name: "serviceType")
+  final int? serviceType;
 
   @override
   String toString() {
-    return 'UserProfileDetailsResponse(userDetailsModel: $userDetailsModel, totalFollowers: $totalFollowers, totalFollowings: $totalFollowings, totalLikes: $totalLikes, totalPosts: $totalPosts)';
+    return 'UserProfileDetailsResponse(userDetailsModel: $userDetailsModel, totalFollowers: $totalFollowers, totalFollowings: $totalFollowings, totalLikes: $totalLikes, totalPosts: $totalPosts, noOfAppointments: $noOfAppointments, bookingId: $bookingId, serviceType: $serviceType)';
   }
 
   @override
@@ -262,7 +331,12 @@ class _$_UserProfileDetailsResponse extends _UserProfileDetailsResponse {
             const DeepCollectionEquality()
                 .equals(other.totalLikes, totalLikes) &&
             const DeepCollectionEquality()
-                .equals(other.totalPosts, totalPosts));
+                .equals(other.totalPosts, totalPosts) &&
+            const DeepCollectionEquality()
+                .equals(other.noOfAppointments, noOfAppointments) &&
+            const DeepCollectionEquality().equals(other.bookingId, bookingId) &&
+            const DeepCollectionEquality()
+                .equals(other.serviceType, serviceType));
   }
 
   @override
@@ -272,7 +346,10 @@ class _$_UserProfileDetailsResponse extends _UserProfileDetailsResponse {
       const DeepCollectionEquality().hash(totalFollowers),
       const DeepCollectionEquality().hash(totalFollowings),
       const DeepCollectionEquality().hash(totalLikes),
-      const DeepCollectionEquality().hash(totalPosts));
+      const DeepCollectionEquality().hash(totalPosts),
+      const DeepCollectionEquality().hash(noOfAppointments),
+      const DeepCollectionEquality().hash(bookingId),
+      const DeepCollectionEquality().hash(serviceType));
 
   @JsonKey(ignore: true)
   @override
@@ -297,7 +374,13 @@ abstract class _UserProfileDetailsResponse extends UserProfileDetailsResponse {
       @JsonKey(name: "totalLikes")
           int? totalLikes,
       @JsonKey(name: "totalPosts")
-          int? totalPosts}) = _$_UserProfileDetailsResponse;
+          int? totalPosts,
+      @JsonKey(name: "noOfAppointments")
+          int? noOfAppointments,
+      @JsonKey(name: "bookingId")
+          String? bookingId,
+      @JsonKey(name: "serviceType")
+          int? serviceType}) = _$_UserProfileDetailsResponse;
   _UserProfileDetailsResponse._() : super._();
 
   factory _UserProfileDetailsResponse.fromJson(Map<String, dynamic> json) =
@@ -318,6 +401,15 @@ abstract class _UserProfileDetailsResponse extends UserProfileDetailsResponse {
   @override
   @JsonKey(name: "totalPosts")
   int? get totalPosts;
+  @override
+  @JsonKey(name: "noOfAppointments")
+  int? get noOfAppointments;
+  @override
+  @JsonKey(name: "bookingId")
+  String? get bookingId;
+  @override
+  @JsonKey(name: "serviceType")
+  int? get serviceType;
   @override
   @JsonKey(ignore: true)
   _$UserProfileDetailsResponseCopyWith<_UserProfileDetailsResponse>

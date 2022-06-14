@@ -415,9 +415,30 @@ class _DashboardState extends State<Dashboard> {
         backgroundColor: colors.white,
       ),
       BottomNavigationBarItem(
-        icon: Icon(
-          Icons.calendar_today,
-          size: 24,
+        icon: Stack(
+          children: [
+            Icon(
+              Icons.calendar_today,
+              size: 24,
+            ),
+            Positioned(
+              left: 10,
+              bottom: 10,
+              child: Visibility(
+                visible: true,
+                child: Container(
+                  child: CircleAvatar(
+                    radius: 8,
+                    backgroundColor: colors.red,
+                    child: AppText.tiny(
+                      "${model.noOfAppointments}",
+                      color: colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
         activeIcon: Icon(
           Icons.calendar_today,
@@ -528,7 +549,13 @@ class _DashboardState extends State<Dashboard> {
                     if (x == 3) {
                       // open my bookings
                       final _navigationService = locator<NavigationService>();
-                      _navigationService.navigateTo(Routes.appointmentsView);
+                      if(model.noOfAppointments>1){
+                        _navigationService.navigateTo(Routes.appointmentsView);
+                      }else{
+                        model.toAppointmentDetails(model.bookingId, model.serviceType);
+                      }
+
+
                     } else {
                       setState(() {
                         index = x;

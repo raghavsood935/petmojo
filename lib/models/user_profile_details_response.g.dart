@@ -17,6 +17,9 @@ _$_UserProfileDetailsResponse _$$_UserProfileDetailsResponseFromJson(
       totalFollowings: json['totalFollowings'] as int?,
       totalLikes: json['totalLikes'] as int?,
       totalPosts: json['totalPosts'] as int?,
+      noOfAppointments: json['noOfAppointments'] as int?,
+      bookingId: json['bookingId'] as String?,
+      serviceType: json['serviceType'] as int?,
     );
 
 Map<String, dynamic> _$$_UserProfileDetailsResponseToJson(
@@ -27,4 +30,7 @@ Map<String, dynamic> _$$_UserProfileDetailsResponseToJson(
       'totalFollowings': instance.totalFollowings,
       'totalLikes': instance.totalLikes,
       'totalPosts': instance.totalPosts,
+      'noOfAppointments': instance.noOfAppointments,
+      'bookingId': instance.bookingId,
+      'serviceType': instance.serviceType,
     };
