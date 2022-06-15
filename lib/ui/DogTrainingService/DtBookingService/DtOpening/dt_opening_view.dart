@@ -2,10 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ui_helpers.dart';
+import '../DtBooking/dt_dogtrainingbooking_view.dart';
 import 'dt_opening_viewmodel.dart';
 
 class DTOpening extends StatelessWidget {
   const DTOpening({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<DTOpeningViewModel>.reactive(
+      onModelReady: (model) => model.init(),
+      builder: (context, model, child) => Scaffold(
+        backgroundColor: colors.white,
+        body: model.tryNow
+            ? DTOpeningTryNow()
+            :DTDogTrainingBookingView(),
+      ),
+      viewModelBuilder: () => DTOpeningViewModel(),
+    );
+  }
+}
+
+class DTOpeningTryNow extends StatelessWidget {
+  const DTOpeningTryNow({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +42,11 @@ class DTOpening extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   child: GestureDetector(
                     onTap: () => Navigator.pop(context),
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                        child: Icon(Icons.arrow_back_ios),
-                      ),
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      child: Icon(Icons.arrow_back_ios),
+                    ),
                   ),
                 ),
                 verticalSpaceRegular,
@@ -111,7 +130,7 @@ class DTOpening extends StatelessWidget {
           child: Column(
             children: [
               GestureDetector(
-                onTap: model.toDogTrainingBooking,
+                onTap:()=> model.toDogTrainingBooking(context),
                 child: Container(
                   width: double.infinity,
                   margin: EdgeInsets.symmetric(horizontal: 20),
@@ -139,3 +158,4 @@ class DTOpening extends StatelessWidget {
     );
   }
 }
+

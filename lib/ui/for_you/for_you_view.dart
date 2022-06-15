@@ -4,6 +4,8 @@ import 'package:tamely/ui/for_you/for_you_view_model.dart';
 import 'package:tamely/ui/for_you/tabs/for_you_tab.dart';
 import 'package:tamely/ui/for_you/tabs/hall_of_fame_tab.dart';
 
+import '../../widgets/live_ongoing_widget.dart';
+
 class ForYouView extends StatelessWidget {
   final BuildContext menuScreenContext;
   final Function onScreenHideButtonPressed;
@@ -28,17 +30,30 @@ class ForYouView extends StatelessWidget {
       //     ),
       //   ),
       // ),
-      builder: (context, model, child) => DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          appBar: TabBar(
-            tabs: model.tabsTitle,
+      builder: (context, model, child) => Column(
+        children: [
+
+          model.ongoingSessionPresent
+              ? model.ongoingSessionType == 1
+              ? OngoingTraining(model: model)
+              : OngoingWalking(model: model)
+              : Container(),
+
+          DefaultTabController(
+            length: 2,
+            child: Flexible(
+              child: Scaffold(
+                appBar: TabBar(
+                  tabs: model.tabsTitle,
+                ),
+                body: TabBarView(
+                  children: [ForYouTab(), HallOfFameTab()],
+                ),
+              ),
+            ),
           ),
-          body: TabBarView(
-            children: [ForYouTab(), HallOfFameTab()],
-          ),
-        ),
-      ),
+        ],
+      )
     );
   }
 }

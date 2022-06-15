@@ -11,6 +11,7 @@ import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/services_preview_sliding.dart';
+import '../../widgets/live_ongoing_widget.dart';
 import 'Activeappointments/activeappointments_view.dart';
 import 'appointments_viewmodel.dart';
 
@@ -32,6 +33,11 @@ class AppointmentsView extends StatelessWidget {
               child: model.hasAppointments
                   ? Column(
                       children: [
+                        model.ongoingSessionPresent
+                            ? model.ongoingSessionType == 1
+                            ? OngoingTraining(model: model)
+                            : OngoingWalking(model: model)
+                            : Container(),
                         DefaultTabController(
                           length: 1,
                           child: Flexible(
@@ -62,7 +68,11 @@ class AppointmentsView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          ServicesPreviewSliding(model: model),
+                          model.ongoingSessionPresent
+                              ? model.ongoingSessionType == 1
+                              ? OngoingTraining(model: model)
+                              : OngoingWalking(model: model)
+                              : ServicesPreviewSliding(model: model),
                           verticalSpaceRegular,
                           SvgPicture.asset(
                             "assets/images/service_page_images/empty bag.svg",

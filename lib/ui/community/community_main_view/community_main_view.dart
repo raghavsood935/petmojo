@@ -65,18 +65,20 @@ class CommunityMainView extends StatelessWidget {
                           ),
                       itemCount: model.listOfSocialCenterModel.length),
                 ),
-                spacedDividerBigTiny,
-                ListTile(
-                  leading: Image.asset(blogImgPath),
-                  title: AppText.body1(
-                    blogTitle,
-                    color: colors.black,
-                  ),
-                  subtitle: AppText.caption(blogDescription),
-                  trailing: Icon(Icons.arrow_forward_ios_rounded),
-                  onTap: model.goToBlogs,
-                ),
-                spacedDividerBigTiny,
+
+                // Blogs tile
+                // spacedDividerBigTiny,
+                // ListTile(
+                //   leading: Image.asset(blogImgPath),
+                //   title: AppText.body1(
+                //     blogTitle,
+                //     color: colors.black,
+                //   ),
+                //   subtitle: AppText.caption(blogDescription),
+                //   trailing: Icon(Icons.arrow_forward_ios_rounded),
+                //   onTap: model.goToBlogs,
+                // ),
+                // spacedDividerBigTiny,
                 GestureDetector(
                   onTap: model.goToTrendingGroups,
                   child: Padding(

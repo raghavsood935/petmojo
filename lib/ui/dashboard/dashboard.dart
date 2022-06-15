@@ -549,7 +549,7 @@ class _DashboardState extends State<Dashboard> {
                     if (x == 3) {
                       // open my bookings
                       final _navigationService = locator<NavigationService>();
-                      if(model.noOfAppointments>1){
+                      if(model.noOfAppointments>1 || model.noOfAppointments==0){
                         _navigationService.navigateTo(Routes.appointmentsView);
                       }else{
                         model.toAppointmentDetails(model.bookingId, model.serviceType);
