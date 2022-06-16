@@ -30,6 +30,8 @@ class SharedPreferencesService {
 
   //community values
   static const String COMMUNITY_FIRST_TIME = 'communityFirstTime';
+  static const String TRY_NOW_TRAINING = 'tryNowTraining';
+  static const String TRY_NOW_WALKING = 'tryNowWalking';
 
   //current selected profile details
   static const String CURRENT_PROFILE_USERNAME = 'currentProfileUsername';
@@ -176,8 +178,14 @@ class SharedPreferencesService {
   set currentState(String value) => _saveToDisk(CURRENT_STATE, value);
 
   bool get communityFirstTime => _getFromDisk(COMMUNITY_FIRST_TIME) ?? true;
+  bool get tryNowTraining => _getFromDisk(TRY_NOW_TRAINING) ?? true;
+  bool get tryNowWalking => _getFromDisk(TRY_NOW_WALKING) ?? true;
+
+
 
   setCommunityFirstTime(bool value) => _saveToDisk(COMMUNITY_FIRST_TIME, value);
+  setTryNowTraining(bool value) => _saveToDisk(TRY_NOW_TRAINING, value);
+  setTryNowWalking(bool value) => _saveToDisk(TRY_NOW_WALKING, value);
 }
 
 class CurrentProfile {

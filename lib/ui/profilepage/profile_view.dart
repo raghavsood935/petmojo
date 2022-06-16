@@ -14,6 +14,8 @@ import 'package:tamely/widgets/edit_button.dart';
 import 'package:tamely/widgets/follow_static_btn.dart';
 import 'package:tamely/widgets/shimmer_widgets.dart';
 
+import '../../widgets/live_ongoing_widget.dart';
+
 class ProfileView extends StatefulWidget {
   final BuildContext menuScreenContext;
   final Function onScreenHideButtonPressed;
@@ -46,14 +48,17 @@ class _ProfileViewState extends State<ProfileView> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileViewModel>.reactive(
       viewModelBuilder: () => ProfileViewModel(),
-      onModelReady: (model) => model.init(
-          widget.isInspectView, widget.inspectProfileId ?? "",
-          isFollowing: widget.isFollowing ?? false),
+      onModelReady: (model) {
+        model.init2(
+            widget.isInspectView, widget.inspectProfileId ?? "",
+            isFollowing: widget.isFollowing ?? false);
+        model.getSessionTracker();
+      },
       builder: (context, model, child) => model.isHuman
           ? Scaffold(
               body: RefreshIndicator(
                 onRefresh: () async {
-                  await model.init(
+                  await model.init2(
                       widget.isInspectView, widget.inspectProfileId ?? "",
                       isFollowing: widget.isFollowing ?? false,
                       needToShowLoading: false);
@@ -325,6 +330,11 @@ class _ProfileViewState extends State<ProfileView> {
                         ),
 
                         //complete your profile info
+                        model.ongoingSessionPresent
+                            ? model.ongoingSessionType == 1
+                            ? OngoingTraining(model: model)
+                            : OngoingWalking(model: model)
+                            : Container(),
 
                         Visibility(
                           visible: !model.isBusy,

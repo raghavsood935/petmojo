@@ -8,9 +8,10 @@ import 'package:tamely/app/app.router.dart';
 import 'package:tamely/models/feed_post_response.dart';
 import 'package:tamely/models/params/counter_body.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
+import 'package:tamely/ui/services/services_viewmodel.dart';
 import 'package:tamely/util/ImageConstant.dart';
 
-class ForYouTabViewModel extends BaseModel {
+class ForYouTabViewModel extends ServicesViewModel {
   final log = getLogger('CreateAnimalProfileView');
   final _navigationService = locator<NavigationService>();
   final _tamelyApi = locator<TamelyApi>();
@@ -38,18 +39,18 @@ class ForYouTabViewModel extends BaseModel {
     );
   }
 
-  void init(
-    String _profileImg,
-    bool _isHuman,
-    String _petId,
-    String _petToken,
-  ) {
-    profileImg = _profileImg;
-    isHuman = _isHuman;
-    petId = _petId;
-    petToken = _petToken;
-    notifyListeners();
-  }
+  // void init(
+  //   String _profileImg,
+  //   bool _isHuman,
+  //   String _petId,
+  //   String _petToken,
+  // ) {
+  //   profileImg = _profileImg;
+  //   isHuman = _isHuman;
+  //   petId = _petId;
+  //   petToken = _petToken;
+  //   notifyListeners();
+  // }
 
   Future getPosts(bool isSeeMore) async {
     print("COUNTER VALUE $_counter");

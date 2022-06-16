@@ -12,12 +12,13 @@ import 'package:tamely/models/params/groups/group_basic_body.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
 import 'package:tamely/ui/groups/group_info/group_info_view.dart';
+import 'package:tamely/ui/services/services_viewmodel.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/String.dart';
 
 import '../../../enum/DialogType.dart';
 
-class CommunityMainViewModel extends BaseModel {
+class CommunityMainViewModel extends ServicesViewModel {
   final navigationService = locator<NavigationService>();
   final _sharedPrefService = locator<SharedPreferencesService>();
   final snackBarService = locator<SnackbarService>();
@@ -98,7 +99,7 @@ class CommunityMainViewModel extends BaseModel {
     }
   }
 
-  Future init() async {
+  Future init4() async {
     CurrentProfile profile = _sharedPrefService.getCurrentProfile();
     isHuman = profile.isHuman;
     petId = profile.petId;

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
 
-class ForYouViewModel extends BaseModel {
+import '../services/services_viewmodel.dart';
+
+class ForYouViewModel extends ServicesViewModel {
   // List<Widget> _tabs = [ForYouTab(), HallOfFameTab()];
   List<Tab> _tabsTitle = [
     Tab(

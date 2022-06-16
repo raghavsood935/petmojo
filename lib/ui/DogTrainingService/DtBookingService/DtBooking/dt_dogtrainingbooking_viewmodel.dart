@@ -190,7 +190,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       if(selectedPlan != DogTrainingPackage.One && selectedPlan != DogTrainingPackage.Two && selectedPlan != DogTrainingPackage.Six){
         flag=1;
         await Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DTPlanSelectionView(address1:addressLineOneController.text,address2:addressLineTwoController.text,subTotal:subTotal,youSave:discount,totalPrice:amount,savedAmount:savedAmount,
-            date: pickedDate,value: selectedPlan,offerValid:_isOfferValid,OfferAvailaible:_isOfferAvailable,time:weekDayTiming,bookingId: bookingId,noOfPetsSelected: noOfPetsSelected,)));
+            date: pickedDate,value: selectedPlan,offerValid:_isOfferValid,OfferAvailaible:_isOfferAvailable,bookingId: bookingId,noOfPetsSelected: noOfPetsSelected,)));
       }
       else{
 

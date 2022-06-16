@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:tamely/api/api_service.dart';
 import 'package:tamely/api/base_response.dart';
 import 'package:tamely/api/server_error.dart';
@@ -17,6 +18,9 @@ import 'package:tamely/enum/activeAppointmentStatus.dart';
 import 'package:tamely/util/String.dart';
 import 'package:intl/intl.dart';
 
+import '../../../enum/dog_training_package.dart';
+import '../../DogTrainingService/DtBookingService/DtBooking/dt_dogtrainingbooking_view.dart';
+
 class ActiveAppointmentsViewModel extends FutureViewModel<void>
     implements Initialisable {
   final log = getLogger('ActiveAppointmentsViewModel');
@@ -35,6 +39,19 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
   }
 
   String ongoingOrUpcoming = upcomingLabel;
+
+
+
+  double _subtotal=0;
+  double get subtotal=>_subtotal;
+
+  double _discount=0;
+  double get discount=>_discount;
+
+  double _amount=0;
+  double get myAmount=>_amount;
+
+  DogTrainingPackage? value= DogTrainingPackage.Three;
 
   // dummy values
 
@@ -137,6 +154,68 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
       );
     }
     getActiveAppointments();
+  }
+
+  void getPackageDetails(description){
+    if(description=="Basic Training"){
+      _subtotal=22360;
+      _discount=5160;
+      _amount=17200;
+      value=DogTrainingPackage.Three;
+    }
+    else if(description=="Intermediate Training"){
+      _subtotal=33228;
+      _discount=7668;
+      _amount=25560;
+      value=DogTrainingPackage.Four;
+    }
+    else if(description=="Advance Training"){
+      _subtotal=42432;
+      _discount=9792;
+      _amount=32640;
+      value=DogTrainingPackage.Five;
+    }
+  }
+
+  void toPaymentPage(index) async {
+    String bookingId = activeAppointments[index].bookingId!;
+    ServiceType? serviceType = activeAppointments[index].serviceType;
+    String? description = activeAppointments[index].packageSubscriptionType;
+    int? amount = activeAppointments[index].amount;
+
+
+    if (serviceType == ServiceType.DogRunning) {
+      await _navigationService.replaceWith(
+        Routes.dRPaymentView,
+        arguments: DRPaymentViewArguments(
+            amount: amount!, bookingId: bookingId!),
+      );
+    } else if (serviceType == ServiceType.DogTraining) {
+      if(description=="Puppy Training" || description=="Premium Training"){
+        await _navigationService.replaceWith(
+          Routes.dTPaymentView,
+          arguments: DTPaymentViewArguments(
+              amount: amount!, bookingId: bookingId!),
+        );
+
+      }
+      else{
+        DateTime date  =DateTime.parse( activeAppointments[index].dateAndTime!);
+        int noOfPets= activeAppointments[index].noOfPets!;
+        String address1=activeAppointments[index].address1!;
+        String address2=activeAppointments[index].address2!;
+        getPackageDetails(description);
+
+        await Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DTPlanSelectionView(address1:address1,address2:address2,subTotal:subtotal*noOfPets,youSave:discount*noOfPets,totalPrice:myAmount*noOfPets,savedAmount:0,
+          date: date,value: value,offerValid:false,OfferAvailaible:true,bookingId: bookingId,noOfPetsSelected: noOfPets,)));
+      }
+    } else if (serviceType == ServiceType.DogGrooming) {
+      // await _navigationService.navigateTo(
+      //   Routes.dGAppointmentDetailsView,
+      //   arguments: DGAppointmentDetailsViewArguments(appointmentId: bookingId!),
+      // );
+    }
+    // getActiveAppointments();
   }
 
   final _tamelyApi = locator<TamelyApi>();
@@ -267,6 +346,9 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
               newAppointment.status = ActiveAppointmentStatus.Accepted;
             }
 
+            newAppointment.paymentStatus=(each.bookingDetails!.paymentDetails!.paymentStatus !=0)?true:false;
+            // newAppointment.amount=each.bookingDetails!.package!.amount!.toInt();
+            newAppointment.amount = double.parse(each.bookingDetails!.package!.amount!).toInt();
             // Days Left
             int? numberOfDaysLeft = each.daysLeft;
             bool? isReorderDone = each.isReorderDone;
@@ -328,6 +410,9 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             String? dateDummyString = each.bookingDetails!.startDate;
             String myDate  = DateTime.parse(each.createdAt!).add(Duration(hours: 5,minutes: 30)).toString();
             newAppointment.bookedDate=myDate.split(" ")[0];
+            newAppointment.noOfPets=each.bookingDetails!.numberOfPets!;
+            newAppointment.address1=each.bookingDetails!.petRunningLocation?.addressLine1;
+            newAppointment.address2=each.bookingDetails!.petRunningLocation?.addressLine2;
             String time=myDate.split(" ")[1];
             List newList=time.split(":");
             newList.removeAt(2);
@@ -336,7 +421,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             // dateDummyString = formatter.format(dummyDate);
             newAppointment.dateAndTime = dateDummyString;
 
-
+            newAppointment.amount=each.bookingDetails!.package!.amount!.toInt();
             if (DateTime.parse(dateDummyString!).isAfter(returnNow(DateTime.now()))) {
               newAppointment.upcomingOrOngoing = "Upcoming";
             } else {
@@ -356,6 +441,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             // Days Left
             int? numberOfDaysLeft = each.sessionsLeft;
             bool? isReorderDone = each.isReorderDone;
+            newAppointment.paymentStatus=(each.bookingDetails!.paymentDetails!.paymentStatus !=0)?true:false;
             String? subscriptionType =
                 each.bookingDetails!.package!.subscriptionType;
             newAppointment.packageSubscriptionType=subscriptionType;
@@ -543,6 +629,8 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
               newAppointment.status = ActiveAppointmentStatus.Accepted;
             }
 
+            newAppointment.paymentStatus=(each.bookingDetails!.paymentDetails!.paymentStatus !=0)?true:false;
+            newAppointment.amount = double.parse(each.bookingDetails!.package!.amount!).toInt();
             // Days Left
             int? numberOfDaysLeft = each.daysLeft;
 
@@ -611,12 +699,17 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             // DateTime dummyDate = DateTime.parse(dateDummyString!);
             // dateDummyString = formatter.format(dummyDate);
             newAppointment.dateAndTime = dateDummyString;
+            newAppointment.noOfPets=each.bookingDetails!.numberOfPets!;
+            newAppointment.address1=each.bookingDetails!.petRunningLocation?.addressLine1;
+            newAppointment.address2=each.bookingDetails!.petRunningLocation?.addressLine2;
 
             if (DateTime.parse(dateDummyString!).isAfter(returnNow(DateTime.now()))) {
               newAppointment.upcomingOrOngoing = "Upcoming";
             } else {
               newAppointment.upcomingOrOngoing = "Ongoing";
             }
+
+            newAppointment.amount=each.bookingDetails!.package!.amount!.toInt();
 
             List<PetDetailsResponse>? petDetails = each.petDetails;
             for (var one in petDetails!) {
@@ -629,6 +722,7 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             }
 
             // Days Left
+            newAppointment.paymentStatus=(each.bookingDetails!.paymentDetails!.paymentStatus !=0)?true:false;
             int? numberOfDaysLeft = each.sessionsLeft;
             bool? isReorderDone = each.isReorderDone;
             String? subscriptionType =
@@ -702,12 +796,16 @@ class ActiveAppointmentClass {
   String? bookedTime;
   String? lastDate;
   String? sessionTime;
+  String? address1;
+  String? address2;
 
   bool? showReorder;
   bool? showBooking;
   ActiveAppointmentStatus? status;
   int? amount;
+  int? noOfPets;
   String? upcomingOrOngoing;
+  bool? paymentStatus;
   ActiveAppointmentClass({
     this.serviceType,
     this.appointmentId,
@@ -730,5 +828,13 @@ class ActiveAppointmentClass {
     this.run2Time,
     this.lastDate,
     this.sessionTime,
+    this.paymentStatus,
+    this.noOfPets,
+    this.address1,
+    this.address2,
   });
+
+
+
+
 }

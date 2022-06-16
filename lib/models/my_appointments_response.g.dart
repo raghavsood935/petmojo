@@ -70,6 +70,22 @@ Map<String, dynamic> _$$_DogTrainingAppointmentListResponseToJson(
       'sessionsCompleted': instance.sessionsCompleted,
     };
 
+_$_DogTrainingPaymentDetailsResponse
+    _$$_DogTrainingPaymentDetailsResponseFromJson(Map<String, dynamic> json) =>
+        _$_DogTrainingPaymentDetailsResponse(
+          paymentStatus: json['status'] as int?,
+          amount: json['amount'] as int?,
+          transactionId: json['transactionId'] as String?,
+        );
+
+Map<String, dynamic> _$$_DogTrainingPaymentDetailsResponseToJson(
+        _$_DogTrainingPaymentDetailsResponse instance) =>
+    <String, dynamic>{
+      'status': instance.paymentStatus,
+      'amount': instance.amount,
+      'transactionId': instance.transactionId,
+    };
+
 _$_DogGroomingAppointmentListResponse
     _$$_DogGroomingAppointmentListResponseFromJson(Map<String, dynamic> json) =>
         _$_DogGroomingAppointmentListResponse(
@@ -183,6 +199,15 @@ _$_DogTrainingBookingDetailsResponse
                   json['package'] as Map<String, dynamic>),
           bookingId: json['_id'] as String?,
           startDate: json['startDate'] as String?,
+          paymentDetails: json['paymentDetails'] == null
+              ? null
+              : DogTrainingPaymentDetailsResponse.fromJson(
+                  json['paymentDetails'] as Map<String, dynamic>),
+          petRunningLocation: json['petRunningLocation'] == null
+              ? null
+              : LocationResponse.fromJson(
+                  json['petRunningLocation'] as Map<String, dynamic>),
+          numberOfPets: json['numberOfPets'] as int?,
         );
 
 Map<String, dynamic> _$$_DogTrainingBookingDetailsResponseToJson(
@@ -191,6 +216,27 @@ Map<String, dynamic> _$$_DogTrainingBookingDetailsResponseToJson(
       'package': instance.package,
       '_id': instance.bookingId,
       'startDate': instance.startDate,
+      'paymentDetails': instance.paymentDetails,
+      'petRunningLocation': instance.petRunningLocation,
+      'numberOfPets': instance.numberOfPets,
+    };
+
+_$_LocationResponse _$$_LocationResponseFromJson(Map<String, dynamic> json) =>
+    _$_LocationResponse(
+      addressLine1: json['addressLine1'] as String?,
+      addressLine2: json['addressLine2'] as String?,
+      state: json['state'] as String?,
+      city: json['city'] as String?,
+      pinCode: json['pinCode'] as String?,
+    );
+
+Map<String, dynamic> _$$_LocationResponseToJson(_$_LocationResponse instance) =>
+    <String, dynamic>{
+      'addressLine1': instance.addressLine1,
+      'addressLine2': instance.addressLine2,
+      'state': instance.state,
+      'city': instance.city,
+      'pinCode': instance.pinCode,
     };
 
 _$_DogGroomingBookingDetailsResponse
@@ -279,6 +325,10 @@ _$_DogRunningBookingDetailsResponse
           run1Time: json['run1'] as String?,
           run2Time: json['run2'] as String?,
           startDate: json['startDate'] as String?,
+          paymentDetails: json['paymentDetails'] == null
+              ? null
+              : DogRunningPaymentDetailsResponse.fromJson(
+                  json['paymentDetails'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic> _$$_DogRunningBookingDetailsResponseToJson(
@@ -289,6 +339,23 @@ Map<String, dynamic> _$$_DogRunningBookingDetailsResponseToJson(
       'run1': instance.run1Time,
       'run2': instance.run2Time,
       'startDate': instance.startDate,
+      'paymentDetails': instance.paymentDetails,
+    };
+
+_$_DogRunningPaymentDetailsResponse
+    _$$_DogRunningPaymentDetailsResponseFromJson(Map<String, dynamic> json) =>
+        _$_DogRunningPaymentDetailsResponse(
+          paymentStatus: json['status'] as int?,
+          amount: json['amount'] as int?,
+          transactionId: json['transactionId'] as String?,
+        );
+
+Map<String, dynamic> _$$_DogRunningPaymentDetailsResponseToJson(
+        _$_DogRunningPaymentDetailsResponse instance) =>
+    <String, dynamic>{
+      'status': instance.paymentStatus,
+      'amount': instance.amount,
+      'transactionId': instance.transactionId,
     };
 
 _$_DogTrainingPackageResponse _$$_DogTrainingPackageResponseFromJson(

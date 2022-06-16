@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/ui/DogRunningService/DrBookingService/DrBooking/dr_dogrunningbooking_view.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ui_helpers.dart';
 
@@ -7,6 +8,24 @@ import 'dr_opening_viewmodel.dart';
 
 class DROpening extends StatelessWidget {
   const DROpening({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<DROpeningViewModel>.reactive(
+      onModelReady: (model) => model.init(),
+      builder: (context, model, child) => Scaffold(
+        backgroundColor: colors.white,
+        body: model.tryNow
+            ?DROpeningTryNow()
+            :DRDogRunningBookingView()
+      ),
+      viewModelBuilder: () => DROpeningViewModel(),
+    );
+  }
+}
+
+class DROpeningTryNow extends StatelessWidget {
+  const DROpeningTryNow({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +125,7 @@ class DROpening extends StatelessWidget {
           child: Column(
             children: [
               GestureDetector(
-                onTap: model.toDogRunningBooking,
+                onTap:()=> model.toDogRunningBooking(context),
                 child: Container(
                   width: double.infinity,
                   margin: EdgeInsets.symmetric(horizontal: 20),

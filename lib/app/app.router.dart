@@ -1140,7 +1140,6 @@ class StackedRouter extends RouterBase {
           value: args.value,
           offerValid: args.offerValid,
           OfferAvailaible: args.OfferAvailaible,
-          time: args.time,
           bookingId: args.bookingId,
           noOfPetsSelected: args.noOfPetsSelected,
         ),
@@ -1674,7 +1673,6 @@ class DTPlanSelectionViewArguments {
   final DogTrainingPackage? value;
   final bool offerValid;
   final bool OfferAvailaible;
-  final String time;
   final String bookingId;
   final int noOfPetsSelected;
   DTPlanSelectionViewArguments(
@@ -1689,7 +1687,6 @@ class DTPlanSelectionViewArguments {
       required this.value,
       required this.offerValid,
       required this.OfferAvailaible,
-      required this.time,
       required this.bookingId,
       required this.noOfPetsSelected});
 }

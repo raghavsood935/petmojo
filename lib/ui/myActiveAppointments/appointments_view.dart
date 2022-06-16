@@ -11,6 +11,7 @@ import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/services_preview_sliding.dart';
+import '../../widgets/live_ongoing_widget.dart';
 import 'Activeappointments/activeappointments_view.dart';
 import 'appointments_viewmodel.dart';
 
@@ -20,17 +21,28 @@ class AppointmentsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<AppointmentsViewModel>.reactive(
-      onModelReady: (model) => model.getActiveAppointments(),
+      onModelReady: (model) {
+        model.getActiveAppointments();
+        model.getSessionTracker();
+      },
       builder: (context, model, child) => Scaffold(
         appBar: commonAppBar(context, myAppointmentsTitle),
         backgroundColor: colors.white,
         body: SafeArea(
-          child: Padding(
-              padding: model.hasAppointments
-                  ? EdgeInsets.symmetric(horizontal: 25)
-                  : EdgeInsets.zero,
-              child: model.hasAppointments
-                  ? Column(
+          child: Column(
+            children: [
+              model.ongoingSessionPresent
+                  ? model.ongoingSessionType == 1
+                  ? OngoingTraining(model: model)
+                  : OngoingWalking(model: model)
+                  : Container(),
+              Flexible(
+                child: Padding(
+                    padding: model.hasAppointments
+                        ? EdgeInsets.symmetric(horizontal: 25)
+                        : EdgeInsets.zero,
+                    child: model.hasAppointments
+                        ? Column(
                       children: [
                         DefaultTabController(
                           length: 1,
@@ -56,13 +68,17 @@ class AppointmentsView extends StatelessWidget {
                         ),
                       ],
                     )
-                  : SingleChildScrollView(
+                        : SingleChildScrollView(
                       physics: ScrollPhysics(),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          ServicesPreviewSliding(model: model),
+                          model.ongoingSessionPresent
+                              ? model.ongoingSessionType == 1
+                              ? OngoingTraining(model: model)
+                              : OngoingWalking(model: model)
+                              : ServicesPreviewSliding(model: model),
                           verticalSpaceRegular,
                           SvgPicture.asset(
                             "assets/images/service_page_images/empty bag.svg",
@@ -101,7 +117,7 @@ class AppointmentsView extends StatelessWidget {
                                   customerName: "Raghu Panigrahi",
                                   customerDesignation: "HR Manager",
                                   customerReview:
-                                      "We were thinking of giving up on our German Shepherd and put him for adoption. I'm really overwhelmed with their training as our dog follows not only my instructions, but even my wife's.",
+                                  "We were thinking of giving up on our German Shepherd and put him for adoption. I'm really overwhelmed with their training as our dog follows not only my instructions, but even my wife's.",
                                   customerRating: 5.0,
                                 ),
                                 Testimonial(
@@ -109,7 +125,7 @@ class AppointmentsView extends StatelessWidget {
                                   customerName: "Aradhya Shetty",
                                   customerDesignation: "Analyst",
                                   customerReview:
-                                      "The training and discipline PetMojo provided us with gave us good communication between me and my pet and build a bridge for the lost connection.",
+                                  "The training and discipline PetMojo provided us with gave us good communication between me and my pet and build a bridge for the lost connection.",
                                   customerRating: 5.0,
                                 ),
                                 Testimonial(
@@ -117,14 +133,14 @@ class AppointmentsView extends StatelessWidget {
                                   customerName: "Raj Desai",
                                   customerDesignation: "Student",
                                   customerReview:
-                                      "Such a wonderful training package at low cost gave us the knowledge of training to make them learn with positive games and teaching makes the pet to be more than like a family.",
+                                  "Such a wonderful training package at low cost gave us the knowledge of training to make them learn with positive games and teaching makes the pet to be more than like a family.",
                                   customerRating: 5.0,
                                 ),
                               ],
                               options: CarouselOptions(
                                 viewportFraction: 0.7,
                                 enlargeStrategy:
-                                    CenterPageEnlargeStrategy.scale,
+                                CenterPageEnlargeStrategy.scale,
                                 enlargeCenterPage: true,
                               ),
                             ),
@@ -133,6 +149,9 @@ class AppointmentsView extends StatelessWidget {
                         ],
                       ),
                     )),
+              ),
+            ],
+          ),
         ),
       ),
       viewModelBuilder: () => AppointmentsViewModel(),

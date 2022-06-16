@@ -6,6 +6,8 @@ import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 
+import '../../../widgets/live_ongoing_widget.dart';
+
 class ForYouTab extends StatefulWidget {
   const ForYouTab({Key? key}) : super(key: key);
 
@@ -21,6 +23,7 @@ class _ForYouTabState extends State<ForYouTab> {
       viewModelBuilder: () => ForYouTabViewModel(),
       onModelReady: (model) {
         model.getPosts(false);
+        model.getSessionTracker();
         controller.addListener(() {
           if (controller.position.pixels ==
               controller.position.maxScrollExtent) {
@@ -70,9 +73,14 @@ class _ForYouTabState extends State<ForYouTab> {
             // ),
             // spacedDividerSmall,
             Container(
-              padding: EdgeInsets.all(10),
+              // padding: EdgeInsets.all(5),
               child: Column(
                 children: [
+                  model.ongoingSessionPresent
+                      ? model.ongoingSessionType == 1
+                      ? OngoingTraining(model: model)
+                      : OngoingWalking(model: model)
+                      : Container(),
                   StaggeredGridView.countBuilder(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,

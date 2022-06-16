@@ -32,12 +32,13 @@ import 'package:tamely/models/user_profile_details_response.dart';
 import 'package:tamely/services/aws_upload_service.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/ui/profilepage/animal_profile/animal_profile_view.dart';
+import 'package:tamely/ui/services/services_viewmodel.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/global_methods.dart';
 import 'package:tamely/util/utils.dart';
 import 'package:tamely/widgets/dialogs/image_pop_dailog_view.dart';
 
-class ProfileViewModel extends BaseViewModel {
+class ProfileViewModel extends ServicesViewModel {
   final ImagePicker _picker = ImagePicker();
 
   final log = getLogger('CreateAnimalProfileView');
@@ -161,7 +162,7 @@ class ProfileViewModel extends BaseViewModel {
     }
   }
 
-  Future init(bool isInspect, String inspectProfileId,
+  Future init2(bool isInspect, String inspectProfileId,
       {bool needToShowLoading = true, bool isFollowing = false}) async {
     CurrentProfile profile = _sharedPreferenceService.getCurrentProfile();
 
