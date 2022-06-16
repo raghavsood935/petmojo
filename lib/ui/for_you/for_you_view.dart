@@ -21,7 +21,7 @@ class ForYouView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ForYouViewModel>.reactive(
       viewModelBuilder: () => ForYouViewModel(),
-
+      onModelReady: (model)=>model.getSessionTracker(),
       // builder: (context, model, child) => Scaffold(
       //   body: Center(
       //     child: AppText.body1Bold(
@@ -33,11 +33,6 @@ class ForYouView extends StatelessWidget {
       builder: (context, model, child) => Column(
         children: [
 
-          model.ongoingSessionPresent
-              ? model.ongoingSessionType == 1
-              ? OngoingTraining(model: model)
-              : OngoingWalking(model: model)
-              : Container(),
 
           DefaultTabController(
             length: 2,

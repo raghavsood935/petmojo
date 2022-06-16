@@ -202,7 +202,7 @@ class _DTDogTrainingBookingViewState extends State<DTDogTrainingBookingView> {
 
 class DTPlanSelectionView extends StatefulWidget {
   DTPlanSelectionView({Key? key,required this.address1,required this.address2,required this.subTotal,required this.youSave,required this.totalPrice,required this.savedAmount,
-    required this.date,required this.value,required this.offerValid,required this.OfferAvailaible,required this.time,required this.bookingId,required this.noOfPetsSelected}) : super(key: key);
+    required this.date,required this.value,required this.offerValid,required this.OfferAvailaible,required this.bookingId,required this.noOfPetsSelected}) : super(key: key);
   String address1;
   String address2;
   double subTotal;
@@ -213,7 +213,6 @@ class DTPlanSelectionView extends StatefulWidget {
    DogTrainingPackage? value;
    bool offerValid;
    bool OfferAvailaible;
-   String time;
    String bookingId;
    int noOfPetsSelected;
 
@@ -316,9 +315,6 @@ class _DTPlanSelectionViewState extends State<DTPlanSelectionView> {
                             AppText.caption(
                               DateFormat("dd/MM/yyyy").format(widget.date),
                             ),
-                            horizontalSpaceTiny,
-                            AppText.captionBold("Time: "),
-                            AppText.caption(widget.time),
                           ],),
                           verticalSpaceSmall,
                           Row(

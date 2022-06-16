@@ -48,9 +48,12 @@ class _ProfileViewState extends State<ProfileView> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileViewModel>.reactive(
       viewModelBuilder: () => ProfileViewModel(),
-      onModelReady: (model) => model.init2(
-          widget.isInspectView, widget.inspectProfileId ?? "",
-          isFollowing: widget.isFollowing ?? false),
+      onModelReady: (model) {
+        model.init2(
+            widget.isInspectView, widget.inspectProfileId ?? "",
+            isFollowing: widget.isFollowing ?? false);
+        model.getSessionTracker();
+      },
       builder: (context, model, child) => model.isHuman
           ? Scaffold(
               body: RefreshIndicator(
@@ -69,11 +72,6 @@ class _ProfileViewState extends State<ProfileView> {
                     child: Column(
                       children: [
                         //top about widget
-                        model.ongoingSessionPresent
-                            ? model.ongoingSessionType == 1
-                            ? OngoingTraining(model: model)
-                            : OngoingWalking(model: model)
-                            : Container(),
                         Container(
                           margin: EdgeInsets.only(bottom: 10),
                           width: screenWidth(context),
@@ -332,6 +330,11 @@ class _ProfileViewState extends State<ProfileView> {
                         ),
 
                         //complete your profile info
+                        model.ongoingSessionPresent
+                            ? model.ongoingSessionType == 1
+                            ? OngoingTraining(model: model)
+                            : OngoingWalking(model: model)
+                            : Container(),
 
                         Visibility(
                           visible: !model.isBusy,

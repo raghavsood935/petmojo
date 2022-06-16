@@ -11,6 +11,7 @@ import 'package:tamely/widgets/custom_circle_avatar.dart';
 import 'package:tamely/widgets/follow_btn.dart';
 import 'package:tamely/widgets/follow_static_btn.dart';
 
+import '../../../widgets/live_ongoing_widget.dart';
 import 'community_main_view_model.dart';
 
 class CommunityMainView extends StatelessWidget {
@@ -20,13 +21,17 @@ class CommunityMainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<CommunityMainViewModel>.reactive(
       viewModelBuilder: () => CommunityMainViewModel(),
-      onModelReady: (model) => model.init(),
+      onModelReady: (model){
+        model.init4();
+        model.getSessionTracker();
+      },
       builder: (context, model, child) => WillPopScope(
         onWillPop: ()=>model.onBackPressed(),
         child: Scaffold(
           body: RefreshIndicator(
             onRefresh: () async {
-              await model.init();
+              await model.init4();
+              model.getSessionTracker();
             },
             child: ListView(
               children: [
@@ -40,6 +45,12 @@ class CommunityMainView extends StatelessWidget {
                 //   ),
                 // ),
                 // spacedDividerTiny,
+                verticalSpaceSmall,
+                model.ongoingSessionPresent
+                    ? model.ongoingSessionType == 1
+                    ? OngoingTraining(model: model)
+                    : OngoingWalking(model: model)
+                    : Container(),
                 verticalSpaceSmall,
                 GestureDetector(
                   child: joinTamelyGroupWidget(),

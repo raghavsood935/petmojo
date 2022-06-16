@@ -55,6 +55,8 @@ class ActiveAppointmentsView extends StatelessWidget {
                       run1Time:model.activeAppointments[index].run1Time,
                       run2Time:model.activeAppointments[index].run2Time,
                       sessionTime:model.activeAppointments[index].sessionTime,
+                      paymentStatus:model.activeAppointments[index].paymentStatus,
+                      onPayNowTapped:()=>model.toPaymentPage(index),
                     );
                   },
                   separatorBuilder: (BuildContext context, int index) =>
@@ -88,9 +90,10 @@ class ActiveAppointmentItem extends StatelessWidget {
     this.showBooking,
     this.onBookingTapped,
     this.serviceType = ServiceType.DogRunning,
-    this.upcomingOrOngoing, this.bookedDate,this.bookedTime, this.packageSubscriptionType, this.lastDate, this.sessionTime,
+    this.upcomingOrOngoing, this.bookedDate,this.bookedTime, this.packageSubscriptionType, this.lastDate, this.sessionTime, this.paymentStatus,  this.onPayNowTapped,
   }) : super(key: key);
   final String? userName;
+  final bool? paymentStatus;
   final String? userPicture;
   final String? serviceName;
   final String? lastDate;
@@ -107,6 +110,7 @@ class ActiveAppointmentItem extends StatelessWidget {
   final bool? showBooking;
   final void Function()? onReorderTapped;
   final void Function()? onBookingTapped;
+  final void Function()? onPayNowTapped;
   final ServiceType serviceType;
   final String? upcomingOrOngoing;
   final String? run1Time;
@@ -361,6 +365,30 @@ class ActiveAppointmentItem extends StatelessWidget {
               ),
               child: Text(
                 serviceType == ServiceType.DogGrooming ? "Pay Now" : bookLabel,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+          ),
+        ),
+        Visibility(
+          visible: !paymentStatus!,
+          child: GestureDetector(
+            onTap: onPayNowTapped,
+            child: Container(
+              width: double.infinity,
+              margin: EdgeInsets.symmetric(horizontal: 5),
+              height: 50,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: colors.primary,
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Text(
+                serviceType != ServiceType.DogGrooming? "Pay Now" : bookLabel,
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

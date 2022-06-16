@@ -23,9 +23,10 @@ class CommunityView extends StatelessWidget {
       viewModelBuilder: () => CommunityViewModel(),
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
-        body: model.isFirstTime
-            ? CommunityStartBannerView()
-            : CommunityMainView(),
+        // body: model.isFirstTime
+        //     ? CommunityStartBannerView()
+        //     : CommunityMainView(),
+        body: CommunityMainView(),
 
         // body: Center(
         //   child: AppText.body1Bold(
