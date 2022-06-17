@@ -164,7 +164,7 @@ class DRBookingDetailsView
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppText.body2(bookingDetailsSubtitle),
+                AppText.body2(bookingDetailsSubtitleRunning,color: Colors.grey,),
                 verticalSpaceMedium,
                 // Address 1
                 AppText.body1(

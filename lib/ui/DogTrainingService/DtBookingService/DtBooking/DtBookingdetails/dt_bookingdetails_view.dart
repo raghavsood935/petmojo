@@ -108,7 +108,7 @@ class DTBookingDetailsView
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppText.body2(bookingDetailsSubtitle),
+                AppText.body2(bookingDetailsSubtitleTraining,color: Colors.grey,),
                 verticalSpaceMedium,
                 // Address 1
                 AppText.body1(
