@@ -246,7 +246,7 @@ class ActiveAppointmentItem extends StatelessWidget {
                               ],
                             ),
                             Material(
-                              elevation: 10,
+                              elevation: 2,
                               borderRadius: BorderRadius.all(Radius.circular(100)),
                               child: Container(
                                 // margin: EdgeInsets.only(left: 20),
