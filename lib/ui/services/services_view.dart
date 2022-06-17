@@ -176,11 +176,10 @@ class ServicesView extends StatelessWidget {
                             ),
                             Positioned(
                               left: 25,
-                              // right: 5,
                               bottom: 5,
                               child: TextButton(
-                                  // onPressed: () => model.onSlideServiceTap(3),
-                                  onPressed: () {},
+                                  onPressed: () =>
+                                      model.goToGpsTrackingBooking(),
                                   child: AppText.bodyBold(
                                     "Pre-Book Now",
                                     color: colors.white,
