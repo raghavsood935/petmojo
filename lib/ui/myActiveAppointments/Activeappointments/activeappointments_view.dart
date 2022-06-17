@@ -204,42 +204,64 @@ class ActiveAppointmentItem extends StatelessWidget {
                         ),
                         verticalSpaceTiny,
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            AppText.body1(
-                              "for ",
-                              color: colors.kcCaptionGreyColor,
-                            ),
-                            dogs!.length == 1
-                                ? AppText.body1(
-                              "${dogs![0]}",
-                            )
-                                : Row(
+                            Row(
                               children: [
                                 AppText.body1(
+                                  "for ",
+                                  color: colors.kcCaptionGreyColor,
+                                ),
+                                dogs!.length == 1
+                                    ? AppText.body1(
                                   "${dogs![0]}",
+                                )
+                                    : Row(
+                                  children: [
+                                    AppText.body1(
+                                      "${dogs![0]}",
+                                    ),
+                                    AppText.body1(
+                                      "  &  ",
+                                      color: colors.kcCaptionGreyColor,
+                                    ),
+                                    AppText.body1(
+                                      "${dogs![1]}",
+                                    ),
+                                  ],
                                 ),
-                                AppText.body1(
-                                  "  &  ",
-                                  color: colors.kcCaptionGreyColor,
-                                ),
-                                AppText.body1(
-                                  "${dogs![1]}",
-                                ),
+                                status == ActiveAppointmentStatus.Accepted
+                                    ? Row(
+                                  children: [
+                                    AppText.body1(
+                                      " with ",
+                                      color: colors.kcCaptionGreyColor,
+                                    ),
+                                    AppText.body1(
+                                      userName!,
+                                    )
+                                  ],
+                                )
+                                    : Container(),
                               ],
                             ),
-                            status == ActiveAppointmentStatus.Accepted
-                                ? Row(
-                              children: [
-                                AppText.body1(
-                                  " with ",
-                                  color: colors.kcCaptionGreyColor,
+                            Material(
+                              elevation: 2,
+                              borderRadius: BorderRadius.all(Radius.circular(100)),
+                              child: Container(
+                                // margin: EdgeInsets.only(left: 20),
+                                // padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                    border: Border.all(width: 2, color: colors.primaryLight)),
+
+                                child: Icon(
+                                  Icons.arrow_circle_right_outlined,
+                                  color: colors.primary,
+                                  size: 30,
                                 ),
-                                AppText.body1(
-                                  userName!,
-                                )
-                              ],
-                            )
-                                : Container(),
+                              ),
+                            ),
                           ],
                         ),
                         status == ActiveAppointmentStatus.Pending
@@ -271,7 +293,6 @@ class ActiveAppointmentItem extends StatelessWidget {
                         //   //     ? "Booking date: $dateAndTime"
                         //   "Booking Time: $bookedTime",
                         // ),
-                        verticalSpaceTiny,
                         Row(
                           children: [
                             Icon(
@@ -323,7 +344,7 @@ class ActiveAppointmentItem extends StatelessWidget {
           ),
         ),
         Visibility(
-          visible: showReorder! || showBooking!,
+          visible: showReorder! || showBooking! || !paymentStatus!,
           child: verticalSpaceRegular,
         ),
         Visibility(

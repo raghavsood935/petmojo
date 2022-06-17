@@ -179,7 +179,7 @@ class DRPaymentViewModel extends FutureViewModel<void>
     print("I print: Failure");
     _paymentCompleted = false;
     _paymentFailed = true;
-    //setPaymentDetails();
+    // setPaymentDetails(); /// before build
     notifyListeners();
     // Do something when payment fails
   }

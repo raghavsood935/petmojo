@@ -204,6 +204,10 @@ flutter:
     - assets/images/community_page_images/
     - assets/images/on_boarding/
     - assets/images/e-commerce/
+    - assets/images/dog_journey/
+    - assets/images/dog_journey/packages/
+    - assets/images/dog_journey/representation/
+    - assets/images/dog_journey/dotted_lines/
     - assets/lottie/
 
   fonts:

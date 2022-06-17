@@ -78,6 +78,9 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
   int _currentSession = 1;
   int get currentSession => _currentSession;
 
+  int _sessionJourney = 1;
+  int get sessionJourney => _sessionJourney;
+
   DogTrainingJourney _currentJourney = DogTrainingJourney.PackageOne;
   DogTrainingJourney get currentJourney => _currentJourney;
 
@@ -88,23 +91,23 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
   // pac - 5 : 24 S - Unlocks after 48.
   // Cer     : 72 S - End.
 
-  void setJourneyState() {
-    if (currentSession >= 1 && currentSession <= 12) {
-      _currentJourney = DogTrainingJourney.PackageOne;
-    } else if (currentSession >= 13 && currentSession <= 24) {
-      _currentJourney = DogTrainingJourney.PackageTwo;
-    } else if (currentSession >= 25 && currentSession <= 36) {
-      _currentJourney = DogTrainingJourney.PackageThree;
-    } else if (currentSession >= 37 && currentSession <= 48) {
-      _currentJourney = DogTrainingJourney.PackageFour;
-    } else if (currentSession >= 49 && currentSession <= 72) {
-      _currentJourney = DogTrainingJourney.PackageFive;
-    } else if (currentSession == 72) {
-      //?? What will be the index
-      _currentJourney = DogTrainingJourney.PackageSix;
-    }
-    notifyListeners();
-  }
+  // void setJourneyState() {
+  //   if (currentSession >= 1 && currentSession <= 12) {
+  //     _currentJourney = DogTrainingJourney.PackageOne;
+  //   } else if (currentSession >= 13 && currentSession <= 24) {
+  //     _currentJourney = DogTrainingJourney.PackageTwo;
+  //   } else if (currentSession >= 25 && currentSession <= 36) {
+  //     _currentJourney = DogTrainingJourney.PackageThree;
+  //   } else if (currentSession >= 37 && currentSession <= 48) {
+  //     _currentJourney = DogTrainingJourney.PackageFour;
+  //   } else if (currentSession >= 49 && currentSession <= 72) {
+  //     _currentJourney = DogTrainingJourney.PackageFive;
+  //   } else if (currentSession == 72) {
+  //     //?? What will be the index
+  //     _currentJourney = DogTrainingJourney.PackageSix;
+  //   }
+  //   notifyListeners();
+  // }
 
   void onSessionNumberTapped(int session) {
     _currentSession = session;
@@ -331,6 +334,8 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
             _currentSession = _numberOfSessions;
           }
 
+          _sessionJourney = currentSession;
+
           List<trainDetailsResponse>? daysRun =
               result.data!.bookingDetails!.runDetails!;
 
@@ -386,7 +391,6 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
             _serviceCompleted = true;
             _serviceRejected = false;
           }
-
           _appointmentId = result.data!.appointmentId!;
 
           _numberOfPets = result.data!.bookingDetails!.numberOfPets!;
@@ -477,6 +481,7 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
   @override
   Future<void> futureToRun() async {
     getAppointments();
+
     log.d("futureToRun");
   }
 }
