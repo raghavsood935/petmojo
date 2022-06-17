@@ -316,7 +316,8 @@ String detailFive = "Protective of my home (may bark & snarl)";
 // Booking Details Page
 
 String bookingDetailsTitle = "Booking details";
-String bookingDetailsSubtitle = "Where will the pet go for a run?";
+String bookingDetailsSubtitleTraining = "Where do you want the dog training?";
+String bookingDetailsSubtitleRunning = "Where will the pet go for a run?";
 
 String addressLineOneLabel = "Your Location*";
 String addressLineOneHint = "Pick location";
