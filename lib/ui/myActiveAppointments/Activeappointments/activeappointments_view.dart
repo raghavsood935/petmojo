@@ -208,29 +208,55 @@ class ActiveAppointmentItem extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                AppText.body1(
-                                  "for ",
-                                  color: colors.kcCaptionGreyColor,
-                                ),
                                 dogs!.length == 1
-                                    ? AppText.body1(
-                                  "${dogs![0]}",
-                                )
-                                    : Row(
+                                    ? Row(
                                   children: [
                                     AppText.body1(
-                                      "${dogs![0]}",
-                                    ),
-                                    AppText.body1(
-                                      "  &  ",
+                                      "for ",
                                       color: colors.kcCaptionGreyColor,
                                     ),
                                     AppText.body1(
-                                      "${dogs![1]}",
+                                      "${dogs![0]}",
+                                    )
+                                  ],
+                                )
+                                    : Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        AppText.body1(
+                                          "for ",
+                                          color: colors.kcCaptionGreyColor,
+                                        ),
+                                        AppText.body1(
+                                          "${dogs![0]}",
+                                        ),
+                                        AppText.body1(
+                                          "  &  ",
+                                          color: colors.kcCaptionGreyColor,
+                                        ),
+                                        AppText.body1(
+                                          "${dogs![1]}",
+                                        ),
+                                      ],
                                     ),
+                                    verticalSpaceTiny,
+                                    status == ActiveAppointmentStatus.Accepted && dogs!.length == 2
+                                    ? Row(
+                                      children: [
+                                        AppText.body1(
+                                          " with ",
+                                          color: colors.kcCaptionGreyColor,
+                                        ),
+                                        AppText.body1(
+                                          userName!,
+                                        )
+                                      ],
+                                    ):Container()
                                   ],
                                 ),
-                                status == ActiveAppointmentStatus.Accepted
+                                status == ActiveAppointmentStatus.Accepted && dogs!.length == 1
                                     ? Row(
                                   children: [
                                     AppText.body1(
@@ -239,7 +265,8 @@ class ActiveAppointmentItem extends StatelessWidget {
                                     ),
                                     AppText.body1(
                                       userName!,
-                                    )
+                                    ),
+
                                   ],
                                 )
                                     : Container(),

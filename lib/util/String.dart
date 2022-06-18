@@ -690,17 +690,17 @@ String firstGroomingSubtitleOne =
 String twoGroomingSubtitleOne = "For full haircut and complete styling";
 String threeGroomingSubtitleOne = "Complete hygiene and styling";
 
-String firstGroomingRateOld = "₹1,200/-";
-String twoGroomingRateOld = "₹2,130/-";
-String threeGroomingRateOld = "₹2,900/-";
+String firstGroomingRateOld = "₹904/-";
+String twoGroomingRateOld = "₹1,748/-";
+String threeGroomingRateOld = "₹2,388/-";
 
-String firstGroomingRateNew = "₹849/-";
-String twoGroomingRateNew = "₹1640/-";
-String threeGroomingRateNew = "₹2,240/-";
+String firstGroomingRateNew = "₹696/-";
+String twoGroomingRateNew = "₹1,345/-";
+String threeGroomingRateNew = "₹1,837/-";
 
-String firstGroomingRateLabel = "(You save 351)";
-String twoGroomingRateLabel = "(You save 490)";
-String threeGroomingRateLabel = "(You save 660)";
+String firstGroomingRateLabel = "(You save 208)";
+String twoGroomingRateLabel = "(You save 403)";
+String threeGroomingRateLabel = "(You save 551)";
 
 // See more
 
