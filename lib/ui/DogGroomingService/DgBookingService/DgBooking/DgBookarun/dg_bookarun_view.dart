@@ -414,11 +414,21 @@ class PackageItem extends StatelessWidget {
                               : colors.black,
                         ),
                       ),
-                      AppText.body2(
-                        rateNew!,
-                        color: selectedValue == value
-                            ? colors.white
-                            : colors.primary,
+                      Column(
+                        children: [
+                          AppText.body2(
+                            rateNew!,
+                            color: selectedValue == value
+                                ? colors.white
+                                : colors.primary,
+                          ),
+                          AppText.tiny(
+                              "+ GST",
+                            color: selectedValue == value
+                                ? colors.white
+                                : colors.primary,
+                          )
+                        ],
                       ),
                       AppText.caption(
                         rateLabel!,

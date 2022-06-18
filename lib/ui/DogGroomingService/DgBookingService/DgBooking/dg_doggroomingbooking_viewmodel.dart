@@ -153,6 +153,25 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
     notifyListeners();
   }
 
+  double getNewAmount(){
+    print("our functions");
+    print(subTotal);
+    print(discount);
+    double newAmount = 0;
+    if(subTotal == 904){
+      newAmount=849.0-savedAmount;
+    }
+    else if(subTotal== 1748){
+      newAmount=1640-savedAmount;
+    }
+    else if(subTotal==2388){
+      newAmount=2240-savedAmount;
+    }
+    print("before returning");
+    print(newAmount);
+    return newAmount;
+  }
+
   Future onMainButtonPressed() async {
     if (currentIndex == 0) {
       controller.animateToPage(currentIndex + 1,
@@ -168,10 +187,12 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
       if (paymentMethodIndex == 0) {
         // Pay now
         if (bookingId != "") {
+
+          double newAmount  = getNewAmount();
           _navigationService.replaceWith(
             Routes.dGPaymentView,
             arguments: DGPaymentViewArguments(
-                amount: amount.toInt(), bookingId: bookingId),
+                amount: newAmount.toInt(), bookingId: bookingId),
           );
         } else {
           snackBarService.showSnackbar(
@@ -294,13 +315,13 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
   String _subtitle = "For general hygiene and healthy looking coat";
   String get subtitle => _subtitle;
 
-  double _subTotal = 1200;
+  double _subTotal = 904;
   double get subTotal => _subTotal;
 
-  double _discount = 351;
+  double _discount = 208;
   double get discount => _discount;
 
-  double _amount = 849;
+  double _amount = 696;
   double get amount => _amount;
 
   int _frequency = 1;
@@ -327,20 +348,20 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
       _isValid = true;
       _description = "Bath and Brush";
       _subtitle = firstGroomingSubtitleOne;
-      _amount = 849;
+      _amount = 696;
       _frequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = false;
       _doneMultiply = false;
-      _subTotal = 1200;
-      _discount = 351;
+      _subTotal = 904;
+      _discount = 208;
     } else if (selectedPlan == DogGroomingPackage.Two) {
       _isValid = true;
       _description = "Haircut and Styling";
       _subtitle = twoGroomingSubtitleOne;
-      _subTotal = 2130;
-      _amount = 1640;
-      _discount = 490;
+      _subTotal = 1748;
+      _amount = 1345;
+      _discount = 403;
       _frequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = true;
@@ -349,9 +370,9 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
       _isValid = true;
       _description = "Bath and Full Haircut";
       _subtitle = threeGroomingSubtitleOne;
-      _subTotal = 2900;
-      _amount = 2240;
-      _discount = 660;
+      _subTotal = 2388;
+      _amount = 1837;
+      _discount = 551;
       _frequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = true;
