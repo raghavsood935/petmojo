@@ -55,8 +55,8 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
   int _serviceStatus = 0;
 
   int _numberOfPets = 1;
-  List<DateTime> _noTickDates=[];
-  List<DateTime> _attentionIcons=[];
+  List<DateTime> _noTickDates = [];
+  List<DateTime> _attentionIcons = [];
   List<String> _dogs = ["", ""];
   List<String> _dogIds = ["", ""];
   List<String> _dogsSize = ["", ""];
@@ -286,6 +286,7 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
           serviceProviderId: serviceProviderId,
           userId: userId,
           appointmentId: appointmentId,
+          selectedData: selectedDate,
         ));
     notifyListeners();
   }
@@ -297,6 +298,7 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
           serviceProviderId: serviceProviderId,
           userId: userId,
           appointmentId: appointmentId,
+          selectedData: selectedDate,
         ));
     notifyListeners();
   }
@@ -382,6 +384,7 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
             throwException: true);
         if (result.data != null) {
           List<WalkStatusResponse>? scroll = result.data!.scroll;
+          print(scroll);
           if (numberOfWalk == 1) {
             if (scroll![0].walkStatus == 0) {
               if (date.day == now.day) {
@@ -396,10 +399,9 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
               }
             } else if (scroll[0].walkStatus == 1) {
               // Started
-              if(returnNow(date).isBefore(returnNow(now))){
+              if (returnNow(date).isBefore(returnNow(now))) {
                 _walkStatusOne = WalkStatus.showNa;
-              }
-              else{
+              } else {
                 _walkStatusOne = WalkStatus.showLive;
               }
             } else if (scroll[0].walkStatus == 2) {
@@ -422,10 +424,9 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
               }
             } else if (scroll[0].walkStatus == 1) {
               // Started
-              if(returnNow(date).isBefore(returnNow(now))){
+              if (returnNow(date).isBefore(returnNow(now))) {
                 _walkStatusOne = WalkStatus.showNa;
-              }
-              else{
+              } else {
                 _walkStatusOne = WalkStatus.showLive;
               }
             } else if (scroll[0].walkStatus == 2) {
@@ -446,11 +447,10 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
               }
             } else if (scroll[1].walkStatus == 1) {
               // Started
-              if(returnNow(date).isBefore(returnNow(now))){
-                _walkStatusOne = WalkStatus.showNa;
-              }
-              else{
-                _walkStatusOne = WalkStatus.showLive;
+              if (returnNow(date).isBefore(returnNow(now))) {
+                _walkStatusTwo = WalkStatus.showNa;
+              } else {
+                _walkStatusTwo = WalkStatus.showLive;
               }
             } else if (scroll[1].walkStatus == 2) {
               // Completed
@@ -669,29 +669,29 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
           _daysOff.clear();
           if (_numberOfDays != 1) {
             List<DayOffResponse>? days = result.data!.bookingDetails!.daysOff;
-            List<runDetailsResponse>? daysRun = result.data!.bookingDetails!.runDetails;
+            List<runDetailsResponse>? daysRun =
+                result.data!.bookingDetails!.runDetails;
 
             for (var one in days!) {
               _daysOff.add(DateTime.parse(one.off!));
             }
 
-            for(var two in daysRun!){
+            for (var two in daysRun!) {
               // if(two.run2Status!=2 || two.run1Status!=2){
               //   _attentionIcons.add(DateTime.parse(two.runDate!));
               // }
               // if(two.run2Status!=2 && two.run1Status!=2)
               //   _noTickDates.add(DateTime.parse(two.runDate!));
-              if(_numberOfWalk==1 && two.run1Status!=2){
+              if (_numberOfWalk == 1 && two.run1Status != 2) {
                 _attentionIcons.add(DateTime.parse(two.runDate!));
                 _noTickDates.add(DateTime.parse(two.runDate!));
-
-              }
-              else if(_numberOfWalk==2 && ((two.run2Status!=2 && two.run1Status!=2))){
+              } else if (_numberOfWalk == 2 &&
+                  ((two.run2Status != 2 || two.run1Status != 2) &&
+                      (two.run2Status != 1 || two.run1Status != 1))) {
                 _attentionIcons.add(DateTime.parse(two.runDate!));
                 _noTickDates.add(DateTime.parse(two.runDate!));
               }
             }
-
           } else if (_numberOfDays == 1) {
             for (int a = 1; a <= 6; a++) {
               DateTime newDate = _startDate.add(Duration(days: a));
@@ -728,8 +728,8 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
     log.d("futureToRun");
   }
 
-  DateTime returnNow(DateTime nowDate){
-    final DateTime now = nowDate;
+  returnNow(DateTime date) {
+    final DateTime now = date;
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     final String formatted = formatter.format(now);
     return DateTime.parse(formatted);

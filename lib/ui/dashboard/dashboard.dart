@@ -65,119 +65,140 @@ class _DashboardState extends State<Dashboard> {
     index = i;
   }
   @override
-  void initState(){
+  void initState() {
     super.initState();
     //background work app opened by the click on notification if the app is terminated
-    FirebaseMessaging.instance.getInitialMessage().then((message){
+    FirebaseMessaging.instance.getInitialMessage().then((message) {
       var screenName = message?.data['screenName'];
-      if(message!=null){
-        switch(screenName){
-
-          case "checkLive":{
-
-            //Parameters required for the screen
-            var appointmentId=message.data['appointmentId'];
-            var userId=message.data['userId'];
-            var serviceProviderId=message.data['serviceProviderId'];
-            var walkNumber;
-            if(message.data['walkNumber']=="one"){
-              walkNumber=WalkNumber.One;
-            }
-            else if(message.data['walkNumber']=="two"){
-              walkNumber=WalkNumber.Two;
-            }
-
-
-
-            //Navigate to DRLiveMapView()
-            Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DRLiveMapView(appointmentId:appointmentId, walkNumber: walkNumber, serviceProviderId: serviceProviderId, userId: userId,)));
-          }
-
-          break;
-
-          case "seeReport":{
-
-
-
-
-
-            //For Dog Running
-            if(message.data['date']!=""){
-              print(message.data['bookingDetailsId']);
-              var appointmentId=message.data['bookingDetailsId'];
-              var noOfDogs=message.data['noOfDogs'];
-
-              List<String> dogs=[];
-              String dogName=message.data['dogs'];
-              dogs.add(dogName);
-
-
-              var date = message.data['date'];
-              int newDate=int.parse(date);
-              final DateTime timeStamp = DateTime.fromMillisecondsSinceEpoch(newDate);
-
-
+      if (message != null) {
+        switch (screenName) {
+          case "checkLive":
+            {
+              //Parameters required for the screen
+              var appointmentId = message.data['appointmentId'];
+              var userId = message.data['userId'];
+              var serviceProviderId = message.data['serviceProviderId'];
               var walkNumber;
-              if(message.data['walkNumber']=="one"){
-                walkNumber=WalkNumber.One;
+              if (message.data['walkNumber'] == "one") {
+                walkNumber = WalkNumber.One;
+              } else if (message.data['walkNumber'] == "two") {
+                walkNumber = WalkNumber.Two;
               }
-              else if(message.data['walkNumber']=="two"){
-                walkNumber=WalkNumber.Two;
+
+              //Navigate to DRLiveMapView()
+              Navigator.push(
+                  StackedService.navigatorKey!.currentContext!,
+                  MaterialPageRoute(
+                      builder: (context) => DRLiveMapView(
+                            appointmentId: appointmentId,
+                            walkNumber: walkNumber,
+                            serviceProviderId: serviceProviderId,
+                            userId: userId,
+                            selectedData: DateTime.now(),
+                          )));
+            }
+
+            break;
+
+          case "seeReport":
+            {
+              //For Dog Running
+              if (message.data['date'] != "") {
+                print(message.data['bookingDetailsId']);
+                var appointmentId = message.data['bookingDetailsId'];
+                var noOfDogs = message.data['noOfDogs'];
+
+                List<String> dogs = [];
+                String dogName = message.data['dogs'];
+                dogs.add(dogName);
+
+                var date = message.data['date'];
+                int newDate = int.parse(date);
+                final DateTime timeStamp =
+                    DateTime.fromMillisecondsSinceEpoch(newDate);
+
+                var walkNumber;
+                if (message.data['walkNumber'] == "one") {
+                  walkNumber = WalkNumber.One;
+                } else if (message.data['walkNumber'] == "two") {
+                  walkNumber = WalkNumber.Two;
+                }
+
+                //Navigate to DRReportCardView
+                Navigator.push(
+                    StackedService.navigatorKey!.currentContext!,
+                    MaterialPageRoute(
+                        builder: (context) => DRReportCardView(
+                              appointmentId: appointmentId,
+                              dogs: dogs,
+                              walkNumber: walkNumber,
+                              date: timeStamp,
+                              noOfDogs: int.parse(noOfDogs),
+                            )));
               }
+              //For Dog Training
+              else {
+                var appointmentId = message.data['DogTrainingbookingDetailsId'];
 
-              //Navigate to DRReportCardView
-              Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DRReportCardView(appointmentId: appointmentId, dogs: dogs, walkNumber: walkNumber, date: timeStamp, noOfDogs: int.parse(noOfDogs),)));
-            }
-            //For Dog Training
-            else{
-              var appointmentId=message.data['DogTrainingbookingDetailsId'];
+                var sessionNo = int.parse(message.data['sessionNo']);
 
-              var sessionNo=int.parse(message.data['sessionNo']);
-
-              //Navigate to DTReportCardView
-              Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DTReportCardView(appointmentId: appointmentId, sessionNo: sessionNo,)));
-            }
-          }
-
-          break;
-
-          case "myBookings":{
-
-            //Navigate to AppointmentsView
-            Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>AppointmentsView()));
-          }
-
-          break;
-
-          case "appointmentDetails":{
-
-            //common Parameter
-            var appointmentId=message.data['bookingDetailsId'];
-
-
-            //For Dog Running
-            if(message.data['DogTrainingbookingDetailsId']==""){
-
-              //Navigate to DRAppointmentDetailsView
-              Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DRAppointmentDetailsView(appointmentId: appointmentId)));
-            }
-            //For Dog Training
-            else{
-              var dogTrainingBookingDetailsId=message.data["DogTrainingbookingDetailsId"];
-              Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DTAppointmentDetailsView(appointmentId: dogTrainingBookingDetailsId)));
+                //Navigate to DTReportCardView
+                Navigator.push(
+                    StackedService.navigatorKey!.currentContext!,
+                    MaterialPageRoute(
+                        builder: (context) => DTReportCardView(
+                              appointmentId: appointmentId,
+                              sessionNo: sessionNo,
+                            )));
+              }
             }
 
-          }
+            break;
 
-          break;
+          case "myBookings":
+            {
+              //Navigate to AppointmentsView
+              Navigator.push(StackedService.navigatorKey!.currentContext!,
+                  MaterialPageRoute(builder: (context) => AppointmentsView()));
+            }
 
+            break;
 
-        //Default Case
-          default:{
+          case "appointmentDetails":
+            {
+              //common Parameter
+              var appointmentId = message.data['bookingDetailsId'];
 
-            //Default Navigate to HomePage
-            Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>TamelyApp()));
-          }
+              //For Dog Running
+              if (message.data['DogTrainingbookingDetailsId'] == "") {
+                //Navigate to DRAppointmentDetailsView
+                Navigator.push(
+                    StackedService.navigatorKey!.currentContext!,
+                    MaterialPageRoute(
+                        builder: (context) => DRAppointmentDetailsView(
+                            appointmentId: appointmentId)));
+              }
+              //For Dog Training
+              else {
+                var dogTrainingBookingDetailsId =
+                    message.data["DogTrainingbookingDetailsId"];
+                Navigator.push(
+                    StackedService.navigatorKey!.currentContext!,
+                    MaterialPageRoute(
+                        builder: (context) => DTAppointmentDetailsView(
+                            appointmentId: dogTrainingBookingDetailsId)));
+              }
+            }
+
+            break;
+
+          //Default Case
+          default:
+            {
+              //Default Navigate to HomePage
+              Navigator.push(StackedService.navigatorKey!.currentContext!,
+                  MaterialPageRoute(builder: (context) => TamelyApp()));
+            }
         }
       }
     });
@@ -549,13 +570,13 @@ class _DashboardState extends State<Dashboard> {
                     if (x == 3) {
                       // open my bookings
                       final _navigationService = locator<NavigationService>();
-                      if(model.noOfAppointments>1 || model.noOfAppointments==0){
+                      if (model.noOfAppointments > 1 ||
+                          model.noOfAppointments == 0) {
                         _navigationService.navigateTo(Routes.appointmentsView);
-                      }else{
-                        model.toAppointmentDetails(model.bookingId, model.serviceType);
+                      } else {
+                        model.toAppointmentDetails(
+                            model.bookingId, model.serviceType);
                       }
-
-
                     } else {
                       setState(() {
                         index = x;
