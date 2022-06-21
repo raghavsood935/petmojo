@@ -91,6 +91,7 @@ class NotificationViewModel extends FutureViewModel<void>
           : WalkNumber.Two;
       await _navigationService.navigateTo(Routes.dRLiveMapView,
           arguments: DRLiveMapViewArguments(
+            selectedData: DateTime.now(),
             walkNumber: notification.notificationDataResponse!.walkNo == "one"
                 ? WalkNumber.One
                 : WalkNumber.Two,

@@ -1057,6 +1057,7 @@ class StackedRouter extends RouterBase {
           serviceProviderId: args.serviceProviderId,
           userId: args.userId,
           appointmentId: args.appointmentId,
+          selectedData: args.selectedData,
         ),
         settings: data,
       );
@@ -1610,12 +1611,14 @@ class DRLiveMapViewArguments {
   final String serviceProviderId;
   final String userId;
   final String appointmentId;
+  final DateTime selectedData;
   DRLiveMapViewArguments(
       {this.key,
       required this.walkNumber,
       required this.serviceProviderId,
       required this.userId,
-      required this.appointmentId});
+      required this.appointmentId,
+      required this.selectedData});
 }
 
 /// DRReportCardView arguments holder class

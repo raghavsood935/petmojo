@@ -17,11 +17,13 @@ class DRLiveMapView extends StatelessWidget {
     required this.serviceProviderId,
     required this.userId,
     required this.appointmentId,
+    required this.selectedData,
   }) : super(key: key);
   final WalkNumber walkNumber;
   final String serviceProviderId;
   final String userId;
   final String appointmentId;
+  final DateTime selectedData;
 
   @override
   Widget build(BuildContext context) {
@@ -132,6 +134,7 @@ class DRLiveMapView extends StatelessWidget {
         serviceProviderId,
         userId,
         appointmentId,
+        selectedData,
       ),
     );
   }
