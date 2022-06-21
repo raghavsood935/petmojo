@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:tamely/enum/walkNumber.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -11,8 +12,8 @@ import 'package:tamely/util/Color.dart';
 
 class DRLiveMapViewModel extends FutureViewModel<void>
     implements Initialisable {
-  DRLiveMapViewModel(
-      this.walkNumber, this.serviceProviderId, this.userId, this.appointmentId);
+  DRLiveMapViewModel(this.walkNumber, this.serviceProviderId, this.userId,
+      this.appointmentId, this.date);
 
   final log = getLogger('LiveMapViewModel');
   final _navigationService = locator<NavigationService>();
@@ -22,6 +23,7 @@ class DRLiveMapViewModel extends FutureViewModel<void>
   String appointmentId;
   double _distance = 0;
   int _timeTook = 0;
+  DateTime date;
   final Completer<GoogleMapController> controller = Completer();
   List<LatLng> coordinatesList = [];
   final Set<Marker> markers = {};
@@ -33,17 +35,30 @@ class DRLiveMapViewModel extends FutureViewModel<void>
   late final BitmapDescriptor startIcon;
   late final BitmapDescriptor currentIcon;
 
+  late String firebaseDocumentName;
+
   void navigateBack() {
     _navigationService.back();
   }
 
   Future<void> init() async {
+    await setDocumentName();
     currentIcon = await BitmapDescriptor.fromAssetImage(
         ImageConfiguration(), "assets/images/marker_icon_start.png");
     startIcon = await BitmapDescriptor.fromAssetImage(
         ImageConfiguration(), "assets/images/marker_icon_destination.png");
     mapController = await controller.future;
     initDatabase();
+  }
+
+  Future setDocumentName() async {
+    final DateTime now = date;
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    final String formatted = formatter.format(now);
+    firebaseDocumentName = "$appointmentId$formatted$walkNumber";
+    print("this is ");
+    print(firebaseDocumentName);
+    notifyListeners();
   }
 
   double get distance => _distance;
@@ -59,7 +74,7 @@ class DRLiveMapViewModel extends FutureViewModel<void>
     print(appointmentId);
     FirebaseFirestore.instance
         .collection("Tracking")
-        .doc(appointmentId)
+        .doc(firebaseDocumentName)
         .snapshots()
         .listen((snapshot) {
       print(snapshot.exists);

@@ -48,129 +48,149 @@ class _TamelyAppState extends State<TamelyApp> {
     //foreground work
     FirebaseMessaging.onMessage.listen((message) {
       final FlutterLocalNotificationsPlugin _notificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+          FlutterLocalNotificationsPlugin();
       if (message.data != null) {
-
         final InitializationSettings initializationSettings =
-        InitializationSettings(
-            android: AndroidInitializationSettings("@mipmap/ic_launcher"));
+            InitializationSettings(
+                android: AndroidInitializationSettings("@mipmap/ic_launcher"));
 
         _notificationsPlugin.initialize(initializationSettings,
             onSelectNotification: (screenName) async {
-              //Based on screenName redirect to a particular screen
-              switch(screenName){
+          //Based on screenName redirect to a particular screen
+          switch (screenName) {
+            case "checkLive":
+              {
+                //Parameters required for the screen
+                var appointmentId = message.data['appointmentId'];
+                var userId = message.data['userId'];
+                var serviceProviderId = message.data['serviceProviderId'];
+                var walkNumber;
+                if (message.data['walkNumber'] == "one") {
+                  walkNumber = WalkNumber.One;
+                } else if (message.data['walkNumber'] == "two") {
+                  walkNumber = WalkNumber.Two;
+                }
 
-                case "checkLive":{
+                //Navigate to DRLiveMapView()
+                Navigator.push(
+                    StackedService.navigatorKey!.currentContext!,
+                    MaterialPageRoute(
+                        builder: (context) => DRLiveMapView(
+                              appointmentId: appointmentId,
+                              walkNumber: walkNumber,
+                              serviceProviderId: serviceProviderId,
+                              userId: userId,
+                              selectedData: DateTime.now(),
+                            )));
+              }
 
-                  //Parameters required for the screen
-                  var appointmentId=message.data['appointmentId'];
-                  var userId=message.data['userId'];
-                  var serviceProviderId=message.data['serviceProviderId'];
+              break;
+
+            case "seeReport":
+              {
+                //For Dog Running
+                if (message.data['date'] != "") {
+                  var appointmentId = message.data['bookingDetailsId'];
+                  var noOfDogs = message.data['noOfDogs'];
+
+                  List<String> dogs = [];
+                  String dogName = message.data['dogs'];
+                  dogs.add(dogName);
+
+                  var date = message.data['date'];
+                  int newDate = int.parse(date);
+                  final DateTime timeStamp =
+                      DateTime.fromMillisecondsSinceEpoch(newDate);
+
                   var walkNumber;
-                  if(message.data['walkNumber']=="one"){
-                    walkNumber=WalkNumber.One;
+                  if (message.data['walkNumber'] == "one") {
+                    walkNumber = WalkNumber.One;
+                  } else if (message.data['walkNumber'] == "two") {
+                    walkNumber = WalkNumber.Two;
                   }
-                  else if(message.data['walkNumber']=="two"){
-                    walkNumber=WalkNumber.Two;
-                  }
 
-
-
-                  //Navigate to DRLiveMapView()
-                  Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DRLiveMapView(appointmentId:appointmentId, walkNumber: walkNumber, serviceProviderId: serviceProviderId, userId: userId,)));
+                  //Navigate to DRReportCardView
+                  Navigator.push(
+                      StackedService.navigatorKey!.currentContext!,
+                      MaterialPageRoute(
+                          builder: (context) => DRReportCardView(
+                                appointmentId: appointmentId,
+                                dogs: dogs,
+                                walkNumber: walkNumber,
+                                date: timeStamp,
+                                noOfDogs: int.parse(noOfDogs),
+                              )));
                 }
+                //For Dog Training
+                else {
+                  var appointmentId =
+                      message.data['DogTrainingbookingDetailsId'];
 
-                break;
+                  var sessionNo = int.parse(message.data['sessionNo']);
 
-                case "seeReport":{
-
-
-
-                  //For Dog Running
-                  if(message.data['date']!=""){
-                    var appointmentId=message.data['bookingDetailsId'];
-                    var noOfDogs=message.data['noOfDogs'];
-
-                    List<String> dogs=[];
-                    String dogName=message.data['dogs'];
-                    dogs.add(dogName);
-
-
-                    var date = message.data['date'];
-                    int newDate=int.parse(date);
-                    final DateTime timeStamp = DateTime.fromMillisecondsSinceEpoch(newDate);
-
-
-                    var walkNumber;
-                    if(message.data['walkNumber']=="one"){
-                      walkNumber=WalkNumber.One;
-                    }
-                    else if(message.data['walkNumber']=="two"){
-                      walkNumber=WalkNumber.Two;
-                    }
-
-                    //Navigate to DRReportCardView
-                    Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DRReportCardView(appointmentId: appointmentId, dogs: dogs, walkNumber: walkNumber, date: timeStamp, noOfDogs: int.parse(noOfDogs),)));
-                  }
-                  //For Dog Training
-                  else{
-                    var appointmentId=message.data['DogTrainingbookingDetailsId'];
-
-                    var sessionNo=int.parse(message.data['sessionNo']);
-
-                    //Navigate to DTReportCardView
-                    Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DTReportCardView(appointmentId: appointmentId, sessionNo: sessionNo,)));
-                  }
-                }
-
-                break;
-
-                case "myBookings":{
-
-                  //Navigate to AppointmentsView
-                  Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>AppointmentsView()));
-                }
-
-                break;
-
-                case "appointmentDetails":{
-
-                  //common Parameter
-                  var appointmentId=message.data['bookingDetailsId'];
-
-
-                  //For Dog Running
-                  if(message.data['DogTrainingbookingDetailsId']==""){
-
-                    //Navigate to DRAppointmentDetailsView
-                    Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DRAppointmentDetailsView(appointmentId: appointmentId)));
-                  }
-                  //For Dog Training
-                  else{
-                    var dogTrainingBookingDetailsId=message.data["DogTrainingbookingDetailsId"];
-                    Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DTAppointmentDetailsView(appointmentId: dogTrainingBookingDetailsId)));
-                  }
-
-                }
-
-                break;
-
-
-                //Default Case
-                default:{
-
-                  //Default Navigate to HomePage
-                  Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>TamelyApp()));
+                  //Navigate to DTReportCardView
+                  Navigator.push(
+                      StackedService.navigatorKey!.currentContext!,
+                      MaterialPageRoute(
+                          builder: (context) => DTReportCardView(
+                                appointmentId: appointmentId,
+                                sessionNo: sessionNo,
+                              )));
                 }
               }
 
+              break;
 
+            case "myBookings":
+              {
+                //Navigate to AppointmentsView
+                Navigator.push(
+                    StackedService.navigatorKey!.currentContext!,
+                    MaterialPageRoute(
+                        builder: (context) => AppointmentsView()));
+              }
 
-            });
+              break;
 
+            case "appointmentDetails":
+              {
+                //common Parameter
+                var appointmentId = message.data['bookingDetailsId'];
+
+                //For Dog Running
+                if (message.data['DogTrainingbookingDetailsId'] == "") {
+                  //Navigate to DRAppointmentDetailsView
+                  Navigator.push(
+                      StackedService.navigatorKey!.currentContext!,
+                      MaterialPageRoute(
+                          builder: (context) => DRAppointmentDetailsView(
+                              appointmentId: appointmentId)));
+                }
+                //For Dog Training
+                else {
+                  var dogTrainingBookingDetailsId =
+                      message.data["DogTrainingbookingDetailsId"];
+                  Navigator.push(
+                      StackedService.navigatorKey!.currentContext!,
+                      MaterialPageRoute(
+                          builder: (context) => DTAppointmentDetailsView(
+                              appointmentId: dogTrainingBookingDetailsId)));
+                }
+              }
+
+              break;
+
+            //Default Case
+            default:
+              {
+                //Default Navigate to HomePage
+                Navigator.push(StackedService.navigatorKey!.currentContext!,
+                    MaterialPageRoute(builder: (context) => TamelyApp()));
+              }
+          }
+        });
 
         LocalNotificationService.display(message);
-
       }
     });
 
@@ -181,7 +201,6 @@ class _TamelyAppState extends State<TamelyApp> {
 
       print(routeFromMessage);
     });
-
   }
 
   void setupSnackBarUi() {
