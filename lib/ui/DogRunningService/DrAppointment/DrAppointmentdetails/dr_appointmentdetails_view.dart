@@ -141,6 +141,53 @@ class DRAppointmentDetailsView extends StatelessWidget {
                                 color: colors.primary,
                               ),
                             ),
+
+                            horizontalSpaceSmall,
+                            Row(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.star,
+                                      color:
+                                      model.ratingNew! >= 1 ? colors.primary : colors.white,
+                                      size: 20.0,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color:
+                                      model.ratingNew! >= 2 ? colors.primary : colors.white,
+                                      size: 20.0,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color:
+                                      model.ratingNew! >= 3 ? colors.primary : colors.white,
+                                      size: 20.0,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color:
+                                      model.ratingNew! >= 4 ? colors.primary : colors.white,
+                                      size: 20.0,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color:
+                                      model.ratingNew! >= 5 ? colors.primary : colors.white,
+                                      size: 20.0,
+                                    ),
+                                  ],
+                                ),
+                                horizontalSpaceSmall,
+                                AppText.body1(
+                                  "4.9/5",
+                                  color: colors.primary,
+                                )
+                              ],
+                            ),
+
                             horizontalSpaceRegular,
                             // CircleAvatar(
                             //   backgroundColor: colors.primaryLight,

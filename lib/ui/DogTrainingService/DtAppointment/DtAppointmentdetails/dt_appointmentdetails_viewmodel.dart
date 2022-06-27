@@ -340,10 +340,10 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
               result.data!.bookingDetails!.runDetails!;
 
           for (var two in daysRun) {
-            if (two.sessionStatus == 0) {
-              _warning.add(two.sessionNo!);
-            }
-            if (two.sessionStatus == 2) {
+            // if (two.sessionStatus == 0) {
+            //   // _warning.add(two.sessionNo!);
+            // }
+            if (two.sessionStatus == 2 || two.sessionStatus==0 || two.sessionStatus==1) {
               _ticks.add(two.sessionNo!);
             }
           }

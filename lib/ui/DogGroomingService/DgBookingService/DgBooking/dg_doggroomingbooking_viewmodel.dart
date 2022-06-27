@@ -154,9 +154,6 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
   }
 
   double getNewAmount(){
-    print("our functions");
-    print(subTotal);
-    print(discount);
     double newAmount = 0;
     if(subTotal == 904){
       newAmount=849.0-savedAmount;

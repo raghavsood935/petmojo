@@ -371,7 +371,7 @@ class ActiveAppointmentItem extends StatelessWidget {
           ),
         ),
         Visibility(
-          visible: showReorder! || showBooking! || !paymentStatus!,
+          visible: (serviceType==ServiceType.DogRunning || serviceType==ServiceType.DogTraining)&&(showReorder! || showBooking! || !paymentStatus!),
           child: verticalSpaceRegular,
         ),
         Visibility(
@@ -423,7 +423,7 @@ class ActiveAppointmentItem extends StatelessWidget {
           ),
         ),
         Visibility(
-          visible: !paymentStatus!,
+          visible: (serviceType==ServiceType.DogRunning || serviceType==ServiceType.DogTraining)&&!paymentStatus!,
           child: GestureDetector(
             onTap: onPayNowTapped,
             child: Container(

@@ -95,6 +95,8 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
   String _cancelAmount = "";
 
   ScrollController scrollController = ScrollController();
+  int _ratingNew=5;
+
 
   String get cancelAmount => _cancelAmount;
   List<String> get dogs => _dogs;
@@ -103,6 +105,7 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
   List<DateTime> get noTickDates => _noTickDates;
   List<DateTime> get attentionIcons => _attentionIcons;
   int get serviceStatus => _serviceStatus;
+  int get ratingNew => _ratingNew;
   int get bookingStatus => _bookingStatus;
   List<String> get dogsSize => _dogsSize;
   List<String> get detailsReplies => _detailsReplies;
