@@ -236,6 +236,12 @@ class DTAppointmentDetailsView extends StatelessWidget {
                               clickable: false,
                             ),
                             verticalSpaceRegular,
+                            (model.showDogRunner)?BookingItem(
+                              detailName: "Rating",
+                              detailValue:"",
+                              clickable: false,
+                            ):Container(),
+                            verticalSpaceRegular,
                             BookingItem(
                               detailName: "Date",
                               detailValue: model.startDateString,
@@ -1265,6 +1271,7 @@ class BookingItem extends StatelessWidget {
   final String? detailValue;
   final bool? clickable;
   final void Function()? onTapped;
+  final int ratingNew=5;
 
   @override
   Widget build(BuildContext context) {
@@ -1283,11 +1290,55 @@ class BookingItem extends StatelessWidget {
                 ),
               )
             : Expanded(
-                child: AppText.body1(
+                child: (detailValue!="")?AppText.body1(
                   detailValue!,
                   color: colors.kcCaptionGreyColor,
                   textAlign: TextAlign.right,
-                ),
+                )
+                    :Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Icon(
+                          Icons.star,
+                          color:
+                          ratingNew! >= 1 ? colors.primary : colors.white,
+                          size: 20.0,
+                        ),
+                        Icon(
+                          Icons.star,
+                          color:
+                          ratingNew! >= 2 ? colors.primary : colors.white,
+                          size: 20.0,
+                        ),
+                        Icon(
+                          Icons.star,
+                          color:
+                          ratingNew! >= 3 ? colors.primary : colors.white,
+                          size: 20.0,
+                        ),
+                        Icon(
+                          Icons.star,
+                          color:
+                          ratingNew! >= 4 ? colors.primary : colors.white,
+                          size: 20.0,
+                        ),
+                        Icon(
+                          Icons.star,
+                          color:
+                          ratingNew! >= 5 ? colors.primary : colors.white,
+                          size: 20.0,
+                        ),
+                      ],
+                    ),
+                    AppText.body1(
+                      "4.9/5",
+                      color: colors.primary,
+                    )
+                  ],
+                )
               ),
       ],
     );
