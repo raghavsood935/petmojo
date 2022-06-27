@@ -63,15 +63,14 @@ class DashboardViewModel extends FutureViewModel<void>
   int _notificationCount = 0;
   int get notificationCount => _notificationCount;
 
-  int _noOfAppointments=0;
-  int get noOfAppointments=>_noOfAppointments;
+  int _noOfAppointments = 0;
+  int get noOfAppointments => _noOfAppointments;
 
-  int _serviceType=0;
-  int get serviceType=>_serviceType;
+  int _serviceType = 0;
+  int get serviceType => _serviceType;
 
-  String _bookingId="";
-  String get bookingId=>_bookingId;
-
+  String _bookingId = "";
+  String get bookingId => _bookingId;
 
   int _requestNotificationCount = 0;
   int get requestNotificationCount => _requestNotificationCount;
@@ -163,8 +162,6 @@ class DashboardViewModel extends FutureViewModel<void>
     int initialPageState,
     bool? checkUpdate,
   ) async {
-
-
     if (checkUpdate ?? false) {
       _checkVersion(context);
     }
@@ -335,24 +332,24 @@ class DashboardViewModel extends FutureViewModel<void>
     });
   }
 
-  void toAppointmentDetails(String bookId,int servType) async {
+  void toAppointmentDetails(String bookId, int servType) async {
     String? bookingId = bookId;
     ServiceType? serviceTypes = ServiceType.values[servType];
 
     if (serviceTypes == ServiceType.DogRunning) {
       await _navigationService.navigateTo(
         Routes.dRAppointmentDetailsView,
-        arguments: DRAppointmentDetailsViewArguments(appointmentId: bookingId!),
+        arguments: DRAppointmentDetailsViewArguments(appointmentId: bookingId),
       );
     } else if (serviceTypes == ServiceType.DogTraining) {
       await _navigationService.navigateTo(
         Routes.dTAppointmentDetailsView,
-        arguments: DTAppointmentDetailsViewArguments(appointmentId: bookingId!),
+        arguments: DTAppointmentDetailsViewArguments(appointmentId: bookingId),
       );
     } else if (serviceTypes == ServiceType.DogGrooming) {
       await _navigationService.navigateTo(
         Routes.dGAppointmentDetailsView,
-        arguments: DGAppointmentDetailsViewArguments(appointmentId: bookingId!),
+        arguments: DGAppointmentDetailsViewArguments(appointmentId: bookingId),
       );
     }
   }
