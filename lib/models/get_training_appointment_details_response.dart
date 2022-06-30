@@ -16,7 +16,7 @@ class GetTrainingAppointmentDetailsResponse
     @JsonKey(name: "israted") bool? hasTestimony,
     @JsonKey(name: "serviceType") int? serviceType,
     @JsonKey(name: "_id") String? appointmentId,
-    @JsonKey(name: "User") String? userId,
+    @JsonKey(name: "User") UserDetailsResponse? user,
     @JsonKey(name: "ServiceProvider") UserDetailsResponse? partner,
     @JsonKey(name: "DogTrainingbookingDetails")
         GetTrainingBookingDetailsResponse? bookingDetails,

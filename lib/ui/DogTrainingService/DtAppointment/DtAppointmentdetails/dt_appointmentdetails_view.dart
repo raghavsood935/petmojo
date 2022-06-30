@@ -236,11 +236,13 @@ class DTAppointmentDetailsView extends StatelessWidget {
                               clickable: false,
                             ),
                             verticalSpaceRegular,
-                            (model.showDogRunner)?BookingItem(
-                              detailName: "Rating",
-                              detailValue:"",
-                              clickable: false,
-                            ):Container(),
+                            (model.showDogRunner)
+                                ? BookingItem(
+                                    detailName: "Rating",
+                                    detailValue: "",
+                                    clickable: false,
+                                  )
+                                : Container(),
                             verticalSpaceRegular,
                             BookingItem(
                               detailName: "Date",
@@ -309,6 +311,27 @@ class DTAppointmentDetailsView extends StatelessWidget {
                   thickness: 5.0,
                 ),
                 verticalSpaceMedium,
+
+                // Invoice Button
+                Visibility(
+                  visible: model.showDownloadInvoice,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: GestureDetector(
+                          onTap: model.downloadInvoiceButton,
+                          child: AppText.body1(
+                            "Download Invoice",
+                            color: colors.primary,
+                          ),
+                        ),
+                      ),
+                      spacedDivider,
+                    ],
+                  ),
+                ),
 
                 // Learning Journey
                 Container(
@@ -1271,7 +1294,7 @@ class BookingItem extends StatelessWidget {
   final String? detailValue;
   final bool? clickable;
   final void Function()? onTapped;
-  final int ratingNew=5;
+  final int ratingNew = 5;
 
   @override
   Widget build(BuildContext context) {
@@ -1290,56 +1313,61 @@ class BookingItem extends StatelessWidget {
                 ),
               )
             : Expanded(
-                child: (detailValue!="")?AppText.body1(
-                  detailValue!,
-                  color: colors.kcCaptionGreyColor,
-                  textAlign: TextAlign.right,
-                )
-                    :Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Icon(
-                          Icons.star,
-                          color:
-                          ratingNew! >= 1 ? colors.primary : colors.white,
-                          size: 20.0,
-                        ),
-                        Icon(
-                          Icons.star,
-                          color:
-                          ratingNew! >= 2 ? colors.primary : colors.white,
-                          size: 20.0,
-                        ),
-                        Icon(
-                          Icons.star,
-                          color:
-                          ratingNew! >= 3 ? colors.primary : colors.white,
-                          size: 20.0,
-                        ),
-                        Icon(
-                          Icons.star,
-                          color:
-                          ratingNew! >= 4 ? colors.primary : colors.white,
-                          size: 20.0,
-                        ),
-                        Icon(
-                          Icons.star,
-                          color:
-                          ratingNew! >= 5 ? colors.primary : colors.white,
-                          size: 20.0,
-                        ),
-                      ],
-                    ),
-                    AppText.body1(
-                      "4.9/5",
-                      color: colors.primary,
-                    )
-                  ],
-                )
-              ),
+                child: (detailValue != "")
+                    ? AppText.body1(
+                        detailValue!,
+                        color: colors.kcCaptionGreyColor,
+                        textAlign: TextAlign.right,
+                      )
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Icon(
+                                Icons.star,
+                                color: ratingNew >= 1
+                                    ? colors.primary
+                                    : colors.white,
+                                size: 20.0,
+                              ),
+                              Icon(
+                                Icons.star,
+                                color: ratingNew >= 2
+                                    ? colors.primary
+                                    : colors.white,
+                                size: 20.0,
+                              ),
+                              Icon(
+                                Icons.star,
+                                color: ratingNew >= 3
+                                    ? colors.primary
+                                    : colors.white,
+                                size: 20.0,
+                              ),
+                              Icon(
+                                Icons.star,
+                                color: ratingNew >= 4
+                                    ? colors.primary
+                                    : colors.white,
+                                size: 20.0,
+                              ),
+                              Icon(
+                                Icons.star,
+                                color: ratingNew >= 5
+                                    ? colors.primary
+                                    : colors.white,
+                                size: 20.0,
+                              ),
+                            ],
+                          ),
+                          AppText.body1(
+                            "4.9/5",
+                            color: colors.primary,
+                          )
+                        ],
+                      )),
       ],
     );
   }

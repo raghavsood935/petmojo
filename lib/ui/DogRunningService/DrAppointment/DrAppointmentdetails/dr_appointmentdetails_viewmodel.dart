@@ -28,6 +28,8 @@ import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/walkStatus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../DogTrainingService/DtAppointment/DtInvoice/dt_invoice_viewmodel.dart';
+
 class DRAppointmentDetailsViewModel extends FutureViewModel<void>
     implements Initialisable {
   final log = getLogger('AppointmentDetailsViewModel');
@@ -62,11 +64,13 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
   List<String> _dogsSize = ["", ""];
 
   String _amount = "";
+  double _amountDouble = 0.0;
   String _subscriptionType = "";
   int _numberOfDays = 7;
   int _numberOfWalk = 2;
 
   String _userName = "";
+  String _userNameForInvoice = "";
   String _userPicture = "https://wallpaperaccess.com/full/2213424.jpg";
 
   String _walkOneTime = "";
@@ -95,8 +99,7 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
   String _cancelAmount = "";
 
   ScrollController scrollController = ScrollController();
-  int _ratingNew=5;
-
+  int _ratingNew = 5;
 
   String get cancelAmount => _cancelAmount;
   List<String> get dogs => _dogs;
@@ -110,7 +113,9 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
   List<String> get dogsSize => _dogsSize;
   List<String> get detailsReplies => _detailsReplies;
   String get amount => _amount;
+  double get amountDouble => _amountDouble;
   String get userName => _userName;
+  String get userNameForInvoice => _userNameForInvoice;
   String get userPicture => _userPicture;
   String get subscriptionType => _subscriptionType;
   String get startDateString => _startDateString;
@@ -177,6 +182,9 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
 
   bool _showGetTestimony = false;
   bool get showGetTestimony => _showGetTestimony;
+
+  bool _showDownloadInvoice = true;
+  bool get showDownloadInvoice => _showDownloadInvoice;
 
   int _rating = 0;
   int get rating => _rating;
@@ -326,6 +334,46 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
           walkNumber: WalkNumber.Two,
           appointmentId: bookingId,
         ));
+  }
+
+  void downloadInvoiceButton() async {
+    //Dog Names
+    String dogNames = "";
+    if (dogs.length == 1) {
+      dogNames = "${dogs[0]}";
+    } else if (dogs.length == 2) {
+      dogNames = "${dogs[0]}, ${dogs[1]}";
+    }
+    // Invoice Time
+    DateTime now = DateTime.now();
+    var formatter = new DateFormat('dd-MM-yyyy');
+    String nowString = formatter.format(now);
+    //Original Amount
+    double original = 0.0;
+    if (numberOfDays == 30 && numberOfWalk == 1) {
+      original = 6499;
+    } else if (numberOfDays == 30 && numberOfWalk == 2) {
+      original = 12999;
+    } else if (numberOfDays == 90 && numberOfWalk == 1) {
+      original = 19497;
+    } else if (numberOfDays == 90 && numberOfWalk == 2) {
+      original = 38997;
+    }
+    //Discount Amount
+    double discount = original - amountDouble;
+    await InvoiceGenerator().generatePDF(
+      invoiceNo: "$appointmentId",
+      invoiceTo: "$userNameForInvoice",
+      petName: "$dogNames",
+      invoiceDate: "$nowString",
+      packageName: "Dog Running - $subscriptionType",
+      sessionsDetails: '($numberOfDays days & $numberOfWalk times / day)',
+      billingType: 'Full Amount',
+      startDate: startDateString,
+      originalAmount: 'Rs. $original/-',
+      discountAmount: 'Rs. $discount/-',
+      totalAmount: 'Rs. $amount/-',
+    );
   }
 
   void cancelSubscriptionButton() async {
@@ -582,6 +630,8 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
           _address = "$oneAddress , $twoAddress";
 
           _amount = result.data!.bookingDetails!.package!.amount!;
+          _amountDouble =
+              double.parse(result.data!.bookingDetails!.package!.amount!);
 
           double amountDouble = double.parse(amount);
           double cancelAmountInt = amountDouble / 2;
@@ -595,20 +645,27 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
           notifyListeners();
 
           try {
-            _userName = result.data!.user!.fullName!;
+            _userName = result.data!.partner!.fullName!;
           } catch (e) {
             _userName = "Dog Runner";
           }
 
           try {
-            _userPicture = result.data!.user!.avatar!;
+            _userPicture = result.data!.partner!.avatar!;
           } catch (e) {
             _userPicture =
                 "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg";
           }
 
-          _userId = result.data!.userId!;
-          _serviceProviderId = result.data!.user!.userId!;
+          _serviceProviderId = result.data!.partner!.userId!;
+
+          _userId = result.data!.user!.userId!;
+
+          try {
+            _userNameForInvoice = result.data!.user!.fullName!;
+          } catch (e) {
+            _userNameForInvoice = result.data!.user!.username!;
+          }
 
           _walkOneTime = result.data!.bookingDetails!.run1Time!;
           _walkTwoTime = result.data!.bookingDetails!.run2Time!;
