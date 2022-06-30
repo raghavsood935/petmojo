@@ -359,6 +359,9 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
     } else if (numberOfDays == 90 && numberOfWalk == 2) {
       original = 38997;
     }
+    if (dogs.length == 2) {
+      original = original * 2;
+    }
     //Discount Amount
     double discount = original - amountDouble;
     await InvoiceGenerator().generatePDF(
