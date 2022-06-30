@@ -28,6 +28,10 @@ dependencies:
 
   shimmer: ^2.0.0
 
+  # generate pdf
+  syncfusion_flutter_pdf: ^20.1.61-beta
+  open_file: ^3.2.1
+
 
   #apple sign in
   sign_in_with_apple: ^3.3.0
@@ -205,6 +209,7 @@ flutter:
     - assets/images/on_boarding/
     - assets/images/e-commerce/
     - assets/images/dog_journey/
+    - assets/images/invoice/
     - assets/images/dog_journey/packages/
     - assets/images/dog_journey/representation/
     - assets/images/dog_journey/dotted_lines/

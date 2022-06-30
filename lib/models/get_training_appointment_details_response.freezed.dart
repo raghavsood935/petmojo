@@ -36,7 +36,7 @@ class _$GetTrainingAppointmentDetailsResponseTearOff {
       @JsonKey(name: "_id")
           String? appointmentId,
       @JsonKey(name: "User")
-          String? userId,
+          UserDetailsResponse? user,
       @JsonKey(name: "ServiceProvider")
           UserDetailsResponse? partner,
       @JsonKey(name: "DogTrainingbookingDetails")
@@ -50,7 +50,7 @@ class _$GetTrainingAppointmentDetailsResponseTearOff {
       hasTestimony: hasTestimony,
       serviceType: serviceType,
       appointmentId: appointmentId,
-      userId: userId,
+      user: user,
       partner: partner,
       bookingDetails: bookingDetails,
       index: index,
@@ -82,7 +82,7 @@ mixin _$GetTrainingAppointmentDetailsResponse {
   @JsonKey(name: "_id")
   String? get appointmentId => throw _privateConstructorUsedError;
   @JsonKey(name: "User")
-  String? get userId => throw _privateConstructorUsedError;
+  UserDetailsResponse? get user => throw _privateConstructorUsedError;
   @JsonKey(name: "ServiceProvider")
   UserDetailsResponse? get partner => throw _privateConstructorUsedError;
   @JsonKey(name: "DogTrainingbookingDetails")
@@ -118,7 +118,7 @@ abstract class $GetTrainingAppointmentDetailsResponseCopyWith<$Res> {
       @JsonKey(name: "_id")
           String? appointmentId,
       @JsonKey(name: "User")
-          String? userId,
+          UserDetailsResponse? user,
       @JsonKey(name: "ServiceProvider")
           UserDetailsResponse? partner,
       @JsonKey(name: "DogTrainingbookingDetails")
@@ -126,6 +126,7 @@ abstract class $GetTrainingAppointmentDetailsResponseCopyWith<$Res> {
       @JsonKey(name: "index")
           int? index});
 
+  $UserDetailsResponseCopyWith<$Res>? get user;
   $UserDetailsResponseCopyWith<$Res>? get partner;
   $GetTrainingBookingDetailsResponseCopyWith<$Res>? get bookingDetails;
 }
@@ -147,7 +148,7 @@ class _$GetTrainingAppointmentDetailsResponseCopyWithImpl<$Res>
     Object? hasTestimony = freezed,
     Object? serviceType = freezed,
     Object? appointmentId = freezed,
-    Object? userId = freezed,
+    Object? user = freezed,
     Object? partner = freezed,
     Object? bookingDetails = freezed,
     Object? index = freezed,
@@ -177,10 +178,10 @@ class _$GetTrainingAppointmentDetailsResponseCopyWithImpl<$Res>
           ? _value.appointmentId
           : appointmentId // ignore: cast_nullable_to_non_nullable
               as String?,
-      userId: userId == freezed
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String?,
+      user: user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserDetailsResponse?,
       partner: partner == freezed
           ? _value.partner
           : partner // ignore: cast_nullable_to_non_nullable
@@ -194,6 +195,17 @@ class _$GetTrainingAppointmentDetailsResponseCopyWithImpl<$Res>
           : index // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
+  }
+
+  @override
+  $UserDetailsResponseCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserDetailsResponseCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value));
+    });
   }
 
   @override
@@ -242,7 +254,7 @@ abstract class _$GetAppointmentDetailsResponseCopyWith<$Res>
       @JsonKey(name: "_id")
           String? appointmentId,
       @JsonKey(name: "User")
-          String? userId,
+          UserDetailsResponse? user,
       @JsonKey(name: "ServiceProvider")
           UserDetailsResponse? partner,
       @JsonKey(name: "DogTrainingbookingDetails")
@@ -250,6 +262,8 @@ abstract class _$GetAppointmentDetailsResponseCopyWith<$Res>
       @JsonKey(name: "index")
           int? index});
 
+  @override
+  $UserDetailsResponseCopyWith<$Res>? get user;
   @override
   $UserDetailsResponseCopyWith<$Res>? get partner;
   @override
@@ -277,7 +291,7 @@ class __$GetAppointmentDetailsResponseCopyWithImpl<$Res>
     Object? hasTestimony = freezed,
     Object? serviceType = freezed,
     Object? appointmentId = freezed,
-    Object? userId = freezed,
+    Object? user = freezed,
     Object? partner = freezed,
     Object? bookingDetails = freezed,
     Object? index = freezed,
@@ -307,10 +321,10 @@ class __$GetAppointmentDetailsResponseCopyWithImpl<$Res>
           ? _value.appointmentId
           : appointmentId // ignore: cast_nullable_to_non_nullable
               as String?,
-      userId: userId == freezed
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String?,
+      user: user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserDetailsResponse?,
       partner: partner == freezed
           ? _value.partner
           : partner // ignore: cast_nullable_to_non_nullable
@@ -337,7 +351,7 @@ class _$_GetAppointmentDetailsResponse extends _GetAppointmentDetailsResponse {
       @JsonKey(name: "israted") this.hasTestimony,
       @JsonKey(name: "serviceType") this.serviceType,
       @JsonKey(name: "_id") this.appointmentId,
-      @JsonKey(name: "User") this.userId,
+      @JsonKey(name: "User") this.user,
       @JsonKey(name: "ServiceProvider") this.partner,
       @JsonKey(name: "DogTrainingbookingDetails") this.bookingDetails,
       @JsonKey(name: "index") this.index})
@@ -367,7 +381,7 @@ class _$_GetAppointmentDetailsResponse extends _GetAppointmentDetailsResponse {
   final String? appointmentId;
   @override
   @JsonKey(name: "User")
-  final String? userId;
+  final UserDetailsResponse? user;
   @override
   @JsonKey(name: "ServiceProvider")
   final UserDetailsResponse? partner;
@@ -380,7 +394,7 @@ class _$_GetAppointmentDetailsResponse extends _GetAppointmentDetailsResponse {
 
   @override
   String toString() {
-    return 'GetTrainingAppointmentDetailsResponse(petDetails: $petDetails, bookingStatus: $bookingStatus, serviceStatus: $serviceStatus, hasTestimony: $hasTestimony, serviceType: $serviceType, appointmentId: $appointmentId, userId: $userId, partner: $partner, bookingDetails: $bookingDetails, index: $index)';
+    return 'GetTrainingAppointmentDetailsResponse(petDetails: $petDetails, bookingStatus: $bookingStatus, serviceStatus: $serviceStatus, hasTestimony: $hasTestimony, serviceType: $serviceType, appointmentId: $appointmentId, user: $user, partner: $partner, bookingDetails: $bookingDetails, index: $index)';
   }
 
   @override
@@ -400,7 +414,7 @@ class _$_GetAppointmentDetailsResponse extends _GetAppointmentDetailsResponse {
                 .equals(other.serviceType, serviceType) &&
             const DeepCollectionEquality()
                 .equals(other.appointmentId, appointmentId) &&
-            const DeepCollectionEquality().equals(other.userId, userId) &&
+            const DeepCollectionEquality().equals(other.user, user) &&
             const DeepCollectionEquality().equals(other.partner, partner) &&
             const DeepCollectionEquality()
                 .equals(other.bookingDetails, bookingDetails) &&
@@ -416,7 +430,7 @@ class _$_GetAppointmentDetailsResponse extends _GetAppointmentDetailsResponse {
       const DeepCollectionEquality().hash(hasTestimony),
       const DeepCollectionEquality().hash(serviceType),
       const DeepCollectionEquality().hash(appointmentId),
-      const DeepCollectionEquality().hash(userId),
+      const DeepCollectionEquality().hash(user),
       const DeepCollectionEquality().hash(partner),
       const DeepCollectionEquality().hash(bookingDetails),
       const DeepCollectionEquality().hash(index));
@@ -449,7 +463,7 @@ abstract class _GetAppointmentDetailsResponse
       @JsonKey(name: "_id")
           String? appointmentId,
       @JsonKey(name: "User")
-          String? userId,
+          UserDetailsResponse? user,
       @JsonKey(name: "ServiceProvider")
           UserDetailsResponse? partner,
       @JsonKey(name: "DogTrainingbookingDetails")
@@ -481,7 +495,7 @@ abstract class _GetAppointmentDetailsResponse
   String? get appointmentId;
   @override
   @JsonKey(name: "User")
-  String? get userId;
+  UserDetailsResponse? get user;
   @override
   @JsonKey(name: "ServiceProvider")
   UserDetailsResponse? get partner;
