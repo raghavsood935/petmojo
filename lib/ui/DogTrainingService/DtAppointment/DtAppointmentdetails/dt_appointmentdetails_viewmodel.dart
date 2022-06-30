@@ -30,8 +30,8 @@ import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/walkStatus.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../../../enum/dog_training_journey.dart';
+import '../DtInvoice/dt_invoice_viewmodel.dart';
 
 class DTAppointmentDetailsViewModel extends FutureViewModel<void>
     implements Initialisable {
@@ -62,6 +62,7 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
   int _numberOfPets = 1;
 
   String _amount = "";
+  double _amountDouble = 0.0;
   String _subscriptionType = "Puppy Training";
   int _numberOfSessions = 16;
   int get numberOfSessions => _numberOfSessions;
@@ -130,6 +131,7 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
   List<String> _dogIds = ["", ""];
 
   String _userName = "";
+  String _userNameForInvoice = "";
   String _userPicture = "https://wallpaperaccess.com/full/2213424.jpg";
 
   String _walkOneTime = "";
@@ -150,7 +152,9 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
   int get serviceStatus => _serviceStatus;
   int get bookingStatus => _bookingStatus;
   String get amount => _amount;
+  double get amountDouble => _amountDouble;
   String get userName => _userName;
+  String get userNameForInvoice => _userNameForInvoice;
   String get userPicture => _userPicture;
   String get subscriptionType => _subscriptionType;
   String get startDateString => _startDateString;
@@ -192,6 +196,9 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
   bool _serviceRejected = false;
   bool get serviceRejected => _serviceRejected;
 
+  bool _showDownloadInvoice = true;
+  bool get showDownloadInvoice => _showDownloadInvoice;
+
   void walkOneStatus() {
     if (_walkStatusOne == WalkStatus.showReport) {
       _showLiveOne = false;
@@ -227,6 +234,48 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
   void toDogProfileTwo() {}
 
   void toUserProfile() {}
+
+  void downloadInvoiceButton() async {
+    //Dog Names
+    String dogNames = "";
+    if (dogs.length == 1) {
+      dogNames = "${dogs[0]}";
+    } else if (dogs.length == 2) {
+      dogNames = "${dogs[0]}, ${dogs[1]}";
+    }
+    // Invoice Time
+    DateTime now = DateTime.now();
+    var formatter = new DateFormat('dd-MM-yyyy');
+    String nowString = formatter.format(now);
+    //Original Amount
+    double original = 0.0;
+    if (numberOfSessions == 12) {
+      original = 12740;
+    } else if (numberOfSessions == 24) {
+      original = 22360;
+    } else if (numberOfSessions == 36) {
+      original = 33228;
+    } else if (numberOfSessions == 48) {
+      original = 42432;
+    } else if (numberOfSessions == 72) {
+      original = 70772;
+    }
+    //Discount Amount
+    double discount = original - amountDouble;
+    await InvoiceGenerator().generatePDF(
+      invoiceNo: "$appointmentId",
+      invoiceTo: "$userNameForInvoice",
+      petName: "$dogNames",
+      invoiceDate: "$nowString",
+      packageName: "Dog Training - $subscriptionType",
+      sessionsDetails: '($numberOfSessions sessions)',
+      billingType: 'Full Amount',
+      startDate: startDateString,
+      originalAmount: 'Rs. $original/-',
+      discountAmount: 'Rs. $discount/-',
+      totalAmount: 'Rs. $amount/-',
+    );
+  }
 
   void cancelSubscriptionButton() async {
     var sheetResponse = await _bottomSheetService.showCustomSheet(
@@ -340,10 +389,12 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
               result.data!.bookingDetails!.runDetails!;
 
           for (var two in daysRun) {
-            if (two.sessionStatus == 0) {
-              _warning.add(two.sessionNo!);
-            }
-            if (two.sessionStatus == 2) {
+            // if (two.sessionStatus == 0) {
+            //   // _warning.add(two.sessionNo!);
+            // }
+            if (two.sessionStatus == 2 ||
+                two.sessionStatus == 0 ||
+                two.sessionStatus == 1) {
               _ticks.add(two.sessionNo!);
             }
           }
@@ -416,6 +467,7 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
           _address = "$oneAddress , $twoAddress";
 
           _amount = result.data!.bookingDetails!.package!.amount!.toString();
+          _amountDouble = result.data!.bookingDetails!.package!.amount!;
 
           double amountDouble = double.parse(amount);
           double cancelAmountInt = amountDouble / 2;
@@ -439,7 +491,14 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
                 "https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg";
           }
 
-          _userId = result.data!.userId!;
+          _userId = result.data!.user!.userId!;
+
+          try {
+            _userNameForInvoice = result.data!.user!.fullName!;
+          } catch (e) {
+            _userNameForInvoice = result.data!.user!.username!;
+          }
+
           _serviceProviderId = result.data!.partner!.userId!;
 
           //_walkOneTime = result.data!.bookingDetails!.run1Time!;
@@ -481,7 +540,6 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
   @override
   Future<void> futureToRun() async {
     getAppointments();
-
     log.d("futureToRun");
   }
 }

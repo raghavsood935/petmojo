@@ -186,6 +186,24 @@ class ActiveAppointmentItem extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            Material(
+                              // elevation: 2,
+                              borderRadius: BorderRadius.all(Radius.circular(100)),
+                              child: Container(
+                                // margin: EdgeInsets.only(left: 20),
+                                // padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  // borderRadius: BorderRadius.circular(100),
+                                  // border: Border.all(width: 2, color: colors.primaryLight)
+                                ),
+
+                                child: ImageIcon(
+                                  AssetImage("assets/images/tap_icon.png"),
+                                  color: Colors.grey,
+                                  size: 30,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                         verticalSpaceTiny,
@@ -199,6 +217,7 @@ class ActiveAppointmentItem extends StatelessWidget {
                                   color: colors.primary,
                                 ),
                               ),
+
                             ],
                           ),
                         ),
@@ -206,6 +225,7 @@ class ActiveAppointmentItem extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+
                             Row(
                               children: [
                                 dogs!.length == 1
@@ -272,23 +292,7 @@ class ActiveAppointmentItem extends StatelessWidget {
                                     : Container(),
                               ],
                             ),
-                            Material(
-                              elevation: 2,
-                              borderRadius: BorderRadius.all(Radius.circular(100)),
-                              child: Container(
-                                // margin: EdgeInsets.only(left: 20),
-                                // padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(100),
-                                    border: Border.all(width: 2, color: colors.primaryLight)),
 
-                                child: Icon(
-                                  Icons.arrow_circle_right_outlined,
-                                  color: colors.primary,
-                                  size: 30,
-                                ),
-                              ),
-                            ),
                           ],
                         ),
                         status == ActiveAppointmentStatus.Pending
@@ -371,7 +375,7 @@ class ActiveAppointmentItem extends StatelessWidget {
           ),
         ),
         Visibility(
-          visible: showReorder! || showBooking! || !paymentStatus!,
+          visible: (serviceType==ServiceType.DogRunning || serviceType==ServiceType.DogTraining)&&(showReorder! || showBooking! || !paymentStatus!),
           child: verticalSpaceRegular,
         ),
         Visibility(
@@ -423,7 +427,7 @@ class ActiveAppointmentItem extends StatelessWidget {
           ),
         ),
         Visibility(
-          visible: !paymentStatus!,
+          visible: (serviceType==ServiceType.DogRunning || serviceType==ServiceType.DogTraining)&&!paymentStatus!,
           child: GestureDetector(
             onTap: onPayNowTapped,
             child: Container(

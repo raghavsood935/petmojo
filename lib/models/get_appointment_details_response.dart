@@ -16,8 +16,8 @@ class GetAppointmentDetailsResponse with _$GetAppointmentDetailsResponse {
     @JsonKey(name: "israted") bool? hasTestimony,
     @JsonKey(name: "serviceType") int? serviceType,
     @JsonKey(name: "_id") String? appointmentId,
-    @JsonKey(name: "User") String? userId,
-    @JsonKey(name: "ServiceProvider") UserDetailsResponse? user,
+    @JsonKey(name: "User") UserDetailsResponse? user,
+    @JsonKey(name: "ServiceProvider") UserDetailsResponse? partner,
     @JsonKey(name: "bookingDetails") GetBookingDetailsResponse? bookingDetails,
   }) = _GetAppointmentDetailsResponse;
 
@@ -89,8 +89,6 @@ class runDetailsResponse with _$runDetailsResponse {
   factory runDetailsResponse.fromJson(Map<String, dynamic> json) =>
       _$runDetailsResponseFromJson(json);
 }
-
-
 
 @freezed
 class PetSizeResponse with _$PetSizeResponse {
