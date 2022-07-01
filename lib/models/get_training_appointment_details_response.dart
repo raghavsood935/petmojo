@@ -35,6 +35,7 @@ class GetTrainingBookingDetailsResponse
 
   factory GetTrainingBookingDetailsResponse({
     @JsonKey(name: "petRunningLocation") LocationResponse? petRunningLocation,
+    @JsonKey(name: "paymentDetails") PaymentDetailsResponse? paymentDetails,
     @JsonKey(name: "package") TrainingPackageResponse? package,
     @JsonKey(name: "numberOfPets") int? numberOfPets,
     @JsonKey(name: "startDate") String? startDate,
@@ -87,4 +88,16 @@ class TrainingPackageResponse with _$TrainingPackageResponse {
 
   factory TrainingPackageResponse.fromJson(Map<String, dynamic> json) =>
       _$TrainingPackageResponseFromJson(json);
+}
+
+@freezed
+class PaymentDetailsResponse with _$PaymentDetailsResponse {
+  PaymentDetailsResponse._();
+
+  factory PaymentDetailsResponse({
+    @JsonKey(name: "amount") double? amount,
+  }) = _PaymentDetailsResponse;
+
+  factory PaymentDetailsResponse.fromJson(Map<String, dynamic> json) =>
+      _$PaymentDetailsResponseFromJson(json);
 }

@@ -34,6 +34,8 @@ import '../ui/DogRunningService/DrBookingService/DrOpening/dr_opening_view.dart'
 import '../ui/DogRunningService/DrBookingService/DrPayment/dr_payment_view.dart';
 import '../ui/DogTrainingService/DtAppointment/DtAppointmentdetails/dt_appointmentdetails_view.dart';
 import '../ui/DogTrainingService/DtAppointment/DtReportcard/dt_reportcard_view.dart';
+import '../ui/DogTrainingService/DtAppointment/DtUpgradeSoon/DtSelectPackage/dt_selectpackage_view.dart';
+import '../ui/DogTrainingService/DtAppointment/DtUpgradeSoon/DtUpgradePlan/dt_upgradeplan_view.dart';
 import '../ui/DogTrainingService/DtBookingService/DtBooking/dt_dogtrainingbooking_view.dart';
 import '../ui/DogTrainingService/DtBookingService/DtOpening/dt_opening_view.dart';
 import '../ui/DogTrainingService/DtBookingService/DtPayment/dt_payment_view.dart';
@@ -195,9 +197,11 @@ class Routes {
       '/d-tdog-training-booking-view';
   static const String dTOpening = '/d-tOpening';
   static const String dTPaymentView = '/d-tpayment-view';
+  static const String dTPlanSelectionView = '/d-tplan-selection-view';
   static const String dTAppointmentDetailsView = '/d-tappointment-details-view';
   static const String dTReportCardView = '/d-treport-card-view';
-  static const String dTPlanSelectionView = '/d-tplan-selection-view';
+  static const String dTSelectPackageView = '/d-tselect-package-view';
+  static const String dTUpgradePlanView = '/d-tupgrade-plan-view';
   static const String dGDogGroomingBookingView =
       '/d-gdog-grooming-booking-view';
   static const String dGOpening = '/d-gOpening';
@@ -284,9 +288,11 @@ class Routes {
     dTDogTrainingBookingView,
     dTOpening,
     dTPaymentView,
+    dTPlanSelectionView,
     dTAppointmentDetailsView,
     dTReportCardView,
-    dTPlanSelectionView,
+    dTSelectPackageView,
+    dTUpgradePlanView,
     dGDogGroomingBookingView,
     dGOpening,
     dGPaymentView,
@@ -384,9 +390,11 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.dTDogTrainingBookingView, page: DTDogTrainingBookingView),
     RouteDef(Routes.dTOpening, page: DTOpening),
     RouteDef(Routes.dTPaymentView, page: DTPaymentView),
+    RouteDef(Routes.dTPlanSelectionView, page: DTPlanSelectionView),
     RouteDef(Routes.dTAppointmentDetailsView, page: DTAppointmentDetailsView),
     RouteDef(Routes.dTReportCardView, page: DTReportCardView),
-    RouteDef(Routes.dTPlanSelectionView, page: DTPlanSelectionView),
+    RouteDef(Routes.dTSelectPackageView, page: DTSelectPackageView),
+    RouteDef(Routes.dTUpgradePlanView, page: DTUpgradePlanView),
     RouteDef(Routes.dGDogGroomingBookingView, page: DGDogGroomingBookingView),
     RouteDef(Routes.dGOpening, page: DGOpening),
     RouteDef(Routes.dGPaymentView, page: DGPaymentView),
@@ -1105,6 +1113,27 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    DTPlanSelectionView: (data) {
+      var args = data.getArgs<DTPlanSelectionViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => DTPlanSelectionView(
+          key: args.key,
+          address1: args.address1,
+          address2: args.address2,
+          subTotal: args.subTotal,
+          youSave: args.youSave,
+          totalPrice: args.totalPrice,
+          savedAmount: args.savedAmount,
+          date: args.date,
+          value: args.value,
+          offerValid: args.offerValid,
+          OfferAvailaible: args.OfferAvailaible,
+          bookingId: args.bookingId,
+          noOfPetsSelected: args.noOfPetsSelected,
+        ),
+        settings: data,
+      );
+    },
     DTAppointmentDetailsView: (data) {
       var args = data.getArgs<DTAppointmentDetailsViewArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
@@ -1126,24 +1155,15 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
-    DTPlanSelectionView: (data) {
-      var args = data.getArgs<DTPlanSelectionViewArguments>(nullOk: false);
+    DTSelectPackageView: (data) {
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => DTPlanSelectionView(
-          key: args.key,
-          address1: args.address1,
-          address2: args.address2,
-          subTotal: args.subTotal,
-          youSave: args.youSave,
-          totalPrice: args.totalPrice,
-          savedAmount: args.savedAmount,
-          date: args.date,
-          value: args.value,
-          offerValid: args.offerValid,
-          OfferAvailaible: args.OfferAvailaible,
-          bookingId: args.bookingId,
-          noOfPetsSelected: args.noOfPetsSelected,
-        ),
+        builder: (context) => const DTSelectPackageView(),
+        settings: data,
+      );
+    },
+    DTUpgradePlanView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const DTUpgradePlanView(),
         settings: data,
       );
     },
@@ -1647,22 +1667,6 @@ class DTPaymentViewArguments {
       {this.key, required this.amount, required this.bookingId});
 }
 
-/// DTAppointmentDetailsView arguments holder class
-class DTAppointmentDetailsViewArguments {
-  final Key? key;
-  final String appointmentId;
-  DTAppointmentDetailsViewArguments({this.key, required this.appointmentId});
-}
-
-/// DTReportCardView arguments holder class
-class DTReportCardViewArguments {
-  final Key? key;
-  final String appointmentId;
-  final int sessionNo;
-  DTReportCardViewArguments(
-      {this.key, required this.appointmentId, required this.sessionNo});
-}
-
 /// DTPlanSelectionView arguments holder class
 class DTPlanSelectionViewArguments {
   final Key? key;
@@ -1692,6 +1696,22 @@ class DTPlanSelectionViewArguments {
       required this.OfferAvailaible,
       required this.bookingId,
       required this.noOfPetsSelected});
+}
+
+/// DTAppointmentDetailsView arguments holder class
+class DTAppointmentDetailsViewArguments {
+  final Key? key;
+  final String appointmentId;
+  DTAppointmentDetailsViewArguments({this.key, required this.appointmentId});
+}
+
+/// DTReportCardView arguments holder class
+class DTReportCardViewArguments {
+  final Key? key;
+  final String appointmentId;
+  final int sessionNo;
+  DTReportCardViewArguments(
+      {this.key, required this.appointmentId, required this.sessionNo});
 }
 
 /// DGPaymentView arguments holder class

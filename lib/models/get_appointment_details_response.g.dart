@@ -55,6 +55,10 @@ _$_GetBookingDetailsResponse _$$_GetBookingDetailsResponseFromJson(
           ? null
           : LocationResponse.fromJson(
               json['petRunningLocation'] as Map<String, dynamic>),
+      paymentDetails: json['paymentDetails'] == null
+          ? null
+          : PaymentDetailsResponse.fromJson(
+              json['paymentDetails'] as Map<String, dynamic>),
       package: json['package'] == null
           ? null
           : DogRunningPackageResponse.fromJson(
@@ -81,6 +85,7 @@ Map<String, dynamic> _$$_GetBookingDetailsResponseToJson(
     <String, dynamic>{
       'petBehaviour': instance.petBehaviour,
       'petRunningLocation': instance.petRunningLocation,
+      'paymentDetails': instance.paymentDetails,
       'package': instance.package,
       'numberOfPets': instance.numberOfPets,
       'petDetails': instance.petDetails,
@@ -165,4 +170,16 @@ Map<String, dynamic> _$$_PetBehaviourResponseToJson(
       'jumpsUpOnPeopleAndThings': instance.petBehaviourThree,
       'chaseSmallerAnimals': instance.petBehaviourFour,
       'protectiveOfHome': instance.petBehaviourFive,
+    };
+
+_$_PaymentDetailsResponse _$$_PaymentDetailsResponseFromJson(
+        Map<String, dynamic> json) =>
+    _$_PaymentDetailsResponse(
+      amount: json['amount'] as int?,
+    );
+
+Map<String, dynamic> _$$_PaymentDetailsResponseToJson(
+        _$_PaymentDetailsResponse instance) =>
+    <String, dynamic>{
+      'amount': instance.amount,
     };

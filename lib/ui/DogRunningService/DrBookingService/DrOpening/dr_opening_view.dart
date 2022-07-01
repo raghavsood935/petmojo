@@ -4,6 +4,7 @@ import 'package:tamely/ui/DogRunningService/DrBookingService/DrBooking/dr_dogrun
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ui_helpers.dart';
 
+import '../../../../widgets/app_text.dart';
 import 'dr_opening_viewmodel.dart';
 
 class DROpening extends StatelessWidget {
@@ -33,88 +34,211 @@ class DROpeningTryNow extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         backgroundColor: colors.white,
         body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 //back button
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: GestureDetector(
-                    onTap: () => Navigator.pop(context),
-                    child: Container(
-                      height: 40,
-                      width: 40,
-                      child: Icon(Icons.arrow_back_ios),
+                Padding(
+                  padding: commonPadding,
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        child: Icon(Icons.arrow_back_ios),
+                      ),
                     ),
                   ),
                 ),
-                verticalSpaceRegular,
-                // Heading
-                Container(
-                  height: 80,
-                  child: Image.asset(
-                      "assets/images/service_opening/opening_running_first_text.png"),
+                //verticalSpaceRegular,
+                // One
+                Padding(
+                  padding: commonPadding,
+                  child: Container(
+                    height: 80,
+                    child: Image.asset(
+                        "assets/images/service_opening/opening_trining_one.png"),
+                  ),
                 ),
                 verticalSpaceRegular,
-                //
-                Container(
-                  height: 150,
-                  child: Image.asset(
-                      "assets/images/service_opening/opening_running_second_text.png"),
+                // Two
+                Padding(
+                  padding: commonPadding,
+                  child: Container(
+                    height: 80,
+                    child: Image.asset(
+                        "assets/images/service_opening/opening_trining_two.png"),
+                  ),
                 ),
-                //
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                verticalSpaceRegular,
+                // Three
+                Padding(
+                  padding: commonPadding,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 150,
+                        child: Image.asset(
+                            "assets/images/service_opening/opening_trining_three.png"),
+                      ),
+                    ],
+                  ),
+                ),
+                verticalSpaceRegular,
+                // Four
+                Stack(
                   children: [
                     Column(
                       children: [
                         Container(
-                          height: 120,
-                          width: 120,
-                          child: Image.asset(
-                              "assets/images/service_opening/opening_training_medal.png"),
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          height: 50,
+                          width: screenWidth(context),
+                          color: colors.primaryLight,
+                          child: Center(
+                            child: AppText.title(
+                              "Top #1 Dog Trainers",
+                              color: colors.kcPrimaryTextColor,
+                            ),
+                          ),
                         ),
+                        verticalSpaceRegular,
                         Container(
-                          child: Image.asset(
-                              "assets/images/service_opening/opening_training_third_text.png"),
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          height: 50,
+                          width: screenWidth(context),
+                          color: colors.primaryLight,
+                          child: Center(
+                            child: AppText.title(
+                              "Manage sessions on App",
+                              color: colors.kcPrimaryTextColor,
+                            ),
+                          ),
                         ),
+                        verticalSpaceRegular,
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          height: 50,
+                          width: screenWidth(context),
+                          color: colors.primaryLight,
+                          child: Center(
+                            child: AppText.title(
+                              "Photos/videos shared",
+                              color: colors.kcPrimaryTextColor,
+                            ),
+                          ),
+                        ),
+                        verticalSpaceRegular,
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          height: 50,
+                          width: screenWidth(context),
+                          color: colors.primaryLight,
+                          child: Center(
+                            child: AppText.title(
+                              "Secure Cashless payment",
+                              color: colors.kcPrimaryTextColor,
+                            ),
+                          ),
+                        ),
+                        verticalSpaceRegular,
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          height: 50,
+                          width: screenWidth(context),
+                          color: colors.primaryLight,
+                          child: Center(
+                            child: AppText.title(
+                              "24*7 support",
+                              color: colors.kcPrimaryTextColor,
+                            ),
+                          ),
+                        ),
+                        verticalSpaceRegular,
                       ],
                     ),
-                    //verticalSpaceRegular,
-                    Column(
-                      children: [
-                        Container(
-                          height: 120,
-                          width: 120,
-                          child: Image.asset(
-                              "assets/images/service_opening/opening_running_dog.png"),
-                        ),
-                        Container(
-                          child: Image.asset(
-                              "assets/images/service_opening/opening_running_fourth_text.png"),
-                        ),
-                      ],
+                    Positioned(
+                      top: 0,
+                      left: 20,
+                      child: Image.asset(
+                          "assets/images/service_opening/opening_trining_paw_left_two.png"),
+                    ),
+                    Positioned(
+                      top: 50,
+                      right: 15,
+                      child: Image.asset(
+                          "assets/images/service_opening/opening_trining_paw_right_one.png"),
+                    ),
+                    Positioned(
+                      top: 100,
+                      left: 20,
+                      child: Image.asset(
+                          "assets/images/service_opening/opening_trining_paw_left_two.png"),
+                    ),
+                    Positioned(
+                      top: 200,
+                      right: 10,
+                      child: Image.asset(
+                          "assets/images/service_opening/opening_trining_paw_right_two.png"),
+                    ),
+                    Positioned(
+                      top: 250,
+                      left: 20,
+                      child: Image.asset(
+                          "assets/images/service_opening/opening_trining_paw_left_one.png"),
                     ),
                   ],
                 ),
-
-                //
-                Container(
-                  height: 200,
-                  width: 200,
-                  child: Image.asset(
-                      "assets/images/service_opening/opening_people.png"),
-                ),
-                Expanded(
+                // Stack(
+                //   children: [
+                //     Container(
+                //       padding: EdgeInsets.symmetric(horizontal: 20),
+                //       height: 50,
+                //       width: screenWidth(context),
+                //       color: colors.primaryLight,
+                //       child: Center(
+                //         child: AppText.title(
+                //           "Top #1 Dog Trainers",
+                //           color: colors.kcPrimaryTextColor,
+                //         ),
+                //       ),
+                //     ),
+                //     Positioned(
+                //       bottom: 0,
+                //       left: 20,
+                //       child: Image.asset(
+                //           "assets/images/service_opening/opening_trining_paw_left_one.png"),
+                //     ),
+                //   ],
+                // ),
+                // verticalSpaceSmall,
+                // Container(
+                //   padding: EdgeInsets.symmetric(horizontal: 20),
+                //   height: 50,
+                //   width: screenWidth(context),
+                //   color: colors.primaryLight,
+                //   child: Center(
+                //     child: AppText.title(
+                //       "Top #1 Dog Trainers",
+                //       color: colors.kcPrimaryTextColor,
+                //     ),
+                //   ),
+                // ),
+                // verticalSpaceRegular,
+                // Five
+                Padding(
+                  padding: commonPadding,
                   child: Container(
-                    height: 30,
+                    height: 200,
+                    width: 200,
                     child: Image.asset(
-                        "assets/images/service_opening/opening_training_fifth_text.png"),
+                        "assets/images/service_opening/opening_people.png"),
                   ),
                 ),
-                verticalSpaceTiny,
                 verticalSpace(80),
               ],
             ),
