@@ -260,6 +260,9 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
     } else if (numberOfSessions == 72) {
       original = 70772;
     }
+    if (dogs.length == 2) {
+      original = original * 2;
+    }
     //Discount Amount
     double discount = original - amountDouble;
     await InvoiceGenerator().generatePDF(
@@ -467,7 +470,7 @@ class DTAppointmentDetailsViewModel extends FutureViewModel<void>
           _address = "$oneAddress , $twoAddress";
 
           _amount = result.data!.bookingDetails!.package!.amount!.toString();
-          _amountDouble = result.data!.bookingDetails!.package!.amount!;
+          _amountDouble = result.data!.bookingDetails!.paymentDetails!.amount!;
 
           double amountDouble = double.parse(amount);
           double cancelAmountInt = amountDouble / 2;
