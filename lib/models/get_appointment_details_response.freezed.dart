@@ -492,6 +492,7 @@ class _$GetBookingDetailsResponseTearOff {
   _GetBookingDetailsResponse call(
       {@JsonKey(name: "petBehaviour") PetBehaviourResponse? petBehaviour,
       @JsonKey(name: "petRunningLocation") LocationResponse? petRunningLocation,
+      @JsonKey(name: "paymentDetails") PaymentDetailsResponse? paymentDetails,
       @JsonKey(name: "package") DogRunningPackageResponse? package,
       @JsonKey(name: "numberOfPets") int? numberOfPets,
       @JsonKey(name: "petDetails") List<PetSizeResponse>? petDetails,
@@ -505,6 +506,7 @@ class _$GetBookingDetailsResponseTearOff {
     return _GetBookingDetailsResponse(
       petBehaviour: petBehaviour,
       petRunningLocation: petRunningLocation,
+      paymentDetails: paymentDetails,
       package: package,
       numberOfPets: numberOfPets,
       petDetails: petDetails,
@@ -532,6 +534,9 @@ mixin _$GetBookingDetailsResponse {
   PetBehaviourResponse? get petBehaviour => throw _privateConstructorUsedError;
   @JsonKey(name: "petRunningLocation")
   LocationResponse? get petRunningLocation =>
+      throw _privateConstructorUsedError;
+  @JsonKey(name: "paymentDetails")
+  PaymentDetailsResponse? get paymentDetails =>
       throw _privateConstructorUsedError;
   @JsonKey(name: "package")
   DogRunningPackageResponse? get package => throw _privateConstructorUsedError;
@@ -569,6 +574,7 @@ abstract class $GetBookingDetailsResponseCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "petBehaviour") PetBehaviourResponse? petBehaviour,
       @JsonKey(name: "petRunningLocation") LocationResponse? petRunningLocation,
+      @JsonKey(name: "paymentDetails") PaymentDetailsResponse? paymentDetails,
       @JsonKey(name: "package") DogRunningPackageResponse? package,
       @JsonKey(name: "numberOfPets") int? numberOfPets,
       @JsonKey(name: "petDetails") List<PetSizeResponse>? petDetails,
@@ -582,6 +588,7 @@ abstract class $GetBookingDetailsResponseCopyWith<$Res> {
 
   $PetBehaviourResponseCopyWith<$Res>? get petBehaviour;
   $LocationResponseCopyWith<$Res>? get petRunningLocation;
+  $PaymentDetailsResponseCopyWith<$Res>? get paymentDetails;
   $DogRunningPackageResponseCopyWith<$Res>? get package;
 }
 
@@ -598,6 +605,7 @@ class _$GetBookingDetailsResponseCopyWithImpl<$Res>
   $Res call({
     Object? petBehaviour = freezed,
     Object? petRunningLocation = freezed,
+    Object? paymentDetails = freezed,
     Object? package = freezed,
     Object? numberOfPets = freezed,
     Object? petDetails = freezed,
@@ -618,6 +626,10 @@ class _$GetBookingDetailsResponseCopyWithImpl<$Res>
           ? _value.petRunningLocation
           : petRunningLocation // ignore: cast_nullable_to_non_nullable
               as LocationResponse?,
+      paymentDetails: paymentDetails == freezed
+          ? _value.paymentDetails
+          : paymentDetails // ignore: cast_nullable_to_non_nullable
+              as PaymentDetailsResponse?,
       package: package == freezed
           ? _value.package
           : package // ignore: cast_nullable_to_non_nullable
@@ -684,6 +696,18 @@ class _$GetBookingDetailsResponseCopyWithImpl<$Res>
   }
 
   @override
+  $PaymentDetailsResponseCopyWith<$Res>? get paymentDetails {
+    if (_value.paymentDetails == null) {
+      return null;
+    }
+
+    return $PaymentDetailsResponseCopyWith<$Res>(_value.paymentDetails!,
+        (value) {
+      return _then(_value.copyWith(paymentDetails: value));
+    });
+  }
+
+  @override
   $DogRunningPackageResponseCopyWith<$Res>? get package {
     if (_value.package == null) {
       return null;
@@ -705,6 +729,7 @@ abstract class _$GetBookingDetailsResponseCopyWith<$Res>
   $Res call(
       {@JsonKey(name: "petBehaviour") PetBehaviourResponse? petBehaviour,
       @JsonKey(name: "petRunningLocation") LocationResponse? petRunningLocation,
+      @JsonKey(name: "paymentDetails") PaymentDetailsResponse? paymentDetails,
       @JsonKey(name: "package") DogRunningPackageResponse? package,
       @JsonKey(name: "numberOfPets") int? numberOfPets,
       @JsonKey(name: "petDetails") List<PetSizeResponse>? petDetails,
@@ -720,6 +745,8 @@ abstract class _$GetBookingDetailsResponseCopyWith<$Res>
   $PetBehaviourResponseCopyWith<$Res>? get petBehaviour;
   @override
   $LocationResponseCopyWith<$Res>? get petRunningLocation;
+  @override
+  $PaymentDetailsResponseCopyWith<$Res>? get paymentDetails;
   @override
   $DogRunningPackageResponseCopyWith<$Res>? get package;
 }
@@ -740,6 +767,7 @@ class __$GetBookingDetailsResponseCopyWithImpl<$Res>
   $Res call({
     Object? petBehaviour = freezed,
     Object? petRunningLocation = freezed,
+    Object? paymentDetails = freezed,
     Object? package = freezed,
     Object? numberOfPets = freezed,
     Object? petDetails = freezed,
@@ -760,6 +788,10 @@ class __$GetBookingDetailsResponseCopyWithImpl<$Res>
           ? _value.petRunningLocation
           : petRunningLocation // ignore: cast_nullable_to_non_nullable
               as LocationResponse?,
+      paymentDetails: paymentDetails == freezed
+          ? _value.paymentDetails
+          : paymentDetails // ignore: cast_nullable_to_non_nullable
+              as PaymentDetailsResponse?,
       package: package == freezed
           ? _value.package
           : package // ignore: cast_nullable_to_non_nullable
@@ -810,6 +842,7 @@ class _$_GetBookingDetailsResponse extends _GetBookingDetailsResponse {
   _$_GetBookingDetailsResponse(
       {@JsonKey(name: "petBehaviour") this.petBehaviour,
       @JsonKey(name: "petRunningLocation") this.petRunningLocation,
+      @JsonKey(name: "paymentDetails") this.paymentDetails,
       @JsonKey(name: "package") this.package,
       @JsonKey(name: "numberOfPets") this.numberOfPets,
       @JsonKey(name: "petDetails") this.petDetails,
@@ -831,6 +864,9 @@ class _$_GetBookingDetailsResponse extends _GetBookingDetailsResponse {
   @override
   @JsonKey(name: "petRunningLocation")
   final LocationResponse? petRunningLocation;
+  @override
+  @JsonKey(name: "paymentDetails")
+  final PaymentDetailsResponse? paymentDetails;
   @override
   @JsonKey(name: "package")
   final DogRunningPackageResponse? package;
@@ -864,7 +900,7 @@ class _$_GetBookingDetailsResponse extends _GetBookingDetailsResponse {
 
   @override
   String toString() {
-    return 'GetBookingDetailsResponse(petBehaviour: $petBehaviour, petRunningLocation: $petRunningLocation, package: $package, numberOfPets: $numberOfPets, petDetails: $petDetails, specialInstructions: $specialInstructions, phone: $phone, run1Time: $run1Time, run2Time: $run2Time, startDate: $startDate, daysOff: $daysOff, runDetails: $runDetails)';
+    return 'GetBookingDetailsResponse(petBehaviour: $petBehaviour, petRunningLocation: $petRunningLocation, paymentDetails: $paymentDetails, package: $package, numberOfPets: $numberOfPets, petDetails: $petDetails, specialInstructions: $specialInstructions, phone: $phone, run1Time: $run1Time, run2Time: $run2Time, startDate: $startDate, daysOff: $daysOff, runDetails: $runDetails)';
   }
 
   @override
@@ -876,6 +912,8 @@ class _$_GetBookingDetailsResponse extends _GetBookingDetailsResponse {
                 .equals(other.petBehaviour, petBehaviour) &&
             const DeepCollectionEquality()
                 .equals(other.petRunningLocation, petRunningLocation) &&
+            const DeepCollectionEquality()
+                .equals(other.paymentDetails, paymentDetails) &&
             const DeepCollectionEquality().equals(other.package, package) &&
             const DeepCollectionEquality()
                 .equals(other.numberOfPets, numberOfPets) &&
@@ -897,6 +935,7 @@ class _$_GetBookingDetailsResponse extends _GetBookingDetailsResponse {
       runtimeType,
       const DeepCollectionEquality().hash(petBehaviour),
       const DeepCollectionEquality().hash(petRunningLocation),
+      const DeepCollectionEquality().hash(paymentDetails),
       const DeepCollectionEquality().hash(package),
       const DeepCollectionEquality().hash(numberOfPets),
       const DeepCollectionEquality().hash(petDetails),
@@ -927,6 +966,8 @@ abstract class _GetBookingDetailsResponse extends GetBookingDetailsResponse {
           PetBehaviourResponse? petBehaviour,
       @JsonKey(name: "petRunningLocation")
           LocationResponse? petRunningLocation,
+      @JsonKey(name: "paymentDetails")
+          PaymentDetailsResponse? paymentDetails,
       @JsonKey(name: "package")
           DogRunningPackageResponse? package,
       @JsonKey(name: "numberOfPets")
@@ -958,6 +999,9 @@ abstract class _GetBookingDetailsResponse extends GetBookingDetailsResponse {
   @override
   @JsonKey(name: "petRunningLocation")
   LocationResponse? get petRunningLocation;
+  @override
+  @JsonKey(name: "paymentDetails")
+  PaymentDetailsResponse? get paymentDetails;
   @override
   @JsonKey(name: "package")
   DogRunningPackageResponse? get package;
@@ -2074,5 +2118,161 @@ abstract class _PetBehaviourResponse extends PetBehaviourResponse {
   @override
   @JsonKey(ignore: true)
   _$PetBehaviourResponseCopyWith<_PetBehaviourResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+PaymentDetailsResponse _$PaymentDetailsResponseFromJson(
+    Map<String, dynamic> json) {
+  return _PaymentDetailsResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$PaymentDetailsResponseTearOff {
+  const _$PaymentDetailsResponseTearOff();
+
+  _PaymentDetailsResponse call({@JsonKey(name: "amount") int? amount}) {
+    return _PaymentDetailsResponse(
+      amount: amount,
+    );
+  }
+
+  PaymentDetailsResponse fromJson(Map<String, Object?> json) {
+    return PaymentDetailsResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $PaymentDetailsResponse = _$PaymentDetailsResponseTearOff();
+
+/// @nodoc
+mixin _$PaymentDetailsResponse {
+  @JsonKey(name: "amount")
+  int? get amount => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $PaymentDetailsResponseCopyWith<PaymentDetailsResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PaymentDetailsResponseCopyWith<$Res> {
+  factory $PaymentDetailsResponseCopyWith(PaymentDetailsResponse value,
+          $Res Function(PaymentDetailsResponse) then) =
+      _$PaymentDetailsResponseCopyWithImpl<$Res>;
+  $Res call({@JsonKey(name: "amount") int? amount});
+}
+
+/// @nodoc
+class _$PaymentDetailsResponseCopyWithImpl<$Res>
+    implements $PaymentDetailsResponseCopyWith<$Res> {
+  _$PaymentDetailsResponseCopyWithImpl(this._value, this._then);
+
+  final PaymentDetailsResponse _value;
+  // ignore: unused_field
+  final $Res Function(PaymentDetailsResponse) _then;
+
+  @override
+  $Res call({
+    Object? amount = freezed,
+  }) {
+    return _then(_value.copyWith(
+      amount: amount == freezed
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$PaymentDetailsResponseCopyWith<$Res>
+    implements $PaymentDetailsResponseCopyWith<$Res> {
+  factory _$PaymentDetailsResponseCopyWith(_PaymentDetailsResponse value,
+          $Res Function(_PaymentDetailsResponse) then) =
+      __$PaymentDetailsResponseCopyWithImpl<$Res>;
+  @override
+  $Res call({@JsonKey(name: "amount") int? amount});
+}
+
+/// @nodoc
+class __$PaymentDetailsResponseCopyWithImpl<$Res>
+    extends _$PaymentDetailsResponseCopyWithImpl<$Res>
+    implements _$PaymentDetailsResponseCopyWith<$Res> {
+  __$PaymentDetailsResponseCopyWithImpl(_PaymentDetailsResponse _value,
+      $Res Function(_PaymentDetailsResponse) _then)
+      : super(_value, (v) => _then(v as _PaymentDetailsResponse));
+
+  @override
+  _PaymentDetailsResponse get _value => super._value as _PaymentDetailsResponse;
+
+  @override
+  $Res call({
+    Object? amount = freezed,
+  }) {
+    return _then(_PaymentDetailsResponse(
+      amount: amount == freezed
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_PaymentDetailsResponse extends _PaymentDetailsResponse {
+  _$_PaymentDetailsResponse({@JsonKey(name: "amount") this.amount}) : super._();
+
+  factory _$_PaymentDetailsResponse.fromJson(Map<String, dynamic> json) =>
+      _$$_PaymentDetailsResponseFromJson(json);
+
+  @override
+  @JsonKey(name: "amount")
+  final int? amount;
+
+  @override
+  String toString() {
+    return 'PaymentDetailsResponse(amount: $amount)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _PaymentDetailsResponse &&
+            const DeepCollectionEquality().equals(other.amount, amount));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(amount));
+
+  @JsonKey(ignore: true)
+  @override
+  _$PaymentDetailsResponseCopyWith<_PaymentDetailsResponse> get copyWith =>
+      __$PaymentDetailsResponseCopyWithImpl<_PaymentDetailsResponse>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_PaymentDetailsResponseToJson(this);
+  }
+}
+
+abstract class _PaymentDetailsResponse extends PaymentDetailsResponse {
+  factory _PaymentDetailsResponse({@JsonKey(name: "amount") int? amount}) =
+      _$_PaymentDetailsResponse;
+  _PaymentDetailsResponse._() : super._();
+
+  factory _PaymentDetailsResponse.fromJson(Map<String, dynamic> json) =
+      _$_PaymentDetailsResponse.fromJson;
+
+  @override
+  @JsonKey(name: "amount")
+  int? get amount;
+  @override
+  @JsonKey(ignore: true)
+  _$PaymentDetailsResponseCopyWith<_PaymentDetailsResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }

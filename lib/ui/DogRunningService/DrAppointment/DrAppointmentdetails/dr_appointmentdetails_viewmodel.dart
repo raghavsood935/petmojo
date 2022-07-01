@@ -634,7 +634,7 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
 
           _amount = result.data!.bookingDetails!.package!.amount!;
           _amountDouble =
-              double.parse(result.data!.bookingDetails!.package!.amount!);
+              result.data!.bookingDetails!.paymentDetails!.amount!.toDouble();
 
           double amountDouble = double.parse(amount);
           double cancelAmountInt = amountDouble / 2;
