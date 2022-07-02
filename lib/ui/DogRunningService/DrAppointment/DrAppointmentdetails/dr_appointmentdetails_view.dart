@@ -725,25 +725,25 @@ class DRAppointmentDetailsView extends StatelessWidget {
 
                 // buttons
                 // Invoice Button
-                // Visibility(
-                //   visible: model.showDownloadInvoice,
-                //   child: Column(
-                //     crossAxisAlignment: CrossAxisAlignment.start,
-                //     children: [
-                //       Padding(
-                //         padding: const EdgeInsets.symmetric(horizontal: 25),
-                //         child: GestureDetector(
-                //           onTap: model.downloadInvoiceButton,
-                //           child: AppText.body1(
-                //             "Download Invoice",
-                //             color: colors.primary,
-                //           ),
-                //         ),
-                //       ),
-                //       spacedDivider,
-                //     ],
-                //   ),
-                // ),
+                Visibility(
+                  visible: model.showDownloadInvoice,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: GestureDetector(
+                          onTap: model.downloadInvoiceButton,
+                          child: AppText.body1(
+                            "Download Invoice",
+                            color: colors.primary,
+                          ),
+                        ),
+                      ),
+                      spacedDivider,
+                    ],
+                  ),
+                ),
 
                 // -- Cancel
                 Visibility(
