@@ -133,6 +133,7 @@ import 'package:tamely/models/params/apple_signin_body.dart';
 
 import '../models/params/gps_tracking_wait_list_body.dart';
 import '../models/params/set_training_rating_body.dart';
+import '../models/params/upgrade_dog_training_body.dart';
 
 part 'api_client.g.dart';
 
@@ -243,6 +244,10 @@ class Apis {
   static const String bookATraining = '/serviceBooking/bookDogTrainingService';
   static const String setPaymentDetailsTraining =
       '/service/postTrainingPayment';
+  static const String setUpgradePaymentDetailsTraining =
+      '/service/postUpgradeTrainingPayment';
+  static const String upgradeDogTraining =
+      '/serviceBooking/upgradeDogTrainingService';
 
   // Booking Appointments -- Dog grooming
   static const String bookAGrooming = '/serviceBooking/bookDogGroomingService';
@@ -802,6 +807,16 @@ abstract class ApiClient {
   @PATCH(Apis.setPaymentDetailsTraining)
   Future<SendDataResponse> setPaymentDetailsTraining(
       @Body() SetPaymentDetailsBody setPaymentDetailsBody);
+
+  // -- Set Upgrade Payment details Training
+  @PATCH(Apis.setUpgradePaymentDetailsTraining)
+  Future<SendDataResponse> setUpgradePaymentDetailsTraining(
+      @Body() SetPaymentDetailsBody setPaymentDetailsBody);
+
+  // -- Upgrade Dog Training
+  @POST(Apis.upgradeDogTraining)
+  Future<BookARunResponse> upgradeDogTraining(
+      @Body() UpgradeDogTrainingBody upgradeDogTrainingBody);
 
   // Booking Appointments -- Dog Grooming
 

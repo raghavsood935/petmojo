@@ -140,6 +140,7 @@ import 'package:tamely/models/send_data_response.dart';
 import '../models/params/apple_signin_body.dart';
 import '../models/params/gps_tracking_wait_list_body.dart';
 import '../models/params/set_training_rating_body.dart';
+import '../models/params/upgrade_dog_training_body.dart';
 import 'api_client.dart';
 
 class TamelyApi {
@@ -1782,6 +1783,36 @@ class TamelyApi {
     try {
       response = await getApiClient(true, true)
           .setPaymentDetailsTraining(setPaymentDetailsBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Set Upgrade Payment details Training
+  Future<BaseResponse<SendDataResponse>> setUpgradePaymentDetailsTraining(
+      SetPaymentDetailsBody setPaymentDetailsBody) async {
+    SendDataResponse response;
+    try {
+      response = await getApiClient(true, true)
+          .setUpgradePaymentDetailsTraining(setPaymentDetailsBody);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Upgrade Dog Training
+  Future<BaseResponse<BookARunResponse>> upgradeDogTraining(
+      UpgradeDogTrainingBody upgradeDogTrainingBody) async {
+    BookARunResponse response;
+    try {
+      response = await getApiClient(true, true)
+          .upgradeDogTraining(upgradeDogTrainingBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()

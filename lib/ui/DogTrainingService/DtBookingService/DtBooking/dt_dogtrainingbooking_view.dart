@@ -3,9 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
-import 'package:tamely/app/app.locator.dart';
-import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/popUpNotifications/User%20Training%20Pop%20ups/dt_order_summary_poster.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ui_helpers.dart';
@@ -74,7 +71,6 @@ class _DTDogTrainingBookingViewState extends State<DTDogTrainingBookingView> {
                   ],
                 ),
                 verticalSpaceRegular,
-                //spacedDividerTiny,
 
                 // Page Indication
                 Row(
@@ -193,7 +189,6 @@ class _DTDogTrainingBookingViewState extends State<DTDogTrainingBookingView> {
   }
 }
 
-
 // List _boxes = [
 //   ['Pay Full Amount', "₹6,500/-", "Per month", false],
 //   ["Monthly Billing", "₹8,700/-", "Per month", true]
@@ -201,37 +196,46 @@ class _DTDogTrainingBookingViewState extends State<DTDogTrainingBookingView> {
 // List get boxes => _boxes;
 
 class DTPlanSelectionView extends StatefulWidget {
-  DTPlanSelectionView({Key? key,required this.address1,required this.address2,required this.subTotal,required this.youSave,required this.totalPrice,required this.savedAmount,
-    required this.date,required this.value,required this.offerValid,required this.OfferAvailaible,required this.bookingId,required this.noOfPetsSelected}) : super(key: key);
+  DTPlanSelectionView(
+      {Key? key,
+      required this.address1,
+      required this.address2,
+      required this.subTotal,
+      required this.youSave,
+      required this.totalPrice,
+      required this.savedAmount,
+      required this.date,
+      required this.value,
+      required this.offerValid,
+      required this.OfferAvailaible,
+      required this.bookingId,
+      required this.noOfPetsSelected})
+      : super(key: key);
   String address1;
   String address2;
   double subTotal;
   double youSave;
   double totalPrice;
   double savedAmount;
-   DateTime date;
-   DogTrainingPackage? value;
-   bool offerValid;
-   bool OfferAvailaible;
-   String bookingId;
-   int noOfPetsSelected;
+  DateTime date;
+  DogTrainingPackage? value;
+  bool offerValid;
+  bool OfferAvailaible;
+  String bookingId;
+  int noOfPetsSelected;
 
   @override
-  State<DTPlanSelectionView> createState() =>
-      _DTPlanSelectionViewState();
+  State<DTPlanSelectionView> createState() => _DTPlanSelectionViewState();
 }
 
 class _DTPlanSelectionViewState extends State<DTPlanSelectionView> {
-
-
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: colors.eCommercePrimary));
     return ViewModelBuilder<DTDogTrainingBookingViewModel>.reactive(
       viewModelBuilder: () => DTDogTrainingBookingViewModel(),
-      onModelReady: (model) async{
+      onModelReady: (model) async {
         model.init();
         model.selectPlan(widget.value);
       },
@@ -252,14 +256,10 @@ class _DTPlanSelectionViewState extends State<DTPlanSelectionView> {
           // titleSpacing: 0,
           title: Text(
             "Order Summary",
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold
-            ),
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
-          actions: <Widget>[
-          ],
+          actions: <Widget>[],
 
           backgroundColor: Colors.white,
           backwardsCompatibility: false,
@@ -269,78 +269,79 @@ class _DTPlanSelectionViewState extends State<DTPlanSelectionView> {
             children: [
               verticalSpaceSmall,
               Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10),
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: colors.kcLightGreyColor,
-                      width: 1,
-                    ),
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: colors.kcLightGreyColor,
+                    width: 1,
                   ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-
-                      CircleAvatar(
-                        child: Image.asset("assets/images/running_package.png"),
-                        backgroundColor: Color(0xffFAC9D7),
-                      ),
-                      horizontalSpaceSmall,
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          verticalSpaceTiny,
-                          AppText.body2(model.description),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                // margin: EdgeInsets.only(left:5,bottom: 20),
-                                child: SvgPicture.asset(
-                                  "assets/images/seemore_time.svg",
-                                  height: 15,
-                                  width: 15,
-                                  color:colors.primary,
-                                ),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CircleAvatar(
+                      child: Image.asset("assets/images/running_package.png"),
+                      backgroundColor: Color(0xffFAC9D7),
+                    ),
+                    horizontalSpaceSmall,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        verticalSpaceTiny,
+                        AppText.body2(model.description),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              // margin: EdgeInsets.only(left:5,bottom: 20),
+                              child: SvgPicture.asset(
+                                "assets/images/seemore_time.svg",
+                                height: 15,
+                                width: 15,
+                                color: colors.primary,
                               ),
-                              horizontalSpaceSmall,
-                              AppText.caption("${model.frequency} Sessions"),
-                            ],
-                          ),
-                          verticalSpaceSmall,
-                          Row(children: [
+                            ),
+                            horizontalSpaceSmall,
+                            AppText.caption("${model.frequency} Sessions"),
+                          ],
+                        ),
+                        verticalSpaceSmall,
+                        Row(
+                          children: [
                             AppText.captionBold("Date: "),
                             AppText.caption(
                               DateFormat("dd/MM/yyyy").format(widget.date),
                             ),
-                          ],),
-                          verticalSpaceSmall,
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              AppText.captionBold("Address: "),
-                              AppText.caption(widget.address1+","),
-                            ],),
-                          AppText.caption(widget.address2)
-                        ],)
-                    ],
-                  )
+                          ],
+                        ),
+                        verticalSpaceSmall,
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AppText.captionBold("Address: "),
+                            AppText.caption(widget.address1 + ","),
+                          ],
+                        ),
+                        AppText.caption(widget.address2)
+                      ],
+                    )
+                  ],
+                ),
               ),
               verticalSpaceSmall,
               Container(
                 child: Text(
                   "Create your payment plan",
                   style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.grey,
-                    fontWeight: FontWeight.bold
-                  ),
+                      fontSize: 20,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               verticalSpaceTiny,
-
               Container(
                 height: 117,
                 child: ListView.separated(
@@ -349,40 +350,66 @@ class _DTPlanSelectionViewState extends State<DTPlanSelectionView> {
                   itemCount: model.boxes.length,
                   itemBuilder: (BuildContext context, int index) {
                     return ShowPlan(
-                      firstText:model.boxes[index][0],
-                      secondText:model.boxes[index][1],
-
-                      thirdText:model.boxes[index][2],
+                      firstText: model.boxes[index][0],
+                      secondText: model.boxes[index][1],
+                      thirdText: model.boxes[index][2],
                       selected: model.boxes[index][3],
-                      model:model,
-                      totalPrice: (index==0)?widget.totalPrice.toInt():8900,
+                      model: model,
+                      totalPrice:
+                          (index == 0) ? widget.totalPrice.toInt() : 8900,
                     );
                   },
                   separatorBuilder: (BuildContext context, int index) =>
-                  horizontalSpaceRegular,
+                      horizontalSpaceRegular,
                 ),
               ),
-
               SizedBox(
                 height: 5,
               ),
-
-              (model.selected==0)?OrderSummary(subTotal: widget.subTotal.toInt(), youSave: widget.youSave.toInt(), totalPrice: widget.totalPrice.toInt(),model:model,savedAmount:widget.savedAmount.toInt(),offerAvailaible: widget.OfferAvailaible,offerValid: widget.offerValid,):
-                  OrderSummary(subTotal: widget.subTotal.toInt(), youSave: widget.subTotal.toInt()-(8900*model.noOfMonths.toInt()*widget.noOfPetsSelected-widget.savedAmount.toInt()), totalPrice: 8900*model.noOfMonths.toInt()*widget.noOfPetsSelected-widget.savedAmount.toInt(),model: model,savedAmount:widget.savedAmount.toInt(),offerAvailaible: widget.OfferAvailaible,offerValid: widget.offerValid),
-
-
+              (model.selected == 0)
+                  ? OrderSummary(
+                      subTotal: widget.subTotal.toInt(),
+                      youSave: widget.youSave.toInt(),
+                      totalPrice: widget.totalPrice.toInt(),
+                      model: model,
+                      savedAmount: widget.savedAmount.toInt(),
+                      offerAvailaible: widget.OfferAvailaible,
+                      offerValid: widget.offerValid,
+                    )
+                  : OrderSummary(
+                      subTotal: widget.subTotal.toInt(),
+                      youSave: widget.subTotal.toInt() -
+                          (8900 *
+                                  model.noOfMonths.toInt() *
+                                  widget.noOfPetsSelected -
+                              widget.savedAmount.toInt()),
+                      totalPrice: 8900 *
+                              model.noOfMonths.toInt() *
+                              widget.noOfPetsSelected -
+                          widget.savedAmount.toInt(),
+                      model: model,
+                      savedAmount: widget.savedAmount.toInt(),
+                      offerAvailaible: widget.OfferAvailaible,
+                      offerValid: widget.offerValid),
               verticalSpaceSmall,
-
-
               Visibility(
-                  visible: (!widget.offerValid && widget.OfferAvailaible) && model.secondOffer,
-                  child: OrderSummaryPoster(title: "We are mission-driven not money-driven", description: "100% Refund available",byline:"NO QUESTIONS ASKED")),
-              ((!widget.offerValid && widget.OfferAvailaible) && model.secondOffer)?verticalSpaceSmall:verticalSpaceLarge,
+                  visible: (!widget.offerValid && widget.OfferAvailaible) &&
+                      model.secondOffer,
+                  child: OrderSummaryPoster(
+                      title: "We are mission-driven not money-driven",
+                      description: "100% Refund available",
+                      byline: "NO QUESTIONS ASKED")),
+              ((!widget.offerValid && widget.OfferAvailaible) &&
+                      model.secondOffer)
+                  ? verticalSpaceSmall
+                  : verticalSpaceLarge,
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   // *model.noOfMonths.toInt()*widget.noOfPetsSelected-model.savedAmount.toInt()
-                  int amount =(model.selected==0)?widget.totalPrice.toInt()-model.savedAmount.toInt():8900;
-                  model.onMainButtonPressed2(amount,widget.bookingId);
+                  int amount = (model.selected == 0)
+                      ? widget.totalPrice.toInt() - model.savedAmount.toInt()
+                      : 8900;
+                  model.onMainButtonPressed2(amount, widget.bookingId);
                   SystemChannels.textInput.invokeMethod('TextInput.hide');
                 },
                 child: Container(
@@ -394,13 +421,10 @@ class _DTPlanSelectionViewState extends State<DTPlanSelectionView> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
-                    child: AppText.titleBold("Pay Now",
-                        color: colors.white),
+                    child: AppText.titleBold("Pay Now", color: colors.white),
                   ),
                 ),
               ),
-
-
             ],
           ),
         ),
@@ -410,7 +434,6 @@ class _DTPlanSelectionViewState extends State<DTPlanSelectionView> {
 }
 
 class OrderSummary extends StatelessWidget {
-
   OrderSummary({
     Key? key,
     required this.subTotal,
@@ -430,7 +453,6 @@ class OrderSummary extends StatelessWidget {
   final bool offerValid;
   final bool offerAvailaible;
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -443,8 +465,9 @@ class OrderSummary extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 AppText.body("Subtotal"),
-                AppText.body("₹"+subTotal.toString()+"/-"),
-              ],),
+                AppText.body("₹" + subTotal.toString() + "/-"),
+              ],
+            ),
           ),
 
           Container(
@@ -454,21 +477,29 @@ class OrderSummary extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 AppText.body("You Save"),
-                AppText.body("₹"+youSave.toString()+"/-"),
-              ],),
+                AppText.body("₹" + youSave.toString() + "/-"),
+              ],
+            ),
           ),
 
-          savedAmount>0 || !model.secondOffer? Container(
-            padding: EdgeInsets.all(8),
-            color: Color(0xFFCAE9CF),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                AppText.body("Coupon Discount"),
-                (savedAmount>0)?AppText.body("-₹"+savedAmount.toInt().toString()+"/-"):
-                AppText.body("-₹"+model.savedAmount.toInt().toString()+"/-"),
-              ],),
-          ): SizedBox(),
+          savedAmount > 0 || !model.secondOffer
+              ? Container(
+                  padding: EdgeInsets.all(8),
+                  color: Color(0xFFCAE9CF),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      AppText.body("Coupon Discount"),
+                      (savedAmount > 0)
+                          ? AppText.body(
+                              "-₹" + savedAmount.toInt().toString() + "/-")
+                          : AppText.body("-₹" +
+                              model.savedAmount.toInt().toString() +
+                              "/-"),
+                    ],
+                  ),
+                )
+              : SizedBox(),
 
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -476,11 +507,23 @@ class OrderSummary extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 AppText.bodyBold("Total Price"),
-                (savedAmount>0)?AppText.bodyBold("₹"+"$totalPrice"+"/-",color: colors.primary,):
-                AppText.bodyBold("₹"+"${totalPrice-model.savedAmount.toInt()}"+"/-",color: colors.primary,)
-              ],),
+                (savedAmount > 0)
+                    ? AppText.bodyBold(
+                        "₹" + "$totalPrice" + "/-",
+                        color: colors.primary,
+                      )
+                    : AppText.bodyBold(
+                        "₹" +
+                            "${totalPrice - model.savedAmount.toInt()}" +
+                            "/-",
+                        color: colors.primary,
+                      )
+              ],
+            ),
           ),
-          SizedBox(height: 5,),
+          SizedBox(
+            height: 5,
+          ),
 
           // Enter offer code
           Visibility(
@@ -496,25 +539,28 @@ class OrderSummary extends StatelessWidget {
                   controller: model.promoCodeController,
                   trailing: model.isCouponProcessing
                       ? Transform.scale(
-                    scale: 0.2,
-                    child: CircularProgressIndicator(
-                      color: colors.primary,
-                    ),
-                  )
+                          scale: 0.2,
+                          child: CircularProgressIndicator(
+                            color: colors.primary,
+                          ),
+                        )
                       : Icon(
-                    Icons.arrow_forward_rounded,
-                    color: colors.primary,
-                  ),
+                          Icons.arrow_forward_rounded,
+                          color: colors.primary,
+                        ),
                   trailingTapped: model.applyCoupon2,
                   isBoxBorder: true,
                   textInputType: TextInputType.name,
                   textCapitalization: TextCapitalization.none,
                 ),
-                Row(children: [
-                  AppText.captionBold("PAWSOMEOFFER"),
-                  horizontalSpaceSmall,
-                  AppText.captionBold("ADDITIONAL 10% OFF", color: Color(0xfffb7e9c)),
-                ],),
+                Row(
+                  children: [
+                    AppText.captionBold("PAWSOMEOFFER"),
+                    horizontalSpaceSmall,
+                    AppText.captionBold("ADDITIONAL 10% OFF",
+                        color: Color(0xfffb7e9c)),
+                  ],
+                ),
               ],
             ),
           ),
@@ -535,16 +581,22 @@ class OrderSummary extends StatelessWidget {
                     //   color: colors.primary,
                     // ),
                     TextButton(
-                      onPressed: () {  },
-                      style:  TextButton.styleFrom(
+                      onPressed: () {},
+                      style: TextButton.styleFrom(
                         backgroundColor: Colors.green,
                       ),
-                      child: AppText.body1("PAWSOMEOFFER",color: colors.white,),
+                      child: AppText.body1(
+                        "PAWSOMEOFFER",
+                        color: colors.white,
+                      ),
                     ),
                     horizontalSpaceSmall,
-                    
-                    AppText.body2((savedAmount>0)?"₹$savedAmount/- off" :
-                            "₹${model.savedAmount.toInt()}/- off",)
+
+                    AppText.body2(
+                      (savedAmount > 0)
+                          ? "₹$savedAmount/- off"
+                          : "₹${model.savedAmount.toInt()}/- off",
+                    )
                     // Row(
                     //   children: [
                     //     AppText.body2(
@@ -575,8 +627,6 @@ class OrderSummary extends StatelessWidget {
               ],
             ),
           ),
-
-
         ],
       ),
     );
@@ -584,15 +634,15 @@ class OrderSummary extends StatelessWidget {
 }
 
 class ShowPlan extends StatelessWidget {
-  const ShowPlan({
-    Key? key,
-    this.firstText,
-    this.secondText,
-    this.thirdText,
-    this.selected,
-    this.model,
-    this.totalPrice
-  }) : super(key: key);
+  const ShowPlan(
+      {Key? key,
+      this.firstText,
+      this.secondText,
+      this.thirdText,
+      this.selected,
+      this.model,
+      this.totalPrice})
+      : super(key: key);
   final String? firstText;
   final String? secondText;
   final String? thirdText;
@@ -603,7 +653,7 @@ class ShowPlan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         model?.paymentPlan(firstText!);
       },
       child: Container(
@@ -615,10 +665,10 @@ class ShowPlan extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.0),
               child: Container(
                 width: 130,
-                  height: 100 ,
-                  margin: const EdgeInsets.only(bottom: 6.0),
+                height: 100,
+                margin: const EdgeInsets.only(bottom: 6.0),
                 decoration: BoxDecoration(
-                  color: selected! ? Color(0xffFFF6DC): colors.white,
+                  color: selected! ? Color(0xffFFF6DC) : colors.white,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey,
@@ -636,20 +686,16 @@ class ShowPlan extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     verticalSpaceSmall,
-
                     Text(
                       "$firstText",
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold
-                      ),
+                      style:
+                          TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                     ),
                     verticalSpaceSmall,
                     AppText.body1(
                       "₹${totalPrice?.toInt()}/-",
                       textAlign: TextAlign.center,
-
                     ),
                     verticalSpaceSmall,
                     AppText.body1(
@@ -663,7 +709,7 @@ class ShowPlan extends StatelessWidget {
             CircleAvatar(
               radius: 5,
               backgroundColor:
-              selected! ? colors.primary : colors.kcLightGreyColor,
+                  selected! ? colors.primary : colors.kcLightGreyColor,
             ),
           ],
         ),
@@ -671,16 +717,3 @@ class ShowPlan extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
