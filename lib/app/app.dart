@@ -84,6 +84,7 @@ import 'package:tamely/ui/signup/signup_view.dart';
 import 'package:tamely/ui/startup/startup_view.dart';
 import 'package:tamely/widgets/full_screen_image.dart';
 import '../ui/DogTrainingService/DtAppointment/DtUpgradeSoon/DtSelectPackage/dt_selectpackage_view.dart';
+import '../ui/DogTrainingService/DtAppointment/DtUpgradeSoon/DtUpgradePayment/dt_upgrade_payment_view.dart';
 import '../ui/DogTrainingService/DtAppointment/DtUpgradeSoon/DtUpgradePlan/dt_upgradeplan_view.dart';
 import '../ui/settings/settings_human_view.dart';
 import '../ui/settings/settings_animal_view.dart';
@@ -211,6 +212,7 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: DTReportCardView), // (New)
     CupertinoRoute(page: DTSelectPackageView), // (New)
     CupertinoRoute(page: DTUpgradePlanView), // (New)
+    CupertinoRoute(page: DTUpgradePaymentView), // (New)
 
     // 3 - Dog grooming service
     // At DogGroomingService / DgBookingService

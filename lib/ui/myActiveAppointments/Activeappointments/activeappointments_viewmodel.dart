@@ -254,23 +254,53 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             }
           }
         } else if (serviceType == ServiceType.DogTraining) {
-          BaseResponse<ReorderARunResponse> result = await runBusyFuture(
-              _tamelyApi.reorderATraining(reorderARunBody),
-              throwException: true);
-          if (result.data != null) {
-            bool? success = result.data!.success;
-            String? newBookingId = result.data!.newBookingId;
-            String? newAmount = result.data!.newAmount;
-            double? newAmountDouble = double.parse(newAmount!);
-            if (success!) {
-              activeAppointments[index].showReorder = false;
-              _navigationService.replaceWith(
-                Routes.dRPaymentView,
-                arguments: DRPaymentViewArguments(
-                    amount: newAmountDouble.toInt(), bookingId: newBookingId!),
-              );
-            }
+          // New Code
+          String packageString =
+              activeAppointments[index].packageSubscriptionType!;
+          late DogTrainingPackage currentPackage;
+          if (packageString == "Puppy Training") {
+            currentPackage = DogTrainingPackage.Two;
+          } else if (packageString == "Basic Training") {
+            currentPackage = DogTrainingPackage.Three;
+          } else if (packageString == "Intermediate Training") {
+            currentPackage = DogTrainingPackage.Four;
+          } else if (packageString == "Advance Training") {
+            currentPackage = DogTrainingPackage.Five;
+          } else if (packageString == "Premium Training") {
+            currentPackage = DogTrainingPackage.Six;
           }
+          notifyListeners();
+          _navigationService.navigateTo(
+            Routes.dTSelectPackageView,
+            arguments: DTSelectPackageViewArguments(
+              appointmentId: bookingId,
+              currentPackage: currentPackage,
+              address1: activeAppointments[index].address1!,
+              address2: activeAppointments[index].address2!,
+              dogs: activeAppointments[index].dogs,
+              partnerName: activeAppointments[index].userName!,
+              previousAmount: activeAppointments[index].amount!.toDouble(),
+            ),
+          );
+
+          // Old Code
+          // BaseResponse<ReorderARunResponse> result = await runBusyFuture(
+          //     _tamelyApi.reorderATraining(reorderARunBody),
+          //     throwException: true);
+          // if (result.data != null) {
+          //   bool? success = result.data!.success;
+          //   String? newBookingId = result.data!.newBookingId;
+          //   String? newAmount = result.data!.newAmount;
+          //   double? newAmountDouble = double.parse(newAmount!);
+          //   if (success!) {
+          //     activeAppointments[index].showReorder = false;
+          //     _navigationService.replaceWith(
+          //       Routes.dRPaymentView,
+          //       arguments: DRPaymentViewArguments(
+          //           amount: newAmountDouble.toInt(), bookingId: newBookingId!),
+          //     );
+          //   }
+          // }
         }
         notifyListeners();
       } else {
@@ -469,11 +499,15 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             newAppointment.packageSubscriptionType = subscriptionType;
             if (numberOfDaysLeft! <= 5 &&
                 subscriptionType != "Free" &&
-                isReorderDone == false) {
+                isReorderDone == false &&
+                subscriptionType != "Premium Training") {
               newAppointment.showReorder = true;
             } else {
               newAppointment.showReorder = false;
             }
+            //Remove two lines
+            // newAppointment.showReorder = true;
+            // newAppointment.status = ActiveAppointmentStatus.Accepted;
 
             // Free Walk
             if (subscriptionType == "Free") {

@@ -350,14 +350,19 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
     String nowString = formatter.format(now);
     //Original Amount
     double original = 0.0;
+    String month = "";
     if (numberOfDays == 30 && numberOfWalk == 1) {
       original = 6499;
+      month = "1 Month";
     } else if (numberOfDays == 30 && numberOfWalk == 2) {
       original = 12999;
+      month = "1 Month";
     } else if (numberOfDays == 90 && numberOfWalk == 1) {
       original = 19497;
+      month = "3 Months";
     } else if (numberOfDays == 90 && numberOfWalk == 2) {
       original = 38997;
+      month = "3 Months";
     }
     if (dogs.length == 2) {
       original = original * 2;
@@ -370,7 +375,7 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
       petName: "$dogNames",
       invoiceDate: "$nowString",
       packageName: "Dog Running - $subscriptionType",
-      sessionsDetails: '($numberOfDays days & $numberOfWalk times / day)',
+      sessionsDetails: '($month & $numberOfWalk times / day)',
       billingType: 'Full Amount',
       startDate: startDateString,
       originalAmount: 'Rs. $original/-',
