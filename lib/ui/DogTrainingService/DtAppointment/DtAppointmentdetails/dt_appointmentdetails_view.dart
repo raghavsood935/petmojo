@@ -238,7 +238,7 @@ class DTAppointmentDetailsView extends StatelessWidget {
                             verticalSpaceRegular,
                             (model.showDogRunner)
                                 ? BookingItem(
-                                    detailName: "Rating",
+                                    detailName: "Ratings of Trainer",
                                     detailValue: "",
                                     clickable: false,
                                   )
