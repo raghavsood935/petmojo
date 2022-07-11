@@ -81,6 +81,7 @@ class _TamelyAppState extends State<TamelyApp> {
                               serviceProviderId: serviceProviderId,
                               userId: userId,
                               selectedData: DateTime.now(),
+                              timeElasped: 0,
                             )));
               }
 

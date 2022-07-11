@@ -103,6 +103,7 @@ import '../ui/profilepage/completed_profile/follow_people_action_view.dart';
 import '../ui/profilepage/count_info/list_of_followings_view.dart';
 import '../ui/profilepage/create_animal_profile/create_animal_page_viewe.dart';
 import '../ui/profilepage/profile_view.dart';
+import '../ui/services/raise_tickets.dart';
 import '../ui/services/videos_page/videos_page_view.dart';
 import '../ui/settings/settings_animal_view.dart';
 import '../ui/settings/settings_human_view.dart';
@@ -186,6 +187,7 @@ class Routes {
   static const String appointmentsView = '/appointments-view';
   static const String myPastAppointmentsView = '/my-past-appointments-view';
   static const String videosSectionView = '/videos-section-view';
+  static const String raiseTickets = '/raise-tickets';
   static const String dRDogRunningBookingView = '/d-rdog-running-booking-view';
   static const String locationPicker = '/location-picker';
   static const String dROpening = '/d-rOpening';
@@ -279,6 +281,7 @@ class Routes {
     appointmentsView,
     myPastAppointmentsView,
     videosSectionView,
+    raiseTickets,
     dRDogRunningBookingView,
     locationPicker,
     dROpening,
@@ -382,6 +385,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.appointmentsView, page: AppointmentsView),
     RouteDef(Routes.myPastAppointmentsView, page: MyPastAppointmentsView),
     RouteDef(Routes.videosSectionView, page: VideosSectionView),
+    RouteDef(Routes.raiseTickets, page: RaiseTickets),
     RouteDef(Routes.dRDogRunningBookingView, page: DRDogRunningBookingView),
     RouteDef(Routes.locationPicker, page: LocationPicker),
     RouteDef(Routes.dROpening, page: DROpening),
@@ -1021,6 +1025,12 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    RaiseTickets: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const RaiseTickets(),
+        settings: data,
+      );
+    },
     DRDogRunningBookingView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const DRDogRunningBookingView(),
@@ -1070,6 +1080,7 @@ class StackedRouter extends RouterBase {
           userId: args.userId,
           appointmentId: args.appointmentId,
           selectedData: args.selectedData,
+          timeElasped: args.timeElasped,
         ),
         settings: data,
       );
@@ -1672,13 +1683,15 @@ class DRLiveMapViewArguments {
   final String userId;
   final String appointmentId;
   final DateTime selectedData;
+  final int timeElasped;
   DRLiveMapViewArguments(
       {this.key,
       required this.walkNumber,
       required this.serviceProviderId,
       required this.userId,
       required this.appointmentId,
-      required this.selectedData});
+      required this.selectedData,
+      required this.timeElasped});
 }
 
 /// DRReportCardView arguments holder class

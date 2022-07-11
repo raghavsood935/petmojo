@@ -28,6 +28,8 @@ import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/walkStatus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../models/get_running_time_response.dart';
+import '../../../../models/params/get_running_time_body.dart';
 import '../../../DogTrainingService/DtAppointment/DtInvoice/dt_invoice_viewmodel.dart';
 
 class DRAppointmentDetailsViewModel extends FutureViewModel<void>
@@ -291,6 +293,34 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
   }
 
   void toLiveMapOne() async {
+    var timeElapsed;
+    try {
+      print(selectedDate);
+      DateTime convertedDate = selectedDate.add(Duration(hours: 5, minutes: 30));
+      print(convertedDate);
+      int toTimeStamp = convertedDate.millisecondsSinceEpoch;
+      print("time stamp23");
+      print(toTimeStamp);
+      print(appointmentId);
+      GetRunningTimeBody getRunningTimeBody = GetRunningTimeBody(appointmentId,true,toTimeStamp,false);
+      if (await Util.checkInternetConnectivity()) {
+
+        BaseResponse<GetRunningTimeResponse> result = await runBusyFuture(
+            _tamelyApi.getRunningTimeElapsed(getRunningTimeBody),
+            throwException: true);
+        if (result.data != null) {
+          timeElapsed = result.data!.timeElapsed!;
+          print("the time elapssed is ");
+          print(timeElapsed);
+        }
+        notifyListeners();
+      } else {
+        snackBarService.showSnackbar(message: "No Internet connection");
+      }
+    } on ServerError catch (e) {
+      log.e(e.toString());
+    }
+
     await _navigationService.navigateTo(Routes.dRLiveMapView,
         arguments: DRLiveMapViewArguments(
           walkNumber: WalkNumber.One,
@@ -298,11 +328,40 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
           userId: userId,
           appointmentId: appointmentId,
           selectedData: selectedDate,
+          timeElasped: timeElapsed,
         ));
     notifyListeners();
   }
 
   void toLiveMapTwo() async {
+    var timeElapsed;
+    try {
+      print(selectedDate);
+      DateTime convertedDate = selectedDate.add(Duration(hours: 5, minutes: 30));
+      print(convertedDate);
+      int toTimeStamp = convertedDate.millisecondsSinceEpoch;
+      print("time stamp23");
+      print(toTimeStamp);
+      print(appointmentId);
+      GetRunningTimeBody getRunningTimeBody = GetRunningTimeBody(appointmentId,false,toTimeStamp,true);
+      if (await Util.checkInternetConnectivity()) {
+
+        BaseResponse<GetRunningTimeResponse> result = await runBusyFuture(
+            _tamelyApi.getRunningTimeElapsed(getRunningTimeBody),
+            throwException: true);
+        if (result.data != null) {
+          timeElapsed = result.data!.timeElapsed!;
+          print("the time elapssed is 22");
+          print(timeElapsed);
+        }
+        notifyListeners();
+      } else {
+        snackBarService.showSnackbar(message: "No Internet connection");
+      }
+    } on ServerError catch (e) {
+      log.e(e.toString());
+    }
+
     await _navigationService.navigateTo(Routes.dRLiveMapView,
         arguments: DRLiveMapViewArguments(
           walkNumber: WalkNumber.Two,
@@ -310,6 +369,7 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
           userId: userId,
           appointmentId: appointmentId,
           selectedData: selectedDate,
+          timeElasped: timeElapsed
         ));
     notifyListeners();
   }

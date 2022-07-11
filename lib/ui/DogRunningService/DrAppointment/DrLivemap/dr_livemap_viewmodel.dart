@@ -13,16 +13,16 @@ import 'package:tamely/util/Color.dart';
 class DRLiveMapViewModel extends FutureViewModel<void>
     implements Initialisable {
   DRLiveMapViewModel(this.walkNumber, this.serviceProviderId, this.userId,
-      this.appointmentId, this.date);
+      this.appointmentId, this.date,this.timeElasped);
 
   final log = getLogger('LiveMapViewModel');
   final _navigationService = locator<NavigationService>();
   WalkNumber walkNumber;
   String serviceProviderId;
+  int timeElasped;
   String userId;
   String appointmentId;
   double _distance = 0;
-  int _timeTook = 0;
   DateTime date;
   final Completer<GoogleMapController> controller = Completer();
   List<LatLng> coordinatesList = [];
@@ -62,15 +62,25 @@ class DRLiveMapViewModel extends FutureViewModel<void>
   }
 
   double get distance => _distance;
-  int get timeTook => _timeTook;
   String get showDistance => _distance.toStringAsFixed(2);
 
   @override
   Future<void> futureToRun() async {
     log.d("futureToRun");
+    startTimer();
+  }
+
+  void startTimer() async {
+    const oneSec = Duration(seconds: 60);
+    timer = Timer.periodic(oneSec, (Timer t) async {
+      print("Time increased");
+      timeElasped++;
+      notifyListeners();
+    });
   }
 
   void initDatabase() {
+    print("how many times");
     print(appointmentId);
     FirebaseFirestore.instance
         .collection("Tracking")
@@ -112,7 +122,7 @@ class DRLiveMapViewModel extends FutureViewModel<void>
           ));
         }
         _distance = data?['distance'] ?? 0;
-        _timeTook = data?['timeTaken'] ?? 0;
+        // _timeTook = data?['timeTaken'] ?? 0;
         final CameraPosition _newCameraPosition =
             CameraPosition(target: coordinatesList.last, zoom: 16);
         mapController

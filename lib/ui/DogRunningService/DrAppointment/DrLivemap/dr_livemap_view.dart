@@ -18,12 +18,14 @@ class DRLiveMapView extends StatelessWidget {
     required this.userId,
     required this.appointmentId,
     required this.selectedData,
+    required this.timeElasped,
   }) : super(key: key);
   final WalkNumber walkNumber;
   final String serviceProviderId;
   final String userId;
   final String appointmentId;
   final DateTime selectedData;
+  final int timeElasped;
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +98,7 @@ class DRLiveMapView extends StatelessWidget {
                             ? walkOneLabel
                             : walkTwoLabel,
                         distance: model.showDistance,
-                        time: model.timeTook,
+                        time: model.timeElasped,
                       ),
                     )),
               ),
@@ -135,6 +137,7 @@ class DRLiveMapView extends StatelessWidget {
         userId,
         appointmentId,
         selectedData,
+        timeElasped,
       ),
     );
   }

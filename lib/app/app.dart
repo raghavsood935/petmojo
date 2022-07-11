@@ -86,6 +86,7 @@ import 'package:tamely/widgets/full_screen_image.dart';
 import '../ui/DogTrainingService/DtAppointment/DtUpgradeSoon/DtSelectPackage/dt_selectpackage_view.dart';
 import '../ui/DogTrainingService/DtAppointment/DtUpgradeSoon/DtUpgradePayment/dt_upgrade_payment_view.dart';
 import '../ui/DogTrainingService/DtAppointment/DtUpgradeSoon/DtUpgradePlan/dt_upgradeplan_view.dart';
+import '../ui/services/raise_tickets.dart';
 import '../ui/settings/settings_human_view.dart';
 import '../ui/settings/settings_animal_view.dart';
 import '../ui/bookings/bookings_view.dart';
@@ -93,6 +94,7 @@ import '../ui/bookmarks/bookmarks_view.dart';
 import '../ui/feedback/feedback_view.dart';
 import '../ui/help/help_view.dart';
 import '../ui/wallet/wallet_view.dart';
+
 
 @StackedApp(
   routes: [
@@ -180,6 +182,7 @@ import '../ui/wallet/wallet_view.dart';
     CupertinoRoute(page: AppointmentsView), // (Edit)
     CupertinoRoute(page: MyPastAppointmentsView),
     CupertinoRoute(page: VideosSectionView),
+    CupertinoRoute(page: RaiseTickets),
 
     // 1 - Dog Running service
 

@@ -95,6 +95,7 @@ class _DashboardState extends State<Dashboard> {
                             serviceProviderId: serviceProviderId,
                             userId: userId,
                             selectedData: DateTime.now(),
+                        timeElasped: 0,
                           )));
             }
 
