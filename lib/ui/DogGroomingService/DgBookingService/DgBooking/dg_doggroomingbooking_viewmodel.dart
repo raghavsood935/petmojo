@@ -402,16 +402,16 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
   Future<void> applyCoupon() async {
     // Dummy code apply
     String? couponCode = promoCodeController.text;
-    if (couponCode.toUpperCase() == "PAWSOMEOFFER") {
-      int? reducedAmountInt = _subTotal ~/ 10;
-      double? reducedAmountDouble = _subTotal / 10;
-      _isOfferValid = true;
-      _promoCode = couponCode.toUpperCase();
-      _savedAmount = reducedAmountDouble;
-      _amount = amount - reducedAmountDouble;
-      notifyListeners();
-      return;
-    }
+    // if (couponCode.toUpperCase() == "PAWSOMEOFFER") {
+    //   int? reducedAmountInt = _subTotal ~/ 10;
+    //   double? reducedAmountDouble = _subTotal / 10;
+    //   _isOfferValid = true;
+    //   _promoCode = couponCode.toUpperCase();
+    //   _savedAmount = reducedAmountDouble;
+    //   _amount = amount - reducedAmountDouble;
+    //   notifyListeners();
+    //   return;
+    // }
     notifyListeners();
     couponCode = promoCodeController.text;
     if (couponCode != "") {

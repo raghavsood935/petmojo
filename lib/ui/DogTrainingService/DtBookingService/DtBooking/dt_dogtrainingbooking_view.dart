@@ -553,14 +553,14 @@ class OrderSummary extends StatelessWidget {
                   textInputType: TextInputType.name,
                   textCapitalization: TextCapitalization.none,
                 ),
-                Row(
-                  children: [
-                    AppText.captionBold("PAWSOMEOFFER"),
-                    horizontalSpaceSmall,
-                    AppText.captionBold("ADDITIONAL 10% OFF",
-                        color: Color(0xfffb7e9c)),
-                  ],
-                ),
+                // Row(
+                //   children: [
+                //     AppText.captionBold("PAWSOMEOFFER"),
+                //     horizontalSpaceSmall,
+                //     AppText.captionBold("ADDITIONAL 10% OFF",
+                //         color: Color(0xfffb7e9c)),
+                //   ],
+                // ),
               ],
             ),
           ),
@@ -580,17 +580,17 @@ class OrderSummary extends StatelessWidget {
                     //   Icons.check_circle_outline_rounded,
                     //   color: colors.primary,
                     // ),
-                    TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                        backgroundColor: Colors.green,
-                      ),
-                      child: AppText.body1(
-                        "PAWSOMEOFFER",
-                        color: colors.white,
-                      ),
-                    ),
-                    horizontalSpaceSmall,
+                    // TextButton(
+                    //   onPressed: () {},
+                    //   style: TextButton.styleFrom(
+                    //     backgroundColor: Colors.green,
+                    //   ),
+                    //   child: AppText.body1(
+                    //     "PAWSOMEOFFER",
+                    //     color: colors.white,
+                    //   ),
+                    // ),
+                    // horizontalSpaceSmall,
 
                     AppText.body2(
                       (savedAmount > 0)

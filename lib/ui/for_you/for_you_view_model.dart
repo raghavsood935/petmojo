@@ -9,9 +9,9 @@ class ForYouViewModel extends ServicesViewModel {
     Tab(
       text: "For you",
     ),
-    Tab(
-      text: "Hall of Fame",
-    )
+    // Tab(
+    //   text: "Hall of Fame",
+    // )
   ];
 
   // List<Widget> get tabs => _tabs;
