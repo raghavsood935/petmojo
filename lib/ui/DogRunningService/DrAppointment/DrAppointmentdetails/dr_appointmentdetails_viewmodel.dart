@@ -299,9 +299,6 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
       DateTime convertedDate = selectedDate.add(Duration(hours: 5, minutes: 30));
       print(convertedDate);
       int toTimeStamp = convertedDate.millisecondsSinceEpoch;
-      print("time stamp23");
-      print(toTimeStamp);
-      print(appointmentId);
       GetRunningTimeBody getRunningTimeBody = GetRunningTimeBody(appointmentId,true,toTimeStamp,false);
       if (await Util.checkInternetConnectivity()) {
 
@@ -310,8 +307,6 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
             throwException: true);
         if (result.data != null) {
           timeElapsed = result.data!.timeElapsed!;
-          print("the time elapssed is ");
-          print(timeElapsed);
         }
         notifyListeners();
       } else {
@@ -340,7 +335,6 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
       DateTime convertedDate = selectedDate.add(Duration(hours: 5, minutes: 30));
       print(convertedDate);
       int toTimeStamp = convertedDate.millisecondsSinceEpoch;
-      print("time stamp23");
       print(toTimeStamp);
       print(appointmentId);
       GetRunningTimeBody getRunningTimeBody = GetRunningTimeBody(appointmentId,false,toTimeStamp,true);

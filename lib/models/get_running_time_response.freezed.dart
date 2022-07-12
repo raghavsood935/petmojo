@@ -23,9 +23,11 @@ class _$GetRunningTimeResponseTearOff {
   const _$GetRunningTimeResponseTearOff();
 
   _GetRunningTimeResponse call(
-      {@JsonKey(name: "timeElapsed") int? timeElapsed}) {
+      {@JsonKey(name: "timeElapsed") int? timeElapsed,
+      @JsonKey(name: "status") int? status}) {
     return _GetRunningTimeResponse(
       timeElapsed: timeElapsed,
+      status: status,
     );
   }
 
@@ -41,6 +43,8 @@ const $GetRunningTimeResponse = _$GetRunningTimeResponseTearOff();
 mixin _$GetRunningTimeResponse {
   @JsonKey(name: "timeElapsed")
   int? get timeElapsed => throw _privateConstructorUsedError;
+  @JsonKey(name: "status")
+  int? get status => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,7 +57,9 @@ abstract class $GetRunningTimeResponseCopyWith<$Res> {
   factory $GetRunningTimeResponseCopyWith(GetRunningTimeResponse value,
           $Res Function(GetRunningTimeResponse) then) =
       _$GetRunningTimeResponseCopyWithImpl<$Res>;
-  $Res call({@JsonKey(name: "timeElapsed") int? timeElapsed});
+  $Res call(
+      {@JsonKey(name: "timeElapsed") int? timeElapsed,
+      @JsonKey(name: "status") int? status});
 }
 
 /// @nodoc
@@ -68,11 +74,16 @@ class _$GetRunningTimeResponseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? timeElapsed = freezed,
+    Object? status = freezed,
   }) {
     return _then(_value.copyWith(
       timeElapsed: timeElapsed == freezed
           ? _value.timeElapsed
           : timeElapsed // ignore: cast_nullable_to_non_nullable
+              as int?,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
   }
@@ -85,7 +96,9 @@ abstract class _$GetRunningTimeResponseCopyWith<$Res>
           $Res Function(_GetRunningTimeResponse) then) =
       __$GetRunningTimeResponseCopyWithImpl<$Res>;
   @override
-  $Res call({@JsonKey(name: "timeElapsed") int? timeElapsed});
+  $Res call(
+      {@JsonKey(name: "timeElapsed") int? timeElapsed,
+      @JsonKey(name: "status") int? status});
 }
 
 /// @nodoc
@@ -102,11 +115,16 @@ class __$GetRunningTimeResponseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? timeElapsed = freezed,
+    Object? status = freezed,
   }) {
     return _then(_GetRunningTimeResponse(
       timeElapsed: timeElapsed == freezed
           ? _value.timeElapsed
           : timeElapsed // ignore: cast_nullable_to_non_nullable
+              as int?,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
   }
@@ -115,7 +133,9 @@ class __$GetRunningTimeResponseCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_GetRunningTimeResponse extends _GetRunningTimeResponse {
-  _$_GetRunningTimeResponse({@JsonKey(name: "timeElapsed") this.timeElapsed})
+  _$_GetRunningTimeResponse(
+      {@JsonKey(name: "timeElapsed") this.timeElapsed,
+      @JsonKey(name: "status") this.status})
       : super._();
 
   factory _$_GetRunningTimeResponse.fromJson(Map<String, dynamic> json) =>
@@ -124,10 +144,13 @@ class _$_GetRunningTimeResponse extends _GetRunningTimeResponse {
   @override
   @JsonKey(name: "timeElapsed")
   final int? timeElapsed;
+  @override
+  @JsonKey(name: "status")
+  final int? status;
 
   @override
   String toString() {
-    return 'GetRunningTimeResponse(timeElapsed: $timeElapsed)';
+    return 'GetRunningTimeResponse(timeElapsed: $timeElapsed, status: $status)';
   }
 
   @override
@@ -136,12 +159,15 @@ class _$_GetRunningTimeResponse extends _GetRunningTimeResponse {
         (other.runtimeType == runtimeType &&
             other is _GetRunningTimeResponse &&
             const DeepCollectionEquality()
-                .equals(other.timeElapsed, timeElapsed));
+                .equals(other.timeElapsed, timeElapsed) &&
+            const DeepCollectionEquality().equals(other.status, status));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(timeElapsed));
+      runtimeType,
+      const DeepCollectionEquality().hash(timeElapsed),
+      const DeepCollectionEquality().hash(status));
 
   @JsonKey(ignore: true)
   @override
@@ -157,8 +183,8 @@ class _$_GetRunningTimeResponse extends _GetRunningTimeResponse {
 
 abstract class _GetRunningTimeResponse extends GetRunningTimeResponse {
   factory _GetRunningTimeResponse(
-          {@JsonKey(name: "timeElapsed") int? timeElapsed}) =
-      _$_GetRunningTimeResponse;
+      {@JsonKey(name: "timeElapsed") int? timeElapsed,
+      @JsonKey(name: "status") int? status}) = _$_GetRunningTimeResponse;
   _GetRunningTimeResponse._() : super._();
 
   factory _GetRunningTimeResponse.fromJson(Map<String, dynamic> json) =
@@ -167,6 +193,9 @@ abstract class _GetRunningTimeResponse extends GetRunningTimeResponse {
   @override
   @JsonKey(name: "timeElapsed")
   int? get timeElapsed;
+  @override
+  @JsonKey(name: "status")
+  int? get status;
   @override
   @JsonKey(ignore: true)
   _$GetRunningTimeResponseCopyWith<_GetRunningTimeResponse> get copyWith =>

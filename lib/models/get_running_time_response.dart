@@ -9,6 +9,7 @@ class GetRunningTimeResponse with _$GetRunningTimeResponse {
 
   factory GetRunningTimeResponse({
     @JsonKey(name: "timeElapsed") int? timeElapsed,
+    @JsonKey(name: "status") int? status,
   }) = _GetRunningTimeResponse;
 
   factory GetRunningTimeResponse.fromJson(Map<String, dynamic> json) =>
