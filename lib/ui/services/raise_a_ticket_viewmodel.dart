@@ -55,6 +55,7 @@ class RaiseTicketsViewModel extends FutureViewModel {
       categoryController.text="";
       descriptionController.text="";
       phoneNumberController.text="";
+      _navigationService.back();
       _snackBarService.showSnackbar(message: "Submitted");
     }
     notifyListeners();
