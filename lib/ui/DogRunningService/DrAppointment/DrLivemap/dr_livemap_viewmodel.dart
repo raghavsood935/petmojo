@@ -10,19 +10,28 @@ import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/util/Color.dart';
 
+import '../../../../api/api_service.dart';
+import '../../../../api/base_response.dart';
+import '../../../../api/server_error.dart';
+import '../../../../models/get_running_time_response.dart';
+import '../../../../models/params/get_running_time_body.dart';
+import '../../../../util/utils.dart';
+
 class DRLiveMapViewModel extends FutureViewModel<void>
     implements Initialisable {
   DRLiveMapViewModel(this.walkNumber, this.serviceProviderId, this.userId,
-      this.appointmentId, this.date);
+      this.appointmentId, this.date, this.timeElasped);
 
   final log = getLogger('LiveMapViewModel');
   final _navigationService = locator<NavigationService>();
+  final snackBarService = locator<SnackbarService>();
+  final _tamelyApi = locator<TamelyApi>();
   WalkNumber walkNumber;
   String serviceProviderId;
+  int timeElasped;
   String userId;
   String appointmentId;
   double _distance = 0;
-  int _timeTook = 0;
   DateTime date;
   final Completer<GoogleMapController> controller = Completer();
   List<LatLng> coordinatesList = [];
@@ -56,22 +65,103 @@ class DRLiveMapViewModel extends FutureViewModel<void>
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     final String formatted = formatter.format(now);
     firebaseDocumentName = "$appointmentId$formatted$walkNumber";
-    print("this is ");
-    print(firebaseDocumentName);
     notifyListeners();
   }
 
   double get distance => _distance;
-  int get timeTook => _timeTook;
   String get showDistance => _distance.toStringAsFixed(2);
 
   @override
   Future<void> futureToRun() async {
     log.d("futureToRun");
+    if(walkNumber==WalkNumber.One){
+      checkIfEnded();
+    }
+    else if(walkNumber==WalkNumber.Two){
+      checkIfEnded1();
+    }
+
+    startTimer();
+  }
+
+  checkIfEnded() async {
+    if (timeElasped >= 60) {
+      try {
+        print(date);
+        DateTime convertedDate = date.add(Duration(hours: 5, minutes: 30));
+        print(convertedDate);
+        int toTimeStamp = convertedDate.millisecondsSinceEpoch;
+        GetRunningTimeBody getRunningTimeBody =
+            GetRunningTimeBody(appointmentId, true, toTimeStamp, false);
+        if (await Util.checkInternetConnectivity()) {
+          BaseResponse<GetRunningTimeResponse> result = await runBusyFuture(
+              _tamelyApi.getRunningTimeElapsed(getRunningTimeBody),
+              throwException: true);
+          if (result.data != null) {
+            if (result.data!.status == 2) {
+              _navigationService.back();
+              _navigationService.back();
+              snackBarService.showSnackbar(message: "Session Ended");
+            }
+            print(result.data!.timeElapsed);
+            // timeElapsed = result.data!.timeElapsed!;
+          }
+          notifyListeners();
+        } else {
+          snackBarService.showSnackbar(message: "No Internet connection");
+        }
+      } on ServerError catch (e) {
+        log.e(e.toString());
+      }
+    }
+  }
+  checkIfEnded1() async {
+    if (timeElasped >= 60) {
+      try {
+        print(date);
+        DateTime convertedDate = date.add(Duration(hours: 5, minutes: 30));
+        print(convertedDate);
+        int toTimeStamp = convertedDate.millisecondsSinceEpoch;
+        GetRunningTimeBody getRunningTimeBody =
+        GetRunningTimeBody(appointmentId, false, toTimeStamp, true);
+        if (await Util.checkInternetConnectivity()) {
+          BaseResponse<GetRunningTimeResponse> result = await runBusyFuture(
+              _tamelyApi.getRunningTimeElapsed(getRunningTimeBody),
+              throwException: true);
+          if (result.data != null) {
+            if (result.data!.status == 2) {
+              _navigationService.back();
+              _navigationService.back();
+              snackBarService.showSnackbar(message: "Session Ended");
+            }
+            print(result.data!.timeElapsed);
+            // timeElapsed = result.data!.timeElapsed!;
+          }
+          notifyListeners();
+        } else {
+          snackBarService.showSnackbar(message: "No Internet connection");
+        }
+      } on ServerError catch (e) {
+        log.e(e.toString());
+      }
+    }
+  }
+
+  void startTimer() async {
+    const oneSec = Duration(seconds: 60);
+    timer = Timer.periodic(oneSec, (Timer t) async {
+      timeElasped++;
+      // if(walkNumber==WalkNumber.One){
+      //   checkIfEnded();
+      // }
+      // else if(walkNumber==WalkNumber.Two){
+      //   checkIfEnded1();
+      // }
+      notifyListeners();
+    });
   }
 
   void initDatabase() {
-    print(appointmentId);
     FirebaseFirestore.instance
         .collection("Tracking")
         .doc(firebaseDocumentName)
@@ -112,7 +202,7 @@ class DRLiveMapViewModel extends FutureViewModel<void>
           ));
         }
         _distance = data?['distance'] ?? 0;
-        _timeTook = data?['timeTaken'] ?? 0;
+        // _timeTook = data?['timeTaken'] ?? 0;
         final CameraPosition _newCameraPosition =
             CameraPosition(target: coordinatesList.last, zoom: 16);
         mapController

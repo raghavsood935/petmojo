@@ -321,6 +321,15 @@ class DashboardViewModel extends FutureViewModel<void>
   void onBookmarksPressed() async {
     await _navigationService.navigateTo(Routes.bookmarksView);
   }
+  Future<void> launchAppStore() async {
+    String appStoreLink="https://play.google.com/store/apps/details?id=in.tamely.user";
+    debugPrint(appStoreLink);
+    if (await canLaunchUrl(Uri.parse(appStoreLink))) {
+      await launchUrl(Uri.parse(appStoreLink));
+    } else {
+      throw 'Could not launch appStoreLink';
+    }
+  }
 
   void onNotificationPressed() async {
     await _navigationService

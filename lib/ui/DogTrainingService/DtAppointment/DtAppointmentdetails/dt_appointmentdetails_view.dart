@@ -141,12 +141,13 @@ class DTAppointmentDetailsView extends StatelessWidget {
                       return GestureDetector(
                         onTap: () => model.onSessionNumberTapped(index + 1),
                         child: Container(
+                          margin: EdgeInsets.symmetric(horizontal: 2),
                           padding: EdgeInsets.only(left: 20.0, right: 20.0),
                           child: Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                if (model.indexToStart > index + 1)
+                                if (model.indexToStart >= index + 1)
                                   verticalSpaceMedium,
                                 AppText.body2(
                                   "${index + 1}",
@@ -154,11 +155,11 @@ class DTAppointmentDetailsView extends StatelessWidget {
                                       ? colors.white
                                       : colors.black,
                                 ),
-                                if (index + 1 < model.indexToStart)
+                                if (index + 1 <= model.indexToStart)
                                   ((isInTicks(model.Ticks, index + 1))
                                       ? Text("✅")
-                                      : (isInWarning(model.warning, index + 1))
-                                          ? Text("⚠")
+                                      // : (isInWarning(model.warning, index + 1))
+                                      //     ? Text("⚠")
                                           : Text("")),
                               ],
                             ),
@@ -166,7 +167,7 @@ class DTAppointmentDetailsView extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: model.currentSession == index + 1
                                 ? colors.primary
-                                : ((index + 1 < model.indexToStart) &&
+                                : ((index + 1<= model.indexToStart) &&
                                         (isInTicks(model.Ticks, index + 1) ||
                                             isInWarning(
                                                 model.warning, index + 1)))
@@ -238,7 +239,7 @@ class DTAppointmentDetailsView extends StatelessWidget {
                             verticalSpaceRegular,
                             (model.showDogRunner)
                                 ? BookingItem(
-                                    detailName: "Rating",
+                                    detailName: "Ratings of Trainer",
                                     detailValue: "",
                                     clickable: false,
                                   )
@@ -313,25 +314,25 @@ class DTAppointmentDetailsView extends StatelessWidget {
                 verticalSpaceMedium,
 
                 // Invoice Button
-                // Visibility(
-                //   visible: model.showDownloadInvoice,
-                //   child: Column(
-                //     crossAxisAlignment: CrossAxisAlignment.start,
-                //     children: [
-                //       Padding(
-                //         padding: const EdgeInsets.symmetric(horizontal: 25),
-                //         child: GestureDetector(
-                //           onTap: model.downloadInvoiceButton,
-                //           child: AppText.body1(
-                //             "Download Invoice",
-                //             color: colors.primary,
-                //           ),
-                //         ),
-                //       ),
-                //       spacedDivider,
-                //     ],
-                //   ),
-                // ),
+                Visibility(
+                  visible: model.showDownloadInvoice,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: GestureDetector(
+                          onTap: model.downloadInvoiceButton,
+                          child: AppText.body1(
+                            "Download Invoice",
+                            color: colors.primary,
+                          ),
+                        ),
+                      ),
+                      spacedDivider,
+                    ],
+                  ),
+                ),
 
                 // Learning Journey
                 Container(

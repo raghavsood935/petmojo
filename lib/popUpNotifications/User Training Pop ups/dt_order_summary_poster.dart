@@ -1,15 +1,6 @@
 import 'package:confetti/confetti.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/util/Color.dart';
-import '../../util/ImageConstant.dart';
-import '../../util/ui_helpers.dart';
-import '../../widgets/app_text.dart';
-
-
-
 
 class OrderSummaryPoster extends StatefulWidget {
   final String title;
@@ -28,7 +19,6 @@ class OrderSummaryPoster extends StatefulWidget {
 }
 
 class _OrderSummaryPosterState extends State<OrderSummaryPoster> {
-
   @override
   void initState() {
     super.initState();
@@ -41,21 +31,18 @@ class _OrderSummaryPosterState extends State<OrderSummaryPoster> {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     return Container(
-      margin: EdgeInsets.only(right: 20,left: 20),
-
+      margin: EdgeInsets.only(right: 20, left: 20),
       width: double.infinity,
       height: 100,
       decoration: BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage('assets/images/dialog_background.png'),
-            fit: BoxFit.fill
-        ),
+          image: DecorationImage(
+              image: AssetImage('assets/images/dialog_background.png'),
+              fit: BoxFit.fill),
           border: Border.all(
             color: Colors.grey, //color of border
             width: 2, //width of border
           ),
-          borderRadius: BorderRadius.circular(10)
-      ),
+          borderRadius: BorderRadius.circular(10)),
       child: Stack(
         children: [
           Container(
@@ -101,7 +88,7 @@ class _OrderSummaryPosterState extends State<OrderSummaryPoster> {
                             style: theme.textTheme.subtitle2?.copyWith(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              color:Color(0xFF4ED387),
+                              color: Color(0xFF4ED387),
                             ),
                           ),
                         ),
@@ -112,11 +99,10 @@ class _OrderSummaryPosterState extends State<OrderSummaryPoster> {
                             style: theme.textTheme.subtitle2?.copyWith(
                               fontSize: 10,
                               fontWeight: FontWeight.normal,
-                              color:Color(0xFF4ED387),
+                              color: Color(0xFF4ED387),
                             ),
                           ),
                         ),
-
                       ],
                     ),
                   ),
@@ -127,11 +113,8 @@ class _OrderSummaryPosterState extends State<OrderSummaryPoster> {
               ],
             ),
           ),
-
         ],
       ),
     );
   }
 }
-
-

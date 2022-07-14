@@ -203,13 +203,13 @@ class DRDogRunningBookingViewModel extends FormViewModel {
       selectedPlan = DogRunningPackage.Four;
       _isValid = true;
       _description = "Monthly";
-      _amount = 3800;
+      _amount = 4500;
       _frequency = 30;
       _dayFrequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = true;
-      _subTotal = 6499;
-      _discount = 2699;
+      _subTotal = 5850;
+      _discount = 1350;
     }
     setFirstPageValid();
     notifyListeners();
@@ -298,47 +298,47 @@ class DRDogRunningBookingViewModel extends FormViewModel {
     } else if (selectedPlan == DogRunningPackage.Four) {
       _isValid = true;
       _description = "Monthly";
-      _amount = 3800;
+      _amount = 4500;
       _frequency = 30;
       _dayFrequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = true;
       _doneMultiply = false;
-      _subTotal = 6499;
-      _discount = 2699;
+      _subTotal = 5850;
+      _discount = 1350;
     } else if (selectedPlan == DogRunningPackage.Five) {
       _isValid = true;
       _description = "Monthly";
-      _amount = 6800;
+      _amount = 8500;
       _frequency = 30;
       _dayFrequency = 2;
       _isOfferValid = false;
       _isOfferAvailable = true;
       _doneMultiply = false;
-      _subTotal = 12999;
-      _discount = 6199;
+      _subTotal = 11050;
+      _discount = 2500;
     } else if (selectedPlan == DogRunningPackage.Six) {
       _isValid = true;
       _description = "3 Months";
-      _amount = 11200;
+      _amount = 13300;
       _frequency = 90;
       _dayFrequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = true;
       _doneMultiply = false;
-      _subTotal = 19497;
-      _discount = 8297;
+      _subTotal = 17290;
+      _discount = 3990;
     } else if (selectedPlan == DogRunningPackage.Seven) {
       _isValid = true;
       _description = "3 Months";
-      _amount = 20000;
+      _amount = 25300;
       _frequency = 90;
       _dayFrequency = 2;
       _isOfferValid = false;
       _isOfferAvailable = true;
       _doneMultiply = false;
-      _subTotal = 38997;
-      _discount = 18997;
+      _subTotal = 32890;
+      _discount = 7590;
     }
     twoPets();
     setFirstPageValid();

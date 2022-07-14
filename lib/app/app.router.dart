@@ -35,6 +35,7 @@ import '../ui/DogRunningService/DrBookingService/DrPayment/dr_payment_view.dart'
 import '../ui/DogTrainingService/DtAppointment/DtAppointmentdetails/dt_appointmentdetails_view.dart';
 import '../ui/DogTrainingService/DtAppointment/DtReportcard/dt_reportcard_view.dart';
 import '../ui/DogTrainingService/DtAppointment/DtUpgradeSoon/DtSelectPackage/dt_selectpackage_view.dart';
+import '../ui/DogTrainingService/DtAppointment/DtUpgradeSoon/DtUpgradePayment/dt_upgrade_payment_view.dart';
 import '../ui/DogTrainingService/DtAppointment/DtUpgradeSoon/DtUpgradePlan/dt_upgradeplan_view.dart';
 import '../ui/DogTrainingService/DtBookingService/DtBooking/dt_dogtrainingbooking_view.dart';
 import '../ui/DogTrainingService/DtBookingService/DtOpening/dt_opening_view.dart';
@@ -102,6 +103,7 @@ import '../ui/profilepage/completed_profile/follow_people_action_view.dart';
 import '../ui/profilepage/count_info/list_of_followings_view.dart';
 import '../ui/profilepage/create_animal_profile/create_animal_page_viewe.dart';
 import '../ui/profilepage/profile_view.dart';
+import '../ui/services/raise_tickets.dart';
 import '../ui/services/videos_page/videos_page_view.dart';
 import '../ui/settings/settings_animal_view.dart';
 import '../ui/settings/settings_human_view.dart';
@@ -185,6 +187,7 @@ class Routes {
   static const String appointmentsView = '/appointments-view';
   static const String myPastAppointmentsView = '/my-past-appointments-view';
   static const String videosSectionView = '/videos-section-view';
+  static const String raiseTickets = '/raise-tickets';
   static const String dRDogRunningBookingView = '/d-rdog-running-booking-view';
   static const String locationPicker = '/location-picker';
   static const String dROpening = '/d-rOpening';
@@ -202,6 +205,7 @@ class Routes {
   static const String dTReportCardView = '/d-treport-card-view';
   static const String dTSelectPackageView = '/d-tselect-package-view';
   static const String dTUpgradePlanView = '/d-tupgrade-plan-view';
+  static const String dTUpgradePaymentView = '/d-tupgrade-payment-view';
   static const String dGDogGroomingBookingView =
       '/d-gdog-grooming-booking-view';
   static const String dGOpening = '/d-gOpening';
@@ -277,6 +281,7 @@ class Routes {
     appointmentsView,
     myPastAppointmentsView,
     videosSectionView,
+    raiseTickets,
     dRDogRunningBookingView,
     locationPicker,
     dROpening,
@@ -293,6 +298,7 @@ class Routes {
     dTReportCardView,
     dTSelectPackageView,
     dTUpgradePlanView,
+    dTUpgradePaymentView,
     dGDogGroomingBookingView,
     dGOpening,
     dGPaymentView,
@@ -379,6 +385,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.appointmentsView, page: AppointmentsView),
     RouteDef(Routes.myPastAppointmentsView, page: MyPastAppointmentsView),
     RouteDef(Routes.videosSectionView, page: VideosSectionView),
+    RouteDef(Routes.raiseTickets, page: RaiseTickets),
     RouteDef(Routes.dRDogRunningBookingView, page: DRDogRunningBookingView),
     RouteDef(Routes.locationPicker, page: LocationPicker),
     RouteDef(Routes.dROpening, page: DROpening),
@@ -395,6 +402,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.dTReportCardView, page: DTReportCardView),
     RouteDef(Routes.dTSelectPackageView, page: DTSelectPackageView),
     RouteDef(Routes.dTUpgradePlanView, page: DTUpgradePlanView),
+    RouteDef(Routes.dTUpgradePaymentView, page: DTUpgradePaymentView),
     RouteDef(Routes.dGDogGroomingBookingView, page: DGDogGroomingBookingView),
     RouteDef(Routes.dGOpening, page: DGOpening),
     RouteDef(Routes.dGPaymentView, page: DGPaymentView),
@@ -1017,6 +1025,12 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    RaiseTickets: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const RaiseTickets(),
+        settings: data,
+      );
+    },
     DRDogRunningBookingView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const DRDogRunningBookingView(),
@@ -1066,6 +1080,7 @@ class StackedRouter extends RouterBase {
           userId: args.userId,
           appointmentId: args.appointmentId,
           selectedData: args.selectedData,
+          timeElasped: args.timeElasped,
         ),
         settings: data,
       );
@@ -1156,14 +1171,50 @@ class StackedRouter extends RouterBase {
       );
     },
     DTSelectPackageView: (data) {
+      var args = data.getArgs<DTSelectPackageViewArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => const DTSelectPackageView(),
+        builder: (context) => DTSelectPackageView(
+          key: args.key,
+          appointmentId: args.appointmentId,
+          currentPackage: args.currentPackage,
+          address1: args.address1,
+          address2: args.address2,
+          dogs: args.dogs,
+          partnerName: args.partnerName,
+          previousAmount: args.previousAmount,
+        ),
         settings: data,
       );
     },
     DTUpgradePlanView: (data) {
+      var args = data.getArgs<DTUpgradePlanViewArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => const DTUpgradePlanView(),
+        builder: (context) => DTUpgradePlanView(
+          key: args.key,
+          appointmentId: args.appointmentId,
+          selectedPackage: args.selectedPackage,
+          frequency: args.frequency,
+          description: args.description,
+          address1: args.address1,
+          address2: args.address2,
+          dogs: args.dogs,
+          partnerName: args.partnerName,
+          amount: args.amount,
+          discount: args.discount,
+          previousAmount: args.previousAmount,
+          newTotalAmount: args.newTotalAmount,
+        ),
+        settings: data,
+      );
+    },
+    DTUpgradePaymentView: (data) {
+      var args = data.getArgs<DTUpgradePaymentViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => DTUpgradePaymentView(
+          key: args.key,
+          amount: args.amount,
+          bookingId: args.bookingId,
+        ),
         settings: data,
       );
     },
@@ -1632,13 +1683,15 @@ class DRLiveMapViewArguments {
   final String userId;
   final String appointmentId;
   final DateTime selectedData;
+  final int timeElasped;
   DRLiveMapViewArguments(
       {this.key,
       required this.walkNumber,
       required this.serviceProviderId,
       required this.userId,
       required this.appointmentId,
-      required this.selectedData});
+      required this.selectedData,
+      required this.timeElasped});
 }
 
 /// DRReportCardView arguments holder class
@@ -1712,6 +1765,67 @@ class DTReportCardViewArguments {
   final int sessionNo;
   DTReportCardViewArguments(
       {this.key, required this.appointmentId, required this.sessionNo});
+}
+
+/// DTSelectPackageView arguments holder class
+class DTSelectPackageViewArguments {
+  final Key? key;
+  final String appointmentId;
+  final DogTrainingPackage currentPackage;
+  final String address1;
+  final String address2;
+  final List<String> dogs;
+  final String partnerName;
+  final double previousAmount;
+  DTSelectPackageViewArguments(
+      {this.key,
+      required this.appointmentId,
+      required this.currentPackage,
+      required this.address1,
+      required this.address2,
+      required this.dogs,
+      required this.partnerName,
+      required this.previousAmount});
+}
+
+/// DTUpgradePlanView arguments holder class
+class DTUpgradePlanViewArguments {
+  final Key? key;
+  final String appointmentId;
+  final DogTrainingPackage selectedPackage;
+  final int frequency;
+  final String description;
+  final String address1;
+  final String address2;
+  final List<String> dogs;
+  final String partnerName;
+  final double amount;
+  final double discount;
+  final double previousAmount;
+  final double newTotalAmount;
+  DTUpgradePlanViewArguments(
+      {this.key,
+      required this.appointmentId,
+      required this.selectedPackage,
+      required this.frequency,
+      required this.description,
+      required this.address1,
+      required this.address2,
+      required this.dogs,
+      required this.partnerName,
+      required this.amount,
+      required this.discount,
+      required this.previousAmount,
+      required this.newTotalAmount});
+}
+
+/// DTUpgradePaymentView arguments holder class
+class DTUpgradePaymentViewArguments {
+  final Key? key;
+  final int amount;
+  final String bookingId;
+  DTUpgradePaymentViewArguments(
+      {this.key, required this.amount, required this.bookingId});
 }
 
 /// DGPaymentView arguments holder class

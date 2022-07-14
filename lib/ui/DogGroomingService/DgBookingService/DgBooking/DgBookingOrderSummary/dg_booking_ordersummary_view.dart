@@ -70,8 +70,8 @@ class DGBookingOrderSummaryView
             AppText.titleBold("Select Payment Method"),
             verticalSpaceMedium,
             PaymentMethod(model: model, thisMethodIndex: 0),
-            verticalSpaceSmall,
-            PaymentMethod(model: model, thisMethodIndex: 1),
+            // verticalSpaceSmall,
+            // PaymentMethod(model: model, thisMethodIndex: 1),
             verticalSpaceMedium,
             Container(
               decoration: BoxDecoration(
@@ -161,11 +161,11 @@ class DGBookingOrderSummaryView
                     textInputType: TextInputType.name,
                     textCapitalization: TextCapitalization.none,
                   ),
-                  Row(children: [
-                    AppText.captionBold("PAWSOMEOFFER"),
-                    horizontalSpaceSmall,
-                    AppText.captionBold("ADDITIONAL 10% OFF", color: Color(0xfffb7e9c)),
-                  ],),
+                  // Row(children: [
+                  //   AppText.captionBold("PAWSOMEOFFER"),
+                  //   horizontalSpaceSmall,
+                  //   AppText.captionBold("ADDITIONAL 10% OFF", color: Color(0xfffb7e9c)),
+                  // ],),
                 ],
               ),
             ),
@@ -280,8 +280,9 @@ class _PaymentMethodState extends State<PaymentMethod> {
             ),),
             horizontalSpaceSmall,
             AppText.captionBold(
-              ["Pay Now Add Debit/Credit/ATM Card",
-              "Pay Later (after the service)",][widget.thisMethodIndex]
+              // ["Pay Now Add Debit/Credit/ATM Card",
+              // "Pay Later (after the service)",][widget.thisMethodIndex]
+                ["Pay Now Add Debit/Credit/ATM Card",][widget.thisMethodIndex]
               ),
           ],
         )

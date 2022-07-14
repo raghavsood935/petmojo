@@ -131,8 +131,12 @@ import 'package:tamely/models/send_data_response.dart';
 import 'package:tamely/models/params/book_a_run_body.dart';
 import 'package:tamely/models/params/apple_signin_body.dart';
 
+import '../models/get_running_time_response.dart';
+import '../models/params/get_running_time_body.dart';
 import '../models/params/gps_tracking_wait_list_body.dart';
 import '../models/params/set_training_rating_body.dart';
+import '../models/params/submit_ticket_body.dart';
+import '../models/params/upgrade_dog_training_body.dart';
 
 part 'api_client.g.dart';
 
@@ -243,6 +247,10 @@ class Apis {
   static const String bookATraining = '/serviceBooking/bookDogTrainingService';
   static const String setPaymentDetailsTraining =
       '/service/postTrainingPayment';
+  static const String setUpgradePaymentDetailsTraining =
+      '/service/postUpgradeTrainingPayment';
+  static const String upgradeDogTraining =
+      '/serviceBooking/upgradeDogTrainingService';
 
   // Booking Appointments -- Dog grooming
   static const String bookAGrooming = '/serviceBooking/bookDogGroomingService';
@@ -319,7 +327,10 @@ class Apis {
       '/serviceBooking/changeAppointmentstatus';
   static const String getScrollStatus =
       '/serviceBooking/getscrollAppointmentstatus';
+  static const String getRunningTimeElapsed =
+      '/serviceBooking/getRunningTimeElapsed';
   static const String getRunningReport = '/serviceBooking/getReport';
+  static const String submitTicket = '/serviceBooking/submitTicket';
   static const String setRunningRating =
       '/serviceBooking/giveRatingstoeachWalk';
   static const String setTestimony = '/serviceBooking/giveRatingstoeachWalk';
@@ -798,10 +809,25 @@ abstract class ApiClient {
   Future<BookARunResponse> bookATraining(
       @Body() BookATrainingBody bookATrainingBody);
 
+  // -- get Time Elapsed for Running (Working)
+  @POST(Apis.getRunningTimeElapsed)
+  Future<GetRunningTimeResponse> getRunningTimeElapsed(
+      @Body() GetRunningTimeBody getRunningTimeBody);
+
   // -- Set Payment details Training (Working)
   @PATCH(Apis.setPaymentDetailsTraining)
   Future<SendDataResponse> setPaymentDetailsTraining(
       @Body() SetPaymentDetailsBody setPaymentDetailsBody);
+
+  // -- Set Upgrade Payment details Training
+  @PATCH(Apis.setUpgradePaymentDetailsTraining)
+  Future<SendDataResponse> setUpgradePaymentDetailsTraining(
+      @Body() SetPaymentDetailsBody setPaymentDetailsBody);
+
+  // -- Upgrade Dog Training
+  @POST(Apis.upgradeDogTraining)
+  Future<BookARunResponse> upgradeDogTraining(
+      @Body() UpgradeDogTrainingBody upgradeDogTrainingBody);
 
   // Booking Appointments -- Dog Grooming
 
@@ -834,6 +860,7 @@ abstract class ApiClient {
   // -- Get active appointments (Working)
   @POST(Apis.getActiveAppointments)
   Future<MyAppointmentsResponse> getActiveAppointments();
+
 
   // -- Get booked appointments (Working)
   @POST(Apis.getBookedAppointments)
@@ -869,6 +896,11 @@ abstract class ApiClient {
   @POST(Apis.getRunningReport)
   Future<GetReportResponse> getRunOneReport(
       @Body() GetReportOneBody getReportOneBody);
+
+  // -- Submit ticket
+  @POST(Apis.submitTicket)
+  Future<SendDataResponse> submitTicket(
+      @Body() SubmitTicketBody submitTicketBody);
 
   // -- Get Report Run Two
   @POST(Apis.getRunningReport)

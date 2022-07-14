@@ -251,22 +251,22 @@ String threeMonthOnceSubtitleTwo = "Weekly one off";
 String threeMonthTwiceSubtitleTwo = "Weekly one off";
 
 String perWalkRateOld = "FREE";
-String perMonthOnceRateOld = "₹6,499/-";
-String perMonthTwiceRateOld = "Rs.₹12,999/-";
-String threeMonthOnceRateOld = "Rs.₹19,497/-";
-String threeMonthTwiceRateOld = "Rs.₹38,997/-";
+String perMonthOnceRateOld = "Rs.₹5,850/-";
+String perMonthTwiceRateOld = "Rs.₹11,050/-";
+String threeMonthOnceRateOld = "Rs.₹17,290/-";
+String threeMonthTwiceRateOld = "Rs.₹32,890/-";
 
 String perWalkRateNew = "FREE";
-String perMonthOnceRateNew = "₹3,800/-";
-String perMonthTwiceRateNew = "₹6,800/-";
-String threeMonthOnceRateNew = "₹11,200/-";
-String threeMonthTwiceRateNew = "₹20,000/-";
+String perMonthOnceRateNew = "₹4,500/-";
+String perMonthTwiceRateNew = "₹8,500/-";
+String threeMonthOnceRateNew = "₹13,300/-";
+String threeMonthTwiceRateNew = "₹25,300/-";
 
 String perWalkRateLabel = "";
-String perMonthOnceRateLabel = "(You save 2,699)";
-String perMonthTwiceRateLabel = "(You save 6,199)";
-String threeMonthOnceRateLabel = "(You save 8,297)";
-String threeMonthTwiceRateLabel = "(You save 18,997)";
+String perMonthOnceRateLabel = "(You save 1,350)";
+String perMonthTwiceRateLabel = "(You save 2,550)";
+String threeMonthOnceRateLabel = "(You save 3,990)";
+String threeMonthTwiceRateLabel = "(You save 7,590)";
 
 // See more
 

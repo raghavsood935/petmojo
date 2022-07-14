@@ -35,14 +35,15 @@ class ForYouView extends StatelessWidget {
 
 
           DefaultTabController(
-            length: 2,
+            length: 1,
             child: Flexible(
               child: Scaffold(
                 appBar: TabBar(
                   tabs: model.tabsTitle,
                 ),
                 body: TabBarView(
-                  children: [ForYouTab(), HallOfFameTab()],
+                  // children: [ForYouTab(), HallOfFameTab()],
+                  children: [ForYouTab()],
                 ),
               ),
             ),

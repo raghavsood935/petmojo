@@ -215,6 +215,10 @@ class ServicesViewModel extends FutureViewModel {
     _navigationService.navigateTo(Routes.videosSectionView);
   }
 
+  void navigateToRaiseTickets(){
+    _navigationService.navigateTo(Routes.raiseTickets);
+  }
+
   @override
   Future futureToRun() {
     // TODO: implement futureToRun

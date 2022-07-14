@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tamely/widgets/raise_a_ticket.dart';
 import 'package:tamely/ui/services/services_viewmodel.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ImageConstant.dart';
@@ -329,6 +330,7 @@ class ServicesView extends StatelessWidget {
               ),
               verticalSpaceTiny,
               ServicesPreviewSliding(model: model),
+              RaiseTicket(model:model),
               verticalSpaceSmall,
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),

@@ -100,6 +100,7 @@ class NotificationViewModel extends FutureViewModel<void>
             userId: notification.notificationDataResponse!.userId ?? "",
             appointmentId:
                 notification.notificationDataResponse!.appointmentId ?? "",
+            timeElasped: 0
           ));
     } else if (notification.notificationDataResponse!.actionOnCTA ==
         "PHONECALL") {
