@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
-import '../../../../enum/dog_training_journey.dart';
 import 'dt_appointmentdetails_viewmodel.dart';
 
 class DTAppointmentDetailsView extends StatelessWidget {
@@ -160,14 +158,14 @@ class DTAppointmentDetailsView extends StatelessWidget {
                                       ? Text("✅")
                                       // : (isInWarning(model.warning, index + 1))
                                       //     ? Text("⚠")
-                                          : Text("")),
+                                      : Text("")),
                               ],
                             ),
                           ),
                           decoration: BoxDecoration(
                             color: model.currentSession == index + 1
                                 ? colors.primary
-                                : ((index + 1<= model.indexToStart) &&
+                                : ((index + 1 <= model.indexToStart) &&
                                         (isInTicks(model.Ticks, index + 1) ||
                                             isInWarning(
                                                 model.warning, index + 1)))
@@ -356,10 +354,10 @@ class DTAppointmentDetailsView extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   height: 1250,
+                  width: 360 - 40,
                   decoration: BoxDecoration(
                     color: colors.lightBackgroundColor,
                     borderRadius: BorderRadius.only(
