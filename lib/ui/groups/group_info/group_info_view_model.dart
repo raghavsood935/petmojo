@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -11,8 +9,6 @@ import 'package:tamely/api/base_response.dart';
 import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
-import 'package:tamely/enum/DialogType.dart';
-import 'package:tamely/models/feed_post_response.dart';
 import 'package:tamely/models/group_response/group_basic_info_response.dart';
 import 'package:tamely/models/list_of_feed_post_response.dart';
 import 'package:tamely/models/params/groups/edit_group_cover_body.dart';
@@ -23,6 +19,8 @@ import 'package:tamely/shared/base_viewmodel.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/global_methods.dart';
 import 'package:tamely/widgets/dialogs/image_pop_dailog_view.dart';
+import '../../../services/post_feed_details_resolver_service.dart';
+import '../../post/Class/post_feed_class.dart';
 
 class GroupInfoViewModel extends BaseModel {
   final _navigationService = locator<NavigationService>();
@@ -30,6 +28,7 @@ class GroupInfoViewModel extends BaseModel {
   final _snackbarService = locator<SnackbarService>();
   final _dialogService = locator<DialogService>();
   final _tamelyApi = locator<TamelyApi>();
+  final _postFeed = locator<PostFeedDetailsService>();
 
   String groupId = "";
 
@@ -281,8 +280,8 @@ class GroupInfoViewModel extends BaseModel {
     );
   }
 
-  List<FeedPostResponse> _listOfPosts = [];
-  List<FeedPostResponse> get listOfPosts => _listOfPosts;
+  List<FeedPost> _listOfPosts = [];
+  List<FeedPost> get listOfPosts => _listOfPosts;
 
   int _counter = 0;
   bool _isPostLoading = false;
@@ -309,7 +308,7 @@ class GroupInfoViewModel extends BaseModel {
       notifyListeners();
       _snackbarService.showSnackbar(message: error.getErrorMessage());
     } else if (response.data != null) {
-      _listOfPosts.addAll(response.data!.listOfPosts ?? []);
+      _listOfPosts = await _postFeed.alsoWorks(response.data!.listOfPosts);
       if ((response.data!.listOfPosts ?? []).length < 20) {
         _isEndOfList = true;
         notifyListeners();
@@ -320,7 +319,7 @@ class GroupInfoViewModel extends BaseModel {
     }
   }
 
-  void goToPostDetailsView(FeedPostResponse postResponse, int index) async {
+  void goToPostDetailsView(FeedPost postResponse, int index) async {
     var result = await _navigationService.navigateTo(
         Routes.singlePostDetailsView,
         arguments: SinglePostDetailsViewArguments(postResponse: postResponse));

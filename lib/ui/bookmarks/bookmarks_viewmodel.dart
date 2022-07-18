@@ -6,12 +6,11 @@ import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/DialogType.dart';
-import 'package:tamely/models/feed_post_response.dart';
-
 import 'package:tamely/models/get_bookmarks_model.dart';
-
 import 'package:tamely/api/api_service.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
+import '../../services/post_feed_details_resolver_service.dart';
+import '../post/Class/post_feed_class.dart';
 
 class BookmarksViewModel extends FutureViewModel {
   final _bottomSheetService = locator<BottomSheetService>();
@@ -20,12 +19,13 @@ class BookmarksViewModel extends FutureViewModel {
   final _navigationService = locator<NavigationService>();
   final _sharedPreferenceService = locator<SharedPreferencesService>();
   final _tamelyApi = locator<TamelyApi>();
+  final _postFeed = locator<PostFeedDetailsService>();
 
   bool isHuman = true;
   String petID = "";
   String petToken = "";
 
-  List<FeedPostResponse> listOfBookmark = [];
+  List<FeedPost> listOfBookmark = [];
 
   // String _sId = "";
   // List _hashtags = [];
@@ -77,7 +77,8 @@ class BookmarksViewModel extends FutureViewModel {
         _snackBarService.showSnackbar(message: error.getErrorMessage());
         _navigationService.back();
       } else if (response.data != null) {
-        listOfBookmark.addAll(response.data!.listOfBookmarks ?? []);
+        listOfBookmark =
+            await _postFeed.alsoWorks(response.data!.listOfBookmarks);
         _dialogService.completeDialog(DialogResponse(confirmed: true));
         notifyListeners();
       } else {
@@ -86,7 +87,7 @@ class BookmarksViewModel extends FutureViewModel {
     });
   }
 
-  void goToPostDetailsView(FeedPostResponse postResponse) async {
+  void goToPostDetailsView(FeedPost postResponse) async {
     var result = await _navigationService.navigateTo(
         Routes.singlePostDetailsView,
         arguments: SinglePostDetailsViewArguments(postResponse: postResponse));

@@ -187,13 +187,28 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     } else if (currentIndex == 1) {
       await bookARun();
       // _navigationService.navigateTo(Routes.dTPlanSelectionView,arguments: DTPlanSelectionViewArguments(address1:addressLineTwoController,address2:addressLineTwoController,subTotal:subTotal,youSave:discount,totalPrice:amount),);
-      if(selectedPlan != DogTrainingPackage.One && selectedPlan != DogTrainingPackage.Two && selectedPlan != DogTrainingPackage.Six){
-        flag=1;
-        await Navigator.push(StackedService.navigatorKey!.currentContext!, MaterialPageRoute(builder: (context)=>DTPlanSelectionView(address1:addressLineOneController.text,address2:addressLineTwoController.text,subTotal:subTotal,youSave:discount,totalPrice:amount,savedAmount:savedAmount,
-            date: pickedDate,value: selectedPlan,offerValid:_isOfferValid,OfferAvailaible:_isOfferAvailable,bookingId: bookingId,noOfPetsSelected: noOfPetsSelected,)));
-      }
-      else{
-
+      if (selectedPlan != DogTrainingPackage.One &&
+          selectedPlan != DogTrainingPackage.Two &&
+          selectedPlan != DogTrainingPackage.Six) {
+        flag = 1;
+        await Navigator.push(
+            StackedService.navigatorKey!.currentContext!,
+            MaterialPageRoute(
+                builder: (context) => DTPlanSelectionView(
+                      address1: addressLineOneController.text,
+                      address2: addressLineTwoController.text,
+                      subTotal: subTotal,
+                      youSave: discount,
+                      totalPrice: amount,
+                      savedAmount: savedAmount,
+                      date: pickedDate,
+                      value: selectedPlan,
+                      offerValid: _isOfferValid,
+                      OfferAvailaible: _isOfferAvailable,
+                      bookingId: bookingId,
+                      noOfPetsSelected: noOfPetsSelected,
+                    )));
+      } else {
         if (freeWalkAvailable && selectedPlan == DogTrainingPackage.One) {
           // await bookARun();
           if (bookingId != "") {
@@ -204,7 +219,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
           _navigationService.back();
           _navigationService.back();
           _navigationService.navigateTo(Routes.appointmentsView);
-        } else if(flag!=1){
+        } else if (flag != 1) {
           // await bookARun();
           if (bookingId != "") {
             _navigationService.replaceWith(
@@ -215,20 +230,19 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
           }
         }
       }
-
-
     }
     notifyListeners();
   }
-  Future onMainButtonPressed2(int newAmount,String newBookingId) async {
+
+  Future onMainButtonPressed2(int newAmount, String newBookingId) async {
     print("book a run 2");
     print(newAmount);
-      // await bookARun();
-          _navigationService.replaceWith(
-            Routes.dTPaymentView,
-            arguments: DTPaymentViewArguments(
-                amount: newAmount.toInt(), bookingId: newBookingId),
-          );
+    // await bookARun();
+    _navigationService.replaceWith(
+      Routes.dTPaymentView,
+      arguments: DTPaymentViewArguments(
+          amount: newAmount.toInt(), bookingId: newBookingId),
+    );
     notifyListeners();
   }
 
@@ -303,6 +317,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
         snackBarService.showSnackbar(message: "No Internet connection");
       }
     } on ServerError catch (e) {
+      getFreeWalkStatus();
       log.e(e.toString());
     }
   }
@@ -325,8 +340,8 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
 
   String _description = "Free";
   String get description => _description;
-  int _selected=0;
-  int get selected=>_selected;
+  int _selected = 0;
+  int get selected => _selected;
 
   List _boxes = [
     ['Pay Full Amount', "₹6,500/-", "", true],
@@ -400,7 +415,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _isOfferValid = false;
       _isOfferAvailable = true;
       _doneMultiply = false;
-      _noOfMonths=2;
+      _noOfMonths = 2;
     } else if (selectedPlan == DogTrainingPackage.Four) {
       _isValid = true;
       _description = "Intermediate Training";
@@ -411,7 +426,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _isOfferValid = false;
       _isOfferAvailable = true;
       _doneMultiply = false;
-      _noOfMonths=3;
+      _noOfMonths = 3;
     } else if (selectedPlan == DogTrainingPackage.Five) {
       _isValid = true;
       _description = "Advance Training";
@@ -422,7 +437,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _isOfferValid = false;
       _isOfferAvailable = true;
       _doneMultiply = false;
-      _noOfMonths=4;
+      _noOfMonths = 4;
     } else if (selectedPlan == DogTrainingPackage.Six) {
       _isValid = true;
       _description = "Premium Training";
@@ -433,7 +448,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _isOfferValid = false;
       _isOfferAvailable = true;
       _doneMultiply = false;
-      _noOfMonths=6;
+      _noOfMonths = 6;
     }
     twoPets();
     setFirstPageValid();
@@ -459,8 +474,8 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   bool _isCouponProcessing = false;
   bool get isCouponProcessing => _isCouponProcessing;
 
-  bool _secondOffer=true;
-  bool get secondOffer=>_secondOffer;
+  bool _secondOffer = true;
+  bool get secondOffer => _secondOffer;
 
   Future<void> applyCoupon() async {
     print("entered aplly coupon");
@@ -503,6 +518,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     }
     _isCouponProcessing = false;
   }
+
   Future<void> applyCoupon2() async {
     print("entered aplly2 coupon");
     print(promoCodeController.text);
@@ -511,7 +527,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     String? couponCode = promoCodeController.text;
     if (couponCode != "" && _isCouponProcessing == false) {
       _isCouponProcessing = true;
-      _secondOffer=false;
+      _secondOffer = false;
       notifyListeners();
       try {
         if (await Util.checkInternetConnectivity()) {
@@ -578,8 +594,8 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   bool _isDatePicked = false;
   bool get isDatePicked => _isDatePicked;
 
-  String _time="";
-  String get time=>_time;
+  String _time = "";
+  String get time => _time;
 
   DateTime _pickedDate = DateTime.now();
   DateTime get pickedDate => _pickedDate;
@@ -623,7 +639,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
           );
           _pickedDate = picked;
           _isDatePicked = false;
-          _time=DateFormat.jm().format(DateTime.now());
+          _time = DateFormat.jm().format(DateTime.now());
           notifyListeners();
           secondPageValidation('d');
         }
@@ -751,11 +767,11 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
 
   bool _doneMultiply = false;
   bool get doneMultiply => _doneMultiply;
-  int _noOfPetsSelected=1;
-  int get noOfPetsSelected=>_noOfPetsSelected;
+  int _noOfPetsSelected = 1;
+  int get noOfPetsSelected => _noOfPetsSelected;
 
-  int _noOfMonths=0;
-  int get noOfMonths=>_noOfMonths;
+  int _noOfMonths = 0;
+  int get noOfMonths => _noOfMonths;
 
   void selectRun(NoOfRuns? value) {
     selectedRun = value;
@@ -772,26 +788,27 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   }
 
   void twoPets() {
-    myPets.forEach((pet) {
-
-    });
+    myPets.forEach((pet) {});
     // (noOfDogs == 2 )||
-    if ( (myPets[0].selected==true && myPets[1].selected==true) && !_doneMultiply ) {
+    if ((myPets[0].selected == true && myPets[1].selected == true) &&
+        !_doneMultiply) {
       _amount = amount * 2;
       _savedAmount = savedAmount * 2;
       _discount = discount * 2;
       _subTotal = subTotal * 2;
       _doneMultiply = true;
-      _noOfPetsSelected=2;
+      _noOfPetsSelected = 2;
     }
     // (noOfDogs == 1) && donemultiply
-    else if (((myPets[0].selected==true && myPets[1].selected==false) || (myPets[0].selected==false && myPets[1].selected==true)) && _doneMultiply) {
+    else if (((myPets[0].selected == true && myPets[1].selected == false) ||
+            (myPets[0].selected == false && myPets[1].selected == true)) &&
+        _doneMultiply) {
       _amount = amount / 2;
       _savedAmount = savedAmount / 2;
       _discount = discount / 2;
       _subTotal = subTotal / 2;
       _doneMultiply = false;
-      _noOfPetsSelected=1;
+      _noOfPetsSelected = 1;
     }
     notifyListeners();
   }
@@ -837,16 +854,15 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     notifyListeners();
   }
 
-  void paymentPlan(String text){
-    if(text=="Pay Full Amount"){
-      _boxes[0][3]=true;
-      _boxes[1][3]=false;
-      _selected=0;
-    }
-    else{
-      _boxes[1][3]=true;
-      _boxes[0][3]=false;
-      _selected=1;
+  void paymentPlan(String text) {
+    if (text == "Pay Full Amount") {
+      _boxes[0][3] = true;
+      _boxes[1][3] = false;
+      _selected = 0;
+    } else {
+      _boxes[1][3] = true;
+      _boxes[0][3] = false;
+      _selected = 1;
     }
 
     notifyListeners();
@@ -1443,8 +1459,8 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     );
 
     //
-    PackageTrainingBody packageBody =
-        PackageTrainingBody(_description, _amount.toInt().toString(), _frequency);
+    PackageTrainingBody packageBody = PackageTrainingBody(
+        _description, _amount.toInt().toString(), _frequency);
 
     //
     try {

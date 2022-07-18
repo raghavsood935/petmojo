@@ -1,21 +1,21 @@
-import 'package:flutter/cupertino.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
 import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
-import 'package:tamely/models/feed_post_response.dart';
 import 'package:tamely/models/params/counter_body.dart';
-import 'package:tamely/shared/base_viewmodel.dart';
 import 'package:tamely/ui/services/services_viewmodel.dart';
 import 'package:tamely/util/ImageConstant.dart';
+import '../../../services/post_feed_details_resolver_service.dart';
+import '../../post/Class/post_feed_class.dart';
 
 class ForYouTabViewModel extends ServicesViewModel {
   final log = getLogger('CreateAnimalProfileView');
   final _navigationService = locator<NavigationService>();
   final _tamelyApi = locator<TamelyApi>();
   final _snackBarService = locator<SnackbarService>();
+  final _postFeed = locator<PostFeedDetailsService>();
 
   int _counter = 0;
   bool _isLoading = true;
@@ -30,7 +30,7 @@ class ForYouTabViewModel extends ServicesViewModel {
   int get counter => _counter;
   bool get isEndOfList => _isEndOfList;
 
-  Future postDetailsPage(FeedPostResponse postResponse) async {
+  Future postDetailsPage(FeedPost postResponse) async {
     await _navigationService.navigateTo(
       Routes.postDetialsPageView,
       arguments: PostDetialsPageViewArguments(
@@ -69,7 +69,7 @@ class ForYouTabViewModel extends ServicesViewModel {
       notifyListeners();
       _snackBarService.showSnackbar(message: error.getErrorMessage());
     } else if (result.data != null) {
-      _dummyListOfPosts.addAll(result.data!.listOfPosts ?? []);
+      _dummyListOfPosts = await _postFeed.alsoWorks(result.data!.listOfPosts);
       if ((result.data!.listOfPosts ?? []).length < 20) {
         _isEndOfList = true;
         notifyListeners();
@@ -82,9 +82,9 @@ class ForYouTabViewModel extends ServicesViewModel {
 
   List<String> _vidoes = [];
 
-  List<FeedPostResponse> _dummyListOfPosts = [];
+  List<FeedPost> _dummyListOfPosts = [];
 
-  List<FeedPostResponse> get dummyListOfPosts => _dummyListOfPosts;
+  List<FeedPost> get dummyListOfPosts => _dummyListOfPosts;
 
   List<String> get vidoes => _vidoes;
 

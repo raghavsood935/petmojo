@@ -1,14 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
 import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/BottomSheetType.dart';
-import 'package:tamely/enum/DialogType.dart';
-import 'package:tamely/models/feed_post_response.dart';
 import 'package:tamely/models/params/delete_post_body.dart';
 import 'package:tamely/models/params/like_dislike_post_body.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
@@ -16,7 +13,7 @@ import 'package:tamely/shared/base_viewmodel.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/global_methods.dart';
-import 'package:tamely/widgets/dialogs/image_pop_dailog_view.dart';
+import '../../ui/post/Class/post_feed_class.dart';
 
 class PostItemViewModel extends BaseModel {
   final _bottomsheetService = locator<BottomSheetService>();
@@ -30,7 +27,7 @@ class PostItemViewModel extends BaseModel {
   String Id = "";
   String postId = "";
 
-  FeedPostResponse? postResponse;
+  FeedPost? postResponse;
 
   bool isHuman = true;
   String petToken = "";
@@ -39,7 +36,7 @@ class PostItemViewModel extends BaseModel {
 
   bool isOurPost = true;
 
-  void init(FeedPostResponse postResponse) async {
+  void init(FeedPost postResponse) async {
     CurrentProfile profile = _sharedPrefernceService.getCurrentProfile();
     this.isHuman = profile.isHuman;
     this.myProfileImg = profile.profileImgUrl == ""

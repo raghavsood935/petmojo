@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -13,17 +11,13 @@ import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
-import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/models/animal_profile_detail_model.dart';
 import 'package:tamely/models/application_models.dart';
-import 'package:tamely/models/feed_post_response.dart';
 import 'package:tamely/models/guardians_model.dart';
 import 'package:tamely/models/list_of_feed_post_response.dart';
-import 'package:tamely/models/list_of_guardians.dart';
 import 'package:tamely/models/my_animal_model.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/models/params/edit_animal_profile_main_details_body.dart';
-import 'package:tamely/models/params/get_post_by_id.dart';
 import 'package:tamely/models/params/send_follow_request_body/from_request_body.dart';
 import 'package:tamely/models/params/send_follow_request_body/send_follow_request_body.dart';
 import 'package:tamely/models/params/send_follow_request_body/to_request_body.dart';
@@ -33,6 +27,8 @@ import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/global_methods.dart';
 import 'package:tamely/util/utils.dart';
 import 'package:tamely/widgets/dialogs/image_pop_dailog_view.dart';
+import '../../post/Class/post_feed_class.dart';
+import '../../../services/post_feed_details_resolver_service.dart';
 
 class AnimalProfileViewModel extends FutureViewModel {
   final log = getLogger('AnimalProfileView');
@@ -42,6 +38,7 @@ class AnimalProfileViewModel extends FutureViewModel {
   final _snackBarService = locator<SnackbarService>();
   final _sharedPreferenceService = locator<SharedPreferencesService>();
   final _uploadService = locator<CloudStorageService>();
+  final _postFeed = locator<PostFeedDetailsService>();
 
   MyAnimalModelResponse? myAnimalModelResponse;
 
@@ -78,7 +75,7 @@ class AnimalProfileViewModel extends FutureViewModel {
 
   bool isBrandAmbassador = false;
 
-  List<FeedPostResponse> _listOfPosts = [];
+  List<FeedPost> _listOfPosts = [];
 
   String get profilename => _profilename;
 
@@ -108,7 +105,7 @@ class AnimalProfileViewModel extends FutureViewModel {
 
   bool get isUpForPlayBuddies => _isUpForPlayBuddies;
 
-  List<FeedPostResponse> get listOfPosts => _listOfPosts;
+  List<FeedPost> get listOfPosts => _listOfPosts;
 
   bool get isLoading => _isLoading;
 
@@ -223,7 +220,7 @@ class AnimalProfileViewModel extends FutureViewModel {
     );
   }
 
-  void goToPostDetailsView(FeedPostResponse postResponse, int index) async {
+  void goToPostDetailsView(FeedPost postResponse, int index) async {
     var result = await _navigationService.navigateTo(
         Routes.singlePostDetailsView,
         arguments: SinglePostDetailsViewArguments(postResponse: postResponse));
@@ -303,7 +300,8 @@ class AnimalProfileViewModel extends FutureViewModel {
       _dialogService.completeDialog(DialogResponse(confirmed: true));
       _snackBarService.showSnackbar(message: error.getErrorMessage());
     } else if (response.data != null) {
-      _listOfPosts.addAll(response.data!.listOfPosts ?? []);
+      //_listOfPosts.addAll(response.data!.listOfPosts ?? []);
+      _listOfPosts = await _postFeed.alsoWorks(response.data!.listOfPosts);
       if ((response.data!.listOfPosts ?? []).length < 20) {
         _isEndOfList = true;
         notifyListeners();

@@ -233,6 +233,7 @@ class DRDogRunningBookingViewModel extends FormViewModel {
         snackBarService.showSnackbar(message: "No Internet connection");
       }
     } on ServerError catch (e) {
+      getFreeWalkStatus();
       log.e(e.toString());
     }
   }
@@ -623,23 +624,24 @@ class DRDogRunningBookingViewModel extends FormViewModel {
   }
 
   void twoPets() {
-  //   if (noOfDogs == 2) {
-  //     _amount = amount * 2;
-  //     _savedAmount = savedAmount * 2;
-  //     _discount = discount * 2;
-  //     _subTotal = subTotal * 2;
-  //     _doneMultiply = true;
-  //   } else if (noOfDogs == 1 && doneMultiply) {
-  //     _amount = amount / 2;
-  //     _savedAmount = savedAmount / 2;
-  //     _discount = discount / 2;
-  //     _subTotal = subTotal / 2;
-  //     _doneMultiply = false;
-  //   }
-  //   notifyListeners();
+    //   if (noOfDogs == 2) {
+    //     _amount = amount * 2;
+    //     _savedAmount = savedAmount * 2;
+    //     _discount = discount * 2;
+    //     _subTotal = subTotal * 2;
+    //     _doneMultiply = true;
+    //   } else if (noOfDogs == 1 && doneMultiply) {
+    //     _amount = amount / 2;
+    //     _savedAmount = savedAmount / 2;
+    //     _discount = discount / 2;
+    //     _subTotal = subTotal / 2;
+    //     _doneMultiply = false;
+    //   }
+    //   notifyListeners();
 
     // (noOfDogs == 2 )||
-    if ( (myPets[0].selected==true && myPets[1].selected==true) && !_doneMultiply ) {
+    if ((myPets[0].selected == true && myPets[1].selected == true) &&
+        !_doneMultiply) {
       _amount = amount * 2;
       _savedAmount = savedAmount * 2;
       _discount = discount * 2;
@@ -647,7 +649,9 @@ class DRDogRunningBookingViewModel extends FormViewModel {
       _doneMultiply = true;
     }
     // (noOfDogs == 1) && donemultiply
-    else if (((myPets[0].selected==true && myPets[1].selected==false) || (myPets[0].selected==false && myPets[1].selected==true)) && _doneMultiply) {
+    else if (((myPets[0].selected == true && myPets[1].selected == false) ||
+            (myPets[0].selected == false && myPets[1].selected == true)) &&
+        _doneMultiply) {
       _amount = amount / 2;
       _savedAmount = savedAmount / 2;
       _discount = discount / 2;

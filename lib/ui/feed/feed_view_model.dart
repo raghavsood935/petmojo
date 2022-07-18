@@ -1,5 +1,3 @@
-import 'package:camera/camera.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
@@ -7,15 +5,15 @@ import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/BottomSheetType.dart';
-import 'package:tamely/models/feed_post_response.dart';
 import 'package:tamely/models/my_tales_model.dart';
 import 'package:tamely/models/params/counter_body.dart';
 import 'package:tamely/models/params/like_dislike_post_body.dart';
-import 'package:tamely/services/local_notification_service.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/global_methods.dart';
+import '../../services/post_feed_details_resolver_service.dart';
+import '../post/Class/post_feed_class.dart';
 
 class FeedViewModel extends BaseModel {
   final _bottomsheetService = locator<BottomSheetService>();
@@ -23,10 +21,11 @@ class FeedViewModel extends BaseModel {
   final navigationService = locator<NavigationService>();
   final _snackBarService = locator<SnackbarService>();
   final _tamelyApi = locator<TamelyApi>();
+  final _postFeed = locator<PostFeedDetailsService>();
 
   List<MyTalesModel> _dummyListOfTales = [];
 
-  List<FeedPostResponse> _dummyFeedPostModel = [];
+  List<FeedPost> _dummyFeedPostModel = [];
 
   int _counter = 0;
   bool _isLoading = true;
@@ -44,7 +43,7 @@ class FeedViewModel extends BaseModel {
   bool get isEndOfList => _isEndOfList;
 
   List<MyTalesModel> get dummyListOfTales => _dummyListOfTales;
-  List<FeedPostResponse> get dummyListOfFeedPost => _dummyFeedPostModel;
+  List<FeedPost> get dummyListOfFeedPost => _dummyFeedPostModel;
 
   void init() async {
     CurrentProfile profile = _sharedPrefernceService.getCurrentProfile();
@@ -78,7 +77,7 @@ class FeedViewModel extends BaseModel {
       notifyListeners();
       _snackBarService.showSnackbar(message: error.getErrorMessage());
     } else if (result.data != null) {
-      _dummyFeedPostModel.addAll(result.data!.listOfPosts ?? []);
+      _dummyFeedPostModel = await _postFeed.alsoWorks(result.data!.listOfPosts);
       notifyListeners();
       if ((result.data!.listOfPosts ?? []).length < 5) {
         _isEndOfList = true;
