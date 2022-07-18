@@ -4,12 +4,12 @@ import 'package:tamely/api/api_service.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/BottomSheetType.dart';
-import 'package:tamely/models/feed_post_response.dart';
 import 'package:tamely/models/params/counter_body.dart';
 import 'package:tamely/models/params/like_dislike_post_body.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/shared/base_viewmodel.dart';
-import 'package:tamely/util/ImageConstant.dart';
+import '../post/Class/post_feed_class.dart';
+import '../../services/post_feed_details_resolver_service.dart';
 
 class PostDetialsPageViewModel extends BaseModel {
   final _bottomsheetService = locator<BottomSheetService>();
@@ -17,8 +17,9 @@ class PostDetialsPageViewModel extends BaseModel {
   final navigationService = locator<NavigationService>();
   final sharedPreferenceService = locator<SharedPreferencesService>();
   final _tamelyApi = locator<TamelyApi>();
+  final _postFeed = locator<PostFeedDetailsService>();
 
-  List<FeedPostResponse> _dummyFeedPostModel = [];
+  List<FeedPost> _dummyFeedPostModel = [];
 
   int _counter = 0;
   bool _isLoading = true;
@@ -34,13 +35,13 @@ class PostDetialsPageViewModel extends BaseModel {
   bool get isLoading => _isLoading;
   int get counter => _counter;
 
-  List<FeedPostResponse> get dummyListOfFeedPost => _dummyFeedPostModel;
+  List<FeedPost> get dummyListOfFeedPost => _dummyFeedPostModel;
 
   void back() {
     navigationService.back();
   }
 
-  void init(FeedPostResponse postResponse) async {
+  void init(FeedPost postResponse) async {
     CurrentProfile profile = sharedPreferenceService.getCurrentProfile();
 
     isHuman = profile.isHuman;
@@ -71,7 +72,8 @@ class PostDetialsPageViewModel extends BaseModel {
     notifyListeners();
     var result = await _tamelyApi.getFeedPosts(CounterBody(_counter), true);
     if (result.data != null) {
-      _dummyFeedPostModel.addAll(result.data!.listOfPosts ?? []);
+      _dummyFeedPostModel.insertAll(
+          1, await _postFeed.alsoWorks(result.data!.listOfPosts));
       _counter++;
       _isLoading = false;
       notifyListeners();

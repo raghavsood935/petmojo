@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
@@ -15,13 +14,14 @@ import 'package:tamely/models/user_profile_details_response.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/global_methods.dart';
+import '../../services/aws_upload_service.dart';
 
 class NewPostViewModel extends FutureViewModel<void> implements Initialisable {
   final _sharedPrefService = locator<SharedPreferencesService>();
   final _navigationService = locator<NavigationService>();
-
   final _snackBarService = locator<SnackbarService>();
   final _tamelyApi = locator<TamelyApi>();
+  final _uploadService = locator<CloudStorageService>();
 
   bool isHuman = true;
   String userId = "";
@@ -129,11 +129,17 @@ class NewPostViewModel extends FutureViewModel<void> implements Initialisable {
   Future post(String path, String caption) async {
     List<String> imageLinks = [];
 
-    imageLinks = await GlobalMethods.imageToTwoLinks(File(path));
-    await uploadPost(imageLinks, caption);
+    // New code
+    String awsKey = await _uploadService.uploadFile(
+      file: File(path),
+      fileName: File(path).path.split('/').last,
+    );
+
+    //imageLinks = await GlobalMethods.imageToTwoLinks(File(path));
+    await uploadPost(awsKey, caption);
   }
 
-  Future uploadPost(List<String> links, String caption) async {
+  Future uploadPost(String link, String caption) async {
     bool posting = false;
 
     List<PostOnProfile> finalList = postOn + postOnGroup;
@@ -165,8 +171,8 @@ class NewPostViewModel extends FutureViewModel<void> implements Initialisable {
             "",
             userAuthor,
             authorType,
-            links[0],
-            links[1],
+            link,
+            link,
             animalAuthor,
             groupAuthor,
           ),

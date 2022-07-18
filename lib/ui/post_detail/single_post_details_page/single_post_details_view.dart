@@ -10,11 +10,13 @@ import 'package:tamely/widgets/custom_circle_avatar.dart';
 import 'package:tamely/widgets/dialogs/comments_bottom_sheet.dart';
 import 'package:tamely/widgets/post_item_view.dart';
 
+import '../../post/Class/post_feed_class.dart';
+
 class SinglePostDetailsView extends StatefulWidget {
   SinglePostDetailsView({Key? key, required this.postResponse})
       : super(key: key);
 
-  FeedPostResponse postResponse;
+  FeedPost postResponse;
 
   @override
   _SinglePostDetailsViewState createState() => _SinglePostDetailsViewState();

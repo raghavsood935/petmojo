@@ -16,7 +16,6 @@ import '../enum/dog_training_package.dart';
 import '../enum/walkNumber.dart';
 import '../models/application_models.dart';
 import '../models/e-commerce/product_response.dart';
-import '../models/feed_post_response.dart';
 import '../models/get_animals_by_location_response.dart';
 import '../models/get_blogs_model.dart';
 import '../models/my_animal_model.dart';
@@ -87,6 +86,7 @@ import '../ui/onboarding/onboarding_view.dart';
 import '../ui/otp/confirm_otp_view.dart';
 import '../ui/phone_authentication/confirm_otp_phone/confirm_otp_phone_view.dart';
 import '../ui/phone_authentication/phone_authentication_view.dart';
+import '../ui/post/Class/post_feed_class.dart';
 import '../ui/post/camera_screen.dart';
 import '../ui/post/post_creation.dart';
 import '../ui/post_detail/post_detial_page_view.dart';
@@ -1481,14 +1481,14 @@ class GuardiansAndRelatedAnimalsViewArguments {
 /// PostDetialsPageView arguments holder class
 class PostDetialsPageViewArguments {
   final Key? key;
-  final FeedPostResponse postResponse;
+  final FeedPost postResponse;
   PostDetialsPageViewArguments({this.key, required this.postResponse});
 }
 
 /// SinglePostDetailsView arguments holder class
 class SinglePostDetailsViewArguments {
   final Key? key;
-  final FeedPostResponse postResponse;
+  final FeedPost postResponse;
   SinglePostDetailsViewArguments({this.key, required this.postResponse});
 }
 

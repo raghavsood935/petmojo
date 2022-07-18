@@ -12,6 +12,7 @@ import 'package:stacked_services/stacked_services.dart';
 
 import '../api/api_service.dart';
 import '../services/aws_upload_service.dart';
+import '../services/post_feed_details_resolver_service.dart';
 import '../services/shared_preferences_service.dart';
 import '../services/user_service.dart';
 
@@ -31,4 +32,5 @@ void setupLocator({String? environment, EnvironmentFilter? environmentFilter}) {
   locator.registerLazySingleton(() => UserService());
   locator.registerLazySingleton(() => TamelyApi());
   locator.registerLazySingleton(() => CloudStorageService());
+  locator.registerLazySingleton(() => PostFeedDetailsService());
 }

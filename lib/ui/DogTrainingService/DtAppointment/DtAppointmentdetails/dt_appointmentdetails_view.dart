@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
-import '../../../../enum/dog_training_journey.dart';
 import 'dt_appointmentdetails_viewmodel.dart';
 
 class DTAppointmentDetailsView extends StatelessWidget {
@@ -160,14 +158,14 @@ class DTAppointmentDetailsView extends StatelessWidget {
                                       ? Text("✅")
                                       // : (isInWarning(model.warning, index + 1))
                                       //     ? Text("⚠")
-                                          : Text("")),
+                                      : Text("")),
                               ],
                             ),
                           ),
                           decoration: BoxDecoration(
                             color: model.currentSession == index + 1
                                 ? colors.primary
-                                : ((index + 1<= model.indexToStart) &&
+                                : ((index + 1 <= model.indexToStart) &&
                                         (isInTicks(model.Ticks, index + 1) ||
                                             isInWarning(
                                                 model.warning, index + 1)))
@@ -335,688 +333,691 @@ class DTAppointmentDetailsView extends StatelessWidget {
                 ),
 
                 // Learning Journey
-                Container(
-                  height: 100,
-                  width: screenWidth(context),
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  decoration: BoxDecoration(
-                    color: colors.lightBackgroundColor,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10),
+                Center(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    height: 100,
+                    width: 360 - 40,
+                    decoration: BoxDecoration(
+                      color: colors.lightBackgroundColor,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                      ),
                     ),
-                  ),
-                  child: Center(
-                    child: AppText.headingOne(
-                      "Learning Journey",
-                      color: colors.primary,
+                    child: Center(
+                      child: AppText.headingOne(
+                        "Learning Journey",
+                        color: colors.primary,
+                      ),
                     ),
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  height: 1250,
-                  decoration: BoxDecoration(
-                    color: colors.lightBackgroundColor,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10),
+                Center(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    height: 1250,
+                    width: 360 - 40,
+                    decoration: BoxDecoration(
+                      color: colors.lightBackgroundColor,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(10),
+                        bottomRight: Radius.circular(10),
+                      ),
                     ),
-                  ),
-                  child: Stack(
-                    children: [
-                      // layer One
-                      // -- Lines
-                      Positioned(
-                        right: 95,
-                        top: 50,
-                        child: Image.asset(
-                            "assets/images/dog_journey/dotted_lines/line_one.png"),
-                      ),
-                      Positioned(
-                        left: 101,
-                        top: 248,
-                        child: Image.asset(
-                            "assets/images/dog_journey/dotted_lines/line_two.png"),
-                      ),
-                      Positioned(
-                        right: 95,
-                        top: 450,
-                        child: Image.asset(
-                            "assets/images/dog_journey/dotted_lines/line_one.png"),
-                      ),
-                      Positioned(
-                        left: 101,
-                        top: 648,
-                        child: Image.asset(
-                            "assets/images/dog_journey/dotted_lines/line_two.png"),
-                      ),
-                      Positioned(
-                        right: 0,
-                        top: 850,
-                        child: Image.asset(
-                            "assets/images/dog_journey/dotted_lines/line_five.png"),
-                      ),
-                      Positioned(
-                        right: 105,
-                        top: 1100,
-                        child: Container(
-                          height: 100,
-                          width: 100,
+                    child: Stack(
+                      children: [
+                        // layer One
+                        // -- Lines
+                        Positioned(
+                          right: 95,
+                          top: 50,
                           child: Image.asset(
-                              "assets/images/dog_journey/training_certificate.png"),
+                              "assets/images/dog_journey/dotted_lines/line_one.png"),
                         ),
-                      ),
+                        Positioned(
+                          left: 101,
+                          top: 248,
+                          child: Image.asset(
+                              "assets/images/dog_journey/dotted_lines/line_two.png"),
+                        ),
+                        Positioned(
+                          right: 95,
+                          top: 450,
+                          child: Image.asset(
+                              "assets/images/dog_journey/dotted_lines/line_one.png"),
+                        ),
+                        Positioned(
+                          left: 101,
+                          top: 648,
+                          child: Image.asset(
+                              "assets/images/dog_journey/dotted_lines/line_two.png"),
+                        ),
+                        Positioned(
+                          right: 0,
+                          top: 850,
+                          child: Image.asset(
+                              "assets/images/dog_journey/dotted_lines/line_five.png"),
+                        ),
+                        Positioned(
+                          right: 105,
+                          top: 1100,
+                          child: Container(
+                            height: 100,
+                            width: 100,
+                            child: Image.asset(
+                                "assets/images/dog_journey/training_certificate.png"),
+                          ),
+                        ),
 
-                      // -- Session No.
-                      // -- -- Pac - 1
-                      SessionNo(
-                        right: 105,
-                        top: 50,
-                        sessionNo: 1,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 134,
-                        top: 42,
-                        sessionNo: 2,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 151,
-                        top: 58,
-                        sessionNo: 3,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 153,
-                        top: 80,
-                        sessionNo: 4,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 151,
-                        top: 101,
-                        sessionNo: 5,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 148,
-                        top: 121,
-                        sessionNo: 6,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 143,
-                        top: 140,
-                        sessionNo: 7,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 140,
-                        top: 160,
-                        sessionNo: 8,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 140,
-                        top: 180,
-                        sessionNo: 9,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 141,
-                        top: 200,
-                        sessionNo: 10,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 148,
-                        top: 220,
-                        sessionNo: 11,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 170,
-                        top: 230,
-                        sessionNo: 12,
-                        sessionJourney: model.sessionJourney,
-                      ),
+                        // -- Session No.
+                        // -- -- Pac - 1
+                        SessionNo(
+                          right: 105,
+                          top: 50,
+                          sessionNo: 1,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 134,
+                          top: 42,
+                          sessionNo: 2,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 151,
+                          top: 58,
+                          sessionNo: 3,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 153,
+                          top: 80,
+                          sessionNo: 4,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 151,
+                          top: 101,
+                          sessionNo: 5,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 148,
+                          top: 121,
+                          sessionNo: 6,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 143,
+                          top: 140,
+                          sessionNo: 7,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 140,
+                          top: 160,
+                          sessionNo: 8,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 140,
+                          top: 180,
+                          sessionNo: 9,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 141,
+                          top: 200,
+                          sessionNo: 10,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 148,
+                          top: 220,
+                          sessionNo: 11,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 170,
+                          top: 230,
+                          sessionNo: 12,
+                          sessionJourney: model.sessionJourney,
+                        ),
 
-                      // -- -- Pac - 3
-                      SessionNo(
-                        right: 105,
-                        top: 450,
-                        sessionNo: 25,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 134,
-                        top: 400 + 42,
-                        sessionNo: 26,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 151,
-                        top: 400 + 58,
-                        sessionNo: 27,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 153,
-                        top: 400 + 80,
-                        sessionNo: 28,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 151,
-                        top: 400 + 101,
-                        sessionNo: 29,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 148,
-                        top: 400 + 121,
-                        sessionNo: 30,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 143,
-                        top: 400 + 140,
-                        sessionNo: 31,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 140,
-                        top: 400 + 160,
-                        sessionNo: 32,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 140,
-                        top: 400 + 180,
-                        sessionNo: 33,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 141,
-                        top: 400 + 200,
-                        sessionNo: 34,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 148,
-                        top: 400 + 220,
-                        sessionNo: 35,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 170,
-                        top: 400 + 230,
-                        sessionNo: 36,
-                        sessionJourney: model.sessionJourney,
-                      ),
+                        // -- -- Pac - 3
+                        SessionNo(
+                          right: 105,
+                          top: 450,
+                          sessionNo: 25,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 134,
+                          top: 400 + 42,
+                          sessionNo: 26,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 151,
+                          top: 400 + 58,
+                          sessionNo: 27,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 153,
+                          top: 400 + 80,
+                          sessionNo: 28,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 151,
+                          top: 400 + 101,
+                          sessionNo: 29,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 148,
+                          top: 400 + 121,
+                          sessionNo: 30,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 143,
+                          top: 400 + 140,
+                          sessionNo: 31,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 140,
+                          top: 400 + 160,
+                          sessionNo: 32,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 140,
+                          top: 400 + 180,
+                          sessionNo: 33,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 141,
+                          top: 400 + 200,
+                          sessionNo: 34,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 148,
+                          top: 400 + 220,
+                          sessionNo: 35,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 170,
+                          top: 400 + 230,
+                          sessionNo: 36,
+                          sessionJourney: model.sessionJourney,
+                        ),
 
-                      // -- -- Pac - 2
-                      SessionNo(
-                        left: 105,
-                        top: 250,
-                        sessionNo: 13,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        left: 134,
-                        top: 200 + 42,
-                        sessionNo: 14,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        left: 150,
-                        top: 200 + 58,
-                        sessionNo: 15,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        left: 148,
-                        top: 200 + 80,
-                        sessionNo: 16,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        left: 148,
-                        top: 200 + 101,
-                        sessionNo: 17,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        left: 145,
-                        top: 200 + 121,
-                        sessionNo: 18,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        left: 141,
-                        top: 200 + 140,
-                        sessionNo: 19,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        left: 138,
-                        top: 200 + 160,
-                        sessionNo: 20,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        left: 138,
-                        top: 200 + 180,
-                        sessionNo: 21,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        left: 142,
-                        top: 200 + 200,
-                        sessionNo: 22,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        left: 156,
-                        top: 200 + 215,
-                        sessionNo: 23,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        left: 175,
-                        top: 200 + 223,
-                        sessionNo: 24,
-                        sessionJourney: model.sessionJourney,
-                      ),
+                        // -- -- Pac - 2
+                        SessionNo(
+                          left: 105,
+                          top: 250,
+                          sessionNo: 13,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          left: 134,
+                          top: 200 + 42,
+                          sessionNo: 14,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          left: 150,
+                          top: 200 + 58,
+                          sessionNo: 15,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          left: 148,
+                          top: 200 + 80,
+                          sessionNo: 16,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          left: 148,
+                          top: 200 + 101,
+                          sessionNo: 17,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          left: 145,
+                          top: 200 + 121,
+                          sessionNo: 18,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          left: 141,
+                          top: 200 + 140,
+                          sessionNo: 19,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          left: 138,
+                          top: 200 + 160,
+                          sessionNo: 20,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          left: 138,
+                          top: 200 + 180,
+                          sessionNo: 21,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          left: 142,
+                          top: 200 + 200,
+                          sessionNo: 22,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          left: 156,
+                          top: 200 + 215,
+                          sessionNo: 23,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          left: 175,
+                          top: 200 + 223,
+                          sessionNo: 24,
+                          sessionJourney: model.sessionJourney,
+                        ),
 
-                      // -- -- Pac - 4
-                      SessionNo(
-                        left: 105,
-                        top: 650,
-                        sessionNo: 37,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        left: 134,
-                        top: 600 + 42,
-                        sessionNo: 38,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        left: 150,
-                        top: 600 + 58,
-                        sessionNo: 39,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        left: 148,
-                        top: 600 + 80,
-                        sessionNo: 40,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        left: 148,
-                        top: 600 + 101,
-                        sessionNo: 41,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        left: 145,
-                        top: 600 + 121,
-                        sessionNo: 42,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        left: 141,
-                        top: 600 + 140,
-                        sessionNo: 43,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        left: 138,
-                        top: 600 + 160,
-                        sessionNo: 44,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        left: 138,
-                        top: 600 + 180,
-                        sessionNo: 45,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        left: 142,
-                        top: 600 + 200,
-                        sessionNo: 46,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        left: 156,
-                        top: 600 + 215,
-                        sessionNo: 47,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        left: 175,
-                        top: 600 + 223,
-                        sessionNo: 48,
-                        sessionJourney: model.sessionJourney,
-                      ),
+                        // -- -- Pac - 4
+                        SessionNo(
+                          left: 105,
+                          top: 650,
+                          sessionNo: 37,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          left: 134,
+                          top: 600 + 42,
+                          sessionNo: 38,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          left: 150,
+                          top: 600 + 58,
+                          sessionNo: 39,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          left: 148,
+                          top: 600 + 80,
+                          sessionNo: 40,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          left: 148,
+                          top: 600 + 101,
+                          sessionNo: 41,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          left: 145,
+                          top: 600 + 121,
+                          sessionNo: 42,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          left: 141,
+                          top: 600 + 140,
+                          sessionNo: 43,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          left: 138,
+                          top: 600 + 160,
+                          sessionNo: 44,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          left: 138,
+                          top: 600 + 180,
+                          sessionNo: 45,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          left: 142,
+                          top: 600 + 200,
+                          sessionNo: 46,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          left: 156,
+                          top: 600 + 215,
+                          sessionNo: 47,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          left: 175,
+                          top: 600 + 223,
+                          sessionNo: 48,
+                          sessionJourney: model.sessionJourney,
+                        ),
 
-                      // -- -- Pac - 5 - 1
-                      SessionNo(
-                        right: 120,
-                        top: 850,
-                        sessionNo: 49,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 140,
-                        top: 857,
-                        sessionNo: 50,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 159,
-                        top: 867,
-                        sessionNo: 51,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 183,
-                        top: 879,
-                        sessionNo: 52,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 208,
-                        top: 895,
-                        sessionNo: 53,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 226,
-                        top: 907,
-                        sessionNo: 54,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 250,
-                        top: 923,
-                        sessionNo: 55,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 269,
-                        top: 943,
-                        sessionNo: 56,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 250,
-                        top: 963,
-                        sessionNo: 57,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 223,
-                        top: 969,
-                        sessionNo: 58,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 200,
-                        top: 972,
-                        sessionNo: 59,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 180,
-                        top: 973,
-                        sessionNo: 60,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      // -- -- Pac - 5 - 2
-                      SessionNo(
-                        right: 159,
-                        top: 973,
-                        sessionNo: 61,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 133,
-                        top: 973,
-                        sessionNo: 62,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 103,
-                        top: 974,
-                        sessionNo: 63,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 80,
-                        top: 975,
-                        sessionNo: 64,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 60,
-                        top: 976,
-                        sessionNo: 65,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 40,
-                        top: 978,
-                        sessionNo: 66,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 15,
-                        top: 985,
-                        sessionNo: 67,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 0,
-                        top: 1008,
-                        sessionNo: 68,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 05,
-                        top: 1033,
-                        sessionNo: 69,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 25,
-                        top: 1055,
-                        sessionNo: 70,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 48,
-                        top: 1071,
-                        sessionNo: 71,
-                        sessionJourney: model.sessionJourney,
-                      ),
-                      SessionNo(
-                        right: 73,
-                        top: 1091,
-                        sessionNo: 72,
-                        sessionJourney: model.sessionJourney,
-                      ),
+                        // -- -- Pac - 5 - 1
+                        SessionNo(
+                          right: 120,
+                          top: 850,
+                          sessionNo: 49,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 140,
+                          top: 857,
+                          sessionNo: 50,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 159,
+                          top: 867,
+                          sessionNo: 51,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 183,
+                          top: 879,
+                          sessionNo: 52,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 208,
+                          top: 895,
+                          sessionNo: 53,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 226,
+                          top: 907,
+                          sessionNo: 54,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 250,
+                          top: 923,
+                          sessionNo: 55,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 269,
+                          top: 943,
+                          sessionNo: 56,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 250,
+                          top: 963,
+                          sessionNo: 57,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 223,
+                          top: 969,
+                          sessionNo: 58,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 200,
+                          top: 972,
+                          sessionNo: 59,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 180,
+                          top: 973,
+                          sessionNo: 60,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        // -- -- Pac - 5 - 2
+                        SessionNo(
+                          right: 159,
+                          top: 973,
+                          sessionNo: 61,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 133,
+                          top: 973,
+                          sessionNo: 62,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 103,
+                          top: 974,
+                          sessionNo: 63,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 80,
+                          top: 975,
+                          sessionNo: 64,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 60,
+                          top: 976,
+                          sessionNo: 65,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 40,
+                          top: 978,
+                          sessionNo: 66,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 15,
+                          top: 985,
+                          sessionNo: 67,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 0,
+                          top: 1008,
+                          sessionNo: 68,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 05,
+                          top: 1033,
+                          sessionNo: 69,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 25,
+                          top: 1055,
+                          sessionNo: 70,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 48,
+                          top: 1071,
+                          sessionNo: 71,
+                          sessionJourney: model.sessionJourney,
+                        ),
+                        SessionNo(
+                          right: 73,
+                          top: 1091,
+                          sessionNo: 72,
+                          sessionJourney: model.sessionJourney,
+                        ),
 
-                      // Layer Two
-                      Column(
-                        //mainAxisSize: MainAxisSize.min,
-                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          // One
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                height: 140,
-                                width: 130,
-                                child: model.sessionJourney >= 1
-                                    ? Image.asset(
-                                        "assets/images/dog_journey/representation/training_rep_one_un.png")
-                                    : Image.asset(
-                                        "assets/images/dog_journey/representation/training_rep_one_un.png"),
-                              ),
-                              Container(
-                                height: 100,
-                                width: 100,
-                                child: model.sessionJourney >= 1 &&
-                                        model.sessionJourney <= 12
-                                    ? Image.asset(
-                                        "assets/images/dog_journey/packages/training_pac_one_state_two.png")
-                                    : Image.asset(
-                                        "assets/images/dog_journey/packages/training_pac_one_state_three.png"),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 40,
-                          ),
-                          // Two
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                height: 100,
-                                width: 100,
-                                child: model.sessionJourney <= 11
-                                    ? Image.asset(
-                                        "assets/images/dog_journey/packages/training_pac_two_state_one.png")
-                                    : model.sessionJourney >= 13 &&
-                                            model.sessionJourney <= 24
-                                        ? Image.asset(
-                                            "assets/images/dog_journey/packages/training_pac_two_state_two.png")
-                                        : Image.asset(
-                                            "assets/images/dog_journey/packages/training_pac_two_state_three.png"),
-                              ),
-                              Container(
-                                height: 140,
-                                width: 130,
-                                child: model.sessionJourney >= 13
-                                    ? Image.asset(
-                                        "assets/images/dog_journey/representation/training_rep_two_un.png")
-                                    : Image.asset(
-                                        "assets/images/dog_journey/representation/training_rep_two_loc.png"),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 50,
-                          ),
-                          // Three
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                height: 140,
-                                width: 130,
-                                child: model.sessionJourney >= 25
-                                    ? Image.asset(
-                                        "assets/images/dog_journey/representation/training_rep_three_un.png")
-                                    : Image.asset(
-                                        "assets/images/dog_journey/representation/training_rep_three_loc.png"),
-                              ),
-                              Container(
-                                height: 100,
-                                width: 100,
-                                child: model.sessionJourney <= 23
-                                    ? Image.asset(
-                                        "assets/images/dog_journey/packages/training_pac_three_state_one.png")
-                                    : model.sessionJourney >= 25 &&
-                                            model.sessionJourney <= 25
-                                        ? Image.asset(
-                                            "assets/images/dog_journey/packages/training_pac_three_state_two.png")
-                                        : Image.asset(
-                                            "assets/images/dog_journey/packages/training_pac_three_state_three.png"),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 70,
-                          ),
-                          // Four
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                height: 100,
-                                width: 100,
-                                child: model.sessionJourney <= 35
-                                    ? Image.asset(
-                                        "assets/images/dog_journey/packages/training_pac_four_state_one.png")
-                                    : model.sessionJourney >= 37 &&
-                                            model.sessionJourney <= 48
-                                        ? Image.asset(
-                                            "assets/images/dog_journey/packages/training_pac_four_state_two.png")
-                                        : Image.asset(
-                                            "assets/images/dog_journey/packages/training_pac_four_state_three.png"),
-                              ),
-                              Container(
-                                height: 140,
-                                width: 130,
-                                child: model.sessionJourney >= 37
-                                    ? Image.asset(
-                                        "assets/images/dog_journey/representation/training_rep_four_un.png")
-                                    : Image.asset(
-                                        "assets/images/dog_journey/representation/training_rep_four_loc.png"),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 50,
-                          ),
-                          // Five
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                height: 140,
-                                width: 130,
-                                child: model.sessionJourney >= 49
-                                    ? Image.asset(
-                                        "assets/images/dog_journey/representation/training_rep_two_un.png")
-                                    : Image.asset(
-                                        "assets/images/dog_journey/representation/training_rep_two_loc.png"),
-                              ),
-                              Container(
-                                height: 100,
-                                width: 100,
-                                child: model.sessionJourney <= 47
-                                    ? Image.asset(
-                                        "assets/images/dog_journey/packages/training_pac_five_state_one.png")
-                                    : model.sessionJourney >= 49 &&
-                                            model.sessionJourney <= 72
-                                        ? Image.asset(
-                                            "assets/images/dog_journey/packages/training_pac_five_state_two.png")
-                                        : Image.asset(
-                                            "assets/images/dog_journey/packages/training_pac_five_state_three.png"),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 250,
-                          ),
-                          // Six
-                        ],
-                      ),
-                    ],
+                        // Layer Two
+                        Column(
+                          //mainAxisSize: MainAxisSize.min,
+                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // One
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  height: 140,
+                                  width: 130,
+                                  child: model.sessionJourney >= 1
+                                      ? Image.asset(
+                                          "assets/images/dog_journey/representation/training_rep_one_un.png")
+                                      : Image.asset(
+                                          "assets/images/dog_journey/representation/training_rep_one_un.png"),
+                                ),
+                                Container(
+                                  height: 100,
+                                  width: 100,
+                                  child: model.sessionJourney >= 1 &&
+                                          model.sessionJourney <= 12
+                                      ? Image.asset(
+                                          "assets/images/dog_journey/packages/training_pac_one_state_two.png")
+                                      : Image.asset(
+                                          "assets/images/dog_journey/packages/training_pac_one_state_three.png"),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 40,
+                            ),
+                            // Two
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  height: 100,
+                                  width: 100,
+                                  child: model.sessionJourney <= 11
+                                      ? Image.asset(
+                                          "assets/images/dog_journey/packages/training_pac_two_state_one.png")
+                                      : model.sessionJourney >= 13 &&
+                                              model.sessionJourney <= 24
+                                          ? Image.asset(
+                                              "assets/images/dog_journey/packages/training_pac_two_state_two.png")
+                                          : Image.asset(
+                                              "assets/images/dog_journey/packages/training_pac_two_state_three.png"),
+                                ),
+                                Container(
+                                  height: 140,
+                                  width: 130,
+                                  child: model.sessionJourney >= 13
+                                      ? Image.asset(
+                                          "assets/images/dog_journey/representation/training_rep_two_un.png")
+                                      : Image.asset(
+                                          "assets/images/dog_journey/representation/training_rep_two_loc.png"),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 50,
+                            ),
+                            // Three
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  height: 140,
+                                  width: 130,
+                                  child: model.sessionJourney >= 25
+                                      ? Image.asset(
+                                          "assets/images/dog_journey/representation/training_rep_three_un.png")
+                                      : Image.asset(
+                                          "assets/images/dog_journey/representation/training_rep_three_loc.png"),
+                                ),
+                                Container(
+                                  height: 100,
+                                  width: 100,
+                                  child: model.sessionJourney <= 23
+                                      ? Image.asset(
+                                          "assets/images/dog_journey/packages/training_pac_three_state_one.png")
+                                      : model.sessionJourney >= 25 &&
+                                              model.sessionJourney <= 25
+                                          ? Image.asset(
+                                              "assets/images/dog_journey/packages/training_pac_three_state_two.png")
+                                          : Image.asset(
+                                              "assets/images/dog_journey/packages/training_pac_three_state_three.png"),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 70,
+                            ),
+                            // Four
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  height: 100,
+                                  width: 100,
+                                  child: model.sessionJourney <= 35
+                                      ? Image.asset(
+                                          "assets/images/dog_journey/packages/training_pac_four_state_one.png")
+                                      : model.sessionJourney >= 37 &&
+                                              model.sessionJourney <= 48
+                                          ? Image.asset(
+                                              "assets/images/dog_journey/packages/training_pac_four_state_two.png")
+                                          : Image.asset(
+                                              "assets/images/dog_journey/packages/training_pac_four_state_three.png"),
+                                ),
+                                Container(
+                                  height: 140,
+                                  width: 130,
+                                  child: model.sessionJourney >= 37
+                                      ? Image.asset(
+                                          "assets/images/dog_journey/representation/training_rep_four_un.png")
+                                      : Image.asset(
+                                          "assets/images/dog_journey/representation/training_rep_four_loc.png"),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 50,
+                            ),
+                            // Five
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  height: 140,
+                                  width: 130,
+                                  child: model.sessionJourney >= 49
+                                      ? Image.asset(
+                                          "assets/images/dog_journey/representation/training_rep_two_un.png")
+                                      : Image.asset(
+                                          "assets/images/dog_journey/representation/training_rep_two_loc.png"),
+                                ),
+                                Container(
+                                  height: 100,
+                                  width: 100,
+                                  child: model.sessionJourney <= 47
+                                      ? Image.asset(
+                                          "assets/images/dog_journey/packages/training_pac_five_state_one.png")
+                                      : model.sessionJourney >= 49 &&
+                                              model.sessionJourney <= 72
+                                          ? Image.asset(
+                                              "assets/images/dog_journey/packages/training_pac_five_state_two.png")
+                                          : Image.asset(
+                                              "assets/images/dog_journey/packages/training_pac_five_state_three.png"),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 250,
+                            ),
+                            // Six
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 verticalSpaceRegular,
