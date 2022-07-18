@@ -359,13 +359,20 @@ class DGBookingDetailsView
                   ],
                 ),
                 verticalSpaceSmall,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    AppText.titleBold("GST"),
+                    AppText.titleBold("+ ₹ ${model.gst}"),
+                  ],
+                ),
                 spacedDividerTiny,
                 verticalSpaceSmall,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     AppText.titleBold("Total"),
-                    AppText.titleBold("₹ ${model.amount}"),
+                    AppText.titleBold("₹ ${model.afterGST()}"),
                   ],
                 ),
               ],

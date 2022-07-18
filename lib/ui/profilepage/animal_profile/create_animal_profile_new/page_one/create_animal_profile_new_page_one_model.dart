@@ -11,9 +11,12 @@ class CreateAnimalProfileNewPageOneViewModel extends BaseModel {
   final _navigationService = locator<NavigationService>();
   final _tamelyApi = locator<TamelyApi>();
   final _snackBarService = locator<SnackbarService>();
+  late String _username;
+
+  String get username => _username;
 
   TextEditingController petNameController = TextEditingController();
-  TextEditingController petUsernameController = TextEditingController();
+  // TextEditingController petUsernameController = TextEditingController();
 
   bool isValid = true;
   bool isLoading = false;
@@ -25,9 +28,9 @@ class CreateAnimalProfileNewPageOneViewModel extends BaseModel {
     if (petNameController.text.isEmpty) {
       isValid = false;
     }
-    if (petUsernameController.text.isEmpty) {
-      isValid = false;
-    }
+    // if (petUsernameController.text.isEmpty) {
+    //   isValid = false;
+    // }
 
     notifyListeners();
   }
@@ -44,7 +47,9 @@ class CreateAnimalProfileNewPageOneViewModel extends BaseModel {
 
       var response = await _tamelyApi.animalProfileCreateNew(
         CreateAnimalProfileNewBody(
-            petNameController.text, petUsernameController.text),
+          petNameController.text,
+          username,
+        ),
       );
 
       if (response.getException != null) {
@@ -99,7 +104,8 @@ class CreateAnimalProfileNewPageOneViewModel extends BaseModel {
       notifyListeners();
     } else if (response.data != null) {
       print("GENREATEDUSERNAME   ${response.data!.username ?? ""}");
-      petUsernameController.text = response.data!.username ?? "";
+      _username = response.data!.username ?? "";
+      // petUsernameController.text = response.data!.username ?? "";
       isLoading = false;
       notifyListeners();
     }

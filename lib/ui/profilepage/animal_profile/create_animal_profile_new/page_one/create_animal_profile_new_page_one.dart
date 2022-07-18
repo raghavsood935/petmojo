@@ -141,59 +141,59 @@ class _CreateAnimalProfileNewPageOneState
                           ),
                         ),
                         verticalSpaceRegular,
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            AppText.captionBold(
-                              "Pet Username ",
-                              color: colors.black,
-                            ),
-                            AppText.body1Bold(
-                              "*",
-                              color: colors.primary,
-                            ),
-                          ],
-                        ),
+                        // Row(
+                        //   mainAxisSize: MainAxisSize.max,
+                        //   mainAxisAlignment: MainAxisAlignment.start,
+                        //   children: [
+                        //     AppText.captionBold(
+                        //       "Pet Username ",
+                        //       color: colors.black,
+                        //     ),
+                        //     AppText.body1Bold(
+                        //       "*",
+                        //       color: colors.primary,
+                        //     ),
+                        //   ],
+                        // ),
                         verticalSpaceSmall,
-                        PhysicalModel(
-                          elevation: 8,
-                          color: colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                          child: Container(
-                            margin: EdgeInsets.symmetric(vertical: 8),
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.person_outline_rounded,
-                                  color: Color(0xFF393F45).withOpacity(0.50),
-                                ),
-                                horizontalSpaceRegular,
-                                Expanded(
-                                  child: TextField(
-                                    controller: model.petUsernameController,
-                                    onChanged: model.onChange,
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      disabledBorder: InputBorder.none,
-                                      enabledBorder: InputBorder.none,
-                                      errorBorder: InputBorder.none,
-                                      focusedBorder: InputBorder.none,
-                                      focusedErrorBorder: InputBorder.none,
-                                      hintText: "Choose a username",
-                                      hintStyle: TextStyle(
-                                        color: Color(0xFFABB3BB),
-                                      ),
-                                    ),
-                                    keyboardType: TextInputType.name,
-                                    textCapitalization: TextCapitalization.none,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        // PhysicalModel(
+                        //   elevation: 8,
+                        //   color: colors.white,
+                        //   borderRadius: BorderRadius.circular(20),
+                        //   child: Container(
+                        //     margin: EdgeInsets.symmetric(vertical: 8),
+                        //     padding: EdgeInsets.symmetric(horizontal: 10),
+                        //     child: Row(
+                        //       children: [
+                        //         Icon(
+                        //           Icons.person_outline_rounded,
+                        //           color: Color(0xFF393F45).withOpacity(0.50),
+                        //         ),
+                        //         horizontalSpaceRegular,
+                        //         Expanded(
+                        //           child: TextField(
+                        //             controller: model.petUsernameController,
+                        //             onChanged: model.onChange,
+                        //             decoration: InputDecoration(
+                        //               border: InputBorder.none,
+                        //               disabledBorder: InputBorder.none,
+                        //               enabledBorder: InputBorder.none,
+                        //               errorBorder: InputBorder.none,
+                        //               focusedBorder: InputBorder.none,
+                        //               focusedErrorBorder: InputBorder.none,
+                        //               hintText: "Choose a username",
+                        //               hintStyle: TextStyle(
+                        //                 color: Color(0xFFABB3BB),
+                        //               ),
+                        //             ),
+                        //             keyboardType: TextInputType.name,
+                        //             textCapitalization: TextCapitalization.none,
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
