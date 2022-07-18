@@ -49,8 +49,7 @@ class _ProfileViewState extends State<ProfileView> {
     return ViewModelBuilder<ProfileViewModel>.reactive(
       viewModelBuilder: () => ProfileViewModel(),
       onModelReady: (model) {
-        model.init2(
-            widget.isInspectView, widget.inspectProfileId ?? "",
+        model.init2(widget.isInspectView, widget.inspectProfileId ?? "",
             isFollowing: widget.isFollowing ?? false);
         model.getSessionTracker();
       },
@@ -332,8 +331,8 @@ class _ProfileViewState extends State<ProfileView> {
                         //complete your profile info
                         model.ongoingSessionPresent
                             ? model.ongoingSessionType == 1
-                            ? OngoingTraining(model: model)
-                            : OngoingWalking(model: model)
+                                ? OngoingTraining(model: model)
+                                : OngoingWalking(model: model)
                             : Container(),
 
                         Visibility(

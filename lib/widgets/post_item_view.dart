@@ -7,7 +7,7 @@ import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/global_methods.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/bottom_sheet_view_models/post_item_view_model.dart';
-
+import '../ui/post/Class/post_feed_class.dart';
 import 'app_text.dart';
 import 'custom_circle_avatar.dart';
 
@@ -18,7 +18,7 @@ class PostItemView extends StatefulWidget {
     required this.needToShowComments,
   }) : super(key: key);
 
-  FeedPostResponse postResponse;
+  FeedPost postResponse;
 
   bool needToShowComments;
 
@@ -31,7 +31,7 @@ class _PostItemViewState extends State<PostItemView> {
   bool isLiked = false;
   bool isBookmarked = false;
 
-  _PostItemViewState(FeedPostResponse model) {
+  _PostItemViewState(FeedPost model) {
     if (model.votesCounts != null) {
       if (model.votesCounts!.length >= 1) {
         likesCount = model.votesCounts!.first.count ?? 0;
@@ -442,7 +442,7 @@ class _PostItemViewState extends State<PostItemView> {
 class SwiperWidget extends StatefulWidget {
   SwiperWidget({Key? key, required this.model}) : super(key: key);
 
-  final FeedPostResponse model;
+  final FeedPost model;
 
   @override
   _SwiperWidgetState createState() => _SwiperWidgetState();

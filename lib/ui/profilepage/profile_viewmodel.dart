@@ -1,11 +1,9 @@
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
+import '../../services/post_feed_details_resolver_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/api/api_service.dart';
 import 'package:tamely/api/base_response.dart';
@@ -13,11 +11,8 @@ import 'package:tamely/api/server_error.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.logger.dart';
 import 'package:tamely/app/app.router.dart';
-import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/models/application_models.dart';
 import 'package:tamely/models/common_response.dart';
-import 'package:tamely/models/feed_post_response.dart';
-import 'package:tamely/models/get_file_upload_details_response.dart';
 import 'package:tamely/models/list_of_feed_post_response.dart';
 import 'package:tamely/models/params/get_post_by_id.dart';
 import 'package:tamely/models/params/get_profile_details_by_id_body.dart';
@@ -37,6 +32,7 @@ import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/global_methods.dart';
 import 'package:tamely/util/utils.dart';
 import 'package:tamely/widgets/dialogs/image_pop_dailog_view.dart';
+import '../post/Class/post_feed_class.dart';
 
 class ProfileViewModel extends ServicesViewModel {
   final ImagePicker _picker = ImagePicker();
@@ -48,6 +44,7 @@ class ProfileViewModel extends ServicesViewModel {
   final _sharedPreferenceService = locator<SharedPreferencesService>();
   final _tamelyApi = locator<TamelyApi>();
   final _uploadService = locator<CloudStorageService>();
+  final _postFeed = locator<PostFeedDetailsService>();
 
   int _counter = 0;
   bool _isLoading = true;
@@ -214,7 +211,7 @@ class ProfileViewModel extends ServicesViewModel {
     } else if (response.data != null) {
       log.d(response.data!.toString());
       _listOfPosts.clear();
-      _listOfPosts.addAll(response.data!.listOfPosts ?? []);
+      _listOfPosts = await _postFeed.alsoWorks(response.data!.listOfPosts);
       notifyListeners();
     }
   }
@@ -239,7 +236,7 @@ class ProfileViewModel extends ServicesViewModel {
       notifyListeners();
       _snackBarService.showSnackbar(message: error.getErrorMessage());
     } else if (response.data != null) {
-      _listOfPosts.addAll(response.data!.listOfPosts ?? []);
+      _listOfPosts = await _postFeed.alsoWorks(response.data!.listOfPosts);
       if ((response.data!.listOfPosts ?? []).length < 20) {
         _isEndOfList = true;
         notifyListeners();
@@ -269,11 +266,11 @@ class ProfileViewModel extends ServicesViewModel {
   bool isFollowing = false;
 
   List<PetBasicDetailsResponse> _listOfMyAnimals = [];
-  List<FeedPostResponse> _listOfPosts = [];
+  List<FeedPost> _listOfPosts = [];
 
   List<PetBasicDetailsResponse> get listOfMyAnimals => _listOfMyAnimals;
 
-  List<FeedPostResponse> get listOfPosts => _listOfPosts;
+  List<FeedPost> get listOfPosts => _listOfPosts;
 
   String get fullname => _fullname;
 
@@ -366,7 +363,7 @@ class ProfileViewModel extends ServicesViewModel {
     );
   }
 
-  void goToPostDetailsView(FeedPostResponse postResponse, int index) async {
+  void goToPostDetailsView(FeedPost postResponse, int index) async {
     var result = await _navigationService.navigateTo(
         Routes.singlePostDetailsView,
         arguments: SinglePostDetailsViewArguments(postResponse: postResponse));

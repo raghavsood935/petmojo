@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
-import 'package:tamely/models/feed_post_response.dart';
-import 'package:tamely/ui/feed/feed_view.dart';
 import 'package:tamely/ui/post_detail/post_detial_page_view_model.dart';
 import 'package:tamely/util/Color.dart';
-import 'package:tamely/util/ImageConstant.dart';
-import 'package:tamely/util/global_methods.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
-import 'package:tamely/widgets/custom_circle_avatar.dart';
 import 'package:tamely/widgets/post_item_view.dart';
+
+import '../post/Class/post_feed_class.dart';
 
 class PostDetialsPageView extends StatefulWidget {
   const PostDetialsPageView({
@@ -18,7 +14,7 @@ class PostDetialsPageView extends StatefulWidget {
     required this.postResponse,
   }) : super(key: key);
 
-  final FeedPostResponse postResponse;
+  final FeedPost postResponse;
 
   @override
   _PostDetialsPageViewState createState() => _PostDetialsPageViewState();
