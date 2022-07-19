@@ -198,9 +198,13 @@ class DTReportCardView extends StatelessWidget {
                     child: Column(
                       children: [
                         verticalSpaceSmall,
-                        BookingItem(
-                          detailName: "Agenda",
-                          detailValue: "${model.agenda}",
+
+                        Visibility(
+                          visible: model.sessionNo<13,
+                          child: BookingItem(
+                            detailName: "Agenda",
+                            detailValue: "${model.agenda}",
+                          ),
                         ),
                         verticalSpaceSmall,
                         BookingItem(
