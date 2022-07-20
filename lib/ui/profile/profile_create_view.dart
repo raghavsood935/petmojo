@@ -47,7 +47,7 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
         listenToFormUpdated(model);
         model.init(lastAvatarUrl, isEdit ?? false, isAnimal ?? false,
             petID.toString(), petToken.toString());
-        usernameController.text = user.username ?? "";
+        // usernameController.text = user.username ?? "";
         nameController.text = user.fullName ?? "";
         shortBioController.text = user.bio ?? "";
       },
@@ -134,58 +134,58 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
                   ),
                 ),
                 verticalSpaceRegular,
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    AppText.captionBold(
-                      "Username",
-                      color: colors.black,
-                    ),
-                    AppText.body1Bold(
-                      "*",
-                      color: colors.primary,
-                    ),
-                  ],
-                ),
+                // Row(
+                //   mainAxisSize: MainAxisSize.max,
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   children: [
+                //     AppText.captionBold(
+                //       "Username",
+                //       color: colors.black,
+                //     ),
+                //     AppText.body1Bold(
+                //       "*",
+                //       color: colors.primary,
+                //     ),
+                //   ],
+                // ),
                 verticalSpaceSmall,
-                PhysicalModel(
-                  elevation: 8,
-                  color: colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 8),
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.person_outline_rounded,
-                          color: Color(0xFF393F45).withOpacity(0.50),
-                        ),
-                        horizontalSpaceRegular,
-                        Expanded(
-                          child: TextField(
-                            controller: usernameController,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              disabledBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              errorBorder: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              focusedErrorBorder: InputBorder.none,
-                              hintText: userNameHint,
-                              hintStyle: TextStyle(
-                                color: Color(0xFFABB3BB),
-                              ),
-                            ),
-                            keyboardType: TextInputType.name,
-                            textCapitalization: TextCapitalization.none,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                // PhysicalModel(
+                //   elevation: 8,
+                //   color: colors.white,
+                //   borderRadius: BorderRadius.circular(20),
+                //   child: Container(
+                //     margin: EdgeInsets.symmetric(vertical: 8),
+                //     padding: EdgeInsets.symmetric(horizontal: 10),
+                //     child: Row(
+                //       children: [
+                //         Icon(
+                //           Icons.person_outline_rounded,
+                //           color: Color(0xFF393F45).withOpacity(0.50),
+                //         ),
+                //         horizontalSpaceRegular,
+                //         Expanded(
+                //           child: TextField(
+                //             controller: usernameController,
+                //             decoration: InputDecoration(
+                //               border: InputBorder.none,
+                //               disabledBorder: InputBorder.none,
+                //               enabledBorder: InputBorder.none,
+                //               errorBorder: InputBorder.none,
+                //               focusedBorder: InputBorder.none,
+                //               focusedErrorBorder: InputBorder.none,
+                //               hintText: userNameHint,
+                //               hintStyle: TextStyle(
+                //                 color: Color(0xFFABB3BB),
+                //               ),
+                //             ),
+                //             keyboardType: TextInputType.name,
+                //             textCapitalization: TextCapitalization.none,
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
                 verticalSpaceRegular,
                 Row(
                   mainAxisSize: MainAxisSize.max,
@@ -246,6 +246,7 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
             width: double.infinity,
             height: 60,
             margin: commonPadding,
+
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: model.isValid ? colors.primary : colors.kcLightGreyColor,
@@ -264,6 +265,7 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
                   ),
           ),
         ),
+        
         // body: AuthenticationLayout(
         //   busy: model.isBusy,
         //   isValid: model.isValid,
@@ -397,7 +399,9 @@ class ProfileCreateView extends StatelessWidget with $ProfileCreateView {
         //     ],
         //   ),
         // ),
+        
       ),
+
       viewModelBuilder: () => ProfileCreateViewModel(user),
     );
   }

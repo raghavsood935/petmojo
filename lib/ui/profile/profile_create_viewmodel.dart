@@ -163,41 +163,41 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
   @override
   void setFormStatus() {
     checkValidateField();
-    String username = formValueMap["username"] ?? "";
-    _userNameChanged(username);
+    // String username = formValueMap["username"] ?? "";
+    // _userNameChanged(username);
   }
 
   Timer? _debounce;
   String _userName = "";
   bool _isValidUser = false;
 
-  _userNameChanged(String query) async {
-    if (_userName != query && query.isNotEmpty) {
-      if (_debounce?.isActive ?? false) _debounce?.cancel();
-      _debounce = Timer(const Duration(milliseconds: 500), () async {
-        _userName = query;
-        if (await Util.checkInternetConnectivity()) {
-          try {
-            BaseResponse<UserNameAvailableResponse> availableResponse =
-                await runBusyFuture(_tamelyApi.checkUserName(true, query),
-                    throwException: true);
-            if (availableResponse.getException != null) {
-              ServerError error = availableResponse.getException as ServerError;
-              _snackBarService.showSnackbar(message: error.getErrorMessage());
-            } else if (availableResponse.data != null) {
-              _isValidUser = availableResponse.data!.isAvailable;
-              checkValidateField();
-            }
-          } catch (e) {
-            log.e(e);
-            _snackBarService.showSnackbar(message: "$e");
-          }
-        } else {
-          _snackBarService.showSnackbar(message: "No Internet connection");
-        }
-      });
-    }
-  }
+  // _userNameChanged(String query) async {
+  //   if (_userName != query && query.isNotEmpty) {
+  //     if (_debounce?.isActive ?? false) _debounce?.cancel();
+  //     _debounce = Timer(const Duration(milliseconds: 500), () async {
+  //       _userName = query;
+  //       if (await Util.checkInternetConnectivity()) {
+  //         try {
+  //           BaseResponse<UserNameAvailableResponse> availableResponse =
+  //               await runBusyFuture(_tamelyApi.checkUserName(true, query),
+  //                   throwException: true);
+  //           if (availableResponse.getException != null) {
+  //             ServerError error = availableResponse.getException as ServerError;
+  //             _snackBarService.showSnackbar(message: error.getErrorMessage());
+  //           } else if (availableResponse.data != null) {
+  //             _isValidUser = availableResponse.data!.isAvailable;
+  //             checkValidateField();
+  //           }
+  //         } catch (e) {
+  //           log.e(e);
+  //           _snackBarService.showSnackbar(message: "$e");
+  //         }
+  //       } else {
+  //         _snackBarService.showSnackbar(message: "No Internet connection");
+  //       }
+  //     });
+  //   }
+  // }
 
   init(dynamic lastAvatarUrl, bool isEdit, bool isAnimal, String petID,
       String petToken) {
@@ -215,35 +215,37 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
 
   bool checkValidateField() {
     _isValid = true;
-    formValueMap.keys.forEach((element) {
-      if (element == UsernameValueKey || element == NameValueKey) {
-        String elementValue = formValueMap[element];
-        if (elementValue.isEmpty) {
-          _isValid = false;
-          return;
+    formValueMap.keys.forEach(
+      (element) {
+        if (element == UsernameValueKey || element == NameValueKey) {
+          String elementValue = formValueMap[element];
+          if (elementValue.isEmpty) {
+            _isValid = false;
+            return;
+          }
         }
-      }
-    });
+      },
+    );
 
     // if (avatarUrl.isEmpty) {
     //   _isValid = false;
     // }
 
-    if (!_isValidUser) {
-      _isValid = false;
-    }
+    // if (!_isValidUser) {
+    //   _isValid = false;
+    // }
 
     notifyListeners();
     return _isValid;
   }
 
-  String validUser(TextEditingController usernameController) {
-    if (_isValidUser) {
-      return "";
-    } else {
-      return "Username is not available";
-    }
-  }
+  // String validUser(TextEditingController usernameController) {
+  //   if (_isValidUser) {
+  //     return "";
+  //   } else {
+  //     return "Username is not available";
+  //   }
+  // }
 
   String get fullName => _fullName;
 

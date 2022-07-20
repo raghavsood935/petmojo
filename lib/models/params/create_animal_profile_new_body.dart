@@ -8,7 +8,10 @@ class CreateAnimalProfileNewBody {
   final String name;
   final String username;
 
-  CreateAnimalProfileNewBody(this.name, this.username);
+  CreateAnimalProfileNewBody(
+    this.name,
+    this.username,
+  );
 
   factory CreateAnimalProfileNewBody.fromJson(Map<String, dynamic> json) =>
       _$CreateAnimalProfileNewBodyFromJson(json);

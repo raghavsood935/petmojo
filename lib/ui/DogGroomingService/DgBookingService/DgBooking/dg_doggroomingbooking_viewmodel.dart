@@ -153,16 +153,32 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
     notifyListeners();
   }
 
-  double getNewAmount(){
+  int _gst = 0;
+  get gst {
+    if (subTotal == 904) {
+      _gst = (0.18 * 849).ceil();
+    } else if (subTotal == 1748) {
+      _gst = (0.18 * 1640).floor();
+    } else if (subTotal == 2388) {
+      _gst = (0.18 * 2240).floor();
+    }
+    return _gst;
+  }
+
+  int afterGSTAmount = 0;
+  int afterGST() {
+    afterGSTAmount = gst + amount.toInt();
+    return afterGSTAmount;
+  }
+
+  double getNewAmount() {
     double newAmount = 0;
-    if(subTotal == 904){
-      newAmount=849.0-savedAmount;
-    }
-    else if(subTotal== 1748){
-      newAmount=1640-savedAmount;
-    }
-    else if(subTotal==2388){
-      newAmount=2240-savedAmount;
+    if (subTotal == 904) {
+      newAmount = 849 - savedAmount;
+    } else if (subTotal == 1748) {
+      newAmount = 1640 - savedAmount;
+    } else if (subTotal == 2388) {
+      newAmount = 2240 - savedAmount;
     }
     print("before returning");
     print(newAmount);
@@ -170,10 +186,12 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
   }
 
   Future onMainButtonPressed() async {
+    print("yash test : $currentIndex");
     if (currentIndex == 0) {
       controller.animateToPage(currentIndex + 1,
           duration: Duration(milliseconds: 500), curve: Curves.easeIn);
       await requestLocation();
+      print("yash hello");
       _isValid = false;
       secondPageValidation("s");
     } else if (currentIndex == 1) {
@@ -184,8 +202,7 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
       if (paymentMethodIndex == 0) {
         // Pay now
         if (bookingId != "") {
-
-          double newAmount  = getNewAmount();
+          double newAmount = getNewAmount();
           _navigationService.replaceWith(
             Routes.dGPaymentView,
             arguments: DGPaymentViewArguments(
@@ -567,9 +584,8 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
     if (phoneController.text.length < 10) {
       print("5");
       _isValid = false;
-    }
-    else{
-      _isPhoneValid=true;
+    } else {
+      _isPhoneValid = true;
     }
     if (!isDatePicked) {
       _isValid = false;
