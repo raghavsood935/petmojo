@@ -77,6 +77,7 @@ class CreateAnimalProfileNewPageTwoViewModel extends BaseModel {
         ),
       );
     } else {
+      _navigationService.back();
       _navigationService.back(result: 1);
     }
     return true;
@@ -98,7 +99,7 @@ class CreateAnimalProfileNewPageTwoViewModel extends BaseModel {
       } else if (response.data != null) {
         isLoading = false;
         notifyListeners();
-        _navigationService.replaceWith(
+        _navigationService.navigateTo(
           Routes.createAnimalProfileNewPageThree,
           arguments: CreateAnimalProfileNewPageThreeArguments(
             id: animalId,

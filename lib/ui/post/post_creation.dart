@@ -5,7 +5,6 @@ import 'camera_view.dart';
 
 List<CameraDescription> cameras = [];
 
-
 class PostCreation extends StatefulWidget {
   const PostCreation({Key? key}) : super(key: key);
 
@@ -14,37 +13,43 @@ class PostCreation extends StatefulWidget {
 }
 
 class _PostCreationState extends State<PostCreation> {
-
   @override
   Widget build(BuildContext context) {
-
-    return  DefaultTabController(
+    return DefaultTabController(
       length: 2,
       child: Scaffold(
-          backgroundColor: Colors.black87,
-          body: TabBarView(
-            physics: const NeverScrollableScrollPhysics(),
-            children: [
-              const TextPost(),
-              FutureBuilder(
-
-                builder : (context,snapshot){
-                  if(cameras.isNotEmpty){
-                    return CameraView(cameras);
-                  }else
-                    return
-                        Center(child : Text('Loading'));
-                      } ,
-                future: init(),
-              )
-            ],
-          ),
-          bottomNavigationBar:  const TabBar(
-            tabs: [
-              Tab(child: Text('Text',style: TextStyle(color : Colors.white),), ),
-              Tab(child: Text('Camera',style: TextStyle(color : Colors.white),), ),
-            ],
-          ),
+        backgroundColor: Colors.black87,
+        body: TabBarView(
+          physics: const NeverScrollableScrollPhysics(),
+          children: [
+            FutureBuilder(
+              builder: (context, snapshot) {
+                if (cameras.isNotEmpty) {
+                  return CameraView(cameras);
+                } else
+                  return Center(child: Text('Loading'));
+              },
+              future: init(),
+            ),
+            TextPost(),
+          ],
+        ),
+        bottomNavigationBar: const TabBar(
+          tabs: [
+            Tab(
+              child: Text(
+                'Camera',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            Tab(
+              child: Text(
+                'Text',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

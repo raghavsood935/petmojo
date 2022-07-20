@@ -60,7 +60,7 @@ class CreateAnimalProfileNewPageOneViewModel extends BaseModel {
       } else if (response.data != null) {
         isLoading = false;
         notifyListeners();
-        _navigationService.replaceWith(
+        _navigationService.navigateTo(
           Routes.createAnimalProfileNewPageTwo,
           arguments: CreateAnimalProfileNewPageTwoArguments(
               id: response.data!.id ?? "",
