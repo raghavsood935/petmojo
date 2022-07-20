@@ -554,65 +554,127 @@ class _ProfileViewState extends State<ProfileView> {
                             ),
                           ),
                         ),
-                        if (model.listOfPosts.length == 0)
-                          Visibility(
-                            visible: !model.isBusy,
-                            child: Visibility(
-                              visible: !widget.isInspectView,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: GestureDetector(
+                        Visibility(
+                          visible: !model.isBusy,
+                          child: Visibility(
+                            visible: !widget.isInspectView,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: GestureDetector(
+                                  child: CircleAvatar(
+                                    backgroundColor: colors.black,
+                                    radius: 30,
                                     child: CircleAvatar(
-                                      backgroundColor: colors.black,
-                                      radius: 30,
+                                      radius: 29,
+                                      backgroundColor: Colors.white,
                                       child: CircleAvatar(
-                                        radius: 29,
-                                        backgroundColor: Colors.white,
-                                        child: CircleAvatar(
-                                          backgroundColor:
-                                              colors.lightBackgroundColor,
-                                          radius: 26,
-                                          child: Icon(
-                                            Icons.add,
-                                            color: colors.primary,
-                                          ),
+                                        backgroundColor:
+                                            colors.lightBackgroundColor,
+                                        radius: 26,
+                                        child: Icon(
+                                          Icons.add,
+                                          color: colors.primary,
                                         ),
                                       ),
                                     ),
-                                    onTap: model.createPost,
                                   ),
+                                  onTap: model.createPost,
                                 ),
                               ),
-                            ),
-                          )
-                        else
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: StaggeredGridView.countBuilder(
-                              physics: ScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: model.listOfPosts.length,
-                              crossAxisSpacing: 6,
-                              mainAxisSpacing: 6,
-                              crossAxisCount: 3,
-                              itemBuilder: (context, index) => GestureDetector(
-                                onTap: () => model.goToPostDetailsView(
-                                  model.listOfPosts[index],
-                                  index,
-                                ),
-                                child: postItem(
-                                  context,
-                                  index,
-                                  model.listOfPosts[index].thumbnail!,
-                                ),
-                              ),
-                              staggeredTileBuilder: (index) =>
-                                  StaggeredTile.fit(1),
                             ),
                           ),
+                        ),
+                        verticalSpaceRegular,
+                        model.listOfPosts.length == 0
+                            ? Container()
+                            : Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: StaggeredGridView.countBuilder(
+                                  physics: ScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: model.listOfPosts.length,
+                                  crossAxisSpacing: 6,
+                                  mainAxisSpacing: 6,
+                                  crossAxisCount: 3,
+                                  itemBuilder: (context, index) =>
+                                      GestureDetector(
+                                    onTap: () => model.goToPostDetailsView(
+                                      model.listOfPosts[index],
+                                      index,
+                                    ),
+                                    child: postItem(
+                                      context,
+                                      index,
+                                      model.listOfPosts[index].thumbnail!,
+                                    ),
+                                  ),
+                                  staggeredTileBuilder: (index) =>
+                                      StaggeredTile.fit(1),
+                                ),
+                              ),
+                        // if (model.listOfPosts.length == 0)
+                        //   Visibility(
+                        //     visible: !model.isBusy,
+                        //     child: Visibility(
+                        //       visible: !widget.isInspectView,
+                        //       child: Padding(
+                        //         padding:
+                        //             const EdgeInsets.symmetric(horizontal: 20),
+                        //         child: Align(
+                        //           alignment: Alignment.centerLeft,
+                        //           child: GestureDetector(
+                        //             child: CircleAvatar(
+                        //               backgroundColor: colors.black,
+                        //               radius: 30,
+                        //               child: CircleAvatar(
+                        //                 radius: 29,
+                        //                 backgroundColor: Colors.white,
+                        //                 child: CircleAvatar(
+                        //                   backgroundColor:
+                        //                       colors.lightBackgroundColor,
+                        //                   radius: 26,
+                        //                   child: Icon(
+                        //                     Icons.add,
+                        //                     color: colors.primary,
+                        //                   ),
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //             onTap: model.createPost,
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   )
+                        // else
+                        //   Padding(
+                        //     padding: const EdgeInsets.symmetric(horizontal: 20),
+                        //     child: StaggeredGridView.countBuilder(
+                        //       physics: ScrollPhysics(),
+                        //       shrinkWrap: true,
+                        //       itemCount: model.listOfPosts.length,
+                        //       crossAxisSpacing: 6,
+                        //       mainAxisSpacing: 6,
+                        //       crossAxisCount: 3,
+                        //       itemBuilder: (context, index) => GestureDetector(
+                        //         onTap: () => model.goToPostDetailsView(
+                        //           model.listOfPosts[index],
+                        //           index,
+                        //         ),
+                        //         child: postItem(
+                        //           context,
+                        //           index,
+                        //           model.listOfPosts[index].thumbnail!,
+                        //         ),
+                        //       ),
+                        //       staggeredTileBuilder: (index) =>
+                        //           StaggeredTile.fit(1),
+                        //     ),
+                        //   ),
                         verticalSpaceRegular,
                         Visibility(
                           visible: widget.isInspectView,

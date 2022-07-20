@@ -92,6 +92,8 @@ class CreateAnimalProfileNewPageThreeViewModel extends BaseModel {
         ),
       );
     } else {
+      _navigationService.back();
+      _navigationService.back();
       _navigationService.back(result: 1);
     }
     return true;
