@@ -450,7 +450,8 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _doneMultiply = false;
       _noOfMonths = 6;
     }
-    twoPets();
+    if(myPets.length!=1)
+      twoPets();
     setFirstPageValid();
     notifyListeners();
   }
@@ -499,7 +500,8 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
             _promoCode = couponCode;
             _savedAmount = reducedAmountDouble;
             _amount = amount - reducedAmountDouble;
-            twoPets();
+            if(myPets.length!=1)
+              twoPets();
             notifyListeners();
           } catch (e) {
             snackBarService.showSnackbar(message: "Invalid Promo Code");
@@ -783,7 +785,8 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _noOfDogs = 2;
     }
     setDefaultPets();
-    twoPets();
+    if(myPets.length!=1)
+      twoPets();
     notifyListeners();
   }
 
@@ -934,7 +937,8 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
         _petDetailsBody.add(one);
       }
     });
-    twoPets();
+    if(myPets.length!=1)
+      twoPets();
     setFirstPageValid();
     notifyListeners();
   }
