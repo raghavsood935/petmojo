@@ -434,7 +434,7 @@ class DRAppointmentDetailsViewModel extends FutureViewModel<void>
       startDate: startDateString,
       originalAmount: 'Rs. $original/-',
       discountAmount: 'Rs. $discount/-',
-      totalAmount: 'Rs. $amount/-',
+      totalAmount: 'Rs. $amountDouble/-',
     );
   }
 
