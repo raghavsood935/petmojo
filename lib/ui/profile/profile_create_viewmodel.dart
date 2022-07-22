@@ -219,6 +219,7 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
       (element) {
         if (element == UsernameValueKey || element == NameValueKey) {
           String elementValue = formValueMap[element];
+          print("yash is here : $elementValue");
           if (elementValue.isEmpty) {
             _isValid = false;
             return;

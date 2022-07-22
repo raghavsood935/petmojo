@@ -7,6 +7,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
+import 'package:tamely/models/delete_user_account_response.dart';
 import 'package:tamely/ui/community/community_view.dart';
 import 'package:tamely/ui/dashboard/dashboard_viewmodel.dart';
 import 'package:tamely/ui/feed/feed_view.dart';
@@ -17,6 +18,7 @@ import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
+import 'package:tamely/util/utils.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/widgets/custom_circle_avatar.dart';
 import 'package:tamely/widgets/feed_app_bar.dart';
@@ -95,7 +97,7 @@ class _DashboardState extends State<Dashboard> {
                             serviceProviderId: serviceProviderId,
                             userId: userId,
                             selectedData: DateTime.now(),
-                        timeElasped: 0,
+                            timeElasped: 0,
                           )));
             }
 
@@ -327,6 +329,11 @@ class _DashboardState extends State<Dashboard> {
           subTitle: logoutSubTitle,
           iconUrl: logoutIcon,
           onTap: model.onLogOutPressed),
+      DrawerWidget(
+          title: deleteAccountTitle,
+          subTitle: deleteAccountSubTitle,
+          iconUrl: deleteAccountIcon,
+          onTap: model.onDeleteAccount),
     ];
   }
 

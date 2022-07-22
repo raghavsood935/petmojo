@@ -11,6 +11,7 @@ import 'package:tamely/models/comment_added_response.dart';
 import 'package:tamely/models/common_response.dart';
 import 'package:tamely/models/coupon_response.dart';
 import 'package:tamely/models/create_post_response.dart';
+import 'package:tamely/models/delete_user_account_response.dart';
 import 'package:tamely/models/e-commerce/fav_product_list_response.dart';
 import 'package:tamely/models/e-commerce/product_details_by_id_response.dart';
 import 'package:tamely/models/e-commerce/product_id_common_body.dart';
@@ -146,7 +147,7 @@ class Apis {
   static const TIMEOUT = 12000;
 
   static const String imageToLink = '/user/getAvatarLink';
-
+  static const String deleteAccount = '/user/deleteUser';
   static const String login = '/auth/login';
   static const String appleLogin = '/auth/login/apple';
   static const String register = '/auth/register';
@@ -242,6 +243,7 @@ class Apis {
   static const String setPaymentDetails = '/service/postPayment';
 
   // Booking Appointments -- Dog training
+
   static const String getFreeTraining = '/user/isFreeTrainingSessionAvailable';
   static const String setFreeTraining = '/user/updateFreeTrainingSessionStatus';
   static const String bookATraining = '/serviceBooking/bookDogTrainingService';
@@ -861,7 +863,6 @@ abstract class ApiClient {
   @POST(Apis.getActiveAppointments)
   Future<MyAppointmentsResponse> getActiveAppointments();
 
-
   // -- Get booked appointments (Working)
   @POST(Apis.getBookedAppointments)
   Future<MyAppointmentsResponse> getBookedAppointments();
@@ -983,4 +984,8 @@ abstract class ApiClient {
   @POST(Apis.getFileUploadDetails)
   Future<GetFileUploadDetailsResponse> getFileUploadDetails(
       @Body() GetFileUploadDetailsBody getFileUploadDetailsBody);
+
+  // --  Delete Use account
+  @POST(Apis.deleteAccount)
+  Future<DeleteAccountResponse> deleteUserAccount();
 }

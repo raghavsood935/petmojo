@@ -102,6 +102,9 @@ String helpSubTitle = "We are here to help you 24/7";
 String logoutTitle = "Logout";
 String logoutSubTitle = "We will miss you!";
 
+String deleteAccountTitle = "Delete Account";
+String deleteAccountSubTitle = "You can't regain access to your account";
+
 //community page
 String communityTitle = "Join the petmojo community!";
 String communityDescription =
@@ -523,13 +526,10 @@ String trainingTimeTitle = "Training time ";
 String freeTrainingTitle = "Demo Session";
 String twoTrainingTitle = "Puppy Training";
 String threeTrainingTitle = "Basic Training";
-String fourTrainingTitle =
-    "Intermediate Training";
-String fiveTrainingTitle =
-    "Advance Training";
+String fourTrainingTitle = "Intermediate Training";
+String fiveTrainingTitle = "Advance Training";
 
-String sixTrainingTitle =
-    "Premium Training";
+String sixTrainingTitle = "Premium Training";
 
 String freeTrainingSubtitleOne = "30 Mins";
 String twoTrainingSubtitleOne = "12 Sessions";
@@ -570,67 +570,81 @@ String sixTrainingRateLabel = "(You save 16,332)";
 
 String twoTrainingSeeOne = "Potty Training";
 String twoTrainingSeeTwo = "Feedback Intelligence -\nNo, Good, Don't Jump";
-String twoTrainingSeeThree = "Instruction - Sit,\nInstruction - Stay,\nInstruction - Down, Instruction-\nGet up";
+String twoTrainingSeeThree =
+    "Instruction - Sit,\nInstruction - Stay,\nInstruction - Down, Instruction-\nGet up";
 String twoTrainingSeeFour = "Walking - Go, Come";
 String twoTrainingSeeFive = "Basic Socialisation";
 String twoTrainingSeeSix = "Leash Walking- Heel, Slow";
 
 String threeTrainingSeeOne = "Play Module - Fetch &\ndrop, Spin";
 String threeTrainingSeeTwo = "Greetings - Shake Hand,\nHi-Five";
-String threeTrainingSeeThree = "Feedback Intelligence -\nNo, Good, Don't Jump,\nEat, Don't Eat, Quiet\n(No barking)";
-String threeTrainingSeeFour = "Instruction - Sit,\nInstruction - Stay,\nInstruction - Down,\nInstruction - Get up";
+String threeTrainingSeeThree =
+    "Feedback Intelligence -\nNo, Good, Don't Jump,\nEat, Don't Eat, Quiet\n(No barking)";
+String threeTrainingSeeFour =
+    "Instruction - Sit,\nInstruction - Stay,\nInstruction - Down,\nInstruction - Get up";
 String threeTrainingSeeFive = "Walking - Go, Come";
 String threeTrainingSeeSix = "Without Leash Walking -\nCome, Follow, Go";
 String threeTrainingSeeSeven = "Leash Walking - Heel,\nSlow";
 String threeTrainingSeeEight = "Basic Socialisation";
 
-String fourTrainingSeeOne = "Canine Misbehaviour \nCorrection- Aggression,\nSeparation Anxiety,\nExcessive Barking";
+String fourTrainingSeeOne =
+    "Canine Misbehaviour \nCorrection- Aggression,\nSeparation Anxiety,\nExcessive Barking";
 String fourTrainingSeeTwo = "Counting- (1-5)";
-String fourTrainingSeeThree = "Lower Acrobat Module -\nCrawl, Rollover, Lie\nDown, Sleep";
+String fourTrainingSeeThree =
+    "Lower Acrobat Module -\nCrawl, Rollover, Lie\nDown, Sleep";
 String fourTrainingSeeFour = "Play Module - Fetch &\ndrop, Spin ";
 String fourTrainingSeeFive = "Greetings - Shake\nHand, Hi-Five";
-String fourTrainingSeeSix = "Feedback Intelligence -\nNo, Good, Don't Jump,\nEat, Don't Eat, Quiet\n(No barking)";
-String fourTrainingSeeSeven = "Instruction - Sit,\nInstruction - Stay,\nInstruction - Down,\nInstruction - Get up";
+String fourTrainingSeeSix =
+    "Feedback Intelligence -\nNo, Good, Don't Jump,\nEat, Don't Eat, Quiet\n(No barking)";
+String fourTrainingSeeSeven =
+    "Instruction - Sit,\nInstruction - Stay,\nInstruction - Down,\nInstruction - Get up";
 String fourTrainingSeeEight = "Walking - Go, Come";
 String fourTrainingSeeNine = "Without Leash Walking -\nCome, Follow, Go";
 String fourTrainingSeeTen = "Leash Walking - Heel,\nSlow";
 String fourTrainingSeeEleven = "Advanced Socialisation";
 
-
-String fiveTrainingSeeOne = "Greetings - Namaste\n(face down), Salute\n(with front legs up),\nShake Hand, Hi-Five";
+String fiveTrainingSeeOne =
+    "Greetings - Namaste\n(face down), Salute\n(with front legs up),\nShake Hand, Hi-Five";
 String fiveTrainingSeeTwo = "Counting- (1-5)";
-String fiveTrainingSeeThree =
-    "Hold Treat in\nNamaste position";
-String fiveTrainingSeeFour = "Lower Acrobat \nModule - Crawl,\nRollover, Lie Down,\nSleep";
+String fiveTrainingSeeThree = "Hold Treat in\nNamaste position";
+String fiveTrainingSeeFour =
+    "Lower Acrobat \nModule - Crawl,\nRollover, Lie Down,\nSleep";
 String fiveTrainingSeeFive = "Play Module -\nFetch & drop,\nSpin";
 String fiveTrainingSeeSix = "Greetings -\nShake Hand,\nHi-Five";
-String fiveTrainingSeeSeven = "Feedback Intelligence -\nNo, Good, Don't\nJump, Eat, Don't\nEat, Quiet\n(No barking)";
-String fiveTrainingSeeEight = "Instruction - Sit,\nInstruction - Stay,\nInstruction - Down,\nInstruction - Get up";
+String fiveTrainingSeeSeven =
+    "Feedback Intelligence -\nNo, Good, Don't\nJump, Eat, Don't\nEat, Quiet\n(No barking)";
+String fiveTrainingSeeEight =
+    "Instruction - Sit,\nInstruction - Stay,\nInstruction - Down,\nInstruction - Get up";
 String fiveTrainingSeeNine = "Walking - Go, Come";
 String fiveTrainingSeeTen = "Without Leash\nWalking - Come,\nFollow, Go";
 String fiveTrainingSeeEleven = "Leash Walking -\nHeel, Slow";
-String fiveTrainingSeeTwelve = "Canine Misbehaviour\nCorrection - Aggression,\nSeparation Anxiety,\nExcessive Barking";
+String fiveTrainingSeeTwelve =
+    "Canine Misbehaviour\nCorrection - Aggression,\nSeparation Anxiety,\nExcessive Barking";
 
-
-String sixTrainingSeeOne="Competition - Hurdle Jump,\nCone cross walk, Between \n the legs walk, Drill Walk";
-String sixTrainingSeeTwo="Theatrics - Play Dead Act,\nStatue/Freeze";
-String sixTrainingSeeThree="Guard Training - Sniff,\nSearch, Watch";
-String sixTrainingSeeFour="Advanced House Training -\n Attack, Bark for \nAttack,  Bark for \nRingbell (optional)";
-String sixTrainingSeeFive = "Greetings - Namaste\n (face down),\nSalute (with front legs up),\nShake Hand, Hi-Five";
+String sixTrainingSeeOne =
+    "Competition - Hurdle Jump,\nCone cross walk, Between \n the legs walk, Drill Walk";
+String sixTrainingSeeTwo = "Theatrics - Play Dead Act,\nStatue/Freeze";
+String sixTrainingSeeThree = "Guard Training - Sniff,\nSearch, Watch";
+String sixTrainingSeeFour =
+    "Advanced House Training -\n Attack, Bark for \nAttack,  Bark for \nRingbell (optional)";
+String sixTrainingSeeFive =
+    "Greetings - Namaste\n (face down),\nSalute (with front legs up),\nShake Hand, Hi-Five";
 String sixTrainingSeeSix = "Counting- (1-5)";
 String sixTrainingSeeSeven = "Hold Treat in \nNamaste position";
-String sixTrainingSeeEight = "Lower Acrobat Module\n - Crawl,Rollover, Lie Down,\nSleep";
+String sixTrainingSeeEight =
+    "Lower Acrobat Module\n - Crawl,Rollover, Lie Down,\nSleep";
 String sixTrainingSeeNine = "Play Module - Fetch&\ndrop, Spin";
 String sixTrainingSeeTen = "Greetings - Shake Hand,\n Hi-Five";
-String sixTrainingSeeEleven = "Feedback Intelligence - No,\n Good,Don't Jump, \nEat, Don't Eat,\n Quiet (No barking)";
-String sixTrainingSeeTwelve = "Instruction - Sit, \nInstruction-Stay,\n Instruction - Down, \nInstruction - Get up";
+String sixTrainingSeeEleven =
+    "Feedback Intelligence - No,\n Good,Don't Jump, \nEat, Don't Eat,\n Quiet (No barking)";
+String sixTrainingSeeTwelve =
+    "Instruction - Sit, \nInstruction-Stay,\n Instruction - Down, \nInstruction - Get up";
 String sixTrainingSeeThirteen = "Walking - Go, Come";
 String sixTrainingSeeFourteen = "Without Leash Walking-\nCome,Follow, Go";
 String sixTrainingSeeFifteen = "Leash Walking -\nHeel, Slow";
 String sixTrainingSeeSixteen = "Advanced Socialisation";
-String sixTrainingSeeSeventeen = "Canine Misbehaviour \nCorrection- Aggression, \nSeparation Anxiety, \nExcessive Barking";
-
-
+String sixTrainingSeeSeventeen =
+    "Canine Misbehaviour \nCorrection- Aggression, \nSeparation Anxiety, \nExcessive Barking";
 
 // See more bonus materials
 
@@ -657,10 +671,6 @@ String sixTrainingBonusOne = "Excessive Barking Correction";
 String sixTrainingBonusTwo = "Overexcitement Correction";
 String sixTrainingBonusThree = "Socialization with other Dog";
 String sixTrainingBonusFour = "Socialization with other humans";
-
-
-
-
 
 // My Appointments
 String dogTrainingTitle = "Dog Training";
