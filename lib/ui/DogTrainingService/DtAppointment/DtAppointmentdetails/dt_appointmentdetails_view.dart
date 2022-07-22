@@ -244,7 +244,7 @@ class DTAppointmentDetailsView extends StatelessWidget {
                                 : Container(),
                             verticalSpaceRegular,
                             BookingItem(
-                              detailName: "Date",
+                              detailName: "Start Date",
                               detailValue: model.startDateString,
                               clickable: false,
                             ),
