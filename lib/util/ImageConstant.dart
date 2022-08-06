@@ -20,8 +20,7 @@ String bookmarksIcon = "assets/images/bookmark.svg";
 String feedbackIcon = "assets/images/feedback.svg";
 String helpIcon = "assets/images/help.svg";
 String logoutIcon = "assets/images/logout.svg";
-String deleteAccountIcon = "assets/images/delete_account.svg";
-
+String deleteAccountIcon = "assets/images/delete_user.svg";
 
 //assets path
 String leftHandImgPath = "assets/images/hello-2-left.png";

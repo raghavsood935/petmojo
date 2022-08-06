@@ -379,19 +379,37 @@ class DashboardViewModel extends FutureViewModel<void>
   }
 
   void onLogOutPressed() async {
-    await _sharedPrefService.clearLoginData().whenComplete(() {
-      _sharedPrefService.currentState =
-          getRedirectStateName(RedirectState.Welcome);
-      _navigationService.pushNamedAndRemoveUntil(Routes.loginView);
-    });
+    if (await logOutUserDialog()) {
+      await _sharedPrefService.clearLoginData().whenComplete(() {
+        _sharedPrefService.currentState =
+            getRedirectStateName(RedirectState.Welcome);
+        _navigationService.pushNamedAndRemoveUntil(Routes.loginView);
+      });
+    }
   }
 
   Future<bool> deleteUserDialog() async {
     var result = await _dialogService.showCustomDialog(
       variant: DialogType.ExitAppDialog,
       title: "Delete User",
-      description: "Are you sure do you want to delete your account?",
-      data: ["YES","NO"],
+      description: "Are you sure you want to delete your account?",
+      data: ["YES", "NO"],
+    );
+
+    if (result != null) {
+      if (result.confirmed) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+    Future<bool> logOutUserDialog() async {
+    var result = await _dialogService.showCustomDialog(
+      variant: DialogType.ExitAppDialog,
+      title: "Logout",
+      description: "Are you sure you want to logout?",
+      data: ["YES", "NO"],
     );
 
     if (result != null) {
@@ -406,8 +424,8 @@ class DashboardViewModel extends FutureViewModel<void>
     var result = await _dialogService.showCustomDialog(
       variant: DialogType.ExitAppDialog,
       title: "Alert!",
-      description: "Are you sure do you want to exit the app?",
-      data: ["EXIT","CANCEL"],
+      description: "Are you sure you want to exit the app?",
+      data: ["EXIT", "CANCEL"],
     );
 
     if (result != null) {
