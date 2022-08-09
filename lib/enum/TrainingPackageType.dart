@@ -1,0 +1,1 @@
+enum TrainingPackageType { Pro, Elite }

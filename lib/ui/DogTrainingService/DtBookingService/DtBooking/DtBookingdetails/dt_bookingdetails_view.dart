@@ -19,6 +19,48 @@ class DTBookingDetailsView
           children: [
             verticalSpaceSmall,
 
+            // Choose pet
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                verticalSpaceTiny,
+                AppText.body2(choosePetLabel),
+                verticalSpaceMedium,
+                Visibility(
+                  visible: (model.myPets.length > 0),
+                  child: Container(
+                    height: 110,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: model.myPets.length + 1,
+                      itemBuilder: (BuildContext context, int index) {
+                        if (index == model.myPets.length &&
+                            model.myPets.length < 2) {
+                          return NewPet(
+                            onTapped: model.createNewPet,
+                          );
+                        }
+                        return (index < 2)
+                            ? RunnerItems(
+                                name: model.myPets[index].name,
+                                imageUrl: model.myPets[index].imageUrl,
+                                selected: model.myPets[index].selected,
+                                onTapped: () => model.selectPet(index),
+                              )
+                            : Container();
+                      },
+                      separatorBuilder: (BuildContext context, int index) =>
+                          horizontalSpaceRegular,
+                    ),
+                  ),
+                ),
+                verticalSpaceSmall,
+              ],
+            ),
+            spacedDividerTiny,
+            verticalSpaceRegular,
+
             // Start Date
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,7 +150,10 @@ class DTBookingDetailsView
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppText.body2(bookingDetailsSubtitleTraining,color: Colors.grey,),
+                AppText.body2(
+                  bookingDetailsSubtitleTraining,
+                  color: Colors.grey,
+                ),
                 verticalSpaceMedium,
                 // Address 1
                 AppText.body1(
@@ -249,15 +294,15 @@ class DTBookingDetailsView
                         controller: model.promoCodeController,
                         trailing: model.isCouponProcessing
                             ? Transform.scale(
-                          scale: 0.6,
-                          child: CircularProgressIndicator(
-                            color: colors.primary,
-                          ),
-                        )
+                                scale: 0.6,
+                                child: CircularProgressIndicator(
+                                  color: colors.primary,
+                                ),
+                              )
                             : Icon(
-                          Icons.arrow_forward_rounded,
-                          color: colors.primary,
-                        ),
+                                Icons.arrow_forward_rounded,
+                                color: colors.primary,
+                              ),
                         trailingTapped: model.applyCoupon,
                         isBoxBorder: true,
                         textInputType: TextInputType.name,
@@ -376,6 +421,84 @@ class DTBookingDetailsView
               ],
             ),
 
+            // offers
+            Visibility(
+              visible: !model.isOfferValid && model.isOfferAvailable,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText.body2("Offers Available!! 🎉🎉🎉🎁🎁🎁"),
+                  verticalSpaceRegular,
+                  AppInputField(
+                    hint: "Enter Promo Code",
+                    controller: model.promoCodeController,
+                    trailing: model.isCouponProcessing
+                        ? Transform.scale(
+                            scale: 0.6,
+                            child: CircularProgressIndicator(
+                              color: colors.primary,
+                            ),
+                          )
+                        : Icon(
+                            Icons.arrow_forward_rounded,
+                            color: colors.primary,
+                          ),
+                    trailingTapped: model.applyCoupon,
+                    isBoxBorder: true,
+                    textInputType: TextInputType.name,
+                    textCapitalization: TextCapitalization.none,
+                  ),
+                  verticalSpaceTiny,
+                ],
+              ),
+            ),
+            verticalSpaceMedium,
+
+            // Offer Done
+            Visibility(
+              visible: model.isOfferValid && model.isOfferAvailable,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText.body2("Offers"),
+                  verticalSpaceSmall,
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.check_circle_outline_rounded,
+                        color: colors.primary,
+                      ),
+                      horizontalSpaceSmall,
+                      Row(
+                        children: [
+                          AppText.body2(
+                            "Promo ",
+                          ),
+                          AppText.body2(
+                            " ${model.promoCode} ",
+                            color: colors.primary,
+                          ),
+                          AppText.body2(
+                            " Applied",
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  verticalSpaceSmall,
+                  Column(
+                    children: [
+                      AppText.body2("You saved"),
+                      AppText.body2(
+                        "INR ${model.savedAmount}",
+                        color: colors.primary,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
             verticalSpaceLarge,
             verticalSpaceLarge,
           ],
@@ -413,6 +536,127 @@ class TimingItems extends StatelessWidget {
             color: selected! ? colors.white : colors.kcLightGreyColor,
           ),
         ),
+      ),
+    );
+  }
+}
+
+class NewPet extends StatelessWidget {
+  const NewPet({
+    Key? key,
+    this.onTapped,
+  }) : super(key: key);
+  final void Function()? onTapped;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTapped,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            width: 90,
+            decoration: BoxDecoration(
+              color: colors.white,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: colors.black54,
+                width: 1,
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                verticalSpaceSmall,
+                // plus icon
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  width: 30,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: colors.primary,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Icon(
+                    Icons.add,
+                    color: colors.white,
+                    size: 20,
+                  ),
+                ),
+                AppText.body1(
+                  "Add pet",
+                  textAlign: TextAlign.center,
+                ),
+                verticalSpaceSmall,
+              ],
+            ),
+          ),
+          verticalSpaceSmall,
+          CircleAvatar(
+            radius: 5,
+            backgroundColor: colors.kcLightGreyColor,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class RunnerItems extends StatelessWidget {
+  const RunnerItems({
+    Key? key,
+    this.name,
+    this.imageUrl,
+    this.onTapped,
+    this.selected,
+  }) : super(key: key);
+  final String? name;
+  final String? imageUrl;
+  final bool? selected;
+  final void Function()? onTapped;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTapped,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            width: 90,
+            decoration: BoxDecoration(
+              color: selected! ? Color(0xFFFEDFDD) : colors.white,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: colors.primary,
+                width: selected! ? 1.5 : 1,
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                verticalSpaceSmall,
+                CircleAvatar(
+                  child: Image.asset("assets/images/dummy_dog_profile.png"),
+                ),
+                AppText.body1(
+                  name!,
+                  textAlign: TextAlign.center,
+                ),
+                verticalSpaceSmall,
+              ],
+            ),
+          ),
+          verticalSpaceSmall,
+          CircleAvatar(
+            radius: 5,
+            backgroundColor:
+                selected! ? colors.primary : colors.kcLightGreyColor,
+          ),
+        ],
       ),
     );
   }
