@@ -14,7 +14,7 @@ const String NameValueKey = 'name';
 const String ShortBioValueKey = 'shortBio';
 
 mixin $ProfileCreateView on StatelessWidget {
-  // final TextEditingController usernameController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController shortBioController = TextEditingController();
   final FocusNode usernameFocusNode = FocusNode();
@@ -24,7 +24,7 @@ mixin $ProfileCreateView on StatelessWidget {
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
   void listenToFormUpdated(FormViewModel model) {
-    // usernameController.addListener(() => _updateFormData(model));
+    usernameController.addListener(() => _updateFormData(model));
     nameController.addListener(() => _updateFormData(model));
     shortBioController.addListener(() => _updateFormData(model));
   }
@@ -33,7 +33,7 @@ mixin $ProfileCreateView on StatelessWidget {
   void _updateFormData(FormViewModel model) => model.setData(
         model.formValueMap
           ..addAll({
-            // UsernameValueKey: usernameController.text,
+            UsernameValueKey: usernameController.text,
             NameValueKey: nameController.text,
             ShortBioValueKey: shortBioController.text,
           }),
@@ -43,7 +43,7 @@ mixin $ProfileCreateView on StatelessWidget {
   void disposeForm() {
     // The dispose function for a TextEditingController sets all listeners to null
 
-    // usernameController.dispose();
+    usernameController.dispose();
     usernameFocusNode.dispose();
     nameController.dispose();
     nameFocusNode.dispose();
