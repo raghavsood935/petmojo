@@ -799,8 +799,17 @@ class PackageItem extends StatelessWidget {
                                 .map(
                                   (item) => Row(
                                     children: [
-                                      SvgPicture.asset(
-                                        "assets/images/package_paw.svg",
+                                      // selectedValue == value
+                                      //     ? Image.asset(
+                                      //         "assets/images/package_paw_selected.png",
+                                      //         height: 25,
+                                      //       )
+                                      //     : Image.asset(
+                                      //         "assets/images/package_paw.png",
+                                      //         height: 25,
+                                      //       ),i 
+                                      Icon(
+                                        Icons.check,
                                         color: selectedValue == value
                                             ? colors.white
                                             : colors.primary,
@@ -829,8 +838,17 @@ class PackageItem extends StatelessWidget {
                                 .map(
                                   (item) => Row(
                                     children: [
-                                      SvgPicture.asset(
-                                        "assets/images/package_paw.svg",
+                                      // selectedValue == value
+                                      //     ? Image.asset(
+                                      //         "assets/images/package_paw_selected.png",
+                                      //         height: 25,
+                                      //       )
+                                      //     : Image.asset(
+                                      //         "assets/images/package_paw.png",
+                                      //         height: 25,
+                                      //       ),
+                                      Icon(
+                                        Icons.check,
                                         color: selectedValue == value
                                             ? colors.white
                                             : colors.primary,
