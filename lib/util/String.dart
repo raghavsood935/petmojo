@@ -539,32 +539,47 @@ String fiveTrainingSubtitleOne = "48 Sessions";
 String sixTrainingSubtitleOne = "72 Sessions";
 
 String freeTrainingSubtitleTwo = "FREE Assessment";
-String twoTrainingSubtitleTwo = "";
-String threeTrainingSubtitleTwo = "";
-String fourTrainingSubtitleTwo = "";
-String fiveTrainingSubtitleTwo = "";
-String sixTrainingSubtitleTwo = "";
+String twoTrainingSubtitleTwo = "1 Month";
+String threeTrainingSubtitleTwo = "2 Months";
+String fourTrainingSubtitleTwo = "3 Months";
+String fiveTrainingSubtitleTwo = "4 Months";
+String sixTrainingSubtitleTwo = "6 Months";
 
-String freeTrainingRateOld = "FREE";
-String twoTrainingRateOld = "₹12,740/-";
-String threeTrainingRateOld = "₹22,360/-";
-String fourTrainingRateOld = "₹33,228/-";
-String fiveTrainingRateOld = "₹42,432/-";
-String sixTrainingRateOld = "₹70,772/-";
+String freeTrainingRateOldElite = "FREE";
+String twoTrainingRateOldElite = "₹10,788/-";
+String threeTrainingRateOldElite = "₹22,360/-";
+String fourTrainingRateOldElite = "₹33,228/-";
+String fiveTrainingRateOldElite = "₹42,432/-";
+String sixTrainingRateOldElite = "₹70,772/-";
 
-String freeTrainingRateNew = "FREE";
-String twoTrainingRateNew = "₹9,800/-";
-String threeTrainingRateNew = "₹17,200/-";
-String fourTrainingRateNew = "₹25,560/-";
-String fiveTrainingRateNew = "₹32,640/-";
-String sixTrainingRateNew = "₹54,440/-";
+String freeTrainingRateNewElite = "FREE";
+String twoTrainingRateNewElite = "₹9,800/-";
+String threeTrainingRateNewElite = "₹17,200/-";
+String fourTrainingRateNewElite = "₹25,560/-";
+String fiveTrainingRateNewElite = "₹32,640/-";
+String sixTrainingRateNewElite = "₹54,440/-";
 
-String freeTrainingRateLabel = "";
-String twoTrainingRateLabel = "(You save 2,940)";
-String threeTrainingRateLabel = "(You save 5,160)";
-String fourTrainingRateLabel = "(You save 7,668)";
-String fiveTrainingRateLabel = "(You save 9,792)";
-String sixTrainingRateLabel = "(You save 16,332)";
+String freeTrainingRateLabelElite = "";
+String twoTrainingRateLabelElite = "(You save 1,200)";
+String threeTrainingRateLabelElite = "(You save 5,160)";
+String fourTrainingRateLabelElite = "(You save 7,668)";
+String fiveTrainingRateLabelElite = "(You save 9,792)";
+String sixTrainingRateLabelElite = "(You save 16,332)";
+
+String freeTrainingRateOldPro = "FREE";
+String twoTrainingRateOldPro = "₹10,788/-";
+String threeTrainingRateOldPro = "₹22,360/-";
+String fourTrainingRateOldPro = "₹33,228/-";
+
+String freeTrainingRateNewPro = "FREE";
+String twoTrainingRateNewPro = "₹7,500/-";
+String threeTrainingRateNewPro = "₹13,800/-";
+String fourTrainingRateNewPro = "₹20,400/-";
+
+String freeTrainingRateLabelPro = "";
+String twoTrainingRateLabelPro = "(You save 1,200)";
+String threeTrainingRateLabelPro = "(You save 5,160)";
+String fourTrainingRateLabelPro = "(You save 7,668)";
 
 // See more
 

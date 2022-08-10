@@ -54,6 +54,11 @@ const TextStyle subheadingStyle = TextStyle(
   fontWeight: FontWeight.w400,
 );
 
+const TextStyle subheadingBoldStyle = TextStyle(
+  fontSize: 33,
+  fontWeight: FontWeight.w800,
+);
+
 const TextStyle captionStyle = TextStyle(
   fontSize: 12,
   fontWeight: FontWeight.w400,
@@ -97,4 +102,9 @@ const TextStyle titleBoldStyle = TextStyle(
 const TextStyle body2Style = TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.bold,
+);
+
+const TextStyle body2BoldBoldStyle = TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.w800,
 );
