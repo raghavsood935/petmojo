@@ -14,6 +14,7 @@ import 'package:tamely/ui/DogGroomingService/DgAppointment/DgAppointmentdetails/
 import 'package:tamely/ui/DogRunningService/DrAppointment/DrAppointmentdetails/dr_appointmentdetails_view.dart';
 import 'package:tamely/ui/DogRunningService/DrAppointment/DrLivemap/dr_livemap_view.dart';
 import 'package:tamely/ui/DogRunningService/DrAppointment/DrReportcard/dr_reportcard_view.dart';
+import 'package:tamely/ui/DogRunningService/DrBookingService/DrBooking/dr_dogrunningbooking_view.dart';
 import 'package:tamely/ui/DogTrainingService/DtAppointment/DtAppointmentdetails/dt_appointmentdetails_view.dart';
 import 'package:tamely/ui/DogTrainingService/DtAppointment/DtReportcard/dt_reportcard_view.dart';
 import 'package:tamely/ui/DogTrainingService/DtAppointment/DtReportcard/dt_reportcard_viewmodel.dart';
@@ -238,7 +239,7 @@ class _TamelyAppState extends State<TamelyApp> {
 
   Widget _getStartupScreen() {
     if (!_sharedPreferencesService.homeVisible) {
-      return StartupView();
+      return DRDogRunningBookingView();
       // } else if (_sharedPreferencesService.authToken.isEmpty) {
       //   return LoginView();
     } else {

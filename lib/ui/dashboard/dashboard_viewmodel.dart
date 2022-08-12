@@ -15,6 +15,7 @@ import 'package:tamely/app/app.router.dart';
 import 'package:tamely/enum/DialogType.dart';
 import 'package:tamely/enum/redirect_state.dart';
 import 'package:tamely/enum/service_type.dart';
+import 'package:tamely/models/delete_user_account_response.dart';
 import 'package:tamely/models/params/animal_details_body.dart';
 import 'package:tamely/models/pet_basic_details_response.dart';
 import 'package:tamely/models/user_profile_details_response.dart';
@@ -25,6 +26,7 @@ import 'package:tamely/models/params/get_relation_requests_body.dart';
 import 'package:tamely/services/user_service.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/String.dart';
+import 'package:tamely/util/utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DashboardViewModel extends FutureViewModel<void>
@@ -75,6 +77,7 @@ class DashboardViewModel extends FutureViewModel<void>
   int _requestNotificationCount = 0;
   int get requestNotificationCount => _requestNotificationCount;
 
+  bool _deletUser = false;
   bool isHuman = true;
   String petId = "";
   String petToken = "";
@@ -321,8 +324,10 @@ class DashboardViewModel extends FutureViewModel<void>
   void onBookmarksPressed() async {
     await _navigationService.navigateTo(Routes.bookmarksView);
   }
+
   Future<void> launchAppStore() async {
-    String appStoreLink="https://play.google.com/store/apps/details?id=in.tamely.user";
+    String appStoreLink =
+        "https://play.google.com/store/apps/details?id=in.tamely.user";
     debugPrint(appStoreLink);
     if (await canLaunchUrl(Uri.parse(appStoreLink))) {
       await launchUrl(Uri.parse(appStoreLink));
@@ -374,16 +379,53 @@ class DashboardViewModel extends FutureViewModel<void>
   }
 
   void onLogOutPressed() async {
-    await _sharedPrefService.clearLoginData().whenComplete(() {
-      _sharedPrefService.currentState =
-          getRedirectStateName(RedirectState.Welcome);
-      _navigationService.pushNamedAndRemoveUntil(Routes.loginView);
-    });
+    if (await logOutUserDialog()) {
+      await _sharedPrefService.clearLoginData().whenComplete(() {
+        _sharedPrefService.currentState =
+            getRedirectStateName(RedirectState.Welcome);
+        _navigationService.pushNamedAndRemoveUntil(Routes.loginView);
+      });
+    }
+  }
+
+  Future<bool> deleteUserDialog() async {
+    var result = await _dialogService.showCustomDialog(
+      variant: DialogType.ExitAppDialog,
+      title: "Delete User",
+      description: "Are you sure you want to delete your account?",
+      data: ["YES", "NO"],
+    );
+
+    if (result != null) {
+      if (result.confirmed) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+    Future<bool> logOutUserDialog() async {
+    var result = await _dialogService.showCustomDialog(
+      variant: DialogType.ExitAppDialog,
+      title: "Logout",
+      description: "Are you sure you want to logout?",
+      data: ["YES", "NO"],
+    );
+
+    if (result != null) {
+      if (result.confirmed) {
+        return true;
+      }
+    }
+    return false;
   }
 
   Future<bool> onBackPressed() async {
     var result = await _dialogService.showCustomDialog(
       variant: DialogType.ExitAppDialog,
+      title: "Alert!",
+      description: "Are you sure you want to exit the app?",
+      data: ["EXIT", "CANCEL"],
     );
 
     if (result != null) {
@@ -413,6 +455,32 @@ class DashboardViewModel extends FutureViewModel<void>
       } else {
         _snackBarService.showSnackbar(message: "Could not open whatsapp");
       }
+    }
+  }
+
+  void onDeleteAccount() async {
+    print("yash in delete");
+    if (await deleteUserDialog()) {
+      try {
+        if (await Util.checkInternetConnectivity()) {
+          BaseResponse<DeleteAccountResponse> result = await runBusyFuture(
+              _tamelyApi.deleteUserAccount(),
+              throwException: true);
+          if (result.data != null) {
+            print("yash in result.data");
+            _deletUser = result.data!.success!;
+            notifyListeners();
+          }
+        } else {
+          _snackBarService.showSnackbar(message: "No Internet connection");
+        }
+      } on ServerError catch (e) {
+        log.e(e.toString());
+      }
+
+      onLogOutPressed();
+    } else {
+      print("dont delete");
     }
   }
 }

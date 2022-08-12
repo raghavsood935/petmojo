@@ -20,6 +20,7 @@ String bookmarksIcon = "assets/images/bookmark.svg";
 String feedbackIcon = "assets/images/feedback.svg";
 String helpIcon = "assets/images/help.svg";
 String logoutIcon = "assets/images/logout.svg";
+String deleteAccountIcon = "assets/images/delete_user.svg";
 
 //assets path
 String leftHandImgPath = "assets/images/hello-2-left.png";
@@ -73,7 +74,7 @@ String dogTranningImgPath = "assets/images/service_page_images/dog_traning.png";
 String doorStepDeliveryImgPath =
     "assets/images/service_page_images/doorstep_deliivery.png";
 String grommingImgPath = "assets/images/service_page_images/grooming.png";
-String  petBoardingImgPath =
+String petBoardingImgPath =
     "assets/images/service_page_images/pet_boarding.png";
 String vetConsultationImgPath =
     "assets/images/service_page_images/vet_consultation.png";

@@ -271,6 +271,9 @@ class DRDogRunningBookingViewModel extends FormViewModel {
   int _dayFrequency = 1;
   int get dayFrequency => _dayFrequency;
 
+  double _gst = 0;
+  int get gst => _gst.toInt();
+
   DogRunningPackage? selectedPlan = DogRunningPackage.One;
   DogRunningPackage? seeMoreSelectedPlan = DogRunningPackage.One;
 
@@ -285,6 +288,7 @@ class DRDogRunningBookingViewModel extends FormViewModel {
 
   void selectPlan(DogRunningPackage? value) {
     selectedPlan = value;
+    twoPets();
     if (selectedPlan == DogRunningPackage.One) {
       _isValid = true;
       _description = "Free";
@@ -293,55 +297,55 @@ class DRDogRunningBookingViewModel extends FormViewModel {
       _dayFrequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = false;
-      _doneMultiply = false;
+      _gst = 0;
       _subTotal = 0;
       _discount = 0;
     } else if (selectedPlan == DogRunningPackage.Four) {
       _isValid = true;
       _description = "Monthly";
-      _amount = 4500;
+      _amount = (_select2) ? 7080 : 4484;
       _frequency = 30;
       _dayFrequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = true;
-      _doneMultiply = false;
-      _subTotal = 5850;
-      _discount = 1350;
+      _subTotal = (_select2) ? 2 * 5850 : 5850;
+      _discount = (_select2) ? 5700 : 2050;
+      _gst = (_select2) ? 0.18 * 6000 : 0.18 * 3800;
     } else if (selectedPlan == DogRunningPackage.Five) {
       _isValid = true;
       _description = "Monthly";
-      _amount = 8500;
+      _amount = (_select2) ? 13159 : 8142;
       _frequency = 30;
       _dayFrequency = 2;
       _isOfferValid = false;
       _isOfferAvailable = true;
-      _doneMultiply = false;
-      _subTotal = 11050;
-      _discount = 2500;
+      _subTotal = (_select2) ? 22100 : 11050;
+      _discount = (_select2) ? 10948 : 4150;
+      _gst = (_select2) ? 0.18*11152 : 0.18*6900;
     } else if (selectedPlan == DogRunningPackage.Six) {
       _isValid = true;
       _description = "3 Months";
-      _amount = 13300;
+      _amount = (_select2) ? 17800 : 13216;
       _frequency = 90;
       _dayFrequency = 1;
       _isOfferValid = false;
       _isOfferAvailable = true;
-      _doneMultiply = false;
-      _subTotal = 17290;
-      _discount = 3990;
+      _subTotal = (_select2) ? 34580 : 17290;
+      _discount = (_select2) ? 17356 : 4436;
+      _gst = (_select2) ?0.18*3204 : 0.18*2016;
     } else if (selectedPlan == DogRunningPackage.Seven) {
       _isValid = true;
       _description = "3 Months";
-      _amount = 25300;
+      _amount = (_select2) ? 39242 : 24190;
       _frequency = 90;
       _dayFrequency = 2;
       _isOfferValid = false;
       _isOfferAvailable = true;
-      _doneMultiply = false;
-      _subTotal = 32890;
-      _discount = 7590;
+      _subTotal = (_select2) ? 98670 : 32890;
+      _discount = (_select2) ? 60505 : 9364;
+      _gst = (_select2) ?0.18*5986 : 0.18*3690;
     }
-    twoPets();
+
     setFirstPageValid();
     notifyListeners();
   }
@@ -608,8 +612,8 @@ class DRDogRunningBookingViewModel extends FormViewModel {
   int _noOfDogs = 1;
   int get noOfDogs => _noOfDogs;
 
-  bool _doneMultiply = false;
-  bool get doneMultiply => _doneMultiply;
+  // bool _doneMultiply = false;
+  // bool get doneMultiply => _doneMultiply;
 
   void selectRun(NoOfRuns? value) {
     selectedRun = value;
@@ -623,6 +627,7 @@ class DRDogRunningBookingViewModel extends FormViewModel {
     notifyListeners();
   }
 
+  bool _select2 = false;
   void twoPets() {
     //   if (noOfDogs == 2) {
     //     _amount = amount * 2;
@@ -641,22 +646,24 @@ class DRDogRunningBookingViewModel extends FormViewModel {
 
     // (noOfDogs == 2 )||
     if ((myPets[0].selected == true && myPets[1].selected == true) &&
-        !_doneMultiply) {
-      _amount = amount * 2;
-      _savedAmount = savedAmount * 2;
-      _discount = discount * 2;
-      _subTotal = subTotal * 2;
-      _doneMultiply = true;
+        !_select2) {
+      // _amount = amount * 2;
+      // _savedAmount = savedAmount * 2;
+      // _discount = discount * 2;
+      // _subTotal = subTotal * 2;
+      // _doneMultiply = true;
+      _select2 = true;
     }
     // (noOfDogs == 1) && donemultiply
     else if (((myPets[0].selected == true && myPets[1].selected == false) ||
             (myPets[0].selected == false && myPets[1].selected == true)) &&
-        _doneMultiply) {
-      _amount = amount / 2;
-      _savedAmount = savedAmount / 2;
-      _discount = discount / 2;
-      _subTotal = subTotal / 2;
-      _doneMultiply = false;
+        _select2) {
+      // _amount = amount / 2;
+      // _savedAmount = savedAmount / 2;
+      // _discount = discount / 2;
+      // _subTotal = subTotal / 2;
+      // _doneMultiply = false;
+      _select2 = false;
     }
     notifyListeners();
   }
@@ -720,7 +727,10 @@ class DRDogRunningBookingViewModel extends FormViewModel {
         _petDetailsBody.add(one);
       }
     });
+    print("inside select pet : $_select2");
     twoPets();
+    selectPlan(selectedPlan);
+    print("what : $_select2 , $selectedPlan");
     setFirstPageValid();
     notifyListeners();
     return;

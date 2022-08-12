@@ -217,13 +217,23 @@ class ProfileCreateViewModel extends AuthenticationViewModel {
     _isValid = true;
     formValueMap.keys.forEach(
       (element) {
+        print("checking : $element");
+        print("checking : $UsernameValueKey");
+        print("checking : $NameValueKey");
+        print("valid : $_isValid");
+
         if (element == UsernameValueKey || element == NameValueKey) {
           String elementValue = formValueMap[element];
+          print("yash is here : $elementValue");
           if (elementValue.isEmpty) {
             _isValid = false;
+            print("valid : $_isValid");
             return;
+          } else {
+            _isValid = true;
           }
         }
+        print("valid : $_isValid");
       },
     );
 

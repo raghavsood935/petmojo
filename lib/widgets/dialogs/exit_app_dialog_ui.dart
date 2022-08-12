@@ -23,9 +23,9 @@ class ExitAppDialogUi extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           verticalSpaceMedium,
-          AppText.titleBold("Alert!"),
+          AppText.titleBold("${dialogRequest.title}"),
           verticalSpaceRegular,
-          AppText.body1("Are you sure do you want to exit the app?"),
+          AppText.body1("${dialogRequest.description}"),
           verticalSpaceRegular,
           Row(
             children: [
@@ -33,13 +33,13 @@ class ExitAppDialogUi extends StatelessWidget {
                 child: TextButton(
                   onPressed: () =>
                       onDialogTap(DialogResponse(confirmed: false)),
-                  child: AppText.bodyBold("CANCEL"),
+                  child: AppText.bodyBold("${dialogRequest.data[1]}"),
                 ),
               ),
               Expanded(
                 child: TextButton(
                   onPressed: () => onDialogTap(DialogResponse(confirmed: true)),
-                  child: AppText.bodyBold("EXIT"),
+                  child: AppText.bodyBold("${dialogRequest.data[0]}"),
                 ),
               ),
             ],

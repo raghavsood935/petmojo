@@ -15,6 +15,7 @@ import 'package:tamely/models/bookmark_response.dart';
 import 'package:tamely/models/comment_added_response.dart';
 import 'package:tamely/models/coupon_response.dart';
 import 'package:tamely/models/create_post_response.dart';
+import 'package:tamely/models/delete_user_account_response.dart';
 import 'package:tamely/models/e-commerce/fav_product_list_response.dart';
 import 'package:tamely/models/e-commerce/product_details_by_id_response.dart';
 import 'package:tamely/models/e-commerce/product_id_common_body.dart';
@@ -1740,6 +1741,21 @@ class TamelyApi {
     GetFreeTrainingResponse response;
     try {
       response = await getApiClient(true, true).getFreeTraining();
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BaseResponse()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return BaseResponse()..data = response;
+  }
+
+  // -- Delete User Account
+
+  Future<BaseResponse<DeleteAccountResponse>> deleteUserAccount() async {
+    log.d("googleLogin called");
+    DeleteAccountResponse response;
+    try {
+      response = await getApiClient(true, true).deleteUserAccount();
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()
