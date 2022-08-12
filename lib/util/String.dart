@@ -260,10 +260,10 @@ String threeMonthOnceRateOld = "Rs.₹17,290/-";
 String threeMonthTwiceRateOld = "Rs.₹32,890/-";
 
 String perWalkRateNew = "FREE";
-String perMonthOnceRateNew = "₹4,500/-";
-String perMonthTwiceRateNew = "₹8,500/-";
-String threeMonthOnceRateNew = "₹13,300/-";
-String threeMonthTwiceRateNew = "₹25,300/-";
+String perMonthOnceRateNew = "₹3,800/-";
+String perMonthTwiceRateNew = "₹6,900/-";
+String threeMonthOnceRateNew = "₹11,200/-";
+String threeMonthTwiceRateNew = "₹20,500/-";
 
 String perWalkRateLabel = "";
 String perMonthOnceRateLabel = "(You save 1,350)";
