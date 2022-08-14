@@ -239,7 +239,8 @@ class _TamelyAppState extends State<TamelyApp> {
 
   Widget _getStartupScreen() {
     if (!_sharedPreferencesService.homeVisible) {
-      return DRDogRunningBookingView();
+      // return DRDogRunningBookingView();
+      return StartupView();
       // } else if (_sharedPreferencesService.authToken.isEmpty) {
       //   return LoginView();
     } else {
