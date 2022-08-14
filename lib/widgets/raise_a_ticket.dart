@@ -40,7 +40,7 @@ class RaiseTicket extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   AppText.bodyBold("Raise a Ticket/Issue",color: Colors.black,),
-                  Icon(Icons.newspaper),
+                  Icon(Icons.book),
 
                 ],
               ),
