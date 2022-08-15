@@ -404,7 +404,7 @@ class DashboardViewModel extends FutureViewModel<void>
     return false;
   }
 
-    Future<bool> logOutUserDialog() async {
+  Future<bool> logOutUserDialog() async {
     var result = await _dialogService.showCustomDialog(
       variant: DialogType.ExitAppDialog,
       title: "Logout",
@@ -455,6 +455,14 @@ class DashboardViewModel extends FutureViewModel<void>
       } else {
         _snackBarService.showSnackbar(message: "Could not open whatsapp");
       }
+    }
+  }
+
+  Future openNormalCall() async {
+    try {
+      launch("tel://9009004473");
+    } catch (e) {
+      _snackBarService.showSnackbar(message: "Could not call 9009004473");
     }
   }
 

@@ -287,11 +287,11 @@ class _DashboardState extends State<Dashboard> {
       SingleChildScrollView(
         child: Column(
           children: [
-            DrawerWidget(
-                title: walletTitle,
-                subTitle: walletSubTitle,
-                iconUrl: walletIcon,
-                onTap: model.onWalletPressed),
+            // DrawerWidget(
+            //     title: walletTitle,
+            //     subTitle: walletSubTitle,
+            //     iconUrl: walletIcon,
+            //     onTap: model.onWalletPressed),
             DrawerWidget(
                 title: bookingTitle,
                 subTitle: bookingSubTitle,
@@ -552,12 +552,13 @@ class _DashboardState extends State<Dashboard> {
                 floatingActionButton: index == 0
                     ? FloatingActionButton(
                         onPressed: () {
-                          model.openWhatsapp();
+                          model.openNormalCall();
                         },
-                        child: Image(
-                            image:
-                                AssetImage("assets/images/whatsapp_icon.png"),
-                            height: 40),
+                        child: Icon(
+                          Icons.phone,
+                          color: colors.primary,
+                          size: 40,
+                        ),
                       )
                     : null,
                 body: _buildScreens(context, model)[index],
