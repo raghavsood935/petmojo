@@ -104,7 +104,7 @@ class DTBookARunView extends ViewModelWidget<DTDogTrainingBookingViewModel> {
                           verticalSpaceRegular,
                           verticalSpaceTiny,
                           AppText.headingTwo(
-                            "ELITE",
+                            "PREMIUM",
                             color: colors.white,
                           ),
                           Spacer(),
@@ -183,7 +183,7 @@ class DTBookARunView extends ViewModelWidget<DTDogTrainingBookingViewModel> {
                       )
                     : Column(
                         children: [
-                          AppText.headingTwo("ELITE Trainers"),
+                          AppText.headingTwo("PREMIUM Trainers"),
                           verticalSpaceTiny,
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -807,7 +807,7 @@ class PackageItem extends StatelessWidget {
                                       //     : Image.asset(
                                       //         "assets/images/package_paw.png",
                                       //         height: 25,
-                                      //       ),i 
+                                      //       ),i
                                       Icon(
                                         Icons.check,
                                         color: selectedValue == value
