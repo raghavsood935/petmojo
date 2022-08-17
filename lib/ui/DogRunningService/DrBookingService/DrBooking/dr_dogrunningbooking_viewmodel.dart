@@ -321,7 +321,7 @@ class DRDogRunningBookingViewModel extends FormViewModel {
       _isOfferAvailable = true;
       _subTotal = (_select2) ? 22100 : 11050;
       _discount = (_select2) ? 10948 : 4150;
-      _gst = (_select2) ? 0.18*11152 : 0.18*6900;
+      _gst = (_select2) ? 0.18 * 11152 : 0.18 * 6900;
     } else if (selectedPlan == DogRunningPackage.Six) {
       _isValid = true;
       _description = "3 Months";
@@ -332,7 +332,7 @@ class DRDogRunningBookingViewModel extends FormViewModel {
       _isOfferAvailable = true;
       _subTotal = (_select2) ? 34580 : 17290;
       _discount = (_select2) ? 17356 : 4436;
-      _gst = (_select2) ?0.18*3204 : 0.18*2016;
+      _gst = (_select2) ? 0.18 * 3204 : 0.18 * 2016;
     } else if (selectedPlan == DogRunningPackage.Seven) {
       _isValid = true;
       _description = "3 Months";
@@ -343,7 +343,7 @@ class DRDogRunningBookingViewModel extends FormViewModel {
       _isOfferAvailable = true;
       _subTotal = (_select2) ? 98670 : 32890;
       _discount = (_select2) ? 60505 : 9364;
-      _gst = (_select2) ?0.18*5986 : 0.18*3690;
+      _gst = (_select2) ? 0.18 * 5986 : 0.18 * 3690;
     }
 
     setFirstPageValid();
@@ -498,15 +498,16 @@ class DRDogRunningBookingViewModel extends FormViewModel {
     if (addressLineTwoController.text == "") {
       print("1");
       _isValid = false;
-    } else {
-      if (!companyAvailable) {
-        print("2");
-        _isValid = false;
-      } else {
-        print("3");
-        _isValid = true;
-      }
     }
+    // else {
+    //   if (!companyAvailable) {
+    //     print("2");
+    //     _isValid = false;
+    //   } else {
+    //     print("3");
+    //     _isValid = true;
+    //   }
+    // }
     if (addressLineOneController.text == "") {
       print("4");
       _isValid = false;
@@ -602,9 +603,10 @@ class DRDogRunningBookingViewModel extends FormViewModel {
       print('Available');
     } else {
       print('Not Available');
-      snackBarService.showSnackbar(message: "Select a different location");
+      //snackBarService.showSnackbar(message: "Select a different location");
     }
     return '${address.first.adminArea}, ${address.first.countryName}';
+    //return '${address.first.thoroughfare != null ? address.first.thoroughfare : ''} ${address.first.subLocality != null ? address.first.subLocality : ''} ${address.first.locality != null ? address.first.locality : ''}, ${address.first.subAdminArea != null ? address.first.subAdminArea : ''}, ${address.first.adminArea}, ${address.first.countryName}';
   }
 
   NoOfRuns? selectedRun = NoOfRuns.One;
