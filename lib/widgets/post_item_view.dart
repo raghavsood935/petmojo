@@ -171,7 +171,8 @@ class _PostItemViewState extends State<PostItemView> {
                                     ),
                                     Text("Share")
                                   ],
-                                ),
+                                )
+                                
                               ),
                               PopupMenuItem(
                                 value: 2,
