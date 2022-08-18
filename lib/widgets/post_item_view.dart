@@ -162,20 +162,7 @@ class _PostItemViewState extends State<PostItemView> {
                         PopupMenuButton<int>(
                             itemBuilder: (context) =>[
                               PopupMenuItem(
-                                  value: 1,
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.share),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text("Share")
-                                  ],
-                                )
-                                
-                              ),
-                              PopupMenuItem(
-                                value: 2,
+                                value: 1,
                                 child: Row(
                                   children: [
                                     Icon(Icons.report_problem),
@@ -185,6 +172,19 @@ class _PostItemViewState extends State<PostItemView> {
                                     Text("Report")
                                   ],
                                 ),
+                              ),
+                              PopupMenuItem(
+                                  value: 2,
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.report),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text("Block")
+                                    ],
+                                  )
+
                               ),
                             ],
                           offset: Offset(0,50),
