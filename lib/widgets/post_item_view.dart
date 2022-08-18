@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:stacked/stacked.dart';
-import 'package:tamely/models/feed_post_response.dart';
 import 'package:tamely/util/Color.dart';
 import 'package:tamely/util/ImageConstant.dart';
 import 'package:tamely/util/global_methods.dart';
@@ -26,6 +25,7 @@ class PostItemView extends StatefulWidget {
   _PostItemViewState createState() => _PostItemViewState(postResponse);
 }
 
+
 class _PostItemViewState extends State<PostItemView> {
   int likesCount = 0;
   bool isLiked = false;
@@ -45,6 +45,8 @@ class _PostItemViewState extends State<PostItemView> {
     isLiked = model.isLiked ?? false;
     isBookmarked = model.isBookmarked ?? false;
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -155,6 +157,57 @@ class _PostItemViewState extends State<PostItemView> {
                             ),
                           ],
                         ),
+                        horizontalSpaceLarge,
+                        horizontalSpaceLarge,
+                        PopupMenuButton<int>(
+                            itemBuilder: (context) =>[
+                              PopupMenuItem(
+                                  value: 1,
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.share),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text("Share")
+                                  ],
+                                )
+                                
+                              ),
+                              PopupMenuItem(
+                                value: 2,
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.report_problem),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text("Report")
+                                  ],
+                                ),
+                              ),
+                            ],
+                          offset: Offset(0,50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(8.0),
+                              bottomRight: Radius.circular(8.0),
+                              topLeft: Radius.circular(8.0),
+                              topRight: Radius.circular(8.0),
+                            ),
+                          ),
+                          color: Colors.white,
+                          elevation: 2,
+                          onSelected: (value){
+                              if(value==1){
+                                Text("data");
+                              }
+                              if(value==1){
+                                Text("data");
+                            }
+                          },
+                        )
+                        //IconButton(onPressed: (){}, icon: Icon(Icons.more_vert))
                       ],
                     ),
                   ),
