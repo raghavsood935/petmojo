@@ -567,16 +567,15 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
     if (addressLineTwoController.text == "") {
       print("1");
       _isValid = false;
+    } else {
+      if (!companyAvailable) {
+        print("2");
+        _isValid = false;
+      } else {
+        print("3");
+        _isValid = true;
+      }
     }
-    // else {
-    //   if (!companyAvailable) {
-    //     print("2");
-    //     _isValid = false;
-    //   } else {
-    //     print("3");
-    //     _isValid = true;
-    //   }
-    // }
     if (addressLineOneController.text == "") {
       print("4");
       _isValid = false;
@@ -596,10 +595,7 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
         _selectedWeekdayTwo == false &&
         _selectedWeekdayThree == false &&
         _selectedWeekdayFour == false &&
-        _selectedWeekdayFive == false &&
-        _selectedWeekdaySix == false &&
-        _selectedWeekdaySeven == false &&
-        _selectedWeekdayEight == false) {
+        _selectedWeekdayFive == false) {
       _isValid = false;
       print("this is shit: $isValid");
     }
@@ -666,10 +662,9 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
       print('Available');
     } else {
       print('Not Available');
-      //snackBarService.showSnackbar(message: "Select a different location");
+      snackBarService.showSnackbar(message: "Select a different location");
     }
-    return '${address.first.adminArea}, ${address.first.countryName}';
-    //return '${address.first.thoroughfare != null ? address.first.thoroughfare : ''} ${address.first.subLocality != null ? address.first.subLocality : ''} ${address.first.locality != null ? address.first.locality : ''}, ${address.first.subAdminArea != null ? address.first.subAdminArea : ''}, ${address.first.adminArea}, ${address.first.countryName}';
+    return '${address.first.addressLine}';
   }
 
   NoOfRuns? selectedRun = NoOfRuns.One;
