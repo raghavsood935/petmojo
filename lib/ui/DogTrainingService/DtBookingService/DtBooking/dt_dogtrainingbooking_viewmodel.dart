@@ -759,7 +759,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       print('Not Available');
       snackBarService.showSnackbar(message: "Select a different location");
     }
-    return '${address.first.adminArea}, ${address.first.countryName}';
+    return '${address.first.subAdminArea}, ${address.first.adminArea}, ${address.first.countryName}';
   }
 
   NoOfRuns? selectedRun = NoOfRuns.One;

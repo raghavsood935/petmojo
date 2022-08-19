@@ -664,7 +664,7 @@ class DGDogGroomingBookingViewModel extends FormViewModel {
       print('Not Available');
       snackBarService.showSnackbar(message: "Select a different location");
     }
-    return '${address.first.adminArea}, ${address.first.countryName}';
+    return '${address.first.addressLine}';
   }
 
   NoOfRuns? selectedRun = NoOfRuns.One;
