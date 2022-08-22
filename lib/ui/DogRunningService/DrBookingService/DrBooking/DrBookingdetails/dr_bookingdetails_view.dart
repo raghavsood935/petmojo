@@ -187,7 +187,10 @@ class DRBookingDetailsView
                       color: Colors.white,
                     ),
                   )
-                      : null,
+                  : Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text("Unable to get your location"),
+                  ),
                   suffix: model.companyAvailable == false
                       ? GestureDetector(
                     onTap: model.changeAddress,

@@ -164,7 +164,9 @@ class ActiveAppointmentItem extends StatelessWidget {
                                 ? "assets/images/dog_grooming_circle.png"
                                 : (serviceType == ServiceType.DogRunning)
                                     ? "assets/images/dog_running.png"
-                                    : "assets/images/dog_training.png"),
+                                    : (serviceType == ServiceType.DogBoarding)
+                                      ?"assets/images/dog_training.png"
+                                    :"assets/images/dog_training.png"),
                   ),
                   horizontalSpaceRegular,
                   Flexible(
@@ -207,8 +209,8 @@ class ActiveAppointmentItem extends StatelessWidget {
                                     // border: Border.all(width: 2, color: colors.primaryLight)
                                     ),
 
-                                child: ImageIcon(
-                                  AssetImage("assets/images/tap_icon.png"),
+                                child: Icon(
+                                  Icons.arrow_forward_ios_outlined,
                                   color: Colors.grey,
                                   size: 30,
                                 ),
@@ -365,15 +367,17 @@ class ActiveAppointmentItem extends StatelessWidget {
                                                   ? AppText.body1(
                                                       "Upcoming : ${DateFormat.yMMMEd().format(DateTime.parse(dateAndTime!))}\n${run2Time == "" ? run1Time : "$run1Time & $run2Time"}",
                                                     )
-                                                  : (serviceType ==
-                                                          ServiceType
-                                                              .DogGrooming)
+                                                  : (serviceType == ServiceType.DogGrooming)
                                                       ? AppText.body1(
                                                           "Upcoming : ${DateFormat.yMMMEd().format(DateTime.parse(dateAndTime!))}\n$sessionTime",
                                                         )
-                                                      : AppText.body1(
-                                                          "Upcoming : ${DateFormat.yMMMEd().format(DateTime.parse(dateAndTime!))}",
-                                                        )
+                                                      : (serviceType == ServiceType.DogBoarding)
+                                                          ?AppText.body1(
+                                                              "Upcoming : ${DateFormat.yMMMEd().format(DateTime.parse(dateAndTime!))}",
+                                                            )
+                                                          :AppText.body1(
+                                                                  "Upcoming : ${DateFormat.yMMMEd().format(DateTime.parse(dateAndTime!))}",
+                                                                )
                                               : (serviceType ==
                                                       ServiceType.DogRunning)
                                                   ? AppText.body1(
@@ -385,9 +389,14 @@ class ActiveAppointmentItem extends StatelessWidget {
                                                       ? AppText.body1(
                                                           "Ongoing : $sessionTime",
                                                         )
-                                                      : AppText.body1(
-                                                          "Ongoing",
-                                                        )
+                                                      : (serviceType == ServiceType.DogBoarding)
+                                                        ?AppText.body1(
+                                                              "Ongoing",
+                                                            )
+                                                        :AppText.body1(
+                                                              "Ongoing",
+                                                            )
+
                                           : (serviceType ==
                                                   ServiceType.DogRunning)
                                               ? AppText.body1(
@@ -398,9 +407,13 @@ class ActiveAppointmentItem extends StatelessWidget {
                                                   ? AppText.body1(
                                                       "Waiting : ${DateFormat.yMMMEd().format(DateTime.parse(dateAndTime!))}\n$sessionTime",
                                                     )
-                                                  : AppText.body1(
-                                                      "Waiting : ${DateFormat.yMMMEd().format(DateTime.parse(dateAndTime!))}",
-                                                    ),
+                                                  : (serviceType == ServiceType.DogBoarding)
+                                                    ?AppText.body1(
+                                                          "Waiting : ${DateFormat.yMMMEd().format(DateTime.parse(dateAndTime!))}",
+                                                          )
+                                                    :AppText.body1(
+                                                              "Waiting : ${DateFormat.yMMMEd().format(DateTime.parse(dateAndTime!))}",
+                                                          ),
                                     ),
                                   ],
                                 ))
@@ -416,7 +429,7 @@ class ActiveAppointmentItem extends StatelessWidget {
         ),
         Visibility(
           visible: (serviceType == ServiceType.DogRunning ||
-                  serviceType == ServiceType.DogTraining) &&
+                  serviceType == ServiceType.DogTraining || serviceType == ServiceType.DogBoarding) &&
               (showReorder! || showBooking! || !paymentStatus!),
           child: verticalSpaceRegular,
         ),
@@ -472,7 +485,7 @@ class ActiveAppointmentItem extends StatelessWidget {
         ),
         Visibility(
           visible: (serviceType == ServiceType.DogRunning ||
-                  serviceType == ServiceType.DogTraining) &&
+                  serviceType == ServiceType.DogTraining || serviceType == ServiceType.DogBoarding) &&
               !paymentStatus!,
           child: GestureDetector(
             onTap: onPayNowTapped,

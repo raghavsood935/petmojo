@@ -150,6 +150,11 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
         Routes.dGAppointmentDetailsView,
         arguments: DGAppointmentDetailsViewArguments(appointmentId: bookingId!),
       );
+    }else if (serviceType == ServiceType.DogBoarding) {
+      await _navigationService.navigateTo(
+        Routes.dGAppointmentDetailsView,
+        arguments: DGAppointmentDetailsViewArguments(appointmentId: bookingId!),
+      );
     }
     getActiveAppointments();
   }

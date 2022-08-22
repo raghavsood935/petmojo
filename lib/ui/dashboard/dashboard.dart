@@ -7,6 +7,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tamely/app/app.locator.dart';
 import 'package:tamely/app/app.router.dart';
+import 'package:tamely/ui/DogBoardingService/DbAppointment/db_appointmentdetails_view.dart';
 import 'package:tamely/ui/community/community_view.dart';
 import 'package:tamely/ui/dashboard/dashboard_viewmodel.dart';
 import 'package:tamely/ui/feed/feed_view.dart';
@@ -545,7 +546,7 @@ class _DashboardState extends State<Dashboard> {
                 floatingActionButton: index == 0
                     ? FloatingActionButton(
                         onPressed: () {
-                          model.openWhatsapp();
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => DBAppointmentsDetailsView(appointmentId: '',)));
                         },
                         child: Image(
                             image:
