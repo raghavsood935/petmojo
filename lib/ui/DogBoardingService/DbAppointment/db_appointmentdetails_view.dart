@@ -4,7 +4,6 @@ import 'package:tamely/util/String.dart';
 import 'package:tamely/util/ui_helpers.dart';
 import 'package:tamely/widgets/app_text.dart';
 import 'package:tamely/util/Color.dart';
-
 import '../../../widgets/custom_date_picker.dart';
 import '../../DogRunningService/DrAppointment/DrAppointmentdetails/dr_appointmentdetails_viewmodel.dart';
 
@@ -60,10 +59,31 @@ class DBAppointmentsDetailsView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     AppText.body2("Pet Boarding"),
-                    AppText.body(
-                      "(03/10 Days)",
-                      color: colors.primary,
-                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "(",
+                          style:TextStyle(
+                            color: colors.primary,
+                            fontSize: 24,
+                          )
+                      ),
+                        Text(
+                            "03",
+                            style:TextStyle(
+                              color: colors.green10,
+                              fontSize: 24,
+                            )
+                        ),
+                        Text(
+                            "/10 Days)",
+                            style:TextStyle(
+                              color: colors.primary,
+                              fontSize: 24,
+                            )
+                        ),],
+                    )
                   ],
                 ),
               ),
@@ -94,10 +114,7 @@ class DBAppointmentsDetailsView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           model.serviceCompleted
-                              ? Icon(
-                                  Icons.check_circle,
-                                  color: colors.green30,
-                                )
+                              ? Image.asset('assets/images/House_tick.png')
                               : Icon(
                                   Icons.error,
                                   color: colors.white,
@@ -204,43 +221,17 @@ class DBAppointmentsDetailsView extends StatelessWidget {
                                     ),
                                     verticalSpaceRegular,
                                     BookingItem(
-                                      detailName: petOneSizeLabel,
-                                      detailValue: "${model.dogsSize[0]}",
-                                      clickable: false,
-                                    ),
-                                    verticalSpaceRegular,
-                                    BookingItem(
                                       detailName: petTwoNameLabel,
                                       detailValue: "${model.dogs[1]}",
                                       clickable: true,
                                       onTapped: model.toDogProfileOne,
                                     ),
                                     verticalSpaceRegular,
-                                    BookingItem(
-                                      detailName: petTwoSizeLabel,
-                                      detailValue: "${model.dogsSize[1]}",
-                                      clickable: false,
-                                    ),
-                                    verticalSpaceRegular,
                                   ],
                                 ),
                           BookingItem(
-                            detailName: frequencyLabel,
-                            detailValue: model.numberOfWalk == 1
-                                ? "Once a day"
-                                : "Twice a day",
-                            clickable: false,
-                          ),
-                          verticalSpaceRegular,
-                          BookingItem(
-                            detailName: subscriptionLabel,
-                            detailValue: model.subscriptionType,
-                            clickable: false,
-                          ),
-                          verticalSpaceRegular,
-                          BookingItem(
-                            detailName: noOfPetsLabel,
-                            detailValue: "${model.dogs.length}",
+                            detailName: "Charge/Night",
+                            detailValue: "Rs. 567/-",
                             clickable: false,
                           ),
                           verticalSpaceRegular,
@@ -256,87 +247,54 @@ class DBAppointmentsDetailsView extends StatelessWidget {
                             clickable: false,
                           ),
                           verticalSpaceRegular,
-                          model.numberOfWalk == 1
-                              ? BookingItem(
-                                  detailName: walkOneTimeLabel,
-                                  detailValue: model.walkOneTime,
-                                  clickable: false,
-                                )
-                              : Column(
-                                  children: [
-                                    BookingItem(
-                                      detailName: walkOneTimeLabel,
-                                      detailValue: model.walkOneTime,
-                                      clickable: false,
-                                    ),
-                                    verticalSpaceRegular,
-                                    BookingItem(
-                                      detailName: walkTwoTimeLabel,
-                                      detailValue: model.walkTwoTime,
-                                      clickable: false,
-                                    ),
-                                  ],
-                                ),
-                          verticalSpaceRegular,
+                          BookingItem(
+                            detailName: "Download Invoice",
+                            detailValue: "See My Invoice",
+                            clickable: true,
+                            onTapped: model.downloadInvoiceButton,
+                          ),
+                          verticalSpaceSmall,
                         ],
                       ),
                     ),
                   ],
                 ),
               ),
-              const Divider(
-                color: colors.kcLightGreyBackground,
-                height: 5.0,
-                thickness: 5.0,
-              ),
+              //verticalSpaceSmall,
               //location
-              Container(
-                color: colors.kcLightGreyBackground,
-                height: 5.0,
-                width: 356,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 36),
+                child: Container(
+                  color: colors.kcLightGreyBackground,
+                  height: 5.0,
+                  width: 356,
+                ),
               ),
-              Container(
-                color: Colors.white,
-                child:Center(
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.location_on,
-                        color: colors.primary,
-                      ),
-                      Text("Boarder Location",style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),)
-                    ],
-                  ),
-                )
-                ,),
-              Container(
-                color: colors.kcLightGreyBackground,
-                height: 5.0,
-                width: 356,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(110, 12, 96, 12),
+                child: Center(
+                  child: Container(
+                    color: Colors.white,
+                    child:Row(
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          color: colors.primary,
+                        ),
+                        Text("Boarder Location",style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),)
+                      ],
+                    )
+                    ,),
+                ),
               ),
-
-              // Column(
-              //   children: [
-              //     Container(
-              //       height: 32,
-              //       color: colors.red,
-              //       child: Row(
-              //         mainAxisAlignment: MainAxisAlignment.center,
-              //         children: [
-              //           Icon(Icons.error,),
-              //           horizontalSpaceSmall,
-              //           Text(
-              //             "test",
-              //             style: TextStyle(color: Colors.blue,
-              //             ),
-              //           )
-              //         ],
-              //       ),
-              //     ),
-              //     verticalSpaceSmall,
-              //     const Divider(color: Colors.blueGrey, height: 5.0)
-              //   ],
-              // )
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 36),
+                child: Container(
+                  color: colors.kcLightGreyBackground,
+                  height: 5.0,
+                  width: 356,
+                ),
+              ),
             ],
           ),
         )),
@@ -540,14 +498,16 @@ class restCells extends StatelessWidget {
                 ),
               ),
             )
-                : Center(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(color: colors.primary),
-                  borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                ),
-              ),)
+                : Padding(
+                  padding:  const EdgeInsets.symmetric(vertical: 11, horizontal: 40),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: colors.primary),
+                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                    ),
+                  ),
+                )
         ));
   }
 }

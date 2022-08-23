@@ -124,6 +124,14 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             bookingId: activeAppointments[index].bookingId!),
       );
     }
+    else if (serviceType == ServiceType.DogBoarding){
+      _navigationService.replaceWith(
+        Routes.dGPaymentView,
+        arguments: DGPaymentViewArguments(
+            amount: activeAppointments[index].amount!,
+            bookingId: activeAppointments[index].bookingId!),
+      );
+    }
   }
 
   // List<ActiveAppointmentClass> _activeAppointments = [
@@ -223,11 +231,11 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
                       noOfPetsSelected: noOfPets,
                     )));
       }
-    } else if (serviceType == ServiceType.DogGrooming) {
-      // await _navigationService.navigateTo(
-      //   Routes.dGAppointmentDetailsView,
-      //   arguments: DGAppointmentDetailsViewArguments(appointmentId: bookingId!),
-      // );
+    } else if (serviceType == ServiceType.DogBoarding) {
+      await _navigationService.navigateTo(
+        Routes.dGAppointmentDetailsView,
+        arguments: DGAppointmentDetailsViewArguments(appointmentId: bookingId!),
+      );
     }
     // getActiveAppointments();
   }
