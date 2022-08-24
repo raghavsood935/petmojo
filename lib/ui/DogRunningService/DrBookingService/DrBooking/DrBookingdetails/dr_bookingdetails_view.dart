@@ -164,10 +164,7 @@ class DRBookingDetailsView
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppText.body2(
-                  bookingDetailsSubtitleRunning,
-                  color: Colors.grey,
-                ),
+                AppText.body2(bookingDetailsSubtitleRunning,color: Colors.grey,),
                 verticalSpaceMedium,
                 // Address 1
                 AppText.body1(
@@ -181,24 +178,27 @@ class DRBookingDetailsView
                   onChanged: model.secondPageValidation,
                   trailing: (model.companyAvailable)
                       ? Container(
-                          margin: EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                              color: Colors.green,
-                              borderRadius: BorderRadius.circular(50)),
-                          child: Icon(
-                            Icons.check,
-                            color: Colors.white,
-                          ),
-                        )
-                      : null,
+                    margin: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(50)),
+                    child: Icon(
+                      Icons.check,
+                      color: Colors.white,
+                    ),
+                  )
+                  : Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text("Unable to get your location"),
+                  ),
                   suffix: model.companyAvailable == false
                       ? GestureDetector(
-                          onTap: model.changeAddress,
-                          child: AppText.body2(
-                            "Change",
-                            color: colors.primary,
-                          ),
-                        )
+                    onTap: model.changeAddress,
+                    child: AppText.body2(
+                      "Change",
+                      color: colors.primary,
+                    ),
+                  )
                       : null,
                   fillColor: (model.companyAvailable
                       ? Color(0xFFEDF9F3)
@@ -213,12 +213,12 @@ class DRBookingDetailsView
                     alignment: Alignment.topRight,
                     child: model.companyAvailable
                         ? GestureDetector(
-                            onTap: model.changeAddress,
-                            child: AppText.body2(
-                              "Change",
-                              color: colors.primary,
-                            ),
-                          )
+                      onTap: model.changeAddress,
+                      child: AppText.body2(
+                        "Change",
+                        color: colors.primary,
+                      ),
+                    )
                         : null,
                   ),
                 ),
@@ -231,18 +231,18 @@ class DRBookingDetailsView
                 AppInputField(
                   hint: addressLineTwoHint,
                   fillColor:
-                      (model.isAddressValid) ? Color(0xFFEDF9F3) : Colors.white,
+                  (model.isAddressValid) ? Color(0xFFEDF9F3) : Colors.white,
                   trailing: (model.isAddressValid)
                       ? Container(
-                          margin: EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                              color: Colors.green,
-                              borderRadius: BorderRadius.circular(50)),
-                          child: Icon(
-                            Icons.check,
-                            color: Colors.white,
-                          ),
-                        )
+                    margin: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(50)),
+                    child: Icon(
+                      Icons.check,
+                      color: Colors.white,
+                    ),
+                  )
                       : SizedBox(),
                   controller: model.addressLineOneController,
                   onChanged: model.secondPageValidation,
@@ -271,18 +271,18 @@ class DRBookingDetailsView
                 verticalSpaceSmall,
                 AppInputField(
                   fillColor:
-                      (model.isPhoneValid) ? Color(0xFFEDF9F3) : Colors.white,
+                  (model.isPhoneValid) ? Color(0xFFEDF9F3) : Colors.white,
                   trailing: (model.isPhoneValid)
                       ? Container(
-                          margin: EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                              color: Colors.green,
-                              borderRadius: BorderRadius.circular(50)),
-                          child: Icon(
-                            Icons.check,
-                            color: Colors.white,
-                          ),
-                        )
+                    margin: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(50)),
+                    child: Icon(
+                      Icons.check,
+                      color: Colors.white,
+                    ),
+                  )
                       : SizedBox(),
                   hint: phoneVerificationHint,
                   controller: model.phoneController,
@@ -293,6 +293,7 @@ class DRBookingDetailsView
                   maxLength: 10,
                 ),
                 verticalSpaceTiny,
+
               ],
             ),
 
@@ -313,14 +314,6 @@ class DRBookingDetailsView
                   children: [
                     AppText.titleBold("DISCOUNT"),
                     AppText.titleBold("- ₹ ${model.discount}"),
-                  ],
-                ),
-                verticalSpaceSmall,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AppText.titleBold("GST"),
-                    AppText.titleBold("+ ₹ ${model.gst}"),
                   ],
                 ),
                 verticalSpaceSmall,
