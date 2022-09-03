@@ -31,6 +31,7 @@ import 'package:tamely/util/String.dart';
 import 'package:tamely/util/location_helper.dart';
 import 'package:tamely/util/utils.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../../enum/TrainingPackageType.dart';
 import 'DtBookarun/dt_bookarun_view.dart';
 import 'DtBookingdetails/dt_bookingdetails_view.dart';
 import 'dt_dogtrainingbooking_view.dart';
@@ -271,6 +272,54 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
     notifyListeners();
   }
 
+  // New Code
+
+  TrainingPackageType? selectedPackageType = TrainingPackageType.Pro;
+
+  void onTapPackageTypePro() {
+    selectedPackageType = TrainingPackageType.Pro;
+    resetPackagePro();
+    notifyListeners();
+  }
+
+  void onTapPackageTypeElite() {
+    selectedPackageType = TrainingPackageType.Elite;
+    resetPackageElite();
+    notifyListeners();
+  }
+
+  void resetPackagePro() {
+    selectedPlan = DogTrainingPackage.Two;
+    _isValid = true;
+    _description = "Puppy Training";
+    // old rate
+    _subTotal = 10788;
+    // new rate
+    _amount = 7500;
+    // save
+    _discount = 1200;
+    _frequency = 12;
+    _dayFrequency = 1;
+    _isOfferValid = false;
+    _isOfferAvailable = true;
+  }
+
+  void resetPackageElite() {
+    selectedPlan = DogTrainingPackage.Two;
+    _isValid = true;
+    _description = "Puppy Training";
+    // old rate
+    _subTotal = 10788;
+    // new rate
+    _amount = 9800;
+    // save
+    _discount = 1200;
+    _frequency = 12;
+    _dayFrequency = 1;
+    _isOfferValid = false;
+    _isOfferAvailable = true;
+  }
+
   // Book a run
 
   void checkValid() {
@@ -283,11 +332,11 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _isValid = true;
       _description = "Puppy Training";
       // old rate
-      _subTotal = 12740;
+      _subTotal = 10788;
       // new rate
-      _amount = 9800;
+      _amount = 7500;
       // save
-      _discount = 2940;
+      _discount = 1200;
       _frequency = 12;
       _dayFrequency = 1;
       _isOfferValid = false;
@@ -344,8 +393,8 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   int get selected => _selected;
 
   List _boxes = [
-    ['Pay Full Amount', "₹6,500/-", "", true],
-    ["Monthly Billing", "₹8,700/-", "Per month", false]
+    ['Pay Full Amount', "â‚¹6,500/-", "", true],
+    ["Monthly Billing", "â‚¹8,700/-", "Per month", false]
   ];
   List get boxes => _boxes;
 
@@ -383,75 +432,120 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
   }
 
   void selectPlan(DogTrainingPackage? value) {
-    print("this is called");
     selectedPlan = value;
-    if (selectedPlan == DogTrainingPackage.One) {
-      _isValid = true;
-      _description = "Free";
-      _amount = 0;
-      _frequency = 1;
-      _isOfferValid = false;
-      _isOfferAvailable = false;
-      _doneMultiply = false;
-      _subTotal = 0;
-      _discount = 0;
-    } else if (selectedPlan == DogTrainingPackage.Two) {
-      _isValid = true;
-      _description = "Puppy Training";
-      _subTotal = 12740;
-      _amount = 9800;
-      _discount = 2940;
-      _frequency = 12;
-      _isOfferValid = false;
-      _isOfferAvailable = true;
-      _doneMultiply = false;
-    } else if (selectedPlan == DogTrainingPackage.Three) {
-      _isValid = true;
-      _description = "Basic Training";
-      _subTotal = 22360;
-      _amount = 17200;
-      _discount = 5160;
-      _frequency = 24;
-      _isOfferValid = false;
-      _isOfferAvailable = true;
-      _doneMultiply = false;
-      _noOfMonths = 2;
-    } else if (selectedPlan == DogTrainingPackage.Four) {
-      _isValid = true;
-      _description = "Intermediate Training";
-      _subTotal = 33228;
-      _amount = 25560;
-      _discount = 7668;
-      _frequency = 36;
-      _isOfferValid = false;
-      _isOfferAvailable = true;
-      _doneMultiply = false;
-      _noOfMonths = 3;
-    } else if (selectedPlan == DogTrainingPackage.Five) {
-      _isValid = true;
-      _description = "Advance Training";
-      _subTotal = 42432;
-      _amount = 32640;
-      _discount = 9792;
-      _frequency = 48;
-      _isOfferValid = false;
-      _isOfferAvailable = true;
-      _doneMultiply = false;
-      _noOfMonths = 4;
-    } else if (selectedPlan == DogTrainingPackage.Six) {
-      _isValid = true;
-      _description = "Premium Training";
-      _subTotal = 70772;
-      _amount = 54440;
-      _discount = 16332;
-      _frequency = 72;
-      _isOfferValid = false;
-      _isOfferAvailable = true;
-      _doneMultiply = false;
-      _noOfMonths = 6;
+    if (selectedPackageType == TrainingPackageType.Pro) {
+      if (selectedPlan == DogTrainingPackage.One) {
+        _isValid = true;
+        _description = "Free";
+        _amount = 0;
+        _frequency = 1;
+        _isOfferValid = false;
+        _isOfferAvailable = false;
+        _doneMultiply = false;
+        _subTotal = 0;
+        _discount = 0;
+      } else if (selectedPlan == DogTrainingPackage.Two) {
+        _isValid = true;
+        _description = "Puppy Training";
+        _subTotal = 10788;
+        _amount = 7500;
+        _discount = 1200;
+        _frequency = 12;
+        _isOfferValid = false;
+        _isOfferAvailable = true;
+        _doneMultiply = false;
+      } else if (selectedPlan == DogTrainingPackage.Three) {
+        _isValid = true;
+        _description = "Basic Training";
+        _subTotal = 22360;
+        _amount = 13800;
+        _discount = 5160;
+        _frequency = 24;
+        _isOfferValid = false;
+        _isOfferAvailable = true;
+        _doneMultiply = false;
+        _noOfMonths = 2;
+      } else if (selectedPlan == DogTrainingPackage.Four) {
+        _isValid = true;
+        _description = "Intermediate Training";
+        _subTotal = 33228;
+        _amount = 20400;
+        _discount = 7668;
+        _frequency = 36;
+        _isOfferValid = false;
+        _isOfferAvailable = true;
+        _doneMultiply = false;
+        _noOfMonths = 3;
+      }
+    } else if (selectedPackageType == TrainingPackageType.Elite) {
+      if (selectedPlan == DogTrainingPackage.One) {
+        _isValid = true;
+        _description = "Free";
+        _amount = 0;
+        _frequency = 1;
+        _isOfferValid = false;
+        _isOfferAvailable = false;
+        _doneMultiply = false;
+        _subTotal = 0;
+        _discount = 0;
+      } else if (selectedPlan == DogTrainingPackage.Two) {
+        _isValid = true;
+        _description = "Puppy Training";
+        _subTotal = 12740;
+        _amount = 9800;
+        _discount = 2940;
+        _frequency = 12;
+        _isOfferValid = false;
+        _isOfferAvailable = true;
+        _doneMultiply = false;
+      } else if (selectedPlan == DogTrainingPackage.Three) {
+        _isValid = true;
+        _description = "Basic Training";
+        _subTotal = 22360;
+        _amount = 17200;
+        _discount = 5160;
+        _frequency = 24;
+        _isOfferValid = false;
+        _isOfferAvailable = true;
+        _doneMultiply = false;
+        _noOfMonths = 2;
+      } else if (selectedPlan == DogTrainingPackage.Four) {
+        _isValid = true;
+        _description = "Intermediate Training";
+        _subTotal = 33228;
+        _amount = 25560;
+        _discount = 7668;
+        _frequency = 36;
+        _isOfferValid = false;
+        _isOfferAvailable = true;
+        _doneMultiply = false;
+        _noOfMonths = 3;
+      } else if (selectedPlan == DogTrainingPackage.Five) {
+        _isValid = true;
+        _description = "Advance Training";
+        _subTotal = 42432;
+        _amount = 32640;
+        _discount = 9792;
+        _frequency = 48;
+        _isOfferValid = false;
+        _isOfferAvailable = true;
+        _doneMultiply = false;
+        _noOfMonths = 4;
+      } else if (selectedPlan == DogTrainingPackage.Six) {
+        _isValid = true;
+        _description = "Premium Training";
+        _subTotal = 70772;
+        _amount = 54440;
+        _discount = 16332;
+        _frequency = 72;
+        _isOfferValid = false;
+        _isOfferAvailable = true;
+        _doneMultiply = false;
+        _noOfMonths = 6;
+      }
     }
-    if(myPets.length!=1)
-      twoPets();
+
+    if (myPets.length != 1) twoPets();
     setFirstPageValid();
     notifyListeners();
   }
@@ -500,8 +594,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
             _promoCode = couponCode;
             _savedAmount = reducedAmountDouble;
             _amount = amount - reducedAmountDouble;
-            if(myPets.length!=1)
-              twoPets();
+            if (myPets.length != 1) twoPets();
             notifyListeners();
           } catch (e) {
             snackBarService.showSnackbar(message: "Invalid Promo Code");
@@ -759,7 +852,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       print('Not Available');
       snackBarService.showSnackbar(message: "Select a different location");
     }
-    return '${address.first.addressLine}';
+    return '${address.first.adminArea}, ${address.first.countryName}';
   }
 
   NoOfRuns? selectedRun = NoOfRuns.One;
@@ -785,8 +878,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
       _noOfDogs = 2;
     }
     setDefaultPets();
-    if(myPets.length!=1)
-      twoPets();
+    if (myPets.length != 1) twoPets();
     notifyListeners();
   }
 
@@ -937,8 +1029,7 @@ class DTDogTrainingBookingViewModel extends FormViewModel {
         _petDetailsBody.add(one);
       }
     });
-    if(myPets.length!=1)
-      twoPets();
+    if (myPets.length != 1) twoPets();
     setFirstPageValid();
     notifyListeners();
   }

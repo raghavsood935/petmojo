@@ -1,5 +1,5 @@
-import 'dart:convert';
 
+import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -9,13 +9,12 @@ import 'package:stacked_themes/stacked_themes.dart';
 import 'package:tamely/services/local_notification_service.dart';
 import 'package:tamely/services/shared_preferences_service.dart';
 import 'package:tamely/util/Color.dart';
-
 import 'app/app.locator.dart';
 import 'tamely_app.dart';
 import 'widgets/dialogs/setup_bottom_sheet_ui.dart';
 import 'widgets/dialogs/setup_dialog_ui.dart';
 
-//REceving message when app is in background for on message
+//Receiving message when app is in background for on message
 
 Future<void> backgroundHandler(RemoteMessage message) async {
   if (message.data != null) {

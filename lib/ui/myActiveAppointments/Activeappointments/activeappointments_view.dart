@@ -171,7 +171,7 @@ class ActiveAppointmentItem extends StatelessWidget {
                   horizontalSpaceRegular,
                   Flexible(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Row(
@@ -373,7 +373,7 @@ class ActiveAppointmentItem extends StatelessWidget {
                                                         )
                                                       : (serviceType == ServiceType.DogBoarding)
                                                           ?AppText.body1(
-                                                              "Upcoming : ${DateFormat.yMMMEd().format(DateTime.parse(dateAndTime!))}",
+                                                              "Upcoming : OK",
                                                             )
                                                           :AppText.body1(
                                                                   "Upcoming : ${DateFormat.yMMMEd().format(DateTime.parse(dateAndTime!))}",
@@ -409,7 +409,7 @@ class ActiveAppointmentItem extends StatelessWidget {
                                                     )
                                                   : (serviceType == ServiceType.DogBoarding)
                                                     ?AppText.body1(
-                                                          "Waiting : ${DateFormat.yMMMEd().format(DateTime.parse(dateAndTime!))}",
+                                                          "Waiting : OK",
                                                           )
                                                     :AppText.body1(
                                                               "Waiting : ${DateFormat.yMMMEd().format(DateTime.parse(dateAndTime!))}",

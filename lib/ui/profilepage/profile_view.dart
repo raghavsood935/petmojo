@@ -55,7 +55,7 @@ class _ProfileViewState extends State<ProfileView> {
       },
       builder: (context, model, child) => model.isHuman
           ? Scaffold(
-              body: RefreshIndicator(
+             body: RefreshIndicator(
                 onRefresh: () async {
                   await model.init2(
                       widget.isInspectView, widget.inspectProfileId ?? "",
@@ -110,6 +110,25 @@ class _ProfileViewState extends State<ProfileView> {
                                   ),
                                 ),
                               ),
+
+                              Visibility(
+                                visible: !model.isBusy,
+                                child: Visibility(
+                                  visible: widget.isInspectView,
+                                  child: Positioned(
+                                    top: 30,
+                                    right: 20,
+                                    child: GestureDetector(
+                                      child: Icon(Icons.more_horiz),
+                                      onTap: (){
+                                      model.showBottomSheet(context);
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+
 
                               Visibility(
                                 visible: !model.isBusy,

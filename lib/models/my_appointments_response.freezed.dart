@@ -28,12 +28,15 @@ class _$MyAppointmentsResponseTearOff {
       @JsonKey(name: "Traininglist")
           List<DogTrainingAppointmentListResponse>? dogTrainingAppointmentsList,
       @JsonKey(name: "Groominglist")
-          List<DogGroomingAppointmentListResponse>?
-              dogGroomingAppointmentsList}) {
+          List<DogGroomingAppointmentListResponse>? dogGroomingAppointmentsList,
+      @JsonKey(name: "Boardinglist")
+          List<DogBoardingAppointmentListResponse>?
+              dogBoardingAppointmentsList}) {
     return _MyAppointmentsResponse(
       dogRunningAppointmentsList: dogRunningAppointmentsList,
       dogTrainingAppointmentsList: dogTrainingAppointmentsList,
       dogGroomingAppointmentsList: dogGroomingAppointmentsList,
+      dogBoardingAppointmentsList: dogBoardingAppointmentsList,
     );
   }
 
@@ -56,6 +59,9 @@ mixin _$MyAppointmentsResponse {
   @JsonKey(name: "Groominglist")
   List<DogGroomingAppointmentListResponse>? get dogGroomingAppointmentsList =>
       throw _privateConstructorUsedError;
+  @JsonKey(name: "Boardinglist")
+  List<DogBoardingAppointmentListResponse>? get dogBoardingAppointmentsList =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -74,8 +80,10 @@ abstract class $MyAppointmentsResponseCopyWith<$Res> {
       @JsonKey(name: "Traininglist")
           List<DogTrainingAppointmentListResponse>? dogTrainingAppointmentsList,
       @JsonKey(name: "Groominglist")
-          List<DogGroomingAppointmentListResponse>?
-              dogGroomingAppointmentsList});
+          List<DogGroomingAppointmentListResponse>? dogGroomingAppointmentsList,
+      @JsonKey(name: "Boardinglist")
+          List<DogBoardingAppointmentListResponse>?
+              dogBoardingAppointmentsList});
 }
 
 /// @nodoc
@@ -92,6 +100,7 @@ class _$MyAppointmentsResponseCopyWithImpl<$Res>
     Object? dogRunningAppointmentsList = freezed,
     Object? dogTrainingAppointmentsList = freezed,
     Object? dogGroomingAppointmentsList = freezed,
+    Object? dogBoardingAppointmentsList = freezed,
   }) {
     return _then(_value.copyWith(
       dogRunningAppointmentsList: dogRunningAppointmentsList == freezed
@@ -106,6 +115,10 @@ class _$MyAppointmentsResponseCopyWithImpl<$Res>
           ? _value.dogGroomingAppointmentsList
           : dogGroomingAppointmentsList // ignore: cast_nullable_to_non_nullable
               as List<DogGroomingAppointmentListResponse>?,
+      dogBoardingAppointmentsList: dogBoardingAppointmentsList == freezed
+          ? _value.dogBoardingAppointmentsList
+          : dogBoardingAppointmentsList // ignore: cast_nullable_to_non_nullable
+              as List<DogBoardingAppointmentListResponse>?,
     ));
   }
 }
@@ -123,8 +136,10 @@ abstract class _$MyAppointmentsResponseCopyWith<$Res>
       @JsonKey(name: "Traininglist")
           List<DogTrainingAppointmentListResponse>? dogTrainingAppointmentsList,
       @JsonKey(name: "Groominglist")
-          List<DogGroomingAppointmentListResponse>?
-              dogGroomingAppointmentsList});
+          List<DogGroomingAppointmentListResponse>? dogGroomingAppointmentsList,
+      @JsonKey(name: "Boardinglist")
+          List<DogBoardingAppointmentListResponse>?
+              dogBoardingAppointmentsList});
 }
 
 /// @nodoc
@@ -143,6 +158,7 @@ class __$MyAppointmentsResponseCopyWithImpl<$Res>
     Object? dogRunningAppointmentsList = freezed,
     Object? dogTrainingAppointmentsList = freezed,
     Object? dogGroomingAppointmentsList = freezed,
+    Object? dogBoardingAppointmentsList = freezed,
   }) {
     return _then(_MyAppointmentsResponse(
       dogRunningAppointmentsList: dogRunningAppointmentsList == freezed
@@ -157,6 +173,10 @@ class __$MyAppointmentsResponseCopyWithImpl<$Res>
           ? _value.dogGroomingAppointmentsList
           : dogGroomingAppointmentsList // ignore: cast_nullable_to_non_nullable
               as List<DogGroomingAppointmentListResponse>?,
+      dogBoardingAppointmentsList: dogBoardingAppointmentsList == freezed
+          ? _value.dogBoardingAppointmentsList
+          : dogBoardingAppointmentsList // ignore: cast_nullable_to_non_nullable
+              as List<DogBoardingAppointmentListResponse>?,
     ));
   }
 }
@@ -167,7 +187,8 @@ class _$_MyAppointmentsResponse extends _MyAppointmentsResponse {
   _$_MyAppointmentsResponse(
       {@JsonKey(name: "serviceList") this.dogRunningAppointmentsList,
       @JsonKey(name: "Traininglist") this.dogTrainingAppointmentsList,
-      @JsonKey(name: "Groominglist") this.dogGroomingAppointmentsList})
+      @JsonKey(name: "Groominglist") this.dogGroomingAppointmentsList,
+      @JsonKey(name: "Boardinglist") this.dogBoardingAppointmentsList})
       : super._();
 
   factory _$_MyAppointmentsResponse.fromJson(Map<String, dynamic> json) =>
@@ -182,10 +203,13 @@ class _$_MyAppointmentsResponse extends _MyAppointmentsResponse {
   @override
   @JsonKey(name: "Groominglist")
   final List<DogGroomingAppointmentListResponse>? dogGroomingAppointmentsList;
+  @override
+  @JsonKey(name: "Boardinglist")
+  final List<DogBoardingAppointmentListResponse>? dogBoardingAppointmentsList;
 
   @override
   String toString() {
-    return 'MyAppointmentsResponse(dogRunningAppointmentsList: $dogRunningAppointmentsList, dogTrainingAppointmentsList: $dogTrainingAppointmentsList, dogGroomingAppointmentsList: $dogGroomingAppointmentsList)';
+    return 'MyAppointmentsResponse(dogRunningAppointmentsList: $dogRunningAppointmentsList, dogTrainingAppointmentsList: $dogTrainingAppointmentsList, dogGroomingAppointmentsList: $dogGroomingAppointmentsList, dogBoardingAppointmentsList: $dogBoardingAppointmentsList)';
   }
 
   @override
@@ -200,7 +224,10 @@ class _$_MyAppointmentsResponse extends _MyAppointmentsResponse {
                 dogTrainingAppointmentsList) &&
             const DeepCollectionEquality().equals(
                 other.dogGroomingAppointmentsList,
-                dogGroomingAppointmentsList));
+                dogGroomingAppointmentsList) &&
+            const DeepCollectionEquality().equals(
+                other.dogBoardingAppointmentsList,
+                dogBoardingAppointmentsList));
   }
 
   @override
@@ -208,7 +235,8 @@ class _$_MyAppointmentsResponse extends _MyAppointmentsResponse {
       runtimeType,
       const DeepCollectionEquality().hash(dogRunningAppointmentsList),
       const DeepCollectionEquality().hash(dogTrainingAppointmentsList),
-      const DeepCollectionEquality().hash(dogGroomingAppointmentsList));
+      const DeepCollectionEquality().hash(dogGroomingAppointmentsList),
+      const DeepCollectionEquality().hash(dogBoardingAppointmentsList));
 
   @JsonKey(ignore: true)
   @override
@@ -229,8 +257,10 @@ abstract class _MyAppointmentsResponse extends MyAppointmentsResponse {
       @JsonKey(name: "Traininglist")
           List<DogTrainingAppointmentListResponse>? dogTrainingAppointmentsList,
       @JsonKey(name: "Groominglist")
-          List<DogGroomingAppointmentListResponse>?
-              dogGroomingAppointmentsList}) = _$_MyAppointmentsResponse;
+          List<DogGroomingAppointmentListResponse>? dogGroomingAppointmentsList,
+      @JsonKey(name: "Boardinglist")
+          List<DogBoardingAppointmentListResponse>?
+              dogBoardingAppointmentsList}) = _$_MyAppointmentsResponse;
   _MyAppointmentsResponse._() : super._();
 
   factory _MyAppointmentsResponse.fromJson(Map<String, dynamic> json) =
@@ -245,6 +275,9 @@ abstract class _MyAppointmentsResponse extends MyAppointmentsResponse {
   @override
   @JsonKey(name: "Groominglist")
   List<DogGroomingAppointmentListResponse>? get dogGroomingAppointmentsList;
+  @override
+  @JsonKey(name: "Boardinglist")
+  List<DogBoardingAppointmentListResponse>? get dogBoardingAppointmentsList;
   @override
   @JsonKey(ignore: true)
   _$MyAppointmentsResponseCopyWith<_MyAppointmentsResponse> get copyWith =>
@@ -740,6 +773,524 @@ abstract class _DogTrainingAppointmentListResponse
       get copyWith => throw _privateConstructorUsedError;
 }
 
+DogBoardingAppointmentListResponse _$DogBoardingAppointmentListResponseFromJson(
+    Map<String, dynamic> json) {
+  return _DogBoardingAppointmentListResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$DogBoardingAppointmentListResponseTearOff {
+  const _$DogBoardingAppointmentListResponseTearOff();
+
+  _DogBoardingAppointmentListResponse call(
+      {@JsonKey(name: "petDetails")
+          List<PetDetailsResponse>? petDetails,
+      @JsonKey(name: "bookingStatus")
+          int? bookingStatus,
+      @JsonKey(name: "serviceStatus")
+          int? serviceStatus,
+      @JsonKey(name: "isRated")
+          bool? isRated,
+      @JsonKey(name: "serviceType")
+          int? serviceType,
+      @JsonKey(name: "_id")
+          String? appointmentId,
+      @JsonKey(name: "ServiceProvider")
+          UserDetailsResponse? user,
+      @JsonKey(name: "PetBoardingbookingDetails")
+          DogBoardingBookingDetailsResponse? bookingDetails,
+      @JsonKey(name: "isReorderDone")
+          bool? isReorderDone,
+      @JsonKey(name: "createdAt")
+          String? createdAt,
+      @JsonKey(name: "updatedAt")
+          String? updatedAt}) {
+    return _DogBoardingAppointmentListResponse(
+      petDetails: petDetails,
+      bookingStatus: bookingStatus,
+      serviceStatus: serviceStatus,
+      isRated: isRated,
+      serviceType: serviceType,
+      appointmentId: appointmentId,
+      user: user,
+      bookingDetails: bookingDetails,
+      isReorderDone: isReorderDone,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+    );
+  }
+
+  DogBoardingAppointmentListResponse fromJson(Map<String, Object?> json) {
+    return DogBoardingAppointmentListResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $DogBoardingAppointmentListResponse =
+    _$DogBoardingAppointmentListResponseTearOff();
+
+/// @nodoc
+mixin _$DogBoardingAppointmentListResponse {
+  @JsonKey(name: "petDetails")
+  List<PetDetailsResponse>? get petDetails =>
+      throw _privateConstructorUsedError;
+  @JsonKey(name: "bookingStatus")
+  int? get bookingStatus => throw _privateConstructorUsedError;
+  @JsonKey(name: "serviceStatus")
+  int? get serviceStatus => throw _privateConstructorUsedError;
+  @JsonKey(name: "isRated")
+  bool? get isRated => throw _privateConstructorUsedError;
+  @JsonKey(name: "serviceType")
+  int? get serviceType => throw _privateConstructorUsedError;
+  @JsonKey(name: "_id")
+  String? get appointmentId => throw _privateConstructorUsedError;
+  @JsonKey(name: "ServiceProvider")
+  UserDetailsResponse? get user => throw _privateConstructorUsedError;
+  @JsonKey(name: "PetBoardingbookingDetails")
+  DogBoardingBookingDetailsResponse? get bookingDetails =>
+      throw _privateConstructorUsedError;
+  @JsonKey(name: "isReorderDone")
+  bool? get isReorderDone => throw _privateConstructorUsedError;
+  @JsonKey(name: "createdAt")
+  String? get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: "updatedAt")
+  String? get updatedAt => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $DogBoardingAppointmentListResponseCopyWith<
+          DogBoardingAppointmentListResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DogBoardingAppointmentListResponseCopyWith<$Res> {
+  factory $DogBoardingAppointmentListResponseCopyWith(
+          DogBoardingAppointmentListResponse value,
+          $Res Function(DogBoardingAppointmentListResponse) then) =
+      _$DogBoardingAppointmentListResponseCopyWithImpl<$Res>;
+  $Res call(
+      {@JsonKey(name: "petDetails")
+          List<PetDetailsResponse>? petDetails,
+      @JsonKey(name: "bookingStatus")
+          int? bookingStatus,
+      @JsonKey(name: "serviceStatus")
+          int? serviceStatus,
+      @JsonKey(name: "isRated")
+          bool? isRated,
+      @JsonKey(name: "serviceType")
+          int? serviceType,
+      @JsonKey(name: "_id")
+          String? appointmentId,
+      @JsonKey(name: "ServiceProvider")
+          UserDetailsResponse? user,
+      @JsonKey(name: "PetBoardingbookingDetails")
+          DogBoardingBookingDetailsResponse? bookingDetails,
+      @JsonKey(name: "isReorderDone")
+          bool? isReorderDone,
+      @JsonKey(name: "createdAt")
+          String? createdAt,
+      @JsonKey(name: "updatedAt")
+          String? updatedAt});
+
+  $UserDetailsResponseCopyWith<$Res>? get user;
+  $DogBoardingBookingDetailsResponseCopyWith<$Res>? get bookingDetails;
+}
+
+/// @nodoc
+class _$DogBoardingAppointmentListResponseCopyWithImpl<$Res>
+    implements $DogBoardingAppointmentListResponseCopyWith<$Res> {
+  _$DogBoardingAppointmentListResponseCopyWithImpl(this._value, this._then);
+
+  final DogBoardingAppointmentListResponse _value;
+  // ignore: unused_field
+  final $Res Function(DogBoardingAppointmentListResponse) _then;
+
+  @override
+  $Res call({
+    Object? petDetails = freezed,
+    Object? bookingStatus = freezed,
+    Object? serviceStatus = freezed,
+    Object? isRated = freezed,
+    Object? serviceType = freezed,
+    Object? appointmentId = freezed,
+    Object? user = freezed,
+    Object? bookingDetails = freezed,
+    Object? isReorderDone = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+  }) {
+    return _then(_value.copyWith(
+      petDetails: petDetails == freezed
+          ? _value.petDetails
+          : petDetails // ignore: cast_nullable_to_non_nullable
+              as List<PetDetailsResponse>?,
+      bookingStatus: bookingStatus == freezed
+          ? _value.bookingStatus
+          : bookingStatus // ignore: cast_nullable_to_non_nullable
+              as int?,
+      serviceStatus: serviceStatus == freezed
+          ? _value.serviceStatus
+          : serviceStatus // ignore: cast_nullable_to_non_nullable
+              as int?,
+      isRated: isRated == freezed
+          ? _value.isRated
+          : isRated // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      serviceType: serviceType == freezed
+          ? _value.serviceType
+          : serviceType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      appointmentId: appointmentId == freezed
+          ? _value.appointmentId
+          : appointmentId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      user: user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserDetailsResponse?,
+      bookingDetails: bookingDetails == freezed
+          ? _value.bookingDetails
+          : bookingDetails // ignore: cast_nullable_to_non_nullable
+              as DogBoardingBookingDetailsResponse?,
+      isReorderDone: isReorderDone == freezed
+          ? _value.isReorderDone
+          : isReorderDone // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+
+  @override
+  $UserDetailsResponseCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserDetailsResponseCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value));
+    });
+  }
+
+  @override
+  $DogBoardingBookingDetailsResponseCopyWith<$Res>? get bookingDetails {
+    if (_value.bookingDetails == null) {
+      return null;
+    }
+
+    return $DogBoardingBookingDetailsResponseCopyWith<$Res>(
+        _value.bookingDetails!, (value) {
+      return _then(_value.copyWith(bookingDetails: value));
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$DogBoardingAppointmentListResponseCopyWith<$Res>
+    implements $DogBoardingAppointmentListResponseCopyWith<$Res> {
+  factory _$DogBoardingAppointmentListResponseCopyWith(
+          _DogBoardingAppointmentListResponse value,
+          $Res Function(_DogBoardingAppointmentListResponse) then) =
+      __$DogBoardingAppointmentListResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {@JsonKey(name: "petDetails")
+          List<PetDetailsResponse>? petDetails,
+      @JsonKey(name: "bookingStatus")
+          int? bookingStatus,
+      @JsonKey(name: "serviceStatus")
+          int? serviceStatus,
+      @JsonKey(name: "isRated")
+          bool? isRated,
+      @JsonKey(name: "serviceType")
+          int? serviceType,
+      @JsonKey(name: "_id")
+          String? appointmentId,
+      @JsonKey(name: "ServiceProvider")
+          UserDetailsResponse? user,
+      @JsonKey(name: "PetBoardingbookingDetails")
+          DogBoardingBookingDetailsResponse? bookingDetails,
+      @JsonKey(name: "isReorderDone")
+          bool? isReorderDone,
+      @JsonKey(name: "createdAt")
+          String? createdAt,
+      @JsonKey(name: "updatedAt")
+          String? updatedAt});
+
+  @override
+  $UserDetailsResponseCopyWith<$Res>? get user;
+  @override
+  $DogBoardingBookingDetailsResponseCopyWith<$Res>? get bookingDetails;
+}
+
+/// @nodoc
+class __$DogBoardingAppointmentListResponseCopyWithImpl<$Res>
+    extends _$DogBoardingAppointmentListResponseCopyWithImpl<$Res>
+    implements _$DogBoardingAppointmentListResponseCopyWith<$Res> {
+  __$DogBoardingAppointmentListResponseCopyWithImpl(
+      _DogBoardingAppointmentListResponse _value,
+      $Res Function(_DogBoardingAppointmentListResponse) _then)
+      : super(_value, (v) => _then(v as _DogBoardingAppointmentListResponse));
+
+  @override
+  _DogBoardingAppointmentListResponse get _value =>
+      super._value as _DogBoardingAppointmentListResponse;
+
+  @override
+  $Res call({
+    Object? petDetails = freezed,
+    Object? bookingStatus = freezed,
+    Object? serviceStatus = freezed,
+    Object? isRated = freezed,
+    Object? serviceType = freezed,
+    Object? appointmentId = freezed,
+    Object? user = freezed,
+    Object? bookingDetails = freezed,
+    Object? isReorderDone = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+  }) {
+    return _then(_DogBoardingAppointmentListResponse(
+      petDetails: petDetails == freezed
+          ? _value.petDetails
+          : petDetails // ignore: cast_nullable_to_non_nullable
+              as List<PetDetailsResponse>?,
+      bookingStatus: bookingStatus == freezed
+          ? _value.bookingStatus
+          : bookingStatus // ignore: cast_nullable_to_non_nullable
+              as int?,
+      serviceStatus: serviceStatus == freezed
+          ? _value.serviceStatus
+          : serviceStatus // ignore: cast_nullable_to_non_nullable
+              as int?,
+      isRated: isRated == freezed
+          ? _value.isRated
+          : isRated // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      serviceType: serviceType == freezed
+          ? _value.serviceType
+          : serviceType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      appointmentId: appointmentId == freezed
+          ? _value.appointmentId
+          : appointmentId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      user: user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserDetailsResponse?,
+      bookingDetails: bookingDetails == freezed
+          ? _value.bookingDetails
+          : bookingDetails // ignore: cast_nullable_to_non_nullable
+              as DogBoardingBookingDetailsResponse?,
+      isReorderDone: isReorderDone == freezed
+          ? _value.isReorderDone
+          : isReorderDone // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_DogBoardingAppointmentListResponse
+    extends _DogBoardingAppointmentListResponse {
+  _$_DogBoardingAppointmentListResponse(
+      {@JsonKey(name: "petDetails") this.petDetails,
+      @JsonKey(name: "bookingStatus") this.bookingStatus,
+      @JsonKey(name: "serviceStatus") this.serviceStatus,
+      @JsonKey(name: "isRated") this.isRated,
+      @JsonKey(name: "serviceType") this.serviceType,
+      @JsonKey(name: "_id") this.appointmentId,
+      @JsonKey(name: "ServiceProvider") this.user,
+      @JsonKey(name: "PetBoardingbookingDetails") this.bookingDetails,
+      @JsonKey(name: "isReorderDone") this.isReorderDone,
+      @JsonKey(name: "createdAt") this.createdAt,
+      @JsonKey(name: "updatedAt") this.updatedAt})
+      : super._();
+
+  factory _$_DogBoardingAppointmentListResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$$_DogBoardingAppointmentListResponseFromJson(json);
+
+  @override
+  @JsonKey(name: "petDetails")
+  final List<PetDetailsResponse>? petDetails;
+  @override
+  @JsonKey(name: "bookingStatus")
+  final int? bookingStatus;
+  @override
+  @JsonKey(name: "serviceStatus")
+  final int? serviceStatus;
+  @override
+  @JsonKey(name: "isRated")
+  final bool? isRated;
+  @override
+  @JsonKey(name: "serviceType")
+  final int? serviceType;
+  @override
+  @JsonKey(name: "_id")
+  final String? appointmentId;
+  @override
+  @JsonKey(name: "ServiceProvider")
+  final UserDetailsResponse? user;
+  @override
+  @JsonKey(name: "PetBoardingbookingDetails")
+  final DogBoardingBookingDetailsResponse? bookingDetails;
+  @override
+  @JsonKey(name: "isReorderDone")
+  final bool? isReorderDone;
+  @override
+  @JsonKey(name: "createdAt")
+  final String? createdAt;
+  @override
+  @JsonKey(name: "updatedAt")
+  final String? updatedAt;
+
+  @override
+  String toString() {
+    return 'DogBoardingAppointmentListResponse(petDetails: $petDetails, bookingStatus: $bookingStatus, serviceStatus: $serviceStatus, isRated: $isRated, serviceType: $serviceType, appointmentId: $appointmentId, user: $user, bookingDetails: $bookingDetails, isReorderDone: $isReorderDone, createdAt: $createdAt, updatedAt: $updatedAt)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _DogBoardingAppointmentListResponse &&
+            const DeepCollectionEquality()
+                .equals(other.petDetails, petDetails) &&
+            const DeepCollectionEquality()
+                .equals(other.bookingStatus, bookingStatus) &&
+            const DeepCollectionEquality()
+                .equals(other.serviceStatus, serviceStatus) &&
+            const DeepCollectionEquality().equals(other.isRated, isRated) &&
+            const DeepCollectionEquality()
+                .equals(other.serviceType, serviceType) &&
+            const DeepCollectionEquality()
+                .equals(other.appointmentId, appointmentId) &&
+            const DeepCollectionEquality().equals(other.user, user) &&
+            const DeepCollectionEquality()
+                .equals(other.bookingDetails, bookingDetails) &&
+            const DeepCollectionEquality()
+                .equals(other.isReorderDone, isReorderDone) &&
+            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
+            const DeepCollectionEquality().equals(other.updatedAt, updatedAt));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(petDetails),
+      const DeepCollectionEquality().hash(bookingStatus),
+      const DeepCollectionEquality().hash(serviceStatus),
+      const DeepCollectionEquality().hash(isRated),
+      const DeepCollectionEquality().hash(serviceType),
+      const DeepCollectionEquality().hash(appointmentId),
+      const DeepCollectionEquality().hash(user),
+      const DeepCollectionEquality().hash(bookingDetails),
+      const DeepCollectionEquality().hash(isReorderDone),
+      const DeepCollectionEquality().hash(createdAt),
+      const DeepCollectionEquality().hash(updatedAt));
+
+  @JsonKey(ignore: true)
+  @override
+  _$DogBoardingAppointmentListResponseCopyWith<
+          _DogBoardingAppointmentListResponse>
+      get copyWith => __$DogBoardingAppointmentListResponseCopyWithImpl<
+          _DogBoardingAppointmentListResponse>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_DogBoardingAppointmentListResponseToJson(this);
+  }
+}
+
+abstract class _DogBoardingAppointmentListResponse
+    extends DogBoardingAppointmentListResponse {
+  factory _DogBoardingAppointmentListResponse(
+      {@JsonKey(name: "petDetails")
+          List<PetDetailsResponse>? petDetails,
+      @JsonKey(name: "bookingStatus")
+          int? bookingStatus,
+      @JsonKey(name: "serviceStatus")
+          int? serviceStatus,
+      @JsonKey(name: "isRated")
+          bool? isRated,
+      @JsonKey(name: "serviceType")
+          int? serviceType,
+      @JsonKey(name: "_id")
+          String? appointmentId,
+      @JsonKey(name: "ServiceProvider")
+          UserDetailsResponse? user,
+      @JsonKey(name: "PetBoardingbookingDetails")
+          DogBoardingBookingDetailsResponse? bookingDetails,
+      @JsonKey(name: "isReorderDone")
+          bool? isReorderDone,
+      @JsonKey(name: "createdAt")
+          String? createdAt,
+      @JsonKey(name: "updatedAt")
+          String? updatedAt}) = _$_DogBoardingAppointmentListResponse;
+  _DogBoardingAppointmentListResponse._() : super._();
+
+  factory _DogBoardingAppointmentListResponse.fromJson(
+          Map<String, dynamic> json) =
+      _$_DogBoardingAppointmentListResponse.fromJson;
+
+  @override
+  @JsonKey(name: "petDetails")
+  List<PetDetailsResponse>? get petDetails;
+  @override
+  @JsonKey(name: "bookingStatus")
+  int? get bookingStatus;
+  @override
+  @JsonKey(name: "serviceStatus")
+  int? get serviceStatus;
+  @override
+  @JsonKey(name: "isRated")
+  bool? get isRated;
+  @override
+  @JsonKey(name: "serviceType")
+  int? get serviceType;
+  @override
+  @JsonKey(name: "_id")
+  String? get appointmentId;
+  @override
+  @JsonKey(name: "ServiceProvider")
+  UserDetailsResponse? get user;
+  @override
+  @JsonKey(name: "PetBoardingbookingDetails")
+  DogBoardingBookingDetailsResponse? get bookingDetails;
+  @override
+  @JsonKey(name: "isReorderDone")
+  bool? get isReorderDone;
+  @override
+  @JsonKey(name: "createdAt")
+  String? get createdAt;
+  @override
+  @JsonKey(name: "updatedAt")
+  String? get updatedAt;
+  @override
+  @JsonKey(ignore: true)
+  _$DogBoardingAppointmentListResponseCopyWith<
+          _DogBoardingAppointmentListResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
 DogTrainingPaymentDetailsResponse _$DogTrainingPaymentDetailsResponseFromJson(
     Map<String, dynamic> json) {
   return _DogTrainingPaymentDetailsResponse.fromJson(json);
@@ -965,6 +1516,207 @@ abstract class _DogTrainingPaymentDetailsResponse
   @JsonKey(ignore: true)
   _$DogTrainingPaymentDetailsResponseCopyWith<
           _DogTrainingPaymentDetailsResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+DogBoardingPaymentDetailsResponse _$DogBoardingPaymentDetailsResponseFromJson(
+    Map<String, dynamic> json) {
+  return _DogBoardingPaymentDetailsResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$DogBoardingPaymentDetailsResponseTearOff {
+  const _$DogBoardingPaymentDetailsResponseTearOff();
+
+  _DogBoardingPaymentDetailsResponse call(
+      {@JsonKey(name: "status") int? paymentStatus,
+      @JsonKey(name: "amount") int? amount}) {
+    return _DogBoardingPaymentDetailsResponse(
+      paymentStatus: paymentStatus,
+      amount: amount,
+    );
+  }
+
+  DogBoardingPaymentDetailsResponse fromJson(Map<String, Object?> json) {
+    return DogBoardingPaymentDetailsResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $DogBoardingPaymentDetailsResponse =
+    _$DogBoardingPaymentDetailsResponseTearOff();
+
+/// @nodoc
+mixin _$DogBoardingPaymentDetailsResponse {
+  @JsonKey(name: "status")
+  int? get paymentStatus => throw _privateConstructorUsedError;
+  @JsonKey(name: "amount")
+  int? get amount => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $DogBoardingPaymentDetailsResponseCopyWith<DogBoardingPaymentDetailsResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DogBoardingPaymentDetailsResponseCopyWith<$Res> {
+  factory $DogBoardingPaymentDetailsResponseCopyWith(
+          DogBoardingPaymentDetailsResponse value,
+          $Res Function(DogBoardingPaymentDetailsResponse) then) =
+      _$DogBoardingPaymentDetailsResponseCopyWithImpl<$Res>;
+  $Res call(
+      {@JsonKey(name: "status") int? paymentStatus,
+      @JsonKey(name: "amount") int? amount});
+}
+
+/// @nodoc
+class _$DogBoardingPaymentDetailsResponseCopyWithImpl<$Res>
+    implements $DogBoardingPaymentDetailsResponseCopyWith<$Res> {
+  _$DogBoardingPaymentDetailsResponseCopyWithImpl(this._value, this._then);
+
+  final DogBoardingPaymentDetailsResponse _value;
+  // ignore: unused_field
+  final $Res Function(DogBoardingPaymentDetailsResponse) _then;
+
+  @override
+  $Res call({
+    Object? paymentStatus = freezed,
+    Object? amount = freezed,
+  }) {
+    return _then(_value.copyWith(
+      paymentStatus: paymentStatus == freezed
+          ? _value.paymentStatus
+          : paymentStatus // ignore: cast_nullable_to_non_nullable
+              as int?,
+      amount: amount == freezed
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$DogBoardingPaymentDetailsResponseCopyWith<$Res>
+    implements $DogBoardingPaymentDetailsResponseCopyWith<$Res> {
+  factory _$DogBoardingPaymentDetailsResponseCopyWith(
+          _DogBoardingPaymentDetailsResponse value,
+          $Res Function(_DogBoardingPaymentDetailsResponse) then) =
+      __$DogBoardingPaymentDetailsResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {@JsonKey(name: "status") int? paymentStatus,
+      @JsonKey(name: "amount") int? amount});
+}
+
+/// @nodoc
+class __$DogBoardingPaymentDetailsResponseCopyWithImpl<$Res>
+    extends _$DogBoardingPaymentDetailsResponseCopyWithImpl<$Res>
+    implements _$DogBoardingPaymentDetailsResponseCopyWith<$Res> {
+  __$DogBoardingPaymentDetailsResponseCopyWithImpl(
+      _DogBoardingPaymentDetailsResponse _value,
+      $Res Function(_DogBoardingPaymentDetailsResponse) _then)
+      : super(_value, (v) => _then(v as _DogBoardingPaymentDetailsResponse));
+
+  @override
+  _DogBoardingPaymentDetailsResponse get _value =>
+      super._value as _DogBoardingPaymentDetailsResponse;
+
+  @override
+  $Res call({
+    Object? paymentStatus = freezed,
+    Object? amount = freezed,
+  }) {
+    return _then(_DogBoardingPaymentDetailsResponse(
+      paymentStatus: paymentStatus == freezed
+          ? _value.paymentStatus
+          : paymentStatus // ignore: cast_nullable_to_non_nullable
+              as int?,
+      amount: amount == freezed
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_DogBoardingPaymentDetailsResponse
+    extends _DogBoardingPaymentDetailsResponse {
+  _$_DogBoardingPaymentDetailsResponse(
+      {@JsonKey(name: "status") this.paymentStatus,
+      @JsonKey(name: "amount") this.amount})
+      : super._();
+
+  factory _$_DogBoardingPaymentDetailsResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$$_DogBoardingPaymentDetailsResponseFromJson(json);
+
+  @override
+  @JsonKey(name: "status")
+  final int? paymentStatus;
+  @override
+  @JsonKey(name: "amount")
+  final int? amount;
+
+  @override
+  String toString() {
+    return 'DogBoardingPaymentDetailsResponse(paymentStatus: $paymentStatus, amount: $amount)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _DogBoardingPaymentDetailsResponse &&
+            const DeepCollectionEquality()
+                .equals(other.paymentStatus, paymentStatus) &&
+            const DeepCollectionEquality().equals(other.amount, amount));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(paymentStatus),
+      const DeepCollectionEquality().hash(amount));
+
+  @JsonKey(ignore: true)
+  @override
+  _$DogBoardingPaymentDetailsResponseCopyWith<
+          _DogBoardingPaymentDetailsResponse>
+      get copyWith => __$DogBoardingPaymentDetailsResponseCopyWithImpl<
+          _DogBoardingPaymentDetailsResponse>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_DogBoardingPaymentDetailsResponseToJson(this);
+  }
+}
+
+abstract class _DogBoardingPaymentDetailsResponse
+    extends DogBoardingPaymentDetailsResponse {
+  factory _DogBoardingPaymentDetailsResponse(
+          {@JsonKey(name: "status") int? paymentStatus,
+          @JsonKey(name: "amount") int? amount}) =
+      _$_DogBoardingPaymentDetailsResponse;
+  _DogBoardingPaymentDetailsResponse._() : super._();
+
+  factory _DogBoardingPaymentDetailsResponse.fromJson(
+          Map<String, dynamic> json) =
+      _$_DogBoardingPaymentDetailsResponse.fromJson;
+
+  @override
+  @JsonKey(name: "status")
+  int? get paymentStatus;
+  @override
+  @JsonKey(name: "amount")
+  int? get amount;
+  @override
+  @JsonKey(ignore: true)
+  _$DogBoardingPaymentDetailsResponseCopyWith<
+          _DogBoardingPaymentDetailsResponse>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -2675,6 +3427,428 @@ abstract class _DogTrainingBookingDetailsResponse
   @JsonKey(ignore: true)
   _$DogTrainingBookingDetailsResponseCopyWith<
           _DogTrainingBookingDetailsResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+DogBoardingBookingDetailsResponse _$DogBoardingBookingDetailsResponseFromJson(
+    Map<String, dynamic> json) {
+  return _DogBoardingBookingDetailsResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$DogBoardingBookingDetailsResponseTearOff {
+  const _$DogBoardingBookingDetailsResponseTearOff();
+
+  _DogBoardingBookingDetailsResponse call(
+      {@JsonKey(name: "package")
+          DogBoardingPackageResponse? package,
+      @JsonKey(name: "_id")
+          String? bookingId,
+      @JsonKey(name: "startDate")
+          int? startDate,
+      @JsonKey(name: "paymentDetails")
+          DogBoardingPaymentDetailsResponse? paymentDetails,
+      @JsonKey(name: "isReorderDone")
+          bool? isReorderDone,
+      @JsonKey(name: "numberOfPets")
+          int? numberOfPets,
+      @JsonKey(name: "createdAt")
+          String? createdAt,
+      @JsonKey(name: "phone")
+          String? phone}) {
+    return _DogBoardingBookingDetailsResponse(
+      package: package,
+      bookingId: bookingId,
+      startDate: startDate,
+      paymentDetails: paymentDetails,
+      isReorderDone: isReorderDone,
+      numberOfPets: numberOfPets,
+      createdAt: createdAt,
+      phone: phone,
+    );
+  }
+
+  DogBoardingBookingDetailsResponse fromJson(Map<String, Object?> json) {
+    return DogBoardingBookingDetailsResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $DogBoardingBookingDetailsResponse =
+    _$DogBoardingBookingDetailsResponseTearOff();
+
+/// @nodoc
+mixin _$DogBoardingBookingDetailsResponse {
+  @JsonKey(name: "package")
+  DogBoardingPackageResponse? get package => throw _privateConstructorUsedError;
+  @JsonKey(name: "_id")
+  String? get bookingId => throw _privateConstructorUsedError;
+  @JsonKey(name: "startDate")
+  int? get startDate => throw _privateConstructorUsedError;
+  @JsonKey(name: "paymentDetails")
+  DogBoardingPaymentDetailsResponse? get paymentDetails =>
+      throw _privateConstructorUsedError;
+  @JsonKey(name: "isReorderDone")
+  bool? get isReorderDone => throw _privateConstructorUsedError;
+  @JsonKey(name: "numberOfPets")
+  int? get numberOfPets => throw _privateConstructorUsedError;
+  @JsonKey(name: "createdAt")
+  String? get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: "phone")
+  String? get phone => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $DogBoardingBookingDetailsResponseCopyWith<DogBoardingBookingDetailsResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DogBoardingBookingDetailsResponseCopyWith<$Res> {
+  factory $DogBoardingBookingDetailsResponseCopyWith(
+          DogBoardingBookingDetailsResponse value,
+          $Res Function(DogBoardingBookingDetailsResponse) then) =
+      _$DogBoardingBookingDetailsResponseCopyWithImpl<$Res>;
+  $Res call(
+      {@JsonKey(name: "package")
+          DogBoardingPackageResponse? package,
+      @JsonKey(name: "_id")
+          String? bookingId,
+      @JsonKey(name: "startDate")
+          int? startDate,
+      @JsonKey(name: "paymentDetails")
+          DogBoardingPaymentDetailsResponse? paymentDetails,
+      @JsonKey(name: "isReorderDone")
+          bool? isReorderDone,
+      @JsonKey(name: "numberOfPets")
+          int? numberOfPets,
+      @JsonKey(name: "createdAt")
+          String? createdAt,
+      @JsonKey(name: "phone")
+          String? phone});
+
+  $DogBoardingPackageResponseCopyWith<$Res>? get package;
+  $DogBoardingPaymentDetailsResponseCopyWith<$Res>? get paymentDetails;
+}
+
+/// @nodoc
+class _$DogBoardingBookingDetailsResponseCopyWithImpl<$Res>
+    implements $DogBoardingBookingDetailsResponseCopyWith<$Res> {
+  _$DogBoardingBookingDetailsResponseCopyWithImpl(this._value, this._then);
+
+  final DogBoardingBookingDetailsResponse _value;
+  // ignore: unused_field
+  final $Res Function(DogBoardingBookingDetailsResponse) _then;
+
+  @override
+  $Res call({
+    Object? package = freezed,
+    Object? bookingId = freezed,
+    Object? startDate = freezed,
+    Object? paymentDetails = freezed,
+    Object? isReorderDone = freezed,
+    Object? numberOfPets = freezed,
+    Object? createdAt = freezed,
+    Object? phone = freezed,
+  }) {
+    return _then(_value.copyWith(
+      package: package == freezed
+          ? _value.package
+          : package // ignore: cast_nullable_to_non_nullable
+              as DogBoardingPackageResponse?,
+      bookingId: bookingId == freezed
+          ? _value.bookingId
+          : bookingId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      startDate: startDate == freezed
+          ? _value.startDate
+          : startDate // ignore: cast_nullable_to_non_nullable
+              as int?,
+      paymentDetails: paymentDetails == freezed
+          ? _value.paymentDetails
+          : paymentDetails // ignore: cast_nullable_to_non_nullable
+              as DogBoardingPaymentDetailsResponse?,
+      isReorderDone: isReorderDone == freezed
+          ? _value.isReorderDone
+          : isReorderDone // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      numberOfPets: numberOfPets == freezed
+          ? _value.numberOfPets
+          : numberOfPets // ignore: cast_nullable_to_non_nullable
+              as int?,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phone: phone == freezed
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+
+  @override
+  $DogBoardingPackageResponseCopyWith<$Res>? get package {
+    if (_value.package == null) {
+      return null;
+    }
+
+    return $DogBoardingPackageResponseCopyWith<$Res>(_value.package!, (value) {
+      return _then(_value.copyWith(package: value));
+    });
+  }
+
+  @override
+  $DogBoardingPaymentDetailsResponseCopyWith<$Res>? get paymentDetails {
+    if (_value.paymentDetails == null) {
+      return null;
+    }
+
+    return $DogBoardingPaymentDetailsResponseCopyWith<$Res>(
+        _value.paymentDetails!, (value) {
+      return _then(_value.copyWith(paymentDetails: value));
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$DogBoardingBookingDetailsResponseCopyWith<$Res>
+    implements $DogBoardingBookingDetailsResponseCopyWith<$Res> {
+  factory _$DogBoardingBookingDetailsResponseCopyWith(
+          _DogBoardingBookingDetailsResponse value,
+          $Res Function(_DogBoardingBookingDetailsResponse) then) =
+      __$DogBoardingBookingDetailsResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {@JsonKey(name: "package")
+          DogBoardingPackageResponse? package,
+      @JsonKey(name: "_id")
+          String? bookingId,
+      @JsonKey(name: "startDate")
+          int? startDate,
+      @JsonKey(name: "paymentDetails")
+          DogBoardingPaymentDetailsResponse? paymentDetails,
+      @JsonKey(name: "isReorderDone")
+          bool? isReorderDone,
+      @JsonKey(name: "numberOfPets")
+          int? numberOfPets,
+      @JsonKey(name: "createdAt")
+          String? createdAt,
+      @JsonKey(name: "phone")
+          String? phone});
+
+  @override
+  $DogBoardingPackageResponseCopyWith<$Res>? get package;
+  @override
+  $DogBoardingPaymentDetailsResponseCopyWith<$Res>? get paymentDetails;
+}
+
+/// @nodoc
+class __$DogBoardingBookingDetailsResponseCopyWithImpl<$Res>
+    extends _$DogBoardingBookingDetailsResponseCopyWithImpl<$Res>
+    implements _$DogBoardingBookingDetailsResponseCopyWith<$Res> {
+  __$DogBoardingBookingDetailsResponseCopyWithImpl(
+      _DogBoardingBookingDetailsResponse _value,
+      $Res Function(_DogBoardingBookingDetailsResponse) _then)
+      : super(_value, (v) => _then(v as _DogBoardingBookingDetailsResponse));
+
+  @override
+  _DogBoardingBookingDetailsResponse get _value =>
+      super._value as _DogBoardingBookingDetailsResponse;
+
+  @override
+  $Res call({
+    Object? package = freezed,
+    Object? bookingId = freezed,
+    Object? startDate = freezed,
+    Object? paymentDetails = freezed,
+    Object? isReorderDone = freezed,
+    Object? numberOfPets = freezed,
+    Object? createdAt = freezed,
+    Object? phone = freezed,
+  }) {
+    return _then(_DogBoardingBookingDetailsResponse(
+      package: package == freezed
+          ? _value.package
+          : package // ignore: cast_nullable_to_non_nullable
+              as DogBoardingPackageResponse?,
+      bookingId: bookingId == freezed
+          ? _value.bookingId
+          : bookingId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      startDate: startDate == freezed
+          ? _value.startDate
+          : startDate // ignore: cast_nullable_to_non_nullable
+              as int?,
+      paymentDetails: paymentDetails == freezed
+          ? _value.paymentDetails
+          : paymentDetails // ignore: cast_nullable_to_non_nullable
+              as DogBoardingPaymentDetailsResponse?,
+      isReorderDone: isReorderDone == freezed
+          ? _value.isReorderDone
+          : isReorderDone // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      numberOfPets: numberOfPets == freezed
+          ? _value.numberOfPets
+          : numberOfPets // ignore: cast_nullable_to_non_nullable
+              as int?,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phone: phone == freezed
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_DogBoardingBookingDetailsResponse
+    extends _DogBoardingBookingDetailsResponse {
+  _$_DogBoardingBookingDetailsResponse(
+      {@JsonKey(name: "package") this.package,
+      @JsonKey(name: "_id") this.bookingId,
+      @JsonKey(name: "startDate") this.startDate,
+      @JsonKey(name: "paymentDetails") this.paymentDetails,
+      @JsonKey(name: "isReorderDone") this.isReorderDone,
+      @JsonKey(name: "numberOfPets") this.numberOfPets,
+      @JsonKey(name: "createdAt") this.createdAt,
+      @JsonKey(name: "phone") this.phone})
+      : super._();
+
+  factory _$_DogBoardingBookingDetailsResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$$_DogBoardingBookingDetailsResponseFromJson(json);
+
+  @override
+  @JsonKey(name: "package")
+  final DogBoardingPackageResponse? package;
+  @override
+  @JsonKey(name: "_id")
+  final String? bookingId;
+  @override
+  @JsonKey(name: "startDate")
+  final int? startDate;
+  @override
+  @JsonKey(name: "paymentDetails")
+  final DogBoardingPaymentDetailsResponse? paymentDetails;
+  @override
+  @JsonKey(name: "isReorderDone")
+  final bool? isReorderDone;
+  @override
+  @JsonKey(name: "numberOfPets")
+  final int? numberOfPets;
+  @override
+  @JsonKey(name: "createdAt")
+  final String? createdAt;
+  @override
+  @JsonKey(name: "phone")
+  final String? phone;
+
+  @override
+  String toString() {
+    return 'DogBoardingBookingDetailsResponse(package: $package, bookingId: $bookingId, startDate: $startDate, paymentDetails: $paymentDetails, isReorderDone: $isReorderDone, numberOfPets: $numberOfPets, createdAt: $createdAt, phone: $phone)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _DogBoardingBookingDetailsResponse &&
+            const DeepCollectionEquality().equals(other.package, package) &&
+            const DeepCollectionEquality().equals(other.bookingId, bookingId) &&
+            const DeepCollectionEquality().equals(other.startDate, startDate) &&
+            const DeepCollectionEquality()
+                .equals(other.paymentDetails, paymentDetails) &&
+            const DeepCollectionEquality()
+                .equals(other.isReorderDone, isReorderDone) &&
+            const DeepCollectionEquality()
+                .equals(other.numberOfPets, numberOfPets) &&
+            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
+            const DeepCollectionEquality().equals(other.phone, phone));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(package),
+      const DeepCollectionEquality().hash(bookingId),
+      const DeepCollectionEquality().hash(startDate),
+      const DeepCollectionEquality().hash(paymentDetails),
+      const DeepCollectionEquality().hash(isReorderDone),
+      const DeepCollectionEquality().hash(numberOfPets),
+      const DeepCollectionEquality().hash(createdAt),
+      const DeepCollectionEquality().hash(phone));
+
+  @JsonKey(ignore: true)
+  @override
+  _$DogBoardingBookingDetailsResponseCopyWith<
+          _DogBoardingBookingDetailsResponse>
+      get copyWith => __$DogBoardingBookingDetailsResponseCopyWithImpl<
+          _DogBoardingBookingDetailsResponse>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_DogBoardingBookingDetailsResponseToJson(this);
+  }
+}
+
+abstract class _DogBoardingBookingDetailsResponse
+    extends DogBoardingBookingDetailsResponse {
+  factory _DogBoardingBookingDetailsResponse(
+      {@JsonKey(name: "package")
+          DogBoardingPackageResponse? package,
+      @JsonKey(name: "_id")
+          String? bookingId,
+      @JsonKey(name: "startDate")
+          int? startDate,
+      @JsonKey(name: "paymentDetails")
+          DogBoardingPaymentDetailsResponse? paymentDetails,
+      @JsonKey(name: "isReorderDone")
+          bool? isReorderDone,
+      @JsonKey(name: "numberOfPets")
+          int? numberOfPets,
+      @JsonKey(name: "createdAt")
+          String? createdAt,
+      @JsonKey(name: "phone")
+          String? phone}) = _$_DogBoardingBookingDetailsResponse;
+  _DogBoardingBookingDetailsResponse._() : super._();
+
+  factory _DogBoardingBookingDetailsResponse.fromJson(
+          Map<String, dynamic> json) =
+      _$_DogBoardingBookingDetailsResponse.fromJson;
+
+  @override
+  @JsonKey(name: "package")
+  DogBoardingPackageResponse? get package;
+  @override
+  @JsonKey(name: "_id")
+  String? get bookingId;
+  @override
+  @JsonKey(name: "startDate")
+  int? get startDate;
+  @override
+  @JsonKey(name: "paymentDetails")
+  DogBoardingPaymentDetailsResponse? get paymentDetails;
+  @override
+  @JsonKey(name: "isReorderDone")
+  bool? get isReorderDone;
+  @override
+  @JsonKey(name: "numberOfPets")
+  int? get numberOfPets;
+  @override
+  @JsonKey(name: "createdAt")
+  String? get createdAt;
+  @override
+  @JsonKey(name: "phone")
+  String? get phone;
+  @override
+  @JsonKey(ignore: true)
+  _$DogBoardingBookingDetailsResponseCopyWith<
+          _DogBoardingBookingDetailsResponse>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -4754,6 +5928,197 @@ abstract class _DogTrainingPackageResponse extends DogTrainingPackageResponse {
   @override
   @JsonKey(ignore: true)
   _$DogTrainingPackageResponseCopyWith<_DogTrainingPackageResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+DogBoardingPackageResponse _$DogBoardingPackageResponseFromJson(
+    Map<String, dynamic> json) {
+  return _DogBoardingPackageResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$DogBoardingPackageResponseTearOff {
+  const _$DogBoardingPackageResponseTearOff();
+
+  _DogBoardingPackageResponse call(
+      {@JsonKey(name: "description") String? subscriptionType,
+      @JsonKey(name: "amount") double? amount}) {
+    return _DogBoardingPackageResponse(
+      subscriptionType: subscriptionType,
+      amount: amount,
+    );
+  }
+
+  DogBoardingPackageResponse fromJson(Map<String, Object?> json) {
+    return DogBoardingPackageResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $DogBoardingPackageResponse = _$DogBoardingPackageResponseTearOff();
+
+/// @nodoc
+mixin _$DogBoardingPackageResponse {
+  @JsonKey(name: "description")
+  String? get subscriptionType => throw _privateConstructorUsedError;
+  @JsonKey(name: "amount")
+  double? get amount => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $DogBoardingPackageResponseCopyWith<DogBoardingPackageResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DogBoardingPackageResponseCopyWith<$Res> {
+  factory $DogBoardingPackageResponseCopyWith(DogBoardingPackageResponse value,
+          $Res Function(DogBoardingPackageResponse) then) =
+      _$DogBoardingPackageResponseCopyWithImpl<$Res>;
+  $Res call(
+      {@JsonKey(name: "description") String? subscriptionType,
+      @JsonKey(name: "amount") double? amount});
+}
+
+/// @nodoc
+class _$DogBoardingPackageResponseCopyWithImpl<$Res>
+    implements $DogBoardingPackageResponseCopyWith<$Res> {
+  _$DogBoardingPackageResponseCopyWithImpl(this._value, this._then);
+
+  final DogBoardingPackageResponse _value;
+  // ignore: unused_field
+  final $Res Function(DogBoardingPackageResponse) _then;
+
+  @override
+  $Res call({
+    Object? subscriptionType = freezed,
+    Object? amount = freezed,
+  }) {
+    return _then(_value.copyWith(
+      subscriptionType: subscriptionType == freezed
+          ? _value.subscriptionType
+          : subscriptionType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      amount: amount == freezed
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$DogBoardingPackageResponseCopyWith<$Res>
+    implements $DogBoardingPackageResponseCopyWith<$Res> {
+  factory _$DogBoardingPackageResponseCopyWith(
+          _DogBoardingPackageResponse value,
+          $Res Function(_DogBoardingPackageResponse) then) =
+      __$DogBoardingPackageResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {@JsonKey(name: "description") String? subscriptionType,
+      @JsonKey(name: "amount") double? amount});
+}
+
+/// @nodoc
+class __$DogBoardingPackageResponseCopyWithImpl<$Res>
+    extends _$DogBoardingPackageResponseCopyWithImpl<$Res>
+    implements _$DogBoardingPackageResponseCopyWith<$Res> {
+  __$DogBoardingPackageResponseCopyWithImpl(_DogBoardingPackageResponse _value,
+      $Res Function(_DogBoardingPackageResponse) _then)
+      : super(_value, (v) => _then(v as _DogBoardingPackageResponse));
+
+  @override
+  _DogBoardingPackageResponse get _value =>
+      super._value as _DogBoardingPackageResponse;
+
+  @override
+  $Res call({
+    Object? subscriptionType = freezed,
+    Object? amount = freezed,
+  }) {
+    return _then(_DogBoardingPackageResponse(
+      subscriptionType: subscriptionType == freezed
+          ? _value.subscriptionType
+          : subscriptionType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      amount: amount == freezed
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_DogBoardingPackageResponse extends _DogBoardingPackageResponse {
+  _$_DogBoardingPackageResponse(
+      {@JsonKey(name: "description") this.subscriptionType,
+      @JsonKey(name: "amount") this.amount})
+      : super._();
+
+  factory _$_DogBoardingPackageResponse.fromJson(Map<String, dynamic> json) =>
+      _$$_DogBoardingPackageResponseFromJson(json);
+
+  @override
+  @JsonKey(name: "description")
+  final String? subscriptionType;
+  @override
+  @JsonKey(name: "amount")
+  final double? amount;
+
+  @override
+  String toString() {
+    return 'DogBoardingPackageResponse(subscriptionType: $subscriptionType, amount: $amount)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _DogBoardingPackageResponse &&
+            const DeepCollectionEquality()
+                .equals(other.subscriptionType, subscriptionType) &&
+            const DeepCollectionEquality().equals(other.amount, amount));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(subscriptionType),
+      const DeepCollectionEquality().hash(amount));
+
+  @JsonKey(ignore: true)
+  @override
+  _$DogBoardingPackageResponseCopyWith<_DogBoardingPackageResponse>
+      get copyWith => __$DogBoardingPackageResponseCopyWithImpl<
+          _DogBoardingPackageResponse>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_DogBoardingPackageResponseToJson(this);
+  }
+}
+
+abstract class _DogBoardingPackageResponse extends DogBoardingPackageResponse {
+  factory _DogBoardingPackageResponse(
+      {@JsonKey(name: "description") String? subscriptionType,
+      @JsonKey(name: "amount") double? amount}) = _$_DogBoardingPackageResponse;
+  _DogBoardingPackageResponse._() : super._();
+
+  factory _DogBoardingPackageResponse.fromJson(Map<String, dynamic> json) =
+      _$_DogBoardingPackageResponse.fromJson;
+
+  @override
+  @JsonKey(name: "description")
+  String? get subscriptionType;
+  @override
+  @JsonKey(name: "amount")
+  double? get amount;
+  @override
+  @JsonKey(ignore: true)
+  _$DogBoardingPackageResponseCopyWith<_DogBoardingPackageResponse>
       get copyWith => throw _privateConstructorUsedError;
 }
 

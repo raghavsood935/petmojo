@@ -14,6 +14,8 @@ class MyAppointmentsResponse with _$MyAppointmentsResponse {
         List<DogTrainingAppointmentListResponse>? dogTrainingAppointmentsList,
     @JsonKey(name: "Groominglist")
         List<DogGroomingAppointmentListResponse>? dogGroomingAppointmentsList,
+    @JsonKey(name: "Boardinglist")
+        List<DogBoardingAppointmentListResponse>? dogBoardingAppointmentsList,
   }) = _MyAppointmentsResponse;
 
   factory MyAppointmentsResponse.fromJson(Map<String, dynamic> json) =>
@@ -46,6 +48,31 @@ class DogTrainingAppointmentListResponse
 }
 
 @freezed
+class DogBoardingAppointmentListResponse
+    with _$DogBoardingAppointmentListResponse {
+  DogBoardingAppointmentListResponse._();
+
+  factory DogBoardingAppointmentListResponse({
+    @JsonKey(name: "petDetails") List<PetDetailsResponse>? petDetails,
+    @JsonKey(name: "bookingStatus") int? bookingStatus,
+    @JsonKey(name: "serviceStatus") int? serviceStatus,
+    @JsonKey(name: "isRated") bool? isRated,
+    @JsonKey(name: "serviceType") int? serviceType,
+    @JsonKey(name: "_id") String? appointmentId,
+    @JsonKey(name: "ServiceProvider") UserDetailsResponse? user,
+    @JsonKey(name: "PetBoardingbookingDetails")
+    DogBoardingBookingDetailsResponse? bookingDetails,
+    @JsonKey(name: "isReorderDone") bool? isReorderDone,
+    @JsonKey(name: "createdAt") String? createdAt,
+    @JsonKey(name: "updatedAt") String? updatedAt,
+  }) = _DogBoardingAppointmentListResponse;
+
+  factory DogBoardingAppointmentListResponse.fromJson(
+      Map<String, dynamic> json) =>
+      _$DogBoardingAppointmentListResponseFromJson(json);
+}
+
+@freezed
 class DogTrainingPaymentDetailsResponse with _$DogTrainingPaymentDetailsResponse{
   DogTrainingPaymentDetailsResponse._();
   factory DogTrainingPaymentDetailsResponse({
@@ -57,6 +84,19 @@ class DogTrainingPaymentDetailsResponse with _$DogTrainingPaymentDetailsResponse
   factory DogTrainingPaymentDetailsResponse.fromJson(
       Map<String, dynamic> json) =>
       _$DogTrainingPaymentDetailsResponseFromJson(json);
+}
+
+@freezed
+class DogBoardingPaymentDetailsResponse with _$DogBoardingPaymentDetailsResponse{
+  DogBoardingPaymentDetailsResponse._();
+  factory DogBoardingPaymentDetailsResponse({
+    @JsonKey(name: "status") int? paymentStatus,
+    @JsonKey(name: "amount") int? amount,
+  }) = _DogBoardingPaymentDetailsResponse;
+
+  factory DogBoardingPaymentDetailsResponse.fromJson(
+      Map<String, dynamic> json) =>
+      _$DogBoardingPaymentDetailsResponseFromJson(json);
 }
 
 @freezed
@@ -144,6 +184,28 @@ class DogTrainingBookingDetailsResponse
           Map<String, dynamic> json) =>
       _$DogTrainingBookingDetailsResponseFromJson(json);
 }
+
+@freezed
+class DogBoardingBookingDetailsResponse
+    with _$DogBoardingBookingDetailsResponse {
+  DogBoardingBookingDetailsResponse._();
+
+  factory DogBoardingBookingDetailsResponse({
+    @JsonKey(name: "package") DogBoardingPackageResponse? package,
+    @JsonKey(name: "_id") String? bookingId,
+    @JsonKey(name: "startDate") int? startDate,
+    @JsonKey(name: "paymentDetails") DogBoardingPaymentDetailsResponse? paymentDetails,
+    @JsonKey(name: "isReorderDone") bool? isReorderDone,
+    @JsonKey(name: "numberOfPets") int? numberOfPets,
+    @JsonKey(name: "createdAt") String? createdAt,
+    @JsonKey(name: "phone") String? phone,
+  }) = _DogBoardingBookingDetailsResponse;
+
+  factory DogBoardingBookingDetailsResponse.fromJson(
+      Map<String, dynamic> json) =>
+      _$DogBoardingBookingDetailsResponseFromJson(json);
+}
+
 @freezed
 class LocationResponse with _$LocationResponse {
   LocationResponse._();
@@ -267,6 +329,19 @@ class DogTrainingPackageResponse with _$DogTrainingPackageResponse {
 
   factory DogTrainingPackageResponse.fromJson(Map<String, dynamic> json) =>
       _$DogTrainingPackageResponseFromJson(json);
+}
+
+@freezed
+class DogBoardingPackageResponse with _$DogBoardingPackageResponse {
+  DogBoardingPackageResponse._();
+
+  factory DogBoardingPackageResponse({
+    @JsonKey(name: "description") String? subscriptionType,
+    @JsonKey(name: "amount") double? amount,
+  }) = _DogBoardingPackageResponse;
+
+  factory DogBoardingPackageResponse.fromJson(Map<String, dynamic> json) =>
+      _$DogBoardingPackageResponseFromJson(json);
 }
 
 @freezed

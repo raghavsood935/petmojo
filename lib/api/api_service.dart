@@ -1799,8 +1799,8 @@ class TamelyApi {
     log.d("googleLogin called");
     GetRunningTimeResponse response;
     try {
-      response =
-      await getApiClient(true, true).getRunningTimeElapsed(getRunningTimeBody);
+      response = await getApiClient(true, true)
+          .getRunningTimeElapsed(getRunningTimeBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()
@@ -2066,8 +2066,7 @@ class TamelyApi {
     print("2");
     SendDataResponse response;
     try {
-      response =
-      await getApiClient(true, true).submitTicket(submitTicketBody);
+      response = await getApiClient(true, true).submitTicket(submitTicketBody);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BaseResponse()

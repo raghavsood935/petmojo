@@ -21,6 +21,10 @@ _$_MyAppointmentsResponse _$$_MyAppointmentsResponseFromJson(
           ?.map((e) => DogGroomingAppointmentListResponse.fromJson(
               e as Map<String, dynamic>))
           .toList(),
+      dogBoardingAppointmentsList: (json['Boardinglist'] as List<dynamic>?)
+          ?.map((e) => DogBoardingAppointmentListResponse.fromJson(
+              e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$_MyAppointmentsResponseToJson(
@@ -29,6 +33,7 @@ Map<String, dynamic> _$$_MyAppointmentsResponseToJson(
       'serviceList': instance.dogRunningAppointmentsList,
       'Traininglist': instance.dogTrainingAppointmentsList,
       'Groominglist': instance.dogGroomingAppointmentsList,
+      'Boardinglist': instance.dogBoardingAppointmentsList,
     };
 
 _$_DogTrainingAppointmentListResponse
@@ -70,6 +75,47 @@ Map<String, dynamic> _$$_DogTrainingAppointmentListResponseToJson(
       'sessionsCompleted': instance.sessionsCompleted,
     };
 
+_$_DogBoardingAppointmentListResponse
+    _$$_DogBoardingAppointmentListResponseFromJson(Map<String, dynamic> json) =>
+        _$_DogBoardingAppointmentListResponse(
+          petDetails: (json['petDetails'] as List<dynamic>?)
+              ?.map(
+                  (e) => PetDetailsResponse.fromJson(e as Map<String, dynamic>))
+              .toList(),
+          bookingStatus: json['bookingStatus'] as int?,
+          serviceStatus: json['serviceStatus'] as int?,
+          isRated: json['isRated'] as bool?,
+          serviceType: json['serviceType'] as int?,
+          appointmentId: json['_id'] as String?,
+          user: json['ServiceProvider'] == null
+              ? null
+              : UserDetailsResponse.fromJson(
+                  json['ServiceProvider'] as Map<String, dynamic>),
+          bookingDetails: json['PetBoardingbookingDetails'] == null
+              ? null
+              : DogBoardingBookingDetailsResponse.fromJson(
+                  json['PetBoardingbookingDetails'] as Map<String, dynamic>),
+          isReorderDone: json['isReorderDone'] as bool?,
+          createdAt: json['createdAt'] as String?,
+          updatedAt: json['updatedAt'] as String?,
+        );
+
+Map<String, dynamic> _$$_DogBoardingAppointmentListResponseToJson(
+        _$_DogBoardingAppointmentListResponse instance) =>
+    <String, dynamic>{
+      'petDetails': instance.petDetails,
+      'bookingStatus': instance.bookingStatus,
+      'serviceStatus': instance.serviceStatus,
+      'isRated': instance.isRated,
+      'serviceType': instance.serviceType,
+      '_id': instance.appointmentId,
+      'ServiceProvider': instance.user,
+      'PetBoardingbookingDetails': instance.bookingDetails,
+      'isReorderDone': instance.isReorderDone,
+      'createdAt': instance.createdAt,
+      'updatedAt': instance.updatedAt,
+    };
+
 _$_DogTrainingPaymentDetailsResponse
     _$$_DogTrainingPaymentDetailsResponseFromJson(Map<String, dynamic> json) =>
         _$_DogTrainingPaymentDetailsResponse(
@@ -84,6 +130,20 @@ Map<String, dynamic> _$$_DogTrainingPaymentDetailsResponseToJson(
       'status': instance.paymentStatus,
       'amount': instance.amount,
       'transactionId': instance.transactionId,
+    };
+
+_$_DogBoardingPaymentDetailsResponse
+    _$$_DogBoardingPaymentDetailsResponseFromJson(Map<String, dynamic> json) =>
+        _$_DogBoardingPaymentDetailsResponse(
+          paymentStatus: json['status'] as int?,
+          amount: json['amount'] as int?,
+        );
+
+Map<String, dynamic> _$$_DogBoardingPaymentDetailsResponseToJson(
+        _$_DogBoardingPaymentDetailsResponse instance) =>
+    <String, dynamic>{
+      'status': instance.paymentStatus,
+      'amount': instance.amount,
     };
 
 _$_DogGroomingAppointmentListResponse
@@ -219,6 +279,38 @@ Map<String, dynamic> _$$_DogTrainingBookingDetailsResponseToJson(
       'paymentDetails': instance.paymentDetails,
       'petRunningLocation': instance.petRunningLocation,
       'numberOfPets': instance.numberOfPets,
+    };
+
+_$_DogBoardingBookingDetailsResponse
+    _$$_DogBoardingBookingDetailsResponseFromJson(Map<String, dynamic> json) =>
+        _$_DogBoardingBookingDetailsResponse(
+          package: json['package'] == null
+              ? null
+              : DogBoardingPackageResponse.fromJson(
+                  json['package'] as Map<String, dynamic>),
+          bookingId: json['_id'] as String?,
+          startDate: json['startDate'] as int?,
+          paymentDetails: json['paymentDetails'] == null
+              ? null
+              : DogBoardingPaymentDetailsResponse.fromJson(
+                  json['paymentDetails'] as Map<String, dynamic>),
+          isReorderDone: json['isReorderDone'] as bool?,
+          numberOfPets: json['numberOfPets'] as int?,
+          createdAt: json['createdAt'] as String?,
+          phone: json['phone'] as String?,
+        );
+
+Map<String, dynamic> _$$_DogBoardingBookingDetailsResponseToJson(
+        _$_DogBoardingBookingDetailsResponse instance) =>
+    <String, dynamic>{
+      'package': instance.package,
+      '_id': instance.bookingId,
+      'startDate': instance.startDate,
+      'paymentDetails': instance.paymentDetails,
+      'isReorderDone': instance.isReorderDone,
+      'numberOfPets': instance.numberOfPets,
+      'createdAt': instance.createdAt,
+      'phone': instance.phone,
     };
 
 _$_LocationResponse _$$_LocationResponseFromJson(Map<String, dynamic> json) =>
@@ -372,6 +464,20 @@ Map<String, dynamic> _$$_DogTrainingPackageResponseToJson(
       'description': instance.subscriptionType,
       'amount': instance.amount,
       'frequency': instance.numberOfSessions,
+    };
+
+_$_DogBoardingPackageResponse _$$_DogBoardingPackageResponseFromJson(
+        Map<String, dynamic> json) =>
+    _$_DogBoardingPackageResponse(
+      subscriptionType: json['description'] as String?,
+      amount: (json['amount'] as num?)?.toDouble(),
+    );
+
+Map<String, dynamic> _$$_DogBoardingPackageResponseToJson(
+        _$_DogBoardingPackageResponse instance) =>
+    <String, dynamic>{
+      'description': instance.subscriptionType,
+      'amount': instance.amount,
     };
 
 _$_DogRunningPackageResponse _$$_DogRunningPackageResponseFromJson(

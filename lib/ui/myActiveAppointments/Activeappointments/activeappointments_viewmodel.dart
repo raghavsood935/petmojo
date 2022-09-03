@@ -127,9 +127,6 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
     else if (serviceType == ServiceType.DogBoarding){
       _navigationService.replaceWith(
         Routes.dGPaymentView,
-        arguments: DGPaymentViewArguments(
-            amount: activeAppointments[index].amount!,
-            bookingId: activeAppointments[index].bookingId!),
       );
     }
   }
@@ -636,6 +633,103 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
             print('adding to ${_activeAppointments}');
           }
           notifyListeners();
+
+          // Dog Boarding
+          List<DogBoardingAppointmentListResponse>? dogBoardingAppointments =
+              resultTwo.data!.dogBoardingAppointmentsList;
+          for (var each in dogBoardingAppointments!) {
+            if (each.bookingDetails!.paymentDetails!.paymentStatus == 0) {
+              // Status 0 is payment not done
+              // Dont show it in bookings
+              continue;
+            }
+            ActiveAppointmentClass newAppointment =
+            ActiveAppointmentClass(dogs: []);
+            newAppointment.appointmentId = each.appointmentId;
+            newAppointment.bookingId = each.bookingDetails!.bookingId;
+
+            try {
+              newAppointment.userName = each.user!.fullName!;
+            } catch (e) {
+              newAppointment.userName = "Dog Boarder";
+            }
+
+            newAppointment.userPicture =
+            "https://dogexpress.in/wp-content/uploads/2021/10/What-Dog-Walking-Services-Should-You-Choose-In-The-US.jpg";
+
+            newAppointment.serviceType = ServiceType.DogBoarding;
+            newAppointment.serviceName = dogGroomingTitle;
+            newAppointment.amount = each.bookingDetails!.paymentDetails!.amount;
+
+
+            var formatter = new DateFormat('dd-MMM-yyyy');
+
+            int? dateDummyString = each.bookingDetails!.startDate;
+
+
+            String myDate = DateTime.parse(each.createdAt!)
+                .add(Duration(hours: 5, minutes: 30))
+                .toString();
+            newAppointment.bookedDate = myDate.split(" ")[0];
+            String time = myDate.split(" ")[1];
+            List newList = time.split(":");
+            newList.removeAt(2);
+            newAppointment.bookedTime = convertTo12(newList.join(":"));
+            // DateTime dummyDate = DateTime.parse(dateDummyString!);
+            // dateDummyString = formatter.format(dummyDate);
+            // newAppointment.dateAndTime = dateDummyString + "\n" + timeString;
+              newAppointment.upcomingOrOngoing = "Upcoming";
+
+
+            List<PetDetailsResponse>? petDetails = each.petDetails;
+            for (var one in petDetails!) {
+              newAppointment.dogs.add(one.petName!);
+            }
+            if (each.bookingStatus == 0) {
+              newAppointment.status = ActiveAppointmentStatus.Pending;
+            } else if (each.bookingStatus == 1) {
+              newAppointment.status = ActiveAppointmentStatus.Accepted;
+            }
+            newAppointment.showReorder = false;
+            newAppointment.showBooking = false;
+            bool isPaid = false;
+            int paymentStatus =
+                each.bookingDetails!.paymentDetails!.paymentStatus ?? 0;
+            if (paymentStatus == 1) {
+              isPaid = true;
+            }
+            if (paymentStatus == 2) {
+              isPaid = false;
+            }
+            // Use showBooking parameter to show Pay Now
+
+            newAppointment.showBooking = !isPaid;
+
+            // Days Left
+            // int? numberOfDaysLeft = each.sessionsLeft;
+            // bool? isReorderDone = each.isReorderDone;
+
+            newAppointment.packageSubscriptionType = "Abc";
+            // if (numberOfDaysLeft! <= 5 &&
+            //     subscriptionType != "Free" &&
+            //     isReorderDone == false) {
+            //   newAppointment.showReorder = true;
+            // } else {
+            //   newAppointment.showReorder = false;
+            // }
+
+            // Free Walk
+            // if (subscriptionType == "Free") {
+            //   newAppointment.showBooking = true;
+            // } else {
+            //   newAppointment.showBooking = false;
+            // }
+
+            _activeAppointments.add(newAppointment);
+            print('adding to ${_activeAppointments}');
+          }
+          notifyListeners();
+
         }
 
         // Active Appointments
@@ -830,6 +924,83 @@ class ActiveAppointmentsViewModel extends FutureViewModel<void>
               newAppointment.showBooking = false;
             }
             print(newAppointment.toString());
+            _activeAppointments.add(newAppointment);
+          }
+          notifyListeners();
+
+          //Dog Boarding
+          List<DogBoardingAppointmentListResponse>? dogBoardingAppointments =
+              resultOne.data!.dogBoardingAppointmentsList;
+          for (var each in dogBoardingAppointments!) {
+            ActiveAppointmentClass newAppointment =
+            ActiveAppointmentClass(dogs: []);
+            newAppointment.appointmentId = each.appointmentId;
+            newAppointment.bookingId = each.bookingDetails!.bookingId;
+
+            try {
+              newAppointment.userName = each.user!.fullName!;
+            } catch (e) {
+              newAppointment.userName = "Dog Boarder";
+            }
+
+            newAppointment.userPicture =
+            "https://drive.google.com/file/d/1d0Et-uR0iNQoXWdBk5N5IhOAZ2RMdW_H/view?usp=sharing";
+
+            newAppointment.serviceType = ServiceType.DogBoarding;
+            newAppointment.serviceName = dogWalkingTitle;
+
+              newAppointment.subscriptionType =
+              "${each.bookingDetails!.package!.subscriptionType}";
+
+              // newAppointment.subscriptionType=each.bookingDetails!.package!.subscriptionType;
+
+            var formatter = new DateFormat('dd-MMM-yyyy');
+            int? dateDummyString = each.bookingDetails!.startDate;
+            String myDate = DateTime.parse(each.createdAt!)
+                .add(Duration(hours: 5, minutes: 30))
+                .toString();
+            newAppointment.bookedDate = myDate.split(" ")[0];
+            String time = myDate.split(" ")[1];
+            List newList = time.split(":");
+            newList.removeAt(2);
+            newAppointment.bookedTime = convertTo12(newList.join(":"));
+            // DateTime dummyDate = DateTime.parse(dateDummyString!);
+            // dateDummyString = formatter.format(dummyDate);
+
+
+
+              newAppointment.upcomingOrOngoing = "Upcoming";
+
+
+            List<PetDetailsResponse>? petDetails = each.petDetails;
+            for (var one in petDetails!) {
+              newAppointment.dogs.add(one.petName!);
+            }
+            if (each.bookingStatus == 0) {
+              newAppointment.status = ActiveAppointmentStatus.Pending;
+            } else if (each.bookingStatus == 1) {
+              newAppointment.status = ActiveAppointmentStatus.Accepted;
+            }
+
+            newAppointment.paymentStatus =
+            (each.bookingDetails!.paymentDetails!.paymentStatus != 0)
+                ? true
+                : false;
+            newAppointment.amount =
+                each.bookingDetails!.package!.amount!.toInt();
+
+            // Days Left
+            bool? isReorderDone = each.isReorderDone;
+            String? subscriptionType =
+                each.bookingDetails!.package!.subscriptionType;
+            newAppointment.packageSubscriptionType = subscriptionType;
+
+            // Free Walk
+            if (subscriptionType == "Free") {
+              newAppointment.showBooking = true;
+            } else {
+              newAppointment.showBooking = false;
+            }
             _activeAppointments.add(newAppointment);
           }
           notifyListeners();

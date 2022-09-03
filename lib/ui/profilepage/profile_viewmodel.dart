@@ -425,6 +425,40 @@ class ProfileViewModel extends ServicesViewModel {
     }
   }
 
+  void showBottomSheet(BuildContext context){
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+    isScrollControlled: true,
+    shape: RoundedRectangleBorder(
+    borderRadius:BorderRadius.only(
+    topRight: Radius.circular(20),
+    topLeft: Radius.circular(20),
+    )
+    ), builder: (context) {
+          return  Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25,vertical: 25),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                GestureDetector(
+                  child: Text("Block Profile"),
+                  onTap: (){},
+                ),
+                SizedBox(height: 15,),
+                GestureDetector(
+                  child: Text("Report Abuse"),
+                  onTap: (){},
+                ),
+              ],
+            ),
+          );
+    },
+
+    );
+  }
+
   Future setValues(UserProfileDetailsResponse response) async {
     _completedProfileStepCount = 0;
     _listOfMyAnimals.clear();
